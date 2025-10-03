@@ -1,0 +1,190 @@
+\documentclass[../main.tex]{subfiles}
+\zexternaldocument*{sheaves}
+
+\begin{document}
+
+\chapter{Ringed spaces and \(\sheaf{O}_{X}\)-modules.}
+\section{Ringed spaces}
+
+\begin{definition}[Ringed space] \label{def:ringed-space}
+  A \textbf{ringed space} is a tuple \((X, \mathscr{O}_{X})\) where \(X\) is a topological space and \(\mathscr{O}_{X}\) is a \nameref{def:sheaf} of rings over \(X\).
+
+  We call \(\mathscr{O}_{X}\) the \textit{structure sheaf} of the ringed space \((X, \mathscr{O}_{X})\).
+  Sections of \(\mathscr{O}_{X}\) over an open subset \(U \subseteq X\) are called \textit{functions on \(U\)} and functions on \(X\) are called (global) functions.
+\end{definition}
+
+\begin{example}
+  Let and \(X\) be a topological space.
+  Then the \(\mathbb{R}\)-algebra of continuous functions \(\mathcal{C}_{X}^{0}(U) = \left\{ f: U \to \mathbb{R} \mid f \text{ continuous.} \right\}\) with the obvious restriction maps forms a \nameref{def:sheaf} of rings over \(X\).
+  Therefore \((X, \mathcal{C}_{X}^{0})\) is a \nameref{def:ringed-space}.
+\end{example}
+
+\begin{example}
+  If for every point \(p \in X\) the \namerefs{def:stalk} \(\mathscr{O}_{X, p}\) of the structure sheaf are \textit{local rings}\footnote{A commutative ring with unity \(R\) is a \textbf{local ring} if \(0 \neq 1\) and for every \(a, b\) such that \(a + b = 1\) either \(a\) or \(b\) is invertible.} then we call \((X, \mathscr{O}_{X})\) a \textbf{locally ringed space}.
+\end{example}
+
+
+\begin{definition}[Morphism of \namerefs{def:ringed-space}] \label{def:ringed-spaces-morphism}
+  Let \((X, \mathscr{O}_{X})\) and \((Y, \mathscr{O}_{Y})\) be two \namerefs{def:ringed-space}.
+  A \textbf{morphism of ringed spaces} \((X, \mathscr{O}_{X}) \to (Y, \mathscr{O}_{Y})\) is a pair \((f, f^{\sharp})\) where \(f: X \to Y\) is a continuous function (i.e: a morphism in \(\Top\)) and \(f^{\sharp}: \mathscr{O}_{Y} \to f_{\ast}\mathscr{O}_{X}\) is an map of sheaves of rings\unsure{Maybe it is better to define \(f^{\sharp}\) as an \(f\)-map. \cite[\href{https://stacks.math.columbia.edu/tag/008K}{Tag 008K}]{stacks-project}} (i.e: a morphism in \(\Sh_{\Ring}(X)\)), where \(f_{\ast}\mathscr{O}_{X}\) is the \nameref{def:pushforward-sheaf}.
+\end{definition}
+\SetPluralName{def:ringed-spaces-morphism}{Morphisms of \namerefs{def:ringed-space}}
+
+\begin{example}
+  Let \(f: X \to Y\) be a continuous function.
+  Consider the \namerefs{def:ringed-space} of continuous functions \((X, \mathcal{C}_{X}^{0})\), \((Y, \mathcal{C}_{Y}^{0})\).
+
+  Then the \nameref{def:ringed-spaces-morphism} induced by \(f\) can be defined for every \(V \subseteq Y\) open as \(f^{\sharp}(V):\,\mathcal{C}_{Y}^{0}(V) \to \mathcal{C}_{X}^{0}(f^{-1}(V)),\; f^{\sharp}(V)(h) = h \circ f|_{f^{-1}V} \).
+\end{example}
+
+\section{\(\sheaf{O}_{X}\) modules}
+
+\begin{definition}[\(\sheaf{O}_{X}\)-module] \label{def:ox-mod}
+  Let  \((X, \sheaf{O}_{X})\) be a \nameref{def:ringed-space}.
+  A \textbf{\nameref{def:sheaf} of \(\sheaf{O}_{X}\) modules} (or simply an \(\sheaf{O}_{X}\)-module) is a \nameref{def:sheaf} \(\sheaf{F}\) such that for every open set \(U \subseteq X\) \(\sheaf{F}(U)\) is an \(\sheaf{O}_{X}(U)\)-module compatible with the restriction maps, i.e: for every\\\(f \in \sheaf{O}_{X}(U)\)~and \(s \in \sheaf{F}(U)\): \(\left.\left( f \cdot s \right)\right|_{V} = f|_{V} \cdot s|_{V} \).
+\end{definition}
+
+\begin{example}
+  ...
+\end{example}
+
+\begin{definition}[Morphism of \namerefs{def:ox-mod}] \label{def:ox-mod-morphism}
+  Let \(\sheaf{F}, \sheaf{G}\) be two \namerefs{def:ox-mod}.
+  A morphism \(\phi: \sheaf{F} \to \sheaf{G}\) is a \nameref{def:sheaf-morphism} that commutes with the multiplication of the structure sheaf \(\sheaf{O}_{X}\).
+\end{definition}
+\SetPluralName{def:ox-mod-morphism}{Morphisms of \namerefs{def:ox-mod}}
+
+\begin{example}
+...
+\end{example}
+
+Therefore for every \nameref{def:ringed-space} \((X, \sheaf{O}_{X})\) the collection of \namerefs{def:ox-mod} forms a category \oxmod.
+
+\subsection{\oxmod\ and sheaves of abelian groups.} \label{sec:oxmod-and-sh-ab}
+
+Just as abelian groups are \(\mathbb{Z}\)-modules, \namerefs{def:sheaf} of abelian groups can be seen as \(\underline{\mathbb{Z}}_{X}\)-modules where \(\underline{\mathbb{Z}}_{X}\) is the \nameref{ex:constant-sheaf} with coefficients in the integers.
+
+To show this, for every \nameref{def:sheaf} of abelian groups \(\sheaf{F}\) over \(X\) and every open set \(U \subseteq X\) we have to define an action \(\cdot: \underline{\mathbb{Z}}_{X}(U) \times \sheaf{F}(U) \to \sheaf{F}(U)\) compatible with the restriction maps.
+
+Let \(f \in \underline{\mathbb{Z}}_{X}(U)\) and \(s \in \sheaf{F}(U)\).
+Since \(f\) is locally constant there exists an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) such that for every \(i \in \mathcal{I} \quad f|_{U_{i}} = n_{i} \in \mathbb{Z}\).
+
+For every \(U_{i}\) consider \(t_{i} = n_{i} \cdot s|_{U_{i}}\), where \(n_{i} \cdot s|_{U_{i}}\) is shorthand for \(s|_{U_{i}}\) added to itself \(n_{i}\) times.
+Note that this is well-defined because \(\sheaf{F}(U_{i})\) is an abelian group.
+
+Let \(U_{i}, U_{j} \in \{U_{i}\}_{i \in \mathcal{I}}\) such that \(U_{i} \cap U_{j} = \varnothing\).
+For every \(x \in U_{i} \cap U_{j}\) there exists an open neighbourhood \(V \subseteq U_{i} \cap U_{j}\) of \(x\) were \(f\) is constant.
+
+Therefore \(n_{i} = n_{j}\) and \(t_{i}|_{U_{i} \cap U_{j}} = t_{j}|_{U_{i} \cap U_{j}}\) and, applying axiom \ref{axiom:sheaf-gluability}, we can define \(f \cdot s = t\).
+
+Checking the axioms in small enough open sets such that \(f\) is constant verifies that this action makes \(\sheaf{F}\) an \(\underline{\mathbb{Z}}_{X}\)-module.\unsure{Do we have to actually write the check?}
+
+\section{\oxmod\ is abelian.}
+
+
+\begin{definition}[Preadditive category] \label{def:preadditive-category}
+  A (small) category \(\mathsf{C}\) is \textbf{preadditive} if every hom-set \(\Hom(\triangle, \square)\) admits the structure of an abelian group and composition of morphisms is bilinear with respect to the group operation.
+\end{definition}
+
+\begin{definition}[Additive category] \label{def:additive-category}
+  A category \(\mathsf{C}\) is \textbf{additive} if it is a \nameref{def:preadditive-category}, has a zero object and has all binary biproducts.
+\end{definition}
+
+\begin{definition}[Abelian category] \label{def:abelian-category}
+  A \nameref{def:additive-category} \(\mathsf{C}\) is \textbf{abelian} if
+  \begin{itemize}
+    \item It has all kernels and cokernels.
+    \item Every monomorphism is the kernel of some morphism and every epimorphism is the cokernel of some morphism.
+  \end{itemize}
+\end{definition}
+\change{Move this definitions to the Homological Algebra section}
+
+Let's check first that \oxmod\ is a \nameref{def:preadditive-category}.
+\begin{lemma}
+  The category \oxmod\ is a \nameref{def:preadditive-category}.
+\end{lemma}
+\begin{proof}
+  Let \(\phi: \sheaf{F} \to \sheaf{G}\) and \(\psi: \sheaf{F} \to \sheaf{G}\) be two \namerefs{def:ringed-spaces-morphism}.
+
+  For each open subset \(U \subseteq X\) define \((\phi + \psi)(U) = \phi(U) + \psi(U)\).
+\end{proof}
+
+Now \nameref{def:additive-category}
+\begin{lemma}
+  The category \oxmod\ admits a zero object.
+\end{lemma}
+\begin{proof}
+  Consider the \(\sheaf{O}_{X}\) module that sends every open set to \(\{0\}\).
+\end{proof}
+
+\begin{lemma}
+  The category \oxmod\ has all binary biproducts.
+  We define their direct sum a \(\sheaf{F} \oplus \sheaf{G} = \sheaf{F} \times \sheaf{G}\).
+\end{lemma}
+\begin{proof}
+  Let \(\sheaf{F}, \sheaf{G}\) be two \namerefs{def:ox-mod}.
+\end{proof}
+
+
+
+\begin{theorem}
+  Let \(\varphi: \sheaf{F} \to \sheaf{G}\) a \nameref{def:ox-mod-morphism}.
+  Then the kernel of \(\varphi\) is the subsheaf of \(\sheaf{F}\) with sections
+  \begin{equation*}
+    (\ker \varphi)(U) = \{ s \in \sheaf{F}(U) \mid \varphi(s) = 0 \}
+  \end{equation*}
+  Furthermore for every \(x \in X \quad (\ker \varphi)_{x} = \ker \varphi_{x}\).
+\end{theorem}
+\begin{proof}
+  If \(V \subseteq U\)
+  \begin{figure*}[htbp]
+    \centering
+    \begin{tikzcd}
+      0 \arrow[r] & (\ker \varphi)(U) \arrow[r] \arrow[d, dotted] & \sheaf{F}(U) \arrow[r, "\varphi(U)"] \arrow[d, "\res_{U, V}"] & \sheaf{G}(U) \arrow[d, "\res_{U, V}"] \\
+      0 \arrow[r] & (\ker \varphi)(V) \arrow[r] & \sheaf{F}(V) \arrow[r, "\varphi(V)"] & \sheaf{G}(V)
+    \end{tikzcd}
+  \end{figure*}
+\end{proof}
+
+
+\begin{theorem}
+  Let \(\varphi: \sheaf{F} \to \sheaf{G}\) a \nameref{def:ox-mod-morphism}.
+  Then the cokernel of \(\varphi\) is the \nameref{def:sheafification} of the quotient \nameref{def:presheaf}\change{Prove that this is the cokernel in \(\PSh\).}
+  \begin{equation*}
+    (\operatorname{coker}_{\pre} \varphi)(U) = \quot{\sheaf{G}(U)}{\varphi(\sheaf{F}(U))}
+  \end{equation*}
+  Furthermore for every \(x \in X \quad (\coker \varphi)_{x} = \coker \varphi_{x}\).
+\end{theorem}
+\begin{proof}
+  Given a commutative diagram
+  \begin{figure*}[htbp]
+    \centering
+    \begin{tikzcd}
+      \sheaf{F} \arrow[r, "\varphi"] \arrow[d] & \sheaf{G} \arrow[d]  \\
+      0 \arrow[r]  & \sheaf{H}
+    \end{tikzcd}
+  \end{figure*}
+
+  We construct
+  \begin{figure*}[htbp]
+    \centering
+    \begin{tikzcd}
+      \sheaf{F} \arrow[r, "\varphi"] \arrow[d] & \sheaf{G} \arrow[d] \arrow[rrdd, bend left] & & \\
+      0 \arrow[r] \arrow[rrrd, bend right] & \operatorname{coker}_{\pre} \arrow[r, "(-)^{\#}"] & \coker \arrow[rd, dotted] & \\
+      & & & \sheaf{H}
+    \end{tikzcd}
+  \end{figure*}
+\end{proof}
+
+Therefore we have proven that \oxmod\ is an \nameref{def:abelian-category} and in particular by \nameref{sec:oxmod-and-sh-ab} \(\Sh_{\Ab}(X)\) is an \nameref{def:abelian-category}.
+
+\section{Sequences of \oxmod}
+
+\begin{theorem} \unsure{Probably not a \textit{theorem} but a direct consequence of the commutatitivity of stalks and (co)kernels}
+  The sequence of \namerefs{def:ox-mod} \(\sheaf{F} \to \sheaf{G} \to \sheaf{H}\) is exact at \(\sheaf{G}\) if and only if for every \(x \in X\) the sequence \(\sheaf{F}_{x} \to \sheaf{G}_{x} \to \sheaf{H}_{x}\) is exact at \(\sheaf{G}_{x}\).
+\end{theorem}
+
+
+\unsure[inline]{Maybe talk about resolutions / types of resolutions here?}
+
+\end{document}

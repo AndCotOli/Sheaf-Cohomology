@@ -1,0 +1,31 @@
+\documentclass[11pt, a4paper, oneside]{book}
+\input{preamble.sty}
+
+\usepackage{subfiles}
+\usepackage{graphicx}
+
+\graphicspath{{images/}}
+
+\begin{document}
+
+\frontmatter
+\subfile{chapters/cover}
+\afterpage{\blankpage}
+
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\newgeometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+\tableofcontents
+\afterpage{\blankpage}
+
+\mainmatter
+\subfile{chapters/sheaves}
+
+\subfile{chapters/ringed_spaces}
+
+\backmatter
+\nocite{*}
+\printbibliography
+
+\end{document}

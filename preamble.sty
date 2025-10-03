@@ -1,0 +1,145 @@
+%% Packages
+% Font config
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[normalem]{ulem}
+\usepackage{mathpazo} % Palatino + Math
+\usepackage[scaled]{beramono} % Monospace
+\usepackage{microtype}
+\usepackage{mathrsfs} % \mathscr (sheaf calligraphic typography)
+
+% Page Layout
+\usepackage{geometry, here} % For title page
+\usepackage{parskip} % Remove new paragraph indent
+\usepackage{fancyhdr} % Fancier header and footer
+\usepackage{epigraph} % Add quotes at the beginning of chapters / sections
+\usepackage{afterpage}
+
+% Links
+\usepackage{hyperref}
+\usepackage{nameref}
+\usepackage{zref-xr}
+\usepackage{letltxmacro}
+\usepackage{xstring}
+\usepackage{etoolbox}
+
+% Math
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{bbold} % Bold symbols
+\usepackage{mathtools, thmtools} % Custom theorem environments
+\usepackage{tikz, tikz-cd} % Diagrams
+
+% Bibliography
+\usepackage[backend=biber, style=alphabetic, sorting=nty]{biblatex}
+
+% Utils
+\usepackage{xargs} % Multiple arguments for commands
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem} % Better enumerate
+\usepackage[textsize=small]{todonotes}
+
+
+%% Configuration
+% afterpage
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+% fancyhdr
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark} % Chapter name
+\fancyhead[LO]{\rightmark} % Section name
+
+% todonotes
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+
+% hyperref
+\hypersetup{
+  hypertexnames=false,
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=red,
+  urlcolor=cyan,
+}
+
+\zxrsetup{
+  tozreflabel=false,
+  toltxlabel=true,
+}
+
+% Custom reference command
+% Save the original \nameref command
+\LetLtxMacro{\originalnameref}{\nameref}
+
+% Redefine \nameref to handle missing labels
+\makeatletter
+\renewcommand{\nameref}[1]{%
+  \@ifundefined{r@#1}{%
+    \textcolor{red}{\texttt{#1}}% Missing label → show name in red
+  }{%
+    \originalnameref{#1}% Existing label → original behavior
+  }%
+}
+\makeatother
+
+% Command to set custom plural forms for specific labels
+\newcommand{\SetPluralName}[2]{%
+    \expandafter\newcommand\csname plur@#1\endcsname{#2}%
+}
+
+% Main plural reference command
+\newcommand{\namerefs}[1]{%
+    \ifcsname plur@#1\endcsname%
+        \hyperref[{#1}]{\csname plur@#1\endcsname}% Use custom plural if defined
+    \else%
+        \hyperref[{#1}]{\originalnameref*{#1}s}% Just add 's' as fallback
+    \fi%
+}
+
+% Theorem environments
+\numberwithin{equation}{section}
+\declaretheorem[style=plain, numberwithin=section]{theorem, lemma, proposition, corollary}
+\declaretheorem[style=definition, numberwithin=section,qed=\(\lrcorner\)]{definition}
+\declaretheorem[style=definition, numberwithin=section, qed=\(\lozenge\)]{example}
+\declaretheorem[style=remark, numberwithin=section, qed=\(\triangledown\)]{remark}
+\declaretheorem[style=remark, numbered=no]{notation}
+
+% Bibliography
+\addbibresource{Bibliography.bib}
+
+%% Abbreviations
+% Categories
+\newcommand\Set{\mathsf{Set}}
+\newcommand\Ab{\mathsf{Ab}}
+\newcommand\Ring{\mathsf{Ring}}
+\newcommand\Top{\mathsf{Top}}
+\newcommand\PSh{\mathsf{PSh}} % Presheaves
+\newcommand\Sh{\mathsf{Sh}} % Sheaves
+\newcommand\open{\mathsf{Op}} % Open subsets
+\newcommand\oxmod{\(\mathscr{O}_{X}\)-\(\mathsf{Mod}\)} % Oₓ-modules
+
+% Sheafs
+\newcommand\Hom{\operatorname{Hom}}
+\newcommand\HomS{\mathcal{H}om} % Hom Sheaf
+\newcommand\Mor{\operatorname{Mor}}
+\newcommand{\sheaf}[1]{\mathscr{#1}}
+\newcommand\etale{\operatorname{Et}}
+
+% Math operators
+\newcommand*\quot[2]{{^{\textstyle #1}\big/_{\textstyle #2}}} % Quotient
+\DeclareMathOperator*{\im}{im}
+\DeclareMathOperator*{\coker}{coker}
+\DeclareMathOperator*{\colim}{colim}
+\DeclareMathOperator*{\pre}{pre}
+\DeclareMathOperator*{\op}{op}
+\DeclareMathOperator{\id}{id}
+\newcommand\res{\operatorname{res}}
+
+\newcommand{\curs}{Curs 2025/2026}
