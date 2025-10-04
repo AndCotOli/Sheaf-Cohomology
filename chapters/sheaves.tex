@@ -180,14 +180,12 @@ Since we will be mainly interested in \namerefs{def:sheaf} of abelian groups and
   A \textbf{presheaf morphism} \(\phi: \mathcal{F} \to \mathcal{G}\) is a natural transformation between the functors \(\mathcal{F}\) and \(\mathcal{G}\).
 
   Less abstractly, a presheaf morphism \(\phi: \mathcal{F} \to \mathcal{G}\) is the a collection of maps \(\{\phi(U): \mathcal{F}(U) \to \mathcal{G}(U)\}_{U \in \open(X)}\) such that if \(V \subseteq U\) then the following diagram commutes
-  \begin{figure*}[htbp]
-    \centering
-    \begin{tikzcd}
+  \begin{center}
+     \begin{tikzcd}
       \mathcal{F}(U) \arrow[r, "\phi(U)"] \arrow[d, "\res_{U, V}"] & \mathcal{G}(U) \arrow[d, "\res_{U, V}"] \\
       \mathcal{F}(V) \arrow[r, "\phi(V)"] & \mathcal{G}(V)
     \end{tikzcd}
-  \end{figure*}
-
+  \end{center}
 \end{definition}
 \SetPluralName{def:presheaf-morphism}{Morphisms of Presheaves}
 
@@ -316,13 +314,12 @@ With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} 
   \end{align*}
 
   It remains to show that \(\Theta_{U}\) is a \nameref{def:sheaf-morphism}, i.e: that the following diagram commutes fir every \(V \subseteq U\) open.
-  \begin{figure*}[htbp]
-    \centering
-    \begin{tikzcd}
-      \HomS(\underline{\{p\}}, \sheaf{F})(U) \arrow[r, "\Theta_{U}"] \arrow[d, "\res_{U, V}"] & \sheaf{F}(U) \arrow[d, "\res_{U, V}"] \\
-      \HomS(\underline{\{p\}}, \sheaf{F})(V) \arrow[r, "\Theta_{V}"] & \sheaf{F}(V)
-    \end{tikzcd}
-  \end{figure*}
+  \begin{center}
+   \begin{tikzcd}
+     \HomS(\underline{\{p\}}, \sheaf{F})(U) \arrow[r, "\Theta_{U}"] \arrow[d, "\res_{U, V}"] & \sheaf{F}(U) \arrow[d, "\res_{U, V}"] \\
+     \HomS(\underline{\{p\}}, \sheaf{F})(V) \arrow[r, "\Theta_{V}"] & \sheaf{F}(V)
+   \end{tikzcd}
+  \end{center}
 
   Let \(\phi \in \HomS(\underline{\{p\}}, \sheaf{F})(U)\).
   Note that since \(\phi\) is a \nameref{def:sheaf-morphism}
@@ -385,14 +382,12 @@ With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} 
 \begin{proof}
   We have the following diagram, where the vertical arrows come from the colimit properties.
 
-  \begin{figure*}[h!]
-    \centering
+  \begin{center}
     \begin{tikzcd}
       \mathcal{F}(U) \arrow[r, "\phi(U)"] \arrow[d] & \mathcal{G}(U) \arrow[d] \\
       \mathcal{F}_{p} \arrow[r, "\phi_{p}", dashed] & \mathcal{G}_{p}
     \end{tikzcd}
-  \end{figure*}
-
+  \end{center}
   Therefore, we just need to define for every \([(f, U)] \in \mathcal{F}_{p} \quad \phi_{p}([(f, U)]) = [(\phi(U)(f), U)]\).
 \end{proof}
 
@@ -457,14 +452,12 @@ We can restrict ourselves to the case where \(\mathsf{C} = \Set\) and use \autor
 \begin{definition}[Sheafification] \label{def:sheafification}
   Let \(\mathcal{F}\) be a \nameref{def:presheaf} of sets over a topological space \(X\).
   A \nameref{def:presheaf-morphism} \((-)^{\#}: \mathcal{F} \to \mathcal{F}^{\#}\) is the \textbf{sheafification} of \(\mathcal{F}\) if \(\mathcal{F}^{\#}\) is a \nameref{def:sheaf} and for any other \nameref{def:sheaf} \(\sheaf{G}\) and \nameref{def:presheaf-morphism} \(\psi: \mathcal{F} \to \sheaf{G}\) there exists a unique \nameref{def:sheaf-morphism} \(\phi: \mathcal{F}^{\#} \to \sheaf{G}\) making the following diagram commute
-  \begin{figure*}[htbp]
-    \centering
+  \begin{center}
     \begin{tikzcd}
       \mathcal{F} \arrow[r, "(-)^{\#}"] \arrow[rd, "\psi" below] & \mathcal{F}^{\#} \arrow[d, "\phi"] \\
       & \sheaf{G}
     \end{tikzcd}
-  \end{figure*}
-
+  \end{center}
   This defines a \textbf{sheafification functor} \((-)^{\#}: \PSh_{\Set}(X) \to \Sh_{\Set}(X)\).
 \end{definition}
 
@@ -539,14 +532,12 @@ We will prove this in steps in the next lemmas.
   Therefore taking this maps as restriction maps we make \(\mathcal{F}^{\#}\) into a \nameref{def:presheaf}.
 
   Furthermore using the map described in \autoref{prop:map-to-prod-stalks-injective} for every \(V \subseteq U\) open we get the following commutative diagram
-  \begin{figure*}[h!]
-    \centering
+  \begin{center}
     \begin{tikzcd}
       \mathcal{F}(U) \arrow[r] \arrow[d] & \mathcal{F}^{\#}(U) \arrow[r, tail] \arrow[d] & \prod\limits_{p \in U} \mathcal{F}_{p} \arrow[d] \\
       \mathcal{F}(V) \arrow[r] & \mathcal{F}^{\#}(V) \arrow[r, tail] & \prod\limits_{q \in V} \mathcal{F}_{q}
     \end{tikzcd}
-  \end{figure*}
-
+  \end{center}
   where the vertical arrows come from the restriction maps, giving a \nameref{def:presheaf-morphism} \(\mathcal{F} \to \mathcal{F}^{\#}\).
 
   To see that \(\mathcal{F}^{\#}\) is indeed a \nameref{def:sheaf}, consider an open set \(U \subseteq X\) and an open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\).
@@ -578,14 +569,12 @@ We will prove this in steps in the next lemmas.
 \end{lemma}
 \begin{proof}
   Consider the following commutative diagram
-  \begin{figure*}[htbp]
-    \centering
+  \begin{center}
     \begin{tikzcd}
       \mathcal{F} \arrow[r] \arrow[d] & \mathcal{F}^{\#} \arrow[r] \arrow[d] & \prod(\mathcal{F}) \arrow[d] \\
       \mathcal{G} \arrow[r] & \mathcal{G}^{\#} \arrow[r] & \prod(\mathcal{G})
     \end{tikzcd}
-  \end{figure*}
-
+  \end{center}
   We only need to prove that \(\sheaf{G} \cong \sheaf{G}^{\#}\).
   By \nameref{thm:induced-stalk-isomorphism} we only need to show that for every \(p \in X\) the \nameref{prop:induced-stalk-morphism} is an isomorphism.
   But this is precisely \autoref{lemma:stalks-commute-sheafification}.

@@ -137,14 +137,13 @@ Now \nameref{def:additive-category}
 \end{theorem}
 \begin{proof}
   If \(V \subseteq U\)
-  \begin{figure*}[htbp]
-    \centering
+  \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & (\ker \varphi)(U) \arrow[r] \arrow[d, dotted] & \sheaf{F}(U) \arrow[r, "\varphi(U)"] \arrow[d, "\res_{U, V}"] & \sheaf{G}(U) \arrow[d, "\res_{U, V}"] \\
       0 \arrow[r] & (\ker \varphi)(V) \arrow[r] & \sheaf{F}(V) \arrow[r, "\varphi(V)"] & \sheaf{G}(V)
     \end{tikzcd}
-  \end{figure*}
-\end{proof}
+  \end{center}
+ \end{proof}
 
 
 \begin{theorem}
@@ -157,23 +156,20 @@ Now \nameref{def:additive-category}
 \end{theorem}
 \begin{proof}
   Given a commutative diagram
-  \begin{figure*}[htbp]
-    \centering
+  \begin{center}
     \begin{tikzcd}
       \sheaf{F} \arrow[r, "\varphi"] \arrow[d] & \sheaf{G} \arrow[d]  \\
       0 \arrow[r]  & \sheaf{H}
     \end{tikzcd}
-  \end{figure*}
-
+  \end{center}
   We construct
-  \begin{figure*}[htbp]
-    \centering
+  \begin{center}
     \begin{tikzcd}
       \sheaf{F} \arrow[r, "\varphi"] \arrow[d] & \sheaf{G} \arrow[d] \arrow[rrdd, bend left] & & \\
       0 \arrow[r] \arrow[rrrd, bend right] & \operatorname{coker}_{\pre} \arrow[r, "(-)^{\#}"] & \coker \arrow[rd, dotted] & \\
       & & & \sheaf{H}
     \end{tikzcd}
-  \end{figure*}
+  \end{center}
 \end{proof}
 
 Therefore we have proven that \oxmod\ is an \nameref{def:abelian-category} and in particular by \nameref{sec:oxmod-and-sh-ab} \(\Sh_{\Ab}(X)\) is an \nameref{def:abelian-category}.
