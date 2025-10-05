@@ -1,4 +1,5 @@
 \documentclass[../main.tex]{subfiles}
+\zexternaldocument*{category_theory}
 
 \begin{document}
 
@@ -11,8 +12,8 @@
 \section{Presheaves and sheaves}
 \subsection{Presheaves}
 \begin{definition}[Presheaf] \label{def:presheaf}
-  Let \(X\) be a topological space and \(\open(X)\) be its associated posetal category of open sets.
-  For an arbitray category \(\mathsf{C}\), a \(\mathsf{C}\)-\textbf{valued presheaf} over \(X\) is a functor
+  Let \(X\) be a topological space and \(\open(X)\) be its associated \nameref{ex:open-set-category}.
+  For an arbitray \nameref{def:category} \(\mathsf{C}\), a \(\mathsf{C}\)-\textbf{valued presheaf} over \(X\) is a \nameref{def:functor}
   \begin{equation*}
     \mathcal{F}: \open(X)^{\op} \to \mathsf{C}
   \end{equation*}
@@ -27,11 +28,9 @@
 \SetPluralName{def:presheaf}{Presheaves}
 
 \begin{example}[Constant presheaf] \label{ex:constant-presheaf}
-  For an arbitrary set \(S\), the \textbf{constant presheaf} (of sets) associated to \(S\) is the \nameref{def:presheaf} defined as \(\underline{S}_{\pre}(U) = S\) for all non-empty \(U \in \open(X)\) and \(\underline{S}_{\pre}(\varnothing) = \{\ast\}\) an arbitrary one element set.
+  For an arbitrary set \(S\), the \textbf{constant presheaf} (of sets) associated to \(S\) is the \nameref{def:presheaf} defined as \(\underline{S}_{\pre}(U) = S\) for all \(U \in \open(X)\).
 
   Note that this verifies the presheaf conditions trivially since for every open set \(U \in \open(X)\), \(\underline{S}_{\pre}(U)\) is a set (namely \(S\)) and, if \(V \subseteq U\) then we can pick \(\id_{S}\) as \(\res_{U, V}\).
-
-  If we work over a more general category \(\mathsf{C}\) we require that \(\underline{S}_{\pre}(\varnothing)\) is the final object in \(\mathsf{C}\), provided it exists.
 \end{example}
 \SetPluralName{ex:constant-presheaf}{Constant presheaves}
 
@@ -70,14 +69,14 @@ We will now see an example of a \nameref{def:presheaf} that is not a \nameref{de
 
 However, we can make it a sheaf by considering \textit{locally constant} applications instead.
 \begin{example}[Constant sheaf] \label{ex:constant-sheaf}
-  Let \(X\) be a topological space and \(A\) be an object of a category \(\mathsf{C}\)\unsure{What type of category?}.
+  Let \(X\) be a topological space and \(A\) be an object of a \nameref{def:category} \(\mathsf{C}\)\unsure{What type of category?}.
   For every open set \(U \subseteq X\), define the \textbf{constant sheaf} over \(X\) of \(A\) as
   \begin{equation*}
     \underline{S}(U) = \{f: U \to A \mid f \text{ locally constant}\}
   \end{equation*}
   Note that this is a \nameref{def:presheaf}.
 
-  To verify that this is indeed a sheaf, let \(U \subseteq X\) be a non-empty open set an \(\{U_{i}\}_{i \in \mathcal{I}}\) be an open cover of \(U\) (in the case where \(U = \varnothing\) the axioms hold trivially).
+  To verify that this is indeed a \nameref{def:sheaf}, let \(U \subseteq X\) be a non-empty open set an \(\{U_{i}\}_{i \in \mathcal{I}}\) be an open cover of \(U\) (in the case where \(U = \varnothing\) the axioms hold trivially).
   \begin{itemize}
     \item[\ref{axiom:sheaf-identity}] Suppose \(s\) and \(t\) are two sections of \(\underline{S}(U)\) such that \(\forall i \in \mathcal{I} \;\; s|_{U_{i}} = t|_{U_{i}}\).
 
@@ -112,7 +111,7 @@ We can also construct \namerefs{def:sheaf} from other data:
   Let \(f: X \to Y\) be a continuous map between two topological spaces \(X\) and \(Y\).
   For any \nameref{def:sheaf} \(\sheaf{F}\) over \(X\), define the \textbf{pushforward sheaf} \(f_{\ast}\sheaf{F}\) in \(Y\) as, for every open subset \(V \subseteq Y\), \(f_{\ast}\sheaf{F}(V) = \sheaf{F}(f^{-1}(V))\).
 
-  This defines a \textit{pushforward functor} \(f_{\ast}: \Sh(X) \to \Sh(Y)\).
+  This defines a \textit{pushforward \nameref{def:functor}} \(f_{\ast}: \Sh(X) \to \Sh(Y)\).
 \end{definition}
 \SetPluralName{def:pushforward-sheaf}{Pushforwards sheaves}
 
@@ -131,21 +130,21 @@ We can also construct \namerefs{def:sheaf} from other data:
 
 We can extend \autoref{def:sheaf} to more general categories using the following\change{Motivation for this definition. Why is it equivalent?}
 \begin{definition}[Sheaf]
-  Let \(X\) be a topological space and let \(\mathsf{C}\) be a category with products.
+  Let \(X\) be a topological space and let \(\mathsf{C}\) be a \nameref{def:category} with \namerefs{def:categorical-product}.
   A \(\mathsf{C}\)-valued \nameref{def:presheaf} \(\sheaf{F}\) is a \textbf{sheaf} if for every open set \(U\) and open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) the diagram
   \begin{equation} \label{diagram:sheaf}
     \sheaf{F}(U) \rightarrow \prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \rightrightarrows \prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
   \end{equation}
-  is an equalizer.
+  is an \nameref{def:equalizer}.
 \end{definition}
 
-For sufficienly nice categories we have the following \cite[\href{https://stacks.math.columbia.edu/tag/0073}{Tag 0073}]{stacks-project},
+For sufficienly nice categories we have the following \cite[\href{https://stacks.math.columbia.edu/tag/0073}{Tag 0073}]{stacks-project}\unsure{Maybe use as definition?},
 \begin{proposition} \label{prop:sheaves-and-functors}
-  Let \(\mathsf{C}\) be a category and \(F: \mathsf{C} \to \Set\) be a functor verifying:
+  Let \(\mathsf{C}\) be a \nameref{def:category} and \(F: \mathsf{C} \to \Set\) be a \nameref{def:functor} verifying:
   \begin{enumerate}
-    \item \(F\) is faithful.
-    \item \(\mathsf{C}\) has limits and \(F\) commutes with them.
-    \item \(F\) reflects isomorphisms.
+    \item \(F\) is a \nameref{def:faithful-functor}.
+    \item \(\mathsf{C}\) has \namerefs{def:categorical-limit} and \(F\) commutes with them.
+    \item \(F\) \nameref{def:reflects} \namerefs{def:categorical-isomorphism}.
   \end{enumerate}
   Then a \(\mathsf{C}\)-valued \nameref{def:presheaf} \(\sheaf{F}\) is a \nameref{def:sheaf} if and only if the underlying \nameref{def:presheaf} of sets \(F(\sheaf{F})\) is a \nameref{def:sheaf}.
 \end{proposition}
@@ -153,18 +152,18 @@ For sufficienly nice categories we have the following \cite[\href{https://stacks
   \begin{itemize}
     \item[\(\implies\)] Suppose \(\sheaf{F}\) is a \(\mathsf{C}\)-valued \nameref{def:sheaf}.
 
-          Then, for every open set \(U\), \(\sheaf{F}(U)\) is the equalizer of the diagram \eqref{diagram:sheaf}.
-          Therefore since \(F\) commutes with limits \(F(\sheaf{F}(U))\) is the equalizer of the corresponding diagram in \(\Set\).
+          Then, for every open set \(U\), \(\sheaf{F}(U)\) is the \nameref{def:equalizer} of the diagram \eqref{diagram:sheaf}.
+          Therefore since \(F\) commutes with \namerefs{def:categorical-limit} \(F(\sheaf{F}(U))\) is the \nameref{def:equalizer} of the corresponding diagram in \(\Set\).
     \item[\(\impliedby\)] Suppose now that \(F(\sheaf{F})\) is a \nameref{def:sheaf}.
 
-          Let \(E \in \mathsf{C}\) be the equalizer of the diagram \eqref{diagram:sheaf}.
+          Let \(E \in \mathsf{C}\) be the \nameref{def:equalizer} of the diagram \eqref{diagram:sheaf}.
           Since \(\sheaf{F}(U)\) is a \nameref{def:presheaf} there exists a morphism \(\sheaf{F}(U) \to E\), therefore by applying \(F\) we obtain a morphism of sets \(F(\sheaf{F}(U)) \to F(E)\).
 
-          On the one hand since \(F\) commutes with limits \(F(E)\) is the equalizer of the corresponding diagram in \(\Set\).
-          On the other since \(F(\sheaf{F})\) is a \nameref{def:sheaf}, it is the equalizer of the same diagram.
-          Therefore the morphism \(F(\sheaf{F}(U)) \to  F(E)\) is an isomorphism.
+          On the one hand since \(F\) commutes with \nameref{def:categorical-limit} \(F(E)\) is the \nameref{def:equalizer} of the corresponding diagram in \(\Set\).
+          On the other since \(F(\sheaf{F})\) is a \nameref{def:sheaf}, it is the \nameref{def:equalizer} of the same diagram.
+          Therefore the morphism \(F(\sheaf{F}(U)) \to  F(E)\) is an \nameref{def:categorical-isomorphism}.
 
-          Finally since \(F\) reflects isomorphisms we have that \(\sheaf{F}(U) \to E\) is an isomorphism.
+          Finally since \(F\) \nameref{def:reflects} \namerefs{def:categorical-isomorphism} we have that \(\sheaf{F}(U) \to E\) is an \nameref{def:categorical-isomorphism}.
   \end{itemize}
 \end{proof}
 In particular \autoref{prop:sheaves-and-functors} applies to \namerefs{def:sheaf} of groups, rings, algebras/modules/vector spaces over a fixed ring, etc.
@@ -177,7 +176,7 @@ Since we will be mainly interested in \namerefs{def:sheaf} of abelian groups and
 
 \begin{definition}[Morphism of \namerefs{def:presheaf}] \label{def:presheaf-morphism}
   Let \(\mathcal{F}, \mathcal{G}\) be two \(\mathsf{C}\)-valued \namerefs{def:presheaf} over a topological space \(X\).
-  A \textbf{presheaf morphism} \(\phi: \mathcal{F} \to \mathcal{G}\) is a natural transformation between the functors \(\mathcal{F}\) and \(\mathcal{G}\).
+  A \textbf{presheaf morphism} \(\phi: \mathcal{F} \to \mathcal{G}\) is a \nameref{def:natural-transformation} between the \namerefs{def:functor} \(\mathcal{F}\) and \(\mathcal{G}\).
 
   Less abstractly, a presheaf morphism \(\phi: \mathcal{F} \to \mathcal{G}\) is the a collection of maps \(\{\phi(U): \mathcal{F}(U) \to \mathcal{G}(U)\}_{U \in \open(X)}\) such that if \(V \subseteq U\) then the following diagram commutes
   \begin{center}
@@ -187,24 +186,23 @@ Since we will be mainly interested in \namerefs{def:sheaf} of abelian groups and
     \end{tikzcd}
   \end{center}
 \end{definition}
-\SetPluralName{def:presheaf-morphism}{Morphisms of Presheaves}
+\SetPluralName{def:presheaf-morphism}{Morphisms of \namerefs{def:presheaf}}
 
 
 \begin{definition}[Morphism of \namerefs{def:sheaf}] \label{def:sheaf-morphism}
   Let \(\sheaf{F}, \sheaf{G}\) be two \(\mathsf{C}\)-valued \namerefs{def:sheaf} over a topological space \(X\).
   A \textbf{sheaf morphism} \(\phi: \sheaf{F} \to \sheaf{G}\) is a \nameref{def:presheaf-morphism} between \(\sheaf{F}\) and \(\sheaf{G}\).
 \end{definition}
-\SetPluralName{def:sheaf-morphism}{Morphisms of Sheaves}
+\SetPluralName{def:sheaf-morphism}{Morphisms of \nameref{def:sheaf}}
 
-With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} valued in a category \(\mathsf{C}\) over a topological space \(X\) form a category.
+With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} valued in a \nameref{def:category} \(\mathsf{C}\) over a topological space \(X\) form a \nameref{def:category}.
 
 \begin{notation}
-  We will denote the category of \(\mathsf{C}\)-valued \namerefs{def:presheaf} over a topological space \(X\) as \(\PSh_{\mathsf{C}}(X)\) and the category of \(\mathsf{C}\)-valued \namerefs{def:sheaf} over \(X\) as \(\Sh_{\mathsf{C}}(X)\).
+  We will denote the \nameref{def:category} of \(\mathsf{C}\)-valued \namerefs{def:presheaf} over a topological space \(X\) as \(\PSh_{\mathsf{C}}(X)\) and the \nameref{def:category} of \(\mathsf{C}\)-valued \namerefs{def:sheaf} over \(X\) as \(\Sh_{\mathsf{C}}(X)\).
 \end{notation}
 
 \begin{remark} \label{remark:presheaf-full-subcategory}
-  The category \(\Sh_{\mathsf{C}}(X)\) is a full-subcategory of \(\PSh_{\mathsf{C}}(X)\) by the definition of \nameref{def:sheaf-morphism}, i.e: the inclusion functor \(\iota: \Sh_{\mathsf{C}}(X) \hookrightarrow \PSh_{\mathsf{C}}(X)\) is fully faithful.
-  This means that if \(\iota(\alpha)\) is a diagram limiting in \(\PSh_{\mathsf{C}}(X)\) then \(\alpha\) limits in \(\Sh_{\mathsf{C}}(X)\).
+  The category \(\Sh_{\mathsf{C}}(X)\) is a \nameref{def:full-subcategory} of \(\PSh_{\mathsf{C}}(X)\) by the definition of \nameref{def:sheaf-morphism}, i.e: the inclusion functor \(\iota: \Sh_{\mathsf{C}}(X) \hookrightarrow \PSh_{\mathsf{C}}(X)\) is a \nameref{def:fully-faithful-functor}.
 \end{remark}
 
 \begin{definition}[\(\HomS\) \nameref{def:sheaf}] \label{def:hom-sheaf}
@@ -282,12 +280,12 @@ With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} 
           Indeed, for every open subset \(V \subseteq U_{i}\) and \(s \in \sheaf{F}(V)\) we have that \(\phi(V)(s) = \phi_{i}(V)(s)\) so applying \ref{axiom:sheaf-gluability} on the open cover \(\{V \cap U_{j}\}_{j \in \mathcal{I}}\) we have that \(\phi(V) = \phi_{i}(V)\).
   \end{itemize}
 
-  Note that to check the sheaf axioms we only used that \(\sheaf{G}\) is a \nameref{def:sheaf}, therefore the hypothesis of \(\sheaf{F}\) being a \nameref{def:sheaf} may be dropped.
+  Note that to check the \nameref{def:sheaf} axioms we only used that \(\sheaf{G}\) is a \nameref{def:sheaf}, therefore the hypothesis of \(\sheaf{F}\) being a \nameref{def:sheaf} may be dropped.
 \end{remark}
 
 \begin{remark}\improvement{This should be rewritten.}
-  We can extend \nameref{def:hom-sheaf} to other evaluation categories other than \(\Set\).
-  However, this will be a sheaf only if the evaluation category is \textit{sufficiently} nice (in particular, if it is complete).
+  We can extend \nameref{def:hom-sheaf} to other evaluation \namerefs{def:category} other than \(\Set\).
+  However, this will be a sheaf only if the evaluation \nameref{def:category} is \textit{sufficiently} nice (in particular, if it is complete).
 
   For example, if \(\sheaf{F}, \sheaf{G} \in \Sh_{\Ab}(X)\) we can define the \(\HomS\) sheaf, this time an abelian group \nameref{def:sheaf}, by considering the maps \(\sheaf{F}|_{U} \to \sheaf{G}|_{U}\) as morphisms between abelian groups.
   To distinguish these \namerefs{def:hom-sheaf} from the \(\Set\)-valued version, we will denote them by \(\HomS_{\Sh_{\mathsf{C}}(X)}\), although many times the subscript will be dropped if the category is clear.
@@ -313,7 +311,7 @@ With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} 
     & \phi \mapsto \phi(U)(p)
   \end{align*}
 
-  It remains to show that \(\Theta_{U}\) is a \nameref{def:sheaf-morphism}, i.e: that the following diagram commutes fir every \(V \subseteq U\) open.
+  It remains to show that \(\Theta_{U}\) is a \nameref{def:sheaf-morphism}, i.e: that the following diagram commutes for every \(V \subseteq U\) open.
   \begin{center}
    \begin{tikzcd}
      \HomS(\underline{\{p\}}, \sheaf{F})(U) \arrow[r, "\Theta_{U}"] \arrow[d, "\res_{U, V}"] & \sheaf{F}(U) \arrow[d, "\res_{U, V}"] \\
@@ -328,7 +326,7 @@ With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} 
                                           &= \res_{U, V}\phi(U)(p) = (\res_{U, V} \circ \Theta_{U})(\phi)
   \end{align*}
 
-  Therefore the collection of maps \(\{\Theta_{U}\}_{U \in \open(X)}\) defines an isomorphism
+  Therefore the collection of maps \(\{\Theta_{U}\}_{U \in \open(X)}\) defines an \nameref{def:categorical-isomorphism}
   \begin{equation*}
     \HomS(\underline{\{p\}}, \sheaf{F}) \cong \sheaf{F}
   \end{equation*}
@@ -346,12 +344,12 @@ With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} 
   \begin{equation*}
     \mathcal{F}_{p} = \colim_{\substack{U \ni p \\ U \text{ open}}} \mathcal{F}(U)
   \end{equation*}
-  where the colimit is over the set of open neighbourhoods \(U\) of \(p\).
+  where the \nameref{def:categorical-colimit} is over the set of open neighbourhoods of \(p\).
 
-  This defines a \textbf{stalkification functor} \((-)_{p}: \PSh_{\Set}(X) \to \Set\).
+  This defines a \textit{stalkification \nameref{def:functor}} \((-)_{p}: \PSh_{\Set}(X) \to \Set\).
 \end{definition}
 \begin{remark} \label{remark:stalk}
-  Since the set of open neighbourhoods of a point is partially ordered by reverse inclussion the \nameref{def:stalk} colimit is a directed colimit\improvement{Explain why this works.}.
+  Since the set of open neighbourhoods of a point is partially ordered by reverse inclussion the \nameref{def:stalk} \nameref{def:categorical-colimit} is a \nameref{def:directed-colimit}.
   Therefore we can describe \(\mathcal{F}_{p}\) as
   \begin{equation*}
     \mathcal{F}_{p} = \quot{\{(s, U) \mid p \in U, \, s \in \mathcal{F}(U)\}}{\sim}
@@ -380,7 +378,7 @@ With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} 
   Then for every \(p \in X\), \(\phi\) induces a morphism of \namerefs{def:stalk} \(\phi_{p}: \mathcal{F}_{p} \to \mathcal{G}_{p}\).
 \end{proposition}
 \begin{proof}
-  We have the following diagram, where the vertical arrows come from the colimit properties.
+  We have the following diagram, where the vertical arrows come from the \nameref{def:categorical-colimit} definition.
 
   \begin{center}
     \begin{tikzcd}
@@ -392,12 +390,12 @@ With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} 
 \end{proof}
 
 
-To generalize the concept of \nameref{def:stalk} to other categories in a similar fashion to \autoref{prop:sheaves-and-functors} we have the following result
+To generalize the concept of \nameref{def:stalk} to other \namerefs{def:category} in a similar fashion to \autoref{prop:sheaves-and-functors} we have the following result
 \begin{proposition}
-  Let \(\mathsf{C}\) be a category and \(F: \mathsf{C} \to \Set\) be a functor verifying:
+  Let \(\mathsf{C}\) be a \nameref{def:category} and \(F: \mathsf{C} \to \Set\) be a \nameref{def:functor} verifying:
   \begin{enumerate}
-    \item \(F\) is faithful.
-    \item Directed colimits exist in \(\mathsf{C}\) and \(F\) commutes with them.
+    \item \(F\) is a \nameref{def:faithful-functor}.
+    \item \namerefs{def:directed-colimit} exist in \(\mathsf{C}\) and \(F\) commutes with them.
   \end{enumerate}
   Let \(X\) be a topological space and \(p \in X\). Let \(\mathcal{F}\) be a \(\mathsf{C}\)-valued \nameref{def:presheaf}.
   Then \(\mathcal{F}_{p} = \colim_{p \in U} \mathcal{F}(U)\) exists in \(\mathsf{C}\) and its underlying set \(F(\mathcal{F}_{p})\) is equal to the \nameref{def:stalk} of sets of \(\mathcal{F}\).
@@ -405,24 +403,24 @@ To generalize the concept of \nameref{def:stalk} to other categories in a simila
   Furthermore the construction \(\mathcal{F} \mapsto \mathcal{F}_{p}\) is functorial.
 \end{proposition}
 \begin{proof}
-  Since directed colimits exist in \(\mathsf{C}\) by \autoref{remark:stalk} the \nameref{def:stalk} \(\mathcal{F}_{p}\) exists in \(\mathsf{C}\).
+  Since \namerefs{def:directed-colimit} exist in \(\mathsf{C}\) by \autoref{remark:stalk} the \nameref{def:stalk} \(\mathcal{F}_{p}\) exists in \(\mathsf{C}\).
   Uniqueness of the \nameref{def:stalk} follows analogously to \autoref{prop:sheaves-and-functors}.
 \end{proof}
 
-\begin{theorem}[\namerefs{def:stalk} and isomorphisms] \label{thm:induced-stalk-isomorphism}
+\begin{theorem}[\namerefs{def:stalk} and \namerefs{def:categorical-isomorphism}] \label{thm:induced-stalk-isomorphism}
   Let \(\sheaf{F}, \sheaf{G}\) be two \namerefs{def:sheaf} of sets over a topological space \(X\) and let \(\phi: \sheaf{F} \to \sheaf{G}\) be a \nameref{def:sheaf-morphism}.
-  Then \(\phi\) is an isomorphism if and only if for every \(p \in X\) the \nameref{prop:induced-stalk-morphism} \(\phi_{p}: \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an isomorphism.
+  Then \(\phi\) is an \nameref{def:categorical-isomorphism} if and only if for every \(p \in X\) the \nameref{prop:induced-stalk-morphism} \(\phi_{p}: \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \nameref{def:categorical-isomorphism}.
 \end{theorem}
 \begin{proof}
-  Suppose first that \(\phi\) is an isomorphism.
-  Then since taking \namerefs{def:stalk} is a functor and functors preseve isomorphisms, \(\phi_{p}\) is an isomorphism.
+  Suppose first that \(\phi\) is an \nameref{def:categorical-isomorphism}.
+  Then since taking \namerefs{def:stalk} is a \nameref{def:functor} and \nameref{prop:functors-preserve-isomorphisms}, \(\phi_{p}\) is an \nameref{def:categorical-isomorphism}.
 
-  To prove the converse, suppose that for every \(p \in X \;\; \phi_{p}\) is an isomorphism.
-  We are going to show that for every open set \(U \subseteq X \;\; \phi(U): \sheaf{F}(U) \to \sheaf{G}(U)\) is an isomorphism by proving that it is an injective and surjective morphism in \(\Set\).
+  To prove the converse, suppose that for every \(p \in X \;\; \phi_{p}\) is an \nameref{def:categorical-isomorphism}.
+  We are going to show that for every open set \(U \subseteq X \;\; \phi(U): \sheaf{F}(U) \to \sheaf{G}(U)\) is an \nameref{def:categorical-isomorphism} by proving that it is an injective and surjective morphism in \(\Set\).
 
   For the injectivity, let \(s, t \in \sheaf{F}(U)\) be two sections such that \(\phi(U)(s) = \phi(U)(t)\).
   Then for every \(p \in U\) we have that \(\phi_{p}(s_{p}) = \phi_{p}(t_{p})\).
-  Since \(\phi_{p}\) is an isomorphism in particular is injective, therefore \(s_{p} = t_{p}\).
+  Since \(\phi_{p}\) is an \nameref{def:categorical-isomorphism} in particular is injective, therefore \(s_{p} = t_{p}\).
   This means that there exist \(V_{p} \subseteq U\) open neighbourhood of \(p\) such that \(s|_{V_{p}} = t|_{V_{p}}\).
   Since \(\{V_{p}\}_{p \in U}\) is an open cover of \(U\) by \ref{axiom:sheaf-identity} we have that \(s = p\), i.e: \(\phi(U)\) is injective.
 
@@ -436,9 +434,6 @@ To generalize the concept of \nameref{def:stalk} to other categories in a simila
   Therefore since \(\phi\) is injective we have that \(s^{(p)}|_{U_{p} \cap U_{q}} = s^{(q)}|_{U_{p} \cap U_{q}}\).
   Then by \ref{axiom:sheaf-gluability} there exists a section \(s \in \sheaf{F}(U)\) such that \(\phi(U)(s) = t\), proving surjectivity.
 \end{proof}
-\unsure[inline]{\autoref{thm:induced-stalk-isomorphism} is Exercise 2.4.D of Vakil. However iso \(\neq\) inj + surj in general.
-  Maybe it is better to follow \href{https://stacks.math.columbia.edu/tag/007S}{Stalks 007S}.
-}
 
 
 \section{Sheafification}
@@ -458,16 +453,16 @@ We can restrict ourselves to the case where \(\mathsf{C} = \Set\) and use \autor
       & \sheaf{G}
     \end{tikzcd}
   \end{center}
-  This defines a \textbf{sheafification functor} \((-)^{\#}: \PSh_{\Set}(X) \to \Sh_{\Set}(X)\).
+  This defines a \textit{sheafification \nameref{def:functor}} \((-)^{\#}: \PSh_{\Set}(X) \to \Sh_{\Set}(X)\).
 \end{definition}
 
 \begin{remark}[Uniqueness of \nameref{def:sheafification}]
-  Since \nameref{def:sheafification} is defined using an universal property if it exists it is unique (up to unique isomorphism).
-  Therefore we can speak of \textit{the} sheafification of a presheaf instead of \textit{a} sheafification.
+  Since \nameref{def:sheafification} is defined using an \nameref{def:universal-property} if it exists it is unique (up to unique \nameref{def:categorical-isomorphism}).
+  Therefore we can speak of \textit{the} \nameref{def:sheafification} of a \nameref{def:presheaf} instead of \textit{a} \nameref{def:sheafification}.
 \end{remark}
 
 \begin{remark} \label{remark:sheafification-inclussion-adjunction}
-  The \nameref{def:sheafification} functor is left-adjoint to the inclussion functor \(i: \Sh_{\Set}(X) \hookrightarrow \PSh_{\Set}(X)\).
+  The \nameref{def:sheafification} functor is left-\nameref{def:adjoint} to the inclussion functor \(i: \Sh_{\Set}(X) \hookrightarrow \PSh_{\Set}(X)\).
   This means that for every \nameref{def:presheaf} \(\mathcal{F}\) and \nameref{def:sheaf} \(\sheaf{G}\) we have \(\Hom_{\Sh}(\mathcal{F}^{\#}, \sheaf{G}) \cong \Hom_{\PSh}(\mathcal{F}, i(\sheaf{G}))\).
 \end{remark}
 
@@ -484,13 +479,16 @@ Before constructing the \nameref{def:sheafification} functor we will take a deto
 
   Then \(f_{\pre}^{-1}\sheaf{G}\) defined as for every open set \(U \subseteq X \quad f_{\pre}^{-1}\sheaf{G}(U) = \colim_{V \supset f(U)} \sheaf{G}(V)\) is a \nameref{def:presheaf} but not a \nameref{def:sheaf}.
 \end{lemma}
+\begin{proof}
+\end{proof}
+
 
 \begin{definition}[Inverse image \nameref{def:sheaf}] \label{def:inverse-image-sheaf}
   Let \(f: X \to Y\) be a continuous map between two topological spaces \(X\) and \(Y\).
   Let \(\sheaf{G}\) be a \nameref{def:sheaf} of sets over \(Y\).
-  Then \textbf{inverse image} \nameref{def:presheaf} of \(\sheaf{G}\) by \(f\) is \(f^{-1}\sheaf{G} = (f_{\pre}^{-1}\sheaf{G})^{\#}\).
+  Then \textbf{inverse image} \nameref{def:sheaf} of \(\sheaf{G}\) by \(f\) is \(f^{-1}\sheaf{G} = (f_{\pre}^{-1}\sheaf{G})^{\#}\).
 
-  This defines an \textit{inverse image functor} \(f^{-1}: \Sh(Y) \to \Sh(X)\).
+  This defines an \textit{inverse image \nameref{def:functor}} \(f^{-1}: \Sh(Y) \to \Sh(X)\).
 \end{definition}
 
 \begin{example}
@@ -498,17 +496,12 @@ Before constructing the \nameref{def:sheafification} functor we will take a deto
   Then the \nameref{def:inverse-image-sheaf} \(f^{-1}\sheaf{G}\) corresponds to the \nameref{def:stalk} \(\sheaf{G}_{p}\).
 \end{example}
 
-\begin{remark}
-
-\end{remark}
-
-
 \begin{proposition} \label{prop:pushforward-inverse-adjunction}
-  For every continuous map \(f: X \to Y\) the functors induced by the \nameref{def:pushforward-sheaf} and the \nameref{def:inverse-image-sheaf} are adjoint.
+  For every continuous map \(f: X \to Y\) the functors induced by the \nameref{def:pushforward-sheaf} and the \nameref{def:inverse-image-sheaf} are \nameref{def:adjoint}.
 \end{proposition}
 
 \begin{remark}
-  \autoref{prop:pushforward-inverse-adjunction} tells us that taking \namerefs{def:stalk} and the \nameref{ex:skyscrapper-sheaf} are adjoint functors.
+  \autoref{prop:pushforward-inverse-adjunction} tells us that taking \namerefs{def:stalk} and the \nameref{ex:skyscrapper-sheaf} are \nameref{def:adjoint} \namerefs{def:functor}.
 \end{remark}
 
 
@@ -553,14 +546,14 @@ We will prove this in steps in the next lemmas.
 \end{lemma}
 \begin{proof}
   Let \(S\) be an arbitrary set.
-  Then using the adjunctions \autoref{remark:sheafification-inclussion-adjunction} and \autoref{prop:pushforward-inverse-adjunction} we have
+  Then using the \namerefs{def:adjoint} \autoref{remark:sheafification-inclussion-adjunction} and \autoref{prop:pushforward-inverse-adjunction} we have
   \begin{align*}
     \Hom_{\Set}((\mathcal{F}^{\#})_{p}, S) &\cong \Hom_{\Sh}(\mathcal{F}^{\#}, \iota_{p, \ast}\underline{S}) \\
                                  &\cong \Hom_{\PSh}(\mathcal{F}, \iota_{p, \ast}\underline{S}) \\
                                  &\cong \Hom_{\Set}(\mathcal{F}_{p}, S)
   \end{align*}
   Therefore since this holds for every set \(S\) we have that the functors \(\Hom_{\Set}((\mathcal{F}^{\#})_{p}, -)\) and \(\Hom_{\Set}(\mathcal{F}_{p}, -)\) are isomorphic.
-  Finally applying the Yonneda lemma we get \((\mathcal{F}^{\#})_{p} \cong \mathcal{F}_{p}\).
+  Finally applying the \nameref{lemma:Yonneda} we get \((\mathcal{F}^{\#})_{p} \cong \mathcal{F}_{p}\).
 \end{proof}
 
 
@@ -576,7 +569,7 @@ We will prove this in steps in the next lemmas.
     \end{tikzcd}
   \end{center}
   We only need to prove that \(\sheaf{G} \cong \sheaf{G}^{\#}\).
-  By \nameref{thm:induced-stalk-isomorphism} we only need to show that for every \(p \in X\) the \nameref{prop:induced-stalk-morphism} is an isomorphism.
+  By \nameref{thm:induced-stalk-isomorphism} we only need to show that for every \(p \in X\) the \nameref{prop:induced-stalk-morphism} is an \nameref{def:categorical-isomorphism}.
   But this is precisely \autoref{lemma:stalks-commute-sheafification}.
 \end{proof}
 

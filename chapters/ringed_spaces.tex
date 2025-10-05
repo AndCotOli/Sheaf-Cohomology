@@ -1,4 +1,6 @@
 \documentclass[../main.tex]{subfiles}
+\zexternaldocument*{algebra}
+\zexternaldocument*{category_theory}
 \zexternaldocument*{sheaves}
 
 \begin{document}
@@ -15,18 +17,18 @@
 
 \begin{example}
   Let and \(X\) be a topological space.
-  Then the \(\mathbb{R}\)-algebra of continuous functions \(\mathcal{C}_{X}^{0}(U) = \left\{ f: U \to \mathbb{R} \mid f \text{ continuous.} \right\}\) with the obvious restriction maps forms a \nameref{def:sheaf} of rings over \(X\).
+  Then the \(\mathbb{R}\)-\nameref{def:algebra} of continuous functions \(\mathcal{C}_{X}^{0}(U) = \left\{ f: U \to \mathbb{R} \mid f \text{ continuous.} \right\}\) with the obvious restriction maps forms a \nameref{def:sheaf} of rings over \(X\).
   Therefore \((X, \mathcal{C}_{X}^{0})\) is a \nameref{def:ringed-space}.
 \end{example}
 
 \begin{example}
-  If for every point \(p \in X\) the \namerefs{def:stalk} \(\mathscr{O}_{X, p}\) of the structure sheaf are \textit{local rings}\footnote{A commutative ring with unity \(R\) is a \textbf{local ring} if \(0 \neq 1\) and for every \(a, b\) such that \(a + b = 1\) either \(a\) or \(b\) is invertible.} then we call \((X, \mathscr{O}_{X})\) a \textbf{locally ringed space}.
+  If for every point \(p \in X\) the \namerefs{def:stalk} \(\mathscr{O}_{X, p}\) of the structure sheaf are \namerefs{def:local-ring} then we call \((X, \mathscr{O}_{X})\) a \textbf{locally ringed space}.
 \end{example}
 
 
 \begin{definition}[Morphism of \namerefs{def:ringed-space}] \label{def:ringed-spaces-morphism}
   Let \((X, \mathscr{O}_{X})\) and \((Y, \mathscr{O}_{Y})\) be two \namerefs{def:ringed-space}.
-  A \textbf{morphism of ringed spaces} \((X, \mathscr{O}_{X}) \to (Y, \mathscr{O}_{Y})\) is a pair \((f, f^{\sharp})\) where \(f: X \to Y\) is a continuous function (i.e: a morphism in \(\Top\)) and \(f^{\sharp}: \mathscr{O}_{Y} \to f_{\ast}\mathscr{O}_{X}\) is an map of sheaves of rings\unsure{Maybe it is better to define \(f^{\sharp}\) as an \(f\)-map. \cite[\href{https://stacks.math.columbia.edu/tag/008K}{Tag 008K}]{stacks-project}} (i.e: a morphism in \(\Sh_{\Ring}(X)\)), where \(f_{\ast}\mathscr{O}_{X}\) is the \nameref{def:pushforward-sheaf}.
+  A \textbf{morphism of ringed spaces} \((X, \mathscr{O}_{X}) \to (Y, \mathscr{O}_{Y})\) is a pair \((f, f^{\sharp})\) where \(f: X \to Y\) is a continuous function (i.e: a morphism in \(\Top\)) and \(f^{\sharp}: \mathscr{O}_{Y} \to f_{\ast}\mathscr{O}_{X}\) is a \nameref{def:sheaf-morphism} of rings\unsure{Maybe it is better to define \(f^{\sharp}\) as an \(f\)-map. \cite[\href{https://stacks.math.columbia.edu/tag/008K}{Tag 008K}]{stacks-project}} (i.e: a morphism in \(\Sh_{\Ring}(X)\)), where \(f_{\ast}\mathscr{O}_{X}\) is the \nameref{def:pushforward-sheaf}.
 \end{definition}
 \SetPluralName{def:ringed-spaces-morphism}{Morphisms of \namerefs{def:ringed-space}}
 
@@ -41,7 +43,7 @@
 
 \begin{definition}[\(\sheaf{O}_{X}\)-module] \label{def:ox-mod}
   Let  \((X, \sheaf{O}_{X})\) be a \nameref{def:ringed-space}.
-  A \textbf{\nameref{def:sheaf} of \(\sheaf{O}_{X}\) modules} (or simply an \(\sheaf{O}_{X}\)-module) is a \nameref{def:sheaf} \(\sheaf{F}\) such that for every open set \(U \subseteq X\) \(\sheaf{F}(U)\) is an \(\sheaf{O}_{X}(U)\)-module compatible with the restriction maps, i.e: for every\\\(f \in \sheaf{O}_{X}(U)\)~and \(s \in \sheaf{F}(U)\): \(\left.\left( f \cdot s \right)\right|_{V} = f|_{V} \cdot s|_{V} \).
+  A \textbf{\nameref{def:sheaf} of \(\sheaf{O}_{X}\) modules} (or simply an \(\sheaf{O}_{X}\)-module) is a \nameref{def:sheaf} \(\sheaf{F}\) such that for every open set \(U \subseteq X\) \(\sheaf{F}(U)\) is an \(\sheaf{O}_{X}(U)\)-\nameref{def:module} compatible with the restriction maps, i.e: for every\\\(f \in \sheaf{O}_{X}(U)\)~and \(s \in \sheaf{F}(U)\): \(\left.\left( f \cdot s \right)\right|_{V} = f|_{V} \cdot s|_{V} \).
 \end{definition}
 
 \begin{example}
@@ -58,11 +60,11 @@
 ...
 \end{example}
 
-Therefore for every \nameref{def:ringed-space} \((X, \sheaf{O}_{X})\) the collection of \namerefs{def:ox-mod} forms a category \oxmod.
+Therefore for every \nameref{def:ringed-space} \((X, \sheaf{O}_{X})\) the collection of \namerefs{def:ox-mod} forms a \nameref{def:category} \oxmod.
 
 \subsection{\oxmod\ and sheaves of abelian groups.} \label{sec:oxmod-and-sh-ab}
 
-Just as abelian groups are \(\mathbb{Z}\)-modules, \namerefs{def:sheaf} of abelian groups can be seen as \(\underline{\mathbb{Z}}_{X}\)-modules where \(\underline{\mathbb{Z}}_{X}\) is the \nameref{ex:constant-sheaf} with coefficients in the integers.
+Just as abelian groups are \(\mathbb{Z}\)-modules, \namerefs{def:sheaf} of abelian groups can be seen as \href{def:ox-mod}{\(\underline{\mathbb{Z}}_{X}\)-modules}, where \(\underline{\mathbb{Z}}_{X}\) is the \nameref{ex:constant-sheaf} with coefficients in the integers.
 
 To show this, for every \nameref{def:sheaf} of abelian groups \(\sheaf{F}\) over \(X\) and every open set \(U \subseteq X\) we have to define an action \(\cdot: \underline{\mathbb{Z}}_{X}(U) \times \sheaf{F}(U) \to \sheaf{F}(U)\) compatible with the restriction maps.
 
