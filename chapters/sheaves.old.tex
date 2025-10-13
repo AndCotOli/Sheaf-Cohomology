@@ -1,0 +1,580 @@
+\documentclass[../main.tex]{subfiles}
+\zexternaldocument*{category_theory}
+
+\begin{document}
+
+\chapter{Sheaf theory}
+
+\section{Introduction}
+
+\todo[inline, color=blue!40]{Write motivations for sheafs and presheafs}
+
+\section{Presheaves and sheaves}
+\subsection{Presheaves}
+\begin{definition}[Presheaf] \label{def:presheaf}
+  Let \(X\) be a topological space and \(\open(X)\) be its associated \nameref{ex:open-set-category}.
+  For an arbitray \nameref{def:category} \(\mathsf{C}\), a \(\mathsf{C}\)-\textbf{valued presheaf} over \(X\) is a \nameref{def:functor}
+  \begin{equation*}
+    \mathcal{F}: \open(X)^{\op} \to \mathsf{C}
+  \end{equation*}
+  Less abstractly, \(\mathcal{F}\) consists of:
+  \begin{enumerate}
+    \item For every open set \(U \subseteq X\) an object \(\mathcal{F}(U)\) in \(\mathsf{C}\), named \textit{sections} of \(\mathcal{F}\) over \(U\).
+    \item For every inclussion of open sets \(V \subseteq U\) of \(X\), a morphism \(\res_{U, V}: \mathcal{F}(U) \to \mathcal{F}(V)\) in \(\mathsf{C}\) named \textit{restriction}, satisfying \(\res_{U, U} = \id_{U}\) and for every \(W \subseteq V \subseteq U\) open subsets \(\res_{V, W} \circ \res_{U, V} = \res_{U, V}\).
+
+    If the source object is clear, we will write \(s|_{V}\) for \(\res_{U, V}(s)\).
+  \end{enumerate}
+\end{definition}
+\SetPluralName{def:presheaf}{Presheaves}
+
+\begin{example}[Constant \nameref{def:presheaf}] \label{ex:constant-presheaf}
+  For an arbitrary set \(S\), the \textbf{constant presheaf} (of sets) associated to \(S\) is the \nameref{def:presheaf} defined as \(\underline{S}_{\pre}(U) = S\) for all \(U \in \open(X)\).
+
+  Note that this verifies the presheaf conditions trivially since for every open set \(U \in \open(X)\), \(\underline{S}_{\pre}(U)\) is a set (namely \(S\)) and, if \(V \subseteq U\) then we can pick \(\id_{S}\) as \(\res_{U, V}\).
+\end{example}
+\SetPluralName{ex:constant-presheaf}{Constant presheaves}
+
+\subsection{Sheaves}
+\begin{definition}[Sheaf] \label{def:sheaf}
+  Let \(X\) be a topological space.
+  A \nameref{def:presheaf} of sets \(\sheaf{F}\) is a \textbf{sheaf} if for every open set \(U \subseteq X\) and open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) the following axioms hold:
+  \begin{enumerate}[label=SH.\arabic*), ref=SH.\arabic*]
+    \item\label{axiom:sheaf-identity} \textbf{Identity}: Given two sections \(s, t \in \sheaf{F}(U)\) such that for every \(i \in \mathcal{I} \quad s|_{U_{i}} = t|_{U_{i}}\) we have that \(s = t\).
+    \item\label{axiom:sheaf-gluability} \textbf{Gluability}: Given a collection of sections \(\{s_{i} \mid s_{i} \in \sheaf{F}(U_{i})\}_{i \in \mathcal{I}}\) that agree on pairwise intersections (\(\forall i, j \in \mathcal{I} \;\; s_{i}|_{U_{i} \cap U_{j}} = s_{j}|_{U_{i} \cap U_{j}}\)) there exists a section \(s \in \sheaf{F}(U)\) such that \(\forall i \in \mathcal{I} \;\; s|_{U_{i}} = s_{i}\).
+  \end{enumerate}
+\end{definition}
+\SetPluralName{def:sheaf}{Sheaves}
+
+\begin{notation}
+  To differentiate between a \nameref{def:presheaf} and a \nameref{def:sheaf}, we will denote the former using \(\mathcal{F}, \mathcal{G}, \mathcal{H}, \ldots\) and the later using \(\sheaf{F}, \sheaf{G}, \sheaf{H}, \ldots\)
+\end{notation}
+
+We will now see an example of a \nameref{def:presheaf} that is not a \nameref{def:sheaf}.
+\begin{example}[The \nameref{ex:constant-presheaf} is not a \nameref{def:sheaf}] \label{ex:constant-presheaf-is-not-sheaf}
+  Consider a set \(X = \{\triangle, \square\}\) endowed with the discrete topology and let \(\underline{S}_{\pre}\) be the \nameref{ex:constant-presheaf} over \(X\) of an arbitrary set \(S\) with more than one element, say \(S = \{0, 1\}\) with \(0 \neq 1\).
+
+  Consider the open cover \(\{X_{1} = \{\triangle\}, X_{2} = \{\square\}\}\) of \(X\) and define \(0 = s_{1} \in \underline{S}_{\pre}(X_{1}) = S\) and \(1 = s_{2} \in \underline{S}_{\pre}(X_{2}) = S\).
+  Since \(X_{1} \cap X_{2} = \varnothing\), \(s_{1}|_{X_{1} \cap X_{2}} = s_{2}|_{X_{1} \cap X_{2}}\).
+
+  Now, let \(s \in \underline{S}_{\pre}(X)\) such that \(s|_{U_{1}} = s_{1}\) and \(s|_{U_{2}} = s_{2}\).
+  Since the restrictions from \(\underline{S}_{\pre}(X)\) are the identity maps we have that
+  \begin{equation*}
+    0 = s_{1} = s|_{U_{1}} = s = s|_{U_{2}} = s_{2} = 1
+  \end{equation*}
+  which is a contradiction because we assumed \(0 \neq 1\).
+
+  Therefore, since \ref{axiom:sheaf-gluability} fails, \(\underline{S}_{\pre}\) is not a sheaf.
+\end{example}
+
+
+However, we can make it a sheaf by considering \textit{locally constant} applications instead.
+\begin{example}[Constant sheaf] \label{ex:constant-sheaf}
+  Let \(X\) be a topological space and \(A\) be an object of a \nameref{def:category} \(\mathsf{C}\)\unsure{What type of category?}.
+  For every open set \(U \subseteq X\), define the \textbf{constant sheaf} over \(X\) of \(A\) as
+  \begin{equation*}
+    \underline{S}(U) = \{f: U \to A \mid f \text{ locally constant}\}
+  \end{equation*}
+  Note that this is a \nameref{def:presheaf}.
+
+  To verify that this is indeed a \nameref{def:sheaf}, let \(U \subseteq X\) be a non-empty open set an \(\{U_{i}\}_{i \in \mathcal{I}}\) be an open cover of \(U\) (in the case where \(U = \varnothing\) the axioms hold trivially).
+  \begin{itemize}
+    \item[\ref{axiom:sheaf-identity}] Suppose \(s\) and \(t\) are two sections of \(\underline{S}(U)\) such that \(\forall i \in \mathcal{I} \;\; s|_{U_{i}} = t|_{U_{i}}\).
+
+          Note that for every \(x \in U\) there exists \(U_{i}\) such that \(x \in U_{i}\).
+
+          Therefore \(s|_{U_{i}} = \{x\} = t_{U_{i}}\) and, since this holds for every \(x \in U\), \(s = t\).
+
+    \item[\ref{axiom:sheaf-gluability}] Suppose \(\{s_{i} \mid s_{i} \in \underline{S}(U_{i})\}_{i \in \mathcal{I}}\) is a collection of sections that agree on pairwise intersection.
+
+          Define \(s: U \to S\) as follows: for each \(x \in U\) choose \(i \in \mathcal{I}\) such that \(x \in U_{i}\) and set \(s(x) = s_{i}(x)\).
+          Note that \(s\) is well-defined since if \(x \in U_{i} \cap U_{j}\) by hypothesis \(s_{i}(x) = s_{j}(x)\).
+          We only need to show that \(s \in \underline{S}\).
+
+          For every \(x \in U\) choose \(U_{i}\) such that \(x \in U_{i}\). Since \(s_{i}\) is locally constant there exists an open neighbourhood \(V \subseteq U_{i}\) of \(x\) such that \(s\) is constant in \(V\). Then since \(s|_{V} = s_{i}|_{V}\) we have that \(s\) is constant in \(V\), meaning that \(s\) is locally constant in \(U\).
+  \end{itemize}
+\end{example}
+\SetPluralName{ex:constant-sheaf}{Constant sheaves}
+
+We can also construct \namerefs{def:sheaf} from other data:
+\begin{example} \label{ex:set-product-sheaf}
+  Let \(X\) be a topological space and let \(\{A_{p}\}_{p \in X}\) be a family of sets.
+
+  Given an open set \(U \subseteq X\) consider \(\prod(U) = \prod_{p \in U} A_{p}\) and if \(V \subseteq U\) define \(\res_{U, V} (a_{p})_{p \in U} = (a_{p})_{p \in V}\), making \(\prod\) into a \nameref{def:presheaf}.
+
+  To check that it is indeed a \nameref{def:sheaf}, consider an open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\).
+  Let \(\{s_{i} \in \prod(U_{i})\}_{i \in \mathcal{I}}\) be such that for every \(i, j \in \mathcal{I} \quad s_{i}|_{U_{i} \cap U_{j}} = s_{j}|_{U_{i} \cap U_{j}}\).
+  If we write \(s_{i} = (a_{i, p})_{p \in U_{i}}\) then the compatibility condition means that \(a_{i, p} = a_{j, p}\) for every \(p \in U_{i} \cap U_{j}\).
+  Therefore there exists \(s = (a_{p})_{p \in U} \in \prod(U)\) such that for every \(p \in U_{i} \quad a_{p} = a_{i, p}\).
+\end{example}
+
+\begin{definition}[Pushforward \nameref{def:sheaf}] \label{def:pushforward-sheaf}
+  Let \(f: X \to Y\) be a continuous map between two topological spaces \(X\) and \(Y\).
+  For any \nameref{def:sheaf} \(\sheaf{F}\) over \(X\), define the \textbf{pushforward sheaf} \(f_{\ast}\sheaf{F}\) in \(Y\) as, for every open subset \(V \subseteq Y\), \(f_{\ast}\sheaf{F}(V) = \sheaf{F}(f^{-1}(V))\).
+
+  This defines a \textit{pushforward \nameref{def:functor}} \(f_{\ast}: \Sh(X) \to \Sh(Y)\).
+\end{definition}
+\SetPluralName{def:pushforward-sheaf}{Pushforwards sheaves}
+
+\begin{example}[Skyscrapper sheaf] \label{ex:skyscrapper-sheaf}
+  Let \(X\) be a topological space with \(p \in X\).
+  Consider the inclussion \(\iota_{p}: \{p\} \hookrightarrow X\).
+  Then the \textbf{skyscrapper sheaf} \(\iota_{p, \ast} \underline{S}\) is the \nameref{def:pushforward-sheaf} of the \nameref{ex:constant-sheaf} \(\underline{S}\):
+  \begin{equation*}
+    \iota_{p, \ast}\underline{S}(U) = \begin{cases}
+      S & p \in U \\
+      \{\ast\} & p \notin U
+    \end{cases}
+  \end{equation*}
+\end{example}
+\SetPluralName{ex:skyscrapper-sheaf}{Skyscrapper sheaves}
+
+We can extend \autoref{def:sheaf} to more general categories using the following\change{Motivation for this definition. Why is it equivalent?}
+\begin{definition}[Sheaf]
+  Let \(X\) be a topological space and let \(\mathsf{C}\) be a \nameref{def:category} with \namerefs{def:categorical-product}.
+  A \(\mathsf{C}\)-valued \nameref{def:presheaf} \(\sheaf{F}\) is a \textbf{sheaf} if for every open set \(U\) and open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) the diagram
+  \begin{equation} \label{diagram:sheaf}
+    \sheaf{F}(U) \rightarrow \prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \rightrightarrows \prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
+  \end{equation}
+  is an \nameref{def:equalizer}.
+\end{definition}
+
+For sufficienly nice categories we have the following \cite[\href{https://stacks.math.columbia.edu/tag/0073}{Tag 0073}]{stacks-project}\unsure{Maybe use as definition?},
+\begin{proposition} \label{prop:sheaves-and-functors}
+  Let \(\mathsf{C}\) be a \nameref{def:category} and \(F: \mathsf{C} \to \Set\) be a \nameref{def:functor} verifying:
+  \begin{enumerate}
+    \item \(F\) is a \nameref{def:faithful-functor}.
+    \item \(\mathsf{C}\) has \namerefs{def:categorical-limit} and \(F\) commutes with them.
+    \item \(F\) \nameref{def:reflects} \namerefs{def:categorical-isomorphism}.
+  \end{enumerate}
+  Then a \(\mathsf{C}\)-valued \nameref{def:presheaf} \(\sheaf{F}\) is a \nameref{def:sheaf} if and only if the underlying \nameref{def:presheaf} of sets \(F(\sheaf{F})\) is a \nameref{def:sheaf}.
+\end{proposition}
+\begin{proof}~
+  \begin{itemize}
+    \item[\(\implies\)] Suppose \(\sheaf{F}\) is a \(\mathsf{C}\)-valued \nameref{def:sheaf}.
+
+          Then, for every open set \(U\), \(\sheaf{F}(U)\) is the \nameref{def:equalizer} of the diagram \eqref{diagram:sheaf}.
+          Therefore since \(F\) commutes with \namerefs{def:categorical-limit} \(F(\sheaf{F}(U))\) is the \nameref{def:equalizer} of the corresponding diagram in \(\Set\).
+    \item[\(\impliedby\)] Suppose now that \(F(\sheaf{F})\) is a \nameref{def:sheaf}.
+
+          Let \(E \in \mathsf{C}\) be the \nameref{def:equalizer} of the diagram \eqref{diagram:sheaf}.
+          Since \(\sheaf{F}(U)\) is a \nameref{def:presheaf} there exists a morphism \(\sheaf{F}(U) \to E\), therefore by applying \(F\) we obtain a morphism of sets \(F(\sheaf{F}(U)) \to F(E)\).
+
+          On the one hand since \(F\) commutes with \nameref{def:categorical-limit} \(F(E)\) is the \nameref{def:equalizer} of the corresponding diagram in \(\Set\).
+          On the other since \(F(\sheaf{F})\) is a \nameref{def:sheaf}, it is the \nameref{def:equalizer} of the same diagram.
+          Therefore the morphism \(F(\sheaf{F}(U)) \to  F(E)\) is an \nameref{def:categorical-isomorphism}.
+
+          Finally since \(F\) \nameref{def:reflects} \namerefs{def:categorical-isomorphism} we have that \(\sheaf{F}(U) \to E\) is an \nameref{def:categorical-isomorphism}.
+  \end{itemize}
+\end{proof}
+In particular \autoref{prop:sheaves-and-functors} applies to \namerefs{def:sheaf} of groups, rings, algebras/modules/vector spaces over a fixed ring, etc.
+
+Since we will be mainly interested in \namerefs{def:sheaf} of abelian groups and rings, we can restrict ourselves to the study of \namerefs{def:sheaf} of sets and apply \autoref{prop:sheaves-and-functors} when needed.
+
+
+
+\section{Morphisms of (pre)sheaves}
+
+\begin{definition}[Morphism of \namerefs{def:presheaf}] \label{def:presheaf-morphism}
+  Let \(\mathcal{F}, \mathcal{G}\) be two \(\mathsf{C}\)-valued \namerefs{def:presheaf} over a topological space \(X\).
+  A \textbf{presheaf morphism} \(\phi: \mathcal{F} \to \mathcal{G}\) is a \nameref{def:natural-transformation} between the \namerefs{def:functor} \(\mathcal{F}\) and \(\mathcal{G}\).
+
+  Less abstractly, a presheaf morphism \(\phi: \mathcal{F} \to \mathcal{G}\) is the a collection of maps \(\{\phi(U): \mathcal{F}(U) \to \mathcal{G}(U)\}_{U \in \open(X)}\) such that if \(V \subseteq U\) then the following diagram commutes
+  \begin{center}
+     \begin{tikzcd}
+      \mathcal{F}(U) \arrow[r, "\phi(U)"] \arrow[d, "\res_{U, V}"] & \mathcal{G}(U) \arrow[d, "\res_{U, V}"] \\
+      \mathcal{F}(V) \arrow[r, "\phi(V)"] & \mathcal{G}(V)
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+\SetPluralName{def:presheaf-morphism}{Morphisms of \namerefs{def:presheaf}}
+
+
+\begin{definition}[Morphism of \namerefs{def:sheaf}] \label{def:sheaf-morphism}
+  Let \(\sheaf{F}, \sheaf{G}\) be two \(\mathsf{C}\)-valued \namerefs{def:sheaf} over a topological space \(X\).
+  A \textbf{sheaf morphism} \(\phi: \sheaf{F} \to \sheaf{G}\) is a \nameref{def:presheaf-morphism} between \(\sheaf{F}\) and \(\sheaf{G}\).
+\end{definition}
+\SetPluralName{def:sheaf-morphism}{Morphisms of \nameref{def:sheaf}}
+
+With this choice of morphisms, \namerefs{def:presheaf} and \namerefs{def:sheaf} valued in a \nameref{def:category} \(\mathsf{C}\) over a topological space \(X\) form a \nameref{def:category}.
+
+\begin{notation}
+  We will denote the \nameref{def:category} of \(\mathsf{C}\)-valued \namerefs{def:presheaf} over a topological space \(X\) as \(\PSh_{\mathsf{C}}(X)\) and the \nameref{def:category} of \(\mathsf{C}\)-valued \namerefs{def:sheaf} over \(X\) as \(\Sh_{\mathsf{C}}(X)\).
+\end{notation}
+
+\begin{remark} \label{remark:presheaf-full-subcategory}
+  The category \(\Sh_{\mathsf{C}}(X)\) is a \nameref{def:full-subcategory} of \(\PSh_{\mathsf{C}}(X)\) by the definition of \nameref{def:sheaf-morphism}, i.e: the inclusion functor \(\iota: \Sh_{\mathsf{C}}(X) \hookrightarrow \PSh_{\mathsf{C}}(X)\) is a \nameref{def:fully-faithful-functor}.
+\end{remark}
+
+\begin{definition}[\(\HomS\) \nameref{def:sheaf}] \label{def:hom-sheaf}
+  Let \(\sheaf{F}, \sheaf{G} \in \Sh_{\Set}(X)\) be two \namerefs{def:sheaf} of sets over \(X\).
+  We define the \(\HomS\) \nameref{def:sheaf} (of sets) between \(\sheaf{F}\) and \(\sheaf{G}\) as
+  \begin{equation*}
+    \forall U \in \open(X) \quad \HomS(\sheaf{F}, \sheaf{G})(U) = \Mor(\sheaf{F}|_{U}, \sheaf{G}|_{U})
+  \end{equation*}
+\end{definition}
+\SetPluralName{def:hom-sheaf}{\(\HomS\) \namerefs{def:sheaf}}
+
+\begin{remark}
+  Let's check that the \nameref{def:hom-sheaf} \(\HomS(\sheaf{F}, \sheaf{G})\) is indeed a \nameref{def:sheaf} of sets for any \(\sheaf{F}, \sheaf{G} \in \Sh_{\Set}(X)\).
+
+  First, we need to verify that it is a \nameref{def:presheaf}.
+
+  We only need to define the restriction maps and check commutativity.
+  For a fixed open set \(U\), the restriction of a section \(s \in \HomS(\sheaf{F}, \sheaf{G})(U)\) to an open subset \(V \subseteq U\) is \(s|_{V} \in \Mor(\sheaf{F}|_{V}, \sheaf{G}|_{V})\) defined as \(s|_{V}(W) = s(W): \sheaf{F}(W) \to \sheaf{G}(W)\) for every open set \(W \subseteq V\).
+  Note that, since \(W\) is an open subset of \(U\), commutativity in \(V\) is inherited from commutativity in \(U\).
+
+  Now, we will check the \nameref{def:sheaf} axioms. To do this, consider an open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) of an open set \(U\).
+  \begin{itemize}
+    \item[\ref{axiom:sheaf-identity}] Let \(\phi, \psi \in \HomS(\sheaf{F}, \sheaf{G})(U)\) be two sections such that for every \(i \in \mathcal{I} \;\; \phi|_{U_{i}} = \psi|_{U_{i}}\). We want to show that for every open subset \(V \subseteq U\) the maps \(\phi(V)\) and \(\psi(V)\) are the same.
+
+          First, note that \(\{V \cap U_{i}\}_{i \in \mathcal{I}}\) is an open cover of \(V\).
+          Then, for any \(s \in \sheaf{F}(V)\) consider the restrictions \(s|_{V \cap U_{i}} \in \sheaf{F}(V \cap U_{i})\).
+
+          Since \(\phi|_{U_{i}} = \psi|_{U_{i}}\) we have that
+          \begin{equation*}
+            \phi(V)(s|_{V \cap U_{i}}) = \phi(V \cap U_{i})(s|_{V \cap U_{i}}) = \psi(V \cap U_{i})(s|_{V \cap U_{i}}) = \psi(V)(s|_{V \cap U_{i}})
+          \end{equation*}
+
+          Therefore, by applying \ref{axiom:sheaf-identity} to \(\sheaf{G}\) we have that \(\phi(V)(s) = \psi(V)(s)\), i.e: \(\phi(V) = \psi(V)\).
+    \item[\ref{axiom:sheaf-gluability}] Let \(\{\phi_{i} \mid \phi_{i} \in \HomS(\sheaf{F}, \sheaf{G})(U_{i})\}\) be a collection of sections that agree on pairwise intersection. We want to show that there exists \(\phi \in \HomS(\sheaf{F}, \sheaf{G})(U)\) such that for every \(i \in \mathcal{I} \;\; \phi|_{U_{i}} = \phi_{i}\).
+
+          Let \(V \subseteq U\) be an open set and \(s \in \sheaf{F}(V)\).
+          For every \(i \in \mathcal{I}\) consider \(s_{i} = s|_{V \cap U_{i}} \in \sheaf{F}(V \cap U_{i})\).
+          Applying \(\phi_{i}\) we get \(t_{i} = \phi_{i}(V \cap U_{i})(s_{i}) \in \sheaf{G}(V \cap U_{i})\).
+
+          Since for any \(i, j \in \mathcal{I} \;\; \phi_{i}|_{U_{i} \cap U_{j}} = \phi_{j}|_{U_{i} \cap U_{j}}\) we have that \(t_{i}|_{V \cap U_{i} \cap U_{j}} = t_{j}|_{V \cap U_{i} \cap U_{j}}\).
+          Therefore since the sections \(\{t_{i}\}_{i \in \mathcal{I}}\) agree on pairwise intersection applying \ref{axiom:sheaf-gluability} we have that there exists \(t \in \sheaf{G}(V)\) such that \(\forall i \in \mathcal{I} \;\; t|_{V \cap U_{i}} = t_{i}\).
+
+          This defines a map \(\phi(V): \sheaf{F}(V) \to \sheaf{G}(V)\) for every open set \(V \subseteq U\).
+          We need to show that this map is a \nameref{def:sheaf-morphism}, i.e: that it commutes with restriction maps.
+          Let \(W \subseteq V\) be an open set and \(s \in \sheaf{F}(V)\). We want to show that \(\phi(W)(s|_{W}) = \phi(V)(s)|_{W}\).
+
+          By construction, \(\phi(V)(s)\) is the unique section in \(\sheaf{G}(V)\) such that for all \(i \in \mathcal{I}\)
+          \begin{equation*}
+            \phi(V)(s)|_{V \cap U_{i}} = \phi(V \cap U_{i})(s|_{V \cap U_{i}})
+          \end{equation*}
+          Then restricting boths sides to \(W \cap U_{i}\)
+          \begin{equation*}
+            \left( \phi(V \cap U_{i})(s|_{V \cap U_{i}}) \right)|_{W \cap U_{i}} = \left( \phi(V \cap U_{i})(s|_{V \cap U_{i}}) \right)|_{W \cap U_{i}} = \phi_{i}(V \cap U_{i})(s|_{V \cap U_{i}})|_{W \cap U_{i}}
+          \end{equation*}
+          Since \(\phi_{i}\) is a \nameref{def:sheaf-morphism} it commutes with restrictions, giving
+          \begin{equation*}
+             \phi_{i}(V \cap U_{i})(s|_{V \cap U_{i}})|_{W \cap U_{i}} = \phi_{i}(W \cap U_{i})((s|_{V \cap U_{i}})|_{W \cap U_{i}}) = \phi_{i}(W \cap U_{i})(s|_{W \cap U_{i}})
+           \end{equation*}
+          Therefore
+          \begin{equation*}
+            \phi(V)(s)|_{W \cap U_{i}} = \phi_{i}(W \cap U_{i})(s|_{W \cap U_{i}})
+          \end{equation*}
+
+          On the other hand, \(\phi(W)(s|_{W})\) is by definition the unique section in \(\sheaf{G}(W)\) such that for all \(i \in \mathcal{I}\)
+          \begin{equation*}
+            \phi(W)(s|_{W})|_{W \cap U_{i}} = \phi_{i}(W \cap U_{i})((s|_{W})|_{W \cap U_{i}}) = \phi_{i}(W \cap U_{i})(s|_{W \cap U_{i}})
+          \end{equation*}
+          Therefore we have that for all \(i \in \mathcal{I}\)
+          \begin{equation*}
+            \phi(V)(s)|_{W \cap U_{i}} = \phi(W)(s|_{W})|_{W \cap U_{i}}
+          \end{equation*}
+          Applying \ref{axiom:sheaf-identity} we get \(\phi(V)(s)|_{W} = \phi(W)(s|_{W})\).
+
+          It only remains to show that \(\phi|_{U_{i}} = \phi_{i}\).
+          Indeed, for every open subset \(V \subseteq U_{i}\) and \(s \in \sheaf{F}(V)\) we have that \(\phi(V)(s) = \phi_{i}(V)(s)\) so applying \ref{axiom:sheaf-gluability} on the open cover \(\{V \cap U_{j}\}_{j \in \mathcal{I}}\) we have that \(\phi(V) = \phi_{i}(V)\).
+  \end{itemize}
+
+  Note that to check the \nameref{def:sheaf} axioms we only used that \(\sheaf{G}\) is a \nameref{def:sheaf}, therefore the hypothesis of \(\sheaf{F}\) being a \nameref{def:sheaf} may be dropped.
+\end{remark}
+
+\begin{remark}\improvement{This should be rewritten.}
+  We can extend \nameref{def:hom-sheaf} to other evaluation \namerefs{def:category} other than \(\Set\).
+  However, this will be a sheaf only if the evaluation \nameref{def:category} is \textit{sufficiently} nice (in particular, if it is complete).
+
+  For example, if \(\sheaf{F}, \sheaf{G} \in \Sh_{\Ab}(X)\) we can define the \(\HomS\) sheaf, this time an abelian group \nameref{def:sheaf}, by considering the maps \(\sheaf{F}|_{U} \to \sheaf{G}|_{U}\) as morphisms between abelian groups.
+  To distinguish these \namerefs{def:hom-sheaf} from the \(\Set\)-valued version, we will denote them by \(\HomS_{\Sh_{\mathsf{C}}(X)}\), although many times the subscript will be dropped if the category is clear.
+\end{remark}
+
+\begin{example}
+  If \(\sheaf{F}\) is a \nameref{def:sheaf} of sets over a topological space \(X\) then the \nameref{def:hom-sheaf} is \(\HomS(\underline{\{p\}}, \sheaf{F}) \cong \sheaf{F}\).
+
+  First, note that for every open set \(U \subseteq X \;\; \HomS(\underline{\{p\}}, \sheaf{F})(U) = \Hom(\underline{\{p\}}|_{U}, \sheaf{F}|_{U})\).
+  Therefore for every \(U \subseteq X\) the elements of the \nameref{def:hom-sheaf} at \(U\) are morphisms\\ \(\phi: \underline{\{p\}}|_{U} \to \sheaf{F}|_{U}\), i.e: a collection of maps \(\phi(V): \underline{\{p\}}|_{V} \to \sheaf{F}|_{V}\) that commute with the restriction maps for every \(V \subseteq U\) open.
+  Furthermore since \(\underline{\{p\}}|_{V} = \{p\}\) the maps \(\phi(V)\) are determined by the image of \(p\).
+
+  Consider \(s^{(V)} = \phi(V)(p) \in \sheaf{F}(V)\).
+  Since \(\phi\) commutes with restriction maps we have that for every \(W \subseteq V\) open \(\res_{V, W} s^{(W)} = s^{(V)}\).
+  Therefore \(\{s^{(V)}\}_{V \subseteq U}\) is a compatible family of sections, which means that by \ref{axiom:sheaf-gluability} there exists a unique section \(s \in \sheaf{F}(U)\) such that \(s|_{V} = s^{(V)}\) for every \(V \subseteq U\) open.
+  In particular taking \(V = U\) we have that \(s|_{U} = s\), i.e: the morphism \(\phi\) is uniquely determined by the section \(s = \phi(U)(p) \in \sheaf{F}(U)\).
+
+  On the other hand, given any section \(s \in \sheaf{F}(U)\) we can define a morphism\\ \(\phi: \underline{\{p\}}|_{U} \to \sheaf{F}|_{U}\) by \(\phi(V)(p) = s|_{V}\) for all \(V \subseteq U\) open.
+
+  Since this morphism satisfies the compatibility conditions, for every open set \(U \subseteq X\) we have a bijection
+  \begin{align*}
+    \Theta_{U}:& \HomS(\underline{\{p\}}, \sheaf{F})(U) \to \sheaf{F}(U) \\
+    & \phi \mapsto \phi(U)(p)
+  \end{align*}
+
+  It remains to show that \(\Theta_{U}\) is a \nameref{def:sheaf-morphism}, i.e: that the following diagram commutes for every \(V \subseteq U\) open.
+  \begin{center}
+   \begin{tikzcd}
+     \HomS(\underline{\{p\}}, \sheaf{F})(U) \arrow[r, "\Theta_{U}"] \arrow[d, "\res_{U, V}"] & \sheaf{F}(U) \arrow[d, "\res_{U, V}"] \\
+     \HomS(\underline{\{p\}}, \sheaf{F})(V) \arrow[r, "\Theta_{V}"] & \sheaf{F}(V)
+   \end{tikzcd}
+  \end{center}
+
+  Let \(\phi \in \HomS(\underline{\{p\}}, \sheaf{F})(U)\).
+  Note that since \(\phi\) is a \nameref{def:sheaf-morphism}
+  \begin{align*}
+    \left( \Theta_{V} \circ \res_{U, V} \right)(\phi) &= \Theta_{V}(\phi|_{V}) = (\phi|_{V})(V)(p) = \phi(V)(p) \\
+                                          &= \res_{U, V}\phi(U)(p) = (\res_{U, V} \circ \Theta_{U})(\phi)
+  \end{align*}
+
+  Therefore the collection of maps \(\{\Theta_{U}\}_{U \in \open(X)}\) defines an \nameref{def:categorical-isomorphism}
+  \begin{equation*}
+    \HomS(\underline{\{p\}}, \sheaf{F}) \cong \sheaf{F}
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  If \(\sheaf{F}\) is a \nameref{def:sheaf} of abelian groups then \(\HomS(\underline{\mathbb{Z}}, \sheaf{F}) \cong \sheaf{F}\).
+\end{example}
+
+\section{Stalks and germs.}
+
+\begin{definition}[Stalk] \label{def:stalk}
+  Let \(\mathcal{F}\) be a \nameref{def:presheaf} of sets over a topological space \(X\).
+  The \textbf{stalk} of \(\mathcal{F}\) at a point \(p \in X\) is
+  \begin{equation*}
+    \mathcal{F}_{p} = \colim_{\substack{U \ni p \\ U \text{ open}}} \mathcal{F}(U)
+  \end{equation*}
+  where the \nameref{def:categorical-colimit} is over the set of open neighbourhoods of \(p\).
+
+  This defines a \textit{stalkification \nameref{def:functor}} \((-)_{p}: \PSh_{\Set}(X) \to \Set\).
+\end{definition}
+\begin{remark} \label{remark:stalk}
+  Since the set of open neighbourhoods of a point is partially ordered by reverse inclussion the \nameref{def:stalk} \nameref{def:categorical-colimit} is a \nameref{def:directed-colimit}.
+  Therefore we can describe \(\mathcal{F}_{p}\) as
+  \begin{equation*}
+    \mathcal{F}_{p} = \quot{\{(s, U) \mid p \in U, \, s \in \mathcal{F}(U)\}}{\sim}
+  \end{equation*}
+  where \((s, U) \sim (t, V)\) if and only if there exists an open set \(W \subseteq U \cap V\) with \(p \in W\) such that \(s|_{W} = t|_{W}\).
+
+  For a section \(f \in \mathcal{F}(U)\) we call \(f_{p} = [(f, U)] \in \mathcal{F}_{p}\) the \textbf{germ} of \(f\) at \(p\).
+\end{remark}
+
+\begin{example}
+  Following \autoref{ex:set-product-sheaf} given a \nameref{def:presheaf} of sets over a topological space \(X\) we can define the \nameref{def:sheaf} \(\prod(\mathcal{F})\) as \(\prod(\mathcal{F})(U) = \prod_{p \in U} \mathcal{F}_{p}\) for every open set \(U \subseteq X\).
+\end{example}
+
+
+\begin{proposition} \label{prop:map-to-prod-stalks-injective}
+  Let \(X\) be a topological space and let \(\sheaf{F}\) be a \nameref{def:sheaf} of sets over \(X\). Then for every open set \(U \subseteq X\) the map \(\sheaf{F}(U) \to \prod_{p \in U} \sheaf{F}_{p}\) is injective.
+\end{proposition}
+\begin{proof}
+  Let \(s, t \in \sheaf{F}(U)\) be two sections that map to the same element in every \nameref{def:stalk} \(\sheaf{F}_{p}\) for every \(p \in U\).
+  Then by \autoref{remark:stalk} for every \(p \in U\) there exists an open neighbourhood \(V^{p} \subseteq U\) such that \(s|_{V^{p}} = t|_{V^{p}}\).
+  Therefore since \(\{V_{p}\}_{p \in U}\) is an open covering of \(U\) by \ref{axiom:sheaf-identity} \(s = t\).
+\end{proof}
+
+\begin{proposition}[Induced \nameref{def:stalk} morphism] \label{prop:induced-stalk-morphism}
+  Let \(\mathcal{F}, \mathcal{G} \in \PSh_{\Set}(X)\) be two \namerefs{def:presheaf} of sets over \(X\) and \(\phi: \mathcal{F} \to \mathcal{G}\) a \nameref{def:presheaf-morphism}.
+  Then for every \(p \in X\), \(\phi\) induces a morphism of \namerefs{def:stalk} \(\phi_{p}: \mathcal{F}_{p} \to \mathcal{G}_{p}\).
+\end{proposition}
+\begin{proof}
+  We have the following diagram, where the vertical arrows come from the \nameref{def:categorical-colimit} definition.
+
+  \begin{center}
+    \begin{tikzcd}
+      \mathcal{F}(U) \arrow[r, "\phi(U)"] \arrow[d] & \mathcal{G}(U) \arrow[d] \\
+      \mathcal{F}_{p} \arrow[r, "\phi_{p}", dashed] & \mathcal{G}_{p}
+    \end{tikzcd}
+  \end{center}
+  Therefore, we just need to define for every \([(f, U)] \in \mathcal{F}_{p} \quad \phi_{p}([(f, U)]) = [(\phi(U)(f), U)]\).
+\end{proof}
+
+
+To generalize the concept of \nameref{def:stalk} to other \namerefs{def:category} in a similar fashion to \autoref{prop:sheaves-and-functors} we have the following result
+\begin{proposition}
+  Let \(\mathsf{C}\) be a \nameref{def:category} and \(F: \mathsf{C} \to \Set\) be a \nameref{def:functor} verifying:
+  \begin{enumerate}
+    \item \(F\) is a \nameref{def:faithful-functor}.
+    \item \namerefs{def:directed-colimit} exist in \(\mathsf{C}\) and \(F\) commutes with them.
+  \end{enumerate}
+  Let \(X\) be a topological space and \(p \in X\). Let \(\mathcal{F}\) be a \(\mathsf{C}\)-valued \nameref{def:presheaf}.
+  Then \(\mathcal{F}_{p} = \colim_{p \in U} \mathcal{F}(U)\) exists in \(\mathsf{C}\) and its underlying set \(F(\mathcal{F}_{p})\) is equal to the \nameref{def:stalk} of sets of \(\mathcal{F}\).
+
+  Furthermore the construction \(\mathcal{F} \mapsto \mathcal{F}_{p}\) is functorial.
+\end{proposition}
+\begin{proof}
+  Since \namerefs{def:directed-colimit} exist in \(\mathsf{C}\) by \autoref{remark:stalk} the \nameref{def:stalk} \(\mathcal{F}_{p}\) exists in \(\mathsf{C}\).
+  Uniqueness of the \nameref{def:stalk} follows analogously to \autoref{prop:sheaves-and-functors}.
+\end{proof}
+
+\begin{theorem}[\namerefs{def:stalk} and \namerefs{def:categorical-isomorphism}] \label{thm:induced-stalk-isomorphism}
+  Let \(\sheaf{F}, \sheaf{G}\) be two \namerefs{def:sheaf} of sets over a topological space \(X\) and let \(\phi: \sheaf{F} \to \sheaf{G}\) be a \nameref{def:sheaf-morphism}.
+  Then \(\phi\) is an \nameref{def:categorical-isomorphism} if and only if for every \(p \in X\) the \nameref{prop:induced-stalk-morphism} \(\phi_{p}: \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \nameref{def:categorical-isomorphism}.
+\end{theorem}
+\begin{proof}
+  Suppose first that \(\phi\) is an \nameref{def:categorical-isomorphism}.
+  Then since taking \namerefs{def:stalk} is a \nameref{def:functor} and \nameref{prop:functors-preserve-isomorphisms}, \(\phi_{p}\) is an \nameref{def:categorical-isomorphism}.
+
+  To prove the converse, suppose that for every \(p \in X \;\; \phi_{p}\) is an \nameref{def:categorical-isomorphism}.
+  We are going to show that for every open set \(U \subseteq X \;\; \phi(U): \sheaf{F}(U) \to \sheaf{G}(U)\) is an \nameref{def:categorical-isomorphism} by proving that it is an injective and surjective morphism in \(\Set\).
+
+  For the injectivity, let \(s, t \in \sheaf{F}(U)\) be two sections such that \(\phi(U)(s) = \phi(U)(t)\).
+  Then for every \(p \in U\) we have that \(\phi_{p}(s_{p}) = \phi_{p}(t_{p})\).
+  Since \(\phi_{p}\) is an \nameref{def:categorical-isomorphism} in particular is injective, therefore \(s_{p} = t_{p}\).
+  This means that there exist \(V_{p} \subseteq U\) open neighbourhood of \(p\) such that \(s|_{V_{p}} = t|_{V_{p}}\).
+  Since \(\{V_{p}\}_{p \in U}\) is an open cover of \(U\) by \ref{axiom:sheaf-identity} we have that \(s = p\), i.e: \(\phi(U)\) is injective.
+
+  For surjectivity, consider \(t \in \sheaf{G}(U)\).
+  For every \(p \in U\) since \(\phi_{p}\) is surjective we have that there exists \(s_{p} \in \sheaf{F}_{p}\) such that \(\phi_{p}(s_{p}) = t_{p}\).
+  By definition of \nameref{def:stalk} we have that there exists an open neighbourhood \(U_{p} \subseteq U\) of \(p\) and a section \(s^{(p)} \in \sheaf{F}(U_{p})\) such that \(\phi(U_{p})(s^{(p)}) = t|_{U_{p}}\).
+  Note that on overlaps \(U_{p} \cap U_{q}\) we have that
+  \begin{equation*}
+    \phi(U_{p} \cap U_{q})(s^{(p)}|_{U_{p} \cap U_{q}}) = t|_{U_{p} \cap U_{q}} = \phi(U_{p} \cap U_{q})(s^{(q)}|_{U_{p} \cap U_{q}})
+  \end{equation*}
+  Therefore since \(\phi\) is injective we have that \(s^{(p)}|_{U_{p} \cap U_{q}} = s^{(q)}|_{U_{p} \cap U_{q}}\).
+  Then by \ref{axiom:sheaf-gluability} there exists a section \(s \in \sheaf{F}(U)\) such that \(\phi(U)(s) = t\), proving surjectivity.
+\end{proof}
+
+
+\section{Sheafification}
+In \autoref{ex:constant-presheaf} we have seen how we can \textit{convert} a \nameref{def:presheaf} into a \nameref{def:sheaf}.
+We are now going to see how we can construct \namerefs{def:sheaf} from \namerefs{def:presheaf}.
+
+We will first define categorically what \textbf{sheafification} ought to be and then we will construct it, therefore showing its existence.
+
+We can restrict ourselves to the case where \(\mathsf{C} = \Set\) and use \autoref{prop:sheaves-and-functors} when working on more \textit{general} categories.
+
+\begin{definition}[Sheafification] \label{def:sheafification}
+  Let \(\mathcal{F}\) be a \nameref{def:presheaf} of sets over a topological space \(X\).
+  A \nameref{def:presheaf-morphism} \((-)^{\#}: \mathcal{F} \to \mathcal{F}^{\#}\) is the \textbf{sheafification} of \(\mathcal{F}\) if \(\mathcal{F}^{\#}\) is a \nameref{def:sheaf} and for any other \nameref{def:sheaf} \(\sheaf{G}\) and \nameref{def:presheaf-morphism} \(\psi: \mathcal{F} \to \sheaf{G}\) there exists a unique \nameref{def:sheaf-morphism} \(\phi: \mathcal{F}^{\#} \to \sheaf{G}\) making the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      \mathcal{F} \arrow[r, "(-)^{\#}"] \arrow[rd, "\psi" below] & \mathcal{F}^{\#} \arrow[d, "\phi"] \\
+      & \sheaf{G}
+    \end{tikzcd}
+  \end{center}
+  This defines a \textit{sheafification \nameref{def:functor}} \((-)^{\#}: \PSh_{\Set}(X) \to \Sh_{\Set}(X)\).
+\end{definition}
+
+\begin{remark}[Uniqueness of \nameref{def:sheafification}]
+  Since \nameref{def:sheafification} is defined using an \nameref{def:universal-property} if it exists it is unique (up to unique \nameref{def:categorical-isomorphism}).
+  Therefore we can speak of \textit{the} \nameref{def:sheafification} of a \nameref{def:presheaf} instead of \textit{a} \nameref{def:sheafification}.
+\end{remark}
+
+\begin{remark} \label{remark:sheafification-inclussion-adjunction}
+  The \nameref{def:sheafification} functor is left-\nameref{def:adjoint} to the inclussion functor \(i: \Sh_{\Set}(X) \hookrightarrow \PSh_{\Set}(X)\).
+  This means that for every \nameref{def:presheaf} \(\mathcal{F}\) and \nameref{def:sheaf} \(\sheaf{G}\) we have \(\Hom_{\Sh}(\mathcal{F}^{\#}, \sheaf{G}) \cong \Hom_{\PSh}(\mathcal{F}, i(\sheaf{G}))\).
+\end{remark}
+
+
+\begin{example}
+  For any \nameref{def:sheaf} \(\sheaf{F}\) its \nameref{def:sheafification} is itself: \(\sheaf{F}^{\#} = \sheaf{F}\) with \((-)^{\#}: \sheaf{F} \to \sheaf{F}^{\#}\) the identity morphism.
+\end{example}
+
+Before constructing the \nameref{def:sheafification} functor we will take a detour to study the inverse image \nameref{def:sheaf} and its relation to \namerefs{def:stalk}.
+
+\begin{lemma}
+  Let \(f: X \to Y\) be a continuous map between two topological spaces \(X\) and \(Y\).
+  Let \(\sheaf{G}\) be a \nameref{def:sheaf} over \(Y\).
+
+  Then \(f_{\pre}^{-1}\sheaf{G}\) defined as for every open set \(U \subseteq X \quad f_{\pre}^{-1}\sheaf{G}(U) = \colim_{V \supset f(U)} \sheaf{G}(V)\) is a \nameref{def:presheaf} but not a \nameref{def:sheaf}.
+\end{lemma}
+\begin{proof}
+\end{proof}
+
+
+\begin{definition}[Inverse image \nameref{def:sheaf}] \label{def:inverse-image-sheaf}
+  Let \(f: X \to Y\) be a continuous map between two topological spaces \(X\) and \(Y\).
+  Let \(\sheaf{G}\) be a \nameref{def:sheaf} of sets over \(Y\).
+  Then \textbf{inverse image} \nameref{def:sheaf} of \(\sheaf{G}\) by \(f\) is \(f^{-1}\sheaf{G} = (f_{\pre}^{-1}\sheaf{G})^{\#}\).
+
+  This defines an \textit{inverse image \nameref{def:functor}} \(f^{-1}: \Sh(Y) \to \Sh(X)\).
+\end{definition}
+
+\begin{example}
+  Let \(Y\) be a topological space and \(p \in Y\).
+  Then the \nameref{def:inverse-image-sheaf} \(f^{-1}\sheaf{G}\) corresponds to the \nameref{def:stalk} \(\sheaf{G}_{p}\).
+\end{example}
+
+\begin{proposition} \label{prop:pushforward-inverse-adjunction}
+  For every continuous map \(f: X \to Y\) the functors induced by the \nameref{def:pushforward-sheaf} and the \nameref{def:inverse-image-sheaf} are \nameref{def:adjoint}.
+\end{proposition}
+
+\begin{remark}
+  \autoref{prop:pushforward-inverse-adjunction} tells us that taking \namerefs{def:stalk} and the \nameref{ex:skyscrapper-sheaf} are \nameref{def:adjoint} \namerefs{def:functor}.
+\end{remark}
+
+
+We will now construct the \nameref{def:sheafification} of a \nameref{def:presheaf} \(\mathcal{F}\).
+Our goal is to prove the following.
+\begin{theorem}[Construction of the \nameref{def:sheafification}]\label{thm:sheafification-construction}
+  Let \(\mathcal{F}\) be a \nameref{def:presheaf} of sets over a topological space \(X\). Then
+  \begin{equation} \label{eq:f-sharp}
+    \mathcal{F}^{\#}(U) = \left\{ (f_{p} \in \mathcal{F}_{p})_{p \in U} \mid f_{p} \text{ verifies } (\ast) \right\}
+  \end{equation}
+  where \((\ast)\) is the property "for all \(p \in U\) there exists an open neighbourhood \(V \subseteq U\) of \(p\) and \(s \in \mathcal{F}(V)\) such that for all \(q \in V \quad f_{q} = s_{q}\)" is the \nameref{def:sheafification} of \(\mathcal{F}\).
+\end{theorem}
+
+We will prove this in steps in the next lemmas.
+
+\begin{lemma}
+  \(\mathcal{F}^{\#}\) is a \nameref{def:sheaf} (of sets) and there exists a \textit{canonical} \nameref{def:presheaf-morphism} \(\mathcal{F} \to \mathcal{F}^{\#}\).
+\end{lemma}
+\begin{proof}
+  Note that given \(u \in U\) the condition \((\ast)\) depends only on the values of \(s_{q}\) for \(q\) in an open neighbourhood of \(p\) the map \(\prod_{p \in U} \mathcal{F}_{p} \to \prod_{q \in V} \mathcal{F}_{q}\) sends elements of \(\mathcal{F}^{\#}(U)\) to \(\mathcal{F}^{\#}(V)\).
+  Therefore taking this maps as restriction maps we make \(\mathcal{F}^{\#}\) into a \nameref{def:presheaf}.
+
+  Furthermore using the map described in \autoref{prop:map-to-prod-stalks-injective} for every \(V \subseteq U\) open we get the following commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      \mathcal{F}(U) \arrow[r] \arrow[d] & \mathcal{F}^{\#}(U) \arrow[r, tail] \arrow[d] & \prod\limits_{p \in U} \mathcal{F}_{p} \arrow[d] \\
+      \mathcal{F}(V) \arrow[r] & \mathcal{F}^{\#}(V) \arrow[r, tail] & \prod\limits_{q \in V} \mathcal{F}_{q}
+    \end{tikzcd}
+  \end{center}
+  where the vertical arrows come from the restriction maps, giving a \nameref{def:presheaf-morphism} \(\mathcal{F} \to \mathcal{F}^{\#}\).
+
+  To see that \(\mathcal{F}^{\#}\) is indeed a \nameref{def:sheaf}, consider an open set \(U \subseteq X\) and an open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\).
+
+  For every \(i \in \mathcal{I}\) let \(s_{i} = (s_{i, p})_{p \in U_{i}} \in \mathcal{F}^{\#}(U_{i})\) such that for all \(i, j \in \mathcal{I} \quad s_{i}|_{U_{i} \cap U_{j}} = s_{j}|_{U_{i} \cap U_{j}}\).
+  Since \(\prod_{p \in U} \mathcal{F}_{p}\) is a \nameref{def:sheaf} we can get an element \(s = (s_{p})_{p \in U} \in \prod_{p \in U} \mathcal{F}_{p}\) by restricting \(s_{i}\) to \(U_{i}\).
+  Consider \(p \in U\). Since \(p \in U_{i}\) for some \(i \in \mathcal{I}\) by \((\ast)\) there exists an open neighbourhood \(V\) of \(p\) and \(t \in \mathcal{F}(V)\) such that for all \(q \in V \quad s_{i, q} = (t, V)\).
+  Therefore since \(s_{i, q} = s_{q}\) we get that \(s\) verifies \((\ast)\).
+\end{proof}
+
+\begin{lemma} \label{lemma:stalks-commute-sheafification}
+  Let \(X\) be a topological space and let \(\mathcal{F}\) be a \nameref{def:presheaf} of sets over \(X\). Then for every \(p \in X\) we have \(\mathcal{F}_{p} \cong \mathcal{F}_{p}^{\#}\).
+\end{lemma}
+\begin{proof}
+  Let \(S\) be an arbitrary set.
+  Then using the \namerefs{def:adjoint} \autoref{remark:sheafification-inclussion-adjunction} and \autoref{prop:pushforward-inverse-adjunction} we have
+  \begin{align*}
+    \Hom_{\Set}((\mathcal{F}^{\#})_{p}, S) &\cong \Hom_{\Sh}(\mathcal{F}^{\#}, \iota_{p, \ast}\underline{S}) \\
+                                 &\cong \Hom_{\PSh}(\mathcal{F}, \iota_{p, \ast}\underline{S}) \\
+                                 &\cong \Hom_{\Set}(\mathcal{F}_{p}, S)
+  \end{align*}
+  Therefore since this holds for every set \(S\) we have that the functors \(\Hom_{\Set}((\mathcal{F}^{\#})_{p}, -)\) and \(\Hom_{\Set}(\mathcal{F}_{p}, -)\) are isomorphic.
+  Finally applying the \nameref{lemma:Yonneda} we get \((\mathcal{F}^{\#})_{p} \cong \mathcal{F}_{p}\).
+\end{proof}
+
+
+\begin{lemma}
+  Let \(\sheaf{G}\) be a \nameref{def:sheaf} of sets and let \(\mathcal{F} \to \sheaf{G}\) be a \nameref{def:presheaf-morphism}. Then \(\mathcal{F} \to \sheaf{G}\) factors uniquely as \(\mathcal{F} \to \mathcal{F}^{\#} \to \sheaf{G}\).
+\end{lemma}
+\begin{proof}
+  Consider the following commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      \mathcal{F} \arrow[r] \arrow[d] & \mathcal{F}^{\#} \arrow[r] \arrow[d] & \prod(\mathcal{F}) \arrow[d] \\
+      \mathcal{G} \arrow[r] & \mathcal{G}^{\#} \arrow[r] & \prod(\mathcal{G})
+    \end{tikzcd}
+  \end{center}
+  We only need to prove that \(\sheaf{G} \cong \sheaf{G}^{\#}\).
+  By \nameref{thm:induced-stalk-isomorphism} we only need to show that for every \(p \in X\) the \nameref{prop:induced-stalk-morphism} is an \nameref{def:categorical-isomorphism}.
+  But this is precisely \autoref{lemma:stalks-commute-sheafification}.
+\end{proof}
+
+\unsure[inline]{Should we mention the \textbf{espace étalé}?}
+
+
+
+\end{document}
