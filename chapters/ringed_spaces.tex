@@ -9,7 +9,7 @@
 \section{Ringed spaces}
 
 \begin{definition}[Ringed space] \label{def:ringed-space}
-  A \textbf{ringed space} is a tuple \((X, \mathscr{O}_{X})\) where \(X\) is a topological space and \(\mathscr{O}_{X}\) is a \nameref{def:sheaf} of rings over \(X\).
+  A \textbf{ringed space} is a tuple \((X, \sheaf{O}_{X})\) where \(X\) is a topological space and \(\sheaf{O}_{X}\) is a \nameref{def:sheaf} of rings over \(X\).
 
   We call \(\mathscr{O}_{X}\) the \textit{structure sheaf} of the ringed space \((X, \mathscr{O}_{X})\).
   Sections of \(\mathscr{O}_{X}\) over an open subset \(U \subseteq X\) are called \textit{functions on \(U\)} and functions on \(X\) are called (global) functions.
@@ -17,18 +17,18 @@
 
 \begin{example}
   Let and \(X\) be a topological space.
-  Then the \(\mathbb{R}\)-\nameref{def:algebra} of continuous functions \(\mathcal{C}_{X}^{0}(U) = \left\{ f: U \to \mathbb{R} \mid f \text{ continuous.} \right\}\) with the obvious restriction maps forms a \nameref{def:sheaf} of rings over \(X\).
+  Then the \(\mathbb{R}\)-\nameref{def:algebra} of continuous functions \(\mathcal{C}_{X}^{0}(U) = \left\{ f: U \to \mathbb{R} \mid f \text{ continuous} \right\}\) with the usual restriction maps forms a \nameref{def:sheaf} of rings over \(X\).
   Therefore \((X, \mathcal{C}_{X}^{0})\) is a \nameref{def:ringed-space}.
 \end{example}
 
 \begin{example}
-  If for every point \(p \in X\) the \namerefs{def:stalk} \(\mathscr{O}_{X, p}\) of the structure sheaf are \namerefs{def:local-ring} then we call \((X, \mathscr{O}_{X})\) a \textbf{locally ringed space}.
+  If for every point \(p \in X\) the \namerefs{def:stalk-sheaf} \(\mathscr{O}_{X, p}\) of the structure sheaf are \namerefs{def:local-ring} then we call \((X, \mathscr{O}_{X})\) a \textbf{locally ringed space}.
 \end{example}
 
 
 \begin{definition}[Morphism of \namerefs{def:ringed-space}] \label{def:ringed-spaces-morphism}
   Let \((X, \mathscr{O}_{X})\) and \((Y, \mathscr{O}_{Y})\) be two \namerefs{def:ringed-space}.
-  A \textbf{morphism of ringed spaces} \((X, \mathscr{O}_{X}) \to (Y, \mathscr{O}_{Y})\) is a pair \((f, f^{\sharp})\) where \(f: X \to Y\) is a continuous function (i.e: a morphism in \(\Top\)) and \(f^{\sharp}: \mathscr{O}_{Y} \to f_{\ast}\mathscr{O}_{X}\) is a \nameref{def:sheaf-morphism} of rings\unsure{Maybe it is better to define \(f^{\sharp}\) as an \(f\)-map. \cite[\href{https://stacks.math.columbia.edu/tag/008K}{Tag 008K}]{stacks-project}} (i.e: a morphism in \(\Sh_{\Ring}(X)\)), where \(f_{\ast}\mathscr{O}_{X}\) is the \nameref{def:pushforward-sheaf}.
+  A \textbf{morphism of ringed spaces} \((X, \mathscr{O}_{X}) \to (Y, \mathscr{O}_{Y})\) is a pair \((f, f^{\sharp})\) where \(f: X \to Y\) is a continuous function (i.e: a morphism in \(\Top\)) and \(f^{\sharp}: \mathscr{O}_{Y} \to f_{\ast}\mathscr{O}_{X}\) is a \nameref{def:sheaf-morphism} of rings\unsure{Maybe it is better to define \(f^{\sharp}\) as an \(f\)-map. \cite[\href{https://stacks.math.columbia.edu/tag/008K}{Tag 008K}]{stacks-project}} (i.e: a morphism in \(\Sh_{\Ring}(X)\)), where \(f_{\ast}\mathscr{O}_{X}\) is the \nameref{def:direct-image-sheaf}.
 \end{definition}
 \SetPluralName{def:ringed-spaces-morphism}{Morphisms of \namerefs{def:ringed-space}}
 
