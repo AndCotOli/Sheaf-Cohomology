@@ -1,0 +1,46 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{packages}
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[normalem]{ulem}
+\RequirePackage{mathpazo} % Palatino + Math
+\RequirePackage[scaled]{beramono} % Monospace
+\RequirePackage{microtype}
+\RequirePackage{mathrsfs} % \mathscr (sheaf calligraphic typography)
+
+% Page Layout
+\RequirePackage{geometry, here} % For title page
+\RequirePackage{parskip} % Remove new paragraph indent
+\RequirePackage{fancyhdr} % Fancier header and footer
+\RequirePackage{epigraph} % Add quotes at the beginning of chapters / sections
+\RequirePackage{afterpage}
+
+% Links
+\RequirePackage{hyperref}
+\RequirePackage{nameref}
+\RequirePackage[user, xr]{zref}
+\RequirePackage{letltxmacro}
+\RequirePackage{xstring}
+\RequirePackage{etoolbox}
+
+% Math
+\RequirePackage{amsfonts, amsmath, amssymb, amsthm}
+\RequirePackage{bbm} % Bold symbols
+\RequirePackage{mathtools, thmtools} % Custom theorem environments
+\RequirePackage{tikz, tikz-cd} % Diagrams
+
+%
+\RequirePackage{subfiles}
+\RequirePackage{graphicx}
+
+\graphicspath{{./images}}
+
+% Bibliography
+\RequirePackage[backend=biber, style=alphabetic, sorting=nty]{biblatex}
+
+% Utils
+\RequirePackage{xargs} % Multiple arguments for commands
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{enumitem} % Better enumerate
+\RequirePackage[textsize=small]{todonotes}

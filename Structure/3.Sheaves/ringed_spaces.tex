@@ -1,6 +1,7 @@
 \documentclass[../main.tex]{subfiles}
 \zexternaldocument*{algebra}
 \zexternaldocument*{category_theory}
+\zexternaldocument*{homological_algebra}
 \zexternaldocument*{sheaves}
 
 \begin{document}
@@ -11,8 +12,8 @@
 \begin{definition}[Ringed space] \label{def:ringed-space}
   A \textbf{ringed space} is a tuple \((X, \sheaf{O}_{X})\) where \(X\) is a topological space and \(\sheaf{O}_{X}\) is a \nameref{def:sheaf} of rings over \(X\).
 
-  We call \(\mathscr{O}_{X}\) the \textit{structure sheaf} of the ringed space \((X, \mathscr{O}_{X})\).
-  Sections of \(\mathscr{O}_{X}\) over an open subset \(U \subseteq X\) are called \textit{functions on \(U\)} and functions on \(X\) are called (global) functions.
+  We call \(\sheaf{O}_{X}\) the \textit{structure sheaf} of the ringed space \((X, \sheaf{O}_{X})\).
+  Sections of \(\sheaf{O}_{X}\) over an open subset \(U \subseteq X\) are called \textit{functions on \(U\)} and functions on \(X\) are called (global) functions.
 \end{definition}
 
 \begin{example}
@@ -22,13 +23,13 @@
 \end{example}
 
 \begin{example}
-  If for every point \(p \in X\) the \namerefs{def:stalk-sheaf} \(\mathscr{O}_{X, p}\) of the structure sheaf are \namerefs{def:local-ring} then we call \((X, \mathscr{O}_{X})\) a \textbf{locally ringed space}.
+  If for every point \(p \in X\) the \namerefs{def:stalk-sheaf} \(\sheaf{O}_{X, p}\) of the structure sheaf are \namerefs{def:local-ring} then we call \((X, \sheaf{O}_{X})\) a \textbf{locally ringed space}.
 \end{example}
 
 
 \begin{definition}[Morphism of \namerefs{def:ringed-space}] \label{def:ringed-spaces-morphism}
-  Let \((X, \mathscr{O}_{X})\) and \((Y, \mathscr{O}_{Y})\) be two \namerefs{def:ringed-space}.
-  A \textbf{morphism of ringed spaces} \((X, \mathscr{O}_{X}) \to (Y, \mathscr{O}_{Y})\) is a pair \((f, f^{\sharp})\) where \(f: X \to Y\) is a continuous function (i.e: a morphism in \(\Top\)) and \(f^{\sharp}: \mathscr{O}_{Y} \to f_{\ast}\mathscr{O}_{X}\) is a \nameref{def:sheaf-morphism} of rings\unsure{Maybe it is better to define \(f^{\sharp}\) as an \(f\)-map. \cite[\href{https://stacks.math.columbia.edu/tag/008K}{Tag 008K}]{stacks-project}} (i.e: a morphism in \(\Sh_{\Ring}(X)\)), where \(f_{\ast}\mathscr{O}_{X}\) is the \nameref{def:direct-image-sheaf}.
+  Let \((X, \sheaf{O}_{X})\) and \((Y, \sheaf{O}_{Y})\) be two \namerefs{def:ringed-space}.
+  A \textbf{morphism of ringed spaces} \((X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) is a pair \((f, f^{\sharp})\) where \(f: X \to Y\) is a continuous function (i.e: a morphism in \(\Top\)) and \(f^{\sharp}: \sheaf{O}_{Y} \to f_{\ast}\sheaf{O}_{X}\) is a morphism of sheaves of rings\unsure{Maybe it is better to define \(f^{\sharp}\) as an \(f\)-map. \cite[\href{https://stacks.math.columbia.edu/tag/008K}{Tag 008K}]{stacks-project}} (i.e: a morphism in \(\Sh_{\Ring}(X)\)), where \(f_{\ast}\sheaf{O}_{X}\) is the \nameref{def:direct-image-sheaf}.
 \end{definition}
 \SetPluralName{def:ringed-spaces-morphism}{Morphisms of \namerefs{def:ringed-space}}
 
@@ -52,7 +53,7 @@
 
 \begin{definition}[Morphism of \namerefs{def:ox-mod}] \label{def:ox-mod-morphism}
   Let \(\sheaf{F}, \sheaf{G}\) be two \namerefs{def:ox-mod}.
-  A morphism \(\phi: \sheaf{F} \to \sheaf{G}\) is a \nameref{def:sheaf-morphism} that commutes with the multiplication of the structure sheaf \(\sheaf{O}_{X}\).
+  A morphism \(\phi: \sheaf{F} \to \sheaf{G}\) is a sheaf morphism that commutes with the multiplication of the structure sheaf \(\sheaf{O}_{X}\).
 \end{definition}
 \SetPluralName{def:ox-mod-morphism}{Morphisms of \namerefs{def:ox-mod}}
 
@@ -60,9 +61,9 @@
 ...
 \end{example}
 
-Therefore for every \nameref{def:ringed-space} \((X, \sheaf{O}_{X})\) the collection of \namerefs{def:ox-mod} forms a \nameref{def:category} \oxmod.
+Therefore for every \nameref{def:ringed-space} \((X, \sheaf{O}_{X})\) the collection of \namerefs{def:ox-mod} forms a \nameref{def:category} \(\OxMod\).
 
-\subsection{\oxmod\ and sheaves of abelian groups.} \label{sec:oxmod-and-sh-ab}
+\subsection{\(\OxMod\) and sheaves of abelian groups.} \label{sec:oxmod-and-sh-ab}
 
 Just as abelian groups are \(\mathbb{Z}\)-modules, \namerefs{def:sheaf} of abelian groups can be seen as \href{def:ox-mod}{\(\underline{\mathbb{Z}}_{X}\)-modules}, where \(\underline{\mathbb{Z}}_{X}\) is the \nameref{ex:constant-sheaf} with coefficients in the integers.
 
@@ -81,46 +82,18 @@ Therefore \(n_{i} = n_{j}\) and \(t_{i}|_{U_{i} \cap U_{j}} = t_{j}|_{U_{i} \cap
 
 Checking the axioms in small enough open sets such that \(f\) is constant verifies that this action makes \(\sheaf{F}\) an \(\underline{\mathbb{Z}}_{X}\)-module.\unsure{Do we have to actually write the check?}
 
-\section{\oxmod\ is abelian.}
+\section{\(\OxMod\) is abelian.}
 
-
-\begin{definition}[Preadditive category] \label{def:preadditive-category}
-  A (small) category \(\mathsf{C}\) is \textbf{preadditive} if every hom-set \(\Hom(\triangle, \square)\) admits the structure of an abelian group and composition of morphisms is bilinear with respect to the group operation.
-\end{definition}
-
-\begin{definition}[Additive category] \label{def:additive-category}
-  A category \(\mathsf{C}\) is \textbf{additive} if it is a \nameref{def:preadditive-category}, has a zero object and has all binary biproducts.
-\end{definition}
-
-\begin{definition}[Abelian category] \label{def:abelian-category}
-  A \nameref{def:additive-category} \(\mathsf{C}\) is \textbf{abelian} if
-  \begin{itemize}
-    \item It has all kernels and cokernels.
-    \item Every monomorphism is the kernel of some morphism and every epimorphism is the cokernel of some morphism.
-  \end{itemize}
-\end{definition}
-\change{Move this definitions to the Homological Algebra section}
-
-Let's check first that \oxmod\ is a \nameref{def:preadditive-category}.
+Let's check first that \(\OxMod\) is a \nameref{def:additive-category}.
 \begin{lemma}
-  The category \oxmod\ is a \nameref{def:preadditive-category}.
-\end{lemma}
-\begin{proof}
-  Let \(\phi: \sheaf{F} \to \sheaf{G}\) and \(\psi: \sheaf{F} \to \sheaf{G}\) be two \namerefs{def:ringed-spaces-morphism}.
-
-  For each open subset \(U \subseteq X\) define \((\phi + \psi)(U) = \phi(U) + \psi(U)\).
-\end{proof}
-
-Now \nameref{def:additive-category}
-\begin{lemma}
-  The category \oxmod\ admits a zero object.
+  The category \(\OxMod\) admits a zero object.
 \end{lemma}
 \begin{proof}
   Consider the \(\sheaf{O}_{X}\) module that sends every open set to \(\{0\}\).
 \end{proof}
 
 \begin{lemma}
-  The category \oxmod\ has all binary biproducts.
+  The category \(\OxMod\) has all binary biproducts.
   We define their direct sum a \(\sheaf{F} \oplus \sheaf{G} = \sheaf{F} \times \sheaf{G}\).
 \end{lemma}
 \begin{proof}
@@ -174,9 +147,9 @@ Now \nameref{def:additive-category}
   \end{center}
 \end{proof}
 
-Therefore we have proven that \oxmod\ is an \nameref{def:abelian-category} and in particular by \nameref{sec:oxmod-and-sh-ab} \(\Sh_{\Ab}(X)\) is an \nameref{def:abelian-category}.
+Therefore we have proven that \(\OxMod\) is an \nameref{def:abelian-category} and in particular by \nameref{sec:oxmod-and-sh-ab} \(\Sh_{\Ab}(X)\) is an \nameref{def:abelian-category}.
 
-\section{Sequences of \oxmod}
+\section{Sequences in \(\OxMod\)}
 
 \begin{theorem} \unsure{Probably not a \textit{theorem} but a direct consequence of the commutatitivity of stalks and (co)kernels}
   The sequence of \namerefs{def:ox-mod} \(\sheaf{F} \to \sheaf{G} \to \sheaf{H}\) is exact at \(\sheaf{G}\) if and only if for every \(x \in X\) the sequence \(\sheaf{F}_{x} \to \sheaf{G}_{x} \to \sheaf{H}_{x}\) is exact at \(\sheaf{G}_{x}\).

@@ -1,36 +1,29 @@
 \documentclass[11pt, a4paper, oneside]{book}
-\input{preamble.sty}
-
-\usepackage{subfiles}
-\usepackage{graphicx}
-
-\graphicspath{{images/}}
+\usepackage{aux/preamble}
 
 \begin{document}
 
 \frontmatter
-\subfile{chapters/cover}
+\subfile{Structure/cover}
 \afterpage{\blankpage}
 
-\chapter*{Introduction}
-\addcontentsline{toc}{chapter}{Introduction}
-
 \newgeometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+\subfile{Structure/0.Introduction/main}
+
 \setcounter{tocdepth}{1}
 \tableofcontents
 \afterpage{\blankpage}
 
 \mainmatter
-\subfile{chapters/category_theory}
+\subfile{Structure/1.Category-Theory/main}
 
-\subfile{chapters/homological_algebra}
+\subfile{Structure/2.Homological-Algebra/main}
 
-\subfile{chapters/sheaves}
-
-\subfile{chapters/ringed_spaces}
+\subfile{Structure/3.Sheaves/main}
 
 \appendix
-\subfile{chapters/algebra}
+\subfile{Structure/Z.Appendices/main}
 
 \backmatter
 \nocite{*}

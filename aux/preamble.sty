@@ -1,43 +1,8 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{preamble}
+
 %% Packages
-% Font config
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[normalem]{ulem}
-\usepackage{mathpazo} % Palatino + Math
-\usepackage[scaled]{beramono} % Monospace
-\usepackage{microtype}
-\usepackage{mathrsfs} % \mathscr (sheaf calligraphic typography)
-
-% Page Layout
-\usepackage{geometry, here} % For title page
-\usepackage{parskip} % Remove new paragraph indent
-\usepackage{fancyhdr} % Fancier header and footer
-\usepackage{epigraph} % Add quotes at the beginning of chapters / sections
-\usepackage{afterpage}
-
-% Links
-\usepackage{hyperref}
-\usepackage{nameref}
-\usepackage[user, xr]{zref}
-\usepackage{letltxmacro}
-\usepackage{xstring}
-\usepackage{etoolbox}
-
-% Math
-\usepackage{amsfonts, amsmath, amssymb, amsthm}
-\usepackage{bbold} % Bold symbols
-\usepackage{mathtools, thmtools} % Custom theorem environments
-\usepackage{tikz, tikz-cd} % Diagrams
-
-% Bibliography
-\usepackage[backend=biber, style=alphabetic, sorting=nty]{biblatex}
-
-% Utils
-\usepackage{xargs} % Multiple arguments for commands
-\usepackage[dvipsnames]{xcolor}
-\usepackage{enumitem} % Better enumerate
-\usepackage[textsize=small]{todonotes}
-
+\RequirePackage{aux/packages}
 
 %% Configuration
 % afterpage
@@ -114,33 +79,6 @@
 % Bibliography
 \addbibresource{Bibliography.bib}
 
-%% Abbreviations
-% Categories
-\newcommand\Set{\mathsf{Set}}
-\newcommand\Ab{\mathsf{Ab}}
-\newcommand\Ring{\mathsf{Ring}}
-\newcommand\Top{\mathsf{Top}}
-\newcommand\PSh{\mathsf{PSh}} % Presheaves
-\newcommand\Sh{\mathsf{Sh}} % Sheaves
-\newcommand\open{\mathsf{Op}} % Open subsets
-\newcommand\oxmod{\(\mathscr{O}_{X}\)-\(\mathsf{Mod}\)} % Oₓ-modules
-
-% Sheafs
-\newcommand\Hom{\operatorname{Hom}}
-\newcommand\HomS{\mathcal{H}om} % Hom Sheaf
-\newcommand\Mor{\operatorname{Mor}}
-\newcommand{\sheaf}[1]{\mathscr{#1}}
-\newcommand\etale{\operatorname{Et}}
-
-% Math operators
-\newcommand*\quot[2]{{^{\textstyle #1}\big/_{\textstyle #2}}} % Quotient
-\DeclareMathOperator*{\im}{im}
-\DeclareMathOperator*{\coim}{coim}
-\DeclareMathOperator*{\coker}{coker}
-\DeclareMathOperator*{\colim}{colim}
-\DeclareMathOperator*{\pre}{pre}
-\DeclareMathOperator*{\op}{op}
-\DeclareMathOperator{\id}{id}
-\newcommand\res{\operatorname{res}}
+\RequirePackage{aux/notation}
 
 \newcommand{\curs}{Curs 2025/2026}

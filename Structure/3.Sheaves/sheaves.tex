@@ -1,5 +1,6 @@
 \documentclass[../main.tex]{subfiles}
 \zexternaldocument*{category_theory}
+\zexternaldocument*{homological_algebra}
 
 \begin{document}
 \chapter{Presheaves and sheaves}
@@ -7,29 +8,29 @@
 \section{Presheaves}
 We begin by giving a general definition of a presheaf.
 \begin{definition}[Presheaf] \label{def:presheaf}
-  Let \(X\) be a topological space and let \(\open(X)\) be its \nameref{ex:open-set-category}.
-  Let \(\mathsf{C}\) be a \nameref{def:small-category}.
-  The \nameref{def:category} of \(\mathsf{C}\)-valued \textbf{presheaves} is the \nameref{ex:functor-category}
+  Let \(X\) be a topological space and let \(\Open(X)\) be its \nameref{ex:open-set-category}.
+  Let \(\category{C}\) be a \nameref{def:category}.
+  The \nameref{def:category} of \(\category{C}\)-valued \textbf{presheaves} is the \nameref{ex:functor-category}
   \begin{equation*}
-    \PSh_{X}(\mathsf{C}) := [\open(X)^{\op}, \mathsf{C}]
+    \PSh_{X}(\category{C}) := [\Open(X)^{\op}, \category{C}]
   \end{equation*}
-  When the topological space is clear we will write \(\PSh(\mathsf{C})\).
+  When the topological space is clear we will write \(\PSh(\category{C})\).
 
-  The elements of this category are \namerefs{def:functor} \(\mathcal{F}: \open(X)^{\op} \to \mathsf{C}\) and morphisms are \namerefs{def:natural-transformation} \(\phi: \mathcal{F} \to \mathcal{G}\).
+  The elements of this category are \namerefs{def:functor} \(\mathcal{F}: \Open(X)^{\op} \to \category{C}\) and morphisms are \namerefs{def:natural-transformation} \(\phi: \mathcal{F} \to \mathcal{G}\).
 \end{definition}
 \SetPluralName{def:presheaf}{Presheaves}
 
-Let's rewrite \autoref{def:presheaf} less abstractly: a \(\mathsf{C}\)-valued \nameref{def:presheaf} \(\mathcal{F}\) is the collection of data
+Let's rewrite \autoref{def:presheaf} less abstractly: a \(\category{C}\)-valued \nameref{def:presheaf} \(\mathcal{F}\) is the collection of data
 \begin{itemize}
-  \item For every open set \(U \subseteq X\) an object \(\mathcal{F}(U)\) of \(\mathsf{C}\) called \textit{sections of \(\mathcal{F}\) over \(U\)}.
-  \item For every inclussion of open sets \(V \subseteq U\) a morphism \(\res_{U, V}: \mathcal{F}(U) \to \mathcal{F}(V)\) in \(\mathsf{C}\) called \textit{restriction} such that
+  \item For every open set \(U \subseteq X\) an object \(\mathcal{F}(U)\) of \(\category{C}\) called \textit{sections of \(\mathcal{F}\) over \(U\)}.
+  \item For every inclussion of open sets \(V \subseteq U\) a morphism \(\res_{U, V}: \mathcal{F}(U) \to \mathcal{F}(V)\) in \(\category{C}\) called \textit{restriction} such that
         \begin{itemize}
           \item For every open set \(U\), \(\res_{U, U} = \id_{U}\).
           \item For every inclussion of open sets \(W \subseteq V \subseteq U\), \(\res_{U, V} \circ \res_{V, W} = \res_{U, W}\).
         \end{itemize}
 \end{itemize}
 
-A \textit{morphism of \namerefs{def:presheaf}} \(\phi: \mathcal{F} \to \mathcal{G}\) is a collection of morphisms \(\{\phi(U): \mathcal{F}(U) \to \mathcal{G}(U)\}_{U \in \open(X)}\) in \(\mathsf{C}\) making the following diagram commute:
+A \textit{morphism of \namerefs{def:presheaf}} \(\phi: \mathcal{F} \to \mathcal{G}\) is a collection of morphisms \(\{\phi(U): \mathcal{F}(U) \to \mathcal{G}(U)\}_{U \in \Open(X)}\) in \(\category{C}\) making the following diagram commute:
 \begin{center}
   \begin{tikzcd}
     \mathcal{F}(U) \arrow[r, "\phi(U)"] \arrow[d, "\res_{U, V}"] & \mathcal{G}(U) \arrow[d, "\res_{U, V}"] \\
@@ -39,15 +40,15 @@ A \textit{morphism of \namerefs{def:presheaf}} \(\phi: \mathcal{F} \to \mathcal{
 
 
 
-We are going to study now \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} in \(\PSh(\mathsf{C})\).
+We are going to study now \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} in \(\PSh(\category{C})\).
 
-Note that, since \(\PSh(\mathsf{C})\) is a \nameref{def:functor-category} then if \(\mathsf{C}\) has \namerefs{def:categorical-limit} or \namerefs{def:categorical-colimit} of a certain shape then \(\PSh(\mathsf{C})\) also has them and they are computed pointwise.
+Note that, since \(\PSh(\category{C})\) is a \nameref{def:functor-category} then if \(\category{C}\) has \namerefs{def:categorical-limit} or \namerefs{def:categorical-colimit} of a certain shape then \(\PSh(\category{C})\) also has them and they are computed pointwise.
 
-This means that \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} in \(\PSh(\mathsf{C})\) can be computed \textit{open set by open set}.
+This means that \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} in \(\PSh(\category{C})\) can be computed \textit{open set by open set}.
 
 \begin{proposition}
-  Let \(X\) be a topological space. Let \(\mathcal{I} \to \PSh_{X}(\mathsf{C}), i \mapsto \mathcal{F}_{i}\) be a \nameref{def:diagram}.
-  If \(\mathsf{C}\) has \namerefs{def:categorical-limit} and/or \namerefs{def:categorical-colimit} with shape \(\mathcal{I}\) then \(\lim_{i} \mathcal{F}_{i}\) and/or \(\colim_{i} \mathcal{F}_{i}\) exist in \(\PSh_{X}(\mathsf{C})\).
+  Let \(X\) be a topological space. Let \(\mathcal{I} \to \PSh_{X}(\category{C}), i \mapsto \mathcal{F}_{i}\) be a \nameref{def:diagram}.
+  If \(\category{C}\) has \namerefs{def:categorical-limit} and/or \namerefs{def:categorical-colimit} with shape \(\mathcal{I}\) then \(\lim_{i} \mathcal{F}_{i}\) and/or \(\colim_{i} \mathcal{F}_{i}\) exist in \(\PSh_{X}(\category{C})\).
   Moreover for every open set \(U \subseteq X\)
   \begin{align*}
     \left( \lim_{i} \mathcal{F}_{i} \right)(U) = \lim_{i} \mathcal{F}_{i}(U) \qquad \left( \colim_{i} \mathcal{F}_{i} \right)(U) = \colim_{i} \mathcal{F}_{i}(U)
@@ -55,19 +56,19 @@ This means that \namerefs{def:categorical-limit} and \namerefs{def:categorical-c
 \end{proposition}
 \improvement[inline]{Write a section on functor categories (or quote it from somewhere) to justify this.}
 
-In particular if \(\mathsf{C}\) is an \nameref{def:abelian-category} then \namerefs{def:categorical-kernel} and \namerefs{def:categorical-cokernel} exist and are computed \textit{open set by open set}, making \(\PSh(\mathsf{C})\) an \nameref{def:abelian-category}.
+In particular if \(\category{C}\) is an \nameref{def:abelian-category} then \namerefs{def:categorical-kernel} and \namerefs{def:categorical-cokernel} exist and are computed \textit{open set by open set}, making \(\PSh(\category{C})\) an \nameref{def:abelian-category}.
 
 
 
 \begin{remark}
-  From this point onwards, we will suppose \(\mathsf{C}\) has all \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} unless stated otherwise.
+  From this point onwards, we will suppose \(\category{C}\) has all \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} unless stated otherwise.
 \end{remark}
 
 \subsection{Presheaves and continuous maps}
 
 \begin{definition}[Direct image \nameref{def:presheaf}] \label{def:direct-image-presheaf}
   Let \(f: X \to Y\) be a continuous map.
-  Let \(\mathcal{F}\) be a \(\mathsf{C}\)-\nameref{def:presheaf} over \(X\).
+  Let \(\mathcal{F}\) be a \(\category{C}\)-valued \nameref{def:presheaf} over \(X\).
   The \textbf{direct image \nameref{def:presheaf}} of \(\mathcal{F}\) via \(f\) is the \nameref{def:presheaf} \(f_{\ast}\mathcal{F}\) defined as, for every open subset \(V \subseteq Y\)
   \begin{equation*}
     f_{\ast}\mathcal{F}(V) = \mathcal{F}(f^{-1}(U))
@@ -80,7 +81,7 @@ In particular if \(\mathsf{C}\) is an \nameref{def:abelian-category} then \namer
     \end{tikzcd}
   \end{center}
 
-  This construction defines a \nameref{def:functor} \(f_{\ast}: \PSh_{X}(\mathsf{C}) \to \PSh_{Y}(\mathsf{C})\).
+  This construction defines a \nameref{def:functor} \(f_{\ast}: \PSh_{X}(\category{C}) \to \PSh_{Y}(\category{C})\).
 \end{definition}
 
 
@@ -89,16 +90,16 @@ In particular if \(\mathsf{C}\) is an \nameref{def:abelian-category} then \namer
 \begin{example}[Global section] \label{ex:global-section-presheaf}
   Let \(X\) be a topological space.
   Consider the one-point topological space \(\{\ast\}\).
-  Let \(\mathcal{F}\) be a \(\mathsf{C}\)-valued presheaf over \(X\).
+  Let \(\mathcal{F}\) be a \(\category{C}\)-valued presheaf over \(X\).
   The \textbf{global section} of \(\mathcal{F}\) over
 
-  This defines a \nameref{def:functor} \(\Gamma(X, -): \PSh_{X}(\mathsf{C}) \to \mathsf{C}\)
+  This defines a \nameref{def:functor} \(\Gamma(X, -): \PSh_{X}(\category{C}) \to \category{C}\)
 \end{example}
 
 \begin{example}[Skyscrapper \nameref{def:presheaf}] \label{ex:skyscrapper-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
-  Suppose \(\mathsf{C}\) has a \nameref{def:final-object} \(\ast \in \mathsf{C}\).
-  Let \(S\) be an object in \(\mathsf{C}\).
+  Suppose \(\category{C}\) has a \hyperref[def:initial-terminal-objects]{final object} \(\ast \in \category{C}\).
+  Let \(S\) be an object in \(\category{C}\).
   The \textbf{skyscrapper \nameref{def:presheaf}} supported at \(S\) \(\iota_{p, \ast}\underline{S}_{\pre}\) is the \nameref{def:direct-image-presheaf} of the \nameref{ex:constant-presheaf} \(\underline{S}_{\pre}\) via the inclussion \(\iota: \{p\} \hookrightarrow X\):
   \begin{equation*}
     (\iota_{p, \ast}\underline{S}_{\pre})(U) = \begin{cases}
@@ -112,30 +113,30 @@ In particular if \(\mathsf{C}\) is an \nameref{def:abelian-category} then \namer
 Using this we can construct a \textit{dual} \nameref{def:presheaf} to \autoref{def:direct-image-presheaf}.
 \begin{definition}[Inverse image \nameref{def:presheaf}] \label{def:inverse-image-presheaf}
   Let \(f: X \to Y\) be a continuous map.
-  Let \(\mathcal{G}\) be a \(\mathsf{C}\)-valued \nameref{def:presheaf} over \(Y\).
+  Let \(\mathcal{G}\) be a \(\category{C}\)-valued \nameref{def:presheaf} over \(Y\).
   The \textbf{inverse image \nameref{def:presheaf}} of \(\mathcal{G}\) via \(f\) is the \nameref{def:presheaf} \(f^{-1}\mathcal{G}\) defined as, for every open subset \(U \subseteq X\)
   \begin{equation*}
     f^{-1}\mathcal{G}(U) = \colim_{V \supseteq f(U)} \mathcal{G}(V)
   \end{equation*}
   where the \nameref{def:categorical-colimit} is taken over all the open neighbourhoods \(V\) of \(f(U)\).
 
-  This defines a \nameref{def:functor} \(f^{-1}: \PSh_{Y}(\mathsf{C}) \to \PSh_{X}(\mathsf{C})\).
+  This defines a \nameref{def:functor} \(f^{-1}: \PSh_{Y}(\category{C}) \to \PSh_{X}(\category{C})\).
 \end{definition}
 
 \begin{remark}
   Note that the set of open neighbourhoods of \(f(U)\) is a partially ordered set via reverse inclussion.
-  Therefore if \(\mathsf{C}\) is a concrete category we can describe \(f^{-1}\mathcal{G}(U)\) as \(\{(s, V) \mid f(U) \subseteq V \in \open(Y),\, s \in \mathcal{G}(V)\}\) modulo the relation \((s, V) \sim (s', V')\) if and only if there exists \(W \subseteq V \cap V'\) open with \(f(U) \subseteq W\) such that \(s|_{W} = s'|_{W}\).
+  Therefore if \(\category{C}\) is a concrete category we can describe \(f^{-1}\mathcal{G}(U)\) as \(\{(s, V) \mid f(U) \subseteq V \in \Open(Y),\, s \in \mathcal{G}(V)\}\) modulo the relation \((s, V) \sim (s', V')\) if and only if there exists \(W \subseteq V \cap V'\) open with \(f(U) \subseteq W\) such that \(s|_{W} = s'|_{W}\).
 \end{remark}
 
 \begin{example}[Constant \nameref{def:presheaf}] \label{ex:constant-presheaf}
   Let \(X\) be a topological space.
-  Let \(S\) be an object of \(\mathsf{C}\).
+  Let \(S\) be an object of \(\category{C}\).
   The \textbf{constant \nameref{def:presheaf}} associated to \(S\) \(\underline{S}_{\pre}\) is the \nameref{def:inverse-image-presheaf} of \(S\) via the map \(\{\ast\} \to X\).
 \end{example}
 
 \begin{definition}[Stalk] \label{def:stalk-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
-  Let \(\mathcal{F}\) be a \(\mathsf{C}\)-valued \nameref{def:presheaf} over \(X\).
+  Let \(\mathcal{F}\) be a \(\category{C}\)-valued \nameref{def:presheaf} over \(X\).
   The \textbf{stalk} of \(\mathcal{F}\) at \(p\) \(\mathcal{F}_{p}\) is the \nameref{def:inverse-image-presheaf} of \(\mathcal{F}\) via \(X \to \{p\}\):
   \begin{equation*}
     \mathcal{F}_{p} = \colim_{U \ni p} \mathcal{F}(U)
@@ -166,19 +167,19 @@ Using this we can construct a \textit{dual} \nameref{def:presheaf} to \autoref{d
 Two important particular cases of the adjunction \autoref{prop:direct-inverse-image-adjunction-presheaves} are
 \begin{corollary} \label{cor:constant-global-adjunction-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
-  Let \(\mathcal{F}\) be a \(\mathsf{C}\)-valued \namerefs{def:presheaf} over \(X\) and let \(A\) be an object in \(\mathsf{C}\).
+  Let \(\mathcal{F}\) be a \(\category{C}\)-valued \namerefs{def:presheaf} over \(X\) and let \(A\) be an object in \(\category{C}\).
   Then
   \begin{equation*}
-    \Hom_{\PSh_{X}(\mathsf{C})}(\underline{A}_{\pre}, \mathcal{F}) \simeq \Hom_{\mathsf{C}}(A, \Gamma(X, \mathcal{F}))
+    \Hom_{\PSh_{X}(\category{C})}(\underline{A}_{\pre}, \mathcal{F}) \simeq \Hom_{\category{C}}(A, \Gamma(X, \mathcal{F}))
   \end{equation*}
 \end{corollary}
 
 \begin{corollary}\label{cor:stalk-constant-adjunction-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
-  Let \(\mathcal{F}\) be a \(\mathsf{C}\)-valued \namerefs{def:presheaf} over \(X\) and let \(A\) be an object in \(\mathsf{C}\).
+  Let \(\mathcal{F}\) be a \(\category{C}\)-valued \namerefs{def:presheaf} over \(X\) and let \(A\) be an object in \(\category{C}\).
   Then
   \begin{equation*}
-    \Hom_{\mathsf{C}}(\mathcal{F}_{p}, A) \simeq \Hom_{\PSh_{X}(\mathsf{C})}(\mathcal{F}, \iota_{p, \ast}\underline{A}_{\pre})
+    \Hom_{\category{C}}(\mathcal{F}_{p}, A) \simeq \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota_{p, \ast}\underline{A}_{\pre})
   \end{equation*}
 \end{corollary}
 
@@ -186,7 +187,7 @@ Two important particular cases of the adjunction \autoref{prop:direct-inverse-im
 \section{Sheaves}
 We now turn our attention to a particular class of \namerefs{def:presheaf}, following \cite[\href{https://stacks.math.columbia.edu/tag/00VL}{Tag 00VL}]{stacks-project}.
 
-Let's start by considering the case \(\mathsf{C} = \Set\):
+Let's start by considering the case \(\category{C} = \Set\):
 \begin{definition}[Sheaf of sets] \label{def:sheaf-set}
   Let \(X\) be a topological space.
   A \nameref{def:presheaf} of sets \(\mathcal{F}\) is a \textbf{sheaf} if for every open set \(U\) and open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) the diagram
@@ -209,22 +210,22 @@ Let's start by considering the case \(\mathsf{C} = \Set\):
 The \nameref{def:category} \(\Sh_{X}(\Set)\) of \namerefs{def:sheaf-set} is the \nameref{def:full-subcategory} of the category of \namerefs{def:presheaf} \(\PSh_{X}(\Set)\) whose objects are \namerefs{def:sheaf-set}.
 \end{definition}
 
-Let's try to make \autoref{def:sheaf-set} more general by considering another evaluation category \(\mathsf{C}\).
+Let's try to make \autoref{def:sheaf-set} more general by considering another evaluation category \(\category{C}\).
 
-Firstly, note that if \namerefs{def:categorical-product} indexed by \(\mathcal{I}\) and \(\mathcal{I} \times \mathcal{I}\) for any indexing set \(\mathcal{I}\) exist in \(\mathsf{C}\) then the diagram \eqref{diagram:sheaf-condition} makes sense.
-Secondly, we have that \eqref{diagram:sheaf-condition} is an \nameref{def:equalizer} if and only if for every object \(C \in \mathsf{C}\) the diagram in \(\Set\)
+Firstly, note that if \namerefs{def:categorical-product} indexed by \(\mathcal{I}\) and \(\mathcal{I} \times \mathcal{I}\) for any indexing set \(\mathcal{I}\) exist in \(\category{C}\) then the diagram \eqref{diagram:sheaf-condition} makes sense.
+Secondly, we have that \eqref{diagram:sheaf-condition} is an \nameref{def:equalizer} if and only if for every object \(C \in \category{C}\) the diagram in \(\Set\)
 \begin{equation*}
-  \Hom_{\mathsf{C}}(C, \mathcal{F}(U)) \to \prod_{i \in \mathcal{I}} \Hom_{\mathsf{C}}(C, \mathcal{F}(U_{i})) \rightrightarrows \prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \Hom_{\mathsf{C}}(C, \mathcal{F}(U_{i} \cap U_{j}))
+  \Hom_{\category{C}}(C, \mathcal{F}(U)) \to \prod_{i \in \mathcal{I}} \Hom_{\category{C}}(C, \mathcal{F}(U_{i})) \rightrightarrows \prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \Hom_{\category{C}}(C, \mathcal{F}(U_{i} \cap U_{j}))
 \end{equation*}
 is an \nameref{def:equalizer}.
 
 Therefore we get
 \begin{definition}[Sheaf] \label{def:sheaf}
   Let \(X\) be a topological space.
-  Let \(\mathsf{C}\) be an arbitrary category.
-  A \(\mathsf{C}\)-valued \nameref{def:presheaf} \(\mathcal{F}\) is a \textbf{sheaf} if for all objects \(C \in \mathsf{C}\) the \nameref{def:presheaf} of sets \(\mathcal{F}_{C}\) defined as \(\mathcal{F}_{C}(U) = \Hom_{\mathsf{C}}(C, \mathcal{F}(U))\) is a \nameref{def:sheaf-set}.
+  Let \(\category{C}\) be an arbitrary category.
+  A \(\category{C}\)-valued \nameref{def:presheaf} \(\mathcal{F}\) is a \textbf{sheaf} if for all objects \(C \in \category{C}\) the \nameref{def:presheaf} of sets \(\mathcal{F}_{C}\) defined as \(\mathcal{F}_{C}(U) = \Hom_{\category{C}}(C, \mathcal{F}(U))\) is a \nameref{def:sheaf-set}.
 
-  We denote by \(\Sh_{X}(\mathsf{C})\) the \nameref{def:full-subcategory} of the \hyperref[def:presheaf]{category of \(\mathsf{C}\)-valued presheaves} of sets whose objects are \(\mathsf{C}\)-valued sheaves.
+  We denote by \(\Sh_{X}(\category{C})\) the \nameref{def:full-subcategory} of the \hyperref[def:presheaf]{category of \(\category{C}\)-valued presheaves} of sets whose objects are \(\category{C}\)-valued sheaves.
 \end{definition}
 \SetPluralName{def:sheaf}{Sheaves}
 
@@ -232,10 +233,10 @@ Therefore we get
   From now on, to distinguish a \nameref{def:presheaf} from a \nameref{def:sheaf} we will denote the former by \(\mathcal{F}, \mathcal{G}, \mathcal{H}, \ldots\) and the latter by \(\sheaf{F}, \sheaf{G}, \sheaf{H}, \ldots\)
 \end{notation}
 
-By \autoref{def:sheaf} we have an inclussion functor \(\iota: \Sh(\mathsf{C}) \hookrightarrow \PSh(\mathsf{C})\).
+By \autoref{def:sheaf} we have an inclussion functor \(\iota: \Sh(\category{C}) \hookrightarrow \PSh(\category{C})\).
 
-For \textit{sufficiently nice}\unsure{How general do we want to go?} \namerefs{def:category}, this \nameref{def:functor} admits a \hyperref[def:adjoint]{left-adjoint} \(\PSh(\mathsf{C}) \to \Sh(\mathsf{C})\).
-Let's study first the case \(\mathsf{C} = \Set\).
+For \textit{sufficiently nice}\unsure{How general do we want to go?} \namerefs{def:category}, this \nameref{def:functor} admits a \hyperref[def:adjoint]{left-adjoint} \(\PSh(\category{C}) \to \Sh(\category{C})\).
+Let's study first the case \(\category{C} = \Set\).
 
 \begin{theorem}[Sheafification] \label{thm:sheafification-set}
   There exists a \textbf{sheafification} \nameref{def:functor} \((-)^{\#}: \PSh(\Set) \to \Sh(\Set)\) that is \hyperref[def:adjunction]{left-adjoint} to the inclussion \nameref{def:functor} \(\iota: \Sh(\Set) \to \PSh(\Set)\).
@@ -293,21 +294,21 @@ Let's study first the case \(\mathsf{C} = \Set\).
 
 We can extend the construction outlined in \autoref{thm:sheafification-set} to \namerefs{def:algebraic-category}.
 \begin{lemma}
-  Let \((\mathsf{C}, F)\) be an \nameref{def:algebraic-category}. Let \(\mathcal{F}\) be a \(\mathsf{C}\)-valued \nameref{def:presheaf}.
-  Then there exists a \(\mathsf{C}\)-valued \nameref{def:sheaf} \(\mathcal{F}^{\#}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\mathcal{F} \to \mathcal{F}^{\#}\) satisfying
+  Let \((\category{C}, F)\) be an \nameref{def:algebraic-category}. Let \(\mathcal{F}\) be a \(\category{C}\)-valued \nameref{def:presheaf}.
+  Then there exists a \(\category{C}\)-valued \nameref{def:sheaf} \(\mathcal{F}^{\#}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\mathcal{F} \to \mathcal{F}^{\#}\) satisfying
   \begin{enumerate}
     \item The map \(\mathcal{F} \to \mathcal{F}^{\#}\) identifies the underlying \nameref{def:sheaf} of sets of \(\mathcal{F}^{\#}\) with the \hyperref[thm:sheafification-set]{sheafification} of the underlying \nameref{def:presheaf} of sets of \(\mathcal{F}\).
-    \item For any \hyperref[def:presheaf]{morphism of presheaves} \(\mathcal{F} \to \sheaf{G}\) where \(\sheaf{G}\) is a \(\mathsf{C}\)-valued \nameref{def:sheaf} there exists a unique factorization \(\mathcal{F} \to \mathcal{F}^{\#} \to \sheaf{G}\).
+    \item For any \hyperref[def:presheaf]{morphism of presheaves} \(\mathcal{F} \to \sheaf{G}\) where \(\sheaf{G}\) is a \(\category{C}\)-valued \nameref{def:sheaf} there exists a unique factorization \(\mathcal{F} \to \mathcal{F}^{\#} \to \sheaf{G}\).
   \end{enumerate}
 \end{lemma}
 
 \begin{remark}
-  We will assume that \(\mathsf{C}\) is an \nameref{def:algebraic-category} in what follows.
+  We will assume that \(\category{C}\) is an \nameref{def:algebraic-category} in what follows.
 \end{remark}
 
 Therefore we can assign a \nameref{def:sheaf} to any \nameref{def:presheaf} using this construction.
 \begin{definition}[Sheafification] \label{def:sheafification}
-  Let \(\mathcal{F}\) be a \(\mathsf{C}\)-valued \nameref{def:presheaf}.
+  Let \(\mathcal{F}\) be a \(\category{C}\)-valued \nameref{def:presheaf}.
   We call the \nameref{def:sheaf} \(\mathcal{F}^{\#}\) obtained by \autoref{thm:sheafification-set} the \textbf{sheafification} of \(\mathcal{F}\).
 \end{definition}
 
@@ -315,22 +316,22 @@ Therefore we can assign a \nameref{def:sheaf} to any \nameref{def:presheaf} usin
 Using this adjunction we can \textit{adapt} \autoref{def:direct-image-presheaf} and \autoref{def:inverse-image-presheaf} to the case of \namerefs{def:sheaf}
 \begin{definition}[Direct image \nameref{def:sheaf}] \label{def:direct-image-sheaf}
   Let \(f: X \to Y\) be a continuous map.
-  Let \(\sheaf{F}\) be a \(\mathsf{C}\)-valued \nameref{def:sheaf} over \(X\).
+  Let \(\sheaf{F}\) be a \(\category{C}\)-valued \nameref{def:sheaf} over \(X\).
   The \textbf{direct image \nameref{def:sheaf}} of \(\sheaf{F}\) via \(f\) is the \nameref{def:sheaf} \(f_{\ast}\sheaf{F}\) defined as, for every open subset \(V \subseteq Y\)
   \begin{equation*}
     f_{\ast}\sheaf{F}(V) = \sheaf{F}(f^{-1}(U))
   \end{equation*}
 
-  This construction defines a \nameref{def:functor} \(f_{\ast}: \Sh_{X}(\mathsf{C}) \to \Sh_{Y}(\mathsf{C})\).
+  This construction defines a \nameref{def:functor} \(f_{\ast}: \Sh_{X}(\category{C}) \to \Sh_{Y}(\category{C})\).
 \end{definition}
 
 This means that \autoref{ex:global-section-presheaf} and \autoref{ex:skyscrapper-presheaf} translate directly to \namerefs{def:sheaf}.
 \begin{definition}[Global section \nameref{def:functor}] \label{def:global-section-functor}
-  We denote by \(\Gamma(X, -): \Sh_{X}(\mathsf{C}) \to \mathsf{C}\) the \textbf{global section functor} described in \autoref{ex:global-section-presheaf}, but now with initial category \(\Sh_{X}(\mathsf{C})\).
+  We denote by \(\Gamma(X, -): \Sh_{X}(\category{C}) \to \category{C}\) the \textbf{global section functor} described in \autoref{ex:global-section-presheaf}, but now with initial category \(\Sh_{X}(\category{C})\).
 \end{definition}
 \begin{definition}[Skyscrapper \nameref{def:sheaf}] \label{ex:skyscrapper-sheaf}
   Let \(X\) be a topological space and \(p \in X\).
-  Let \(S\) be an object of \(\mathsf{C}\).
+  Let \(S\) be an object of \(\category{C}\).
   The \textbf{skyscrapper \nameref{def:sheaf}} supported at \(p\) \(\iota_{\ast, p} \underline{S}\) is the \nameref{def:direct-image-sheaf} of the \nameref{def:constant-sheaf} \(\underline{S}\) via the map \(\{p\} \to X\).
 \end{definition}
 \change[inline]{Rewrite this definitions}
@@ -338,23 +339,23 @@ This means that \autoref{ex:global-section-presheaf} and \autoref{ex:skyscrapper
 \todo[inline]{Explain why we need to sheafificate}
 \begin{definition}[Inverse image \nameref{def:sheaf}] \label{def:inverse-image-sheaf}
   Let \(f: X \to Y\) be a continuous map.
-  Let \(\sheaf{G}\) be a \(\mathsf{C}\)-valued \nameref{def:sheaf} over \(Y\).
+  Let \(\sheaf{G}\) be a \(\category{C}\)-valued \nameref{def:sheaf} over \(Y\).
   The \textbf{inverse image \nameref{def:sheaf}} of \(\sheaf{G}\) via \(f\) is the \nameref{def:sheaf} \(f^{-1}\sheaf{G}\) defined as, for every open subset \(U \subseteq X\)
   \begin{equation*}
     f^{-1}\sheaf{G} = (f^{-1} \sheaf{G})^{\#}
   \end{equation*}
   where the RHS of the equation is the \nameref{def:sheafification} of the \nameref{def:inverse-image-presheaf} of \(\sheaf{G}\) via \(f\).
 
-  This defines a \nameref{def:functor} \(f^{-1}: \PSh_{Y}(\mathsf{C}) \to \PSh_{X}(\mathsf{C})\).
+  This defines a \nameref{def:functor} \(f^{-1}: \PSh_{Y}(\category{C}) \to \PSh_{X}(\category{C})\).
 \end{definition}
 
 \begin{definition}[Constant \nameref{def:sheaf}] \label{def:constant-sheaf}
-  Let \(S\) be an object of \(\mathsf{C}\).
+  Let \(S\) be an object of \(\category{C}\).
   The \textbf{constant \nameref{def:sheaf}} \(\underline{S}\) associated to \(S\) is the \nameref{def:sheafification} of the \nameref{ex:constant-presheaf} \(\underline{S}_{\pre}\), i.e: \(\underline{S} = (\underline{S}_{\pre})^{\#}\).
 \end{definition}
 
 \begin{definition}[Stalk] \label{def:stalk-sheaf}
-  Let \(X\) be a topological space and \(p \in X\). Let \(\sheaf{F}\) be a \(\mathsf{C}\)-valued \nameref{def:sheaf} over \(X\).
+  Let \(X\) be a topological space and \(p \in X\). Let \(\sheaf{F}\) be a \(\category{C}\)-valued \nameref{def:sheaf} over \(X\).
   The \textbf{stalk} of \(\sheaf{F}\) at \(p\) \(\sheaf{F}_{p}\) is the \nameref{def:inverse-image-sheaf} of \(\sheaf{F}\) via \(X \to \{p\}\):
   \begin{align*}
     \sheaf{F}_{p} = \colim_{U \ni p} \sheaf{F}(U)
@@ -369,50 +370,50 @@ Using the adjointness we have the analogous of \autoref{prop:direct-inverse-imag
 \end{proposition}
 \begin{proof}
   \begin{align*}
-    \Hom_{\Sh_{X}(\mathsf{C})}(f^{-1} \sheaf{G}, \sheaf{F}) &= \Hom_{\PSh_{X}(\mathsf{C})}(f^{-1} \sheaf{G}, \sheaf{F})  \\
-                                                            &= \Hom_{\PSh_{X}(\mathsf{C})}(\sheaf{G}, f_{\ast}\sheaf{G}) \\
-                                                            &= \Hom_{\Sh_{X}(\mathsf{C})}(\sheaf{G}, f_{\ast}\sheaf{G})
+    \Hom_{\Sh_{X}(\category{C})}(f^{-1} \sheaf{G}, \sheaf{F}) &= \Hom_{\PSh_{X}(\category{C})}(f^{-1} \sheaf{G}, \sheaf{F})  \\
+                                                            &= \Hom_{\PSh_{X}(\category{C})}(\sheaf{G}, f_{\ast}\sheaf{G}) \\
+                                                            &= \Hom_{\Sh_{X}(\category{C})}(\sheaf{G}, f_{\ast}\sheaf{G})
   \end{align*}
 \end{proof}
 
 Therefore \hyperref[def:adjunction]{adjunctions} \autoref{cor:constant-global-adjunction-presheaf} and \autoref{cor:stalk-constant-adjunction-presheaf} also happen when considering \namerefs{def:sheaf}.
 \begin{corollary} \label{cor:constant-global-adjunction-sheaf}
   Let \(X\) be a topological space and \(p \in X\).
-  Let \(\sheaf{F}\) be a \(\mathsf{C}\)-valued \namerefs{def:sheaf} over \(X\) and let \(A\) be an object in \(\mathsf{C}\).
+  Let \(\sheaf{F}\) be a \(\category{C}\)-valued \namerefs{def:sheaf} over \(X\) and let \(A\) be an object in \(\category{C}\).
   Then
   \begin{equation*}
-    \Hom_{\Sh_{X}(\mathsf{C})}(\underline{A}, \sheaf{F}) \simeq \Hom_{\mathsf{C}}(A, \Gamma(X, \sheaf{F}))
+    \Hom_{\Sh_{X}(\category{C})}(\underline{A}, \sheaf{F}) \simeq \Hom_{\category{C}}(A, \Gamma(X, \sheaf{F}))
   \end{equation*}
 \end{corollary}
 
 \begin{corollary}\label{cor:stalk-constant-adjunction-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
-  Let \(\sheaf{F}\) be a \(\mathsf{C}\)-valued \namerefs{def:sheaf} over \(X\) and let \(A\) be an object in \(\mathsf{C}\).
+  Let \(\sheaf{F}\) be a \(\category{C}\)-valued \namerefs{def:sheaf} over \(X\) and let \(A\) be an object in \(\category{C}\).
   Then
   \begin{equation*}
-    \Hom_{\mathsf{C}}(\sheaf{F}_{p}, A) \simeq \Hom_{\Sh_{X}(\mathsf{C})}(\sheaf{F}, \iota_{p, \ast}\underline{A})
+    \Hom_{\category{C}}(\sheaf{F}_{p}, A) \simeq \Hom_{\Sh_{X}(\category{C})}(\sheaf{F}, \iota_{p, \ast}\underline{A})
   \end{equation*}
 \end{corollary}
 
 
-For cohomology we will be interested in the case \(\mathsf{C} = \Ab\).
+For cohomology we will be interested in the case \(\category{C} = \Ab\).
 
 \begin{lemma} \label{lemma:abelian-category-from-adjunction}
-  Let \(a: \mathsf{A} \to \mathsf{B}\) and \(b: \mathsf{B} \to \mathsf{A}\) be two \namerefs{def:functor}.
+  Let \(a: \category{A} \to \category{B}\) and \(b: \category{B} \to \category{A}\) be two \namerefs{def:functor}.
   Suppose that
   \begin{enumerate}
-    \item \(\mathsf{A}\) and \(\mathsf{B}\) are \hyperref[def:additive-category]{additive categories}, \(a, b\) are additive functors and \(b \dashv a\).
-    \item \(\mathsf{B}\) is an \nameref{def:abelian-category} and \(b\) is \hyperref[def:exact-functor]{left-exact}.
-    \item \(ba \cong \id_{\mathsf{A}}\).
+    \item \(\category{A}\) and \(\category{B}\) are \hyperref[def:additive-category]{additive categories}, \(a, b\) are additive functors and \(b \dashv a\).
+    \item \(\category{B}\) is an \nameref{def:abelian-category} and \(b\) is \hyperref[def:exact-functor]{left-exact}.
+    \item \(ba \cong \id_{\category{A}}\).
   \end{enumerate}
-  Then \(\mathsf{A}\) is abelian.
+  Then \(\category{A}\) is abelian.
 \end{lemma}
 \begin{proof}
-  Since \(\mathsf{B}\) is an \nameref{def:abelian-category} all \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} exist en \(\mathsf{B}\).
+  Since \(\category{B}\) is an \nameref{def:abelian-category} all \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} exist en \(\category{B}\).
 
   Since \(b\) is \hyperref[def:adjunction]{left-adjoint} it is \hyperref[def:exact-functor]{right-exact} and therefore, \hyperref[def:exact-functor]{exact}.
 
-  Let \(\varphi: B_{1} \to B_{2}\) be a morphism in \(\mathsf{B}\).
+  Let \(\varphi: B_{1} \to B_{2}\) be a morphism in \(\category{B}\).
   If \(K = \ker(\varphi)\) then \(K\) is the \nameref{def:equalizer} of the diagram
   \begin{center}
     \begin{tikzcd}
@@ -429,15 +430,15 @@ For cohomology we will be interested in the case \(\mathsf{C} = \Ab\).
 
   Dually we get that \(b\coker(B_{1} \to B_{2})\) is the \nameref{def:categorical-cokernel} of \(b\varphi\).
 
-  Therefore we have that every morphism \(b\varphi\) in \(\mathsf{A}\) admits a \nameref{def:categorical-kernel} and a \nameref{def:categorical-cokernel}.
-  Moreover since \(ba \cong \id_{\mathsf{A}}\) every morphism in \(\mathsf{A}\) is of the form \(b\varphi\), therefore all \namerefs{def:categorical-kernel} and \namerefs{def:categorical-cokernel} exist in \(\mathsf{A}\).
+  Therefore we have that every morphism \(b\varphi\) in \(\category{A}\) admits a \nameref{def:categorical-kernel} and a \nameref{def:categorical-cokernel}.
+  Moreover since \(ba \cong \id_{\category{A}}\) every morphism in \(\category{A}\) is of the form \(b\varphi\), therefore all \namerefs{def:categorical-kernel} and \namerefs{def:categorical-cokernel} exist in \(\category{A}\).
   Indeed for every \(\psi: A_{1} \to A_{2}\) we have that
   \begin{align} \label{eq:ker-coker-lemma}
     \ker \psi = b\ker(a\psi) \qquad \coker \psi = b\coker(a\psi)
   \end{align}
 
   It only remains to show that \(\coim \psi = \im \psi\).
-  Since \(\mathsf{A}\) has all \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} \(\mathsf{A}\) has all finite \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit}, making \(a\) left-exact.
+  Since \(\category{A}\) has all \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} \(\category{A}\) has all finite \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit}, making \(a\) left-exact.
   This means that \(a\) transforms \namerefs{def:categorical-kernel} into \namerefs{def:categorical-kernel}.
   Therefore
   \begin{align*}
@@ -445,10 +446,10 @@ For cohomology we will be interested in the case \(\mathsf{C} = \Ab\).
             &= b\coker \left( a(\ker \psi \to A_{1}) \right)  & \eqref{eq:ker-coker-lemma} \\
             &= b\coker \left( \ker(a\psi) \to aA_{1} \right)  & (a\text{ preserves kernels}) \\
             &= b\coim (a\psi)                                & (\text{definition}) \\
-            &= b\im (a\psi)                                  & (\mathsf{B} \text{ is abelian}) \\
+            &= b\im (a\psi)                                  & (\category{B} \text{ is abelian}) \\
             &= b\ker \left( aA_{2} \to \coker(a\psi) \right)  & (\text{definition}) \\
             &= \ker \left( baA_{2} \to b\coker(a\psi) \right) & (b\text{ preserves kernels}) \\
-            &= \ker \left( A_{2} \to b\coker(a\psi) \right)   & ba \cong \id_{\mathsf{A}}\\
+            &= \ker \left( A_{2} \to b\coker(a\psi) \right)   & ba \cong \id_{\category{A}}\\
             &= \ker \left( A_{2} \to \coker \psi \right)      & \eqref{eq:ker-coker-lemma} \\
             &= \im \psi                                     & (\text{definition})
   \end{align*}
@@ -468,7 +469,7 @@ For cohomology we will be interested in the case \(\mathsf{C} = \Ab\).
 \begin{proof}
   Note that \(2. \implies 3.\), \(4. \implies 5\) and \(2. \land 5. \implies 6.\)
 
-  Therefore we only need to prove \(1., 2.\) and \(3.\), but this comes directly from \autoref{lemma:abelian-category-from-adjunction} with \(\mathbf{A} = \Sh_{X}(\Ab)\), \(\mathsf{B} = \PSh_{X}(\Ab)\), \(a: \Sh_{X}(\Ab) \hookrightarrow \PSh_{X}(\Ab)\) the inclussion \nameref{def:functor} and \(b: \PSh_{X}(\Ab) \to \Sh_{X}(\Ab)\) the \nameref{def:sheafification} \nameref{def:functor}.
+  Therefore we only need to prove \(1., 2.\) and \(3.\), but this comes directly from \autoref{lemma:abelian-category-from-adjunction} with \(\category{A} = \Sh_{X}(\Ab)\), \(\category{B} = \PSh_{X}(\Ab)\), \(a: \Sh_{X}(\Ab) \hookrightarrow \PSh_{X}(\Ab)\) the inclussion \nameref{def:functor} and \(b: \PSh_{X}(\Ab) \to \Sh_{X}(\Ab)\) the \nameref{def:sheafification} \nameref{def:functor}.
 \end{proof}
 
 \end{document}

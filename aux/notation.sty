@@ -1,0 +1,45 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{notation}
+
+% Math operators
+\newcommand*\quot[2]{{^{\textstyle #1}\big/_{\textstyle #2}}} % Quotient
+\DeclareMathOperator*{\colim}{colim}
+\DeclareMathOperator*{\pre}{pre}
+\DeclareMathOperator*{\op}{op}
+\newcommand\res{\operatorname{res}}
+
+% Arrows
+\newcommand\monoarrow{\rightarrowtail}
+\newcommand\epiarrow{\twoheadrightarrow}
+\newcommand\isoarrow{\xrightarrow{\sim}}
+
+
+% Categories
+\newcommand{\category}[1]{\mathsf{#1}}
+\newcommand\Hom{\operatorname{Hom}}
+\newcommand\Mor{\operatorname{Mor}}
+\newcommand{\opcategory}[1]{\category{#1}^{\op}}
+\newcommand\id{\mathbbm{1}}
+
+%% Special categories
+\newcommand\Set{\category{Set}}
+\newcommand\Ab{\category{Ab}}
+\newcommand\Ring{\category{Ring}}
+\newcommand\Top{\category{Top}}
+\newcommand{\Mod}[1]{#1\text{-}\category{Mod}}
+\newcommand\Open{\category{Op}} % Open subsets
+
+% Homological Algebra
+\DeclareMathOperator*{\im}{im}
+\DeclareMathOperator*{\coim}{coim}
+\DeclareMathOperator*{\coker}{coker}
+\newcommand{\Complex}[1]{\category{Com}(#1)}
+\newcommand{\cohomology}[1]{\operatorname{H}^{#1}}
+
+% Sheaves
+\newcommand\PSh{\category{PSh}} % Presheaves
+\newcommand\Sh{\category{Sh}} % Sheaves
+\newcommand\HomS{\mathcal{H}om} % Hom Sheaf
+\newcommand{\sheaf}[1]{\mathscr{#1}}
+\newcommand\OxMod{\Mod{\sheaf{O}_{X}}}
+\newcommand\etale{\operatorname{Et}}
