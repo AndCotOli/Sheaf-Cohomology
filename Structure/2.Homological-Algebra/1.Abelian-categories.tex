@@ -229,11 +229,13 @@
   Therefore since \(\eta \varphi = \id\) we have shown that \(\varphi\) has a left-inverse.
 \end{proof}
 
+
 \begin{definition}[Exact sequence] \label{def:exact-sequence}
   A sequence of morphisms \(X \xrightarrow{f} Y \xrightarrow{g} Z\) in an \nameref{def:abelian-category} is \textbf{exact} (at \(Y\)) if \(g \circ f = 0\) and the natural morphism \(\im f \to \ker g\) is an \nameref{def:categorical-isomorphism}.
 
   More generally, a sequence of morphisms \(\cdots \to X \to Y \to Z \to \cdots\) is \textbf{exact} if every successive pair of arrows is exact.
 \end{definition}
+\SetPluralName{def:exact-sequence}{Exact sequences}
 
 \begin{remark}
   For any morphism \(f: X \to Y\) in an \nameref{def:abelian-category} we get exact sequences
@@ -271,6 +273,23 @@
   Let \(\category{A}\) be an \nameref{def:abelian-category} and let \(X \in \mathsf{A}\).
   The \namerefs{def:functor} \(\Hom_{\mathsf{A}}(X, -)\) and \(\Hom_{\mathsf{A}}(-, X)\) are both \hyperref[def:exact-functor]{left-exact functors} from \(\mathsf{A}\) to \(\Ab\).
 \end{example}
+
+\begin{definition} \label{def:injective-projective-objects}
+  Let \(\category{A}\) be an \nameref{def:abelian-category}.
+  \begin{itemize}
+    \item An object \(P \in \category{A}\) is \textbf{projective} if the \nameref{def:functor} \(\Hom_{\category{A}}(P, -)\) is \hyperref[def:exact-functor]{exact}.
+    \item An object \(I \in \category{A}\) is \textbf{injective} if the \nameref{def:functor} \(\Hom_{\category{A}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
+  \end{itemize}
+\end{definition}
+
+\begin{definition}
+  An \nameref{def:abelian-category} \(\category{A}\).
+  \begin{itemize}
+    \item \(\category{A}\) has \textbf{enough projectives} if for every object \(A \in \category{A}\) there exists a \hyperref[def:injective-projective-objects]{projective object} \(P \in \category{A}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow A\).
+    \item \(\category{A}\) has \textbf{enough injectives} if for every object \(A \in \category{A}\) there exists a \hyperref[def:injective-projective-objects]{injective object} \(I \in \category{A}\) and an \hyperref[def:mono-epi-morphism]{monomorphism} \(A \monoarrow I\).
+  \end{itemize}
+\end{definition}
+
 
 \begin{theorem}[Freyd-Mitchell theorem] \label{thm:freyd-mitchell}
   Let \(\mathsf{A}\) be a small \nameref{def:abelian-category}. Then there exists a \hyperref[def:functor-types]{fully faithfull} \nameref{def:exact-functor} \(\mathsf{A} \to \Mod{R}\) for a suitable (possibly non-commutative) ring \(R\), where \(\Mod{R}\) is the category of left \(R\)-modules.
