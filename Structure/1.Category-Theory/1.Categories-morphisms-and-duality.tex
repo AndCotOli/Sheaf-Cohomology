@@ -1,0 +1,101 @@
+\documentclass[../../main]{subfiles}
+
+\begin{document}
+
+\chapter{Categories, morphisms and duality}
+
+\section{Categories}
+
+\begin{definition}[Category] \label{def:big-category}
+  A \textbf{category} \(\category{C}\) consists of:
+  \begin{itemize}
+    \item a collection \(\operatorname{Ob}(\category{C})\) of \textbf{objects}.
+    \item for each pair of objects \(X, Y \in \operatorname{Ob}(\category{C})\) a collection \(\Hom_{\category{C}}(X, Y)\) of \textbf{morphisms from \(X\) to \(Y\)}.
+    \item for each object \(X \in \operatorname{Ob}(\category{C})\) a morphisms \(\id_{X} \in \Hom_{\category{C}}(X, X)\) called the \textbf{identity} morphism.
+    \item for each pair of morphisms \(f \in \Hom_{\category{C}}(X, Y)\) and \(g \in \Hom_{\category{C}}(Y, Z)\) a morphism \(g \circ f \in \Hom_{\category{C}}(X, Z)\) called their \textbf{composite}.
+  \end{itemize}
+  satisfying the following axioms:
+  \begin{itemize}
+    \item Composition is associative: for each quadruple \(X, Y, Z, W \in \operatorname{Ob}(\category{C})\) of objects, if \(f \in \Hom_{\category{C}}(Y, Z)\), \(g \in \Hom_{\category{C}}(X, Y)\) and \(h \in \Hom_{\category{C}}(W, X)\) then
+          \begin{equation*}
+            (f \circ g) \circ h = f \circ (g \circ h)
+          \end{equation*}
+    \item Composition satiesfies the unit laws: for each pair of objects \(X, Y \in \operatorname{Ob}(\category{C})\) if \(f \in \Hom_{\category{C}}(X, Y)\) then
+          \begin{equation*}
+            \id_{Y} \circ f = f = f \circ \id_{X}
+          \end{equation*}
+  \end{itemize}
+\end{definition}
+
+
+\begin{notation}
+  To indicate that \(X\) is an object of a \hyperref[def:big-category]{category} \(\category{C}\) we write \(X \in \category{C}\) instead of \(X \in \operatorname{Ob}(\category{C})\).
+
+  To indicate that \(f \in \Hom_{\category{C}}(X, Y)\) is a morphisms from \(X\) to \(Y\) we write \(f: X \to Y\) or \(X \xrightarrow{f} Y\).
+\end{notation}
+
+\begin{example}~
+  \begin{itemize}
+    \item The \hyperref[def:big-category]{category} \(\Set\) has the collection of all sets as \(\operatorname{Ob}(\Set)\) and, for any pair of sets \(X, Y\), \(\Hom_{\Set}(X, Y)\) is the set of all applications \(f: X \to Y\).
+    \item The \hyperref[def:big-category]{category} \(\Grp\) has the collection of all groups as \(\operatorname{Ob}(\Grp)\) and, for any pair of groups \(G, H\) \(\Hom_{\Grp}(G, H)\) is the set of all group homomorphisms \(f: G \to H\).
+    \item The \hyperref[def:big-category]{category} \(\Top\) has the collection of all topological spaces as \(\operatorname{Ob}(\Top)\) and, for any pair of topological spaces \(X, Y\) \(\Hom_{\Top}(X, Y)\) is the set of all continuous functions \(f: X \to Y\).
+  \end{itemize}
+\end{example}
+
+\begin{definition}[Locally small category] \label{def:category}
+  A \hyperref[def:big-category]{category} \(\category{C}\) is \textbf{locally small} if for every pair of objects \(X, Y \in \category{C}\) the collection \(\Hom(X, Y)\) is a set.
+\end{definition}
+
+\begin{definition}[Small category] \label{def:small-category}
+  A \hyperref[def:category]{locally small category} \(\category{C}\) is \textbf{small} if its collection of objects \(\operatorname{Ob}(\category{C})\) is a set.
+\end{definition}
+
+% \begin{remark}
+%   To avoid unnecessary set-theoretical problems, when we refer to a category we will mean a \hyperref[def:category]{locally small} category unless otherwise specified. We will refer to \hyperref[def:big-category]{\textit{regular} categories} (\autoref{def:big-category}) as big categories.
+% \end{remark}
+
+\section{Types of morphisms}
+
+\begin{definition}[Isomorphism] \label{def:categorical-isomorphism}
+  An \textbf{isomorphism} in a \hyperref[def:big-category]{category} is a morphism \(f: X \to Y\) for which exists another morphism \(g: Y \to X\) such that:
+  \begin{equation*}
+    g \circ f = \id_X \quad \text{and} \quad f \circ g = \id_Y
+  \end{equation*}
+  The morphism \(g\) is called the \textbf{inverse} of \(f\), often denoted \(f^{-1}\).
+\end{definition}
+
+\begin{example}~
+  \begin{itemize}
+    \item In \(\Set\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijection.
+    \item In \(\Grp\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective group homomorphism.
+    \item In \(\Top\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a homeomorphism.
+  \end{itemize}
+\end{example}
+
+\begin{proposition}
+  Let \(f: X \to Y\), \(g: Y \to Z\) be two \hyperref[def:categorical-isomorphism]{isomorphisms} in a \hyperref[def:big-category]{category} \(\category{C}\). Then:
+  \begin{enumerate}
+    \item The inverse \(f^{-1}\) of \(f\) is unique.
+    \item \(g \circ f\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+    \item If \(h \circ k\) is an \hyperref[def:categorical-isomorphism]{isomorphism} and either \(g\) or \(h\) is an \hyperref[def:categorical-isomorphism]{isomorphism} then so is the other.
+  \end{enumerate}
+\end{proposition}
+
+
+\section{Duality}
+
+\begin{definition}[Opposite category] \label{def:opposite-category}
+  Let \(\category{C}\) be a \hyperref[def:big-category]{category}. The \textbf{opposite category} \(\opcategory{C}\) consists of:
+  \begin{itemize}
+    \item The same objects as \(\category{C}\): \(\operatorname{Ob}(\opcategory{C}) = \operatorname{Ob}(\category{C})\).
+    \item For each pair of objects \(X, Y \in \category{C}^{\op}\): \(\Hom_{\opcategory{C}}(X, Y) = \Hom_{\category{C}}(Y, X)\).
+  \end{itemize}
+\end{definition}
+
+\begin{example}
+  Consider a preordered set \((P, \leq)\) viewed as a \hyperref[def:small-category]{small category} where a unique morphism \(x \to y\) exists if and only if \(x \leq y\).
+
+  The \hyperref[def:opposite-category]{opposite category} \(P^{\op}\) corresponds to the same set \(P\) equipped with the reversed order \(\geq\). That is, a morphism \(x \to y\) exists in \(P^{\text{op}}\) if and only if \(y \leq x\) in \(P\).
+\end{example}
+
+\end{document}

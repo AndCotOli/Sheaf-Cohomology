@@ -6,49 +6,6 @@
 
 From now on, we will be working in a fixed \nameref{def:abelian-category} \(\mathsf{A}\).
 By the \nameref{thm:freyd-mitchell} we can work with objects and morphisms using set-theoretic tools when needed.
-
-\begin{definition}[Complex] \label{def:complex}
-  A sequence of objects and morphisms in an \nameref{def:additive-category} \(\mathsf{A}\)
-  \begin{center}
-    \begin{tikzcd}
-      \cdots \arrow[r, "d_{i-2}"] & C_{i-1} \arrow[r, "d_{i-1}"] & C_{i} \arrow[r, "d_{i}"] & C_{i+1} \arrow[r, "d_{i+1}"] & \cdots
-    \end{tikzcd}
-  \end{center}
-  is a \textbf{chain complex} if for every \(i \in \mathbb{N} \quad d_{i} \circ d_{i-1} = 0\).
-  We denote a chain complex as \((C_{\bullet}, d_{\bullet})\) or simply as \(C_{\bullet}\).
-
-  By reversing the order, we say that a sequence
-  \begin{center}
-    \begin{tikzcd}
-      \cdots \arrow[r, "d^{i+2}"] & C^{i+1} \arrow[r, "d^{i+1}"] & C^{i} \arrow[r, "d^{i}"] & C^{i-1} \arrow[r, "d^{i-1}"] & \cdots
-    \end{tikzcd}
-  \end{center}
-  is a \textbf{cochain complex} if for every \(i \in \mathbb{N} \quad d_{i} \circ d_{i+1} = 0\).
-  We denote a cochain complex as \((C^{\bullet}, d^{\bullet})\) or simply as \(C^{\bullet}\).
-\end{definition}
-\SetPluralName{def:complex}{Complexes}
-
-\begin{remark}
-  In purelly algebraic terms, chains are cochains are \textit{equivalent}.
-  We will adopt the cochain notation.
-\end{remark}
-
-
-\begin{definition}[Exact complex] \label{def:exact-complex}
-  A \nameref{def:complex} in an \nameref{def:abelian-category}
-  \begin{center}
-    \begin{tikzcd}
-      \cdots \arrow[r, "d^{i+2}"] & C^{i+1} \arrow[r, "d^{i+1}"] & C^{i} \arrow[r, "d^{i}"] & C^{i-1} \arrow[r, "d^{i-1}"] & \cdots
-    \end{tikzcd}
-  \end{center}
-  is \textbf{exact at \(C^{i}\)} (or simply at position \(i\)) if
-  \begin{equation*}
-    \coker d^{i+1} \circ \ker d^{i} = 0
-  \end{equation*}
-
-  A complex is \textbf{exact} if it is exact at every position.
-\end{definition}
-
 \begin{definition}[Image and coimage] \label{def:image}
   Let \(\varphi: A \to B\) be a morphism in an \nameref{def:abelian-category}.
 
