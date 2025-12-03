@@ -1,5 +1,9 @@
 \documentclass[../../../main]{subfiles}
 
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+}{}
+
 \begin{document}
 \section{Abelian categories}
 
@@ -142,10 +146,6 @@
           Therefore by uniqueness \(\xi = 0\), making \(\varphi\) a \hyperref[def:mono-epi-morphism]{monomorphism} by \autoref{lemma:mono-epi-additive}.
   \end{itemize}
 \end{proof}
-
-\begin{definition}[Additive functor] \label{def:additive-functor}
-  Let \(\category{A}, \category{B}\) be two \hyperref[def:additive-category]{additive categories}. A \hyperref[def:functor]{functor} \(F: \category{A} \to \category{B}\) is \textbf{additive} if it preserves the abelian group structure of all Hom-sets.
-\end{definition}
 
 \subsection{Abelian categories}
 \begin{definition}[Abelian category] \label{def:abelian-category}

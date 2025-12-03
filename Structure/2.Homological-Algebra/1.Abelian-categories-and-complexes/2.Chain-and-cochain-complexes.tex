@@ -1,7 +1,7 @@
 \documentclass[../../../main]{subfiles}
 
 \ifSubfilesClassLoaded{%
-    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
     \zexternaldocument*{1.Abelian-categories}%
 }{}
 
@@ -65,7 +65,7 @@ Throughout this chapter we will be working over a fixed \hyperref[def:abelian-ca
 \end{definition}
 
 
-\begin{remark}
+\begin{remark} \label{remark:exactness-mono-epi}
   For any morphism \(f: X \to Y\) in an \(\category{A}\) we get \hyperref[def:short-exact-sequence]{short exact sequences}
   \begin{center}
     \begin{tikzcd}
@@ -76,99 +76,5 @@ Throughout this chapter we will be working over a fixed \hyperref[def:abelian-ca
 
   Therefore by \autoref{lemma:partial-sequence-additive} the sequence \(0 \to X \xrightarrow{f} Y\) (resp. \(X \xrightarrow{f} Y \to 0\)) is \hyperref[def:exact-sequence]{exact} if and only if \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}).
 \end{remark}
-
-\begin{definition}[Exact functor] \label{def:exact-functor}
-  Let \(\category{A}, \category{B}\) be two \hyperref[def:abelian-category]{abelian categories}.
-
-  An \hyperref[def:additive-functor]{additive functor} \(F: \category{A} \to \category{B}\) is called left (resp. right) \textbf{exact} if for any \hyperref[def:short-exact-sequence]{short exact sequence} in \(\category{A}\)
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z
-    \end{tikzcd}
-  \end{center}
-  (resp. \(X \to Y \to Z \to 0\) ) the squence
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z)
-    \end{tikzcd}
-  \end{center}
-  (resp. \(F(X) \to F(Y) \to F(Z) \to 0\)) is \hyperref[def:short-exact-sequence]{exact}.
-
-  If \(F\) is both left and right exact, then \(F\) is called \textbf{exact}.
-\end{definition}
-
-\begin{example}
-  The \hyperref[def:functor]{functors} \(\Hom_{\category{A}}(X, -)\) and \(\Hom_{\category{A}}(-, X)\) are both \hyperref[def:exact-functor]{left-exact functors} from \(\category{A}\) to \(\Ab\).
-\end{example}
-
-The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
-\begin{lemma}
-  Let \(F: \category{A} \to \category{B}\) be an \hyperref[def:additive-functor]{additive functor}.
-  \begin{enumerate}
-    \item The following are equivalent
-          \begin{enumerate}
-            \item \(F\) is \hyperref[def:exact-functor]{left exact}.
-            \item \(F\) commutes with \hyperref[def:categorical-kernel]{kernels}: for any morphism \(f: X \to Y\), \(F(\ker f) \isoarrow \ker F(f)\).
-            \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits}.
-            \item For any \hyperref[def:short-exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{A}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:short-exact-sequence]{exact} in \(\category{B}\).
-          \end{enumerate}
-
-    \item  The following are equivalent
-          \begin{enumerate}
-            \item \(F\) is \hyperref[def:exact-functor]{exact}.
-            \item For any \hyperref[def:exact-complex]{exact sequence} \(X \to Y \to Z\) in \(\category{A}\) the sequence \(F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-complex]{exact} in \(\category{B}\).
-            \item \(F\) commutes with \hyperref[def:categorical-colimit]{finite limits} and \hyperref[def:categorical-colimit]{finite colimits}.
-          \end{enumerate}
-  \end{enumerate}
-\end{lemma}
-
-\begin{definition} \label{def:injective-projective-objects}~
-  \begin{itemize}
-    \item An object \(P \in \category{A}\) is \textbf{projective} if all the diagrams of the form
-          \begin{center}
-            \begin{tikzcd}
-              & X \arrow[d, two heads] \\
-              P \arrow[r] & Z
-            \end{tikzcd}
-          \end{center}
-          where \(X \epiarrow X\) is an \hyperref[def:mono-epi-morphism]{epimorphism} admit an extension
-           \begin{center}
-             \begin{tikzcd}
-               & X \arrow[d, two heads] \\
-               P \arrow[r] \arrow[ur, dotted] & Z
-            \end{tikzcd}
-          \end{center}
-
-    \item An object \(I \in \category{A}\) is \textbf{injective} if all the diagrams of the form
-          \begin{center}
-            \begin{tikzcd}
-              X \arrow[r] \arrow[d, tail] & I \\
-              Z
-            \end{tikzcd}
-          \end{center}
-          where \(X \monoarrow Z\) is a \hyperref[def:mono-epi-morphism]{monomorphism} admit an extension
-           \begin{center}
-            \begin{tikzcd}
-              X \arrow[r] \arrow[d, tail] & I \\
-              Z \arrow[ur, dotted]
-            \end{tikzcd}
-          \end{center}
-  \end{itemize}
-\end{definition}
-
-\begin{proposition}
-  An object \(I \in \category{A}\) is \hyperref[def:injective-projective-objects]{injective} if and only if the functor \(\Hom_{\category{A}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
-
-  An object \(P \in \category{A}\) is \hyperref[def:injective-projective-objects]{projective} if and only if the functor \(\Hom_{\category{A}}(P, -)\) is \hyperref[def:exact-functor]{exact}.
-\end{proposition}
-
-
-\begin{definition} \label{def:enough-projective-injectives}~
-  \begin{itemize}
-    \item \(\category{A}\) has \textbf{enough projectives} if for every object \(A \in \category{A}\) there exists a \hyperref[def:injective-projective-objects]{projective object} \(P \in \category{A}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow A\).
-    \item \(\category{A}\) has \textbf{enough injectives} if for every object \(A \in \category{A}\) there exists a \hyperref[def:injective-projective-objects]{injective object} \(I \in \category{A}\) and an \hyperref[def:mono-epi-morphism]{monomorphism} \(A \monoarrow I\).
-  \end{itemize}
-\end{definition}
-
 
 \end{document}

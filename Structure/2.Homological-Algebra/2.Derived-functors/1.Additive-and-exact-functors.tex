@@ -1,0 +1,92 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Abelian-categories-and-complexes/exported/aux/main}%
+}{}
+
+\begin{document}
+\section{Additive and exact functors}
+
+\begin{definition}[Additive functor] \label{def:additive-functor}
+  Let \(\category{A}, \category{B}\) be two \hyperref[def:additive-category]{additive categories}. A \hyperref[def:functor]{functor} \(F: \category{A} \to \category{B}\) is \textbf{additive} if it preserves the abelian group structure of all Hom-sets.
+\end{definition}
+
+\begin{definition}[Exact functor] \label{def:exact-functor}
+  Let \(\category{A}, \category{B}\) be two \hyperref[def:abelian-category]{abelian categories}.
+
+  An \hyperref[def:additive-functor]{additive functor} \(F: \category{A} \to \category{B}\) is called left (resp. right) \textbf{exact} if for any \hyperref[def:short-exact-sequence]{short exact sequence} in \(\category{A}\)
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z
+    \end{tikzcd}
+  \end{center}
+  (resp. \(X \to Y \to Z \to 0\) ) the squence
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z)
+    \end{tikzcd}
+  \end{center}
+  (resp. \(F(X) \to F(Y) \to F(Z) \to 0\)) is \hyperref[def:short-exact-sequence]{exact}.
+
+  If \(F\) is both left and right exact, then \(F\) is called \textbf{exact}.
+\end{definition}
+
+\begin{example} \label{ex:hom-left-exact}
+  The \hyperref[def:functor]{functors} \(\Hom_{\category{A}}(X, -)\) and \(\Hom_{\category{A}}(-, X)\) are both \hyperref[def:exact-functor]{left-exact functors} from \(\category{A}\) to \(\Ab\).
+\end{example}
+\begin{proof}
+  We will check the statement about \(\Hom_{\category{A}}(X, -)\), the other follows analogously.
+
+  Consider a \hyperref[def:short-exact-sequence]{short left-exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & A \arrow[r, "f"] & B \arrow[r, "g"] & C
+    \end{tikzcd}
+  \end{center}
+  in \(\category{A}\). We want to show that
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \Hom(X, A) \arrow[r, "f_{\ast}"] & \Hom(X, B) \arrow[r, "g_{\ast}"] & \Hom(X, C)
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:short-exact-sequence]{exact} in \(\Ab\).
+
+  By \autoref{remark:exactness-mono-epi}, to show exacteness at \(\Hom(X, A)\) we need to check that \(f_{\ast}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} in \(\Ab\), i.e: \(f_{\ast}\) is injective.
+
+  Let \(\alpha \in \Hom(X, A)\) such that \(f_{\ast}(\alpha) = f \circ \alpha = 0\).
+  Since \(0 \to A \xrightarrow{f} B\) is exact by \autoref{remark:exactness-and-mono-epi} \(f\) is a monomorphism.
+  Therefore \(f \circ \alpha = 0 \iff \alpha = 0\), proving that \(f_{\ast}\) is injective.
+
+  To see exactness at \(\Hom(X, B)\) we are going to check that \(\im f_{\ast} = \ker g_{\ast}\):
+  \begin{itemize}
+    \item[\(\subseteq\)] Let \(\phi = f_{\ast}(\alpha)\) for some \(\alpha \in \Hom(X, A)\).
+          Applying \(g_{\ast}\) we get \(g_{\ast}(\phi) = (g \circ f) \circ \alpha\), therefore by exactness of the original sequence \(\phi \in \ker g_{\ast}\).
+    \item[\(\supseteq\)] Let \(\beta \in \Hom(X, B)\) such that \(g_{\ast}(\beta) = 0\).
+          Since the original sequence is exact \(\ker g = f\), therefore by the universal property of the \hyperref[def:categorical-kernel]{kernel} there exists \(\alpha: X \to A\) such that \(f \circ \alpha = \beta\).
+  \end{itemize}
+\end{proof}
+
+
+The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
+\begin{lemma} \label{lemma:schapira-exact-functor}
+  Let \(F: \category{A} \to \category{B}\) be an \hyperref[def:additive-functor]{additive functor}.
+  \begin{enumerate}
+    \item The following are equivalent
+          \begin{enumerate}
+            \item \(F\) is \hyperref[def:exact-functor]{left exact}.
+            \item \(F\) commutes with \hyperref[def:categorical-kernel]{kernels}: for any morphism \(f: X \to Y\), \(F(\ker f) \isoarrow \ker F(f)\).
+            \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits}.
+            \item For any \hyperref[def:short-exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{A}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:short-exact-sequence]{exact} in \(\category{B}\).
+          \end{enumerate}
+
+    \item  The following are equivalent
+          \begin{enumerate}
+            \item \(F\) is \hyperref[def:exact-functor]{exact}.
+            \item For any \hyperref[def:exact-complex]{exact sequence} \(X \to Y \to Z\) in \(\category{A}\) the sequence \(F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-complex]{exact} in \(\category{B}\).
+            \item \(F\) commutes with \hyperref[def:categorical-colimit]{finite limits} and \hyperref[def:categorical-colimit]{finite colimits}.
+          \end{enumerate}
+  \end{enumerate}
+\end{lemma}
+
+\end{document}

@@ -1,0 +1,114 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Abelian-categories-and-complexes/exported/aux/main}%
+}{}
+
+\begin{document}
+\section{Injective and projective objects}
+
+\begin{definition} \label{def:injective-projective-objects}~
+  \begin{itemize}
+    \item An object \(P \in \category{A}\) is \textbf{projective} if all the diagrams of the form
+          \begin{center}
+            \begin{tikzcd}
+              & X \arrow[d, two heads] \\
+              P \arrow[r] & Z
+            \end{tikzcd}
+          \end{center}
+          where \(X \epiarrow X\) is an \hyperref[def:mono-epi-morphism]{epimorphism} admit an extension
+           \begin{center}
+             \begin{tikzcd}
+               & X \arrow[d, two heads] \\
+               P \arrow[r] \arrow[ur, dotted] & Z
+            \end{tikzcd}
+          \end{center}
+
+    \item An object \(I \in \category{A}\) is \textbf{injective} if all the diagrams of the form
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[r] \arrow[d, tail] & I \\
+              Z
+            \end{tikzcd}
+          \end{center}
+          where \(X \monoarrow Z\) is a \hyperref[def:mono-epi-morphism]{monomorphism} admit an extension
+           \begin{center}
+            \begin{tikzcd}
+              X \arrow[r] \arrow[d, tail] & I \\
+              Z \arrow[ur, dotted]
+            \end{tikzcd}
+          \end{center}
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}
+  An object \(I \in \category{A}\) is \hyperref[def:injective-projective-objects]{injective} if and only if the functor \(\Hom_{\category{A}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
+
+  An object \(P \in \category{A}\) is \hyperref[def:injective-projective-objects]{projective} if and only if the functor \(\Hom_{\category{A}}(P, -)\) is \hyperref[def:exact-functor]{exact}.
+\end{proposition}
+\begin{proof}
+  By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-functor]{right exactness}.
+
+  We will do the projective version this time:
+  \begin{itemize}
+    \item[\(\implies\)] Suppose \(P \in A\) is \hyperref[def:injective-projective-objects]{projective} and consider an \hyperref[def:short-exact-sequence]{exact sequence}
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
+            \end{tikzcd}
+          \end{center}
+        Using \autoref{lemma:schapira-exact-functor}, we want to see that
+          \begin{center}
+            \begin{tikzcd}
+              \Hom(P, X) \arrow[r, "f_{\ast}"] & \Hom(P, Y) \arrow[r, "g_{\ast}"] & \Hom(P, Z) \arrow[r] & 0
+            \end{tikzcd}
+          \end{center}
+          is exact.
+
+          Since the sequence
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & \Hom(P, X) \arrow[r, "f_{\ast}"] & \Hom(P, Y) \arrow[r, "g_{\ast}"] & \Hom(P, Z)
+            \end{tikzcd}
+          \end{center}
+          is exact by \autoref{ex:hom-left-exact} we only need to check that \(g_{\ast}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} in \(\Ab\), i.e: that it is surjective.
+
+          Consider a morphism \(\gamma: P \to C\).
+          Since \(g\) is an epimorphism by exactness of the original sequence and \autoref{remark:exactness-mono-epi} there exists a morphism \(\beta: P \to B\) such that \(g \circ \beta = \gamma\), proving surjecticity.
+
+    \item[\(\impliedby\)] Suppose \(\Hom(P, -)\) is \hyperref[def:exact-functor]{exact} and consider an \hyperref[def:mono-epi-morphism]{epimorphism} \(g: B \epiarrow C\) in \(\category{A}\).
+
+          We have the following \hyperref[def:short-exact-sequence]{short exact sequence}
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & \ker g \arrow[r] & B \arrow[r, "g"] & C \arrow[r] & 0 \\
+            \end{tikzcd}
+          \end{center}
+          Applying \(\Hom(P, A)\) to this sequence we get
+           \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & \Hom(P, \ker g) \arrow[r] & \Hom(P, B) \arrow[r, "g_{\ast}"] & \Hom(P, C) \arrow[r] & 0 \\
+            \end{tikzcd}
+          \end{center}
+          which is \hyperref[def:short-exact-sequence]{exact} since \(\Hom(P, -)\) is \hyperref[def:exact-functor]{exact}.
+          In particular we have that \(g_{\ast}\) is surjective.
+
+          Therefore if \(\gamma: P \to C\) is any morphism there exists \(\beta \in \Hom(P, B)\) such that \(g \circ \beta = \gamma\), which is exactly the universal property of \hyperref[def:injective-projective-objects]{projective objects}.
+  \end{itemize}
+\end{proof}
+
+
+We haven't proven existence of \hyperref[def:injective-projective-objects]{injective or projective objects}.
+This is because in general they may not exist.
+
+Since we will be interesed in using them, we introduce the following types of \hyperref[def:big-category]{categories}.
+\begin{definition} \label{def:enough-projective-injectives}~
+  Let \(\category{A}\) be an \hyperref[def:abelian-category]{abelian category}. We say that:
+  \begin{itemize}
+    \item \(\category{A}\) has \textbf{enough projectives} if for every object \(A \in \category{A}\) there exists a \hyperref[def:injective-projective-objects]{projective object} \(P \in \category{A}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow A\).
+    \item \(\category{A}\) has \textbf{enough injectives} if for every object \(A \in \category{A}\) there exists a \hyperref[def:injective-projective-objects]{injective object} \(I \in \category{A}\) and an \hyperref[def:mono-epi-morphism]{monomorphism} \(A \monoarrow I\).
+  \end{itemize}
+\end{definition}
+
+\end{document}
