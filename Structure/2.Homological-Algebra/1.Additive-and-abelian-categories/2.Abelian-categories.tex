@@ -1,0 +1,219 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{1.Additive-categories}
+}{}
+
+\begin{document}
+\section{Abelian categories}
+
+\begin{definition}[Abelian category] \label{def:abelian-category}
+  An \hyperref[def:additive-category]{additive category} \(\category{A}\) is \textbf{abelian} if it verifies
+  \begin{enumerate}
+    \item[A.4)]\label{axiom:abelian-existence} \hyperref[def:categorical-kernel]{Kernels} and \hyperref[def:categorical-cokernel]{cokernels} exist in \(\category{A}\).
+    \item[A.5)]\label{axiom:abelian-morphisms} Every \hyperref[def:mono-epi-morphism]{monomorphism} is the \hyperref[def:categorical-kernel]{kernel} of some morphism and every \hyperref[def:mono-epi-morphism]{epimorphism} is the \hyperref[def:categorical-cokernel]{cokernel} of some morphism.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma} \label{lemma:kernel-of-cokernel-abelian}
+  In an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) every \hyperref[def:categorical-kernel]{kernel} is the \hyperref[def:categorical-kernel]{kernel} of its \hyperref[def:categorical-cokernel]{cokernel} and every \hyperref[def:categorical-cokernel]{cokernel} is the \hyperref[def:categorical-cokernel]{cokernel} of its \hyperref[def:categorical-kernel]{kernel}.
+  In formulas
+  \begin{align*}
+    \ker (\coker \varphi) = \ker \varphi \qquad \coker (\ker \varphi) = \coker \varphi
+  \end{align*}
+\end{lemma}
+\begin{proof}
+  Lets check \hyperref[def:categorical-cokernel]{cokernels} this time.
+
+  Let \(\coker \varphi: A \to B\) be the \hyperref[def:categorical-cokernel]{cokernel} of a morphism \(\varphi: Z \to A\).
+  Since \(\category{A}\) is \hyperref[def:abelian-category]{abelian} \(\varphi\) has a kernel \(\ker \varphi: K \to A\).
+  Note that \(Z \to A \to B\) is 0, therefore by the \hyperref[def:categorical-kernel]{kernel} universal property we have
+  \begin{center}
+    \begin{tikzcd}
+      Z \arrow[rr, "\varphi"] \arrow[dr, dotted] & & A \arrow[r, "\coker \varphi"'] & B \\
+      & K \arrow[ur, "\ker \varphi"']
+    \end{tikzcd}
+  \end{center}
+
+  Consider a morphism \(A \to C\) such that \((K \to A \to C) = 0\).
+  Now using the \hyperref[def:categorical-cokernel]{cokernel} universal property we obtain
+  \begin{center}
+    \begin{tikzcd}
+      &&& C & \\
+      Z \arrow[rr, "\varphi"] \arrow[dr, dotted] \arrow[urrr, bend left, dotted, "0"] & & A \arrow[rr, "\coker \varphi"'] \arrow[ur] & & \arrow[ul, dotted] B \\
+      & K \arrow[ur, "\ker \varphi"']
+    \end{tikzcd}
+  \end{center}
+  Therefore \(\coker \varphi\) satisfies the universal property of the \hyperref[def:categorical-cokernel]{cokernel} of \(\ker \varphi: K \to A\).
+\end{proof}
+
+\begin{lemma} \label{lemma:mono-and-epi-is-iso}
+  Let \(\varphi: A \to B\) be a morphism in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\).
+  If \(\varphi\) is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism} then \(\varphi\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+\end{lemma}
+\begin{proof}
+  By \autoref{lemma:partial-sequence-additive} the \hyperref[def:categorical-kernel]{kernel} of \(\varphi\) is \(0 \to A\) and its \hyperref[def:categorical-cokernel]{cokernel} is \(B \to 0\).
+  Furthermore by \autoref{lemma:kernel-of-cokernel-abelian} \(\varphi\) is the \hyperref[def:categorical-cokernel]{cokernel} of \(0 \to A\) and the \hyperref[def:categorical-kernel]{kernel} of \(B \to 0\).
+
+  Consider the following diagram
+  \begin{center}
+    \begin{tikzcd}
+        &   & B \arrow[d, "\id"] &   \\
+      0 \arrow[r] & A \arrow[r, tail, two heads, "\varphi"] & B \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Since \((B \to B \to 0) = 0\) and \(\varphi\) is the \hyperref[def:categorical-kernel]{kernel} of \(B \to 0\) we have
+  \begin{center}
+    \begin{tikzcd}
+        &   & B \arrow[d, "\id"] \arrow[dl, dotted, "\psi"'] &   \\
+      0 \arrow[r] & A \arrow[r, tail, two heads, "\varphi"] & B \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Therefore since \(\varphi \psi = \id\) we have shown that \(\varphi\) has a right-inverse.
+
+  Consider now the diagram
+  \begin{center}
+    \begin{tikzcd}
+                  &   A & &   \\
+      0 \arrow[r] & A \arrow[u, "\id"] \arrow[r, tail, two heads, "\varphi"] & B \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Since \((0 \to A \to A) = 0\) and \(\varphi\) is the \hyperref[def:categorical-cokernel]{cokernel} of \(0 \to A\) we have
+  \begin{center}
+    \begin{tikzcd}
+                  &   A & &   \\
+      0 \arrow[r] & A \arrow[u, "\id"] \arrow[r, tail, two heads, "\varphi"] & B \arrow[ul, dotted, "\eta"'] \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Therefore since \(\eta \varphi = \id\) we have shown that \(\varphi\) has a left-inverse.
+\end{proof}
+
+\subsection*{The factorization property}
+
+\begin{theorem}[Factorization property] \label{thm:factorization-property}
+  Every morphism \(\varphi: A \to B\) in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) can be decomposed as
+  \begin{center}
+    \begin{tikzcd}
+      A \arrow[d, two heads, "\coker \ker \varphi"'] \arrow[r, "\varphi"] & B \\
+      C \arrow[r, dotted, "\sim", "\tilde{\varphi}"'] & K \arrow[u, tail, "\ker \coker \varphi"']
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+
+Before proving this statement, we need to consider some auxiliary lemmas.
+\begin{lemma} \label{lemma:image-coimage-properties}
+  Let \(\varphi: A \to B\) be a morphism in an \hyperref[def:abelian-category]{abelian category} and let \(\iota: K \to B\) be the \hyperref[def:categorical-kernel]{kernel} of its \hyperref[def:categorical-cokernel]{cokernel}. Then
+  \begin{itemize}
+    \item \(\iota\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+    \item \(\varphi\) factors through \(\iota\).
+    \item \(\iota\) is \hyperref[def:initial-object]{initial} with these properties.
+  \end{itemize}
+\end{lemma}
+\begin{proof}~
+  \begin{itemize}
+    \item By \autoref{lemma:kernels-cokernels-are-mono-epi} \(\iota\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+    \item Since \(A \to B \to \coker \varphi\) is the zero morphism by the universal property of \hyperref[def:categorical-kernel]{kernels} there is an induced morphism \(K \to A\).
+    \item We want to see that if \(\lambda: L \monoarrow B\) is a \hyperref[def:mono-epi-morphism]{monomorphism} that factors through \(\varphi\) then \(\iota\) factors uniquely through \(\lambda\)
+          \begin{center}
+            \begin{tikzcd}
+              & L \arrow[dr, tail, "\lambda"] &  \\
+              A \arrow[ur] \arrow[r] \arrow[rr, bend right, "\varphi"']  & K \arrow[u, dotted] \arrow[r, tail, "\iota"] & B
+            \end{tikzcd}
+          \end{center}
+
+          Consider \(\coker \lambda\)
+          \begin{center}
+            \begin{tikzcd}
+              & L \arrow[dr, tail, "\lambda"] &  \\
+              A \arrow[ur] \arrow[r]  & K \arrow[r, tail, "\iota"] & B \arrow[dr, "\coker \lambda"'] \\
+              &&& \operatorname{Cok}_{\lambda}
+            \end{tikzcd}
+          \end{center}
+
+          Since \(\varphi\) factors through \(\lambda\) we have that \(A \to B \to \operatorname{Cok}_{\lambda} = 0\). Therefore by the universal property of the \hyperref[def:categorical-cokernel]{cokernel} we have an induced map
+           \begin{center}
+            \begin{tikzcd}
+              & L \arrow[dr, tail, "\lambda"] &  \\
+              A \arrow[ur] \arrow[r]  & K \arrow[r, tail, "\iota"] & B \arrow[dr, "\coker \lambda"'] \arrow[r, "\coker \varphi"] & \operatorname{Cok}_{\varphi} \arrow[d, dotted] \\
+              &&& \operatorname{Cok}_{\lambda}
+            \end{tikzcd}
+          \end{center}
+
+          Therefore since \(K \to \operatorname{Cok}_{\varphi} = 0\) we have that \(K \to B \xrightarrow{\coker \lambda} \operatorname{Cok}_{\lambda} = 0\).
+
+          Finally since by \autoref{lemma:kernel-of-cokernel-abelian} \(\lambda: L \to B\) is the \hyperref[def:categorical-kernel]{kernel} of its \hyperref[def:categorical-cokernel]{cokernel} there exists a unique morphism \(K \to L\) making the diagram commute.
+  \end{itemize}
+\end{proof}
+
+\begin{definition} \label{def:image-coimage}
+  Let \(\varphi: A \to B\) be a morphism in an \hyperref[def:abelian-category]{abelian category}.
+  The \textbf{image} of \(\varphi\) is
+  \begin{align*}
+    \im \varphi = \ker \coker \varphi
+  \end{align*}
+  and the \textbf{coimage} of \(\varphi\) is
+  \begin{align*}
+    \coim \varphi = \coker \ker \varphi
+  \end{align*}
+\end{definition}
+
+\begin{notation}
+  If \(\varphi: A \monoarrow B\) is a \hyperref[def:mono-epi-morphism]{monomorphism} we denote by \(\quot{B}{A}\) the image of \(\coker \varphi\).
+
+  In this way the target of \(\coim \varphi\) is \(\quot{B}{\ker \varphi}\).
+\end{notation}
+
+\begin{lemma}
+  Let \(\varphi: A \to B\) be a morphism in an \hyperref[def:abelian-category]{abelian category} with \(\im \varphi: K \to B\) and \(\coim \varphi: A \to C\).
+  Then the induced morphisms \(A \to K\) and \(B \to C\) are, respectively, an \hyperref[def:mono-epi-morphism]{epimorphism} and a \hyperref[def:mono-epi-morphism]{monomorphism}.
+\end{lemma}
+\begin{proof}
+  We will see that \(\overline{\varphi}: A \to K\) is a \hyperref[def:mono-epi-morphism]{epimorphism}. The other statement follows analogously.
+
+  Consider the \hyperref[def:image-coimage]{image} of \(\overline{\varphi}\)
+  \begin{center}
+    \begin{tikzcd}
+      K' \arrow[r, tail, "\im \overline{\varphi}"] & K \arrow[r, two heads, "\coker \overline{\varphi}"] & \operatorname{Cok}
+    \end{tikzcd}
+  \end{center}
+  Since by \autoref{lemma:kernel-of-cokernel-abelian} every \hyperref[def:mono-epi-morphism]{epimorphism} is the \hyperref[def:categorical-cokernel]{cokernel} of its \hyperref[def:categorical-kernel]{kernel} we have that \(\coker \overline{\varphi} = \coker \im \overline{\varphi}\).
+  Moreover since \(K' \monoarrow K\) is a \hyperref[def:mono-epi-morphism]{monomorphism} through which \(\overline{\varphi}\) factors we have
+   \begin{center}
+     \begin{tikzcd}
+       A \arrow[r, "\varphi"] \arrow[d] \arrow[dr, "\overline{\varphi}"'] & B \\
+       K \arrow[r, tail, "\im \overline{\varphi}"'] & K' \arrow[u, tail]
+    \end{tikzcd}
+  \end{center}
+  Since \(\im \varphi\) is initial among this kind of morphisms by \autoref{lemma:image-coimage-properties} necessarily \(\im \overline{\varphi}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+
+  Therefore \(0 = \coker \im \overline{\varphi} = \coker \overline{\varphi}\), proving that \(\overline{\varphi}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} by \autoref{lemma:partial-sequence-additive}.
+\end{proof}
+
+To summarize, we have the following situation
+\begin{center}
+  \begin{tikzcd}
+    & K \arrow[dr, tail, "\im \varphi"] \\
+    A \arrow[dr, two heads, "\coim \varphi"'] \arrow[ur, two heads, "\overline{\varphi}"] \arrow[rr, "\varphi"] & & B \\
+    & C \arrow[ur, tail, "\underline{\varphi}"']
+  \end{tikzcd}
+\end{center}
+
+\begin{proof}[Proof of \autoref{thm:factorization-property}]
+  By the universal property of \(\im \varphi\) and \(\coim \varphi\) there exists a unique morphism \(\psi: K \to C\) making the above diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      & K \arrow[dr, tail, "\im \varphi"] \arrow[dd, dotted, "\psi" near end] \\
+      A \arrow[dr, two heads, "\coim \varphi"'] \arrow[ur, two heads, "\overline{\varphi}"] \arrow[rr, "\varphi" near start] & & B \\
+      & C \arrow[ur, tail, "\underline{\varphi}"']
+    \end{tikzcd}
+  \end{center}
+
+  Since \(\underline{\varphi} \circ \psi = \im \varphi\) is a \hyperref[def:mono-epi-morphism]{monomorphism} so is \(\psi\).
+  Since \(\psi \circ \overline{\varphi} = \coim \varphi\) is a \hyperref[def:mono-epi-morphism]{epimorphism} so is \(\psi\).
+  Therefore by \autoref{lemma:mono-and-epi-is-iso} \(\psi\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+
+  Taking \(\tilde{\varphi} = \psi^{-1}: C \to K\) we are done.
+\end{proof}
+
+\end{document}

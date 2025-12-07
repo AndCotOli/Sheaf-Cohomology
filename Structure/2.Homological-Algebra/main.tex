@@ -7,8 +7,14 @@
 \begin{document}
 \part{Homological algebra}
 
-\subfile{1.Abelian-categories-and-complexes/main}
+\ifSubfilesClassLoaded{%
+    \tableofcontents
+}{}
 
-\subfile{2.Derived-functors/main}
+\subfile{1.Additive-and-abelian-categories/main}
+
+\subfile{2.Complexes-and-cohomology/main}
+
+\subfile{3.Cones-and-homotopy/main}
 
 \end{document}

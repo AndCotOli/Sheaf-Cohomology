@@ -1,0 +1,224 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{1.Additive-categories}
+    \zexternaldocument*{1.Abelian-categories}
+}{}
+
+\begin{document}
+\section{Exactness}
+
+\begin{definition}[Exact sequence] \label{def:exact-sequence}
+  An sequence of morphisms
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "f"] & Y \arrow[r, "g"] & Z
+    \end{tikzcd}
+  \end{center}
+  in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) is \textbf{exact} at \(Y\) if \(f \circ g = 0\) and \(\im f = \ker g\).
+\end{definition}
+
+
+\begin{definition}[Short exact sequence] \label{def:short-exact-sequence}
+  An sequence of morphisms
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  in an \hyperref[def:abelian-category]{abelian-category} \(\category{A}\) is \textbf{exact}
+  is called a \textbf{short exact sequence}.
+
+  \hyperref[def:exact-complex]{Exact complexes} of the form \(0 \to X \to Y \to Z\) (resp. \(X \to Y \to  Z \to 0\)) are called left (resp. right) short exact sequences.
+\end{definition}
+
+\begin{remark} \label{remark:exactness-mono-epi}
+  For any morphism \(f: X \to Y\) in an \(\category{A}\) we get \hyperref[def:short-exact-sequence]{short exact sequences}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \ker f \arrow[r] & X \arrow[r] & \im f \arrow[r] & 0 \\
+      0 \arrow[r] & \im f \arrow[r] & Y \arrow[r] & \coker f \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+
+  Therefore by \autoref{lemma:partial-sequence-additive} the sequence \(0 \to X \xrightarrow{f} Y\) (resp. \(X \xrightarrow{f} Y \to 0\)) is \hyperref[def:exact-sequence]{exact} if and only if \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}).
+\end{remark}
+
+\begin{theorem}[Snake lemma] \label{thm:snake-lemma}
+  In any \hyperref[def:abelian-category]{abelian category}, any diagram of the form
+  \begin{center}
+    \begin{tikzcd}
+        & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d]  &   \\
+        & \ker \alpha' \arrow[d, tail] \arrow[r, dashed] & \ker \alpha \arrow[d, tail] \arrow[r, dashed] \arrow[ddd, phantom, ""{coordinate, name=Z}] & \ker \alpha'' \arrow[d, tail] \arrow[dddll, dashed, rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east)
+          |- (Z) [near end]\tikztonodes
+          -| ([xshift=-2ex]\tikztotarget.west)
+          -- (\tikztotarget)}] &   \\
+        & A' \arrow[d, "\alpha'" near start] \arrow[r] & A \arrow[d, "\alpha" near start] \arrow[r, two heads] & A'' \arrow[d, "\alpha''" near start] \arrow[r] & 0 \\
+      0 \arrow[r] & B' \arrow[d, two heads] \arrow[r, tail] & B \arrow[d, two heads] \arrow[r] & B'' \arrow[d, two heads] &   \\
+        & \coker \alpha' \arrow[d] \arrow[r, dashed] & \coker \alpha \arrow[d] \arrow[r, dashed] & \coker \alpha'' \arrow[d] &   \\
+        & 0  & 0 & 0
+    \end{tikzcd}
+  \end{center}
+  with \hyperref[def:short-exact-sequence]{exact} rows and columns can be completed by dashed arrows making this sequence \hyperref[def:exact-complex]{exact}.
+\end{theorem}
+\begin{proof}
+  We will give a purely \textit{arrow-theoretic} proof following \cite{wiseNONELEMENTARYPROOFSNAKEa}.
+
+  We will be using \autoref{lemma:kernels-cokernels-are-mono-epi} and \autoref{lemma:mono-and-epi-is-iso} throughout the proof without explicit mention.
+
+  Consider first the diagram
+  \begin{center}
+    \begin{tikzcd}
+      & A' \arrow[r] \arrow[d, "\alpha'"] & A \arrow[r, two heads] \arrow[d, "\alpha"] & A'' \arrow[r] \arrow[d, "\alpha''"] & 0 \\
+      0 \arrow[r] & B' \arrow[r, tail] \arrow[d, two heads] & B \arrow[r] \arrow[d, two heads] & B'' \arrow[d, two heads] \\
+      & \coker \alpha' \arrow[d] & \coker \alpha \arrow[d] & \coker \alpha'' \arrow[d] &   \\
+      & 0 & 0 & 0
+    \end{tikzcd}
+  \end{center}
+
+  Take first \hyperref[def:categorical-cokernel]{cokernels} by \(A'\)
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] \arrow[d] & \quot{A}{A'} \arrow[r, "\sim"] \arrow[d] & A'' \arrow[r] \arrow[d] & 0 \\
+      \quot{B'}{A'} \arrow[r] \arrow[d, "\sim"] & B \arrow[r] \arrow[d] & B'' \arrow[d] \\
+      \coker \alpha' \arrow[d] & \coker \alpha \arrow[d] & \coker \alpha'' \arrow[d] & \\
+      0 & 0 & 0
+    \end{tikzcd}
+  \end{center}
+  And then take \hyperref[def:categorical-cokernel]{cokernels} by \(\quot{A}{A'}\)
+  \begin{center}
+    \begin{tikzcd}
+      0  \arrow[d] & 0 \arrow[d] & 0 \arrow[d] \\
+      \quot{B'}{A'} \arrow[r] \arrow[d, "\sim"] & \quot{B}{A} \arrow[r] \arrow[d, "\sim"] & \quot{B''}{A''} \arrow[d, "\sim"] \\
+      \coker \alpha' \arrow[r, dashed] \arrow[d] & \coker \alpha \arrow[r, dashed] \arrow[d] & \coker \alpha'' \arrow[d] & \\
+      0 & 0 & 0
+    \end{tikzcd}
+  \end{center}
+  This produces an \hyperref[def:exact-complex]{exact sequence} \(\coker \alpha' \to \coker \alpha \to \coker \alpha''\).
+
+  Taking \hyperref[def:categorical-kernel]{kernels} instead we get an \hyperref[def:exact-complex]{exact sequence} \(\ker \alpha' \to \ker \alpha \to \ker \alpha''\).
+
+  It remains to produce a map \(\delta: \ker \alpha'' \to \coker \alpha'\) and show that it induces an \hyperref[def:categorical--isomorphism]{isomorphism}
+  \begin{align*}
+    \coker(\ker \alpha \to \ker \alpha'') \cong \ker(\coker \alpha \to \coker \alpha')
+  \end{align*}
+  To simplify the notation, we will denote \(\ker(\coker \alpha \to \coker \alpha'')\) by \(\coker \alpha : \coker \alpha''\).
+
+  First, take \hyperref[def:categorical-cokernel]{cokernels} by \(\ker \alpha'\) and \hyperref[def:categorical-kernel]{kernels} into \(\coker \alpha''\) in the full diagram
+  \begin{center}
+    \begin{tikzcd}
+        & & 0 \arrow[d] & 0 \arrow[d]  &   \\
+        & 0 \arrow[d] \arrow[r] & \quot{\ker \alpha}{\ker \alpha'} \arrow[d, tail] \arrow[r, tail] & \ker \alpha'' \arrow[d, tail] &   \\
+        & \quot{A'}{\ker \alpha'} \arrow[d, tail] \arrow[r] & \quot{A}{\ker \alpha'} \arrow[d] \arrow[r, two heads] & A'' \arrow[d, two heads] \arrow[r] & 0 \\
+      0 \arrow[r] & B' \arrow[d, two heads] \arrow[r, tail] & \coker \alpha'' : B \arrow[d, two heads] \arrow[r] & \coker \alpha'' : B'' \arrow[d] &   \\
+        & \coker \alpha' \arrow[d] \arrow[r, two heads] & \coker \alpha'' : \coker \alpha \arrow[d] \arrow[r] & 0 &   \\
+        & 0  & 0 &
+    \end{tikzcd}
+  \end{center}
+  Now, take \hyperref[def:categorical-cokernel]{cokernels} by \(\quot{\ker \alpha}{\ker \alpha'}\) and \hyperref[def:categorical-kernel]{kernels} into \(\coker \alpha : \coker \alpha''\)
+  \begin{center}
+    \begin{tikzcd}
+        & & & 0 \arrow[d]  &   \\
+        & 0 \arrow[d] & 0 \arrow[d] & \quot{\ker \alpha''}{\ker \alpha} \arrow[d, tail] &   \\
+        & \quot{A'}{\ker \alpha'} \arrow[d, tail] \arrow[r] & \quot{A}{\ker \alpha'} \arrow[d, "\sim"] \arrow[r, two heads] & \quot{A''}{\ker \alpha} \arrow[d, two heads] \arrow[r] & 0 \\
+      0 \arrow[r] & \coker \alpha : B' \arrow[d, two heads] \arrow[r, tail] & \coker \alpha : B \arrow[d] \arrow[r] & \coker \alpha'' : B'' \arrow[d] &   \\
+        & \coker \alpha : \coker \alpha' \arrow[d] & 0 & 0 &   \\
+        & 0
+    \end{tikzcd}
+  \end{center}
+  Finally, taking \hyperref[def:categorical-cokernel]{cokernels} by \(\quot{A'}{\ker \alpha'}\) and \hyperref[def:categorical-kernel]{kernels} into \(\coker \alpha'':B''\) we get
+  \begin{center}
+    \begin{tikzcd}
+        &  &  & 0 \arrow[d]  &   \\
+        &  & 0 \arrow[d] & \quot{\ker \alpha''}{\ker \alpha} \arrow[d, "\sim"] \arrow[dddll, dashed, rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east)
+          |- (Z) [near end]\tikztonodes
+          -| ([xshift=-2ex]\tikztotarget.west)
+          -- (\tikztotarget)}] &   \\
+        & 0 \arrow[r] \arrow[d] & B'' : \quot{A}{(\ker \alpha \oplus A')} \arrow[r, "\sim"] \arrow[d, "\sim"] \arrow[d, phantom, ""{coordinate, name=Z}] & B'' : \quot{A''}{\ker \alpha} \arrow[d] \arrow[r] & 0 \\
+        0 \arrow[r] & \coker \alpha:\quot{B'}{A'} \arrow[d, "\sim"] \arrow[r, "\sim"] & (B'' \oplus \coker \alpha) : \quot{B}{A'} \arrow[d] \arrow[r] & 0 &   \\
+        & \coker \alpha' : \coker \alpha \arrow[d] & 0 &  &   \\
+        & 0
+      \end{tikzcd}
+  \end{center}
+\end{proof}
+
+\subsection{Exact functors}
+\begin{definition}[Exact functor] \label{def:exact-functor}
+  Let \(\category{A}, \category{B}\) be two \hyperref[def:abelian-category]{abelian categories}.
+
+  An \hyperref[def:additive-functor]{additive functor} \(F: \category{A} \to \category{B}\) is called left (resp. right) \textbf{exact} if for any \hyperref[def:short-exact-sequence]{short exact sequence} in \(\category{A}\)
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z
+    \end{tikzcd}
+  \end{center}
+  (resp. \(X \to Y \to Z \to 0\) ) the squence
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z)
+    \end{tikzcd}
+  \end{center}
+  (resp. \(F(X) \to F(Y) \to F(Z) \to 0\)) is \hyperref[def:short-exact-sequence]{exact}.
+
+  If \(F\) is both left and right exact, then \(F\) is called \textbf{exact}.
+\end{definition}
+
+\begin{example} \label{ex:hom-left-exact}
+  The \hyperref[def:functor]{functors} \(\Hom_{\category{A}}(X, -)\) and \(\Hom_{\category{A}}(-, X)\) are both \hyperref[def:exact-functor]{left-exact functors} from \(\category{A}\) to \(\Ab\).
+\end{example}
+\begin{proof}
+  We will check the statement about \(\Hom_{\category{A}}(X, -)\), the other follows analogously.
+
+  Consider a \hyperref[def:short-exact-sequence]{short left-exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & A \arrow[r, "f"] & B \arrow[r, "g"] & C
+    \end{tikzcd}
+  \end{center}
+  in \(\category{A}\). We want to show that
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \Hom(X, A) \arrow[r, "f_{\ast}"] & \Hom(X, B) \arrow[r, "g_{\ast}"] & \Hom(X, C)
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:short-exact-sequence]{exact} in \(\Ab\).
+
+  By \autoref{remark:exactness-mono-epi}, to show exacteness at \(\Hom(X, A)\) we need to check that \(f_{\ast}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} in \(\Ab\), i.e: \(f_{\ast}\) is injective.
+
+  Let \(\alpha \in \Hom(X, A)\) such that \(f_{\ast}(\alpha) = f \circ \alpha = 0\).
+  Since \(0 \to A \xrightarrow{f} B\) is exact by \autoref{remark:exactness-and-mono-epi} \(f\) is a monomorphism.
+  Therefore \(f \circ \alpha = 0 \iff \alpha = 0\), proving that \(f_{\ast}\) is injective.
+
+  To see exactness at \(\Hom(X, B)\) we are going to check that \(\im f_{\ast} = \ker g_{\ast}\):
+  \begin{itemize}
+    \item[\(\subseteq\)] Let \(\phi = f_{\ast}(\alpha)\) for some \(\alpha \in \Hom(X, A)\).
+          Applying \(g_{\ast}\) we get \(g_{\ast}(\phi) = (g \circ f) \circ \alpha\), therefore by exactness of the original sequence \(\phi \in \ker g_{\ast}\).
+    \item[\(\supseteq\)] Let \(\beta \in \Hom(X, B)\) such that \(g_{\ast}(\beta) = 0\).
+          Since the original sequence is exact \(\ker g = f\), therefore by the universal property of the \hyperref[def:categorical-kernel]{kernel} there exists \(\alpha: X \to A\) such that \(f \circ \alpha = \beta\).
+  \end{itemize}
+\end{proof}
+
+
+The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
+\begin{lemma} \label{lemma:schapira-exact-functor}
+  Let \(F: \category{A} \to \category{B}\) be an \hyperref[def:additive-functor]{additive functor}.
+  \begin{enumerate}
+    \item The following are equivalent
+          \begin{enumerate}
+            \item \(F\) is \hyperref[def:exact-functor]{left exact}.
+            \item \(F\) commutes with \hyperref[def:categorical-kernel]{kernels}: for any morphism \(f: X \to Y\), \(F(\ker f) \isoarrow \ker F(f)\).
+            \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits}.
+            \item For any \hyperref[def:short-exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{A}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:short-exact-sequence]{exact} in \(\category{B}\).
+          \end{enumerate}
+
+    \item  The following are equivalent
+          \begin{enumerate}
+            \item \(F\) is \hyperref[def:exact-functor]{exact}.
+            \item For any \hyperref[def:exact-complex]{exact sequence} \(X \to Y \to Z\) in \(\category{A}\) the sequence \(F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-complex]{exact} in \(\category{B}\).
+            \item \(F\) commutes with \hyperref[def:categorical-colimit]{finite limits} and \hyperref[def:categorical-colimit]{finite colimits}.
+          \end{enumerate}
+  \end{enumerate}
+\end{lemma}
+
+\end{document}

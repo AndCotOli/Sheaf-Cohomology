@@ -1,0 +1,99 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+    \zexternaldocument*{../2.Complexes-and-cohomology/exported/aux/main}%
+    \zexternaldocument*{1.Mapping-cone}%
+    \zexternaldocument*{2.Quasiisomorphisms-and-derived-categories}%
+}{}
+
+\begin{document}
+\section{Homotopy}
+
+\begin{definition} \label{def:homotopy}
+  A \textbf{homotopy} \(h\) between two \hyperref[def:complex-morphism]{morphisms of complexes} \(\alpha^{\bullet}, \beta^{\bullet}: L^{\bullet} \to M^{\bullet}\) is a collection of morphisms
+  \begin{align*}
+    h^{i}: L^{i} \to M^{i-1}
+  \end{align*}
+  such that
+  \begin{align*}
+    \forall i \in \mathbb{Z} \quad \beta^{i} - \alpha^{i} = d_{M^{\bullet}}^{i-1} \circ h^{i} + h^{i+1} \circ d_{L^{\bullet}}^{i}
+  \end{align*}
+  Pictorially, we have the following \textbf{non-commutative} diagram
+  \begin{center}
+    \begin{tikzcd}[row sep=huge, column sep=huge]
+      \cdots \arrow[r, "d_{L^{\bullet}}^{i-1}"] & L^{i-1} \arrow[ddl, "h^{i-1}"] \arrow[dd, bend right, "\alpha^{i-1}"] \arrow[dd, bend left, "\beta{i-1}"] \arrow[r, "d_{L^{\bullet}}^{i-1}"] & L^{i} \arrow[ddl, "h^{i}"] \arrow[dd, bend right, "\alpha^{i}"] \arrow[dd, bend left, "\beta{i}"] \arrow[r, "d_{L^{\bullet}}^{i}"] & L^{i+1} \arrow[ddl, "h^{i+1}"] \arrow[dd, bend right, "\alpha^{i+1}"] \arrow[dd, bend left, "\beta{i+1}"] \arrow[r, "dd_{L^{\bullet}}^{i+1}"] & \cdots \arrow[ddl, "h^{i+2}"] \\ \\
+      \cdots \arrow[r, "d_{M^{\bullet}}^{i-1}"'] & M^{i-1} \arrow[r, "d_{M^{\bullet}}^{i-1}"'] & M^{i} \arrow[r, "d_{M^{\bullet}}^{i}"'] & M^{i+1} \arrow[r, "d_{M^{\bullet}}^{i+1}"'] & \cdots     \end{tikzcd}
+  \end{center}
+
+  If there is an homotopy between \(\alpha^{\bullet}\) and \(\beta^{\bullet}\) we say that \(\alpha^{\bullet}\) is \textbf{homotopic} to \(\beta^{\bullet}\) and denote it by \(\alpha^{\bullet} \sim \beta^{\bullet}\).
+\end{definition}
+
+\begin{definition} \label{def:homotopy-equivalence}
+  A \hyperref[def:complex-morphism]{morphism} \(\alpha^{\bullet}: L^{\bullet} \to M^{\bullet}\) is a \textbf{homotopy equivalence} if there exists a \hyperref[def:complex-morphism]{morphism} \(\beta^{\bullet}: M^{\bullet} \to L^{\bullet}\) such that \(\alpha^{\bullet} \circ \beta^{\bullet} \sim \id_{M^{\bullet}}\) and \(\beta^{\bullet} \circ \alpha^{\bullet} \sim \id_{N^{\bullet}}\).
+  In this case, the complexes \(L^{\bullet}\) and \(M^{\bullet}\) are said to be \textbf{homotopy equivalent}.
+\end{definition}
+
+
+\begin{proposition} \label{prop:homotopy-induces-same-cohomology}
+  If \(\alpha^{\bullet}, \beta^{\bullet}: L^{\bullet} \to M^{\bullet}\) are \hyperref[def:homotopy]{homotopic} \hyperref[def:complex-morphism]{morphisms of complexes} then \(\alpha^{\bullet}, \beta^{\bullet}\) \hyperref[thm:LES-in-cohomology]{induce the same morphisms on cohomology} \(\cohomology{\bullet}(L^{\bullet}) \to \cohomology{\bullet}(M^{\bullet})\).
+\end{proposition}
+\begin{proof}
+  Let \(\overline{\ell} \in \cohomology{i}(L^{\bullet})\).
+  We have that \(\overline{\ell}\) is represented by an element \(\ell \in \ker d_{L^{\bullet}}^{i}\), and its images in \(\cohomology{i}(M^{\bullet})\) under \(\alpha^{\ast}, \beta^{\ast}\) are represented by \(\alpha^{i}(\ell), \beta^{i}(\ell)\).
+
+  Since \(\alpha^{\bullet}, \beta^{\bullet}\) are \hyperref[def:homotopic]{homotopic} there exist morphisms \(h^{i}: L^{i} \to M^{i-1}\) such that
+  \begin{align*}
+    \beta^{i}(\ell) - \alpha^{i}(\ell) = d_{M^{\bullet}}^{i-1}(h^{i}(\ell)) + h^{i+1}(\cancelto{0}{d_{L^{\bullet}}^{i}(\ell)})
+  \end{align*}
+  Therefore
+  \begin{align*}
+    \beta^{i}(\ell) - \alpha^{i}(\ell) \in \im d_{M^{\bullet}}^{i}
+  \end{align*}
+  making \(\beta^{i}(\ell) - \alpha^{i}(\ell)\) vanish in \(\cohomology{i}(M^{\bullet})\) as needed.
+\end{proof}
+
+\begin{remark}
+  If \(\alpha^{\bullet}\) is \hyperref[def:homotopy]{homotopic} to the identity by \autoref{cor:exactness-mapping-cone} the \hyperref[def:mapping-cone]{mapping cone} of \(\alpha^{\bullet}\) must be \hyperref[def:exact-complex]{exact}.
+\end{remark}
+
+\begin{corollary}
+  \hyperref[def:homotopy-equivalence]{Homotopy equivalent} \hyperref[def:complex]{complexes} have \hyperref[def:categorical-isomorphism]{isomorphic} \hyperref[def:cohomology]{cohomology}.
+\end{corollary}
+\begin{proof}
+  If \(\alpha^{\bullet}: L^{\bullet} \to M^{\bullet}\) and \(\beta^{\bullet}: M^{\bullet} \to L^{\bullet}\) are \hyperref[def:complex-morphism]{morphisms of complexes} such that \(\beta^{\bullet} \circ \alpha^{\bullet}\) and \(\alpha^{\bullet} \circ \beta^{\bullet}\) are \hyperref[def:homotopy]{homotopic} to the identity then by \autoref{prop:homotopy-induces-same-cohomology} they induce inverse morphisms in \hyperref[def:cohomology]{cohomology}.
+\end{proof}
+
+\begin{lemma}
+  Let \(F: \category{A} \to \category{B}\) be an \hyperref[def:additive-functor]{additive functor}.
+  \begin{itemize}
+  \item If \(\alpha^{\bullet} \sim \beta^{\bullet}\) are \hyperref[def:homotopy]{homotopic} in \(\Complex{\category{A}}\) then \(\Complex{F}(\alpha^{\bullet}) \sim \Complex{F}(\beta^{\bullet})\) in \(\Complex{\category{B}}\).
+    \item If \(L^{\bullet}, M^{\bullet}\) are \hyperref[def:homotopy-equivalence]{homotopy equivalent} \hyperref[def:complex]{complexes} in \(\Complex{\category{A}}\) then \(\Complex{F}(L^{\bullet})\) and \(\Complex{F}(M^{\bullet})\) are \hyperref[def:homotopy-equivalence]{homotopy equivalent} \hyperref[def:complex]{complexes} in \(\Complex{\category{B}}\).
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  Note that the second assertion follows directly from the first.
+
+  To see the first, if \(h\) is a \hyperref[def:homotopy]{homotopy} between \(\alpha^{\bullet}, \beta^{\bullet}\) then
+  \begin{align*}
+    \forall i \in \mathbb{Z} \quad \beta^{i} - \alpha^{i} = d_{M^{\bullet}}^{i-1} \circ h^{i} + h^{i+1} \circ d_{L^{\bullet}}^{i}
+  \end{align*}
+  Since \(F\) is \hyperref[def:additive-functor]{additive}
+  \begin{align*}
+    \forall i \in \mathbb{Z} \quad F(\beta^{i}) - F(\alpha^{i}) = F(d_{M^{\bullet}}^{i-1}) \circ F(h^{i}) + F(h^{i+1}) \circ F(d_{L^{\bullet}}^{i})
+  \end{align*}
+  showing that the collection \(\{F(h^{i})\}_{i \in \mathbb{Z}}\) produces a \hyperref[def:homotopy]{homotopy} between \(F(\alpha^{\bullet})\) and \(F(\beta^{\bullet})\).
+\end{proof}
+
+The following is direct from the previous statements.
+\begin{theorem}
+  Let \(F: \category{A} \to \category{B}\) be an \hyperref[def:additive-functor]{additive} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}, \category{B}\).
+  If \(L^{\bullet}, M^{\bullet}\) are \hyperref[def:homotopy-equivalence]{homotopy equivalent} complexes in \(\Complex{\category{A}}\) then the \hyperref[def:cohomology]{cohomology} \hyperref[def:complex]{complexes}
+  \begin{align*}
+    \cohomology{\bullet}(\Complex{F}(L^{\bullet})) \cong \cohomology{\bullet}(\Complex{F}(M^{\bullet}))
+  \end{align*}
+  are \hyperref[def:categorical-isomorphism]{isomorphic}.
+\end{theorem}
+
+\end{document}

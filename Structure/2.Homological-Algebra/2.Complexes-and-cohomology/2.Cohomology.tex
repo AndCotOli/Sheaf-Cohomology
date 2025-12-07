@@ -1,0 +1,214 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+    \zexternaldocument*{1.Complexes}%
+}{}
+
+\begin{document}
+\section{Cohomology}
+\begin{definition}[Cohomology] \label{def:cohomology}
+  The \textbf{\(i\)-th cohomology} of a \hyperref[def:complex]{complex} \(C^{\bullet}\) is
+  \begin{align*}
+    \cohomology{i}(C^{\bullet}) = \quot{\ker d^{i}}{\im d^{i-1}}
+  \end{align*}
+\end{definition}
+\begin{remark}
+  The definition of \hyperref[def:cohomology]{cohomology} should be parsed as follows: let \(I \to C^{i}\) be \(\im d^{i-1}\) and \(K \to C^{i}\) be \(\ker d^{i}\).
+  Since \(C^{\bullet}\) is a \hyperref[def:complex]{complex} \(\im d^{i-1}\) factors through \(\ker d^{i}\), giving a \hyperref[def:mono-epi-morphism]{monomorphism} \(I \monoarrow K\).
+  Then \(\cohomology{i}(C^{\bullet}) = \coker (I \monoarrow K)\).
+\end{remark}
+
+
+\begin{proposition}
+  For every integer \(i\), the assignement \(\cohomology{i}: M^{\bullet} \mapsto H^{i}(M^{\bullet})\) taking a \hyperref[def:complex]{complex} \(M^{\bullet}\) to its \(i\)-th \hyperref[def:cohomology]{cohomology group} is a \hyperref[def:functor]{functor} \(\Complex{\category{A}} \to \category{A}\).
+\end{proposition}
+\begin{proof}
+  We want to show that for all \hyperref[def:complex]{complexes} \(M^{\bullet}, N^{\bullet} \in \Complex{\category{A}}\) and \(i \in \mathbb{Z}\), \(\operatorname{H}^{i}\) induces in a natural way a homomorphism of abelian groups
+  \begin{equation*}
+    \Hom_{\Complex{\category{A}}}(M^{\bullet}, N^{\bullet}) \to \Hom_{\category{A}}(\cohomology{i}(M^{\bullet}), \cohomology{i}(N^{\bullet}))
+  \end{equation*}
+
+  Let \(\alpha^{\bullet}: M^{\bullet} \to N^{\bullet}\) be a \hyperref[def:complex-morphism]{morphism of complexes}. Let's consider the relevant part of the commutative diagram defining \(\alpha^{\bullet}\):
+  \begin{center}
+    \begin{tikzcd}
+      M^{i-1} \arrow[r, "d_{M^{\bullet}}^{i-1}"] \arrow[d, "\alpha^{i-1}"'] & M^{i} \arrow[r, "d_{M^{\bullet}}^{i}"] \arrow[d, "\alpha^{i}"'] & M^{i+1} \arrow[d, "\alpha^{i+1}"'] \\
+      N^{i-1} \arrow[r, "d_{N^{\bullet}}^{i-1}"] & N^{i} \arrow[r, "d_{N^{\bullet}}^{i}"] & N^{i+1}
+    \end{tikzcd}
+  \end{center}
+  By the commutativity of the right square we have that \(d_{N^{\bullet}}^{i} \circ \alpha^{i} = \alpha^{i+1} \circ d_{M^{\bullet}}^{i}\) is 0 on \(\ker d^{i}\).
+  Therefore the restriction of \(\alpha^{i}\) to \(\ker d_{M^{\bullet}}^{i}\) factors through \(\ker d_{N^{\bullet}}^{i}\).
+  Composing with the projection we get a morphism
+  \begin{equation*}
+    \ker d_{M^{\bullet}}^{i} \to \operatorname{H}^{i}(N^{\bullet})
+  \end{equation*}
+  Since this morphism is 0 when restricted to \(\im d_{M^{\bullet}}^{i-1}\) by the commutativity of the left square we get that \(\alpha^{i}\) induces a morphism
+  \begin{equation*}
+    \operatorname{H}^{i}(M^{\bullet}) \to \operatorname{H}^{i}(N^{\bullet})
+  \end{equation*}
+  in \(\category{A}\) as we wanted.
+\end{proof}
+
+\begin{remark}
+  By \autoref{remark:inclussion-into-complex} we can see \hyperref[def:cohomology]{cohomology} as a \hyperref[def:functor]{functor} \(\cohomology{i}: \Complex{\category{A}} \to \Complex{\category{A}}\) using \(\iota_{i}\).
+  Note that for this particular \hyperref[def:complex]{complex} \(M^{\bullet}\) we have that
+  \begin{align*}
+    \cohomology{\bullet}(\cohomology{\bullet}(M^{\bullet})) = \cohomology{\bullet}(M^{\bullet})
+  \end{align*}
+\end{remark}
+
+
+\begin{theorem}[Long Exact Sequence in Cohomology] \label{thm:LES-in-cohomology}
+  Every \hyperref[def:short-exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & A^{\bullet} \arrow[r, "f^{\bullet}"] & B^{\bullet} \arrow[r, "g^{\bullet}"] & C^{\bullet} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  in \(\Complex{\category{A}}\) induces a \hyperref[def:long-exact-sequence]{long exact sequence} in \hyperref[def:cohomology]{cohomology}
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & \cohomology{i-1}(B) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{i-1}(C) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \cohomology{i}(A) \arrow[r] & \cohomology{i}(B) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] & \cohomology{i}(C) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \cohomology{i+1}(A) \arrow[r] & \cohomology{i+1}(B) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  For every integer \(i\), applying the \hyperref[thm:snake-lemma]{snake lemma} to the diagram
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & A^{i} \arrow[r, "f^{i}"] \arrow[d, "d_{A}^{i}"] & B^{i} \arrow[r, "g^{i}"] \arrow[d, "d_{B}^{i}"] & C^{i} \arrow[r] \arrow[d, "d_{C}^{i}"] & 0 \\
+      0 \arrow[r] & A^{i+1} \arrow[r, "f^{i+1}"] & B^{i+1} \arrow[r, "g^{i+1}"] & C^{i+1} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  we get an \hyperref[def:short-exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      \coker d_{A}^{i} \arrow[r] & \coker d_{B}^{i} \arrow[r] & \coker d_{C}^{i} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+
+  Applying now the \hyperref[thm:snake-lemma]{snake lemma} to the diagram
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & A^{i+1} \arrow[r, "f^{i+1}"] \arrow[d, "d_{A}^{i+1}"] & B^{i+1} \arrow[r, "g^{i+1}"] \arrow[d, "d_{B}^{i+1}"] & C^{i+1} \arrow[r] \arrow[d, "d_{C}^{i+1}"] & 0 \\
+      0 \arrow[r] & A^{i+2} \arrow[r, "f^{i+2}"] & B^{i+2} \arrow[r, "g^{i+2}"] & C^{i+2} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  we get an \hyperref[def:short-exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \ker d_{A}^{i+1} \arrow[r] & \ker d_{B}^{i+1} \arrow[r] & \ker d_{C}^{i+1}
+    \end{tikzcd}
+  \end{center}
+
+  Since \(d^{i+1} \circ d^{i} = 0\) we have the following diagram
+  \begin{center}
+    \begin{tikzcd}
+      & \coker d_{A}^{i} \arrow[r] \arrow[d, "\overline{d}_{A}^{i}"] & \coker d_{B}^{i} \arrow[r] \arrow[d, "\overline{d}_{B}^{i}"] & \coker d_{C}^{i} \arrow[r] \arrow[d, "\overline{d}_{C}^{i}"] & 0 \\
+      0 \arrow[r] & \ker d_{A}^{i+1} \arrow[r] & \ker d_{B}^{i+1} \arrow[r] & \ker d_{C}^{i+1}
+    \end{tikzcd}
+  \end{center}
+  Applying the \hyperref[tmh:snake-lemma]{snake lemma} to this diagram we get an \hyperref[def:short-exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      \ker \overline{d}_{A}^{i} \arrow[r] & \ker \overline{d}_{B}^{i} \arrow[r] \arrow[d, phantom, ""{coordinate, name=Z}] & \ker \overline{d}_{A}^{i} \arrow[dll, "\delta^{i}", rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Z) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \coker \overline{d}_{A}^{i} \arrow[r] & \coker \overline{d}_{B}^{i} \arrow[r] & \coker \overline{d}_{C}^{i}
+    \end{tikzcd}
+  \end{center}
+  It only remains to prove that \(\ker \overline{d}_{A}^{i} \cong \cohomology{i}(A)\) and \(\coker \overline{d}_{A}^{i} \cong \cohomology{i+1}(A)\).
+
+  Consider the diagram
+  \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d] & \\
+      0 \arrow[r] & \im d_{A}^{i-1} \arrow[r, equal] \arrow[d] & \im d_{A}^{i-1} \arrow[r] \arrow[d] & 0 \arrow[d] \\
+      0 \arrow[r] & \ker d_{A}^{i} \arrow[r] \arrow[d] & A^{i} \arrow[r] \arrow[d] & \im d_{A}^{i} \arrow[r] \arrow[d] & 0 \\
+      0 \arrow[r] & \cohomology{i}(A) \arrow[r] \arrow[d] & \quot{A^{i}}{\im d_{A}^{i-1}} \arrow[r, "\psi"] \arrow[d] & \im d_{A}^{i} \arrow[r] \arrow[d] & 0 \\
+      & 0  & 0  & 0  &
+    \end{tikzcd}
+  \end{center}
+  Since the first two rows are exact by the \hyperref[thm:nine-lemma]{nine lemma} we have a \hyperref[def:short-exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \cohomology{i}(A) \arrow[r] & \quot{A^{i}}{\im d_{A}^{i-1}} \arrow[r, "\psi"] & \im d_{A}^{i} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Therefore since \(\overline{d}_{A}^{i}: \quot{A^{i}}{\im d_{A}^{i-1}} \xrightarrow{\psi} \im d_{A}^{i} \xrightarrow{\iota} \ker d_{A}^{i+1}\) we have
+  \begin{align*}
+    \ker (\overline{d}_{A}^{i}) = \ker \psi \cong \cohomology{i}(A^{\bullet})
+  \end{align*}
+
+  On the other hand, note that \(\coker \overline{d}_{A}^{i} = \coker (\iota \circ \psi) = \coker \iota\) and
+  \begin{align*}
+    \coker \iota = \quot{\ker d_{A}^{i+1}}{\im \iota} = \quot{\ker d_{A}^{i+1}}{\im d_{A}^{i}} \cong \cohomology{i+1}(A)
+  \end{align*}
+\end{proof}
+
+\subsection*{Triangles}
+Consider a \hyperref[def:short-exact-sequence]{short exact sequence} of \hyperref[def:complex]{complexes}
+\begin{center}
+  \begin{tikzcd}
+    0 \arrow[r] & A^{\bullet} \arrow[r] & B^{\bullet} \arrow[r] & C^{\bullet} \arrow[r] & 0
+  \end{tikzcd}
+\end{center}
+Note that we can map \(C^{\bullet}\) to \(A^{\bullet}\) by sending all the \hyperref[def:complex]{complex} \(C^{\bullet}\) to \(0\) \textit{within} \(A^{\bullet}\)
+\begin{center}
+  \begin{tikzcd}
+    C^{\bullet} \arrow[r, "0"] & A^{\bullet}
+  \end{tikzcd}
+\end{center}
+In this way, the \hyperref[def:exact-complex]{exactness} of the original sequence is equivalent to the \hyperref[def:exact-complex]{exactness} at the center of
+\begin{center}
+  \begin{tikzcd}
+    C^{\bullet} \arrow[r, "0"] & A^{\bullet} \arrow[r] & B^{\bullet} \\
+    A^{\bullet} \arrow[r] & B^{\bullet} \arrow[r] & C^{\bullet} \\
+    B^{\bullet} \arrow[r] & C^{\bullet} \arrow[r, "0"] & A^{\bullet}
+  \end{tikzcd}
+\end{center}
+We can represent this using the \textit{exact triangle}
+\begin{center}
+  \begin{tikzcd}
+    & A^{\bullet} \arrow[dr] \\
+    C^{\bullet} \arrow[ur, "+1"] & & B \arrow[ll]
+  \end{tikzcd}
+\end{center}
+The arrow marked by \(+1\) in this case refers to the zero morphism. We use \(+1\) to record that we can view this morphism from \(C^{\bullet}\) to the \hyperref[def:shift-functor]{shift} \(A[1]^{\bullet}\).
+Therefore, the triangle is shorthand for the diagram
+% \begin{center}
+%   \begin{tikzcd}
+%     & \arrow[r, phantom] & \\
+%     & A^{i+1} \arrow[dr] & \\
+%     C^{i+1} \arrow[uur] & & B^{i+1} \arrow[ll] \\
+%     & A^{i} \arrow[uu] \arrow[dr] & \\
+%     C^{i} \arrow[uu] \arrow[uuur, "0"'] & & B^{i} \arrow[ll] \arrow[uu] \\
+%     & A^{i-1} \arrow[uu] \arrow[dr] & \\
+%     C^{i-1} \arrow[uu] \arrow[uuur, "0"'] & & B^{i-1} \arrow[ll, crossing over] \arrow[uu] \\
+%     & \arrow[uu] &
+%   \end{tikzcd}
+% \end{center}
+
+Using \autoref{thm:LES-in-cohomology} we get another \textit{exact triangle}
+\begin{center}
+  \begin{tikzcd}
+    & \cohomology{\bullet}(A^{\bullet}) \arrow[dr] \\
+    \cohomology{\bullet}(C^{\bullet}) \arrow[ur, "+1"] & & \cohomology{\bullet}(B) \arrow[ll]
+  \end{tikzcd}
+\end{center}
+However this time the \(+1\) morphism is, generally, non-zero.
+
+\end{document}

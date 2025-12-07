@@ -1,0 +1,135 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+    \zexternaldocument*{../2.Complexes-and-cohomology/exported/aux/main}%
+}{}
+
+\begin{document}
+\section{The mapping cone of a morphism}
+
+\begin{definition}[Mapping cone] \label{def:mapping-cone}
+  Let \(\alpha^{\bullet}: L^{\bullet} \to M^{\bullet}\) be a \hyperref[def:complex-morphism]{morphism of complexes}.
+  We define the \textbf{mapping cone} \(\mCone{\alpha}{\bullet}\) as the \hyperref[def:complex]{complex} with objects
+  \begin{align*}
+    \forall i \in \mathbb{Z} \quad \mCone{\alpha}{i} = L[1]^{i} \oplus M^{i} = L^{i+1} \oplus M^{i}
+  \end{align*}
+  and differentials
+  \begin{align*}
+    \forall i \in \mathbb{Z} \quad d_{\mCone{\alpha}{\bullet}}^{i}(\ell, m) = (-d_{L^{\bullet}}^{i+1}(\ell), \alpha^{i+1}(\ell) + d_{M^{\bullet}}^{i}(m))
+  \end{align*}
+  Pictorially
+  \begin{center}
+    \begin{tikzcd}[row sep=tiny]
+      \cdots \arrow[r] \arrow[ddr] & L^{i+1} \arrow[r, "-d_{L}^{i+1}"] \arrow[ddr, "\alpha^{i+1}"] & L^{i+1} \arrow[r] \arrow[ddr] & \cdots \\
+      & \oplus & \oplus \\
+      \cdots \arrow[r]  & M^{i} \arrow[r, "d_{M}^{i}"'] & M^{i+1} \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{remark}
+  We have \hyperref[def:complex-morphism]{morphisms of complexes} \(M^{\bullet} \to \mCone{\alpha}{\bullet}\) and \(\mCone{\alpha}{\bullet} \to L[1]^{\bullet}\) induced by the morphisms \(M^{i} \to L[1]^{i} \oplus M^{i} \to L[1]^{i}\).
+
+  Furthermore, since the we have \hyperref[def:short-exact-sequence]{short exact sequences}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & M^{i} \arrow[r] & L[1]^{i} \oplus M^{i} \arrow[r] & L[1]^{i} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  the sequence of \hyperref[def:complex]{complexes}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & M^{\bullet} \arrow[r] & L[1]^{\bullet} \oplus M^{\bullet} \arrow[r] & L[1]^{\bullet} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:short-exact-sequence]{exact}.
+\end{remark}
+
+\begin{proposition} \label{prop:connecting-iso-cohomology}
+  There exists an exact triangle
+  \begin{center}
+    \begin{tikzcd}[column sep=tiny]
+      & \cohomology{\bullet}(M^{\bullet}) \arrow[dr] & \\
+      \cohomology{\bullet}(L[1]^{\bullet}) \arrow[ur, "\delta" near start, "+1" near end] & & \cohomology{\bullet}(\mCone{\alpha}{\bullet}) \arrow[ll]
+    \end{tikzcd}
+  \end{center}
+  where the connecting morphism \(\delta\) is the \hyperref[thm:LES-in-cohomology]{morphism induced by \(\alpha^{\bullet}\) in cohomology}.
+\end{proposition}
+\begin{proof}
+  The existence of the triangle comes directly from \autoref{thm:LES-in-cohomology}, so we only need to check that \(\delta\) agrees with the morphism induced by \(\alpha^{\bullet}\).
+
+  By chasing the diagram
+  \begin{center}
+    \begin{tikzcd}
+      & \vdots & \vdots & \vdots & \\
+      0 \arrow[r] & M^{i} \arrow[r] \arrow[u] & L^{i+1} \oplus M^{i} \arrow[r] \arrow[u] & L^{i+1} \arrow[r] \arrow[u] & 0 \\
+      0 \arrow[r] & M^{i-1} \arrow[r] \arrow[u] & L^{i} \oplus M^{i-1} \arrow[r] \arrow[u] & L^{i} \arrow[r] \arrow[u] & 0 \\
+      & \vdots \arrow[u] & \vdots \arrow[u] & \vdots \arrow[u] &
+    \end{tikzcd}
+  \end{center}
+  with a class \(\cohomology{i-1}(L[1]^{\bullet}) = \cohomology{i}(L^{\bullet})\) represented by \(\ell \in L^{i}\) (such that \(d_{L^{\bullet}}^{i}(\ell) = 0\)) we find
+  \begin{center}
+    \begin{tikzcd}
+      \alpha^{i}(\ell) \arrow[r, mapsto] & (0, \alpha^{i}(\ell)) \\
+      & (\ell, 0) \arrow[u, mapsto] \arrow[r, mapsto] & \ell
+    \end{tikzcd}
+  \end{center}
+  which verifies the claim.
+\end{proof}
+
+\begin{corollary} \label{cor:exactness-mapping-cone}
+  Let \(\alpha^{\bullet}: L^{\bullet} \to M^{\bullet}\) be a \hyperref[def:complex-morphism]{morphism of complexes}.
+  Then the \hyperref[thm:LES-in-cohomology]{induced morphism} \(\cohomology{\bullet}(L^{\bullet}) \to \cohomology{\bullet}(M^{\bullet})\) is an \hyperref[def:categorical-isomorphism]{isomorphism} if and only if the \hyperref[def:mapping-cone]{mapping cone} \(\mCone{\alpha}{\bullet}\) is an \hyperref[def:exact-complex]{exact complex}.
+\end{corollary}
+\begin{proof}
+  Using \autoref{prop:connecting-iso-cohomology}, consider the following segment of the \hyperref[def:long-exact-sequence]{long exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & \cohomology{i-1}(\mCone{\alpha}{\bullet}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Z}] & \cohomology{i}(L^{\bullet}) \arrow[dll, "\alpha^{\ast}", rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Z) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \cohomology{i}(M^{\bullet}) \arrow[r] & \cohomology{i}(\mCone{\alpha}{\bullet}) \arrow[d, phantom, ""{coordinate, name=W}] \arrow[r] & \cohomology{i+1}(L^{\bullet}) \arrow[dll, "\alpha^{\ast}", rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (W) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \cohomology{i+1}(M^{\bullet}) \arrow[r] & \cohomology{i+1}(\mCone{\alpha}{\bullet}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  \begin{itemize}
+    \item[\(\implies\)] Suppose \(\alpha^{\ast}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+          Since \hyperref[thm:complex-category-is-abelian]{\(\Complex{\category{A}}\) is abelian} by \autoref{lemma:mono-and-epi-is-iso} \(\alpha^{\ast}\) is both a \hyperref[def:mono-epi-morphism]{monomorphism} and an \hyperref[def:mono-epi-morphism]{epimorphism}. Consider
+          \begin{center}
+            \begin{tikzcd}
+              \cdots \arrow[r, "\alpha^{\ast}"] & \cohomology{i}(M^{\bullet}) \arrow[r, "f"] & \cohomology{i}(\mCone{\alpha}{\bullet}) \arrow[r, "g"] & \cohomology{i+1}(L^{\bullet}) \arrow[r, "\alpha^{\ast}"] & \cdots
+            \end{tikzcd}
+          \end{center}
+          Using that the first \(\alpha^{\ast}\) is a surjective and \hyperref[def:exact-sequence]{exactness} we have that
+          \begin{align*}
+            \ker f = \im \alpha^{\ast} = \cohomology{i}(M^{\bullet})
+          \end{align*}
+          i.e: \(f\) is the zero map.
+
+          Using that the last \(\alpha^{\ast}\) is injective and \hyperref[def:exact-sequence]{exactness} we have that
+          \begin{align*}
+            \ker g = \ker \alpha^{\ast} = \{0\}
+          \end{align*}
+          i.e: \(g\) is the zero map.
+
+          Therefore we have that \(\cohomology{i}{\mCone{\alpha}{\bullet}} = 0\), meaning that the \hyperref[def:complex]{complex} is \hyperref[def:exact-complex]{exact}.
+    \item[\(\impliedby\)] Suppose \(\mCone{\alpha}{\bullet}\) is an \hyperref[def:exact-complex]{exact complex}.
+          Therefore since its \hyperref[def:cohomology]{cohomology} vanishes at every index the sequence becomes
+          \begin{center}
+            \begin{tikzcd}
+              \cdots \arrow[r] & 0 \arrow[r] & \cohomology{i}(L^{\bullet}) \arrow[r, "\alpha^{\ast}"] & \cohomology{i}(M^{\bullet}) \arrow[r] & 0 \arrow[r] & \cdots
+            \end{tikzcd}
+          \end{center}
+          Therefore by \hyperref[def:exact-sequence]{exactness} we have that \(\alpha^{\ast}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  \end{itemize}
+\end{proof}
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+    \zexternaldocument*{../2.Complexes-and-cohomology/exported/aux/main}%
+    \zexternaldocument*{1.Mapping-cone}%
+}{}
+
+\begin{document}
+\section{Quasi-isomorphisms}
+
+\begin{definition}[Quasi-isomorphism] \label{def:quasi-isomorphism}
+  A \hyperref[def:complex-morphism]{morphism of complexes} \(\alpha^{\bullet}\) is a \textbf{quasi-isomorphism} (abbreviated q.i.s) if it \hyperref[def:LES-in-cohomology]{induces} an \hyperref[def:categorical-isomorphism]{isomorphism} in \hyperref[def:cohomology]{cohomology}.
+\end{definition}
+
+\begin{remark}
+  By \autoref{cor:exactness-mapping-cone}, \(\alpha^{\bullet}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} if and only it its \hyperref[def:mapping-cone]{mapping cone} \(\mCone{\alpha}{\bullet}\) is an \hyperref[def:exact-complex]{exact complex}.
+\end{remark}
+
+\begin{example}[Quasi-isomorphism are not isomorphism]
+  In \(\Complex{\Ab}\), consider the \hyperref[def:complex-morphism]{morphism of complexes}
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & 0 \arrow[r] \arrow[d] & \mathbb{Z} \arrow[r, "\cdot2"] \arrow[d] & \mathbb{Z} \arrow[r] \arrow[d, "\pi"] & 0 \arrow[r] \arrow[d] & \cdots \\
+      \cdots \arrow[r] & 0 \arrow[r] & 0 \arrow[r] & \quot{\mathbb{Z}}{2\mathbb{Z}} \arrow[r] & 0 \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  where \(\pi\) is the obvious projection is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+  However, it is not an \hyperref[def:categorical-isomorphism]{isomorphism} because there are no (non-trivial) group homomorphisms \(\quot{\mathbb{Z}}{2\mathbb{Z}} \to \mathbb{Z}\).
+\end{example}
+
+\begin{lemma}
+  Let \(\category{A}\) be an \hyperref[def:additive-category]{additive category} and let \(F: \Complex{\category{A}} \to \category{D}\) be an \hyperref[def:additive-functor]{additive functor} such that, for every \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(\rho^{\bullet}\), \(F(\rho^{\bullet})\) is an \hyperref[def:categorical-isomorphism]{isomorphism}. Let \(M^{\bullet}\) be an \hyperref[def:exact-complex]{exact complex} in \(\Complex{\category{A}}\).
+  \begin{itemize}
+    \item The \hyperref[def:complex]{complex} \(F(M^{\bullet})\) is a \hyperref[def:zero-object]{zero object} in \(\category{D}\).
+    \item Let \(\alpha^{\bullet}: L^{\bullet} \to N^{\bullet}\) be a \hyperref[def:complex-morphism]{morphism of complexes} in \(\Complex{\category{A}}\) that factors through an \hyperref[def:exact-complex]{exact complex}
+          \begin{center}
+            \begin{tikzcd}[column sep=tiny]
+              L^{\bullet} \arrow[rr, "\alpha^{\bullet}"] \arrow[dr] & & N^{\bullet} \\
+              & M^{\bullet} \arrow[ur]
+            \end{tikzcd}
+          \end{center}
+          Then \(F(\alpha^{\bullet})\) is the zero morphism.
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  Since \(M^{\bullet}\) is \hyperref[def:exact-complex]{exact}, the zero morphism \(M^{\bullet} \to M^{\bullet}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+  Therefore we have
+  \begin{center}
+    \begin{tikzcd}
+      F(M^{\bullet}) \arrow[r, "F(0)"] \arrow[rr, bend right, "\id_{F(M^{\bullet})}"'] & F(M^{\bullet}) \arrow[r, "F(0)^{-1}"] & F(M^{\bullet})
+    \end{tikzcd}
+  \end{center}
+  Since \(F\) is \hyperref[def:additive-functor]{additive} \(F(0) = 0\), making \(\id_{F(M^{\bullet})} = 0\).
+
+  For the other part, applying \(F\) to the diagram we get
+  \begin{center}
+    \begin{tikzcd}[column sep=tiny]
+      F(L^{\bullet}) \arrow[rr, "F(\alpha^{\bullet})"] \arrow[dr] & & F(N^{\bullet}) \\
+      & F(M^{\bullet}) \arrow[ur]
+    \end{tikzcd}
+  \end{center}
+  Therefore since \(F(M^{\bullet})\) is a \hyperref[def:zero-object]{zero object} in \(\category{D}\) we have that \(F(\alpha^{\bullet}) = 0\).
+\end{proof}
+
+\end{document}

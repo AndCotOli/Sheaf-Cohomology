@@ -1,0 +1,149 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+}{}
+
+\begin{document}
+\section{Complexes and cohomology}
+
+Throughout this chapter we will be working over a fixed \hyperref[def:abelian-category]{abelian category} \(\category{A}\).
+
+\begin{definition}[Complex] \label{def:complex}
+  A sequence of objects and morphisms
+  \begin{center}
+    \begin{tikzcd}
+       \cdots \arrow[r, "d_{i+2}"'] & C_{i+1} \arrow[r, "d_{i+1}"'] & C_{i} \arrow[r, "d_{i}"'] & C_{i-1} \arrow[r, "d_{i-1}"'] & \cdots
+    \end{tikzcd}
+  \end{center}
+  in \(\category{A}\) is a \textbf{chain complex} if for every \(i \in \mathbb{Z} \quad d_{i} \circ d_{i+1} = 0\).
+  We denote a chain complex as \((C_{\bullet}, d_{\bullet})\) or simply as \(C_{\bullet}\).
+
+  By reversing the order, we say that a sequence
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r, "d^{i-2}"] & C^{i-1} \arrow[r, "d^{i-1}"] & C^{i} \arrow[r, "d^{i}"] & C^{i+1} \arrow[r, "d^{i+1}"] & \cdots
+    \end{tikzcd}
+  \end{center}
+  is a \textbf{cochain complex} if for every \(i \in \mathbb{Z} \quad d^{i} \circ d^{i-1} = 0\).
+  We denote a cochain complex as \((C^{\bullet}, d^{\bullet})\) or simply as \(C^{\bullet}\).
+\end{definition}
+
+\begin{remark}
+  In purelly algebraic terms, chains are cochains are \textit{equivalent}.
+  We will adopt the cochain notation, but all proofs and definitions translate to the chain notation.
+  Therefore from now onwards we will be refering to \textit{cochains} as \textit{chains} or \textit{sequences}.
+\end{remark}
+
+\begin{definition}[Morphism of complexes] \label{def:complex-morphism}
+  Let \(C^{\bullet}, D^{\bullet}\) be two \hyperref[def:complex]{complexes} in \(\category{A}\).
+  A \textbf{morphism of complexes} \(f: C^{\bullet} \to D^{\bullet}\) is a collection of morphisms \(\{f^{i}: C^{i} \to D^{i}\}_{i \in \mathbb{Z}}\) making, for every \(i \in \mathbb{Z}\), the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      C^{i} \arrow[r, "d_{C}^{i}"] \arrow[d, "f^{i}"'] & C^{i+1} \arrow[d, "f^{i+1}"] \\
+      D^{i} \arrow[r, "d_{D}^{i}"] & D^{i+1}
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition} \label{def:complex-category}
+  Given any \hyperref[def:abelian-category]{abelian category} \(\category{A}\) we can construct a \textbf{complex category} \(\Complex{\category{A}}\) by taking
+  \(\operatorname{Ob}_{\Complex{\category{A}}}\) to be the collection of all \hyperref[def:complex]{complexes} with values in \(\category{A}\) and, for every \(C^{\bullet}, D^{\bullet} \in \operatorname{Ob}_{\Complex{\category{A}}}\), \(\Hom_{\Complex{\category{A}}}(C^{\bullet}, D^{\bullet})\) to be the collection of all \hyperref[def:complex-morphism]{morphisms of complexes} between \(C^{\bullet}\) and \(D^{\bullet}\).
+\end{definition}
+
+\begin{remark} \label{remark:mono-epi-in-complexes}
+  A \hyperref[def:complex-morphism]{morphism of complexes} \(f: C^{\bullet} \to D^{\bullet}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) if for every \(i \in \mathbb{Z}\) the morphism \(f^{i}: C^{i} \to D^{i}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) in \(\category{A}\).
+\end{remark}
+
+\begin{theorem} \label{thm:complex-category-is-abelian}
+  If \(\category{A}\) is an \hyperref[def:abelian-category]{abelian-category}, so is its \hyperref[def:complex-category]{category of complexes} \(\Complex{\category{A}}\).
+\end{theorem}
+\begin{proof}
+  By taking addition \textit{elementwise} and \(0^{\bullet}\) as the \hyperref[def:zero-object]{zero object} we can make \(\Complex{\category{A}}\) into an \hyperref[def:additive-category]{additive category}.
+  Therefore we only need to prove that \(\Complex{\category{A}}\) verifies the axioms of an \hyperref[def:abelian-category]{abelian category}.
+
+  Let \(f: A^{\bullet} \to B^{\bullet}\) be a \hyperref[def:complex-morphism]{morphism of complexes}.
+
+  Since \(\category{A}\) is \hyperref[def:abelian-category]{abelian}, for every \(i \in \mathbb{Z}\) the map \(f^{i}: A^{i} \to B^{i}\) admits a \hyperref[def:categorical-kernel]{kernel} \(\ker f^{i}: K^{i} \monoarrow A^{i}\) and a \hyperref[def:categorical-cokernel]{cokernel} \(\coker f^{i}: B^{i} \epiarrow C^{i}\).
+
+  Consider the diagram
+  \begin{center}
+    \begin{tikzcd}
+      K^{i} \arrow[d, tail, "\ker f^{i}"'] & K^{i+1} \arrow[d, tail, "\ker f^{i+1}"] \\
+      A^{i} \arrow[r, "d_{C}^{i}"] \arrow[d, "f^{i}"'] & A^{i+1} \arrow[d, "f^{i+1}"] \\
+      B^{i} \arrow[r, "d_{D}^{i}"] \arrow[d, twoheadrightarrow, "\coker f^{i}"'] & B^{i+1} \arrow[d, twoheadrightarrow, "\coker f^{i+1}"] \\
+      C^{i}  & C^{i+1}  \\
+    \end{tikzcd}
+  \end{center}
+  Since the inner square is commutative we get unique morphisms \(K^{i} \to K^{i+1}\) and \(C^{i} \to C^{i+1}\) making the whole diagram commute, obtaining \hyperref[def:complexes]{chain complexes} \(K^{\bullet}\) and \(C^{\bullet}\) and \hyperref[def:complex-morphism]{morphisms of chains} \(\ker f^{\bullet}, \coker f^{\bullet}\).
+  It is then easy to check that \(\ker f^{\bullet}\) and \(\coker f^{\bullet}\) verify the corresponding universal properties.
+
+  On the other hand, by \autoref{remark:mono-epi-in-complexes} the other axiom is easily verified \textit{element by element}.
+\end{proof}
+
+
+\begin{definition}[Bounded complexes] \label{def:bounded-complexes}
+  Let \(C^{\bullet}\) be a \hyperref[def:complex]{complex}. We say that \(C^{\bullet}\) is
+  \begin{itemize}
+    \item \textbf{bounded below} if there exists \(k \in \mathbb{Z}\) such that \(\forall i \leq k \quad C^{i} = 0\).
+    \item \textbf{bounded above} if there exists \(k \in \mathbb{Z}\) such that \(\forall i \geq k \quad C^{i} = 0\).
+    \item \textbf{bounded} if it is both bounded below and above.
+  \end{itemize}
+\end{definition}
+
+\begin{notation}
+  We denote by \(\Complex[-, +, b]{\category{A}} \hookrightarrow \Complex{\category{A}}\) the \hyperref[def:full-subcategory]{full subcategory} of the \hyperref[def:complex-category]{chain complex category} consisting of \hyperref[def:bounded-complexes]{bounded below}, \hyperref[def:bounded-complexes]{bounded above} and \hyperref[def:bounded-complexes]{bounded} complexes respectively.
+
+  We also have variants \(\Complex[\geq 0, \leq 0]{\category{A}} \hookrightarrow \Complex{\category{A}}\) of complexes with \(\forall i \geq 0\) (resp \(\forall  i \leq 0\)) \(C^{i} = 0\).
+
+  By \autoref{thm:complex-category-is-abelian} all of this categories are \hyperref[def:abelian-category]{abelian}.
+\end{notation}
+
+
+\begin{remark} \label{remark:inclussion-into-complex}
+  For all integers \(i \in \mathbb{Z}\) there exists a \hyperref[def:functor-types]{fully faithfull functor}
+  \begin{align*}
+    \iota_{r}: \category{A} \to \Complex{\category{A}}
+  \end{align*}
+  sending an object \(A \in \category{A}\) to a \hyperref[def:complex]{complex}
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & 0 \arrow[r, "d^{r-1}"] & A \arrow[r, "d^{r}"] & 0 \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  and a morphism \(\varphi: A \to B\) in \(\category{A}\) to a \hyperref[def:complex-morphism]{morphism of complexes}
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & 0 \arrow[r, "d^{r-1}"] \arrow[d] & A \arrow[r, "d^{r}"] \arrow[d, "\varphi"] & 0 \arrow[r] \arrow[d] & \cdots \\
+      \cdots \arrow[r] & 0 \arrow[r, "d^{r-1}"] & B \arrow[r, "d^{r}"] & 0 \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+
+  In this way, we can identify \(\category{A}\) as its \textit{image} via \(\iota = \iota_{0}\) in \(\Complex{\category{A}}\).
+\end{remark}
+
+\begin{definition}[Shift functor] \label{def:shift-functor}
+  For any integer \(i \in \mathbb{Z}\) we define the \textbf{shift} \hyperref[def:functor]{functor}
+  \begin{align*}
+    \Complex{\category{A}} &\to \Complex{\category{A}} \\
+    M^{\bullet} &\mapsto M[i]^{\bullet}
+  \end{align*}
+  by \(M[i]^{k} = M^{k+i}\) and \(d_{M[i]^{\bullet}}^{k} = (-1)^{i}d_{M^{\bullet}}^{k + i}\).
+\end{definition}
+
+\begin{definition}[Exact complex] \label{def:exact-complex}
+  A \hyperref[def:complex]{complex} \(C^{\bullet}\) is \textbf{exact} at position \(i\) if the sequence
+  \begin{center}
+    \begin{tikzcd}
+      C^{i-1} \arrow[r, "d^{i-1}"] & C^{i} \arrow[r, "d^{i}"] & C^{i+1}
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-sequence]{exact}.
+
+  If the \hyperref[def:complex]{complex} is exact at every position, we say that it is \textbf{exact}.
+\end{definition}
+
+
+
+\end{document}

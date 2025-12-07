@@ -5,9 +5,7 @@
 }{}
 
 \begin{document}
-\section{Abelian categories}
-
-\subsection{Additive categories}
+\section{Additive categories}
 \begin{definition}[Additive category] \label{def:additive-category}
   A \hyperref[def:category]{category} \(\category{A}\) is \textbf{additive} if it verifies:
   \begin{enumerate}[label=A.\arabic*), ref=A.\arabic*]
@@ -69,7 +67,7 @@
 \end{proof}
 
 \begin{notation}
-  If \(\{X_{i}\}_{i=1}^{n}\) is a finite set of objects in an \hyperref[def:additive-category]{additive category} we will denote its \hyperref[def:categorical-product]{product} (and therefore by \autoref{lemma:products-coproducts-additive} its \hyperref[def:categorical-coproduct]{coproduct}) by \(\bigoplus_{i=1}^{n} X_{i}\).
+  If \(\{X_{i}\}_{i=1}^{n}\) is a finite set of objects in an \hyperref[def:additive-category]{additive category} we will denote its \hyperref[def:categorical-product]{product} (and therefore by \autoref{lemma:products-coproducts-additive} its \hyperref[def:categorical-coproduct]{coproduct}) by \(\bigoplus_{i=1}^{n} X_{i}\) and call it its \textbf{direct sum}.
 \end{notation}
 
 \begin{lemma} \label{lemma:mono-epi-additive}
@@ -105,7 +103,7 @@
   \end{center}
 \end{definition}
 
-\begin{lemma}
+\begin{lemma} \label{lemma:kernels-cokernels-are-mono-epi}
   In an \hyperref[def:additive-category]{additive category} \hyperref[def:categorical-kernel]{kernels} are \hyperref[def:mono-epi-morphism]{monomorphisms} and \hyperref[def:categorical-cokernel]{cokernels} are \hyperref[def:mono-epi-morphism]{epimorphisms}.
 \end{lemma}
 \begin{proof}
@@ -147,90 +145,9 @@
   \end{itemize}
 \end{proof}
 
-\subsection{Abelian categories}
-\begin{definition}[Abelian category] \label{def:abelian-category}
-  An \hyperref[def:additive-category]{additive category} \(\category{A}\) is \textbf{abelian} if it verifies
-  \begin{enumerate}
-    \item[A.4)]\label{axiom:abelian-existence} \hyperref[def:categorical-kernel]{Kernels} and \hyperref[def:categorical-cokernel]{cokernels} exist in \(\category{A}\).
-    \item[A.5)]\label{axiom:abelian-morphisms} Every \hyperref[def:mono-epi-morphism]{monomorphism} is the \hyperref[def:categorical-kernel]{kernel} of some morphism and every \hyperref[def:mono-epi-morphism]{epimorphism} is the \hyperref[def:categorical-cokernel]{cokernel} of some morphism.
-  \end{enumerate}
+\subsection{Additive functors}
+\begin{definition}[Additive functor] \label{def:additive-functor}
+  Let \(\category{A}, \category{B}\) be two \hyperref[def:additive-category]{additive categories}. A \hyperref[def:functor]{functor} \(F: \category{A} \to \category{B}\) is \textbf{additive} if it preserves the abelian group structure of all Hom-sets.
 \end{definition}
-
-\begin{lemma} \label{lemma:kernel-of-cokernel-abelian}
-  In an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) every \hyperref[def:categorical-kernel]{kernel} is the \hyperref[def:categorical-kernel]{kernel} of its \hyperref[def:categorical-cokernel]{cokernel} and every \hyperref[def:categorical-cokernel]{cokernel} is the \hyperref[def:categorical-cokernel]{cokernel} of its \hyperref[def:categorical-kernel]{kernel}.
-  In formulas
-  \begin{align*}
-    \ker (\coker \varphi) = \ker \varphi \qquad \coker (\ker \varphi) = \coker \varphi
-  \end{align*}
-\end{lemma}
-\begin{proof}
-  Lets check \hyperref[def:categorical-cokernel]{cokernels} this time.
-
-  Let \(\coker \varphi: A \to B\) be the \hyperref[def:categorical-cokernel]{cokernel} of a morphism \(\varphi: Z \to A\).
-  Since \(\category{A}\) is \hyperref[def:abelian-category]{abelian} \(\varphi\) has a kernel \(\ker \varphi: K \to A\).
-  Note that \(Z \to A \to B\) is 0, therefore by the \hyperref[def:categorical-kernel]{kernel} universal property we have
-  \begin{center}
-    \begin{tikzcd}
-      Z \arrow[rr, "\varphi"] \arrow[dr, dotted] & & A \arrow[r, "\coker \varphi"'] & B \\
-      & K \arrow[ur, "\ker \varphi"']
-    \end{tikzcd}
-  \end{center}
-
-  Consider a morphism \(A \to C\) such that \((K \to A \to C) = 0\).
-  Now using the \hyperref[def:categorical-cokernel]{cokernel} universal property we obtain
-  \begin{center}
-    \begin{tikzcd}
-      &&& C & \\
-      Z \arrow[rr, "\varphi"] \arrow[dr, dotted] \arrow[urrr, bend left, dotted, "0"] & & A \arrow[rr, "\coker \varphi"'] \arrow[ur] & & \arrow[ul, dotted] B \\
-      & K \arrow[ur, "\ker \varphi"']
-    \end{tikzcd}
-  \end{center}
-  Therefore \(\coker \varphi\) satisfies the universal property of the \hyperref[def:categorical-cokernel]{cokernel} of \(\ker \varphi: K \to A\).
-\end{proof}
-
-\begin{lemma}
-  Let \(\varphi: A \to B\) be a morphism in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\).
-  If \(\varphi\) is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism} then \(\varphi\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
-\end{lemma}
-\begin{proof}
-  By \autoref{lemma:partial-sequence-additive} the \hyperref[def:categorical-kernel]{kernel} of \(\varphi\) is \(0 \to A\) and its \hyperref[def:categorical-cokernel]{cokernel} is \(B \to 0\).
-  Furthermore by \autoref{lemma:kernel-of-cokernel-abelian} \(\varphi\) is the \hyperref[def:categorical-cokernel]{cokernel} of \(0 \to A\) and the \hyperref[def:categorical-kernel]{kernel} of \(B \to 0\).
-
-  Consider the following diagram
-  \begin{center}
-    \begin{tikzcd}
-        &   & B \arrow[d, "\id"] &   \\
-      0 \arrow[r] & A \arrow[r, tail, two heads, "\varphi"] & B \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  Since \((B \to B \to 0) = 0\) and \(\varphi\) is the \hyperref[def:categorical-kernel]{kernel} of \(B \to 0\) we have
-  \begin{center}
-    \begin{tikzcd}
-        &   & B \arrow[d, "\id"] \arrow[dl, dotted, "\psi"'] &   \\
-      0 \arrow[r] & A \arrow[r, tail, two heads, "\varphi"] & B \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  Therefore since \(\varphi \psi = \id\) we have shown that \(\varphi\) has a right-inverse.
-
-  Consider now the diagram
-  \begin{center}
-    \begin{tikzcd}
-                  &   A & &   \\
-      0 \arrow[r] & A \arrow[u, "\id"] \arrow[r, tail, two heads, "\varphi"] & B \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  Since \((0 \to A \to A) = 0\) and \(\varphi\) is the \hyperref[def:categorical-cokernel]{cokernel} of \(0 \to A\) we have
-  \begin{center}
-    \begin{tikzcd}
-                  &   A & &   \\
-      0 \arrow[r] & A \arrow[u, "\id"] \arrow[r, tail, two heads, "\varphi"] & B \arrow[ul, dotted, "\eta"'] \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  Therefore since \(\eta \varphi = \id\) we have shown that \(\varphi\) has a left-inverse.
-\end{proof}
-
-\begin{theorem}[Freyd-Mitchell theorem] \label{thm:freyd-mitchell}
-  Let \(\category{A}\) be a \hyperref[def:small-category]{small} \hyperref[def:abelian-category]{abelian category}. Then there exists a \hyperref[def:functor-types]{fully faithfull} \hyperref[def:exact-functor]{exact functor} \(\category{A} \to \Mod{R}\) for a suitable (possibly non-commutative) ring \(R\), where \(\Mod{R}\) is the category of left \(R\)-modules.
-\end{theorem}
 
 \end{document}
