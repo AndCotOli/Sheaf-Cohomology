@@ -1,0 +1,131 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+    \zexternaldocument*{../2.Complexes-and-cohomology/exported/aux/main}%
+    \zexternaldocument*{../3.Cones-and-homotopy/exported/aux/main}%
+    \zexternaldocument*{1.Injective-and-projective-objects}%
+}{}
+
+\begin{document}
+\section{Resolutions and homotopy}
+
+\begin{definition}~ \label{def:injective-projective-resolution}
+  \begin{itemize}
+    \item An \textbf{injective resolution} of an object \(A \in \category{A}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(\iota(\category{A}) \to Q^{\bullet}\), where \(Q^{\bullet}\) is a \hyperref[def:complex]{complex} in \(\Complex[\geq 0]{I}\).
+    \item A \textbf{projective resolution} of an object \(A \in \category{A}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(P^{\bullet} \to \iota(\category{A})\), where \(P^{\bullet}\) is a \hyperref[def:complex]{complex} in \(\Complex[\leq 0]{P}\).
+  \end{itemize}
+
+  We will refer to this resolutions using \(Q^{\bullet}, P^{\bullet}\), \textit{forgetting} about the \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+\end{definition}
+
+\begin{lemma}
+  Let \(\category{A}\) be an \hyperref[def:abelian-category]{abelian category}.
+  \begin{itemize}
+    \item If \(\category{A}\) has \hyperref[def:enough-injectives-projectives]{enough injectives} then every object \(A \in \category{A}\) admits an \hyperref[def:injective-projective-resolution]{injective resolution}.
+    \item If \(\category{A}\) has \hyperref[def:enough-injectives-projectives]{enough projectives} then every object \(A \in \category{A}\) admits a \hyperref[def:injective-projective-resolution]{projective resolution}.
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  We will do the \hyperref[def:enough-injectives-projectives]{enough injectives} case.
+
+  Since \(\category{A}\) has \hyperref[def:enough-injectives-projectives]{enough injectives} there exists an \hyperref[def:injective-projective-object]{injective object} \(Q^{0} \in \category{A}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(d^{0}: A \monoarrow Q^{0}\).
+  Then there exists an \hyperref[def:injective-projective-object]{injective object} \(Q^{1} \in \category{A}\) an a \hyperref[def:mono-epi-morphism]{monomorphism} \(d^{1}: \coker  d^{0} \monoarrow Q^{0}\) and so on.
+  Pictorially
+  \begin{center}
+    \begin{tikzcd}
+      A \arrow[r, tail, dotted, "d^{0}"] & Q^{0} \arrow[d, two heads] \\
+      & \coker d^{0} \arrow[r, tail, dotted] & Q^{1} \arrow[d, two heads] \\
+      & & \coker d^{1} \arrow[r, tail, dotted] & Q^{2} \arrow[d, two heads] \\
+      & & & \vdots
+    \end{tikzcd}
+  \end{center}
+  Therefore following this diagram we get an \hyperref[def:injective-projective-resolution]{injective resolution}
+  \begin{center}
+    \begin{tikzcd}
+      Q^{\bullet} = \cdots \arrow[r] & 0 \arrow[r] & Q^{0} \arrow[r] & Q^{1} \arrow[r] & Q^{2} \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+
+\end{proof}
+
+We will assume that \(\category{A}\) is an \hyperref[def:abelian-category]{abelian-cateogory} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
+
+By \textit{flipping} the corresponding arrows, all the results may be adapted to the \hyperref[def:injective-projective-object]{projective} case.
+
+\begin{lemma}
+  Let \(A\) be an object in a \(\category{A}\), let \(M^{\bullet}\) be a \hyperref[def:resolution]{resolution} of \(A\) and let \(Q^{\bullet}\) be a \hyperref[def:complex]{complex} in \(\Complex[\geq 0]{I}\).
+  Let \(\varphi: \cohomology{0}(M^{\bullet}) = A \to \cohomology{0}(Q^{\bullet})\) be an arbitrary morphism. Then
+  \begin{itemize}
+    \item There exists a \hyperref[def:complex-morphism]{morphism of complexes} \(\alpha: M^{\bullet} \to Q^{\bullet}\) inducing \(\varphi\) at the level of \(\cohomology{0}\).
+    \item Different morphisms satisfying the above are \hyperref[def:homotopy-equivalence]{homotopy equivalent}.
+  \end{itemize}
+\end{lemma}
+\begin{proof}
+  We have to define \(\forall i \in \mathbb{Z} \quad \alpha^{i}: M^{i} \to Q^{i}\).
+  Since for \(i < 0\) we have \(\alpha^{i} = 0\) we can truncate the complexes, obtaining
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \cohomology{0}(M^{\bullet}) = A \arrow[r, "\varepsilon"] \arrow[d, "\varphi"] & M^{0} \arrow[r, "d_{M^{\bullet}}^{0}"] \arrow[d, dotted, "\alpha^{1}"] & M^{1} \arrow[r, "d_{M^{\bullet}}^{1}"] \arrow[d, dotted, "\alpha^{1}"] & M^{2} \arrow[r, "d_{M^{\bullet}}^{2}"] \arrow[d, dotted, "\alpha^{2}"] & \cdots \\
+      0 \arrow[r] & \cohomology{0}(Q^{\bullet}) \arrow[r, "\iota"'] & Q^{0} \arrow[r, "d_{Q^{\bullet}}^{0}"'] & Q^{1} \arrow[r, "d_{Q^{\bullet}}^{1}"'] & Q^{2} \arrow[r, "d_{Q^{\bullet}}^{2}"'] & \cdots
+    \end{tikzcd}
+  \end{center}
+  Note that the top \hyperref[def:complex]{complex} is \hyperref[def:exact-complex]{exact}.
+
+  We will construct \(\alpha^{\bullet}\) using induction:
+  \begin{itemize}
+    \item Case \(n = 0\). Consider the following diagram
+          \begin{center}
+            \begin{tikzcd}
+              A \arrow[r, tail, "\varepsilon"] \arrow[d, "\varphi"] & M^{0} \\
+              \cohomology{0}(Q^{\bullet}) \arrow[r, "\iota"'] & Q^{0}
+            \end{tikzcd}
+          \end{center}
+          Since \(Q^{0}\) is \hyperref[def:injective-projective-object]{injective} using its universal property with the morphism \(\iota \circ \varphi\) we obtain morphism \(\alpha^{0}: M^{0} \to Q^{0}\) making the diagram commute.
+    \item Inductive step. Suppose we have already construced \(\alpha^{0}, \ldots, \alpha^{n-1}\) such that
+          \begin{align*}
+            \forall k \in \{1, \ldots, n-1\} \quad \alpha^{k} \circ d_{M^{\bullet}}^{k-1} = d_{Q^{\bullet}}^{k} \circ \alpha^{k-1}
+          \end{align*}
+          We want to construct \(\alpha^{n}: M^{n} \to Q^{n}\).
+
+          Consider the diagram
+          \begin{center}
+            \begin{tikzcd}
+              M^{n-1} \arrow[r, "d_{M^{\bullet}}^{n-1}"] \arrow[d, "\alpha^{n-1}"']
+              & M^{n}  \\
+              Q^{n-1} \arrow[r, "d_{Q^{\bullet}}^{n-1}"']
+              & Q^{n}
+            \end{tikzcd}
+          \end{center}
+          Let \(f = d_{Q^{\bullet}}^{n-1} \circ \alpha^{n-1}: M^{n-1} \to Q^{n}\).
+          Note that
+          \begin{align*}
+            f \circ d_{M^{\bullet}}^{n-2} = d_{Q^{\bullet}}^{n-1} \circ \alpha^{n-1} \circ d_{M^{\bullet}}^{n-2} =  \underbrace{d_{Q^{\bullet}}^{n-1} \circ d_{Q^{\bullet}}^{n-2}}_{0} \circ \alpha^{n-2} = 0
+          \end{align*}
+          meaning that \(f\) vanishes on \(\im d_{M^{\bullet}}^{n-2} = \ker d_{M^{\bullet}}^{n-1}\) by \hyperref[def:exact-complex]{exactness} of \(M^{\bullet}\).
+
+          Therefore \(f\) induces a map \(\overline{f}: \im d_{M^{\bullet}}^{n-1} \to Q^{n}\)
+          \begin{center}
+            \begin{tikzcd}
+              M^{n-1} \arrow[r] \arrow[rr, bend left, "d_{M^{\bullet}}^{n-1}"] \arrow[d, "\alpha^{n-1}"'] \arrow[drr, "f"'] & \im d_{M^{\bullet}}^{n-1} \arrow[r, tail] \arrow[dr, dashed, "\overline{f}"] & M^{n} \\
+              Q^{n-1} \arrow[rr, "d_{Q^{\bullet}}^{n-1}"'] & & Q^{n}
+            \end{tikzcd}
+          \end{center}
+          Using that \(Q^{n}\) is \hyperref[def:injective-projective-object]{injective} we obtain a morphism \(\alpha^{n}: M^{n} \to Q^{n}\).
+  \end{itemize}
+  \todo[inline]{Falta unicitat}
+\end{proof}
+
+\begin{proposition}
+  Any two \hyperref[def:injective-projective-resolution]{injective resolutions} (resp. \hyperref[def:injective-projective-resolution]{projective}) of an object \(A\) in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) are \hyperref[def:homotopy-equivalence]{homotopy equivalent}.
+\end{proposition}
+
+\begin{proposition}
+  Let \(A_{0}, A_{1}\) be two objects in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\).
+  Let \(Q_{i}^{\bullet}\) be an \hyperref[def:injective-projective-resolution]{injective resolution} of \(A_{i}, i \in \{0, 1\}\).
+  Then every morphism \(\varphi: A_{0} \to A_{1}\) in \(\category{A}\) is induced by a morphism \(\alpha^{\bullet}: I_{0}^{\bullet} \to I_{1}^{\bullet}\), uniquely determined up to \hyperref[def:homotopy]{homotopy}.
+\end{proposition}
+
+
+\end{document}
