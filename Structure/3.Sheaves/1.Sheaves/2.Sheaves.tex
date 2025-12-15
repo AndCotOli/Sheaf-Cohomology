@@ -1,0 +1,84 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{1.Presheaves}
+}{}
+
+\begin{document}
+\section{Sheaves}
+
+\textbf{Write motivation on why sheaves capture more \textit{geometric} information}.
+
+We now turn our attention to a particular class of \hyperref[def:presheaf]{presheaves}.
+Let's first tackle the case where the evaluation category is \(\Set\).
+
+\begin{definition} \label{def:set-valued-sheaf}
+  Let \(X\) be a topological space.
+  The \hyperref[def:category]{category} of \textbf{sheaves of sets} over \(X\) is the \hyperref[def:full-subcategory]{full subcategory} \(\Sh_{X}(\Set)\) of \(\PSh_{X}(\Set)\) whose objects verify, for every open set \(U \subseteq X\) and every open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\)
+  \begin{enumerate}[label=SH.\arabic*), ref=SH.\arabic*]
+    \item\label{axiom:sheaf-identity} \textbf{Identity}: Given two sections \(s, t \in \sheaf{F}(U)\) such that for every \(i \in \mathcal{I} \quad s|_{U_{i}} = t|_{U_{i}}\) we have that \(s = t\).
+    \item\label{axiom:sheaf-gluability} \textbf{Gluability}: Given a collection of sections \(\{s_{i} \mid s_{i} \in \sheaf{F}(U_{i})\}_{i \in \mathcal{I}}\) that agree on pairwise intersections (\(\forall i, j \in \mathcal{I} \;\; s_{i}|_{U_{i} \cap U_{j}} = s_{j}|_{U_{i} \cap U_{j}}\)) there exists a section \(s \in \sheaf{F}(U)\) such that \(\forall i \in \mathcal{I} \;\; s|_{U_{i}} = s_{i}\).
+  \end{enumerate}
+\end{definition}
+
+\begin{notation}
+  From now on, to distinguish a \hyperref[def:presheaf]{presheaf} from a \hyperref[def:sheaf]{sheaf} we will denote the former by \(\mathcal{F}, \mathcal{G}, \mathcal{H}, \ldots\) and the latter by \(\sheaf{F}, \sheaf{G}, \sheaf{H}, \ldots\)
+\end{notation}
+
+Let's try to make \autoref{def:set-valued-sheaf} work on a more general evaluation category.
+To do this, the first thing we need to do is to write axioms \ref{axiom:sheaf-identity} and \ref{axiom:sheaf-gluability} in terms of universal properties.
+\begin{enumerate}[label=SH.\arabic*)]
+  \item \textbf{Identity}: Consider the morphism
+        \begin{align*}
+          e: \sheaf{F}(U) &\to \prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \\
+          s &\mapsto \{s|_{U_{i}}\}_{i \in \mathcal{I}}
+        \end{align*}
+        given by the restriction maps \(\res_{U, U_{i}}\).
+
+        The condition \ref{axiom:sheaf-identity} is equivalent to \(e\) being injective, which (in \(\Set\)) means that \(e\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+  \item \textbf{Gluability}: Consider the morphisms
+        \begin{align*}
+          p, q: \prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \rightrightarrows \prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
+        \end{align*}
+        where \(p\) takes the section on \(U_{i}\) and sends it to the intersection and \(q\) takes the section on \(U_{j}\) and sends it to the intersection.
+
+        The condition \ref{axiom:sheaf-gluability} is then equivalent to saying that \(\sheaf{F}\) is the \hyperref[def:equalizer]{equalizer} of the diagram consisting of \(p\) and \(q\).
+\end{enumerate}
+Therefore a \hyperref[def:presheaf]{presheaf} of sets \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} of sets if for every open set \(U\) and open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) the following diagram is an \hyperref[def:equalizer]{equalizer sequence}
+\begin{center}
+  \begin{tikzcd}
+    \sheaf{F}(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
+  \end{tikzcd}
+\end{center}
+
+Let's try to go now to a more general \hyperref[def:category]{category} \(\category{C}\).
+First of all, note that the \hyperref[def:equalizer]{equalizer sequence} makes sense if \hyperref[def:categorical-product]{products} indexed by \(\mathcal{I}\) and \(\mathcal{I} \times \mathcal{I}\) exist in \(\category{C}\).
+Furthermore, since our \hyperref[def:category]{categories} are \hyperref[def:category]{locally small categories} applying the \hyperref[def:functor]{functor} \(\Hom_{\category{C}}(-, -): \category{C} \times \category{C} \to \Set\) by the \hyperref[lemma:yonneda]{Yonneda lemma} we have that the diagram is an \hyperref[def:equalizer]{equalizer} if and only if for every object \(C \in \category{C}\) the diagram
+\begin{center}
+  \begin{tikzcd}
+    \Hom_{\category{C}}(C, \sheaf{F}(U)) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i})) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i} \cap U_{j}))
+  \end{tikzcd}
+\end{center}
+is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
+
+\begin{definition}[Sheaf] \label{def:sheaf}
+  Let \(X\) be a topological space.
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:categorical-product]{products} indexed by \(\mathcal{I}\) and \(\mathcal{I} \times \mathcal{I}\).
+
+  The \hyperref[def:category]{category} of \(\category{C}\)-valued \textbf{sheaves} over \(X\) is the \hyperref[def:full-subcategory]{full subcategory} \(\Sh_{X}(\category{C})\) of the \hyperref[def:category]{category} of \(\category{C}\)-valued \hyperref[def:presheaf]{presheaves} over \(X\) whose objects verify that, for every open subset \(U \subseteq X\) and every open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) the diagram
+  \begin{center}
+    \begin{tikzcd}
+      \Hom_{\category{C}}(C, \sheaf{F}(U)) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i})) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i} \cap U_{j}))
+    \end{tikzcd}
+  \end{center}
+  is an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\).
+\end{definition}
+
+\begin{remark}
+
+\end{remark}
+
+
+\end{document}
