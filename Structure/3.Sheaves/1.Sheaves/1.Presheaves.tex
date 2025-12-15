@@ -90,7 +90,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
   Notice that this construction defines a \hyperref[def:functor]{functor} \(f_{\ast}: \PSh_{X}(\category{C}) \to \PSh_{Y}(\category{C})\).
 \end{definition}
 
-\begin{example}[Global section]
+\begin{example}[Global section] \label{ex:global-section-presheaf}
   Let \(X\) be a topological space.
   Consider the one-point topological space \(\{\ast\}\) and the unique continuous map \(f: X \to \{\ast\}\).
   Let \(\mathcal{F}\) be a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} over \(X\).
@@ -116,7 +116,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
   In particular, if \(\mathcal{F}(\varnothing)\) is a \hyperref[def:terminal-object]{terminal object} in \(\category{C}\) we can identify \(\mathcal{F}(X) \to \mathcal{F}(\varnothing)\) with \(\mathcal{F}(X)\), getting a \hyperref[def:functor]{functor} \(\Gamma(X, -): \PSh_{X}(\category{C}) \to \category{C}\).
 \end{example}
 
-\begin{example}[Skyscraper presheaf]
+\begin{example}[Skyscraper presheaf] \label{ex:skyscraper-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
   Consider the one-point topological space \(\{\ast\}\) and the continuous map \(\iota_{p}: \{\ast\} \to X, \ast \mapsto p\).
   Consider a morphism \(\rho: S \to T\) in \(\category{C}\), which by \autoref{ex:one-point-presheaf} corresponds to a \hyperref[def:presheaf]{presheaf} \(\mathcal{R} \in \PSh_{\{\ast\}}(\category{C})\).
@@ -177,7 +177,7 @@ For sufficiently nice \hyperref[def:category]{categories} (those with \hyperref[
 \end{remark}
 
 In the following examples, we assume that the \hyperref[def:category]{category} \(\category{C}\) has \hyperref[def:direct-limit]{direct limits}.
-\begin{example}[Constant presheaf]
+\begin{example}[Constant presheaf] \label{ex:constant-presheaf}
   Let \(X\) be a topological space.
   Consider the one-point topological space \(\{\ast\}\).
   Consider a morphism \(\rho: S \to T\) in \(\category{C}\).
@@ -222,7 +222,7 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
   In this situation we write \(\underline{S}_{\operatorname{pre}}\).
 \end{example}
 
-\begin{example}[Stalk]
+\begin{example}[Stalk]\label{ex:stalk-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
   Consider the one-point topological space \(\{\ast\}\) and the inclusion \(f: \{\ast\} \hookrightarrow X, \ast \mapsto p\).
   Let \(\mathcal{F}\) be a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} over \(X\).
@@ -320,7 +320,7 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
 \end{proof}
 
 In particular, we get the following particular cases of \autoref{thm:direct-inverse-image-adjunction-presheaf} for a \hyperref[def:category]{category} \(\category{C}\) with \hyperref[def:direct-limit]{direct limits}.
-\begin{corollary}
+\begin{corollary} \label{cor:constant-global-adjunction-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
   Let \(\mathcal{F}\) be a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} over \(X\) and let \(\rho: S \to T\) be a morphism in \(\category{C}\).
   Then
@@ -334,7 +334,7 @@ In particular, we get the following particular cases of \autoref{thm:direct-inve
   \end{align*}
 \end{corollary}
 
-\begin{corollary}
+\begin{corollary} \label{cor:stalk-constant-adjunction-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
   Let \(\mathcal{F}\) be a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} over \(X\) and let \(\rho: S \to T\) be a morphism in \(\category{C}\).
   Then

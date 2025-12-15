@@ -32,7 +32,7 @@ Let's first tackle the case where the evaluation category is \(\Set\).
 Let's try to make \autoref{def:set-valued-sheaf} work on a more general evaluation category.
 To do this, the first thing we need to do is to write axioms \ref{axiom:sheaf-identity} and \ref{axiom:sheaf-gluability} in terms of universal properties.
 \begin{enumerate}[label=SH.\arabic*)]
-  \item \textbf{Identity}: Consider the morphism
+  \item Consider the morphism
         \begin{align*}
           e: \sheaf{F}(U) &\to \prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \\
           s &\mapsto \{s|_{U_{i}}\}_{i \in \mathcal{I}}
@@ -40,7 +40,7 @@ To do this, the first thing we need to do is to write axioms \ref{axiom:sheaf-id
         given by the restriction maps \(\res_{U, U_{i}}\).
 
         The condition \ref{axiom:sheaf-identity} is equivalent to \(e\) being injective, which (in \(\Set\)) means that \(e\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
-  \item \textbf{Gluability}: Consider the morphisms
+  \item Consider the morphisms
         \begin{align*}
           p, q: \prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \rightrightarrows \prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
         \end{align*}
@@ -82,6 +82,16 @@ is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
   From now on, every time we work with \(\category{C}\)-valued \hyperref[def:sheaf]{sheaves} we will tacitly assume that \(\category{C}\) has sufficient \hyperref[def:categorical-product]{products} so that \autoref{def:sheaf} makes sense.
 \end{remark}
 
+\begin{remark} \label{remark:empty-set-sheaf}
+  Note that the empty set \(\varnothing \in \Open(X)\) is covered via the \textit{empty cover} \(\{U_{i}\}_{i \in \varnothing}\).
+  Therefore for any \hyperref[def:sheaf]{sheaf} \(\sheaf{F}\) we have that \(\sheaf{F}(\varnothing)\) is an element of the empty \hyperref[def:categorical-product]{product}, i.e: \(\sheaf{F}(\varnothing)\) is a \hyperref[def:terminal-object]{terminal object} in \(\category{C}\).
+
+  Therefore following \autoref{ex:one-point-presheaf} we have that, if \(\{\ast\}\) is the one-point topological space,
+  \begin{align*}
+    \Sh_{{\ast}}(\category{C}) \cong \category{C}
+  \end{align*}
+\end{remark}
+
 
 \begin{remark} \label{remark:small-limits-sheaf}
   If \(\category{C}\) has \hyperref[def:categorical-limit]{small limits} then the \hyperref[def:equalizer]{equalizer sequence} in \autoref{def:sheaf} can be written directly in \(\category{C}\).
@@ -95,7 +105,7 @@ is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
   is an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\).
 \end{remark}
 
-\subsection*{Sheaves of concrete categories}
+\subsection{Sheaves of concrete categories} \label{ssec:concrete-category-sheaf}
 Let's consider the case where \(\category{C}\) is a \hyperref[def:concrete-category]{concrete category}, i.e: there exists a \hyperref[def:functor-types]{fully faithful and essentially surjective functor} \(F: \category{C} \to \Set\).
 
 Here, for every \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} we have an associated \textit{underlying \hyperref[def:presheaf]{presheaf of sets}}.

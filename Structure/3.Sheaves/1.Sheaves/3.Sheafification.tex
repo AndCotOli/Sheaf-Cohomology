@@ -1,0 +1,208 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{1.Presheaves}%
+    \zexternaldocument*{2.Sheaves}%
+}{}
+
+\begin{document}
+\section{Sheafification} \label{sec:sheafification}
+
+We have established the definition of \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves}. It is clear from the definitions that every \hyperref[def:sheaf]{sheaf} is a \hyperref[def:presheaf]{presheaf}. This defines a "forgetful" \hyperref[def:functor]{functor}:
+\begin{equation*}
+    \iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})
+\end{equation*}
+Since \hyperref[def:sheaf]{sheaves} are the objects with "local-to-global" gluing properties, we often wish to associate to an arbitrary \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) the "best possible" \hyperref[def:sheaf]{sheaf} that approximates it. In the language of category theory, this problem is framed as finding a \hyperref[def:adjoint-functor]{left adjoint} to the inclusion functor.
+
+\begin{definition}[Sheafification] \label{def:sheafification}
+    Let \(X\) be a topological space and \(\category{C}\) a \hyperref[def:category]{category}.
+    The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{+}: \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functor]{left adjoint} to the inclusion functor \(\iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
+
+    That is, for every \hyperref[def:presheaf]{presheaf} \(\mathcal{F} \in \PSh_{X}(\category{C})\) and every \hyperref[def:sheaf]{sheaf} \(\sheaf{G} \in \Sh_{X}(\category{C})\), there is a natural bijection:
+    \begin{equation*}
+        \Hom_{\Sh_{X}(\category{C})}(\mathcal{F}^{+}, \sheaf{G}) \cong \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota\sheaf{G})
+    \end{equation*}
+
+    The unit of this adjunction gives a canonical morphism \(\theta: \mathcal{F} \to \iota(\mathcal{F}^{+})\) in \(\PSh_{X}(\category{C})\).
+\end{definition}
+
+The existence of the \hyperref[def:sheafification]{sheafification functor} ...
+Therefore, we will first assume its existence and later show that it indeed exists for certain categories.
+
+First of all, we can translate the concepts of \hyperref[def:direct-image-presheaf]{direct image presheaf} and \hyperref[def:inverse-image-presheaf]{inverse image presheaf} to \hyperref[def:sheaf]{sheaves}.
+\begin{definition} \label{def:direct-image-sheaf}
+  Let \(f: X \to Y\) be a continuous map between two topological spaces \(X, Y\).
+  Let \(\sheaf{F}\) be a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf} over \(X\).
+
+  The \textbf{direct image sheaf} of \(\sheaf{F}\) via \(f\), \(f_{\ast}\sheaf{F} \in \Sh_{Y}(\category{C})\) is defined as
+  \begin{equation*}
+    f_{\ast}\sheaf{F} = (f_{\ast}^{\operatorname{pre}}\iota\sheaf{F})^{+}
+  \end{equation*}
+  where \(f_{\ast}^{\pre}\) is the \hyperref[def:direct-image-presheaf]{direct image presheaf} of \(\iota \sheaf{F} \in \PSh_{X}(\category{C})\).
+
+  Therefore we have
+  \begin{align*}
+    \forall Y \in \Open(Y) \quad (f_{\ast} \sheaf{F})(V) = \left( f_{\ast}^{\pre}\iota\sheaf{F} \right)^{+}(V) = \left( \iota\sheaf{F} \right)^{+}(f^{-1}V) = \sheaf{F}(f^{-1}V)
+  \end{align*}
+  i.e: the direct image sheaf coincides with the direct image presheaf.
+
+  Note that this defines a \hyperref[def:functor]{functor} \(f_{\ast}: \Sh_{X}(\category{C}) \to \Sh_{Y}(\category{C})\).
+\end{definition}
+
+We can also translate \autoref{ex:global-section-presheaf} and \autoref{ex:skyscraper-presheaf} to \hyperref[def:sheaf]{sheaves}.
+Furthermore, since by \autoref{remark:empty-set-sheaf} \(\sheaf{F}(\varnothing)\) is a \hyperref[def:terminal-object]{terminal object} in \(\category{C}\) the definitions simplify.
+\begin{definition}[Global section] \label{def:global-section-sheaf}
+  Let \(X\) be a topological space.
+  Let \(\sheaf{F}\) be a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf} over \(X\).
+
+  Using \autoref{ex:global-section-presheaf} we can define the \textbf{global section} of \(\sheaf{F}\) as
+  \begin{align*}
+    \Gamma(X, \sheaf{F}) \coloneq \sheaf{F}(X)
+  \end{align*}
+  This induces a \hyperref[def:functor]{functor} \(\Gamma(X, -): \Sh_{X}(\category{C}) \to \category{C}\).
+\end{definition}
+
+\begin{definition}[Skyscraper sheaf] \label{def:skyscraper-sheaf}
+  Let \(X\) be a topological space and \(p \in X\).
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with a \hyperref[def:terminal-object]{terminal object} \(\ast \in \category{C}\).
+
+  Using \autoref{ex:skyscraper-presheaf} we can define the \textbf{skyscraper sheaf} supported at \(S \in \category{C}\) as
+  \begin{align*}
+    \forall U \in \Open(X) \quad \iota_{p, \ast}\underline{S} = \begin{cases}
+      S & p \in U \\
+      \ast & p \notin U
+    \end{cases}
+  \end{align*}
+  This induces a \hyperref[def:functor]{functor} \(\iota_{p, \ast}: \category{C} \to \Sh_{X}(\category{C})\).
+\end{definition}
+
+\begin{definition}[Inverse image sheaf] \label{def:inverse-image-sheaf}
+  Let \(f: X \to Y\) be a continuous map between two topological spaces \(X, Y\).
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:direct-limit]{direct limits}.
+  Let \(\sheaf{G}\) be a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf} over \(Y\).
+
+  The \textbf{inverse image sheaf} of \(\sheaf{G}\), \(f^{-1}\sheaf{G} \in \Sh_{X}(\category{C})\), of \(\sheaf{G}\) via \(f\) is the \hyperref[def:sheaf]{sheaf}
+  \begin{equation*}
+    f^{-1}\sheaf{G} \coloneq \left( f_{\operatorname{pre}}^{-1} \iota \sheaf{G} \right)^{+}
+  \end{equation*}
+  Therefore we have
+  \begin{align*}
+    \forall U \in \Open(X) \quad \left( f^{-1}\sheaf{G} \right)(U) = \left( f_{\operatorname{pre}}^{-1} \iota \sheaf{G} \right)^{+}(U) = \left( \varinjlim_{\substack{V \supseteq f(U) \\ V \in \Open(Y)}} \iota\sheaf{G}(V) \right)^{+}
+  \end{align*}
+  In this occassion, unlike \autoref{def:direct-image-sheaf}, we are stuck with taking \hyperref[def:sheafification]{sheafification}.
+
+  Notice that this defines a \hyperref[def:functor]{functor} \(f^{-1}: \Sh_{Y}(\category{C}) \to \Sh_{X}(\category{C})\).
+\end{definition}
+
+Again, we can translate \autoref{ex:constant-presheaf} and \autoref{ex:stalk-presheaf}.
+We assume \(\category{C}\) is a \hyperref[def:category]{category} with \hyperref[def:direct-limit]{direct limits} as in the \hyperref[def:presheaf]{presheaf} case.
+\begin{definition}[Constant sheaf] \label{def:constant-sheaf}
+  Let \(X\) be a topological space.
+  The \textbf{constant sheaf} supported at \(S \in \category{C}\) is
+  \begin{align*}
+    \underline{S} \coloneq \left( \underline{S}_{\operatorname{pre}} \right)^{+}
+  \end{align*}
+
+  Note that this induces a \hyperref[def:functor]{functor} \(\underline{\cdot}: \category{C} \to \Sh_{X}(\category{C})\).
+\end{definition}
+
+\begin{definition}[Stalk] \label{def:stalk-sheaf}
+  Let \(X\) be a topological space and \(p \in X\).
+  Let \(\sheaf{F}\) be a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf} over \(X\).
+
+  We define the \textbf{stalk} of \(\sheaf{F}\) at \(p\) as
+  \begin{align*}
+    \sheaf{F}_{p} \coloneq \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \sheaf{F}(U)
+  \end{align*}
+
+  Note that this induces a \hyperref[def:functor]{funtor} \(-_{p}: \Sh_{X}(\category{C}) \to \category{C}\).
+\end{definition}
+
+The \hyperref[def:adjoint-functors]{adjunction} of \autoref{thm:direct-inverse-image-adjunction-presheaf} also translates directly
+\begin{theorem}
+  Let \(f: X \to Y\) be a continuous function between two topological spaces \(X, Y\).
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:direct-limit]{direct limits}.
+  Then there exists an \hyperref[def:adjoint-functor]{adjunction}
+  \begin{center}
+    \begin{tikzcd}
+      f^{-1} \dashv f_{\ast}: \PSh_{X}(\category{C}) \arrow[r, shift right, "f_{\ast}"'] &  \PSh_{Y}(\category{C}) \arrow[l, shift right, "f^{-1}"']
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  Using the \hyperref[def:adjoint-functor]{adjuntions} \(-^{+} \dashv \iota\) and \(f_{\operatorname{pre}}^{-1} \dashv f_{\ast}\) we have
+  \begin{align*}
+        \Hom_{\Sh_{X}(\category{C})}(f^{-1} \sheaf{G}, \sheaf{F}) &= \Hom_{\PSh_{X}(\category{C})}(f^{-1} \iota\sheaf{G}, \iota\sheaf{F})  \\
+                                                                  &= \Hom_{\PSh_{X}(\category{C})}(\iota\sheaf{G}, f_{\ast}\iota\sheaf{F}) \\
+                                                                  &= \Hom_{\Sh_{X}(\category{C})}(\sheaf{G}, f_{\ast}\sheaf{F})
+  \end{align*}
+\end{proof}
+
+
+\subsection*{Existence of sheafification}
+We will study first the construction of the \hyperref[def:sheafification]{sheafification functor} for the case where \(\category{C} = \Set\), and then prove that this construction can be carried in other categories.
+
+\begin{construction}[Godement construction of sheafification] \label{const:sheafification-godement}
+  Let \(\mathcal{F} \in \PSh_{X}(\category{\Set})\).
+
+  For every open set \(U \subseteq X\), let
+  \begin{equation*}
+    \Lambda(\mathcal{F})(U) \coloneq \prod_{p \in U} \mathcal{F}_{p}
+  \end{equation*}
+  Considering for \(V \subseteq U\) the morphism
+  \begin{align*}
+    \res_{U, V}: \Lambda(\mathcal{F})(U) &\to \Lambda(\mathcal{F})(V) \\
+    \prod_{p \in U} \mathcal{F}_{p} &\mapsto \prod_{p \in V} \mathcal{F}_{p}
+  \end{align*}
+  as the restriction maps, we see that \(\Lambda(\mathcal{F})\) is a \(\category{\Set}\)-valued \hyperref[def:presheaf]{presheaf}.
+
+  Let's check that \(\Lambda(\mathcal{F})\) verifies the \hyperref[def:set-valued-sheaf]{sheaf} axioms.
+  To do this, consider an open set \(U \subseteq X\).
+  \begin{enumerate}[label=SH.\arabic*), ref=SH.\arabic*]
+    \item Let \(s, t \in \mathcal{F}(U)\) be two sections such that there exists an open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) such that \(\forall i \in \mathcal{I} \quad s|_{U_{i}} = t|_{U_{i}}\).
+
+          Note that for any \(x \in U\) since there exists \(j \in \mathcal{I}\) such that \(x \in U_{j}\) we have that \(s_{x} = t_{x}\).
+          Therefore, since this holds for all \(x \in U\), we have that \(s = t\).
+    \item Let \(\{U_{i}\}_{i \in \mathcal{I}}\) be an open covering of \(U\) and let \(\{s_{i} \mid s_{i} \in \Lambda(\mathcal{F})(U_{i})\}_{i \in \mathcal{I}}\) be a family of sections such that for any \(i, j \in \mathcal{I}\) we have \(s_{i}|_{U_{i} \cap U_{j}} = s_{j}|_{U_{i} \cap U_{j}}\).
+
+          Define a section \(s \in \Lambda(\mathcal{F})(U)\) by choosing, for each \(x \in U\), an index \(k \in \mathcal{I}\) such that \(x \in U_{k}\) and setting \(s_{x} = (s_{k})_{x}\).
+          Note that this is well-defined by the compatibility condition of the family.
+          Furthermore, for all \(i \in \mathcal{I}\) by construction we have that \(s|_{U_{i}} = s_{i}\).
+  \end{enumerate}
+
+  Note that there is a \hyperref[def:presheaf]{presheaf morphism} \(\theta: \mathcal{F} \to \Lambda(\mathcal{F})\) defined for any \(s \in \mathcal{F}(U)\) by sending \(s\) to its germ at every point:
+  \begin{align*}
+    \theta(U)(s) = (s_{p})_{p \in U} \in \prod_{p \in U} \mathcal{F}_{p}
+  \end{align*}
+  where \(s_{p}\) denotes the image of \(s\) in the stalk \(\mathcal{F}_{p}\).
+
+  We define the \hyperref[def:sheafification]{sheafification} \(\mathcal{F}^{+}\) of \(\mathcal{F}\) as the sub-presheaf of \(\Lambda(\mathcal{F})\) consisting of sections that are \textit{locally compatible} with \(\mathcal{F}\).
+  Explicitly, for every open set \(U \subseteq X\) an element \(\sigma = (\sigma_{p})_{p \in U} \in \Lambda(\mathcal{F})(U)\) belongs to \(\mathcal{F}^{+}(U)\) if and only if:
+  \begin{quote}
+    For every \(p \in U\), there exists an open neighborhood \(V \subseteq U\) of \(p\) and a section \(t \in \mathcal{F}(V)\) such that for all \(q \in V\), \(\sigma_{q} = t_{q}\) (as elements of \(\mathcal{F}_{q}\)).
+  \end{quote}
+
+  We need to check that our definition of \(\mathcal{F}^{+}\) verifies the universal propery of \hyperref[def:sheafification]{sheafification}.
+  To do this, consider a \hyperref[def:set-valued-sheaf]{sheaf} \(\sheaf{G}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\phi: \mathcal{F} \to \sheaf{G}\).
+  We wish to show that there exists a unique \hyperref[def:sheaf]{sheaf} morphism \(\psi: \mathcal{F}^{+} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
+
+  Let's check existence first by defining \(\psi\) explicitly.
+  Let \(U \subseteq X\) be an open set and \(s \in \mathcal{F}^{+}(U)\).
+  By definition there exists an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) and sections \(t_{i} \in \mathcal{F}(V_{i})\) such that \(\forall i \in \mathcal{I} \quad s|_{U_{i}} = \theta(t_{i})\).
+
+  We want \(\psi\) to verify \(\psi(s)|_{U_{i}} = \psi(s|_{U_{i}}) = \psi(\theta_{t_{i}})\). This forces us to define \(\psi(\theta(t_{i})) = \phi(t_{i}) \in \sheaf{G}(U_{i})\).
+
+  Let's see that \(\{\phi(t_{i})\}_{i \in \mathcal{I}}\) can be glued in \(\sheaf{G}\).
+  Note that for all \(y \in U_{i} \cap U_{j}\) we have \((t_{i})_{y} = (t_{j})_{y}\).
+  Therefore using the induced stalk morphism \(\phi_{y}: \mathcal{F}_{y} \to \sheaf{G}_{y}\) we have \(\phi_{y}((t_{i})_{y}) = \phi_{y}((t_{j})_{y})\).
+  Therefore \((\phi(t_{i}))_{y} = (\phi(t_{j}))_{y}\) for all \(y \in U_{i} \cap U_{j}\), meaning that \(\phi(t_{i})|_{U_{i} \cap U_{j}} = \phi(t_{j})|_{U_{i} \cap U_{j}}\).
+
+  Applying \ref{axiom:sheaf-gluability} to this family we get that there is a unique section \(t \in \sheaf{G}(U)\) such that \(\forall i \in \mathcal{I} t|_{U_{i}} = \phi(t_{i})\).
+  Therefore we can define \(\psi_{U}(s) = t\), which verifies the universal property by construction.
+
+  To check uniqueness, since \hyperref[def:sheaf-morphism-and-stalks]{sheaf morphisms are determined by their induced maps on stalks} and for all points \(x \in X\) we have \(\theta_{x} = \id\), \(\psi\) verifies \(\forall x \in X \quad \psi_{x} = \phi_{x}\) making it unique.
+\end{construction}
+
+\end{document}
