@@ -21,6 +21,8 @@ Let's first tackle the case where the evaluation category is \(\Set\).
     \item\label{axiom:sheaf-identity} \textbf{Identity}: Given two sections \(s, t \in \sheaf{F}(U)\) such that for every \(i \in \mathcal{I} \quad s|_{U_{i}} = t|_{U_{i}}\) we have that \(s = t\).
     \item\label{axiom:sheaf-gluability} \textbf{Gluability}: Given a collection of sections \(\{s_{i} \mid s_{i} \in \sheaf{F}(U_{i})\}_{i \in \mathcal{I}}\) that agree on pairwise intersections (\(\forall i, j \in \mathcal{I} \;\; s_{i}|_{U_{i} \cap U_{j}} = s_{j}|_{U_{i} \cap U_{j}}\)) there exists a section \(s \in \sheaf{F}(U)\) such that \(\forall i \in \mathcal{I} \;\; s|_{U_{i}} = s_{i}\).
   \end{enumerate}
+
+  \hyperref[def:presheaf]{Presheaves} that only satisfy axiom \ref{axiom:sheaf-identity} are called \textbf{separated presheaves}.
 \end{definition}
 
 \begin{notation}
@@ -76,9 +78,70 @@ is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
   is an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\).
 \end{definition}
 
-\begin{remark}
+\begin{remark} \label{remark:small-limits-sheaf}
+  If \(\category{C}\) has \hyperref[def:categorical-limit]{small limits} then the \hyperref[def:equalizer]{equalizer sequence} in \autoref{def:sheaf} can be written directly in \(\category{C}\).
 
+  In this case, a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} is a \hyperref[def:sheaf]{sheaf} if for every open set \(U \subseteq X\) and open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) the following diagram
+  \begin{center}
+    \begin{tikzcd}
+      \sheaf{F}(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
+    \end{tikzcd}
+  \end{center}
+  is an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\).
 \end{remark}
 
+\subsection*{Sheaves of concrete categories}
+Let's consider the case where \(\category{C}\) is a \hyperref[def:concrete-category]{concrete category}, i.e: there exists a \hyperref[def:functor-types]{fully faithful and essentially surjective functor} \(F: \category{C} \to \Set\).
 
+Here, for every \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} we have an associated \textit{underlying \hyperref[def:presheaf]{presheaf of sets}}.
+
+We want to know in which \hyperref[def:category]{categories} we can check the \hyperref[def:sheaf]{sheaf} conditions in the underlying \hyperref[def:presheaf]{presheaf} of sets.
+
+We have the following diagram
+\begin{center}
+  \begin{tikzcd}
+      \sheaf{F}(U) \arrow[r] \arrow[d] & \displaystyle\prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \arrow[r, shift left] \arrow[r, shift right] \arrow[d] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j}) \arrow[d] \\
+      (F\sheaf{F})(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} (F\sheaf{F})(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} (F\sheaf{F})(U_{i} \cap U_{j})
+  \end{tikzcd}
+\end{center}
+If we suppose that the top row is an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}) then \(F\) need to \hyperref[def:functor-and-limits]{preserve limits} to make the bottom row an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}).
+
+Similarly, if we suppose that the bottom row is an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of stes}) then \(F\) need to \hyperref[def:functor-and-limits]{reflect limits} to make the top row an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}).
+
+Note that this does not happen in general for all \hyperref[def:concrete-category]{concrete categories}.
+For example the \hyperref[def:functor]{functor} \(F: \Top \to \Set\) sending every topological space to its underlying set does not \hyperref[def:functor-and-limits]{reflect limits}.
+
+Indeed, consider \(X = (\mathbb{R} \times \mathbb{R}, \mathcal{T})\) the real plane with the usual product topology and \(Y = (\mathbb{R} \times \mathbb{R}, \mathcal{T}_{d})\) the real plane with the discrete topology. Let \(Z = (\mathbb{R}, \mathcal{T})\) be the real line with the usual topology.
+
+Consider the diagram in \(\Top\)
+\begin{center}
+  \begin{tikzcd}
+    & Y \arrow[dl, "p_{1}"'] \arrow[dr, "p_{2}"] & \\
+    Z & & Z 
+  \end{tikzcd}
+\end{center}
+Note that this is not a \hyperref[def:categorical-limit]{limit} in \(\Top\).
+Indeed the diagram
+\begin{center}
+  \begin{tikzcd}
+    & X \arrow[ddl, bend right, "\pi_{1}"'] \arrow[ddr, bend left, "\pi_{2}"] & \\
+    & Y \arrow[dl, "p_{1}"'] \arrow[dr, "p_{2}"] & \\
+    Z & & Z
+  \end{tikzcd}
+\end{center}
+cannot be completed since there does not exist a continuous map \(X \to Y\).
+
+However, applying the forgetful functor to the diagram we get
+\begin{center}
+  \begin{tikzcd}
+    & \mathbb{R}^{2} \arrow[dl] \arrow[dr] & \\
+    \mathbb{R} & & \mathbb{R} 
+  \end{tikzcd}
+\end{center}
+which is a \hyperref[def:categorical-limit]{limit} in \(\Set\) (it is the diagram of a \hyperref[def:categorical-product]{product}).
+
+For other \hyperref[def:category]{categories} such as \(\mathsf{Ban}\) (the category of Banach spaces) the forgetful \hyperref[def:functor]{functor} \(F: \mathsf{Ban} \to \Set\) does not preserve limits.
+
+Luckily \textit{algebraic categories} such as \(\Grp, \Ab, \Ring, \mathsf{Vect}_{\mathbb{K}}, \ldots\) do preserve and reflect limits.
+Therefore in this categories we can \textit{forget} the structure when checking for \hyperref[def:sheaf]{sheaf} conditions.
 \end{document}
