@@ -6,7 +6,7 @@
 }{}
 
 \begin{document}
-\section{Presheaves}
+\section{Presheaves} \label{sec:presheaves}
 
 \begin{definition}[Presheaf] \label{def:presheaf}
   Let \(X\) be a topological space and let \(\Open(X)\) be its \hyperref[ex:open-set-category]{posetal category of open sets}.
@@ -151,7 +151,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
 \end{example}
 
 
-For sufficiently nice \hyperref[def:category]{categories}, we have \textit{dual} construction.
+For sufficiently nice \hyperref[def:category]{categories} (those with \hyperref[def:direct-limit]{direct limits}), we have \textit{dual} construction.
 \begin{definition}[Inverse image presheaf] \label{def:inverse-image-presheaf}
   Let \(f: X \to Y\) be a continuous map between two topological spaces \(X, Y\).
   Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:direct-limit]{direct limits}.
@@ -257,7 +257,8 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
 
 \begin{lemma}
   Let \(f: X \to Y\) be a continuous map between two topological space \(X, Y\) and \(p \in X\).
-  Let \(\mathcal{G}\) be a \hyperref[def:presheaf]{presheaf} of sets over \(Y\).
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:direct-limit]{direct limits}.
+  Let \(\mathcal{G}\) be a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} over \(Y\).
   Then \((f_{\operatorname{pre}}^{-1} \mathcal{G})_{p} = \mathcal{G}_{f(p)}\).
 \end{lemma}
 \begin{proof}
@@ -318,7 +319,7 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
   \end{equation*}
 \end{proof}
 
-In particular, we get the following particular cases of \autoref{thm:direct-inverse-image-adjunction-presheaf}.
+In particular, we get the following particular cases of \autoref{thm:direct-inverse-image-adjunction-presheaf} for a \hyperref[def:category]{category} \(\category{C}\) with \hyperref[def:direct-limit]{direct limits}.
 \begin{corollary}
   Let \(X\) be a topological space and \(p \in X\).
   Let \(\mathcal{F}\) be a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} over \(X\) and let \(\rho: S \to T\) be a morphism in \(\category{C}\).
