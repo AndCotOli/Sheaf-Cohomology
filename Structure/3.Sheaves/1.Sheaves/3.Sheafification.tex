@@ -18,14 +18,14 @@ Since \hyperref[def:sheaf]{sheaves} are the objects with "local-to-global" gluin
 
 \begin{definition}[Sheafification] \label{def:sheafification}
     Let \(X\) be a topological space and \(\category{C}\) a \hyperref[def:category]{category}.
-    The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{+}: \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functor]{left adjoint} to the inclusion functor \(\iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
+    The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{\#}: \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functor]{left adjoint} to the inclusion functor \(\iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
 
     That is, for every \hyperref[def:presheaf]{presheaf} \(\mathcal{F} \in \PSh_{X}(\category{C})\) and every \hyperref[def:sheaf]{sheaf} \(\sheaf{G} \in \Sh_{X}(\category{C})\), there is a natural bijection:
     \begin{equation*}
-        \Hom_{\Sh_{X}(\category{C})}(\mathcal{F}^{+}, \sheaf{G}) \cong \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota\sheaf{G})
+        \Hom_{\Sh_{X}(\category{C})}(\mathcal{F}^{\#}, \sheaf{G}) \cong \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota\sheaf{G})
     \end{equation*}
 
-    The unit of this adjunction gives a canonical morphism \(\theta: \mathcal{F} \to \iota(\mathcal{F}^{+})\) in \(\PSh_{X}(\category{C})\).
+    The unit of this adjunction gives a canonical morphism \(\theta: \mathcal{F} \to \iota(\mathcal{F}^{\#})\) in \(\PSh_{X}(\category{C})\).
 \end{definition}
 
 The existence of the \hyperref[def:sheafification]{sheafification functor} ...
@@ -38,13 +38,13 @@ First of all, we can translate the concepts of \hyperref[def:direct-image-preshe
 
   The \textbf{direct image sheaf} of \(\sheaf{F}\) via \(f\), \(f_{\ast}\sheaf{F} \in \Sh_{Y}(\category{C})\) is defined as
   \begin{equation*}
-    f_{\ast}\sheaf{F} = (f_{\ast}^{\operatorname{pre}}\iota\sheaf{F})^{+}
+    f_{\ast}\sheaf{F} = (f_{\ast}^{\operatorname{pre}}\iota\sheaf{F})^{\#}
   \end{equation*}
   where \(f_{\ast}^{\pre}\) is the \hyperref[def:direct-image-presheaf]{direct image presheaf} of \(\iota \sheaf{F} \in \PSh_{X}(\category{C})\).
 
   Therefore we have
   \begin{align*}
-    \forall Y \in \Open(Y) \quad (f_{\ast} \sheaf{F})(V) = \left( f_{\ast}^{\pre}\iota\sheaf{F} \right)^{+}(V) = \left( \iota\sheaf{F} \right)^{+}(f^{-1}V) = \sheaf{F}(f^{-1}V)
+    \forall Y \in \Open(Y) \quad (f_{\ast} \sheaf{F})(V) = \left( f_{\ast}^{\pre}\iota\sheaf{F} \right)^{\#}(V) = \left( \iota\sheaf{F} \right)^{\#}(f^{-1}V) = \sheaf{F}(f^{-1}V)
   \end{align*}
   i.e: the direct image sheaf coincides with the direct image presheaf.
 
@@ -85,11 +85,11 @@ Furthermore, since by \autoref{remark:empty-set-sheaf} \(\sheaf{F}(\varnothing)\
 
   The \textbf{inverse image sheaf} of \(\sheaf{G}\), \(f^{-1}\sheaf{G} \in \Sh_{X}(\category{C})\), of \(\sheaf{G}\) via \(f\) is the \hyperref[def:sheaf]{sheaf}
   \begin{equation*}
-    f^{-1}\sheaf{G} \coloneq \left( f_{\operatorname{pre}}^{-1} \iota \sheaf{G} \right)^{+}
+    f^{-1}\sheaf{G} \coloneq \left( f_{\operatorname{pre}}^{-1} \iota \sheaf{G} \right)^{\#}
   \end{equation*}
   Therefore we have
   \begin{align*}
-    \forall U \in \Open(X) \quad \left( f^{-1}\sheaf{G} \right)(U) = \left( f_{\operatorname{pre}}^{-1} \iota \sheaf{G} \right)^{+}(U) = \left( \varinjlim_{\substack{V \supseteq f(U) \\ V \in \Open(Y)}} \iota\sheaf{G}(V) \right)^{+}
+    \forall U \in \Open(X) \quad \left( f^{-1}\sheaf{G} \right)(U) = \left( f_{\operatorname{pre}}^{-1} \iota \sheaf{G} \right)^{\#}(U) = \left( \varinjlim_{\substack{V \supseteq f(U) \\ V \in \Open(Y)}} \iota\sheaf{G}(V) \right)^{\#}
   \end{align*}
   In this occassion, unlike \autoref{def:direct-image-sheaf}, we are stuck with taking \hyperref[def:sheafification]{sheafification}.
 
@@ -102,7 +102,7 @@ We assume \(\category{C}\) is a \hyperref[def:category]{category} with \hyperref
   Let \(X\) be a topological space.
   The \textbf{constant sheaf} supported at \(S \in \category{C}\) is
   \begin{align*}
-    \underline{S} \coloneq \left( \underline{S}_{\operatorname{pre}} \right)^{+}
+    \underline{S} \coloneq \left( \underline{S}_{\operatorname{pre}} \right)^{\#}
   \end{align*}
 
   Note that this induces a \hyperref[def:functor]{functor} \(\underline{\cdot}: \category{C} \to \Sh_{X}(\category{C})\).
@@ -132,13 +132,33 @@ The \hyperref[def:adjoint-functors]{adjunction} of \autoref{thm:direct-inverse-i
   \end{center}
 \end{theorem}
 \begin{proof}
-  Using the \hyperref[def:adjoint-functor]{adjuntions} \(-^{+} \dashv \iota\) and \(f_{\operatorname{pre}}^{-1} \dashv f_{\ast}\) we have
+  Using the \hyperref[def:adjoint-functor]{adjunctions} \(-^{\#} \dashv \iota\) and \(f_{\operatorname{pre}}^{-1} \dashv f_{\ast}\) we have
   \begin{align*}
         \Hom_{\Sh_{X}(\category{C})}(f^{-1} \sheaf{G}, \sheaf{F}) &= \Hom_{\PSh_{X}(\category{C})}(f^{-1} \iota\sheaf{G}, \iota\sheaf{F})  \\
                                                                   &= \Hom_{\PSh_{X}(\category{C})}(\iota\sheaf{G}, f_{\ast}\iota\sheaf{F}) \\
                                                                   &= \Hom_{\Sh_{X}(\category{C})}(\sheaf{G}, f_{\ast}\sheaf{F})
   \end{align*}
 \end{proof}
+
+Therefore we have the analogous adjunctions of \autoref{cor:stalk-skyscraper-adjunction-presheaf} and \autoref{cor:stalk-skyscraper-adjunction-presheaf} for \hyperref[def:sheaf]{sheaves}.
+
+\begin{proposition}
+  Let \(X\) be a topological space and \(p \in X\).
+  For any \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} \(\mathcal{F} \in \PSh_{X}(\category{C})\) we have that \(\mathcal{F}_{p} = \mathcal{F}_{p}^{\#}\).
+\end{proposition}
+\begin{proof}
+  Note that the \hyperref[def:stalk-sheaf]{stalk functor} \(-_{p}: \Sh_{X}(\category{C}) \to \category{C}\) can be written as the \(-_{p}^{\operatorname{pre}} \circ \iota\) where \(\iota: \Sh_{X}(\category{C}) \to \PSh_{X}(\category{C})\) is the inclussion \hyperref[def:functor]{functor} and \(-_{p}^{\operatorname{pre}}: \PSh_{X}(\category{C}) \to \mathsf{Arr}(\category{C})\) is the \hyperref[ex:stalk-presheaf]{presheaf stalk functor}.
+
+  Note that \(\iota_{p, \ast}^{\operatorname{pre}}: \mathsf{Arr}(\category{C}) \to \PSh_{X}(\category{C})\) is, by \autoref{cor:stalk-skyscraper-adjunction-presheaf}, \hyperref[def:adjoint-functor]{right adjoint} to \(-_{p}^{\operatorname{pre}}\).
+  Furthermore, by \autoref{def:skyscrapper-sheaf} we have that \(\iota_{p, \ast}: \category{C} \to \Sh_{X}(\category{C})\) verifies \(\iota_{p, \ast} = -_{p}^{\operatorname{pre}} \circ \iota\).
+
+  Therefore if \(F = (-_{p}^{\operatorname{pre}} \circ \iota) \circ -^{\#}\) we have that its \hyperref[def:adjoint-functors]{right adjoint} is
+  \begin{equation*}
+    R_{F} = \iota \circ \iota_{p, \ast}^{\operatorname{pre}} = \iota_{p, \ast}
+  \end{equation*}
+  Therefore by \textit{uniqueness} of the \hyperref[def:adjoint-functors]{adjoint} we have that \(\mathcal{F}_{p} \cong \mathcal{F}_{p}^{\#}\).
+\end{proof}
+
 
 
 \subsection*{Existence of sheafification}
@@ -178,18 +198,18 @@ We will study first the construction of the \hyperref[def:sheafification]{sheafi
   \end{align*}
   where \(s_{p}\) denotes the image of \(s\) in the stalk \(\mathcal{F}_{p}\).
 
-  We define the \hyperref[def:sheafification]{sheafification} \(\mathcal{F}^{+}\) of \(\mathcal{F}\) as the sub-presheaf of \(\Lambda(\mathcal{F})\) consisting of sections that are \textit{locally compatible} with \(\mathcal{F}\).
-  Explicitly, for every open set \(U \subseteq X\) an element \(\sigma = (\sigma_{p})_{p \in U} \in \Lambda(\mathcal{F})(U)\) belongs to \(\mathcal{F}^{+}(U)\) if and only if:
+  We define the \hyperref[def:sheafification]{sheafification} \(\mathcal{F}^{\#}\) of \(\mathcal{F}\) as the sub-presheaf of \(\Lambda(\mathcal{F})\) consisting of sections that are \textit{locally compatible} with \(\mathcal{F}\).
+  Explicitly, for every open set \(U \subseteq X\) an element \(\sigma = (\sigma_{p})_{p \in U} \in \Lambda(\mathcal{F})(U)\) belongs to \(\mathcal{F}^{\#}(U)\) if and only if:
   \begin{quote}
     For every \(p \in U\), there exists an open neighborhood \(V \subseteq U\) of \(p\) and a section \(t \in \mathcal{F}(V)\) such that for all \(q \in V\), \(\sigma_{q} = t_{q}\) (as elements of \(\mathcal{F}_{q}\)).
   \end{quote}
 
-  We need to check that our definition of \(\mathcal{F}^{+}\) verifies the universal propery of \hyperref[def:sheafification]{sheafification}.
+  We need to check that our definition of \(\mathcal{F}^{\#}\) verifies the universal propery of \hyperref[def:sheafification]{sheafification}.
   To do this, consider a \hyperref[def:set-valued-sheaf]{sheaf} \(\sheaf{G}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\phi: \mathcal{F} \to \sheaf{G}\).
-  We wish to show that there exists a unique \hyperref[def:sheaf]{sheaf} morphism \(\psi: \mathcal{F}^{+} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
+  We wish to show that there exists a unique \hyperref[def:sheaf]{sheaf} morphism \(\psi: \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
 
   Let's check existence first by defining \(\psi\) explicitly.
-  Let \(U \subseteq X\) be an open set and \(s \in \mathcal{F}^{+}(U)\).
+  Let \(U \subseteq X\) be an open set and \(s \in \mathcal{F}^{\#}(U)\).
   By definition there exists an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) and sections \(t_{i} \in \mathcal{F}(V_{i})\) such that \(\forall i \in \mathcal{I} \quad s|_{U_{i}} = \theta(t_{i})\).
 
   We want \(\psi\) to verify \(\psi(s)|_{U_{i}} = \psi(s|_{U_{i}}) = \psi(\theta_{t_{i}})\). This forces us to define \(\psi(\theta(t_{i})) = \phi(t_{i}) \in \sheaf{G}(U_{i})\).
@@ -204,5 +224,105 @@ We will study first the construction of the \hyperref[def:sheafification]{sheafi
 
   To check uniqueness, since \hyperref[def:sheaf-morphism-and-stalks]{sheaf morphisms are determined by their induced maps on stalks} and for all points \(x \in X\) we have \(\theta_{x} = \id\), \(\psi\) verifies \(\forall x \in X \quad \psi_{x} = \phi_{x}\) making it unique.
 \end{construction}
+
+Now that we have seen how to construct the \hyperref[def:sheafification]{sheafification} of a \hyperref[def:set-valued-sheaf]{sheaf of sets}, we will see that it also exists for \textit{algebraic structures}.
+
+\begin{definition} \label{def:algebraic-structure}
+  A \textbf{type of algebraic structure} is a \hyperref[def:category]{category} \(\category{C}\) together with a \hyperref[def:functor]{functor} \(F: \category{C} \to \Set\) verifying:
+  \begin{enumerate}
+    \item \(F\) is \hyperref[def:functor-types]{faithful}.
+    \item \(\category{C}\) has \hyperref[def:categorical-limits]{limits} and \(F\) commutes with them.
+    \item \(\category{C}\) has \hyperref[def:direct-limit]{direct limits} and \(F\) commutes with them.
+    \item \(F\) reflects \hyperref[def:categorical-isomorphism]{isomorphisms}.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  The following \hyperref[def:category]{categories}, together with their respective forgetful \hyperref[def:functor]{functors} are \hyperref[def:algebraic-structure]{types of algebraic structures}:
+  \begin{itemize}
+    \item The category of pointed sets.
+    \item The category of (abelian) groups.
+    \item The category of monoids.
+    \item The category of rings.
+    \item The category of \(R\)-modules for a fixed ring \(R\).
+    \item The category of Lie algebras over a fixed field.
+  \end{itemize}
+\end{example}
+
+
+\begin{remark}
+  If \((\category{C}, F)\) is a \hyperref[def:algebraic-structure]{type of algebraic structure} then \(\category{C}\)-valued \hyperref[def:sheaf]{sheaves} are well defined.
+\end{remark}
+
+We state some properties of this types of \hyperref[def:category]{categories} without proof.
+\begin{lemma}[Properties of types of algebraic structures] \label{lemma:algebraic-structure-properties}
+  Let \((\category{C}, F)\) be a \hyperref[def:algebraic-structure]{type of algebraic structure}. Then:
+  \begin{enumerate}
+    \item \(\category{C}\) has a \hyperref[def:terminal-object]{terminal object} \(0\) and \(F(0) = \{\ast\}\).
+    \item \(\category{C}\) has \hyperref[def:categorical-product]{products} and \(F \left( \prod A_{i} \right) = \prod F \left( A_{i} \right)\).
+    \item \(\category{C}\) has \hyperref[def:fibre-product]{fibre products} and \(F(A \times_{B} C) = F(A) \times_{F(B)} F(C)\).
+    \item \(\category{C}\) has \hyperref[def:equalizer]{equalizers} and if \(E \to A\) is the \hyperref[def:equalizer]{equalizer} of \(a, b: A \to B\) then \(F(E) \to F(A)\) is the \hyperref[def:equalizer]{equalizer} of \(F(a), F(b): F(A) \to F(B)\).
+    \item \(A \to B\) is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if \(F(A) \to F(B)\) is injective.
+    \item If \(F(a): F(A) \to F(B)\) is surjective then \(a\) is an \hyperref[def:mono-epi-morphism]{epimorphism}.
+    \item Given \(A_{1} \to A_{2} \to \cdots\), \(\colim A_{i}\) exists and \(F(\colim A_{i}) = \colim F(A_{i})\). And more generally for any \hyperref[def:direct-limit]{direct limit}.
+  \end{enumerate}
+\end{lemma}
+
+\begin{remark}
+  It follows from the definition of a \hyperref[def:algebraic-structure]{type of algebraic structure} and \autoref{lemma:algebraic-structure-properties} that \(F\) both preserves and reflects \hyperref[def:categorical-limit]{limits}.
+
+  Therefore by \autoref{ssec:concrete-category-sheaf} we have that \(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf} if and only if its underlying \hyperref[def:presheaf]{presheaf of sets} \(F(\sheaf{F})\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}.
+\end{remark}
+
+\begin{lemma} \label{lemma:sheafification-diagram}
+  Let \((\category{C}, F)\) be a \hyperref[def:algebraic-structure]{type of algebraic structure}. Let \(f: A \to B\) and \(g: C \to B\) be two morphisms in \(\category{C}\).
+  Then if \(F(g)\) is injective and \(\im F(f) \subseteq \im F(g)\) we have that \(f\) factors as \(f = g \circ t\) for some morphism \(t: A \to C\) in \(\category{C}\).
+\end{lemma}
+
+
+\begin{proposition}
+  Let \(X\) be a topological space.
+  Let \((\category{C}, F)\) be a \hyperref[def:algebraic-structure]{type of algebraic structure}.
+  Let \(\mathcal{F}\) be a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} over \(X\).
+  Then there exists a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf} \(\mathcal{F}^{\#}\) and a morphism \(\mathcal{F} \to \mathcal{F}^{\#}\) such that
+  \begin{enumerate}
+    \item The map \(\mathcal{F} \to \mathcal{F}^{\#}\) identifies the underlying \hyperref[def:set-valued-sheaf]{sheaf of sets} of \(\mathcal{F}^{\#}\) with the underlying \hyperref[def:sheafification]{sheafification} of the underlying \hyperref[def:presheaf]{presheaf} of sets of \(\mathcal{F}\).
+    \item For any \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf} \(\sheaf{G}\) and any morphism \(\mathcal{F} \to \sheaf{G}\) there exists a unique factorization \(\mathcal{F} \to \mathcal{F}^{\#} \to \sheaf{G}\).
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  Consider the \textit{product \hyperref[def:sheaf]{sheaf}} defined as, for any open subset \(U \subseteq X\)
+  \begin{equation*}
+    \prod(\mathcal{F})(U) = \prod_{x \in U} \mathcal{F}_{x}
+  \end{equation*}
+  This is well-defined because \(\category{C}\) has products.
+  Notice that we have a map \(\mathcal{F} \to \prod(\mathcal{F})\) defined by \(\mathcal{F}(U) \mapsto \prod(\mathcal{F})(U)\).
+
+  For any open set \(U \subseteq X\) we define \(\mathcal{F}^{\#}(U)\) as the \hyperref[def:fiber-product]{fiber product} in \(\category{C}\) of the diagram
+  \begin{center}
+    \begin{tikzcd}
+      & \displaystyle\prod(\mathcal{F})(U) \arrow[d] \\
+      \displaystyle\prod_{x \in U} \mathcal{F}_{x} \arrow[r] & \displaystyle\prod_{x \in U} \displaystyle\prod(\mathcal{F})_{x}
+    \end{tikzcd}
+  \end{center}
+
+  We have that
+  \begin{equation*}
+    F(\mathcal{F}^{\#}(U)) = F \left( \prod(\mathcal{F})(U) \right) \times_{F \left( \prod(\mathcal{F})_{x} \right)} \prod F(\mathcal{F}_{x})
+  \end{equation*}
+  Therefore by \cite[\href{https://stacks.math.columbia.edu/tag/0084}{Lemma 0084}]{stacks-project} we have property 1.
+
+  For property 2. consider a \hyperref[def:sheaf]{sheaf} \(\sheaf{G}\) and a morphism \(\mathcal{F} \to \sheaf{G}\).
+  By the universal property of \hyperref[def:sheafification]{sheafification} there exists a map of \hyperref[def:set-valued-sheaf]{sheaves of sets} \(\psi_{\Set}: F(\mathcal{F}^{\#}) \to F(\sheaf{G})\).
+  Therefore using \autoref{lemma:sheafification-diagram} we have
+  \begin{center}
+    \begin{tikzcd}
+      \mathcal{F}^{\#}(U) \arrow[d] \arrow[r, dotted] & \sheaf{G}(U) \arrow[d, tail] \\
+      \displaystyle\prod_{x \in U} \mathcal{F}_{x} \arrow[r] & \displaystyle\prod_{x \in U} \sheaf{G}_{x}
+    \end{tikzcd}
+  \end{center}
+\end{proof}
+
+
 
 \end{document}
