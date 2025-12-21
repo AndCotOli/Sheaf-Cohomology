@@ -1,0 +1,19 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{../../3.Sheaves/1.Sheaves/exported/aux/main}%
+}{}
+
+\begin{document}
+\section{Ringed spaces} \label{sec:ringed-spaces}
+
+\begin{definition}[Ringed space] \label{def:ringed-space}
+  A \textbf{ringed space} is a pair \((X, \sheaf{O}_{X})\) consisting of a topological space \(X\) and a \hyperref[def:sheaf]{sheaf} of rings \(\sheaf{O}_{X}\) over \(X\).
+
+  A \textbf{morphism} of ringed spaces \((X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) is a pair \((f, f^{\#})\) where \(f: X \to Y\) is a continuous map and \(f^{\#}: \sheaf{O}_{y} \to f_{\ast}\sheaf{O}_{X}\) is a morphism of \hyperref[def:sheaf]{sheaves}.
+\end{definition}
+
+
+\end{document}

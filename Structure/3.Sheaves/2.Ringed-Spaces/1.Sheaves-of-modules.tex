@@ -1,0 +1,69 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{../../3.Sheaves/1.Sheaves/exported/aux/main}%
+}{}
+
+\begin{document}
+\section{Sheaves of modules} \label{sec:sheaves-of-modules}
+
+\begin{definition} \label{def:presheaf-of-modules}
+  Let \(X\) be a topological space.
+  Let \(\mathcal{O}\) be a \hyperref[def:sheaf]{sheaf} of rings over \(X\).
+
+  A \textbf{presheaf of \(\mathcal{O}\)-modules} is an \hyperref[def:presheaf]{presheaf} of abelian groups \(\mathcal{F}\) together with a map of \hyperref[def:presheaf]{presheaves} of sets \(\mathcal{O} \times \mathcal{F} \to \mathcal{F}\) such that for every open subset \(U \subseteq X\) the map \(\mathcal{O}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)\) defines the structure of an \(\mathcal{O}(U)\)-module on \(\mathcal{F}(U)\).
+
+  A \textbf{morphism} of presheaves of \(\mathcal{O}\)-modules \(\varphi: \mathcal{F} \to \mathcal{G}\) is a morphism of presheaves of abelian groups \(\varphi: \mathcal{F} \to \mathcal{G}\) such that the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}
+      \mathcal{O} \times \mathcal{F} \arrow[d, "\id \times \varphi"'] \arrow[r] & \mathcal{F} \arrow[d, "\varphi"] \\
+      \mathcal{O} \times \mathcal{G} \arrow[r] & \mathcal{G}
+    \end{tikzcd}
+  \end{center}
+
+  We denote the \hyperref[def:category]{category} of presheaves of \(\mathcal{O}\)-modules over \(X\) as \(\PMod(\mathcal{O})\).
+\end{definition}
+
+\begin{definition} \label{def:restriction-presheaf-of-modules}
+  Let \(X\) be a topological space.
+  Let \(\mathcal{O}_{1} \to \mathcal{O}_{2}\) be a morphism of \hyperref[def:presheaf]{presheaves} of rings.
+  We define the \textbf{restriction} \hyperref[def:functor]{functor}
+  \begin{equation*}
+    -_{\mathcal{O}_{1}}: \PMod(\mathcal{O}_{2}) \to \PMod(\mathcal{O}_{1})
+  \end{equation*}
+  by using for any \hyperref[def:presheaf-of-modules]{presheaf of \(\mathcal{O}_{2}\)-modules} \(\mathcal{F}\) the composition map \(\mathcal{O}_{1} \times \mathcal{F} \to \mathcal{O}_{2} \times \mathcal{F} \to \mathcal{F}\).
+\end{definition}
+
+\begin{definition} \label{def:tensor-product-presheaf}
+  Let \(X\) be a topological space.
+  For any \hyperref[def:presheaf]{presheaves} of rings \(\mathcal{O}_{1}, \mathcal{O}_{2}\) define the \textbf{change of rings} \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \mathcal{O}_{2} \otimes_{\operatorname{pre}, \mathcal{O}_{1}} -: \PMod(\mathcal{O}_{1}) \to \PMod(\mathcal{O}_{2})
+  \end{equation*}
+  as, for any \hyperref[def:presheaf-of-modules]{presheaf of \(\mathcal{O}_{1}\)-modules} \(\mathcal{G}\) and open subset \(U \subseteq X\)
+  \begin{equation*}
+    (\mathcal{O}_{2} \otimes_{\operatorname{pre}, \mathcal{O}_{1}} \mathcal{G})(U) \coloneq \mathcal{O}_{2}(U) \otimes_{\mathcal{O}_{1}(U)} \mathcal{G}(U)
+  \end{equation*}
+\end{definition}
+
+\begin{lemma}
+  For any \(\mathcal{O}_{1}, \mathcal{O}_{2}\) \hyperref[def:presheaf]{presheaves} of rings the \hyperref[def:restriction-presheaf-of-modules]{restriction functor} and the \hyperref[def:tensor-product-presheaf]{change of rings functor} are \hyperref[def:adjoint-functors]{adjoint}. In formula
+  \begin{equation*}
+    \Hom_{\mathcal{O}_{1}} \left( \mathcal{G}, \mathcal{F}_{\mathcal{O}_{1}} \right) \cong \Hom_{\mathcal{O}_{2}} (\mathcal{O}_{2} \oplus_{\operatorname{pre}, \mathcal{O}_{1}} \mathcal{G}, \mathcal{F})
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  This follows directly from the adjuntion of the corresponding functors in \(\Ring\).
+\end{proof}
+
+\begin{definition}
+  Let \(X\) be a topological space.
+  Let \(\sheaf{O}\) be a \hyperref[def:sheaf]{sheaf} of rings.
+  The \hyperref[def:category]{category} of \textbf{sheaves of \(\sheaf{O}\)-modules} \(\Mod(\sheaf{O})\) is the \hyperref[def:full-subcategory]{full subcategory} of \(\PMod(\iota\sheaf{O})\) consisting of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}\)-modules} where the the underlying \hyperref[def:presheaf]{presheaves} of abelian modules are \hyperref[def:sheaf]{sheaves}.
+\end{definition}
+
+
+
+\end{document}
