@@ -13,7 +13,7 @@
   Let \(X\) be a topological space.
   Let \(\mathcal{O}\) be a \hyperref[def:sheaf]{sheaf} of rings over \(X\).
 
-  A \textbf{presheaf of \(\mathcal{O}\)-modules} is an \hyperref[def:presheaf]{presheaf} of abelian groups \(\mathcal{F}\) together with a map of \hyperref[def:presheaf]{presheaves} of sets \(\mathcal{O} \times \mathcal{F} \to \mathcal{F}\) such that for every open subset \(U \subseteq X\) the map \(\mathcal{O}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)\) defines the structure of an \(\mathcal{O}(U)\)-module on \(\mathcal{F}(U)\).
+  A \textbf{presheaf of \(\mathcal{O}\)-modules} is a \hyperref[def:presheaf]{presheaf} of abelian groups \(\mathcal{F}\) together with a map of \hyperref[def:presheaf]{presheaves} of sets \(\mathcal{O} \times \mathcal{F} \to \mathcal{F}\) such that for every open subset \(U \subseteq X\) the map \(\mathcal{O}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)\) defines the structure of an \(\mathcal{O}(U)\)-module on \(\mathcal{F}(U)\).
 
   A \textbf{morphism} of presheaves of \(\mathcal{O}\)-modules \(\varphi: \mathcal{F} \to \mathcal{G}\) is a morphism of presheaves of abelian groups \(\varphi: \mathcal{F} \to \mathcal{G}\) such that the following diagram commutes
   \begin{center}
@@ -48,8 +48,8 @@
   \end{equation*}
 \end{definition}
 
-\begin{lemma}
-  For any \(\mathcal{O}_{1}, \mathcal{O}_{2}\) \hyperref[def:presheaf]{presheaves} of rings the \hyperref[def:restriction-presheaf-of-modules]{restriction functor} and the \hyperref[def:tensor-product-presheaf]{change of rings functor} are \hyperref[def:adjoint-functors]{adjoint}. In formula
+\begin{lemma} \label{lemma:restriction-tensor-adjunction-presheaf}
+  For any \(\mathcal{O}_{1} \to  \mathcal{O}_{2}\) morphism of \hyperref[def:presheaf]{presheaves} of rings the \hyperref[def:restriction-presheaf-of-modules]{restriction functor} and the \hyperref[def:tensor-product-presheaf]{change of rings functor} are \hyperref[def:adjoint-functors]{adjoint}. In formula
   \begin{equation*}
     \Hom_{\mathcal{O}_{1}} \left( \mathcal{G}, \mathcal{F}_{\mathcal{O}_{1}} \right) \cong \Hom_{\mathcal{O}_{2}} (\mathcal{O}_{2} \oplus_{\operatorname{pre}, \mathcal{O}_{1}} \mathcal{G}, \mathcal{F})
   \end{equation*}
@@ -58,12 +58,126 @@
   This follows directly from the adjuntion of the corresponding functors in \(\Ring\).
 \end{proof}
 
-\begin{definition}
+\begin{definition} \label{def:sheaf-of-modules}
   Let \(X\) be a topological space.
   Let \(\sheaf{O}\) be a \hyperref[def:sheaf]{sheaf} of rings.
   The \hyperref[def:category]{category} of \textbf{sheaves of \(\sheaf{O}\)-modules} \(\Mod(\sheaf{O})\) is the \hyperref[def:full-subcategory]{full subcategory} of \(\PMod(\iota\sheaf{O})\) consisting of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}\)-modules} where the the underlying \hyperref[def:presheaf]{presheaves} of abelian modules are \hyperref[def:sheaf]{sheaves}.
 \end{definition}
 
+Since, at the end of the day, \hyperref[def:presheaf-of-modules]{presheaves of \(\mathcal{O}\)-modules} and \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}\)-modules} are \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves} of abelian groups respectively, all the constructions we have seen in the past chapters apply.
+
+For example, in the case of \hyperref[def:presheaf-of-modules]{presheaves of \(\mathcal{O}\)-modules} we have.
+\begin{lemma}
+  Let \(X\) be a topological space and \(x \in X\).
+  Let \(\mathcal{O}\) be a \hyperref[def:presheaf]{presheaf} of rings over \(X\).
+  Let \(\mathcal{F}\) be a \hyperref[def:presheaf-of-modules]{presheaf of \(\mathcal{O}\)-modules}.
+
+  The canonical map \(\mathcal{O}_{x} \times \mathcal{F}_{x} \to \mathcal{F}_{x}\) coming from the map \(\mathcal{O} \times \mathcal{F} \to \mathcal{F}\) defines an \(\mathcal{O}_{x}\)-module structure on the abelian group \(\mathcal{F}_{x}\).
+\end{lemma}
+
+\begin{lemma}
+  Let \(X\) be a topological space and \(x \in X\).
+  Let \(\mathcal{O} \to \mathcal{O}'\) be a morphism of \hyperref[def:presheaf]{presheaves} of rings over \(X\).
+  Let \(\mathcal{F}\) be a \hyperref[def:presheaf-of-modules]{presheaf of \(\mathcal{O}\)-modules} over \(X\).
+
+  A \(\mathcal{O}'_{x}\)-modules we have that
+  \begin{align*}
+    \mathcal{F}_{x} \otimes_{\mathcal{O}_{x}} \mathcal{O}'_{x} \cong (\mathcal{F} \oplus_{\operatorname{pre}, \mathcal{O}} \mathcal{O}')_{x}
+  \end{align*}
+\end{lemma}
+
+The case of \hyperref[def:sheafification]{sheafification} is a little bit more tricky.
+We have an analogous of \autoref{prop:sheafification-of-algebraic-structure}.
+
+\begin{proposition}
+  Let \(X\) be a topological space.
+  Let \(\mathcal{O}\) be a \hyperref[def:presheaf]{presheaf} of rings over \(X\) and \(\mathcal{O}^{\#}\) be its \hyperref[def:sheafification]{sheafification}.
+  Let \(\mathcal{F}\) be a \hyperref[def:presheaf-of-modules]{presheaf of \(\mathcal{O}\)-modules}.
+  Let \(\mathcal{F}^{\#}\) be the \hyperref[def:sheafification]{sheafification} of \(\mathcal{F}\) as a \hyperref[def:presheaf]{presheaf} of abelian groups.
+
+  There exists a map of \hyperref[def:set-valued-sheaf]{sheaves of sets} \(\mathcal{O}^{\#} \times \mathcal{F}^{\#} \to \mathcal{F}^{\#}\) making the diagram
+  \begin{center}
+    \begin{tikzcd}
+      \mathcal{O} \times \mathcal{F} \arrow[r] \arrow[d] & \mathcal{F} \arrow[d] \\
+      \mathcal{O}^{\#} \times \mathcal{F}^{\#} \arrow[r] & \mathcal{F}^{\#} 
+    \end{tikzcd}
+  \end{center}
+  commute and which makes \(\mathcal{F}^{\#}\) into a \hyperref[def:sheaf-of-modules]{sheaf of \(\mathcal{O}^{\#}\)-modules}.
+  Furthermore, for any \hyperref[def:sheaf-of-modules]{sheaf of \(\mathcal{O}^{\#}\)-modules} \(\sheaf{G}\), all morphisms of \hyperref[def:presheaf-of-modules]{presheaves of \(\mathcal{O}\)-modules} \(\mathcal{F} \to \sheaf{G}\) factor uniquely as \(\mathcal{F} \to \mathcal{F}^{\#} \to \sheaf{G}\) where \(\mathcal{F}^{\#} \to \sheaf{G}\) is a morphism of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathcal{O}^{\#}\)-modules}.
+
+  This defines a sheafification \hyperref[def:functor]{functor}
+  \begin{equation*}
+    -^{\#}: \PMod(\mathcal{O}) \to \Mod(\mathcal{O}^{\#})
+  \end{equation*}
+\end{proposition}
+
+\begin{lemma}
+  Let \(X\) be a topological space.
+  Let \(\mathcal{O}\) be a \hyperref[def:presheaf]{presheaf} of rings over \(X\).
+
+  The \hyperref[def:functor]{functors} \(-^{\#}: \PMod(\mathcal{O}) \to \Mod(\mathcal{O}^{\#})\) and \(\iota: \Mod(\mathcal{O}^{\#}) \to \PMod(\mathcal{O})\) are \hyperref[def:adjoint-functors]{adjoint}.
+  In formula
+  \begin{equation*}
+    \Hom_{\PMod(\mathcal{O})} (\mathcal{F}, \iota\sheaf{G}) \cong \Hom_{\Mod(\mathcal{O}^{\#})}(\mathcal{F}^{\#}, \sheaf{G})
+  \end{equation*}
+\end{lemma}
+
+Using this adjuntion we can \textit{translate} \autoref{def:restriction-presheaf-of-modules} and \autoref{def:tensor-product-presheaf}.
+\begin{definition}
+  Let \(X\) be a topological space.
+  Let \(\sheaf{O}_{1} \to \sheaf{O}_{2}\) be a morphism of \hyperref[def:sheaf]{sheaves} of rings.
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{2}\)-modules}.
+
+  We define the \textbf{restriction} of \(\sheaf{F}\) to \(\sheaf{O}_{1}\) as
+  \begin{align*}
+    \sheaf{F}_{\sheaf{O}_{1}} \coloneq \left( \iota \left( \sheaf{F}_{\sheaf{O}_{1}} \right) \right)^{\#} = \sheaf{F}_{\sheaf{O}_{1}}
+  \end{align*}
+  where \(\iota(\sheaf{F}_{\sheaf{O}_{1}})\) is the \hyperref[def:restriction-presheaf-of-modules]{restriction as a presheaf of \(\iota\sheaf{O}_{2}\)-modules}.
+
+  I.e: the restriction of \hyperref[def:sheaf-of-modules]{sheaves of modules} coincides with the \hyperref[def:restriction-presheaf-of-modules]{restriction of presheaves of modules}.
+  This induces a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    -_{\sheaf{O}_{1}}: \Mod(\sheaf{O}_{2}) \to \Mod(\sheaf{O}_{1})
+  \end{equation*}
+\end{definition}
+
+\begin{definition}
+  Let \(X\) be a topological space.
+  Let \(\sheaf{O}_{1}, \sheaf{O}_{2}\) be \hyperref[def:sheaf]{sheaves} of rings over \(X\).
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{2}\)-modules}.
+
+  We define the \textbf{change of basis} of \(\sheaf{F}\) into \(\sheaf{O}_{2}\) as
+  \begin{equation*}
+    \sheaf{O}_{2} \otimes_{\sheaf{O}_{1}} \sheaf{F} \coloneq \left( \iota\sheaf{O}_{2} \otimes_{\operatorname{pre}, \iota\sheaf{O}_{1}} \iota\sheaf{F} \right)^{\#}
+  \end{equation*}
+  This induces a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \sheaf{O}_{2} \otimes_{\sheaf{O}_{1}} -: \Mod(\sheaf{O}_{1}) \to \Mod(\sheaf{O}_{2})
+  \end{equation*}
+\end{definition}
+
+We also have an analogous of \autoref{lemma:restriction-tensor-adjunction-presheaf}
+\begin{lemma} \label{lemma:restriction-tensor-adjunction-sheaf}
+  Let \(X\) be a topological space.
+  Let \(\sheaf{O}_{1} \to \sheaf{O}_{2}\) be a morphism of \hyperref[def:sheaf]{sheaves} of rings over \(X\).
+
+  The \hyperref[def:functor]{functors} \(-_{\sheaf{O}_{1}}\) and \(\sheaf{O}_{2} \otimes_{\sheaf{O}_{1}} -\) are \hyperref[def:adjoint-functors]{adjoint}.
+  In formula, if \(\sheaf{F}\) is a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{2}\)-modules} and \(\sheaf{G}\) is a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{1}\)-modules} we have
+  \begin{equation*}
+    \Hom_{\Mod(\sheaf{O}_{1})} \left( \sheaf{G}, \sheaf{F}_{\sheaf{O}_{1}} \right) \cong \Hom_{\Mod(\sheaf{O}_{2})} \left( \sheaf{O}_{2} \otimes_{\sheaf{O}_{1}} \sheaf{G}, \sheaf{F} \right)
+  \end{equation*}
+\end{lemma}
+
+\begin{lemma}
+  Let \(X\) be a topological space and \(x \in X\).
+  Let \(\sheaf{O} \to \sheaf{O}'\) be a morphism of \hyperref[def:sheaf]{sheaves} of rings over \(X\).
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}\)-modules}.
+
+  As \(\sheaf{O}'_{x}\)-modules we have
+  \begin{align*}
+    \sheaf{F}_{x} \otimes_{\sheaf{O}_{x}} \sheaf{O}'_{x} \cong \left( \sheaf{F} \otimes_{\sheaf{O}} \sheaf{O}' \right)_{x}
+  \end{align*}
+\end{lemma}
 
 
 \end{document}
