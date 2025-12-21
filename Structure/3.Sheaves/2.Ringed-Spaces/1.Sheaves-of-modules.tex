@@ -11,20 +11,25 @@
 
 \begin{definition} \label{def:presheaf-of-modules}
   Let \(X\) be a topological space.
-  Let \(\mathcal{O}\) be a \hyperref[def:sheaf]{sheaf} of rings over \(X\).
+  Let \(\mathcal{O}_{X}\) be a \hyperref[def:sheaf]{sheaf} of rings over \(X\).
 
-  A \textbf{presheaf of \(\mathcal{O}\)-modules} is a \hyperref[def:presheaf]{presheaf} of abelian groups \(\mathcal{F}\) together with a map of \hyperref[def:presheaf]{presheaves} of sets \(\mathcal{O} \times \mathcal{F} \to \mathcal{F}\) such that for every open subset \(U \subseteq X\) the map \(\mathcal{O}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)\) defines the structure of an \(\mathcal{O}(U)\)-module on \(\mathcal{F}(U)\).
+  A \textbf{presheaf of \(\mathcal{O}_{X}\)-modules} is a \hyperref[def:presheaf]{presheaf} of abelian groups \(\mathcal{F}\) together with a map of \hyperref[def:presheaf]{presheaves} of sets \(\mathcal{O} \times \mathcal{F} \to \mathcal{F}\) such that for every open subset \(U \subseteq X\) the map \(\mathcal{O}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)\) defines the structure of an \(\mathcal{O}(U)\)-module on \(\mathcal{F}(U)\).
 
-  A \textbf{morphism} of presheaves of \(\mathcal{O}\)-modules \(\varphi: \mathcal{F} \to \mathcal{G}\) is a morphism of presheaves of abelian groups \(\varphi: \mathcal{F} \to \mathcal{G}\) such that the following diagram commutes
+  A \textbf{morphism} of presheaves of \(\mathcal{O}_{X}\)-modules \(\varphi: \mathcal{F} \to \mathcal{G}\) is a morphism of presheaves of abelian groups \(\varphi: \mathcal{F} \to \mathcal{G}\) such that the following diagram commutes
   \begin{center}
     \begin{tikzcd}
-      \mathcal{O} \times \mathcal{F} \arrow[d, "\id \times \varphi"'] \arrow[r] & \mathcal{F} \arrow[d, "\varphi"] \\
-      \mathcal{O} \times \mathcal{G} \arrow[r] & \mathcal{G}
+      \mathcal{O}_{X} \times \mathcal{F} \arrow[d, "\id \times \varphi"'] \arrow[r] & \mathcal{F} \arrow[d, "\varphi"] \\
+      \mathcal{O}_{X} \times \mathcal{G} \arrow[r] & \mathcal{G}
     \end{tikzcd}
   \end{center}
 
-  We denote the \hyperref[def:category]{category} of presheaves of \(\mathcal{O}\)-modules over \(X\) as \(\PMod(\mathcal{O})\).
+  We denote the \hyperref[def:category]{category} of presheaves of \(\mathcal{O}_{X}\)-modules over \(X\) as \(\PMod(\mathcal{O}_{X})\).
 \end{definition}
+
+\begin{notation}
+  When the context is clear, we will drop the \(X\) subindex and say \hyperref[def:presheaf-of-modules]{presheves of \(\mathcal{O}\)-modules} and \(\PMod(\mathcal{O})\).
+\end{notation}
+
 
 \begin{definition} \label{def:restriction-presheaf-of-modules}
   Let \(X\) be a topological space.
@@ -60,8 +65,8 @@
 
 \begin{definition} \label{def:sheaf-of-modules}
   Let \(X\) be a topological space.
-  Let \(\sheaf{O}\) be a \hyperref[def:sheaf]{sheaf} of rings.
-  The \hyperref[def:category]{category} of \textbf{sheaves of \(\sheaf{O}\)-modules} \(\Mod(\sheaf{O})\) is the \hyperref[def:full-subcategory]{full subcategory} of \(\PMod(\iota\sheaf{O})\) consisting of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}\)-modules} where the the underlying \hyperref[def:presheaf]{presheaves} of abelian modules are \hyperref[def:sheaf]{sheaves}.
+  Let \(\sheaf{O}_{X}\) be a \hyperref[def:sheaf]{sheaf} of rings.
+  The \hyperref[def:category]{category} of \textbf{sheaves of \(\sheaf{O}_{X}\)-modules} \(\Mod(\sheaf{O}_{X})\) is the \hyperref[def:full-subcategory]{full subcategory} of \(\PMod(\iota\sheaf{O}_{X})\) consisting of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}_{X}\)-modules} where the the underlying \hyperref[def:presheaf]{presheaves} of abelian modules are \hyperref[def:sheaf]{sheaves}.
 \end{definition}
 
 Since, at the end of the day, \hyperref[def:presheaf-of-modules]{presheaves of \(\mathcal{O}\)-modules} and \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}\)-modules} are \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves} of abelian groups respectively, all the constructions we have seen in the past chapters apply.
@@ -179,5 +184,23 @@ We also have an analogous of \autoref{lemma:restriction-tensor-adjunction-preshe
   \end{align*}
 \end{lemma}
 
+\subsection{\(\Mod(\sheaf{O}_{X})\) is abelian.}
+
+In \autoref{def:limits-colimits-presheaf} we have seen that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} of \hyperref[def:presheaf]{presheaves} can be computed \textit{open set by open set}.
+Therefore since the \hyperref[def:category]{category} of modules over a ring is \hyperref[def:abelian-category]{abelian}, the category \(\PMod(\mathcal{O}_{X})\) inherits this property.
+
+Let's see how we can see that \(\Mod(\sheaf{O}_{X})\) is also \hyperref[def:abelian-category]{abelian}.
+It is clear that \(\Mod(\sheaf{O}_{X})\) is an \hyperref[def:additive-category]{additive category}.
+Therefore, we only need to check that \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels} exist in \(\Mod(\sheaf{O}_{X})\).
+
+Let \(\varphi: \sheaf{F} \to \sheaf{G}\) be a morphism of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}\)-modules}.
+We have an associated morphism of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}\)-modules} \(\iota\varphi: \iota\sheaf{F} \to \iota\sheaf{G}\).
+Using that \(\PMod(\iota\sheaf{O}_{X})\) is \hyperref[def:abelian-category]{category} the morphism \(\iota\varphi\) admits a \hyperref[def:categorical-kernel]{kernel} \(\ker_{\operatorname{pre}} \iota \varphi\) and \hyperref[def:categorical-cokernel]{cokernel} \(\coker_{\operatorname{pre}} \iota\varphi\).
+Therefore we can define the \hyperref[def:categorical-kernel]{kernel} and \hyperref[def:categorical-cokernel]{cokernel} of \(\varphi\) using the \hyperref[def:sheafification]{sheafification functor}
+\begin{align*}
+  \ker \varphi &\coloneq \left( \ker_{\operatorname{pre}} \iota\varphi \right)^{\#} = \ker_{\operatorname{pre}} \left( \iota \varphi \right)^{\#} = \ker_{\operatorname{pre}} \varphi \\
+  \coker \varphi &\coloneq \left( \operatorname{coker}_{\operatorname{pre}} \iota\varphi \right)^{\#}
+\end{align*}
+where the equalities in \(\ker \varphi\) come from the fact that \hyperref[def:adjoint-properties]{right adjoints preserve limits}.
 
 \end{document}

@@ -46,7 +46,7 @@ in \(\category{C}\) making the following diagram commute
 Since \(\PSh_{X}(\category{C})\) is a \hyperref[def:functor-category]{functor category}, if \(\category{C}\) has \hyperref[def:categorical-limit]{limits} or \hyperref[def:categorical-colimit]{colimits} of a certain shape then \(\PSh_{X}(\category{C})\) also has them and they are computed pointwise.
 This means that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} can be computed \textit{open set by open set}.
 
-\begin{proposition}
+\begin{proposition} \label{prop:limits-colimits-presheaf}
   Let \(X\) be a topological space.
   Let \(\mathcal{I} \to \PSh_{X}(\category{C}), i \mapsto \mathcal{F}_{i}\) be a \hyperref[def:diagram]{diagram}.
   If \(\category{C}\) has \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\mathcal{I}\) then \(\lim_{i} \mathcal{F}_{i}\) (resp. \(\colim_{i} \mathcal{F}_{i}\)) exists in \(\PSh_{X}(\category{C})\).
