@@ -1,0 +1,69 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{../../3.Sheaves/1.Sheaves/exported/aux/main}%
+    \zexternaldocument*{1.Sheaves-of-modules}%
+}{}
+
+\begin{document}
+\section{Ringed spaces} \label{sec:ringed-spaces}
+
+\begin{definition}[Ringed space] \label{def:ringed-space}
+  A \textbf{ringed space} is a pair \((X, \sheaf{O}_{X})\) consisting of a topological space \(X\) and a \hyperref[def:sheaf]{sheaf} of rings \(\sheaf{O}_{X}\) over \(X\).
+
+  A \textbf{morphism} of ringed spaces \((X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) is a pair \((f, f^{\#})\) where \(f: X \to Y\) is a continuous map and \(f^{\#}: \sheaf{O}_{y} \to f_{\ast}\sheaf{O}_{X}\) is a morphism of \hyperref[def:sheaf]{sheaves}.
+\end{definition}
+
+\subsection{The \textit{geometry} of ringed spaces}
+
+\subsection{Ringed spaces and continuous functions}
+
+\begin{definition} \label{def:direct-image-ox-mod}
+  Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces}.
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
+
+  We define the \textbf{direct image} of \(\sheaf{F}\) via \(f\) as the \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{Y}\)-modules} which has the \hyperref[def:direct-image-sheaf]{direct image sheaf} \(f_{\ast}\sheaf{F}\) as \hyperref[def:sheaf]{sheaf} of abelian groups and with module structure given by the map \(f^{\#}: \sheaf{O}_{Y} \to f_{\ast}\sheaf{O}_{X}\).
+\end{definition}
+
+\begin{definition} \label{def:inverse-image-ox-mod}
+  Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces}.
+  Let \(\sheaf{G}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{Y}\)-modules}.
+
+  We define the \textbf{inverse image} of \(\sheaf{G}\) via \(f\) to be the \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}
+  \begin{equation*}
+    f^{\ast}\sheaf{G} \coloneq \sheaf{O}_{X} \otimes_{f^{-1}\sheaf{O}_{Y}} f^{-1}\sheaf{G}
+  \end{equation*}
+  where \(f^{-1}\) is the \hyperref[def:inverse-image-sheaf]{inverse image sheaf}.
+\end{definition}
+
+\begin{lemma}
+  Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces}.
+  The \hyperref[def:functor]{functors} \(f_{\ast}\) and \(f^{\ast}\) are \hyperref[def:adjoint-functors]{adjoint}.
+
+  In formula, if \(\sheaf{F}\) is a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} and \(\sheaf{G}\) is a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{Y}\)-modules} we have
+  \begin{equation*}
+    \Hom_{\Mod(\sheaf{O}_{X})} \left( f^{\ast}\sheaf{G}, \sheaf{F} \right) \cong \Hom_{\Mod(\sheaf{O}_{Y})} \left( \sheaf{G}, f_{\ast}\sheaf{F} \right)
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+\begin{align*}
+  \Hom_{\Mod (\sheaf{O}_{X})} \left( f^{\ast}\sheaf{G}, \sheaf{F} \right) &\cong \Hom_{\Mod (\sheaf{O}_{X})} \left( \sheaf{O}_{X} \otimes_{f^{-1} \sheaf{O}_{Y}} f^{-1}\sheaf{G}, \sheaf{F} \right) \\
+                                                                       &\cong \Hom_{\Mod (f^{-1} \sheaf{O}_{Y})} \left( f^{-1}\sheaf{G}, \sheaf{F}_{f^{-1}\sheaf{O}_{Y}} \right) \\
+                                                                       &\cong  \Hom_{\Mod(\sheaf{O}_{Y})} \left( \sheaf{G}, f_{\ast}\sheaf{F} \right)
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+  Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces} and \(x \in X\).
+  Let \(\sheaf{G}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{Y}\)-modules}.
+
+  As \(\sheaf{O}_{X, x}\) modules we have
+  \begin{equation*}
+    (f^{\ast}\sheaf{G})_{x} = \sheaf{G}_{f(x)} \otimes_{\sheaf{O}_{Y, f(x)}} \sheaf{O}_{X, x}
+  \end{equation*}
+\end{lemma}
+
+
+\end{document}
