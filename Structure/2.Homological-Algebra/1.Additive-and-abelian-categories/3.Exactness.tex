@@ -221,4 +221,41 @@ The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
   \end{enumerate}
 \end{lemma}
 
+\begin{theorem} \label{def:adjointness-and-exactness}
+  Let \(L: \category{A} \to \category{B}\) and \(R: \category{B} \to \category{A}\) be an \hyperref[def:adjoint-functors]{adjoint} pair of \hyperref[def:additive-functor]{additive functors}.
+  Then \(L\) is \hyperref[def:exact-functor]{right exact} and \(R\) is \hyperref[def:exact-functor]{right exact}.
+\end{theorem}
+\begin{proof}
+  Let
+  \begin{equation*}
+    \tau: \Hom_{\category{B}} \left( LA, B \right) \isoarrow \Hom_{\category{A}} \left( A, RB \right)
+  \end{equation*}
+  Consider a \hyperref[def:short-exact-sequence]{short exact sequence} in \(\category{B}\)
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & B' \arrow[r] & B \arrow[r] & B'' \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  By \hyperref[def:natural-transformation]{naturality} of \(\tau\) for every object \(A \in \category{A}\) we have
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \Hom_{\category{B}}(LA, B') \arrow[r] \arrow[d, "\sim"']  & \Hom_{\category{B}}(LA, B) \arrow[r] \arrow[d, "\sim"']  & \Hom_{\category{B}}(LA, B'') \arrow[d, "\sim"'] \\
+      0 \arrow[r] & \Hom_{\category{A}}(A, RB') \arrow[r] & \Hom_{\category{A}}(A, RB) \arrow[r] & \Hom_{\category{A}}(A, RB'')
+    \end{tikzcd}
+  \end{center}
+
+  By \hyperref[ex:hom-left-exact]{left-exactness of the \(\Hom\) functor} the top row is \hyperref[def:short-exact-sequence]{exact}.
+  Therefore the bottom row must also be \hyperref[def:short-exact-sequence]{exact}.
+
+  By the \hyperref[lemma:yonneda-lemma]{Yonneda lemma} we have that
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & RB' \arrow[r] & RB \arrow[r] & RB''
+    \end{tikzcd}
+  \end{center}
+  must be \hyperref[def:short-exact-sequence]{exact}, meaning that \(R\) is \hyperref[def:exact-functor]{left exact}.
+
+  In particular \(L^{\op}: A^{\op} \to B^{\op}\) is \hyperref[def:exact-functor]{left exact}, making \(L\) \hyperref[def:exact-functor]{right exact}.
+\end{proof}
+
 \end{document}
