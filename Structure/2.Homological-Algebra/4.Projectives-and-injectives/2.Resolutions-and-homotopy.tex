@@ -121,10 +121,16 @@ By \textit{flipping} the corresponding arrows, all the results may be adapted to
   Any two \hyperref[def:injective-projective-resolution]{injective resolutions} (resp. \hyperref[def:injective-projective-resolution]{projective}) of an object \(A\) in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) are \hyperref[def:homotopy-equivalence]{homotopy equivalent}.
 \end{proposition}
 
+\begin{corollary} \label{cor:injective-have-same-cohomology}
+  Any two \hyperref[def:injective-projective-resolution]{injective resolutions} (resp. \hyperref[def:injective-projective-resolution]{projective}) of an object \(A\) in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) have the same \hyperref[def:cohomology]{cohomology}.
+\end{corollary}
+
+
 \begin{proposition}
   Let \(A_{0}, A_{1}\) be two objects in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\).
   Let \(Q_{i}^{\bullet}\) be an \hyperref[def:injective-projective-resolution]{injective resolution} of \(A_{i}, i \in \{0, 1\}\).
   Then every morphism \(\varphi: A_{0} \to A_{1}\) in \(\category{A}\) is induced by a morphism \(\alpha^{\bullet}: I_{0}^{\bullet} \to I_{1}^{\bullet}\), uniquely determined up to \hyperref[def:homotopy]{homotopy}.
+  We call the morphism \(\alpha^{\bullet}\) a \textit{lifting} of \(\varphi\).
 \end{proposition}
 
 

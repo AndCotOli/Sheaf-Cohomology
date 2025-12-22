@@ -1,0 +1,69 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+    \zexternaldocument*{../2.Complexes-and-cohomology/exported/aux/main}%
+    \zexternaldocument*{../3.Cones-and-homotopy/exported/aux/main}%
+    \zexternaldocument*{../4.Projectives-and-injectives/exported/aux/main}%
+}{}
+
+\begin{document}
+\section{Delta functors}
+
+\begin{definition} \label{def:delta-functor}
+  Let \(\category{A}, \category{B}\) be two \hyperref[def:abelian-category]{abelian categories}.
+  A \textbf{cohomological \(\delta\)-functor} is a collection of \hyperref[def:additive-functor]{additive functors} \(T^{n}: \category{A} \to \category{B}\) for \(n \in \mathbb{N}\) together with, for every \hyperref[def:short-exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & A \arrow[r] & B \arrow[r] & C \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  a morphism \(\delta^{n}: T^{n}(C) \to T^{n+1}(A)\). We take the convention that \(\forall n < 0 \quad T^{n} = 0\).
+  Furthermore
+  \begin{enumerate}
+    \item For each \hyperref[def:short-exact-sequence]{short exact sequence} as above there exists a \hyperref[def:exact-sequence]{long exact sequence}
+          \begin{center}
+            \begin{tikzcd}
+              \cdots \arrow[r] & T^{n-1}(B) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & T^{n-1}(C) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}, "\delta^{n-1}" description] \\
+      T^{n}(A) \arrow[r] & T^{n}(B) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] & T^{n}(C) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}, "\delta^{n}" description] \\
+      T^{n+1}(A) \arrow[r] & T^{n+1}(B) \arrow[r] & \cdots
+            \end{tikzcd}
+          \end{center}
+          In particular \(T^{0}\) is \hyperref[def:exact-functor]{left exact}.
+    \item For each morphism of \hyperref[def:short-exact-sequence]{short exact sequences}
+          \begin{equation*}
+            \left( 0 \to A' \to B' \to C' \to 0 \right) \mapsto \left( 0 \to A \to B \to C \to 0 \right)
+          \end{equation*}
+          the \(\delta^{n}\) give commutative diagrams
+          \begin{center}
+            \begin{tikzcd}
+              T^{n}(C') \arrow[r, "\delta^{n}"] \arrow[d] & T^{n+1}(A') \arrow[d] \\
+              T^{n}(C) \arrow[r, "\delta^{n}"] & T^{n+1}(A)
+            \end{tikzcd}
+          \end{center}
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  \hyperref[def:cohomology]{Cohomology} is a \hyperref[def:delta-functor]{cohomological \(\delta\)-functor} \(\cohomology{\bullet}\) from \(\Complex[\geq 0]{\category{A}}\) to \(\category{A}\).
+\end{example}
+
+\begin{definition} \label{def:morphism-delta-functor}
+  A morphism \(S \to T\) of \hyperref[def:delta-functor]{cohomological \(\delta\)-functors} is a collection of \hyperref[def:natural-transformation]{natural transformations} \(S^{n} \to T^{n}\) that commute with \(\delta\).
+\end{definition}
+
+\begin{definition} \label{def:universal-delta-functor}
+  A \hyperref[def:delta-functor]{cohomological \(\delta\)-functor} is \textbf{universal} if given another \hyperref[def:delta-functor]{cohomological \(\delta\)-functor} \(S\) and \(f^{0}: T^{0} \to S^{0}\) there exists a unique \hyperref[def:morphism-delta-functor]{morphism of \(\delta\)-functors} \(T \to S\) extending \(f^{0}\).
+\end{definition}
+
+
+\end{document}

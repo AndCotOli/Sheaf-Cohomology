@@ -106,4 +106,32 @@ Since we will be interesed in using them, we introduce the following types of \h
   \end{itemize}
 \end{definition}
 
+\begin{proposition}
+  Let \(R: \category{B} \to \category{A}\) be an \hyperref[def:additive-functor]{additive functor} with a \hyperref[def:adjoint-functors]{left adjoint} \(L: \category{A} \to \category{B}\) that is \hyperref[def:exact-functor]{exact}.
+  If \(I \in \category{B}\) is an \hyperref[def:injective-projective-object]{injective object} then \(R(I)\) is also an \hyperref[def:injective-object]{injective object}.
+
+  Dually, if an \hyperref[def:additive-functor]{additive functor} \(L: \category{A} \to \category{B}\) is \hyperref[def:adjoint-functor]{left adjoint} to an \hyperref[def:exact-functor]{exact functor} \(R: \category{B} \to \category{A}\) and \(P \in \category{A}\) is \hyperref[def:injective-projective-object]{projective} then \(L(P)\) is \hyperref[def:injective-projective-object]{projective}.
+\end{proposition}
+\begin{proof}
+  We want to show that \(\Hom_{\category{A}}(-, R(I))\) is \hyperref[def:exact-functor]{exact}.
+  By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-functor]{right exactness}.
+  
+  Let
+  \begin{equation*}
+    \tau: \Hom_{\category{B}} \left( L(A), B \right) \isoarrow \Hom_{\category{A}} \left( A, R(B) \right)
+  \end{equation*}
+  Given a \hyperref[def:mono-epi-morphism]{monomorphism} \(f: A \monoarrow A'\) in \(\category{A}\) we have
+  \begin{center}
+    \begin{tikzcd}
+      \Hom_{\category{B}} (L(A'), I) \arrow[d, "\sim"] \arrow[r, "Lf^{\ast}"] & \Hom_{\category{B}} (L(A), I) \arrow[d, "\sim"] \\
+      \Hom_{\category{A}} (A', R(I)) \arrow[r, "f^{\ast}"] & \Hom_{\category{A}} (A, R(I))
+    \end{tikzcd}
+  \end{center}
+  commutes by naturality of \(\tau\).
+  Since \(L\) is \hyperref[def:exact]{exact} and \(I\) is \hyperref[def:injective-projective-object]{injective} \(Lf^{\ast}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+
+  Therefore \(f^{\ast}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}, proving that \(R(I)\) is \hyperref[def:injective-projective-object]{injective}.
+\end{proof}
+
+
 \end{document}
