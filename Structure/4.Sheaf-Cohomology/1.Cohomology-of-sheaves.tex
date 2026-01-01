@@ -1,0 +1,158 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{../3.Sheaves/exported/aux/main}%
+}{}
+
+\begin{document}
+\chapter{Cohomology of sheaves}
+
+\begin{lemma}
+  Let \(X\) be a topological space.
+  The \hyperref[def:category]{category} \(\Mod(\sheaf{O}_{X})\) of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules} over \(X\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
+\end{lemma}
+\begin{proof}
+  We will use the following claim
+  \begin{quote}
+    The \hyperref[def:category]{category} \(\Mod(R)\) of modules over a ring \(R\) has enough injectives.
+  \end{quote}
+  For a proof, see \cite[Corollary VIII.6.4]{aluffiAlgebraChapter02009}.
+  
+  Let \(\sheaf{F}\) be an \(\sheaf{O}_{X}\)-module.
+  Let \(\sheaf{F}_{p} \in \Mod(\sheaf{O}_{X, p})\) be that \hyperref[def:stalk-sheaf]{stalk} of \(\sheaf{F}\) at a point \(p \in X\).
+
+  Since \(\Mod(\sheaf{O}_{X, p})\) has \hyperref[def:enough-injectives-projectives]{enough injectives} we can choose an object \(I_{p}\) and a \hyperref[def:mono-epi-morphism]{monomorphism}
+  \begin{equation*}
+    i_{p}: \sheaf{F}_{p} \monoarrow I_{p}
+  \end{equation*}
+
+  Consider the \hyperref[def:sheaf]{sheaf}
+  \begin{equation*}
+    \sheaf{I} \coloneq \bigoplus_{p \in X} \iota_{p, \ast} \underline{I_{p}}
+  \end{equation*}
+  where \(\iota_{p, \ast}\underline{I_{p}}\) is the \hyperref[def:skyscraper-sheaf]{skyscraper sheaf}.
+  More explicitly, for every open set \(U \subseteq X\) the \hyperref[def:sheaf]{sheaf} \(\sheaf{I}\) is defined as
+  \begin{equation*}
+    \sheaf{I}(U) = \bigoplus_{p \in U} I_{x}
+  \end{equation*}
+
+  Recall that by \autoref{cor:stalk-skyscraper-adjunction-presheaf} the \hyperref[def:skyscraper-sheaf]{skyscraper functor} is \hyperref[def:adjoint-functors]{left-adjoint} to the \hyperref[def:stalk-sheaf]{stalk functor}, which is \hyperref[def:exact-functor]{exact}.
+  Therefore by \autoref{prop:left-adjoints-and-injectives} \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective object}.
+
+  Furthermore, there exists a \hyperref[def:mono-epi-morphism]{monomorphism} \(\phi: \sheaf{F} \to \sheaf{I}\) defined as, for any open set \(U \subseteq X\)
+  \begin{align*}
+    \phi(U):\,& \sheaf{F}(U) \to \sheaf{I}(U) \\
+           & s \mapsto \bigoplus_{p \in U} j_{p}(s_{p})
+  \end{align*}
+\end{proof}
+
+\begin{definition} \label{def:sheaf-cohomology}
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} over a topological space \(X\).
+  The \(i\)-th \textbf{cohomology} of \(X\) with coefficients in \(\sheaf{F}\) as the \(i\)-th \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-section-sheaf]{global sections functor}:
+  \begin{equation*}
+    \cohomology{i}(X, \sheaf{F}) \coloneq R^{i}\Gamma(X, \sheaf{F})
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[Flasque sheaf] \label{def:flasque-sheaf}
+  A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{flasque} (or \textbf{flabby}) if for any inclussion of open subsets \(V \subseteq U\) the restriction map \(\res_{U, V}: \sheaf{F}(U) \to \sheaf{F}(V)\) is surjective.
+\end{definition}
+
+\begin{proposition}
+  \hyperref[def:flasque-sheaf]{Flasque sheaves} are \hyperref[def:acyclic-object]{\(\Gamma(X, -)\) acyclic}.
+\end{proposition}
+\begin{proof}
+  Let \(\sheaf{F}\) be a \hyperref[def:flasque-sheaf]{flasque sheaf}.
+  Since \(\Mod(\sheaf{O}_{X})\) has \hyperref[def:enough-injectives-projectives]{enough injectives} we have a \hyperref[def:short-exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \sheaf{F} \arrow[r] & \sheaf{I} \arrow[r] & \sheaf{G} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  where \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective object}.
+
+  We will first show that, for any open subset \(U \subseteq X\), the map \(\sheaf{I}(U) \epiarrow \sheaf{G}(U)\) is surjective.
+  Let \(s \in \sheaf{G}(U)\).
+  Let \(V, W \subseteq U\) be two open subsets and \(\tau_{V} \in \sheaf{I}(V), \tau_{W} \in \sheaf{I}(W)\) be two sections lifting \(s\) to \(\sheaf{I}\).
+  Consider
+  \begin{equation*}
+    \tau_{V}|_{V \cap U} - \tau_{W}|_{V \cap W} \in \sheaf{F}(V \cap W)
+  \end{equation*}
+  Since \(\sheaf{F}\) is \hyperref[def:flasque-sheaf]{flasque} there exists a section \(\chi_{V} \in \sheaf{F}(V)\) such that \(\chi_{V}|_{V \cap W} = \tau_{V} - \tau_{W}\).
+  Therefore if \(\tau'_{V} = \tau_{V} - \chi_{V}\) we have \(\tau'_{V}|_{V \cap W} = \tau_{W}|_{V \cap W}\), i.e: there exists a section \(\tau \in \sheaf{I}(V \cup W)\) such that \(\tau|_{V} = \tau'|_{V}\) and \(\tau'|_{W} = \tau|_{W}\).
+  Clearly \(\tau\) is sent to \(\sigma|_{V \cap W}\).
+
+  Consider now a pair \((W, \tau)\) which is maximal (for the obvious order relation), where \(W\) is an open subset of \(U\) and \(\tau\) is a section of \(\sheaf{I}\) lifting \(\sigma\) to \(W\).
+  Since \(\sigma\) lifts locally on \(\sheaf{I}\) and using the previous result we see that \(W = U\).
+
+  But then the \hyperref[thm:LES-in-cohomology]{long exact sequence in cohomology} of our sequence and the fact that for \(i > 0 \quad \cohomology{i}(X, \sheaf{I}) = 0\) imply that \(\cohomology{1}(X, \sheaf{F}) = 0\) and
+  \begin{equation*}
+    \forall k - 1 \geq 1 \quad \cohomology{k}(X, \sheaf{F}) = \cohomology{k-1}(X, \sheaf{G})
+  \end{equation*}
+  Furthermore surjectivity of the maps \(\sheaf{I}(U) \epiarrow \sheaf{G}(U)\) implies that \(\sheaf{G}\) is \hyperref[def:flasque-sheaf]{flasque}.
+
+  It follows by induction that
+  \begin{equation*}
+    \forall k > 0 \quad \cohomology{k}(X, \sheaf{F}) = 0
+  \end{equation*}
+\end{proof}
+
+
+Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical (and functorial) resolution of a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} to compute its \hyperref[def:sheaf-cohomology]{cohomology}.
+\begin{construction}[Godement resolution] \label{def:godement-resolution}
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
+  The \textbf{Godement resolution} of \(\sheaf{F}\) is constructed by considering the inclussion of \(\sheaf{F}\) into the \textit{Godement sheaf} \(\sheaf{F}_{\operatorname{God}}\)
+  \begin{equation*}
+    U \mapsto \bigoplus_{p \in U} \sheaf{F}_{p} \eqcolon \sheaf{F}_{\operatorname{God}}(U)
+  \end{equation*}
+  Note that \(\sheaf{F}_{\operatorname{God}}\) is \hyperref[def:flasque-sheaf]{flasque}.
+
+  We then inject the quotient \(\quot{\sheaf{F}_{\operatorname{God}}}{\sheaf{F}}\) into \(\left( \quot{\sheaf{F}_{\operatorname{God}}}{\sheaf{F}} \right)_{\operatorname{God}}\) and so on.
+\end{construction}
+
+\begin{definition}[Fine sheaf] \label{def:fine-sheaf}
+  A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to this covering.
+\end{definition}
+
+\begin{proposition} \label{prop:flasque-are-acyclic}
+  \hyperref[def:fine-sheaf]{Fine sheaves} are \hyperref[def:acyclic-object]{\(\Gamma(X, -)\) acyclic}.
+\end{proposition}
+\begin{proof}
+  Let \(\sheaf{F}\) be a \hyperref[def:fine-sheaf]{fine sheaf}.
+  Using the \hyperref[def:godement-resolution]{Godement resolution} we have that \(\sheaf{F}\) admits a \hyperref[def:flasque-sheaf]{flasque} resolution \(\sheaf{F}[0] \to \sheaf{I}^{\bullet}\).
+
+  Using \autoref{prop:flasque-are-acyclic} by \autoref{thm:dimension-shifting} we have that
+  \begin{equation*}
+    \cohomology{k}(X, \sheaf{F}) = \quot{\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)}{\im \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)}
+  \end{equation*}
+  Let \(\alpha \in \ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)\).
+  Since \(\sheaf{I}^{\bullet}\) is locally exact in degree greater than 0 we have that \(\alpha\) comes from \(\sheaf{I}^{k-1}\), i.e: there exists an open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that \(\alpha|_{U_{i}} = d\beta_{i}\) with \(\beta_{i} \in \sheaf{I}^{k-1}(U_{i})\).
+
+  Consider a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to \(\mathscr{U}\) and let
+  \begin{equation*}
+    \beta \coloneq \sum_{i \in \mathcal{I}} f_{i}\beta_{i}
+  \end{equation*}
+  where the sum is locally finite.
+  Note that \(f_{i}\beta_{i}\) is a section of \(\sheaf{I}^{k-1}(X)\) with values in \(\sheaf{I}_{p}^{k-1}(X)\):
+  \begin{equation*}
+    (f_{i}\beta_{i})_{p} = \begin{cases}
+      0 & p \notin U_{i} \\
+      f_{i}\beta_{i} & p \in U_{i}
+    \end{cases}
+  \end{equation*}
+  Since \(f_{i}\) has support in \(U_{i}\) this defines a section in \(\sheaf{I}^{k-1}(U_{i})\).
+
+  We have that \(d\beta = \alpha\) since \(\alpha = \sum_{i \in \mathcal{I}} f_{i}\alpha|_{U_{i}}\).
+  Therefore \(\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right) = \im \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)\), which means
+  \begin{equation*}
+    \forall k > 0 \quad \cohomology{k}(X, \sheaf{F}) = 0
+  \end{equation*}
+\end{proof}
+
+
+
+
+\end{document}
+\end{document}
