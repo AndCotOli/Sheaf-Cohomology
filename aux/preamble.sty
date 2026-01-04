@@ -83,3 +83,13 @@
 \RequirePackage{aux/notation}
 
 \newcommand{\curs}{Curs 2025/2026}
+
+% Since the Palatino font is set in the preamble we need to unset it to "comply"
+% with the default template for cover pages.
+% To do this we set the font family to Computer Modern Roman at the start of the
+% page.
+% However for some reason the bold text does not go back from Palatino.
+% To fix this we create a custom boldface macro that forces the text to be
+% Computer Modern Roman Bold (and Small Capitalize the text).
+\newcommand{\cmrbold}[1]{{\usefont{T1}{cmr}{bx}{n} #1}}
+\newcommand{\cmrboldsc}[1]{{\usefont{T1}{cmr}{bx}{sc} #1}}
