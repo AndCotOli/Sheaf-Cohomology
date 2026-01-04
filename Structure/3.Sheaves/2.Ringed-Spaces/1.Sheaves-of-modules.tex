@@ -184,23 +184,26 @@ We also have an analogous of \autoref{lemma:restriction-tensor-adjunction-preshe
   \end{align*}
 \end{lemma}
 
-\subsection{\(\Mod(\sheaf{O}_{X})\) is abelian.}
+\begin{theorem} \label{thm:mod-ox-is-abelian}
+  \(\Mod(\sheaf{O})_{X}\) is an \hyperref[def:abelian-category]{abelian category}
+\end{theorem}
+\begin{proof}
+  In \autoref{def:limits-colimits-presheaf} we have seen that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} of \hyperref[def:presheaf]{presheaves} can be computed \textit{open set by open set}.
+  Therefore since the \hyperref[def:category]{category} of modules over a ring is \hyperref[def:abelian-category]{abelian}, the category \(\PMod(\mathcal{O}_{X})\) inherits this property.
 
-In \autoref{def:limits-colimits-presheaf} we have seen that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} of \hyperref[def:presheaf]{presheaves} can be computed \textit{open set by open set}.
-Therefore since the \hyperref[def:category]{category} of modules over a ring is \hyperref[def:abelian-category]{abelian}, the category \(\PMod(\mathcal{O}_{X})\) inherits this property.
+  Let's see how we can see that \(\Mod(\sheaf{O}_{X})\) is also \hyperref[def:abelian-category]{abelian}.
+  It is clear that \(\Mod(\sheaf{O}_{X})\) is an \hyperref[def:additive-category]{additive category}.
+  Therefore, we only need to check that \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels} exist in \(\Mod(\sheaf{O}_{X})\).
 
-Let's see how we can see that \(\Mod(\sheaf{O}_{X})\) is also \hyperref[def:abelian-category]{abelian}.
-It is clear that \(\Mod(\sheaf{O}_{X})\) is an \hyperref[def:additive-category]{additive category}.
-Therefore, we only need to check that \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels} exist in \(\Mod(\sheaf{O}_{X})\).
-
-Let \(\varphi: \sheaf{F} \to \sheaf{G}\) be a morphism of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}\)-modules}.
-We have an associated morphism of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}\)-modules} \(\iota\varphi: \iota\sheaf{F} \to \iota\sheaf{G}\).
-Using that \(\PMod(\iota\sheaf{O}_{X})\) is \hyperref[def:abelian-category]{category} the morphism \(\iota\varphi\) admits a \hyperref[def:categorical-kernel]{kernel} \(\ker_{\operatorname{pre}} \iota \varphi\) and \hyperref[def:categorical-cokernel]{cokernel} \(\coker_{\operatorname{pre}} \iota\varphi\).
-Therefore we can define the \hyperref[def:categorical-kernel]{kernel} and \hyperref[def:categorical-cokernel]{cokernel} of \(\varphi\) using the \hyperref[def:sheafification]{sheafification functor}
-\begin{align*}
-  \ker \varphi &\coloneq \left( \ker_{\operatorname{pre}} \iota\varphi \right)^{\#} = \ker_{\operatorname{pre}} \left( \iota \varphi \right)^{\#} = \ker_{\operatorname{pre}} \varphi \\
-  \coker \varphi &\coloneq \left( \operatorname{coker}_{\operatorname{pre}} \iota\varphi \right)^{\#}
-\end{align*}
-where the equalities in \(\ker \varphi\) come from the fact that \hyperref[def:adjoint-properties]{right adjoints preserve limits}.
+  Let \(\varphi: \sheaf{F} \to \sheaf{G}\) be a morphism of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}\)-modules}.
+  We have an associated morphism of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}\)-modules} \(\iota\varphi: \iota\sheaf{F} \to \iota\sheaf{G}\).
+  Using that \(\PMod(\iota\sheaf{O}_{X})\) is \hyperref[def:abelian-category]{category} the morphism \(\iota\varphi\) admits a \hyperref[def:categorical-kernel]{kernel} \(\ker_{\operatorname{pre}} \iota \varphi\) and \hyperref[def:categorical-cokernel]{cokernel} \(\coker_{\operatorname{pre}} \iota\varphi\).
+  Therefore we can define the \hyperref[def:categorical-kernel]{kernel} and \hyperref[def:categorical-cokernel]{cokernel} of \(\varphi\) using the \hyperref[def:sheafification]{sheafification functor}
+  \begin{align*}
+    \ker \varphi &\coloneq \left( \ker_{\operatorname{pre}} \iota\varphi \right)^{\#} = \ker_{\operatorname{pre}} \left( \iota \varphi \right)^{\#} = \ker_{\operatorname{pre}} \varphi \\
+    \coker \varphi &\coloneq \left( \operatorname{coker}_{\operatorname{pre}} \iota\varphi \right)^{\#}
+  \end{align*}
+  where the equalities in \(\ker \varphi\) come from the fact that \hyperref[def:adjoint-properties]{right adjoints preserve limits}.
+\end{proof}
 
 \end{document}

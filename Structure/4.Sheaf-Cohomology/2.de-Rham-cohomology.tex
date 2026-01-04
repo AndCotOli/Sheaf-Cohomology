@@ -1,0 +1,56 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{../3.Sheaves/exported/aux/main}%
+    \zexternaldocument*{1.Cohomology-of-sheaves}
+}{}
+
+\begin{document}
+\chapter{de Rham Cohomology}
+
+\begin{definition}[Fine sheaf] \label{def:fine-sheaf}
+  A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to this covering.
+\end{definition}
+
+\begin{proposition} \label{prop:flasque-are-acyclic}
+  \hyperref[def:fine-sheaf]{Fine sheaves} are \hyperref[def:acyclic-object]{\(\Gamma(X, -)\) acyclic}.
+\end{proposition}
+\begin{proof}
+  Let \(\sheaf{F}\) be a \hyperref[def:fine-sheaf]{fine sheaf}.
+  Using the \hyperref[def:godement-resolution]{Godement resolution} we have that \(\sheaf{F}\) admits a \hyperref[def:flasque-sheaf]{flasque} resolution \(\sheaf{F}[0] \to \sheaf{I}^{\bullet}\).
+
+  Using \autoref{prop:flasque-are-acyclic} by \autoref{thm:dimension-shifting} we have that
+  \begin{equation*}
+    \cohomology{k}(X, \sheaf{F}) = \quot{\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)}{\im \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)}
+  \end{equation*}
+  Let \(\alpha \in \ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)\).
+  Since \(\sheaf{I}^{\bullet}\) is locally exact in degree greater than 0 we have that \(\alpha\) comes from \(\sheaf{I}^{k-1}\), i.e: there exists an open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that \(\alpha|_{U_{i}} = d\beta_{i}\) with \(\beta_{i} \in \sheaf{I}^{k-1}(U_{i})\).
+
+  Consider a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to \(\mathscr{U}\) and let
+  \begin{equation*}
+    \beta \coloneq \sum_{i \in \mathcal{I}} f_{i}\beta_{i}
+  \end{equation*}
+  where the sum is locally finite.
+  Note that \(f_{i}\beta_{i}\) is a section of \(\sheaf{I}^{k-1}(X)\) with values in \(\sheaf{I}_{p}^{k-1}(X)\):
+  \begin{equation*}
+    (f_{i}\beta_{i})_{p} = \begin{cases}
+      0 & p \notin U_{i} \\
+      f_{i}\beta_{i} & p \in U_{i}
+    \end{cases}
+  \end{equation*}
+  Since \(f_{i}\) has support in \(U_{i}\) this defines a section in \(\sheaf{I}^{k-1}(U_{i})\).
+
+  We have that \(d\beta = \alpha\) since \(\alpha = \sum_{i \in \mathcal{I}} f_{i}\alpha|_{U_{i}}\).
+  Therefore \(\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right) = \im \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)\), which means
+  \begin{equation*}
+    \forall k > 0 \quad \cohomology{k}(X, \sheaf{F}) = 0
+  \end{equation*}
+\end{proof}
+
+
+
+
+\end{document}
+\end{document}

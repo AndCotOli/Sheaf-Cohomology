@@ -38,7 +38,7 @@
   where \(f^{-1}\) is the \hyperref[def:inverse-image-sheaf]{inverse image sheaf}.
 \end{definition}
 
-\begin{lemma}
+\begin{theorem} \label{thm:direct-inverse-adjunction-ringed-space}
   Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces}.
   The \hyperref[def:functor]{functors} \(f_{\ast}\) and \(f^{\ast}\) are \hyperref[def:adjoint-functors]{adjoint}.
 
@@ -46,7 +46,7 @@
   \begin{equation*}
     \Hom_{\Mod(\sheaf{O}_{X})} \left( f^{\ast}\sheaf{G}, \sheaf{F} \right) \cong \Hom_{\Mod(\sheaf{O}_{Y})} \left( \sheaf{G}, f_{\ast}\sheaf{F} \right)
   \end{equation*}
-\end{lemma}
+\end{theorem}
 \begin{proof}
 \begin{align*}
   \Hom_{\Mod (\sheaf{O}_{X})} \left( f^{\ast}\sheaf{G}, \sheaf{F} \right) &\cong \Hom_{\Mod (\sheaf{O}_{X})} \left( \sheaf{O}_{X} \otimes_{f^{-1} \sheaf{O}_{Y}} f^{-1}\sheaf{G}, \sheaf{F} \right) \\
