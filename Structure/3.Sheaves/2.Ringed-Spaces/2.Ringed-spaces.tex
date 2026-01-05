@@ -16,27 +16,44 @@
   A \textbf{morphism} of ringed spaces \((X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) is a pair \((f, f^{\#})\) where \(f: X \to Y\) is a continuous map and \(f^{\#}: \sheaf{O}_{y} \to f_{\ast}\sheaf{O}_{X}\) is a morphism of \hyperref[def:sheaf]{sheaves}.
 \end{definition}
 
-\subsection{The \textit{geometry} of ringed spaces}
-
 \subsection{Ringed spaces and continuous functions}
 
+We wish to translate what we did for \hyperref[def:sheaf]{sheaves} in \autoref{ssec:presheaves-and-continuous-maps} to \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules}.
+
+The direct image is direct.
 \begin{definition} \label{def:direct-image-ox-mod}
   Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces}.
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
 
   We define the \textbf{direct image} of \(\sheaf{F}\) via \(f\) as the \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{Y}\)-modules} which has the \hyperref[def:direct-image-sheaf]{direct image sheaf} \(f_{\ast}\sheaf{F}\) as \hyperref[def:sheaf]{sheaf} of abelian groups and with module structure given by the map \(f^{\#}: \sheaf{O}_{Y} \to f_{\ast}\sheaf{O}_{X}\).
+
+  This defines a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    f_{\ast}: \Mod(\sheaf{O}_{X}) \to \Mod(\sheaf{O}_{Y})
+  \end{equation*}
 \end{definition}
+
+However, as in the case for the \hyperref[def:inverse-image-sheaf]{inverse image for sheaves}, the inverse image of a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} needs more work.
+
+\todo[inline]{Explain why \(\otimes\)}
 
 \begin{definition} \label{def:inverse-image-ox-mod}
   Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces}.
-  Let \(\sheaf{G}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{Y}\)-modules}.
+  Let \(\sheaf{G}\) be an \(\Gamma(X, \sheaf{O}_{X})\)-module, where
 
   We define the \textbf{inverse image} of \(\sheaf{G}\) via \(f\) to be the \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}
   \begin{equation*}
     f^{\ast}\sheaf{G} \coloneq \sheaf{O}_{X} \otimes_{f^{-1}\sheaf{O}_{Y}} f^{-1}\sheaf{G}
   \end{equation*}
   where \(f^{-1}\) is the \hyperref[def:inverse-image-sheaf]{inverse image sheaf}.
+
+  This defines a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    f^{\ast}: \Mod(\sheaf{O}_{Y}) \to \Mod(\sheaf{O}_{X})
+  \end{equation*}
+
 \end{definition}
+
 
 \begin{theorem} \label{thm:direct-inverse-adjunction-ringed-space}
   Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces}.
@@ -55,15 +72,134 @@
 \end{align*}
 \end{proof}
 
+With the \hyperref[def:adjoint-functors]{adjunction} between \(f_{\ast}\) and \(f^{\ast}\) out of the way, let's now ...
+
+Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space} and \(p \in X\).
+
+Consider the one-point topological space \(\{\ast\}\).
+Recall that by \autoref{remark:empty-set-sheaf} we have that \(\Sh_{\{\ast\}}(\Ring) \cong \Ring\).
+Therefore to make \(\{\ast\}\) into a \hyperref[def:ringed-space]{ringed space} we only need to \textit{accompany} it by a ring.
+
+We are interested in the \hyperref[def:direct-image-ox-mod]{direct} and \hyperref[def:inverse-image-ox-mod]{inverse} images of the \hyperref[def:ringed-space]{morphisms of ringed spaces} induced by the maps
+\begin{equation*}
+  \pi: X \to \{\ast\} \qquad \iota_{p}: \{\ast\} \to X
+\end{equation*}
+
+
+Note that
+\begin{align*}
+  \pi^{\#}:& \sheaf{O}_{\pi} \to \pi_{\ast}\sheaf{O}_{X} = \Gamma(X, \sheaf{O}_{X}) \\
+  \iota_{p}^{\#}:& \sheaf{O}_{X} \to \iota_{p, \ast}\sheaf{O}_{\iota_{p}} = \sheaf{O}_{\iota_{p}, p}
+\end{align*}
+Therefore we choose \(\sheaf{O}_{\pi} = \Gamma(X, \sheaf{O}_{X})\) and \(\sheaf{O}_{\iota_{p}} = \sheaf{O}_{X, p}\).
+
+\begin{definition}[Global sections] \label{def:global-sections-ox-mod}
+  Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space}.
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
+  Consider the \hyperref[def:ringed-space]{morphism of ringed spaces}
+  \begin{equation*}
+    (\pi, \pi^{\ast}): (X, \sheaf{O}_{X}) \to (\{\ast\}, \Gamma(X, \sheaf{O}_{X}))
+  \end{equation*}
+
+  
+  We define the \textbf{global sections} of \(\sheaf{F}\) as the \hyperref[def:direct-image-ox-mod]{direct image} of \(\sheaf{F}\) via \(\pi\):
+  \begin{equation*}
+    \Gamma(X, \sheaf{F}) \coloneq \pi_{\ast}\sheaf{F}
+  \end{equation*}
+
+  Note that this defines a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \Gamma(X, -): \Mod(\sheaf{O}_{X}) \to \Mod(\Gamma(X, \sheaf{O}_{X}))
+  \end{equation*}
+\end{definition}
+
+\begin{definition}["Constant" sheaf] \label{def:constant-sheaf-ox-mod}
+  Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space}.
+  Let \(M\) be a \(\Gamma(X, \sheaf{O}_{X})\) module.
+  Consider the \hyperref[def:ringed-space]{morphism of ringed spaces}
+  \begin{equation*}
+    (\pi, \pi^{\#}): (X, \sheaf{O}_{X}) \to (\{\ast\}, \Gamma(X, \sheaf{O}_{X}))
+  \end{equation*}
+  
+  We define the \textbf{"constant" sheaf} supported at \(M\) as \hyperref[def:inverse-image-ox-mod]{inverse image} of \(M\) via \(\pi\):
+  \begin{equation*}
+    \sheaf{O}_{X} \otimes_{\Gamma(X, \sheaf{O}_{X})} M \coloneq \pi^{\ast}M = \sheaf{O}_{X} \otimes_{\pi^{-1}\Gamma(X, \sheaf{O}_{X})} \pi^{-1}M = \sheaf{O}_{X} \otimes_{\underline{\Gamma(X, \sheaf{O}_{X})}} \underline{M}
+  \end{equation*}
+
+  Note that this defines a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \sheaf{O}_{X} \otimes_{\Gamma(X, \sheaf{O}_{X})} - : \Mod(\Gamma(X, \sheaf{O}_{X})) \to \Mod(\sheaf{O}_{X})
+  \end{equation*}
+\end{definition}
+
+\begin{corollary} \label{cor:global-constant-adjunction-ox-mod}
+  Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space}.
+  The \hyperref[def:global-sections-ox-mod]{global sections functor} and \hyperref[def:constant-sheaf-ox-mod]{constant sheaf functor} of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules} are \hyperref[def:adjoint-functors]{adjoint}.
+
+  In formula, if \(\sheaf{F} \in \Mod(\sheaf{O}_{X})\) and \(M \in \Mod(\Gamma(X, \sheaf{O}_{X}))\)
+  \begin{equation*}
+    \Hom_{\Mod(\sheaf{O}_{X})}(\sheaf{O}_{X} \otimes_{\Gamma(X, \sheaf{O}_{X})} M, \sheaf{F}) \cong \Hom_{\Mod(\Gamma(X, \sheaf{O}_{X}))} (M, \Gamma(X, \sheaf{F}))
+  \end{equation*}
+\end{corollary}
+
+\begin{definition}[Skyscraper sheaf] \label{def:skyscraper-ox-mod}
+  Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space} with \(p \in X\).
+  Let \(M\) be a \(\sheaf{O}_{X, p}\)-module.
+  Consider the \hyperref[def:ringed-space]{morphism of ringed spaces}
+  \begin{equation*}
+    (\iota_{p}, \iota_{p}^{\#}): (\{\ast\}, \sheaf{O}_{X, p}) \to (X, \sheaf{O}_{X}))
+  \end{equation*}
+  
+  We define the \textbf{skyscraper sheaf} supported at \(M\) as the \hyperref[def:direct-image-ox-mod]{direct image} of \(M\) via \(\iota_{p}\):
+  \begin{equation*}
+    \iota_{p, \ast}\underline{M} \coloneq \iota_{p, \ast}M
+  \end{equation*}
+
+  Note that this defines a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \iota_{p, \ast}: \Mod(\sheaf{O}_{X, p}) \to \Mod(\sheaf{O}_{X})
+  \end{equation*}
+\end{definition}
+
+\begin{definition}[Stalk] \label{def:stalk-ox-mod}
+  Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space} with \(p \in X\).
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
+  Consider the \hyperref[def:ringed-space]{morphism of ringed spaces}
+  \begin{equation*}
+    (\iota_{p}, \iota_{p}^{\#}): (\{\ast\}, \sheaf{O}_{X, p}) \to (X, \sheaf{O}_{X}))
+  \end{equation*}
+
+  We define the \textbf{stalk} of \(\sheaf{F}\) at \(p\) as \hyperref[def:inverse-image-ox-mod]{inverse image} of \(\sheaf{F}\) via \(\iota_{p}\):
+  \begin{equation*}
+    \sheaf{F}_{p} \coloneq \iota_{p}^{\ast}\sheaf{F} = \sheaf{O}_{X, p} \otimes_{\iota_{p}^{-1}\sheaf{O}_{X}} \iota_{p}^{-1}\sheaf{F} = \sheaf{O}_{X, p} \otimes_{\sheaf{O}_{X, p}} \sheaf{F}_{p} = \sheaf{F}_{p}
+  \end{equation*}
+  
+  Note that this defines a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    -_{p} : \Mod(\sheaf{O}_{X}) \to \Mod(\sheaf{O}_{X, p})
+  \end{equation*}
+\end{definition}
+
+\begin{corollary} \label{cor:stalk-skyscraper-adjunction-ox-mod}
+  Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space} with \(p \in X\).
+  The \hyperref[def:skyscraper-ox-mod]{skyscraper functor} and \hyperref[def:stalk-ox-mod]{stalk functor} of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules} are \hyperref[def:adjoint-functors]{adjoint}.
+
+  In formula, if \(\sheaf{F} \in \Mod(\sheaf{O}_{X})\) and \(M \in \Mod(\sheaf{O}_{X, p})\)
+  \begin{equation*}
+    \Hom_{\Mod(\sheaf{O}_{X, p})}(\sheaf{F}_{p}, M) \cong \Hom_{\Mod(\sheaf{O}_{X})} (\sheaf{F}, \iota_{p, \ast}\underline{M})
+  \end{equation*}
+\end{corollary}
+
+
+
 \begin{lemma}
-  Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces} and \(x \in X\).
+  Let \((f, f^{\#}): (X, \sheaf{O}_{X}) \to (Y, \sheaf{O}_{Y})\) be a \hyperref[def:ringed-space]{morphism of ringed spaces} and \(p \in X\).
   Let \(\sheaf{G}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{Y}\)-modules}.
 
-  As \(\sheaf{O}_{X, x}\) modules we have
+  As \(\sheaf{O}_{X, p}\) modules we have
   \begin{equation*}
-    (f^{\ast}\sheaf{G})_{x} = \sheaf{G}_{f(x)} \otimes_{\sheaf{O}_{Y, f(x)}} \sheaf{O}_{X, x}
+    (f^{\ast}\sheaf{G})_{p} = \sheaf{G}_{f(p)} \otimes_{\sheaf{O}_{Y, f(p)}} \sheaf{O}_{X, p}
   \end{equation*}
 \end{lemma}
-
 
 \end{document}

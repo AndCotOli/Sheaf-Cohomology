@@ -11,7 +11,7 @@
 
 Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-spaced]{ringed space}.
 
-We want to define the cohomology of \(X\) with coefficients in a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} as the \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-section-sheaf]{global sections functor}
+We want to define the cohomology of \(X\) with coefficients in a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} as the \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-section-ox-mod]{global sections functor}
 \begin{align*}
   \Gamma(X, -): \Mod(\sheaf{O}_{X}) \to \Mod(\Gamma(X, \sheaf{O}_{X}))
 \end{align*}
@@ -25,7 +25,7 @@ To do this, we need to check the following:
 In \autoref{thm:mod-ox-is-abelian} we have proved that the category of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules} is \hyperref[def:abelian-category]{abelian}.
 Furthermore, since \(\Gamma(X, \sheaf{O}_{X})\) is a ring, \(\Mod(X, \sheaf{O}_{X})\) is also \hyperref[def:abelian-category]{abelian}.
 
-Recall that by (--) \(\Gamma(X, -)\) is \hyperref[def:adjoint-functors]{right adjoint} to \(- \otimes_{\Gamma(X, \sheaf{O}_{X})} \sheaf{O}_{X}\).
+Recall that by \autoref{cor:global-constant-adjunction-ox-mod} \(\Gamma(X, -)\) is \hyperref[def:adjoint-functors]{right adjoint}.
 Therefore by \autoref{thm:adjointness-and-exactness} \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
 
 It only remains to show that \(\Mod(\sheaf{O}_{X})\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
@@ -41,7 +41,7 @@ It only remains to show that \(\Mod(\sheaf{O}_{X})\) has \hyperref[def:enough-in
   For a proof, see \cite[Corollary VIII.6.4]{aluffiAlgebraChapter02009}.
   
   Let \(\sheaf{F}\) be an \(\sheaf{O}_{X}\)-module.
-  Let \(\sheaf{F}_{p} \in \Mod(\sheaf{O}_{X, p})\) be that \hyperref[def:stalk-sheaf]{stalk} of \(\sheaf{F}\) at a point \(p \in X\).
+  Let \(\sheaf{F}_{p} \in \Mod(\sheaf{O}_{X, p})\) be that \hyperref[def:stalk-ox-mod]{stalk} of \(\sheaf{F}\) at a point \(p \in X\).
 
   Since \(\Mod(\sheaf{O}_{X, p})\) has \hyperref[def:enough-injectives-projectives]{enough injectives} we can choose an object \(I_{p}\) and a \hyperref[def:mono-epi-morphism]{monomorphism}
   \begin{equation*}
@@ -52,13 +52,13 @@ It only remains to show that \(\Mod(\sheaf{O}_{X})\) has \hyperref[def:enough-in
   \begin{equation*}
     \sheaf{I} \coloneq \bigoplus_{p \in X} \iota_{p, \ast} \underline{I_{p}}
   \end{equation*}
-  where \(\iota_{p, \ast}\underline{I_{p}}\) is the \hyperref[def:skyscraper-sheaf]{skyscraper sheaf}.
+  where \(\iota_{p, \ast}\underline{I_{p}}\) is the \hyperref[def:skyscraper-ox-mod]{skyscraper sheaf}.
   More explicitly, for every open set \(U \subseteq X\) the \hyperref[def:sheaf]{sheaf} \(\sheaf{I}\) is defined as
   \begin{equation*}
     \sheaf{I}(U) = \bigoplus_{p \in U} I_{p}
   \end{equation*}
 
-  Recall that by \autoref{cor:stalk-skyscraper-adjunction-presheaf} the \hyperref[def:skyscraper-sheaf]{skyscraper functor} is \hyperref[def:adjoint-functors]{left-adjoint} to the \hyperref[def:stalk-sheaf]{stalk functor}, which is \hyperref[def:exact-functor]{exact}.
+  Recall that by \autoref{cor:stalk-skyscraper-adjunction-ox-mod} the \hyperref[def:skyscraper-ox-mod]{skyscraper functor} is \hyperref[def:adjoint-functors]{left-adjoint} to the \hyperref[def:stalk-ox-mod]{stalk functor}, which is \hyperref[def:exact-functor]{exact}.
   Therefore by \autoref{prop:left-adjoints-and-injectives} \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective object}.
 
   Furthermore, there exists a \hyperref[def:mono-epi-morphism]{monomorphism} \(\phi: \sheaf{F} \to \sheaf{I}\) defined as, for any open set \(U \subseteq X\)
@@ -164,7 +164,7 @@ Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical
     \end{tikzcd}
   \end{center}
 
-  Note that the \hyperref[def:stalk-sheaf]{stalks} of \(\sheaf{F}\) are:
+  Note that the \hyperref[def:stalk-ox-mod]{stalks} of \(\sheaf{F}\) are:
   \begin{equation*}
     \sheaf{F}_{p} = \sheaf{F}(\{p\}) = \mathbb{Z}, \qquad \sheaf{F}_{q} = \sheaf{F}(X) = \mathbb{Z}.
   \end{equation*}
@@ -196,7 +196,7 @@ Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical
     d^{0}: \underbrace{\Gamma(X, \sheaf{F}_{\operatorname{God}})}_{\mathbb{Z} \oplus \mathbb{Z}} \to \underbrace{\Gamma\left(X, (\sheaf{Q}^1)_{\operatorname{God}}\right)}_{\mathbb{Z}}, \quad d^{0}(m, n) = m - n.
   \end{equation*}
   Let \(\sheaf{Q}^2\) be the \hyperref[def:categorical-cokernel]{cokernel} of the map \(\sheaf{F}_{\operatorname{God}} \to (\sheaf{Q}^1)_{\operatorname{God}}\).
-  If we compute its \hyperref[def:stalk-sheaf]{stalks}, we have:
+  If we compute its \hyperref[def:stalk-ox-mod]{stalks}, we have:
   \begin{align*}
     (\sheaf{Q}^2)_{p} &= \quot{0}{0} = 0, \\
     (\sheaf{Q}^2)_{q} &= \quot{\mathbb{Z}}{\mathbb{Z}} = 0.
