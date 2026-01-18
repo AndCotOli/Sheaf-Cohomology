@@ -1,95 +1,228 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{preamble}
 
-%% Packages
 \RequirePackage{aux/packages}
 
-%% Configuration
-% afterpage
+%% --- Color Palette ---
+\definecolor{accentcolor}{RGB}{30, 60, 110} % Navy Blue
+\definecolor{thmcolor}{RGB}{160, 40, 40}    % Muted Red
+\definecolor{defcolor}{RGB}{30, 90, 70}     % Muted Teal
+\definecolor{notecolor}{RGB}{100, 100, 100} % Gray
+
+%% --- Page Layout ---
+% Adjusted for better readability (Golden Ratio-ish)
+\geometry{
+    a4paper,
+    top=3cm,
+    bottom=3cm,
+    left=3.5cm,
+    right=3.5cm,
+    heightrounded,
+}
+
+%% --- Header & Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[LE]{\small\sffamily\color{gray}\thepage}
+\fancyhead[RO]{\small\sffamily\color{gray}\thepage}
+\fancyhead[RE]{\small\sffamily\color{gray}\nouppercase{\leftmark}}
+\fancyhead[LO]{\small\sffamily\color{gray}\nouppercase{\rightmark}}
+
 \newcommand\blankpage{%
     \null
     \thispagestyle{empty}%
     \addtocounter{page}{-1}%
     \newpage}
 
-% fancyhdr
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LE,RO]{\thepage}
-\fancyhead[RE]{\leftmark} % Chapter name
-\fancyhead[LO]{\rightmark} % Section name
+  %% --- Epigraph Styling ---
+\setlength{\epigraphwidth}{0.55\textwidth} % Width of the quote block (approx half page)
+\renewcommand{\epigraphflush}{flushright}  % Pushes the block to the right
+\renewcommand{\sourceflush}{flushright}    % Aligns the author name to the right
+\renewcommand{\textflush}{flushright}      % Aligns the quote text to the right
 
-% todonotes
+% Font settings: Small, Italic, and Sans-Serif for contrast
+\renewcommand{\epigraphsize}{\small\itshape\sffamily}
+
+% Optional: Make the dividing line your accent color
+% \renewcommand{\epigraphrule}{0pt} % Set to 1pt if you WANT a line, 0pt for clean look
+% If you want a colored line, use this instead of the line above:
+\setlength{\epigraphrule}{1pt}
+\renewcommand{\@epirule}{\color{accentcolor}\rule[.5ex]{\epigraphwidth}{\epigraphrule}}
+
+%% --- List Styling ---
+% 1. Remove extra vertical space
+% 2. Change bullets to match your color scheme
+\setlist[itemize]{
+    noitemsep, 
+    topsep=5pt, 
+    label=\textcolor{accentcolor}{\bfseries\textendash} % A bold, colored dash
+}
+\setlist[enumerate]{
+    noitemsep, 
+    topsep=5pt, 
+    font=\bfseries\sffamily\color{accentcolor} % Bold colored numbers
+}
+  
+%% --- Typography: Section Headers ---
+% Sans-serif, bold, colored
+\titleformat{\part}[display]
+  {\thispagestyle{empty}\raggedleft} % Right align, remove headers/footers
+  {\bfseries\sffamily\color{accentcolor}\fontsize{20}{20}\selectfont\MakeUppercase{\partname}\ \thepart} % "PART I"
+  {1em} % Vertical space between "PART I" and the Title
+  {\titlerule[2pt]\vspace{1ex}\bfseries\sffamily\color{accentcolor}\fontsize{40}{48}\selectfont#1} % The Title (e.g., "Category Theory")
+ 
+\titleformat{\chapter}[display]
+  {\bfseries\sffamily\huge\color{accentcolor}}
+  {\Large\chaptertitlename\ \thechapter}
+  {1ex}
+  {\titlerule[1pt]\vspace{1ex}#1}
+
+\titleformat{\section}
+  {\bfseries\sffamily\Large\color{accentcolor}}
+  {\thesection}
+  {1em}
+  {#1}
+
+\titleformat{\subsection}
+  {\bfseries\sffamily\large\color{accentcolor}}
+  {\thesubsection}
+  {1em}
+  {#1}
+
+  
+%% --- Utilities: Todo Notes ---
 \newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
 \newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
 \newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
 \newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 
-% hyperref
+%% --- Hyperref ---
 \hypersetup{
-  hypertexnames=false,
-  colorlinks=true,
-  linkcolor=blue,
-  citecolor=red,
-  urlcolor=blue,
+    hidelinks, % Removes boxes and colors
+    linktoc=all,
+    % If you want visible links only on screen:
+    colorlinks=true,
+    linkcolor=accentcolor,
+    citecolor=accentcolor,
+    urlcolor=accentcolor,
 }
 
-\zxrsetup{
-  tozreflabel=false,
-  toltxlabel=true,
-}
 
-% Custom reference command
-% Save the original \nameref command
+\zxrsetup{tozreflabel=false, toltxlabel=true}
+
+%% --- Reference Logic ---
 \LetLtxMacro{\originalnameref}{\nameref}
-
-% Redefine \nameref to handle missing labels
 \makeatletter
 \renewcommand{\nameref}[1]{%
-  \@ifundefined{r@#1}{%
-    \textcolor{red}{\texttt{#1}}% Missing label → show name in red
-  }{%
-    \originalnameref{#1}% Existing label → original behavior
-  }%
+  \@ifundefined{r@#1}{\textcolor{red}{\texttt{#1}}}{\originalnameref{#1}}%
 }
 \makeatother
-
-% Command to set custom plural forms for specific labels
-\newcommand{\SetPluralName}[2]{%
-  \csgdef{plur@#1}{#2}%
-}
-
-% Main plural reference command
+\newcommand{\SetPluralName}[2]{\csgdef{plur@#1}{#2}}
 \newcommand{\namerefs}[1]{%
     \ifcsname plur@#1\endcsname%
-        \hyperref[{#1}]{\csname plur@#1\endcsname}% Use custom plural if defined
+        \hyperref[{#1}]{\csname plur@#1\endcsname}%
     \else%
-        \hyperref[{#1}]{\originalnameref*{#1}s}% Just add 's' as fallback
+        \hyperref[{#1}]{\originalnameref*{#1}s}%
     \fi%
 }
 
-% Theorem environments
-\numberwithin{equation}{section}
-\declaretheorem[style=plain, numberwithin=section]{theorem, lemma, proposition, corollary}
-\declaretheorem[style=remark, numbered=no, qed=\(\vartriangleright\)]{construction}
-\declaretheorem[style=definition, numberwithin=section,qed=\(\lrcorner\)]{definition}
-\declaretheorem[style=definition, numberwithin=section, qed=\(\lozenge\)]{example}
-\declaretheorem[style=remark, numberwithin=section, qed=\(\triangledown\)]{remark}
-\declaretheorem[style=remark, numbered=no]{notation}
+%% --- THEOREM SETUP ---
 
-% Bibliography
+% 1. Define the internal styles using thmtools
+% This sets the font of the head (e.g., "Theorem 1.1") and the body.
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{thmcolor},
+    bodyfont=\normalfont,
+    spaceabove=1em,
+    spacebelow=1em,
+]{thmstylered}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{defcolor},
+    bodyfont=\normalfont,
+    spaceabove=1em,
+    spacebelow=1em,
+]{thmstylegreen}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{notecolor},
+    bodyfont=\normalfont,
+    spaceabove=1em,
+    spacebelow=1em,
+]{thmstylegray}
+
+% 2. Declare the environments (Standard Syntax)
+\numberwithin{equation}{section}
+
+\declaretheorem[style=thmstylered, numberwithin=section]{theorem, lemma, proposition, corollary}
+\declaretheorem[style=thmstylegreen, numberwithin=section]{definition}
+\declaretheorem[style=thmstylegray, numberwithin=section]{example, remark}
+\declaretheorem[style=thmstylegray, numbered=no]{construction, notation}
+
+% 3. Apply the TColorBox "Skin" to the environments
+% This adds the vertical bar on the left without changing syntax.
+
+% Red Bar for Theorems
+\tcolorboxenvironment{theorem}{
+    blanker, breakable, left=1em,
+    borderline west={2pt}{0pt}{thmcolor},
+    before skip=10pt, after skip=10pt
+}
+\tcolorboxenvironment{lemma}{
+    blanker, breakable, left=1em,
+    borderline west={2pt}{0pt}{thmcolor},
+    before skip=10pt, after skip=10pt
+}
+\tcolorboxenvironment{proposition}{
+    blanker, breakable, left=1em,
+    borderline west={2pt}{0pt}{thmcolor},
+    before skip=10pt, after skip=10pt
+}
+\tcolorboxenvironment{corollary}{
+    blanker, breakable, left=1em,
+    borderline west={2pt}{0pt}{thmcolor},
+    before skip=10pt, after skip=10pt
+}
+
+% Teal Bar for Definitions
+\tcolorboxenvironment{definition}{
+    blanker, breakable, left=1em,
+    borderline west={2pt}{0pt}{defcolor},
+    before skip=10pt, after skip=10pt
+}
+
+% Gray Bar for Examples/Remarks
+\tcolorboxenvironment{example}{
+    blanker, breakable, left=1em,
+    borderline west={2pt}{0pt}{notecolor},
+    before skip=10pt, after skip=10pt
+}
+\tcolorboxenvironment{remark}{
+    blanker, breakable, left=1em,
+    borderline west={2pt}{0pt}{notecolor},
+    before skip=10pt, after skip=10pt
+}
+
+
+%% --- TikzCD ---
+\tikzcdset{
+    arrow style=tikz,
+    diagrams={>=stealth} % 'stealth' is modern; 'latex' is classic
+}
+
+%% --- Bibliography ---
 \addbibresource{Bibliography.bib}
+
+%% --- Bibliography Backrefs ---
+\DefineBibliographyStrings{english}{%
+  backrefpage = {cited on p\adddot},
+  backrefpages = {cited on pp\adddot},
+}
 
 \RequirePackage{aux/notation}
 
 \newcommand{\curs}{Curs 2025/2026}
-
-% Since the Palatino font is set in the preamble we need to unset it to "comply"
-% with the default template for cover pages.
-% To do this we set the font family to Computer Modern Roman at the start of the
-% page.
-% However for some reason the bold text does not go back from Palatino.
-% To fix this we create a custom boldface macro that forces the text to be
-% Computer Modern Roman Bold (and Small Capitalize the text).
+% Font fixes for cover page if needed
 \newcommand{\cmrbold}[1]{{\usefont{T1}{cmr}{bx}{n} #1}}
 \newcommand{\cmrboldsc}[1]{{\usefont{T1}{cmr}{bx}{sc} #1}}

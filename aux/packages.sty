@@ -1,47 +1,74 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{packages}
 
+%% --- Colors (MUST BE LOADED FIRST) ---
+\RequirePackage[dvipsnames]{xcolor}
+
+%% --- Encoding & Fonts ---
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[normalem]{ulem}
-\RequirePackage{mathpazo} % Palatino + Math
-\RequirePackage[scaled]{beramono} % Monospace
 \RequirePackage{microtype}
-\RequirePackage{mathrsfs} % \mathscr (sheaf calligraphic typography)
+
+% Modern Palatino (Text and Math)
+\RequirePackage{newpxtext}
+\RequirePackage{newpxmath}
+\RequirePackage[scaled=0.95]{cabin}       % Humanist Sans Serif
+\RequirePackage[scaled=1.05]{inconsolata} % Monospace
+
+%% --- Utilities ---
+\RequirePackage{xstring}
+\RequirePackage{etoolbox}
+\RequirePackage{xargs}
+\RequirePackage{letltxmacro}
+\RequirePackage[normalem]{ulem}
 \RequirePackage{cancel}
-
-% Page Layout
-\RequirePackage{geometry, here} % For title page
-\RequirePackage{parskip} % Remove new paragraph indent
-\RequirePackage{fancyhdr} % Fancier header and footer
-\RequirePackage{epigraph} % Add quotes at the beginning of chapters / sections
 \RequirePackage{afterpage}
+\RequirePackage{parskip}
+\RequirePackage{float} % Fixes [H] in figures
 
-% Links
+%% --- Page Layout ---
+\RequirePackage{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{epigraph}
+\RequirePackage[explicit]{titlesec}
+\RequirePackage{titletoc}
+
+%% --- Math & Diagrams ---
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+
+% Fix: 'newpxmath' defines \Bbbk, so we must undefine it before amssymb
+\let\Bbbk\relax 
+\RequirePackage{amssymb}
+
+% Fix: 'newpxmath' or others may define \openbox, undefine before amsthm
+\let\openbox\relax
+\RequirePackage{amsthm}
+
+\RequirePackage{bbm}
+\RequirePackage{mathtools}
+\RequirePackage{thmtools}
+\RequirePackage{tikz, tikz-cd}
+\RequirePackage{mathrsfs}
+
+% Stylish Boxes
+\RequirePackage[most]{tcolorbox}
+
+%% --- Images & Subfiles ---
+\RequirePackage{subfiles}
+\RequirePackage{graphicx}
+\graphicspath{{./images}}
+
+%% --- Lists & Notes ---
+\RequirePackage{enumitem}
+% Fix: todonotes requires a specific margin width to avoid warnings
+\setlength{\marginparwidth}{2cm} 
+\RequirePackage[textsize=small]{todonotes}
+
+%% --- Links (Load Last) ---
 \RequirePackage{hyperref}
 \RequirePackage{nameref}
 \RequirePackage[user, xr]{zref}
-\RequirePackage{letltxmacro}
-\RequirePackage{xstring}
-\RequirePackage{etoolbox}
 
-% Math
-\RequirePackage{amsfonts, amsmath, amssymb, amsthm}
-\RequirePackage{bbm} % Bold symbols
-\RequirePackage{mathtools, thmtools} % Custom theorem environments
-\RequirePackage{tikz, tikz-cd} % Diagrams
-
-%
-\RequirePackage{subfiles}
-\RequirePackage{graphicx}
-
-\graphicspath{{./images}}
-
-% Bibliography
-\RequirePackage[backend=biber, style=alphabetic, sorting=nty]{biblatex}
-
-% Utils
-\RequirePackage{xargs} % Multiple arguments for commands
-\RequirePackage[dvipsnames]{xcolor}
-\RequirePackage{enumitem} % Better enumerate
-\RequirePackage[textsize=small]{todonotes}
+%% --- Bibliography ---
+\RequirePackage[backend=biber, style=alphabetic, sorting=nty, backref=true]{biblatex}

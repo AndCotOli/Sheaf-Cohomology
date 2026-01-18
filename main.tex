@@ -4,15 +4,17 @@
 \begin{document}
 
 \frontmatter
+% Ensure cover page has geometry reset if needed inside the subfile
 \subfile{Structure/cover}
 \afterpage{\blankpage}
-
-\newgeometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
 
 \subfile{Structure/0.Introduction/main}
 
 \setcounter{tocdepth}{1}
-\tableofcontents
+{
+  \hypersetup{linkcolor=black} % Keep TOC clean black
+  \tableofcontents
+}
 \afterpage{\blankpage}
 
 \mainmatter
