@@ -1,14 +1,292 @@
 \documentclass[../../main]{subfiles}
 
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{1.Categories-morphisms-and-duality}%
+    \zexternaldocument*{2.Functors-and-natural-transformations}%
+}{}
+
 \begin{document}
 \chapter{Limits and colimits}
 
-\section{Diagrams, limits and colimits}
+\section{Diagrams, cones and cocones}
 
-\section{Initial and terminal objects}
+\begin{definition}[Diagram]\label{def:diagram}
+  Let \(\category{J}\) be a \hyperref[def:small-category]{small category}.
+  
+  A \textbf{diagram} \(X\) in a \hyperref[def:big-category]{category} \(\category{C}\) with shape \(\category{J}\) is a \hyperref[def:functor]{functor} \(X: \category{J} \to \category{C}\).
+  For every \(j \in \category{J}\) we write \(X_{j} \coloneq Xj\).
+\end{definition}
 
-\section{Products and coproducts}
+\begin{example}[Constant diagram]\label{ex:constant-diagram}
+  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is \textbf{constant} if it is a \hyperref[ex:constant-functor]{constant functor} \(\operatorname{const}_{c}\).
 
-\section{Directed and inverse limits}
+  In this case the data of the diagram corresponds to the data given by a single object \(c \in \category{C}\).
+\end{example}
+
+\begin{example}
+  Consider the \hyperref[def:small-category]{category}
+  \begin{center}
+    \(\category{J} = \)
+    \begin{tikzcd}
+      \bullet \arrow[r] \arrow[d] \arrow[dr, dashed] & \bullet \arrow[d] \\
+      \bullet \arrow[r] & \bullet
+    \end{tikzcd}
+    \(=\)
+    \begin{tikzcd}
+      1 \arrow[r] \arrow[d] \arrow[dr, dashed] & 2 \arrow[d] \\
+      3 \arrow[r] & 4
+    \end{tikzcd}
+  \end{center}
+  A \hyperref[def:diagram]{diagram} with shape \(\category{J}\) is a commutative square
+  \begin{center}
+    \begin{tikzcd}
+      X_{1} \arrow[r] \arrow[d] & X_{2} \arrow[d] \\
+      X_{3} \arrow[r] & X_{4}
+    \end{tikzcd}
+  \end{center}
+\end{example}
+
+
+
+\subsection{Cones and cocones}
+
+\begin{definition}[Cone]\label{def:cone}
+  A \textbf{cone} \(C\) over a diagram \(X: \category{J} \to \category{C}\) with \textit{apex} \(c\) is a \hyperref[def:natural-transformation]{natural transformation} \(C: \operatorname{const}_{c} \Rightarrow X\) from the \hyperref[ex:constant-diagram]{constant diagram} to \(X\).
+  The components \(\{C_{j}: c \to X_{j}\}_{j \in \category{J}}\) are called the \textit{legs} of the cone.
+
+  Less abstractly, a cone \(C\) over \(X: \category{J} \to \category{C}\) with \textit{apex} \(c\) is a collection of morphisms \(C_{j}: c \to X_{j}\) for every object \(j \in \category{J}\)  such that for every morphism \(f: j \to k\) in \(\category{J}\) the following diagram in \(\category{C}\) commutes
+  \begin{center}
+    \begin{tikzcd}
+      & c \arrow[dl, "C_{j}"'] \arrow[dr, "C_{k}"] & \\
+      X_{j} \arrow[rr, "Xf"'] && X_{k}
+    \end{tikzcd}
+  \end{center}
+
+  If \(C: \operatorname{const}_{c} \Rightarrow X\) and \(D: \operatorname{const}_{d} \Rightarrow X\) are two cones over \(X\) a morphism of cones is a \hyperref[def:natural-transformation]{natural transformation} \(\operatorname{const}_{c} \Rightarrow \operatorname{const}_{d}\) making the following diagram commute
+  \begin{center}
+    \begin{tikzcd}[row sep=small, column sep=small]
+      \operatorname{const}_{c} \arrow[dr, "C"', Rightarrow] \arrow[rr, Rightarrow] & & \operatorname{const}_{d} \arrow[dl, "D", Rightarrow] \\
+      & X &
+    \end{tikzcd}
+  \end{center}
+  Therefore for any \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) we have a \hyperref[def:category]{category} of cones \(\Delta \downarrow X\).
+\end{definition}
+
+\begin{definition}[Cocone]\label{def:cocone}
+  A \textbf{cocone} \(C\) over a diagram \(X: \category{J} \to \category{C}\) with \textit{nadir} \(c\) is a \hyperref[def:natural-transformation]{natural transformation} \(C: X \Rightarrow \operatorname{const}_{c}\) from the \hyperref[ex:constant-diagram]{constant diagram} to \(X\).
+  The components \(\{C_{j}: X_{j} \to c\}_{j \in \category{J}}\) are called the \textit{legs} of the cone.
+
+  Less abstractly, a cocone \(C\) over \(X: \category{J} \to \category{C}\) with \textit{nadir} \(c\) is a collection of morphisms \(C_{j}: X_{j} \to c\) for every object \(j \in \category{J}\)  such that for every morphism \(f: j \to k\) in \(\category{J}\) the following diagram in \(\category{C}\) commutes
+  \begin{center}
+    \begin{tikzcd}
+      X_{j} \arrow[dr, "C_{j}"']  \arrow[rr, "Xf"] && X_{k} \arrow[dl, "C_{k}"] \\
+      & c &
+    \end{tikzcd}
+  \end{center}
+
+  If \(C: X \Rightarrow \operatorname{const}_{c}\) and \(D: X \Rightarrow \operatorname{const}_{d}\) are two cocones over \(X\) a morphism of cocones is a \hyperref[def:natural-transformation]{natural transformation} \(\operatorname{const}_{c} \Rightarrow \operatorname{const}_{d}\) making the following diagram commute
+  \begin{center}
+    \begin{tikzcd}[row sep=small, column sep=small]
+      & X \arrow[dl, "C"', Rightarrow] \arrow[dr, "D", Rightarrow] & \\
+      \operatorname{const}_{c}  \arrow[rr, Rightarrow] & & \operatorname{const}_{d}
+    \end{tikzcd}
+  \end{center}
+  Therefore for any \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) we have a \hyperref[def:category]{category} of cocones \(X \downarrow \Delta\).
+\end{definition}
+
+\section{Limits and colimits}
+
+\begin{definition}[Limit]\label{def:categorical-limit}
+  A \textbf{limit} of a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a \hyperref[def:initial-terminal-object]{terminal object} in the \hyperref[def:cone]{category of cones} \(\Delta \downarrow X\).
+
+  Less abstractly, a limit is a \hyperref[def:cone]{cone} \(\lim X: \operatorname{const}_{\lim X} \Rightarrow X\) such that for any other \hyperref[def:cone]{cone} \(C: \operatorname{const}_{c} \Rightarrow X\) there exists a unique morphism \(c \to \lim X\) making the following diagram commute for all \(i, j \in \category{J}\)
+  \begin{center}
+    \begin{tikzcd}
+      & c \arrow[d, dotted] \arrow[ddl, bend right] \arrow[ddr, bend left] & \\
+      & \lim X \arrow[dl] \arrow[dr] & \\
+      X_{i} \arrow[rr] & & X_{j}
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition}[Colimit]\label{def:categorical-colimit}
+  A \textbf{colimit} of a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\), denoted \(\colim X\), is a \hyperref[def:initial-terminal-object]{terminal object} in the \hyperref[def:cone]{category of cocones} \(X \downarrow \Delta\).
+
+  Less abstractly, a colimit is a \hyperref[def:cocone]{cocone} \(\colim X: X \Rightarrow \operatorname{const}_{\colim X}\) such that for any other \hyperref[def:cocone]{cocone} \(C: X \Rightarrow \operatorname{const}_{c}\) there exists a unique morphism \(\colim X \to c\) making the following diagram commute for all \(i, j \in \category{J}\)
+  \begin{center}
+    \begin{tikzcd}
+      X_{i} \arrow[dr] \arrow[ddr, bend right] \arrow[rr] & & X_{j} \arrow[dl] \arrow[ddl, bend left] \\
+      & \colim X \arrow[d, dotted] & \\
+      & c &
+    \end{tikzcd}
+  \end{center}
+
+\end{definition}
+
+
+\begin{proposition}[Uniqueness of limits and colimits]
+  If a diagram \(X: \category{J} \to \category{C}\) has a \hyperref[def:categorical-limit]{limit}/\hyperref[def:categorical-colimit]{colimit}, it is unique up to unique \hyperref[def:categorical-isomorphism]{isomorphism}.
+\end{proposition}
+
+\begin{definition}[Functors and limits]\label{def:functor-and-limits}
+  Let \(F: \category{C} \to \category{D}\) be a \hyperref[def:functor]{functor} and \(X: \category{J} \to \category{C}\) a \hyperref[def:diagram]{diagram}.
+  We say that
+  \begin{itemize}
+    \item \(F\) \textbf{preserves} \hyperref[def:categorical-limit]{limits} if whenever \((L, \varphi)\) is the \hyperref[def:categorical-limit]{limit} of \(X\) in \(\category{C}\), \((F(L), F(\varphi))\) is the \hyperref[def:categorical-limit]{limit} of \(F \circ X\) in \(\category{D}\).
+    \item \(F\) \textbf{reflects} \hyperref[def:categorical-limit]{limits} if whenever \((L, \varphi)\) is a \hyperref[def:cone]{cone} over \(X\) such that \((F(L), F(\varphi))\) is the \hyperref[def:categorical-limit]{limit} of \(F \circ X\) in \(\category{D}\) then \((L, \varphi)\) is the \hyperref[def:categorical-limit]{limit} of \(X\) in \(\category{C}\).
+  \end{itemize}
+
+  Replacing \hyperref[def:cone]{cones} with \hyperref[def:cocone]{cocones} and \hyperref[def:categorical-limit]{limits} with \hyperref[def:categorical-colimit]{colimits} we get dual statements.
+\end{definition}
+
+\subsection{Examples of limits and colimits}
+
+\begin{definition}[Product]\label{def:categorical-product}
+  Let \(\category{J}\) be a \hyperref[ex:discrete-category]{discrete} \hyperref[def:small-category]{small category}.
+  This means that \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) consists only of a set of objects \(\{X_{j}\}_{j \in \category{J}}\).
+  We define the \textbf{product} of \(\{X_{j}\}_{j \in \category{J}}\), denoted \(\prod_{j \in \category{J}} X_{j}\), as the \hyperref[def:categorical-limit]{limit} of the \hyperref[def:diagram]{diagram} \(X\).
+
+  Less abstractly, a \textbf{product} is an object \(\prod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(\prod_{j \in \category{J}} X_{j} \to X_{j}\) for every \(j \in \category{J}\) such that, for any map \(Y \to X_{j}\) there exists a unique morphism \(Y \to \prod_{j \in \category{J}} X_{j}\) making the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      Y \arrow[rr, bend left] \arrow[r, dotted] & \prod_{j \in \category{J}} X_{j} \arrow[r] & X_{j}
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition}[Coproduct]\label{def:categorical-coproduct}
+  Let \(\category{J}\) be a \hyperref[ex:discrete-category]{discrete} \hyperref[def:small-category]{small category}.
+  This means that \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) consists only of a set of objects \(\{X_{j}\}_{j \in \category{J}}\).
+  We define the \textbf{coproduct} of \(\{X_{j}\}_{j \in \category{J}}\), denoted \(\coprod_{j \in \category{J}} X_{j}\), as the \hyperref[def:categorical-colimit]{colimit} of the \hyperref[def:diagram]{diagram} \(X\).
+
+  Less abstractly, a \textbf{coproduct} is an object \(\coprod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(X_{j} \to \coprod_{j \in \category{J}} X_{j}\) for every \(j \in \category{J}\) such that, for any map \(X_{j} \to Y\) a unique morphism \(\coprod_{j \in \category{J}} X_{j} \to Y\) making the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      Y & \arrow[l, dotted] \prod_{j \in \category{J}} X_{j} & \arrow[ll, bend left] \arrow[l] X_{j}
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+
+\begin{definition}[Equaliser]\label{def:equaliser}
+  Consider the \textit{parallel pair} \hyperref[def:small-category]{category} \(\category{J} = \bullet \rightrightarrows \bullet\).
+  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphisms \(f, g: A \rightrightarrows B\), making a \hyperref[def:cone]{cone} with apex \(C\) over \(X\) is a morphism \(a: C \to A\) such that \(fa = ga\).
+  
+  The \textbf{equaliser} of \(f\) and \(g\) is the \hyperref[def:limit]{limit} of this diagram.
+  Les abstractly, it is a morphism \(\operatorname{eq}: E \to A\) such that for any morphism \(C \to A\) there exists a unique map \(C \to E\) the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      C \arrow[d, dotted] \arrow[dr] \\
+      E \arrow[r] & A \arrow[r, shift right] \arrow[r, shift left] & B
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition}[Coequaliser]\label{def:coequaliser}
+  Consider the \textit{parallel pair} \hyperref[def:small-category]{category} \(\category{J} = \bullet \rightrightarrows \bullet\).
+  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphisms \(f, g: A \rightrightarrows B\), making a \hyperref[def:cocone]{cocone} with nadir \(C\) over \(X\) is a morphism \(a: A \to C\) such that \(af = ag\).
+  
+  The \textbf{coequaliser} of \(f\) and \(g\) is the \hyperref[def:colimit]{limit} of this diagram.
+  Less abstractly, it is a morphism \(\operatorname{coeq}: B \to Q\) such that for any morphism \(Y \to C\) there exists a unique map \(Q \to C\) the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      A \arrow[r, shift right] \arrow[r, shift left] & B \arrow[r] \arrow[dr] & Q \arrow[d, dotted] \\
+      && C
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+
+\begin{definition}[Pullback]\label{def:pullback}
+  Consider the \hyperref[def:small-category]{category}
+  \begin{center}
+    \(\category{J} = \)
+    \begin{tikzcd}
+      & \bullet \arrow[d] \\
+      \bullet \arrow[r] & \bullet
+    \end{tikzcd}
+  \end{center}
+  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphism \(X \xrightarrow{f} Z \xleftarrow{g} Y\), making a \hyperref[def:cone]{cone} with apex \(C\) over \(X\) a pair of morphisms \(C \to X, C \to Y\) making the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      C \arrow[r] \arrow[d] & X \arrow[d, "f"] \\
+      Y \arrow[r, "g"'] & Z
+    \end{tikzcd}
+  \end{center}
+  
+  A \textbf{pullback} (or \textbf{fibre product}) of two morphisms \(f: X \to Z\) and \(g: Y \to Z\) is the \hyperref[def:categorical-limit]{limit} of the diagram \(X \xrightarrow{f} Z \xleftarrow{g} Y\).
+  It is denoted by \(X \times_{Z} Y\).
+
+  Less abstractly, it is a pair of morphisms \(X \times_{Z} Y \to X, X \times_{Z} Y \to Y\) such that for any pair of morphisms \(C \to X, C \to Y\) making the square commute, there exists a unique morphism \(C \to X \times_{Z} Y\) such that
+  \begin{center}
+    \begin{tikzcd}
+      C \arrow[dr, dotted] \arrow[drr, bend left] \arrow[ddr, bend right] \\
+      & X \times_{Z} Y \arrow[r] \arrow[d] & X \arrow[d, "f"]\\
+      & Y \arrow[r, "g"'] & Z
+    \end{tikzcd}
+  \end{center}
+
+  Pushout diagrams are often denoted by
+  \begin{center}
+    \begin{tikzcd}
+      X \times_{Z} Y  \arrow[dr, phantom, "\ulcorner", very near start] \arrow[r] \arrow[d] & X \arrow[d, "f"] \\
+      Y \arrow[r, "g"'] & Z
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition}[Pushout]\label{def:pushout}
+  Consider the \hyperref[def:small-category]{category}
+  \begin{center}
+    \(\category{J} = \)
+    \begin{tikzcd}
+      & \bullet  \\
+      \bullet  & \bullet \arrow[u] \arrow[l]
+    \end{tikzcd}
+  \end{center}
+  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphism \(X \xleftarrow{f} Z \xrightarrow{g} Y\), making a \hyperref[def:cocone]{cocone} with nadir \(C\) over \(X\) a pair of morphisms \(X \to C, Y \to C\) making the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      C & X \arrow[l]  \\
+      Y \arrow[u] & Z \arrow[u, "f"'] \arrow[l, "g"]
+    \end{tikzcd}
+  \end{center}
+  
+  A \textbf{pushout} of two morphisms \(f: Z \to X, g: Z \to Y\) is the \hyperref[def:categorical-colimit]{colimit} of the diagram \(X \xleftarrow{f} Z \xrightarrow{g} Y\).
+  It is denoted by \(X \coprod_{Z} Y\).
+
+  Less abstractly, it is a pair of morphisms \(X \to X \coprod_{Z} Y, Y \to X \coprod_{Z} Y\) such that for any pair of morphisms \(X \to C, Y \to  C\) making the square commute, there exists a unique morphism \(X \coprod_{Z} Y \to C\) such that
+  \begin{center}
+    \begin{tikzcd}
+      C \\
+      & X \coprod_{Z} Y \arrow[lu, dotted] & X \arrow[l] \arrow[llu, bend right]  \\
+      & Y \arrow[u] \arrow[luu, bend left] & Z \arrow[u, "f"'] \arrow[l, "g"]
+    \end{tikzcd}
+  \end{center}
+
+  Pushout diagrams are often denoted by
+  \begin{center}
+    \begin{tikzcd}
+      X \coprod_{Z} Y & X \arrow[l] \\
+      Y \arrow[u] & Z \arrow[u, "f"'] \arrow[l, "g"] \arrow[ul, phantom, "\lrcorner", very near start]
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition}[Directed set]\label{def:directed-set}
+  A \textbf{directed set} is a preordered set \((I, \leq)\) such that for every \(i, j \in I\), there exists \(k \in I\) with \(i \leq k\) and \(j \leq k\).
+
+  We can view this as a category following \autoref{ex:poset-category-dual}.
+\end{definition}
+
+\begin{definition}[Inverse limit]\label{def:inverse-limit}
+  An \textbf{inverse limit} (or \textbf{projective limit}) is a \hyperref[def:categorical-limit]{limit} of a \hyperref[def:diagram]{diagram} over a \hyperref[def:directed-set]{directed set} \(\category{I}\). We write it as \(\varprojlim_{i \in \category{I}} X_i\).
+\end{definition}
+
+
+\begin{definition}[Direct limit]\label{def:direct-limit}
+  A \textbf{direct limit} (or \textbf{inductive limit}) is a \hyperref[def:categorical-colimit]{colimit} of a \hyperref[def:diagram]{diagram} over a \hyperref[def:directed-set]{directed set} \(\category{I}\). We write it as \(\varinjlim_{i \in \category{I}} X_i\).
+\end{definition}
+
 
 \end{document}

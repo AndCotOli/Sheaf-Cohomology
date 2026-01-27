@@ -1,10 +1,109 @@
 \documentclass[../../main]{subfiles}
 
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{1.Categories-morphisms-and-duality}%
+    \zexternaldocument*{2.Functors-and-natural-transformations}%
+    \zexternaldocument*{3.Limits-and-colimits}
+}{}
+
+
 \begin{document}
 \chapter{More on functors}
 
 \section{Adjunctions}
 
+\begin{definition}[Adjoint functors]\label{def:adjoint-functors}
+  Let \(F: \category{C} \to \category{D}\) and \(G: \category{D} \to \category{C}\) be two \hyperref[def:functor]{functors}. We say that \(F\) is \textbf{left adjoint} to \(G\), and \(G\) is \textbf{right adjoint} to \(F\), denoted \(F \dashv G\), if there is a \hyperref[def:natural-transformation]{natural isomorphism}:
+  \begin{equation} \label{eq:adjunction-hom-iso}
+    \phi_{X,Y}: \Hom_{\category{D}}(F(X), Y) \isoarrow \Hom_{\category{C}}(X, G(Y))
+  \end{equation}
+  which is natural in both \(X \in \category{C}\) and \(Y \in \category{D}\).
+\end{definition}
+
+\begin{definition}[Unit and counit]\label{def:unit-counit}
+  The adjunction \eqref{eq:adjunction-hom-iso} is uniquely determined by two natural transformations:
+  \begin{itemize}
+    \item The \textbf{unit} \(\eta: \id_{\category{C}} \implies G \circ F\), where \(\eta_X = \phi_{X, F(X)}(\id_{F(X)})\).
+    \item The \textbf{counit} \(\varepsilon: F \circ G \implies \id_{\category{D}}\), where \(\varepsilon_Y = \phi^{-1}_{G(Y), Y}(\id_{G(Y)})\).
+  \end{itemize}
+  These satisfy the \textbf{triangular identities}: \(G(\varepsilon_{Y}) \circ \eta_{G(Y)} = \id_{G(Y)}\) and \(\varepsilon_{F(X)} \circ F(\eta_{X}) = \id_{F(X)}\).
+\end{definition}
+
+\begin{proposition}\label{prop:adjoint-properties}
+  Let \(F \dashv G\) be an \hyperref[def:adjoint-functors]{adjunction}.
+  \begin{itemize}
+    \item Adjoints are unique up to \hyperref[def:natural-transformation]{natural isomorphism}.
+    \item \hyperref[def:adjoint-functors]{Left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in \(\category{C}\).
+    \item \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in \(\category{D}\).
+  \end{itemize}
+\end{proposition}
+
+
 \section{Functor categories}
+
+\begin{definition}[Functor category]\label{def:functor-category}
+  Let \(\category{C}\) and \(\category{D}\) be \hyperref[def:big-category]{categories}. The \textbf{functor category} \([C, D]\) (also denoted \(\category{D}^{\category{C}}\)) has:
+  \begin{itemize}
+    \item \textbf{Objects}: \hyperref[def:functor]{functors} \(F: \category{C} \to \category{D}\).
+    \item \textbf{Morphisms}: \hyperref[def:natural-transformation]{natural transformations} \(\eta: F \implies G\).
+  \end{itemize}
+  Composition and identities are defined componentwise. If \(\category{D}\) has (co)limits of shape \(\category{J}\), then \(\category{D}^{\category{C}}\) has (co)limits of shape \(\category{J}\), computed object-wise.
+\end{definition}
+
+\begin{lemma}
+  Let \(\category{C}\) be a \hyperref[def:small-category]{small category}.
+  Then
+  \begin{itemize}
+    \item If \(\category{D}\) is a \hyperref[def:category]{locally small category} then the \hyperref[def:functor-category]{functor category} \([\category{C}, \category{D}]\) is \hyperref[def:category]{locally small}.
+    \item If \(\category{D}\) is a \hyperref[def:small-category]{small category} then the \hyperref[def:functor-category]{functor category} \([\category{C}, \category{D}]\) is \hyperref[def:small-category]{small}.
+  \end{itemize}
+\end{lemma}
+
+
+\begin{lemma}
+  Let \(\category{C}\) and \(\category{D}\) be two \hyperref[def:big-category]{categories} and \([\category{C}, \category{D}]\) be a \hyperref[def:functor-category]{functor category}.
+
+  If \(\category{D}\) has \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\) then \([\category{C}, \category{D}]\) has  \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\).
+  Furthermore, they are computed objectwise.
+\end{lemma}
+
+We can go a step further.
+\begin{definition}\label{def:natural-transformation-category}
+  Let \(F: \category{C} \to \category{D}\), \(G: \category{C} \to \category{D}\) be two \hyperref[def:functor]{functors}.
+  The \textbf{natural transformations category} \(\category{Nat}(F, G)\) constists of:
+  \begin{itemize}
+    \item \textbf{Objects}: \hyperref[def:natural-transformation]{natural transformations} \(F \Rightarrow G\).
+    \item \textbf{Morphisms}: 
+  \end{itemize}
+\end{definition}
+
+
+\section{Representable functors}
+\begin{definition}\label{def:representable-functor}
+  A \hyperref[def:functor]{functor} \(F: \category{C} \to \Set\) is \textbf{representable} if there exists an object \(X \in \category{C}\) such that
+  \begin{equation*}
+    F \cong \Hom_{\category{C}}(X, -)
+  \end{equation*}
+  where \(\Hom_{\category{C}}(X, -)\) is the \hyperref[ex:hom-functor]{covariant Hom functor}.
+\end{definition}
+
+\begin{definition}[Concrete category]\label{def:concrete-category}
+  A \hyperref[def:category]{category} \(\category{C}\) is \textbf{concrete} if there exists a \hyperref[def:functor-types]{faithful functor} \(U: \category{C} \to \Set\). Such a functor is often called a \textbf{forgetful functor}.
+\end{definition}
+
+\begin{lemma}[Yoneda]\label{lemma:yoneda}
+  Let \(\category{C}\) be a \hyperref[def:category]{locally small category}, \(X \in \category{C}\) an object, and \(F: \category{C} \to \Set\) a \hyperref[def:functor]{functor}. There is a bijection:
+  \begin{equation*}
+    \Phi: \category{Nat}(\Hom(X, -), F) \isoarrow F(X)
+  \end{equation*}
+  given by \(\eta \mapsto \eta_X(\id_X)\). This bijection is natural in both \(X\) and \(F\).
+\end{lemma}
+
+\begin{corollary}[Yoneda embedding]
+  Let \(\category{C}\) be a \hyperref[def:category]{locally small category}.
+  
+  The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}. This allows us to view any locally small category as a \hyperref[def:full-subcategory]{full subcategory} of a \hyperref[def:functor-category]{functor category}.
+\end{corollary}
+
 
 \end{document}

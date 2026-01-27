@@ -6,7 +6,7 @@
 
 \section{Categories}
 
-\begin{definition}[Category] \label{def:big-category}
+\begin{definition}[Category]\label{def:big-category}
   A \textbf{category} \(\category{C}\) consists of:
   \begin{itemize}
     \item a collection \(\operatorname{Ob}(\category{C})\) of \textbf{objects}.
@@ -36,37 +36,115 @@
 
 \begin{example}~
   \begin{itemize}
-    \item The \hyperref[def:big-category]{category} \(\Set\) has the collection of all sets as \(\operatorname{Ob}(\Set)\) and, for any pair of sets \(X, Y\), \(\Hom_{\Set}(X, Y)\) is the set of all applications \(f: X \to Y\).
-    \item The \hyperref[def:big-category]{category} \(\Grp\) has the collection of all groups as \(\operatorname{Ob}(\Grp)\) and, for any pair of groups \(G, H\) \(\Hom_{\Grp}(G, H)\) is the set of all group homomorphisms \(f: G \to H\).
-    \item The \hyperref[def:big-category]{category} \(\Top\) has the collection of all topological spaces as \(\operatorname{Ob}(\Top)\) and, for any pair of topological spaces \(X, Y\) \(\Hom_{\Top}(X, Y)\) is the set of all continuous functions \(f: X \to Y\).
+    \item The \hyperref[def:big-category]{category} \(\Set\) has the collection of all sets as objects and functions as morphisms.
+    \item The \hyperref[def:big-category]{category} \(\Grp\) has groups as objects and group homomorphisms as morphisms.
+    \item The \hyperref[def:big-category]{category} \(\Ab\) has abelian groups as objects and group homomorphisms as morphisms. It is a full subcategory of \(\Grp\).
+    \item The \hyperref[def:big-category]{category} \(\Ring\) has rings as objects and ring homomorphisms as morphisms.
+    \item The \hyperref[def:big-category]{category} \(\Top\) has topological spaces as objects and continuous functions as morphisms.
+    \item For a fixed ring \(R\), the \hyperref[def:big-category]{category} \(R\)-\(\Mod\) has (left) \(R\)-modules as objects and \(R\)-linear maps as morphisms.
   \end{itemize}
 \end{example}
 
-\begin{definition}[Locally small category] \label{def:category}
+\begin{example}[Discrete category]\label{ex:discrete-category}
+  Given a \hyperref[def:big-category]{category} \(\category{C}\) we can define the \textbf{discrete category} \(\category{C}_{d}\) considering the same collection of objects as \(\category{C}\) but only the identity morphisms between them.
+\end{example}
+
+
+\begin{definition}[Subcategory]\label{def:subcategory}
+  Given a \hyperref[def:big-category]{category} \(\category{C}\), a \textbf{subcategory} \(\category{D}\) consists of a subcollection of objects and a subcollection of morphisms in \(\category{C}\) such that
+  \begin{itemize}
+    \item If \(f: X \to Y\) is a morphism in \(\category{D}\) then \(X, Y\) are objects in \(\category{D}\).
+    \item If \(f: X \to Y\) and \(g: Y \to Z\) are morphisms in \(\category{D}\), the composition \(gf: X \to Z\) is in \(\category{D}\).
+    \item If \(X\) is an object in \(\category{D}\) then the identity map \(\id_{X}\) is in \(\category{D}\).
+  \end{itemize}
+
+  We say that \(\category{D}\) is a \textbf{full subcategory} if for all objects \(X, Y\) in \(\category{D}\) every morphism \(f: X \to Y\) in \(\category{C}\) is also in \(\category{D}\).
+\end{definition}
+
+\begin{definition}[Product category]\label{def:product-category}
+  Let \(\category{C}, \category{D}\) be two \hyperref[def:big-category]{categories}.
+  The \textbf{product category} \(\category{C} \times \category{D}\) is the \hyperref[def:category]{category} consisting of
+  \begin{itemize}
+    \item As objects: ordered pairs \((C, D) \in \operatorname{Ob}_{\category{C} \times \category{D}}\), where \(C\) is an object in \(\category{C}\) and \(D\) is an object in \(\category{D}\).
+    \item As morphisms: ordered pairs \((C \xrightarrow{f} C', D \xrightarrow{g} D') \in \Hom_{\category{C} \times \category{D}}((C, D))\), where \(C \xrightarrow{f} C'\) is a morphism in \(\category{C}\) and \(D \xrightarrow{g} D'\) is a morphism in \(\category{D}\).
+    \item Composition is defined \textit{componentwise}.
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Locally small category]\label{def:category}
   A \hyperref[def:big-category]{category} \(\category{C}\) is \textbf{locally small} if for every pair of objects \(X, Y \in \category{C}\) the collection \(\Hom(X, Y)\) is a set.
 \end{definition}
 
-\begin{definition}[Small category] \label{def:small-category}
+\begin{example}
+  The \hyperref[def:big-category]{categories} \(\Set, \Grp, \Ring, \Top\) and \(R-\Mod\) are \hyperref[def:category]{locally small}.
+\end{example}
+
+\begin{lemma}
+  Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{locally small categories}.
+  The \hyperref[def:product-category]{product category} \(\category{C} \times \category{D}\) is \hyperref[def:category]{locally small}.
+\end{lemma}
+
+\begin{definition}[Small category]\label{def:small-category}
   A \hyperref[def:category]{locally small category} \(\category{C}\) is \textbf{small} if its collection of objects \(\operatorname{Ob}(\category{C})\) is a set.
 \end{definition}
 
-% \begin{remark}
-%   To avoid unnecessary set-theoretical problems, when we refer to a category we will mean a \hyperref[def:category]{locally small} category unless otherwise specified. We will refer to \hyperref[def:big-category]{\textit{regular} categories} (\autoref{def:big-category}) as big categories.
-% \end{remark}
+\begin{example}[Category of open sets]\label{ex:open-set-category}
+  Let \(X\) be a topological space.
+
+  The \hyperref[def:big-category]{category} \(\Open(X)\) consisting of
+  \begin{itemize}
+    \item As objects: the open subsets of \(X\).
+    \item As morphisms: inclussion of open sets: \(U \to V\) if and only if \(U \subseteq V\)
+  \end{itemize}
+  is \hyperref[def:small-category]{small}.
+\end{example}
+
+\begin{lemma}
+  Let \(\category{C}, \category{D}\) be two \hyperref[def:small-category]{small categories}.
+  The \hyperref[def:product-category]{product category} \(\category{C} \times \category{D}\) is \hyperref[def:small-category]{small}.
+\end{lemma}
+
+\subsection{Duality}
+
+\begin{definition}[Opposite category]\label{def:opposite-category}
+  Let \(\category{C}\) be a \hyperref[def:big-category]{(big) category}. The \textbf{opposite category} \(\opcategory{C}\) consists of:
+  \begin{itemize}
+    \item The same objects as \(\category{C}\): \(\operatorname{Ob}(\opcategory{C}) = \operatorname{Ob}(\category{C})\).
+    \item For each pair of objects \(X, Y \in \category{C}^{\op}\): \(\Hom_{\opcategory{C}}(X, Y) = \Hom_{\category{C}}(Y, X)\).
+  \end{itemize}
+\end{definition}
+
+\begin{example}\label{ex:poset-category-dual}
+  Consider a preordered set \((P, \leq)\) viewed as a \hyperref[def:small-category]{small category} where a unique morphism \(x \to y\) exists if and only if \(x \leq y\).
+
+  The \hyperref[def:opposite-category]{opposite category} \(P^{\op}\) corresponds to the same set \(P\) equipped with the reversed order \(\geq\). That is, a morphism \(x \to y\) exists in \(P^{\text{op}}\) if and only if \(y \leq x\) in \(P\).
+\end{example}
+
 
 \section{Types of morphisms}
 
-\begin{definition} \label{def:mono-epi-morphism}
+\begin{definition}[Monomorphism and epimorphism]\label{def:mono-epi-morphism}
+  A morphism \(f: X \to Y\) in a \hyperref[def:big-category]{category} \(\category{C}\) is a \textbf{monomorphism} (or is \textbf{monic}) if for every pair of parallel morphisms \(g, h: W \to X\) in \(\category{C}\), the equality \(f \circ g = f \circ h\) implies \(g = h\).
 
+  Dually, a morphism \(f: X \to Y\) is an \textbf{epimorphism} (or is \textbf{epic}) if for every pair of parallel morphisms \(g, h: Y \to Z\) in \(\category{C}\), the equality \(g \circ f = h \circ f\) implies \(g = h\).
 \end{definition}
 
+\begin{example}~
+  \begin{itemize}
+    \item In \(\Set\), an \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) is an injective (resp. surjective) function.
+    \item In \(\Grp\), an \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) is an injective (resp. surjective) group homomorphism.
+    \item In \(\Top\), an \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) is an injective (resp. surjective) continuous map.
+  \end{itemize}
+\end{example}
 
-\begin{definition}[Isomorphism] \label{def:categorical-isomorphism}
-  An \textbf{isomorphism} in a \hyperref[def:big-category]{category} is a morphism \(f: X \to Y\) for which exists another morphism \(g: Y \to X\) such that:
+
+\begin{definition}[Isomorphism]\label{def:categorical-isomorphism}
+  A morphism \(f: X \to Y\) in a \hyperref[def:big-category]{category} \(\category{C}\) is an \textbf{isomorphism} if there exists another morphism \(g: Y \to X\) in \(\category{C}\) such that
   \begin{equation*}
     g \circ f = \id_X \quad \text{and} \quad f \circ g = \id_Y
   \end{equation*}
-  The morphism \(g\) is called the \textbf{inverse} of \(f\), often denoted \(f^{-1}\).
+  
+  The morphism \(g\) is called the \textbf{inverse} of \(f\) and is denoted by \(f^{-1}\).
 \end{definition}
 
 \begin{example}~
@@ -78,29 +156,81 @@
 \end{example}
 
 \begin{proposition}
-  Let \(f: X \to Y\), \(g: Y \to Z\) be two \hyperref[def:categorical-isomorphism]{isomorphisms} in a \hyperref[def:big-category]{category} \(\category{C}\). Then:
-  \begin{enumerate}
-    \item The inverse \(f^{-1}\) of \(f\) is unique.
-    \item \(g \circ f\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
-    \item If \(h \circ k\) is an \hyperref[def:categorical-isomorphism]{isomorphism} and either \(g\) or \(h\) is an \hyperref[def:categorical-isomorphism]{isomorphism} then so is the other.
-  \end{enumerate}
+  Let \(f: X \to Y\) be a \hyperref[def:categorical-isomorphism]{isomorphism}.
+  Then \(f\) is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism}.
 \end{proposition}
 
 
-\section{Duality}
+\begin{example}
+  In general, a morphism \(f: X \to Y\) that is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism} is not an \hyperref[def:categorical-isomorphism]{isomorphism}.
 
-\begin{definition}[Opposite category] \label{def:opposite-category}
-  Let \(\category{C}\) be a \hyperref[def:big-category]{category}. The \textbf{opposite category} \(\opcategory{C}\) consists of:
-  \begin{itemize}
-    \item The same objects as \(\category{C}\): \(\operatorname{Ob}(\opcategory{C}) = \operatorname{Ob}(\category{C})\).
-    \item For each pair of objects \(X, Y \in \category{C}^{\op}\): \(\Hom_{\opcategory{C}}(X, Y) = \Hom_{\category{C}}(Y, X)\).
-  \end{itemize}
+  Indeed, in the \hyperref[def:category]{category} \(\Top\) of topological spaces consider a set \(X\) endowed with the discrete \(X_{d}\) and trivial \(X_{t}\) topology.
+  
+  Consider the identity map \(f: X_{d} \to X_{i}\), which is continuous.
+  Since \(f\) is injective we have that it is a \hyperref[def:mono-epi-morphism]{monomorphism} and, since it is surjective, it is an \hyperref[def:mono-epi-morphism]{epimorphism}.
+
+  However since there does not exists a continuous function \(g: X_{i} \to X_{d}\), \(f\) cannot be a \hyperref[def:categorical-isomorphism]{isomorphism}.
+\end{example}
+
+
+\begin{proposition}
+  Let \(f: X \to Y\) and \(g: Y \to Z\) be \hyperref[def:categorical-isomorphism]{isomorphisms} in a \hyperref[def:big-category]{category} \(\category{C}\). Then:
+  \begin{enumerate}
+    \item The inverse \(f^{-1}\) of \(f\) is unique.
+    \item The identity \(\id_X\) is an isomorphism for every \(X \in \category{C}\).
+    \item \(g \circ f\) is an \hyperref[def:categorical-isomorphism]{isomorphism} with \((g \circ f)^{-1} = f^{-1} \circ g^{-1}\).
+    \item If \(g \circ f\) is an isomorphism and \(f\) is an isomorphism, then \(g\) is an isomorphism. Dually, if \(g \circ f\) and \(g\) are isomorphisms, then \(f\) is an isomorphism.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+  Let \(\category{D}\) be a \hyperref[def:subcategory]{subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
+  If \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
+\end{proposition}
+
+\begin{proposition}
+  Let \(\category{D}\) be a \hyperref[def:subcategory]{full subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
+  If \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
+\end{proposition}
+
+\section{Special objects}
+
+\begin{definition}[Initial and terminal objects]\label{def:initial-terminal-object}
+  An object \(I \in \category{C}\) is \textbf{initial} if for every object \(X \in \category{C}\) there is a unique morphism \(I \to X\).
+
+  Dually, an object \(T \in \category{C}\) is \textbf{terminal} if for every object \(X \in \category{C}\) there is a unique morphism \(X \to T\).
 \end{definition}
 
-\begin{example}
-  Consider a preordered set \((P, \leq)\) viewed as a \hyperref[def:small-category]{small category} where a unique morphism \(x \to y\) exists if and only if \(x \leq y\).
+\begin{remark}
+  An object \(I \in \category{C}\) is \hyperref[def:initial-terminal-object]{initial} if and only if it is \hyperref[def:initial-terminal-object]{terminal} in \(\opcategory{C}\) (and viceversa).
+\end{remark}
 
-  The \hyperref[def:opposite-category]{opposite category} \(P^{\op}\) corresponds to the same set \(P\) equipped with the reversed order \(\geq\). That is, a morphism \(x \to y\) exists in \(P^{\text{op}}\) if and only if \(y \leq x\) in \(P\).
-\end{example}
+\begin{proposition}[Uniqueness of initial and terminal objects]\label{def:uniqueness-initial-terminal-objects}
+  Let \(X, Y\) be two \hyperref[def:initial-terminal-object]{initial} (resp. \hyperref[def:initial-terminal-object]{terminal}) objects in a \hyperref[def:big-category]{category} \(\category{C}\).
+  Then there exists a unique \hyperref[def:categorical-isomorphism]{isomorphism} \(X \to Y\) in \(\category{C}\).
+\end{proposition}
+
+\begin{proposition}
+  Let \(I \in \category{C}\) be an \hyperref[def:initial-terminal-object]{initial} object.
+  For every \(X \in \category{C}\) the map \(I \to X\) is a \hyperref[def:mono-epi-morphism]{monomorphism} in \(\category{C}\).
+
+  Dually if \(T \in \category{C}\) is \hyperref[def:initial-terminal-object]{terminal} the map \(X \to T\) is an \hyperref[def:mono-epi-morphism]{epimorphism} \(\category{C}\).
+\end{proposition}
+
+\begin{definition}[Zero object]\label{def:zero-object}
+  An object \(0 \in \category{C}\) is a \textbf{zero} object if it is both \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal}.
+
+  Note that for any two objects \(X, Y \in \category{C}\) there exist maps \(X \to 0 \to Y\).
+  We call this composite map the \textbf{zero map} between \(X\) and \(Y\).
+\end{definition}
+
+\begin{corollary}[Uniqueness of zero objects]\label{def:uniqueness-zero-objects}
+  Let \(0, \widetilde{0}\) be two \hyperref[def:zero-object]{zero} objects in a \hyperref[def:big-category]{category} \(\category{C}\).
+  Then there exists a unique \hyperref[def:categorical-isomorphism]{isomorphism} \(0 \to \widetilde{0}\) in \(\category{C}\).
+\end{corollary}
+
+\begin{corollary}
+  For every pair of objects \(X, Y \in \category{C}\) the \hyperref[def:zero-object]{zero map} \(X \xrightarrow{0} Y\) (provided it exists) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+\end{corollary}
 
 \end{document}
