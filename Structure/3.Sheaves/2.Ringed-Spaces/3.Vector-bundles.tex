@@ -1,0 +1,171 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{../../3.Sheaves/1.Sheaves/exported/aux/main}%
+    \zexternaldocument*{./1.Sheaves-of-modules}%
+    \zexternaldocument*{./2.Ringed-spaces}%
+}{}
+
+\begin{document}
+\section{Vector bundles} \label{sec:vector-bundles}
+
+\begin{definition}[Topological vector bundle] \label{def:topological-vector-bundle}
+  Let \(X\) be a topological space.
+  Let \(k \in \{\mathbb{R}, \mathbb{C}\}\) be either the field of real or complex numbers.
+ 
+  A \textbf{topological \(k\)-vector bundle} over \(X\) (denoted by \(E \xrightarrow{\pi} X\)) consists of
+  \begin{itemize}
+    \item A topological space \(E\).
+    \item A continuous map \(\pi: E \to X\).
+    \item For every point \(x \in X\) the structure of a finite-dimensional \(k\)-vector space over \(E_{x} \coloneq \pi^{-1}(\{x\})\).
+  \end{itemize}
+  That admits a \textit{local trivialization}, i.e: there exists an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) and for each \(i \in \mathcal{I}\) an \(n_{i} \in \mathbb{N}\) and a homeomorphism
+  \begin{equation*}
+    \phi_{i}: U_{i} \times k^{n_{i}} \isoarrow \pi^{-1}(U_{i})
+  \end{equation*}
+  satisfying
+  \begin{enumerate}
+    \item \(\pi \circ \phi_{i} = \operatorname{pr}_{1}\), meaning that \(\phi_{i}(\{x\} \times k^{n_{i}}) \subseteq \pi^{-1}(\{x\})\).
+    \item For all \(x \in X\) the map \(\phi_{i}(x): k^{n_{i}} \to E_{x}\) is linear.
+  \end{enumerate}
+  If all the numbers \(n_{i}\) are equal to some \(n \in \mathbb{N}\) we say that the vector bundle has rank \(n\).
+  
+  A \textbf{morphism} of topological \(k\)-vector bundles from \(E_{1} \xrightarrow{\pi_{1}} X\) to \(E_{2} \xrightarrow{\pi_{2}} X\) is a continuous map \(f: E_{1} \to E_{2}\) such that \(\pi_{2} \circ f = \pi_{1}\) and for every \(x \in X\) the map \(f|_{x}: (E_{1})_{x} \to (E_{2})_{x}\) is linear.
+
+  We denote by \(\Vect_{k}(X)\) the category of topological \(k\)-vector bundles over \(X\).
+\end{definition}
+
+\begin{notation}
+  A \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle} of rank \(n\) is:
+  \begin{itemize}
+    \item A \textbf{real topological vector bundle} if \(k = \mathbb{R}\).
+    \item A \textbf{complex topological vector bundle} if \(k = \mathbb{C}\).
+    \item A \textbf{line bundle} if \(n = 1\).
+  \end{itemize}
+\end{notation}
+
+
+\begin{example}[Trivial topological vector bundle] \label{ex:trivial-topological-vector-bundle}
+  Let \(X\) be a topological space and \(n \in \mathbb{N}\).
+  The product topological space \(X \times k^{n} \xrightarrow{\operatorname{pr}_{1}} X\) is a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle} of rank \(n\) called the \textbf{trivial} topological vector bundle over \(X\).
+\end{example}
+
+
+\begin{example}
+  \todo[inline]{Examples of vector bundles: Cylinder, Möbius, ...}
+\end{example}
+
+\begin{definition}[Section of a topological vector bundle] \label{def:section-topological-vector-bundle}
+  Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
+
+  For any open set \(U \subseteq X\) a \textbf{section} of \(E \xrightarrow{\pi} X\) over \(U\) is a continuous map \(\sigma: U \to E\) such that \(\pi \circ \sigma = \id_{U}\).
+
+  The set of all sections of \(E \xrightarrow{\pi} X\) over \(U\) is denoted by \(\Gamma(U, E \xrightarrow{\pi} X)\).
+\end{definition}
+\begin{remark}
+  The set \(\Gamma(U, E \xrightarrow{\pi} X)\) admits the structure of a \(k\)-vector space.
+\end{remark}
+
+
+\begin{lemma}
+  Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
+
+  The \hyperref[def:functor]{functor} \(\mathcal{E} \coloneq \Gamma(-, E \xrightarrow{\pi} X)\) that assigns an open subset \(U \subseteq X\) to the set of all its \hyperref[def:section-topological-vector-bundle]{sections over \(E \xrightarrow{\pi} X\)} is a \hyperref[def:sheaf]{sheaf} of \(k\)-vector spaces over \(X\).
+\end{lemma}
+
+\begin{definition} \label{def:sheaf-of-sections-topological-vector-bundle}
+  Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
+  The \textbf{\hyperref[def:sheaf]{sheaf} of sections} of \(E \xrightarrow{\pi} X\) is
+  \begin{align*}
+    \mathcal{E}:\,& \Open^{\op}(X) \to \Vect_{k} \\
+        &U \mapsto \Gamma(U, E \xrightarrow{\pi} X)
+  \end{align*}
+\end{definition}
+
+\begin{proposition} \label{prop:sheaf-of-sections-topological-vector-bundle-is-C-x-module}
+  Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
+  Let \(\mathcal{C}_{X}(k)\) be the \hyperref[def:sheaf]{sheaf} of continuous \(k\)-valued functions over \(X\).
+
+  Then the \hyperref[def:sheaf-of-sections-topological-vector-bundle]{sheaf of sections} \(\mathcal{E}\) is a \hyperref[def:sheaf-of-modules]{sheaf of \(\mathcal{C}_{X}(k)\)-modules}.
+\end{proposition}
+\begin{proof}
+  Let \(U \subseteq X\) be an open subset.
+  Let \(f \in \sheaf{O}_{X}(U)\) and \(\sigma \in \mathcal{E}(U)\).
+  
+  We define the action \(f \cdot \sigma\) pointwise: for every \(x \in U\)
+  \begin{equation*}
+    (f \cdot \sigma)(x) \coloneq f(x) \cdot \sigma(x)
+  \end{equation*}
+  where the operation in the right is scalar multiplication in \(E_{x}\).
+
+  Let's verify that \(f \cdot \sigma\) is a valid \hyperref[def:section-topological-vector-bundle]{section} of \(E \xrightarrow{\pi} X\).
+  \begin{enumerate}
+      \item \textbf{Linearity:} Since \((f \cdot \sigma)(x)\) is a scalar multiple of a vector in \(E_{x}\), it remains in the fiber \(\pi^{-1}(\{x\})\). Thus \(\pi \circ (f \cdot \sigma) = \id_{U}\).
+      \item \textbf{Continuity:} Since the bundle admits local trivializations, scalar multiplication \(k \times E \to E\) is a continuous map. Because \(f\) and \(\sigma\) are both continuous, their pointwise product \(f \cdot \sigma\) is continuous.
+  \end{enumerate}
+
+  The module axioms follow directly from the vector space structure on \(E_{p}\).
+\end{proof}
+
+\begin{definition}[Locally free sheaf] \label{def:locally-free-sheaf}
+  A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{locally free} of rank \(n\) if there exist an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that for every \(i \in \mathcal{I}\) there is an isomorphism of \(\sheaf{O}_{X}|_{U_{i}}\)-modules
+  \begin{equation*}
+    \sheaf{F}|_{U_{i}} \cong \bigoplus_{j=1}^{n} \sheaf{O}_{X}|_{U_{i}} \eqcolon (\sheaf{O}_{X}|_{U_{i}})^{\oplus n}
+  \end{equation*}
+
+  We denote by \(\category{LocFree}_{n}(\sheaf{O}_{X})\) the \hyperref[def:subcategory]{full subcategory} of \(\Mod(\sheaf{O}_{X})\) consisting of locally free \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules}.
+\end{definition}
+
+\begin{theorem}
+  Let \(k \in \{\mathbb{R}, \mathbb{C}\}\).
+  There is an \hyperref[def:equivalent-categories]{equivalence of categories} between the category of \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundles} of rank \(n\) over \(X\) and the category of \hyperref[def:locally-free-sheaf]{locally free sheaves of \(\mathcal{C}_{X}(k)\)-modules} of rank \(n\).
+
+  Under this correspondence
+  \begin{itemize}
+    \item The \hyperref[ex:trivial-topological-vector-bundle]{trivial topological \(k\)-vector bundle} \(X \times k^{n}\) corresponds to \((\mathcal{C}_{X}(k))^{\oplus n}\).
+    \item A \hyperref[def:section-topological-vector-bundle]{section} of \(E \xrightarrow{\pi} X\) corresponds to a \hyperref[def:global-section-sheaf]{global section} of \(\mathcal{C}_{X}(k)\).
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  We want to construct \hyperref[def:functor]{functors}
+  \begin{equation*}
+    \Gamma: \Vect_{n}(X) \to \category{LocFree}_{n}(\sheaf{O}_{X}) \quad V: \category{LocFree}_{n}(\sheaf{O}_{X}) \to \Vect_{n}(X)
+  \end{equation*}
+  that are inverses of each other (up to \hyperref[def:natural-transformation]{natural transformation}).
+
+  Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
+  We define \(\Gamma(E \xrightarrow{\pi} X) \coloneq \mathcal{E}\) as the \hyperref[def:sheaf-of-sections-topological-vector-bundle]{sheaf of sections} associated to \(E \xrightarrow{\pi} X\).
+  By \autoref{prop:sheaf-of-sections-topological-vector-bundle-is-C-x-module} we have that \(\mathcal{E}\) is a \hyperref[def:sheaf-of-modules]{sheaf of \(\mathcal{C}_{X}(k)\)-modules}.
+  Therefore we only need to check that \(\mathcal{E}\) is \hyperref[def:locally-free-sheaf]{locally free}.
+
+  To do this, note that since \(E \xrightarrow{\pi} X\) is a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle} there exists an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) and \textit{local trivializations} \(\phi_{i}: \pi^{-1}(U_{i}) \isoarrow U_{i} \times k^{n}\).
+  Under this map a section \(\sigma: U_{i} \to U_{i} \times k^{n}\) is uniquely determined by a continuous map \(\hat{s}: U_{i} \to k^{n}\), which is an \(n\)-tuple of continuous functions.
+  Therefore we have an isomorphism of \(\mathcal{C}_{X}|_{U_{i}}\)-modules \(\mathcal{E}|_{U_{i}} \cong \left( \mathcal{C}_{X}(k)|_{U_{i}} \right)^{\oplus n}\), making \(\mathcal{E} \in \category{LocFree}_{n}(\sheaf{O}_{X})\).
+
+  On the other hand, let \(\sheaf{F}\) be a \hyperref[def:locally-free-sheaf]{locally free sheaf of \(\mathcal{C}_{X}(k)\)-modules} of rank \(n\).
+\end{proof}
+
+
+\begin{definition}[Smooth vector bundle] \label{def:smooth-vector-bundle}
+  Let \(M\) be a smooth manifold.
+  Let \(k \in \{\mathbb{R}, \mathbb{C}\}\) be either the field of real or complex numbers.
+
+  A \textbf{smooth \(k\)-vector bundle} is a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle} \(E \xrightarrow{\pi} M\) such that
+  \begin{enumerate}
+    \item \(E\) is a smooth manifold.
+    \item The projection map \(\pi: E \to M\) is smooth.
+    \item The local trivialization maps \(\phi_{i}: U_{i} \times k^{n_{i}} \isoarrow \pi^{-1}(U_{i})\) are diffeomorphism.
+  \end{enumerate}
+
+  
+  A \textbf{morphism} of smooth \(k\)-vector bundles from \(E_{1} \xrightarrow{\pi_{1}} M\) to \(E_{2} \xrightarrow{\pi_{2}} M\) is \hyperref[def:topological-vector-bundle]{morphism of topological vector bundles} \(f: E_{1} \to E_{2}\) such that \(f\) is smooth.
+
+  We denote by \(\Vect_{k}^{\infty}(X)\) the category of smooth \(k\)-vector bundles over \(X\).
+\end{definition}
+
+
+
+
+\end{document}

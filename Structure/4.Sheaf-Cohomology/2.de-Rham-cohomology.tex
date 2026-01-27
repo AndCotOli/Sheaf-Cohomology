@@ -14,7 +14,7 @@
   A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to this covering.
 \end{definition}
 
-\begin{proposition} \label{prop:flasque-are-acyclic}
+\begin{proposition} \label{prop:fine-are-acyclic}
   \hyperref[def:fine-sheaf]{Fine sheaves} are \hyperref[def:acyclic-object]{\(\Gamma(X, -)\) acyclic}.
 \end{proposition}
 \begin{proof}
@@ -49,8 +49,282 @@
   \end{equation*}
 \end{proof}
 
+\begin{definition} \label{def:smooth-k-form-bundle}
+  Let \(M\) be a smooth manifold of dimension \(m\).
+
+  The \textbf{bundle of \(k\)-forms} \(\Lambda^{k}(\operatorname{T}^{\ast}M)\) is the \hyperref[def:smooth-vector-bundle]{smooth vector bundle} defined with:
+  \begin{itemize}
+    \item \textit{Total space}: \(\Lambda^{k}(\operatorname{T}^{\ast}M) = \coprod_{p \in M} \Lambda^{k}(\operatorname{T}_{p}^{\ast}M)\).
+    \item \textit{Projection map}: \(\pi: \Lambda^{k}(\operatorname{T}^{\ast}M) \to M,\; \pi(p, \omega) = p\).
+    \item \textit{Fiber space}: For every \(p \in M\) the fiber \(E_{p} = \pi^{-1}(\{p\}) = \Lambda^{k}(\operatorname{T}_{p}^{\ast}M)\) is a real vector space of dimension \({m \choose k}\).
+  \end{itemize}
+  To define the local trivialization, consider a local chart \((U, \{x^{i}\}_{i=1}^{m})\) of \(M\).
+  Then the differentials \(\{\mathrm{d}x^{i_{1}} \wedge \cdots \wedge \mathrm{d}x^{i_{k}}\}_{1 \leq i_{1} < \cdots < i_{k} \leq m}\) form a basis for each fiber with base point in \(U\) and the map \(\phi^{-1}: \pi^{-1}(U) \to U \times \mathbb{R}^{{m \choose k}}\) is given by sending a form \(\omega\) to its coefficients in this base.
+\end{definition}
+
+\begin{notation}
+  Let \(I = (i_{1}, \ldots, i_{k})\) be a multi-index.
+  We will write
+  \begin{equation*}
+    \mathrm{d}x^{I} = \mathrm{d}x^{i_{1}} \wedge \cdots \mathrm{d}x^{i_{k}}
+  \end{equation*}
+  In this way the basis of the local trivialization is \(\{\mathrm{d}x^{I}\}_{I}\).
+\end{notation}
+
+
+\begin{definition}[Smooth \(k\)-form] \label{def:smooth-k-form}
+  Let \(M\) be a smooth manifold of dimension \(m\).
+
+  The \textbf{\hyperref[def:sheaf]{sheaf} of \(k\)-forms} \(\Omega^{k}(M)\) over \(M\) is the \hyperref[def:sheaf-of-sections]{sheaf of sections} of the \hyperref[def:smooth-k-form-bundle]{bundle of \(k\)-forms} \(\Lambda^{k}(\operatorname{T}^{\ast}M)\).
+
+  More concretely, a \(k\)-form over an open set \(U\) is a map \(\omega: U \to \Lambda^{k}(\operatorname{T}^{\ast}M)\) such that \(\pi \circ \omega = \id_{U}\).
+\end{definition}
+
+\begin{example}
+  Let \(M\) be a smooth manifold of dimension \(m\).
+
+  Note that \(\Lambda^{0}(\operatorname{T}^{\ast}M) = M \times \mathbb{R}\) is the \hyperref[ex:trivial-topological-vector-bundle]{trivial vector bundle}.
+  Therefore a \hyperref[def:smooth-k-form]{\(0\)-form} is a map \(\omega: M \to M \times \mathbb{R}\) such that \(\pi \circ \omega = \id_{M}\), i.e: \(\omega\) is a smooth function.
+
+  This means that \(\Omega^{0}(M) \cong \mathcal{C}^{\infty}(M)\).
+\end{example}
+
+\begin{example}
+  Let \(M\) be a smooth manifold of dimension \(m\).
+
+  Suppose that \(k > m\).
+  Since the fibers of the \hyperref[def:smooth-k-form-bundle]{bundle of \(k\)-forms} \(\Lambda^{k}(\operatorname{T}^{\ast}M)\) have dimension \({m \choose k}\) this means that at least one index \(i\) in the multi-index \(I\) will be repeated.
+  Therefore since \(\mathrm{d}x^{i} \wedge \mathrm{d}x^{i} = 0\) we have that \(\mathrm{d}x^{I} = 0\), i.e: \(\Lambda^{k}(\operatorname{T}^{\ast}M) = 0\).
+
+  In particular \(\Omega^{k}(M) = 0\) for all \(k > m\).
+\end{example}
 
 
 
-\end{document}
+\begin{definition}[Exterior derivative] \label{def:exterior-derivative-k-form}
+  Let \(\omega\) be a \hyperref[def:smooth-k-form]{\(k\)-form} over a smooth manifold \(M\).
+  If \((U, \{x^{i}\}_{i=1}^{m})\) is a local chart then there exist functions \(\alpha_{I} \in \mathcal{C}^{\infty}(M)\) such that
+  \begin{equation*}
+    \omega = \sum_{I} \alpha_{I} \mathrm{d}x^{I}
+  \end{equation*}
+  where \(I = (i_{1}, \ldots, i_{k})\) is a multi-index and \(\mathrm{d}x^{I} = \mathrm{d}x^{i_{1}} \wedge \cdots \mathrm{d}x^{i_{k}}\).
+
+  We can define the \textbf{exterior derivative} of \(\omega\) as the \(k+1\)-form
+  \begin{equation*}
+    \mathrm{d}\omega = \sum_{I} \mathrm{d}\alpha_{I} \wedge \mathrm{d}x^{I} = \sum_{I} \left( \sum_{j=1}^{m} \frac{\partial \alpha_{I}}{\partial x^{j}} \mathrm{d}x^{j} \right) \wedge \mathrm{d}x^{I}
+  \end{equation*}
+\end{definition}
+
+\begin{lemma} \label{lemma:double-exterior-derivative-is-zero}
+  Let \(M\) be a smooth manifold of dimension \(m\).
+
+  Then for any \hyperref[def:smooth-k-form]{\(k\)-form} the \hyperref[def:exterior-derivative-k-form]{exterior derivative} verifies \(\mathrm{d}^{2} \omega = 0\), i.e: the sequence
+  \begin{center}
+    \begin{tikzcd}
+      \Omega^{0}(M) \arrow[r, "\mathrm{d}"] & \Omega^{1}(M) \arrow[r, "\mathrm{d}"] & \Omega^{2}(M) \arrow[r, "\mathrm{d}"] & \cdots
+    \end{tikzcd}
+  \end{center}
+  is a \hyperref[def:complex]{complex} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathcal{C}^{\infty}(M)\)-modules}.
+\end{lemma}
+\begin{proof}
+  It suffices to show that for any smooth function \(f \in \mathcal{C}^{\infty}(M) \cong \Omega^{0}(M)\) we have \(\mathrm{d}^{2}f = 0\).
+  Indeed, if \(\mathrm{d}^{2}f = 0\) then for any \textit{basic} form \(f\mathrm{d}x^{I}\) we have
+  \begin{equation*}
+    \mathrm{d}(f\mathrm{d}x^{I}) = \mathrm{d}(\mathrm{d}f \wedge \mathrm{d}x^{I}) = \mathrm{d}^{2}f \wedge \mathrm{d}x^{I} - \mathrm{d}f \wedge \mathrm{d}^{2}x^{I} = 0
+  \end{equation*}
+
+  Let \(f \in \mathcal{C}^{\infty}(M)\) be a smooth function.
+  Its \hyperref[def:exterior-derivative-k-form]{exterior derivative} is
+  \begin{equation*}
+    \mathrm{d}f = \sum_{i = 1}^{m} \frac{\partial f}{\partial x^{i}} \mathrm{d}x^{i}
+  \end{equation*}
+  Differentiating again we get
+  \begin{equation*}
+    \mathrm{d}^{2}f = \sum_{j=1}^{m} \frac{\partial}{\partial x^{j}} \left( \sum_{i=1}^{m}  \frac{\partial f}{\partial x^{i}} \right) \wedge \mathrm{d}x^{j} = \sum_{i,j=1}^{m} \frac{\partial^{2} f}{\partial x^{i} \partial x^{j}} \mathrm{d}x^{i} \wedge \mathrm{d}x^{j}
+  \end{equation*}
+  By Clairaut's theorem we have that \( \frac{\partial^{2} f}{\partial x^{i} \partial x^{j}} =  \frac{\partial^{2} f}{\partial x^{j} \partial x^{i}}\) and by the antisymmetry of the wedge product \(\mathrm{d}x^{i} \wedge \mathrm{d}x^{j} = - \mathrm{d}x^{j} \wedge \mathrm{d}x^{j}\).
+  Therefore all the terms cancel leaving
+  \begin{equation*}
+    \mathrm{d}^{2} f = 0
+  \end{equation*}
+\end{proof}
+
+\begin{definition}[de Rham complex] \label{def:de-rham-complex}
+  Let \(M\) be a smooth manifold of dimension \(m\).
+  The \textbf{de Rham complex} of \(M\) is the \hyperref[def:complex]{complex} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathcal{C}^{\infty}(M)\)-modules}
+  \begin{center}
+    \begin{tikzcd}
+      \Omega^{\bullet}(M) \coloneq \Omega^{0}(M) \arrow[r, "\mathrm{d}"] & \Omega^{1}(M) \arrow[r, "\mathrm{d}"] & \cdots \arrow[r, "\mathrm{d}"] & \Omega^{m}(M) \arrow[r, "\mathrm{d}"] & 0
+    \end{tikzcd}
+  \end{center}
+  where \(\Omega^{k}(M)\) is the \hyperref[def:smooth-k-form]{sheaf of \(k\)-forms} over \(M\) and \(\mathrm{d}\) is the \hyperref[def:exterior-derivative-k-form]{exterior derivative}.
+\end{definition}
+
+\begin{lemma}[Poincaré] \label{lemma:poincare}
+  Let \(U \subseteq \mathbb{R}^{n}\) be a contractible open set and \(k \geq 1\).
+  If \(\omega \in \Omega^{k}(U)\) is a \hyperref[def:smooth-k-form]{\(k\)-form} such that \(\mathrm{d}\omega = 0\) then there exists a \hyperref[def:smooth-k-form]{\((k-1)\)-form} \(\eta \in \Omega^{k-1}(U)\) such that \(\mathrm{d}\eta = \omega\).
+\end{lemma}
+
+\begin{lemma} \label{lemma:de-rham-complex-exact}
+  The \hyperref[def:de-rham-complex]{de Rham complex} is \hyperref[def:exact-complex]{exact}.
+\end{lemma}
+\begin{proof}
+  For \(k \geq 1\) consider the relevant part of the complex
+  \begin{center}
+    \begin{tikzcd}
+      \Omega^{k-1} \arrow[r, "\mathrm{d}^{k-1}"] & \Omega^{k} \arrow[r, "\mathrm{d}^{k}"] & \Omega^{k+1}
+    \end{tikzcd}
+  \end{center}
+  We need to show that for any \(p \in M\) the complex
+  \begin{center}
+    \begin{tikzcd}
+      \left(\Omega^{k-1}\right)_{p} \arrow[r, "\mathrm{d}_{p}^{k-1}"] & \left(\Omega^{k}\right)_{p} \arrow[r, "\mathrm{d}_{p}^{k}"] & \left(\Omega^{k+1}\right)_{p}
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-complex]{exact}, i.e: \(\im \mathrm{d}_{p}^{k-1} = \ker \mathrm{d}_{p}^{k}\).
+
+  For the \([\subseteq]\) inclusion, let \(\mathrm{d}\eta \in \im \mathrm{d}^{k-1} \subseteq \Omega^{k}\). By \autoref{lemma:double-exterior-derivative-is-zero} we have that \(\mathrm{d}(\mathrm{d}\eta) = 0\), i.e: \(\mathrm{d}\eta \in \ker \mathrm{d}^{k}\).
+
+  For the \([\supseteq]\) inclusion, let \([\omega]_{p} \in \ker \mathrm{d}_{p}^{k}\), i.e: \([\omega]_{p} \in \left( \Omega^{k} \right)_{p}\) verifies \(\mathrm{d}_{p}^{k}[\omega]_{p} = 0\).
+  By definition there exists an open neighbourhood \(U\) of \(p\) and a \hyperref[def:smooth-k-form]{\(k\)-form} \(\omega\) such that \(\mathrm{d}^{k}\omega|_{U} = 0\).
+
+  Since \(M\) is a smooth manifold of dimension \(m\) we can choose a local chart \((V, \psi)\) around \(p\) such that \(V \subseteq U\) and \(\psi(V)\) is an open ball in \(\mathbb{R}^{m}\).
+  Since open balls are contractible, by \hyperref[lemma:poincare]{Poincaré's lemma} there exists a \hyperref[def:smooth-k-form]{\((k-1)\)-form} \(\eta \in \Omega^{k-1}(V)\) such that \(\mathrm{d}^{k-1}\eta = \omega|_{V}\).
+
+  Therefore there exists \([\eta]_{p} \in \left( \Omega^{k-1} \right)_{p}\) such that \(\mathrm{d}_{p}^{k-1}[\eta]_{p} = [\omega]_{p}\), i.e: \([\omega]_{p} \in \im d_{p}^{k-1}\).
+\end{proof}
+
+
+\begin{lemma} \label{lemma:smooth-k-form-fine}
+  Let \(M\) be a smooth paracompact manifold.
+  Then for all \(k\) the \hyperref[def:smooth-k-form]{sheaf of \(k\)-forms} \(\Omega^{k}(M)\) is \hyperref[def:fine-sheaf]{fine}.
+\end{lemma}
+\begin{proof}
+  Let \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) be an arbitrary open cover of \(M\).
+
+  Since \(M\) is paracompact there exists a partition of unity \(\{f_{i}\}_{i \in \mathcal{I}} \subset \mathcal{C}^{\infty}(M)\) subordinate to \(\mathscr{U}\).
+  This means that
+  \begin{align*}
+    \forall i \in \mathcal{I} \quad& \operatorname{supp} f_{i} \subseteq U_{i} \\
+    \forall p \in M \quad& \sum_{i \in \mathcal{I}} f_{i}(p) = 1
+  \end{align*}
+  and this last sum is finite.
+
+  For all indices \(i \in \mathcal{I}\) consider the map
+  \begin{align*}
+    \eta_{i}:\,& \Omega^{k}(M) \to \Omega^{k}(M) \\
+            & \omega \mapsto f_{i} \cdot \omega
+  \end{align*}
+  Note that since \(\operatorname{supp} f_{i} \subseteq U_{i}\) we have \(\operatorname{supp} \eta_{i} \subseteq U_{i}\).
+  Furthermore for any \hyperref[def:smooth-k-form]{\(k\)-form} \(\omega\)
+  \begin{equation*}
+    \sum_{i \in \mathcal{I}} \eta_{i}(\omega) = \sum_{i \in \mathcal{I}} f_{i} \cdot \omega = \left( \sum_{i \in \mathcal{I}} f_{i} \right) \cdot \omega = 1 \cdot \omega = \omega
+  \end{equation*}
+  Therefore \(\sum_{i \in \mathcal{I}} \eta_{i} = \id\), making \(\{\eta_{i}\}_{i \in \mathcal{I}}\) a partition of unity subordinate to \(\mathscr{U}\).
+\end{proof}
+
+
+
+\begin{theorem}
+  Let \(M\) be a smooth paracompact manifold.
+  Then
+  \begin{equation*}
+     \cohomology{\bullet}(M, \underline{\mathbb{R}}) \cong \cohomology{\bullet}_{\operatorname{dR}}(M, \mathbb{R})
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  Consider the resolution
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \underline{\mathbb{R}} \arrow[r] & \Omega^{\bullet}(M)
+    \end{tikzcd}
+  \end{center}
+  where \(\Omega^{\bullet}\) is the \hyperref[def:de-rham-complex]{de Rham complex} of \(M\).
+
+  By \autoref{lemma:de-rham-complex-exact} we know that \(\Omega^{\bullet}(M)\) is \hyperref[def:exact-complex]{exact}, therefore we only need to show that this resolution is \hyperref[def:exact-complex]{exact} at \(\Omega^{0}(M)\), i.e: that for all \(p \in M\)
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \underline{\mathbb{R}}_{p} \arrow[r, "\iota_{p}"] & \Omega_{p}^{0} \arrow[r, "\mathrm{d}_{p}"] & \Omega_{p}^{1}
+    \end{tikzcd}
+  \end{center}
+  is a \hyperref[def:short-exact-sequence]{short exact sequence}, i.e: \(\im \iota_{p} = \ker \mathrm{d}_{p}\).
+
+  \begin{itemize}
+    \item[\(\subseteq\)] Let \([c]_{p} \in \underline{\mathbb{R}}_{p}\). By definition this is a locally constant function \(c: U \to \mathbb{R}\) on some open neighbourhood \(U\) of \(p\).
+
+          Since \(c\) is locally constant we have that \(\mathrm{d}c|_{U} = 0\), i.e \(\mathrm{d}_{p}[c]_{p} = 0\).
+    \item[\(\supseteq\)] Let \([f]_{p} \in \Omega_{p}^{0}\) such that \(\mathrm{d}_{p}[f]_{p} = 0\).
+          This means that there exists an open neighbourhood \(U\) of \(p\) and a function \(f \in \Omega^{0}(V) \cong \mathcal{C}^{\infty}(M)\) such that \(\mathrm{d}f|_{V} = 0\).
+
+          Without loss of generality we may assume that \(U\) is connected.
+          Therefore we have that \(f|_{U}\) is a constant function, i.e: \([f]_{p} \in \underline{\mathbb{R}}_{p}\).
+  \end{itemize}
+
+  Therefore since by \autoref{lemma:smooth-k-form-fine} the resolution is made of \hyperref[def:fine-sheaf]{fine sheaves} and \hyperref[prop:fine-are-acyclic]{fine sheaves are \(\Gamma(X, -)\) acyclic} by definition of \hyperref[def:sheaf-cohomology]{sheaf cohomology}
+  \begin{equation*}
+      \cohomology{\bullet}(M, \underline{\mathbb{R}}) = \cohomology{\bullet}_{\operatorname{dR}}(M, \mathbb{R})
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}
+  Let \(M\) be a smooth paracompact manifold of dimension \(m\).
+  Then for all \(k > m\)
+  \begin{equation*}
+    \cohomology{k}(M, \underline{\mathbb{R}}) = 0
+  \end{equation*}
+\end{corollary}
+
+\begin{example}[The cohomology of \(S^{1}\)]
+  Consider the circle \(S^{1}\) as a smooth manifold of dimension 1.
+
+  We are going to compute its \hyperref[def:sheaf-cohomology]{sheaf cohomology} with coefficients in \(\underline{\mathbb{R}}\), \(\cohomology{\bullet}(S^{1}, \underline{\mathbb{R}})\), using the \hyperref[def:de-rham-complex]{de Rham complex}
+  \begin{center}
+    \begin{tikzcd}
+      \Omega^{0}(S^{1}) \arrow[r, "\mathrm{d}^{0}"] & \Omega^{1}(S^{1}) \arrow[r, "\mathrm{d}^{1}"] & 0
+    \end{tikzcd}
+  \end{center}
+
+  On the one hand
+  \begin{equation*}
+    \cohomology{0}(S^{1}, \underline{\mathbb{R}}) = \ker d^{0} = \{f \in \Omega^{0}(S^{1}) \cong \mathcal{C}^{\infty}(S^{1}) \mid \mathrm{d}f = 0\}
+  \end{equation*}
+  Since \(S^{1}\) is connected, the only functions with 0 derivative are the constant functions.
+  Therefore
+  \begin{equation*}
+    \cohomology{0}(S^{1}, \underline{\mathbb{R}}) = \mathbb{R}
+  \end{equation*}
+
+  On the other
+  \begin{equation*}
+    \cohomology{1}(S^{1}, \underline{\mathbb{R}}) = \quot{\ker d^{1}}{\im d^{0}} = \quot{\{\omega \in \Omega^{1}(S^{1}) \mid \mathrm{d}\omega = 0\}}{\{\mathrm{d}f \mid f \in \Omega^{0}(S^{1}) \cong \mathcal{C}^{\infty}(S^{1})\}}
+  \end{equation*}
+
+  Note that since \(\Omega^{2}(M) = 0\) all \hyperref[def:smooth-k-form]{\(1\)-forms} \(\omega \in \Omega^{1}(S^{1})\) verify \(\mathrm{d}\omega = 0\).
+  Therefore
+  \begin{equation*}
+    \{\omega \in \Omega^{1}(S^{1}) \mid \mathrm{d}\omega = 0\} = \Omega^{1}(S^{1})
+  \end{equation*}
+  Consider now the \textit{integration} map
+  \begin{align*}
+    I:\,& \Omega^{1}(S^{1}) \to \mathbb{R} \\
+        & \omega \mapsto \int_{S^{1}} \omega 
+  \end{align*}
+  Let \(\mathrm{d}\theta\) be the differential of the angle.
+  Since \(I(\mathrm{d}\theta) = 2\pi\) we have that \(I\) is surjective.
+  Furthermore by Stoke's theorem we have that \(I(\omega) = 0\) if and only if \(w = \mathrm{d}f\) for some \(f \in \mathcal{C}^{\infty}(S^{1})\).
+
+  Therefore by the first isomorphism theorem we have that
+  \begin{equation*}
+    \cohomology{1}(S^{1}, \underline{\mathbb{R}}) = \quot{\Omega^{1}(S^{1})}{\ker I} \cong \im I = \mathbb{R}
+  \end{equation*}
+
+  In summary, we have that
+  \begin{align*}
+    \cohomology{k}(S^{1}, \underline{\mathbb{R}}) = \begin{cases}
+      \mathbb{R} & k \in \{0, 1\} \\
+      0 & k > 1
+    \end{cases}
+  \end{align*}
+\end{example}
+
 \end{document}

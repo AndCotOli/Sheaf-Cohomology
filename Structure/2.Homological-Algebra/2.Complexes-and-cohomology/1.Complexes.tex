@@ -76,7 +76,7 @@ Throughout this chapter we will be working over a fixed \hyperref[def:abelian-ca
       C^{i}  & C^{i+1}  \\
     \end{tikzcd}
   \end{center}
-  Since the inner square is commutative we get unique morphisms \(K^{i} \to K^{i+1}\) and \(C^{i} \to C^{i+1}\) making the whole diagram commute, obtaining \hyperref[def:complexes]{chain complexes} \(K^{\bullet}\) and \(C^{\bullet}\) and \hyperref[def:complex-morphism]{morphisms of chains} \(\ker f^{\bullet}, \coker f^{\bullet}\).
+  Since the inner square is commutative we get unique morphisms \(K^{i} \to K^{i+1}\) and \(C^{i} \to C^{i+1}\) making the whole diagram commute, obtaining \hyperref[def:complex]{chain complexes} \(K^{\bullet}\) and \(C^{\bullet}\) and \hyperref[def:complex-morphism]{morphisms of chains} \(\ker f^{\bullet}, \coker f^{\bullet}\).
   It is then easy to check that \(\ker f^{\bullet}\) and \(\coker f^{\bullet}\) verify the corresponding universal properties.
 
   On the other hand, by \autoref{remark:mono-epi-in-complexes} the other axiom is easily verified \textit{element by element}.
@@ -93,7 +93,7 @@ Throughout this chapter we will be working over a fixed \hyperref[def:abelian-ca
 \end{definition}
 
 \begin{notation}
-  We denote by \(\Complex[-, +, b]{\category{A}} \hookrightarrow \Complex{\category{A}}\) the \hyperref[def:full-subcategory]{full subcategory} of the \hyperref[def:complex-category]{chain complex category} consisting of \hyperref[def:bounded-complexes]{bounded below}, \hyperref[def:bounded-complexes]{bounded above} and \hyperref[def:bounded-complexes]{bounded} complexes respectively.
+  We denote by \(\Complex[-, +, b]{\category{A}} \hookrightarrow \Complex{\category{A}}\) the \hyperref[def:subcategory]{full subcategory} of the \hyperref[def:complex-category]{chain complex category} consisting of \hyperref[def:bounded-complexes]{bounded below}, \hyperref[def:bounded-complexes]{bounded above} and \hyperref[def:bounded-complexes]{bounded} complexes respectively.
 
   We also have variants \(\Complex[\geq 0, \leq 0]{\category{A}} \hookrightarrow \Complex{\category{A}}\) of complexes with \(\forall i \geq 0\) (resp \(\forall  i \leq 0\)) \(C^{i} = 0\).
 
@@ -139,7 +139,7 @@ Throughout this chapter we will be working over a fixed \hyperref[def:abelian-ca
       C^{i-1} \arrow[r, "d^{i-1}"] & C^{i} \arrow[r, "d^{i}"] & C^{i+1}
     \end{tikzcd}
   \end{center}
-  is \hyperref[def:exact-sequence]{exact}.
+  is \hyperref[def:exact-complex-sequence]{exact}.
 
   If the \hyperref[def:complex]{complex} is exact at every position, we say that it is \textbf{exact}.
 \end{definition}

@@ -15,7 +15,7 @@
   \begin{equation*}
     \PSh_{X}(\category{C}) \coloneq \Fun{\Open(X)^{\op}}{\category{C}}
   \end{equation*}
-  The elements of this category are \hyperref[def:functor]{functors} \(\mathcal{F}: \Open(X)^{\op} \to \category{C}\) and morphisms are \hyperref[def:natural-transormation]{natural transformations} \(\phi: \mathcal{F} \to \mathcal{G}\).
+  The elements of this category are \hyperref[def:functor]{functors} \(\mathcal{F}: \Open(X)^{\op} \to \category{C}\) and morphisms are \hyperref[def:natural-transformation]{natural transformations} \(\phi: \mathcal{F} \to \mathcal{G}\).
 \end{definition}
 
 Less abstractly, a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) is the collection of data:
@@ -113,7 +113,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
 
   This defines a \hyperref[def:functor]{functor} \(\Gamma(X, -): \PSh_{X}(\category{C}) \to \mathsf{Arr}(\category{C})\).
 
-  In particular, if \(\mathcal{F}(\varnothing)\) is a \hyperref[def:terminal-object]{terminal object} in \(\category{C}\) we can identify \(\mathcal{F}(X) \to \mathcal{F}(\varnothing)\) with \(\mathcal{F}(X)\), getting a \hyperref[def:functor]{functor} \(\Gamma(X, -): \PSh_{X}(\category{C}) \to \category{C}\).
+  In particular, if \(\mathcal{F}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\) we can identify \(\mathcal{F}(X) \to \mathcal{F}(\varnothing)\) with \(\mathcal{F}(X)\), getting a \hyperref[def:functor]{functor} \(\Gamma(X, -): \PSh_{X}(\category{C}) \to \category{C}\).
 \end{example}
 
 \begin{example}[Skyscraper presheaf] \label{ex:skyscraper-presheaf}
@@ -146,7 +146,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
   \end{equation}
   This defines a \hyperref[def:functor]{functor} \(\iota_{p, \ast}: \mathsf{Arr}(\category{C}) \to \PSh_{X}(\category{C})\).
 
-  In particular if \(T = \mathcal{R}(\varnothing)\) is a \hyperref[def:terminal-object]{terminal object} in \(\category{C}\) we can identify \(\rho: S \to T\) with \(S\), getting a \hyperref[def:functor]{functor} \(\iota_{p, \ast}: \category{C} \to \PSh_{X}(\category{C})\).
+  In particular if \(T = \mathcal{R}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\) we can identify \(\rho: S \to T\) with \(S\), getting a \hyperref[def:functor]{functor} \(\iota_{p, \ast}: \category{C} \to \PSh_{X}(\category{C})\).
   In this situation we write \(\iota_{p, \ast} \underline{S}_{\operatorname{pre}}\).
 \end{example}
 
@@ -218,7 +218,7 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
   \end{equation*}
   This defines a \hyperref[def:functor]{functor} \(\underline{\cdot}_{\operatorname{pre}}: \mathsf{Arr}(\category{C}) \to \PSh_{X}(\category{C})\)
 
-  Note that if \(T = \mathcal{R}(\varnothing)\) is a \hyperref[def:terminal-object]{terminal object} in \(\category{C}\) we can identify \(\rho: S \to T\) with \(S\), getting a \hyperref[def:functor]{functor} \(\underline{\cdot}_{\operatorname{pre}}: \category{C} \to \PSh_{X}(\category{C})\).
+  Note that if \(T = \mathcal{R}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\) we can identify \(\rho: S \to T\) with \(S\), getting a \hyperref[def:functor]{functor} \(\underline{\cdot}_{\operatorname{pre}}: \category{C} \to \PSh_{X}(\category{C})\).
   In this situation we write \(\underline{S}_{\operatorname{pre}}\).
 \end{example}
 
@@ -248,7 +248,7 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
   \end{equation*}
   This defines a \hyperref[def:functor]{functor} \(-_{p}: \PSh_{X}(\category{C}) \to \mathsf{Arr}(\category{C})\).
 
-  In particular if \(\varinjlim_{U \in \Open(X)} \mathcal{F}(U)\) is a \hyperref[def:terminal-object]{terminal object} in \(\category{C}\) we can identify
+  In particular if \(\varinjlim_{U \in \Open(X)} \mathcal{F}(U)\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\) we can identify
   \begin{equation*}
     \left(\varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U) \to \varinjlim_{\substack{U \in \Open(X)}} \mathcal{F}(U) \right) \cong \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U)
   \end{equation*}
@@ -274,7 +274,7 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
 \begin{theorem} \label{thm:direct-inverse-image-adjunction-presheaf}
   Let \(f: X \to Y\) be a continuous function between two topological spaces \(X, Y\).
   Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:direct-limit]{direct limits}.
-  Then there exists an \hyperref[def:adjoint-functor]{adjunction}
+  Then there exists an \hyperref[def:adjoint-functors]{adjunction}
   \begin{center}
     \begin{tikzcd}
       f_{\operatorname{pre}}^{-1} \dashv f_{\ast}: \PSh_{X}(\category{C}) \arrow[r, shift right, "f_{\ast}"'] &  \PSh_{Y}(\category{C}) \arrow[l, shift right, "f_{\operatorname{pre}}^{-1}"']
@@ -328,7 +328,7 @@ In particular, we get the following particular cases of \autoref{thm:direct-inve
     \Hom_{\PSh_{X}(\category{C})}(\underline{\rho}_{\operatorname{pre}}, \mathcal{F}) \simeq \Hom_{\mathsf{Arr}(\category{C})}(\rho, \Gamma(X, \mathcal{F}))
   \end{align*}
 
-  And in particular, if \(\mathcal{F}(\varnothing)\) and \(T\) are \hyperref[def:terminal-object]{terminal objects} in \(\category{C}\) we get
+  And in particular, if \(\mathcal{F}(\varnothing)\) and \(T\) are \hyperref[def:initial-terminal-object]{terminal objects} in \(\category{C}\) we get
   \begin{align*}
     \Hom_{\PSh_{X}(\category{C})}(\underline{S}_{\operatorname{pre}}, \mathcal{F}) \simeq \Hom_{\category{C}}(S, \Gamma(X, \mathcal{F}))
   \end{align*}
@@ -342,7 +342,7 @@ In particular, we get the following particular cases of \autoref{thm:direct-inve
     \Hom_{\mathsf{Arr}(\category{C})}(\mathcal{F}_{p}, \rho) \simeq \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota_{p, \ast} \underline{\rho}_{\operatorname{pre}} )
   \end{align*}
 
-  In particular if \(T\) and \(\varinjlim_{U \in \Open(X)} \mathcal{F}(U)\) are \hyperref[def:terminal-object]{terminal objects} in \(\category{C}\) we get
+  In particular if \(T\) and \(\varinjlim_{U \in \Open(X)} \mathcal{F}(U)\) are \hyperref[def:initial-terminal-object]{terminal objects} in \(\category{C}\) we get
   \begin{align*}
     \Hom_{\category{C}}(\mathcal{F}_{p}, S) \simeq \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota_{p, \ast} \underline{S}_{\pre})
   \end{align*}

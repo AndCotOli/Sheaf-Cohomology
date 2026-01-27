@@ -66,7 +66,7 @@
       0 \arrow[r] & A^{\bullet} \arrow[r, "f^{\bullet}"] & B^{\bullet} \arrow[r, "g^{\bullet}"] & C^{\bullet} \arrow[r] & 0
     \end{tikzcd}
   \end{center}
-  in \(\Complex{\category{A}}\) induces a \hyperref[def:long-exact-sequence]{long exact sequence} in \hyperref[def:cohomology]{cohomology}
+  in \(\Complex{\category{A}}\) induces a \hyperref[def:exact-complex]{long exact sequence} in \hyperref[def:cohomology]{cohomology}
   \begin{center}
     \begin{tikzcd}
       \cdots \arrow[r] & \cohomology{i-1}(B) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{i-1}(C) \arrow[dll, rounded corners, to path={
@@ -119,7 +119,7 @@
       0 \arrow[r] & \ker d_{A}^{i+1} \arrow[r] & \ker d_{B}^{i+1} \arrow[r] & \ker d_{C}^{i+1}
     \end{tikzcd}
   \end{center}
-  Applying the \hyperref[tmh:snake-lemma]{snake lemma} to this diagram we get an \hyperref[def:short-exact-sequence]{exact sequence}
+  Applying the \hyperref[thm:snake-lemma]{snake lemma} to this diagram we get an \hyperref[def:short-exact-sequence]{exact sequence}
   \begin{center}
     \begin{tikzcd}
       \ker \overline{d}_{A}^{i} \arrow[r] & \ker \overline{d}_{B}^{i} \arrow[r] \arrow[d, phantom, ""{coordinate, name=Z}] & \ker \overline{d}_{A}^{i} \arrow[dll, "\delta^{i}" description, rounded corners, to path={

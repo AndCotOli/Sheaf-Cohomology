@@ -9,7 +9,7 @@
 \begin{document}
 \section{Exactness}
 
-\begin{definition}[Exact sequence] \label{def:exact-sequence}
+\begin{definition}[Exact sequence] \label{def:exact-complex-sequence}
   An sequence of morphisms
   \begin{center}
     \begin{tikzcd}
@@ -42,7 +42,7 @@
     \end{tikzcd}
   \end{center}
 
-  Therefore by \autoref{lemma:partial-sequence-additive} the sequence \(0 \to X \xrightarrow{f} Y\) (resp. \(X \xrightarrow{f} Y \to 0\)) is \hyperref[def:exact-sequence]{exact} if and only if \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}).
+  Therefore by \autoref{lemma:partial-sequence-additive} the sequence \(0 \to X \xrightarrow{f} Y\) (resp. \(X \xrightarrow{f} Y \to 0\)) is \hyperref[def:exact-complex-sequence]{exact} if and only if \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}).
 \end{remark}
 
 \begin{theorem}[Snake lemma] \label{thm:snake-lemma}
@@ -99,7 +99,7 @@
 
   Taking \hyperref[def:categorical-kernel]{kernels} instead we get an \hyperref[def:exact-complex]{exact sequence} \(\ker \alpha' \to \ker \alpha \to \ker \alpha''\).
 
-  It remains to produce a map \(\delta: \ker \alpha'' \to \coker \alpha'\) and show that it induces an \hyperref[def:categorical--isomorphism]{isomorphism}
+  It remains to produce a map \(\delta: \ker \alpha'' \to \coker \alpha'\) and show that it induces an \hyperref[def:categorical-isomorphism]{isomorphism}
   \begin{align*}
     \coker(\ker \alpha \to \ker \alpha'') \cong \ker(\coker \alpha \to \coker \alpha')
   \end{align*}
@@ -143,8 +143,13 @@
   \end{center}
 \end{proof}
 
+\begin{theorem}[Nine lemma]\label{thm:nine-lemma}
+
+\end{theorem}
+
+
 \subsection{Exact functors}
-\begin{definition}[Exact functor] \label{def:exact-functor}
+\begin{definition}[Exact functor] \label{def:exact-complex-functor}
   Let \(\category{A}, \category{B}\) be two \hyperref[def:abelian-category]{abelian categories}.
 
   An \hyperref[def:additive-functor]{additive functor} \(F: \category{A} \to \category{B}\) is called left (resp. right) \textbf{exact} if for any \hyperref[def:short-exact-sequence]{short exact sequence} in \(\category{A}\)
@@ -165,7 +170,7 @@
 \end{definition}
 
 \begin{example} \label{ex:hom-left-exact}
-  The \hyperref[def:functor]{functors} \(\Hom_{\category{A}}(X, -)\) and \(\Hom_{\category{A}}(-, X)\) are both \hyperref[def:exact-functor]{left-exact functors} from \(\category{A}\) to \(\Ab\).
+  The \hyperref[def:functor]{functors} \(\Hom_{\category{A}}(X, -)\) and \(\Hom_{\category{A}}(-, X)\) are both \hyperref[def:exact-complex-functor]{left-exact functors} from \(\category{A}\) to \(\Ab\).
 \end{example}
 \begin{proof}
   We will check the statement about \(\Hom_{\category{A}}(X, -)\), the other follows analogously.
@@ -206,7 +211,7 @@ The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
   \begin{enumerate}
     \item The following are equivalent
           \begin{enumerate}
-            \item \(F\) is \hyperref[def:exact-functor]{left exact}.
+            \item \(F\) is \hyperref[def:exact-complex-functor]{left exact}.
             \item \(F\) commutes with \hyperref[def:categorical-kernel]{kernels}: for any morphism \(f: X \to Y\), \(F(\ker f) \isoarrow \ker F(f)\).
             \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits}.
             \item For any \hyperref[def:short-exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{A}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:short-exact-sequence]{exact} in \(\category{B}\).
@@ -214,7 +219,7 @@ The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
 
     \item  The following are equivalent
           \begin{enumerate}
-            \item \(F\) is \hyperref[def:exact-functor]{exact}.
+            \item \(F\) is \hyperref[def:exact-complex-functor]{exact}.
             \item For any \hyperref[def:exact-complex]{exact sequence} \(X \to Y \to Z\) in \(\category{A}\) the sequence \(F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-complex]{exact} in \(\category{B}\).
             \item \(F\) commutes with \hyperref[def:categorical-colimit]{finite limits} and \hyperref[def:categorical-colimit]{finite colimits}.
           \end{enumerate}
@@ -223,7 +228,7 @@ The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
 
 \begin{theorem} \label{thm:adjointness-and-exactness}
   Let \(L: \category{A} \to \category{B}\) and \(R: \category{B} \to \category{A}\) be an \hyperref[def:adjoint-functors]{adjoint} pair of \hyperref[def:additive-functor]{additive functors}.
-  Then \(L\) is \hyperref[def:exact-functor]{right exact} and \(R\) is \hyperref[def:exact-functor]{right exact}.
+  Then \(L\) is \hyperref[def:exact-complex-functor]{right exact} and \(R\) is \hyperref[def:exact-complex-functor]{right exact}.
 \end{theorem}
 \begin{proof}
   Let
@@ -247,15 +252,15 @@ The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
   By \hyperref[ex:hom-left-exact]{left-exactness of the \(\Hom\) functor} the top row is \hyperref[def:short-exact-sequence]{exact}.
   Therefore the bottom row must also be \hyperref[def:short-exact-sequence]{exact}.
 
-  By the \hyperref[lemma:yonneda-lemma]{Yonneda lemma} we have that
+  By the \hyperref[lemma:yoneda]{Yoneda lemma} we have that
   \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & RB' \arrow[r] & RB \arrow[r] & RB''
     \end{tikzcd}
   \end{center}
-  must be \hyperref[def:short-exact-sequence]{exact}, meaning that \(R\) is \hyperref[def:exact-functor]{left exact}.
+  must be \hyperref[def:short-exact-sequence]{exact}, meaning that \(R\) is \hyperref[def:exact-complex-functor]{left exact}.
 
-  In particular \(L^{\op}: A^{\op} \to B^{\op}\) is \hyperref[def:exact-functor]{left exact}, making \(L\) \hyperref[def:exact-functor]{right exact}.
+  In particular \(L^{\op}: A^{\op} \to B^{\op}\) is \hyperref[def:exact-complex-functor]{left exact}, making \(L\) \hyperref[def:exact-complex-functor]{right exact}.
 \end{proof}
 
 \end{document}

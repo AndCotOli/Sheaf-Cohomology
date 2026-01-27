@@ -13,7 +13,7 @@
 \section{Derived functors}
 
 \begin{definition} \label{def:right-derived-functor}
-  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
   If \(\category{A}\) \hyperref[def:enough-injectives-projectives]{has enough injectives} we define the \(i\)-th \textbf{right derived functor} (\(i \geq 0\)) as
   \begin{equation*}
     \forall A \in \category{A} \quad R^{i}F (A) \coloneq \cohomology{i}(F(I^{\bullet}))
@@ -34,23 +34,23 @@
 \end{remark}
 
 \begin{lemma}
-  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
   For every \(i \in \mathbb{N}\) the \hyperref[def:right-derived-functor]{right derived functor} \(R^{i}F\) is an \hyperref[def:additive-functor]{additive functor} from \(\category{A}\) to \(\category{B}\).
 \end{lemma}
 
 \begin{theorem}
-  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
-  The \hyperref[def:right-derived-functors]{right derived functors} \(R^{\bullet}F\) form a \hyperref[def:delta-functor]{cohomological \(\delta\)-functor}.
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
+  The \hyperref[def:right-derived-functor]{right derived functors} \(R^{\bullet}F\) form a \hyperref[def:delta-functor]{cohomological \(\delta\)-functor}.
 \end{theorem}
 
 \begin{theorem}
-  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
   Suppose that \(\category{A}\) \hyperref[def:enough-injectives-projectives]{has enough injectives}.
   Then for any object \(A \in \category{A}\) the \hyperref[def:right-derived-functor]{right derived functors} \(R^{\bullet}F\) form an \hyperref[def:universal-delta-functor]{universal \(\delta\)-functor}.
 \end{theorem}
 
 \begin{definition} \label{def:acyclic-object}
-  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
   An object \(Q \in \category{A}\) is called \(F\)-\textbf{acyclic} if
   \begin{equation*}
     \forall i > 0 \quad R^{i}F(Q) = 0
@@ -64,7 +64,7 @@
 
 
 \begin{theorem} \label{thm:dimension-shifting}
-  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
   If
   \begin{center}
     \begin{tikzcd}
@@ -176,7 +176,7 @@
     Z_{i} \coloneq \ker \left( Q^{i} \to Q^{i+1} \right) \cong  \im \left( Q^{i-1} \to Q^{i} \right)
   \end{equation*}
 
-  Since \(F\) is \hyperref[def:exact-functor]{left-exact} applying it to the \hyperref[def:short-exact-sequence]{short exact sequence} \(0 \to Z_{i} \to Q^{i} \to Q^{i+1}\) we get the \hyperref[def:short-exact-sequence]{short exact sequence}
+  Since \(F\) is \hyperref[def:exact-complex-functor]{left-exact} applying it to the \hyperref[def:short-exact-sequence]{short exact sequence} \(0 \to Z_{i} \to Q^{i} \to Q^{i+1}\) we get the \hyperref[def:short-exact-sequence]{short exact sequence}
   \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & F(Z_{i}) \arrow[r] & F(Q^{i}) \arrow[r] & F(Q^{i+1})

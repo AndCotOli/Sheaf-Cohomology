@@ -84,7 +84,7 @@
   Then the \hyperref[thm:LES-in-cohomology]{induced morphism} \(\cohomology{\bullet}(L^{\bullet}) \to \cohomology{\bullet}(M^{\bullet})\) is an \hyperref[def:categorical-isomorphism]{isomorphism} if and only if the \hyperref[def:mapping-cone]{mapping cone} \(\mCone{\alpha}{\bullet}\) is an \hyperref[def:exact-complex]{exact complex}.
 \end{corollary}
 \begin{proof}
-  Using \autoref{prop:connecting-iso-cohomology}, consider the following segment of the \hyperref[def:long-exact-sequence]{long exact sequence}
+  Using \autoref{prop:connecting-iso-cohomology}, consider the following segment of the \hyperref[def:exact-complex]{long exact sequence}
   \begin{center}
     \begin{tikzcd}
       \cdots \arrow[r] & \cohomology{i-1}(\mCone{\alpha}{\bullet}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Z}] & \cohomology{i}(L^{\bullet}) \arrow[dll, "\alpha^{\ast}", rounded corners, to path={
@@ -108,13 +108,13 @@
               \cdots \arrow[r, "\alpha^{\ast}"] & \cohomology{i}(M^{\bullet}) \arrow[r, "f"] & \cohomology{i}(\mCone{\alpha}{\bullet}) \arrow[r, "g"] & \cohomology{i+1}(L^{\bullet}) \arrow[r, "\alpha^{\ast}"] & \cdots
             \end{tikzcd}
           \end{center}
-          Using that the first \(\alpha^{\ast}\) is a surjective and \hyperref[def:exact-sequence]{exactness} we have that
+          Using that the first \(\alpha^{\ast}\) is a surjective and \hyperref[def:exact-complex-sequence]{exactness} we have that
           \begin{align*}
             \ker f = \im \alpha^{\ast} = \cohomology{i}(M^{\bullet})
           \end{align*}
           i.e: \(f\) is the zero map.
 
-          Using that the last \(\alpha^{\ast}\) is injective and \hyperref[def:exact-sequence]{exactness} we have that
+          Using that the last \(\alpha^{\ast}\) is injective and \hyperref[def:exact-complex-sequence]{exactness} we have that
           \begin{align*}
             \ker g = \ker \alpha^{\ast} = \{0\}
           \end{align*}
@@ -128,7 +128,7 @@
               \cdots \arrow[r] & 0 \arrow[r] & \cohomology{i}(L^{\bullet}) \arrow[r, "\alpha^{\ast}"] & \cohomology{i}(M^{\bullet}) \arrow[r] & 0 \arrow[r] & \cdots
             \end{tikzcd}
           \end{center}
-          Therefore by \hyperref[def:exact-sequence]{exactness} we have that \(\alpha^{\ast}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+          Therefore by \hyperref[def:exact-complex-sequence]{exactness} we have that \(\alpha^{\ast}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
   \end{itemize}
 \end{proof}
 

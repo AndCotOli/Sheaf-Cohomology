@@ -9,27 +9,27 @@
 \begin{document}
 \chapter{Cohomology of sheaves}
 
-Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-spaced]{ringed space}.
+Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space}.
 
-We want to define the cohomology of \(X\) with coefficients in a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} as the \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-section-ox-mod]{global sections functor}
+We want to define the cohomology of \(X\) with coefficients in a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} as the \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-sections-ox-mod]{global sections functor}
 \begin{align*}
   \Gamma(X, -): \Mod(\sheaf{O}_{X}) \to \Mod(\Gamma(X, \sheaf{O}_{X}))
 \end{align*}
 To do this, we need to check the following:
 \begin{enumerate}
   \item \(\Mod(\sheaf{O}_{X})\) and \(\Mod(\Gamma(X, \sheaf{O}_{X}))\) are \hyperref[def:abelian-category]{abelian categories}.
-  \item The \hyperref[def:functor]{functor} \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
+  \item The \hyperref[def:functor]{functor} \(\Gamma(X, -)\) is \hyperref[def:exact-complex-functor]{left exact}.
   \item \(\Mod(\sheaf{O})_{X}\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
 \end{enumerate}
 
 In \autoref{thm:mod-ox-is-abelian} we have proved that the category of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules} is \hyperref[def:abelian-category]{abelian}.
-Furthermore, since \(\Gamma(X, \sheaf{O}_{X})\) is a ring, \(\Mod(X, \sheaf{O}_{X})\) is also \hyperref[def:abelian-category]{abelian}.
+Furthermore, since \(\Gamma(X, \sheaf{O}_{X})\) is a ring, \(\Mod(\Gamma(X, \sheaf{O}_{X}))\) is also \hyperref[def:abelian-category]{abelian}.
 
 Recall that by \autoref{cor:global-constant-adjunction-ox-mod} \(\Gamma(X, -)\) is \hyperref[def:adjoint-functors]{right adjoint}.
-Therefore by \autoref{thm:adjointness-and-exactness} \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
+Therefore by \autoref{thm:adjointness-and-exactness} \(\Gamma(X, -)\) is \hyperref[def:exact-complex-functor]{left exact}.
 
 It only remains to show that \(\Mod(\sheaf{O}_{X})\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
-\begin{lemma} \label{lemma:mod-ox-has-enough-injectives}
+\begin{lemma}\label{lemma:mod-ox-has-enough-injectives}
   Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space}.
   The \hyperref[def:category]{category} \(\Mod(\sheaf{O}_{X})\) of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules} over \(X\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
 \end{lemma}
@@ -58,7 +58,7 @@ It only remains to show that \(\Mod(\sheaf{O}_{X})\) has \hyperref[def:enough-in
     \sheaf{I}(U) = \bigoplus_{p \in U} I_{p}
   \end{equation*}
 
-  Recall that by \autoref{cor:stalk-skyscraper-adjunction-ox-mod} the \hyperref[def:skyscraper-ox-mod]{skyscraper functor} is \hyperref[def:adjoint-functors]{left-adjoint} to the \hyperref[def:stalk-ox-mod]{stalk functor}, which is \hyperref[def:exact-functor]{exact}.
+  Recall that by \autoref{cor:stalk-skyscraper-adjunction-ox-mod} the \hyperref[def:skyscraper-ox-mod]{skyscraper functor} is \hyperref[def:adjoint-functors]{left-adjoint} to the \hyperref[def:stalk-ox-mod]{stalk functor}, which is \hyperref[def:exact-complex-functor]{exact}.
   Therefore by \autoref{prop:left-adjoints-and-injectives} \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective object}.
 
   Furthermore, there exists a \hyperref[def:mono-epi-morphism]{monomorphism} \(\phi: \sheaf{F} \to \sheaf{I}\) defined as, for any open set \(U \subseteq X\)
@@ -69,7 +69,7 @@ It only remains to show that \(\Mod(\sheaf{O}_{X})\) has \hyperref[def:enough-in
 \end{proof}
 
 Having seen this, we now can finally define sheaf cohomology.
-\begin{definition}[Sheaf Cohomology] \label{def:sheaf-cohomology}
+\begin{definition}[Sheaf Cohomology]\label{def:sheaf-cohomology}
   Let \((X, \sheaf{O}_{X})\) be a \hyperref[def:ringed-space]{ringed space}.
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} over a topological space \(X\).
   The \(i\)-th \textbf{cohomology} of \(X\) with coefficients in \(\sheaf{F}\) as the \(i\)-th \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-section-sheaf]{global sections functor}:
@@ -95,11 +95,11 @@ Since \hyperref[def:injective-projective-resolution]{injective resolutions} are 
 
 \section{The Godement resolution}
 
-\begin{definition}[Flasque sheaf] \label{def:flasque-sheaf}
+\begin{definition}[Flasque sheaf]\label{def:flasque-sheaf}
   A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{flasque} (or \textbf{flabby}) if for any inclussion of open subsets \(V \subseteq U\) the restriction map \(\res_{U, V}: \sheaf{F}(U) \to \sheaf{F}(V)\) is surjective.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:flasque-are-acyclic}
   \hyperref[def:flasque-sheaf]{Flasque sheaves} are \hyperref[def:acyclic-object]{\(\Gamma(X, -)\) acyclic}.
 \end{proposition}
 \begin{proof}
@@ -140,7 +140,7 @@ Since \hyperref[def:injective-projective-resolution]{injective resolutions} are 
 
 
 Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical (and functorial) resolution of a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} to compute its \hyperref[def:sheaf-cohomology]{cohomology}.
-\begin{construction}[Godement resolution] \label{def:godement-resolution}
+\begin{construction}[Godement resolution]\label{def:godement-resolution}
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
   The \textbf{Godement resolution} of \(\sheaf{F}\) is constructed by considering the inclussion of \(\sheaf{F}\) into the \textit{Godement sheaf} \(\sheaf{F}_{\operatorname{God}}\)
   \begin{equation*}
@@ -160,7 +160,7 @@ Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical
   To compute the \hyperref[def:sheaf-cohomology]{cohomology} of \(\sheaf{F}\), we are going to construct the complex of global sections:
   \begin{center}
     \begin{tikzcd}
-      0 \arrow[r] & \Gamma(X, \sheaf{F}_{\operatorname{God}}) \arrow[r, "d^{0}"] & \Gamma\left(X, \left( \quot{\sheaf{F}_{\operatorname{God}}}{\sheaf{F}} \right)_{\operatorname{God}}\right) \arrow[r, "d^{1}"] & \cdots
+      0 \arrow[r] & \Gamma(X, \sheaf{F}_{\operatorname{God}}) \arrow[r, "d^{0}"] & \Gamma\left(X, \left(\quot{\sheaf{F}_{\operatorname{God}}}{\sheaf{F}} \right)_{\operatorname{God}}\right) \arrow[r, "d^{1}"] & \cdots
     \end{tikzcd}
   \end{center}
 

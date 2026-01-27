@@ -22,7 +22,7 @@
   a morphism \(\delta^{n}: T^{n}(C) \to T^{n+1}(A)\). We take the convention that \(\forall n < 0 \quad T^{n} = 0\).
   Furthermore
   \begin{enumerate}
-    \item For each \hyperref[def:short-exact-sequence]{short exact sequence} as above there exists a \hyperref[def:exact-sequence]{long exact sequence}
+    \item For each \hyperref[def:short-exact-sequence]{short exact sequence} as above there exists a \hyperref[def:exact-complex-sequence]{long exact sequence}
           \begin{center}
             \begin{tikzcd}
               \cdots \arrow[r] & T^{n-1}(B) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & T^{n-1}(C) \arrow[dll, rounded corners, to path={
@@ -38,7 +38,7 @@
       T^{n+1}(A) \arrow[r] & T^{n+1}(B) \arrow[r] & \cdots
             \end{tikzcd}
           \end{center}
-          In particular \(T^{0}\) is \hyperref[def:exact-functor]{left exact}.
+          In particular \(T^{0}\) is \hyperref[def:exact-complex-functor]{left exact}.
     \item For each morphism of \hyperref[def:short-exact-sequence]{short exact sequences}
           \begin{equation*}
             \left( 0 \to A' \to B' \to C' \to 0 \right) \mapsto \left( 0 \to A \to B \to C \to 0 \right)

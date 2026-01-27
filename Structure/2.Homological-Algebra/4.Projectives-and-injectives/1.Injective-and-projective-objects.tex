@@ -45,12 +45,12 @@
 
 \begin{proposition}~
   \begin{itemize}
-    \item An object \(I \in \category{A}\) is \hyperref[def:injective-projective-object]{injective} if and only if the functor \(\Hom_{\category{A}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
-    \item An object \(P \in \category{A}\) is \hyperref[def:injective-projective-object]{projective} if and only if the functor \(\Hom_{\category{A}}(P, -)\) is \hyperref[def:exact-functor]{exact}.
+    \item An object \(I \in \category{A}\) is \hyperref[def:injective-projective-object]{injective} if and only if the functor \(\Hom_{\category{A}}(-, I)\) is \hyperref[def:exact-complex-functor]{exact}.
+    \item An object \(P \in \category{A}\) is \hyperref[def:injective-projective-object]{projective} if and only if the functor \(\Hom_{\category{A}}(P, -)\) is \hyperref[def:exact-complex-functor]{exact}.
   \end{itemize}
 \end{proposition}
 \begin{proof}
-  By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-functor]{right exactness}.
+  By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-complex-functor]{right exactness}.
 
   We will do the \hyperref[def:injective-projective-object]{injective} version this time:
   \begin{itemize}
@@ -66,14 +66,14 @@
               0 \arrow[r] & \Hom(Z, I) \arrow[r, "g^{\ast}"] & \Hom(Y, I) \arrow[r, "f^{\ast}"] & \Hom(X, I)
             \end{tikzcd}
           \end{center}
-          is \hyperref[def:exact-sequence]{exact}.
+          is \hyperref[def:exact-complex-sequence]{exact}.
 
-          Since by \autoref{ex:hom-left-exact} this sequence is \hyperref[def:exact-sequence]{exact} at \(\Hom(Z, I)\) and \(\Hom(Y, I)\), we only need to check exactness at \(\Hom(X, I)\), i.e: we want to see that \(f^{\ast}\) is surjective.
+          Since by \autoref{ex:hom-left-exact} this sequence is \hyperref[def:exact-complex-sequence]{exact} at \(\Hom(Z, I)\) and \(\Hom(Y, I)\), we only need to check exactness at \(\Hom(X, I)\), i.e: we want to see that \(f^{\ast}\) is surjective.
 
           Consider a morphism \(\alpha: X \to I\).
           Since \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} and \(I\) is \hyperref[def:injective-projective-object]{injective} there exists a morphism \(\beta: Y \to I\) such that \(\beta \circ f = f^{\ast}(\beta) = \alpha\), making \(f^{\ast}\) surjective as wanted.
 
-    \item[\(\impliedby\)] Suppose \(\Hom(-, I)\) is \hyperref[def:exact-functor]{exact} and consider a \hyperref[def:mono-epi-morphism]{monomorphism} \(f: A \monoarrow B\) in \(\category{A}\).
+    \item[\(\impliedby\)] Suppose \(\Hom(-, I)\) is \hyperref[def:exact-complex-functor]{exact} and consider a \hyperref[def:mono-epi-morphism]{monomorphism} \(f: A \monoarrow B\) in \(\category{A}\).
 
           We have the following \hyperref[def:short-exact-sequence]{short exact sequence}
           \begin{center}
@@ -87,14 +87,14 @@
               0 \arrow[r] & \Hom(\coker f, I) \arrow[r] & \Hom(B, I) \arrow[r, "f^{\ast}"] & \Hom(A, I) \arrow[r] & 0 \\
             \end{tikzcd}
           \end{center}
-          which is \hyperref[def:short-exact-sequence]{exact} since \(\Hom(-, I)\) is \hyperref[def:exact-functor]{exact}.
+          which is \hyperref[def:short-exact-sequence]{exact} since \(\Hom(-, I)\) is \hyperref[def:exact-complex-functor]{exact}.
           In particular we have that \(f^{\ast}\) is surjective.
 
           Therefore if \(\gamma: A \to I\) is any morphism there exists \(\beta \in \Hom(B, I)\) such that \(\gamma = \beta \circ f\), which is exactly the universal property of \hyperref[def:injective-projective-object]{injective objects}.
   \end{itemize}
 \end{proof}
 
-We haven't proven existence of \hyperref[def:injective-projective-objects]{injective or projective objects}.
+We haven't proven existence of \hyperref[def:injective-projective-object]{injective or projective objects}.
 This is because in general they may not exist.
 
 Since we will be interesed in using them, we introduce the following types of \hyperref[def:big-category]{categories}.
@@ -107,14 +107,14 @@ Since we will be interesed in using them, we introduce the following types of \h
 \end{definition}
 
 \begin{proposition} \label{prop:left-adjoints-and-injectives}
-  Let \(R: \category{B} \to \category{A}\) be an \hyperref[def:additive-functor]{additive functor} with a \hyperref[def:adjoint-functors]{left adjoint} \(L: \category{A} \to \category{B}\) that is \hyperref[def:exact-functor]{exact}.
-  If \(I \in \category{B}\) is an \hyperref[def:injective-projective-object]{injective object} then \(R(I)\) is also an \hyperref[def:injective-object]{injective object}.
+  Let \(R: \category{B} \to \category{A}\) be an \hyperref[def:additive-functor]{additive functor} with a \hyperref[def:adjoint-functors]{left adjoint} \(L: \category{A} \to \category{B}\) that is \hyperref[def:exact-complex-functor]{exact}.
+  If \(I \in \category{B}\) is an \hyperref[def:injective-projective-object]{injective object} then \(R(I)\) is also an \hyperref[def:injective-projective-object]{injective object}.
 
-  Dually, if an \hyperref[def:additive-functor]{additive functor} \(L: \category{A} \to \category{B}\) is \hyperref[def:adjoint-functor]{left adjoint} to an \hyperref[def:exact-functor]{exact functor} \(R: \category{B} \to \category{A}\) and \(P \in \category{A}\) is \hyperref[def:injective-projective-object]{projective} then \(L(P)\) is \hyperref[def:injective-projective-object]{projective}.
+  Dually, if an \hyperref[def:additive-functor]{additive functor} \(L: \category{A} \to \category{B}\) is \hyperref[def:adjoint-functors]{left adjoint} to an \hyperref[def:exact-complex-functor]{exact functor} \(R: \category{B} \to \category{A}\) and \(P \in \category{A}\) is \hyperref[def:injective-projective-object]{projective} then \(L(P)\) is \hyperref[def:injective-projective-object]{projective}.
 \end{proposition}
 \begin{proof}
-  We want to show that \(\Hom_{\category{A}}(-, R(I))\) is \hyperref[def:exact-functor]{exact}.
-  By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-functor]{right exactness}.
+  We want to show that \(\Hom_{\category{A}}(-, R(I))\) is \hyperref[def:exact-complex-functor]{exact}.
+  By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-complex-functor]{right exactness}.
   
   Let
   \begin{equation*}
@@ -128,7 +128,7 @@ Since we will be interesed in using them, we introduce the following types of \h
     \end{tikzcd}
   \end{center}
   commutes by naturality of \(\tau\).
-  Since \(L\) is \hyperref[def:exact]{exact} and \(I\) is \hyperref[def:injective-projective-object]{injective} \(Lf^{\ast}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+  Since \(L\) is \hyperref[def:exact-complex]{exact} and \(I\) is \hyperref[def:injective-projective-object]{injective} \(Lf^{\ast}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
 
   Therefore \(f^{\ast}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}, proving that \(R(I)\) is \hyperref[def:injective-projective-object]{injective}.
 \end{proof}

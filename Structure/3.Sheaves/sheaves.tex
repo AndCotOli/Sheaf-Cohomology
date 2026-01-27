@@ -196,7 +196,7 @@ Let's start by considering the case \(\category{C} = \Set\):
   \end{equation}
   is an \nameref{def:equalizer}.
 
-  We denote by \(\Sh_{X}(\Set)\) (or just \(\Sh\) if the context is clear) the \nameref{def:full-subcategory} of the \hyperref[def:presheaf]{category of presheaves} of sets whose objects are sheaves of sets.
+  We denote by \(\Sh_{X}(\Set)\) (or just \(\Sh\) if the context is clear) the \nameref{def:subcategory} of the \hyperref[def:presheaf]{category of presheaves} of sets whose objects are sheaves of sets.
 
   Less abstractly this means that \(\mathcal{F}\) verifies:
   \begin{enumerate}[label=SH.\arabic*), ref=SH.\arabic*]
@@ -207,7 +207,7 @@ Let's start by considering the case \(\category{C} = \Set\):
 \SetPluralName{def:sheaf-set}{Sheaves of sets}
 
 \begin{definition}[\nameref{def:category} of \namerefs{def:sheaf-set}] \label{def:sheaf-set-category}
-The \nameref{def:category} \(\Sh_{X}(\Set)\) of \namerefs{def:sheaf-set} is the \nameref{def:full-subcategory} of the category of \namerefs{def:presheaf} \(\PSh_{X}(\Set)\) whose objects are \namerefs{def:sheaf-set}.
+The \nameref{def:category} \(\Sh_{X}(\Set)\) of \namerefs{def:sheaf-set} is the \nameref{def:subcategory} of the category of \namerefs{def:presheaf} \(\PSh_{X}(\Set)\) whose objects are \namerefs{def:sheaf-set}.
 \end{definition}
 
 Let's try to make \autoref{def:sheaf-set} more general by considering another evaluation category \(\category{C}\).
@@ -225,7 +225,7 @@ Therefore we get
   Let \(\category{C}\) be an arbitrary category.
   A \(\category{C}\)-valued \nameref{def:presheaf} \(\mathcal{F}\) is a \textbf{sheaf} if for all objects \(C \in \category{C}\) the \nameref{def:presheaf} of sets \(\mathcal{F}_{C}\) defined as \(\mathcal{F}_{C}(U) = \Hom_{\category{C}}(C, \mathcal{F}(U))\) is a \nameref{def:sheaf-set}.
 
-  We denote by \(\Sh_{X}(\category{C})\) the \nameref{def:full-subcategory} of the \hyperref[def:presheaf]{category of \(\category{C}\)-valued presheaves} of sets whose objects are \(\category{C}\)-valued sheaves.
+  We denote by \(\Sh_{X}(\category{C})\) the \nameref{def:subcategory} of the \hyperref[def:presheaf]{category of \(\category{C}\)-valued presheaves} of sets whose objects are \(\category{C}\)-valued sheaves.
 \end{definition}
 \SetPluralName{def:sheaf}{Sheaves}
 
@@ -403,7 +403,7 @@ For cohomology we will be interested in the case \(\category{C} = \Ab\).
   Suppose that
   \begin{enumerate}
     \item \(\category{A}\) and \(\category{B}\) are \hyperref[def:additive-category]{additive categories}, \(a, b\) are additive functors and \(b \dashv a\).
-    \item \(\category{B}\) is an \nameref{def:abelian-category} and \(b\) is \hyperref[def:exact-functor]{left-exact}.
+    \item \(\category{B}\) is an \nameref{def:abelian-category} and \(b\) is \hyperref[def:exact-complex-functor]{left-exact}.
     \item \(ba \cong \id_{\category{A}}\).
   \end{enumerate}
   Then \(\category{A}\) is abelian.
@@ -411,7 +411,7 @@ For cohomology we will be interested in the case \(\category{C} = \Ab\).
 \begin{proof}
   Since \(\category{B}\) is an \nameref{def:abelian-category} all \namerefs{def:categorical-limit} and \namerefs{def:categorical-colimit} exist en \(\category{B}\).
 
-  Since \(b\) is \hyperref[def:adjunction]{left-adjoint} it is \hyperref[def:exact-functor]{right-exact} and therefore, \hyperref[def:exact-functor]{exact}.
+  Since \(b\) is \hyperref[def:adjunction]{left-adjoint} it is \hyperref[def:exact-complex-functor]{right-exact} and therefore, \hyperref[def:exact-complex-functor]{exact}.
 
   Let \(\varphi: B_{1} \to B_{2}\) be a morphism in \(\category{B}\).
   If \(K = \ker(\varphi)\) then \(K\) is the \nameref{def:equalizer} of the diagram

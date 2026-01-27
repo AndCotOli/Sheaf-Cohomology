@@ -14,11 +14,11 @@ We have established the definition of \hyperref[def:presheaf]{presheaves} and \h
 \begin{equation*}
     \iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})
 \end{equation*}
-Since \hyperref[def:sheaf]{sheaves} are the objects with "local-to-global" gluing properties, we often wish to associate to an arbitrary \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) the "best possible" \hyperref[def:sheaf]{sheaf} that approximates it. In the language of category theory, this problem is framed as finding a \hyperref[def:adjoint-functor]{left adjoint} to the inclusion functor.
+Since \hyperref[def:sheaf]{sheaves} are the objects with "local-to-global" gluing properties, we often wish to associate to an arbitrary \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) the "best possible" \hyperref[def:sheaf]{sheaf} that approximates it. In the language of category theory, this problem is framed as finding a \hyperref[def:adjoint-functors]{left adjoint} to the inclusion functor.
 
 \begin{definition}[Sheafification] \label{def:sheafification}
     Let \(X\) be a topological space and \(\category{C}\) a \hyperref[def:category]{category}.
-    The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{\#}: \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functor]{left adjoint} to the inclusion functor \(\iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
+    The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{\#}: \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functors]{left adjoint} to the inclusion functor \(\iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
 
     That is, for every \hyperref[def:presheaf]{presheaf} \(\mathcal{F} \in \PSh_{X}(\category{C})\) and every \hyperref[def:sheaf]{sheaf} \(\sheaf{G} \in \Sh_{X}(\category{C})\), there is a natural bijection:
     \begin{equation*}
@@ -52,7 +52,7 @@ First of all, we can translate the concepts of \hyperref[def:direct-image-preshe
 \end{definition}
 
 We can also translate \autoref{ex:global-section-presheaf} and \autoref{ex:skyscraper-presheaf} to \hyperref[def:sheaf]{sheaves}.
-Furthermore, since by \autoref{remark:empty-set-sheaf} \(\sheaf{F}(\varnothing)\) is a \hyperref[def:terminal-object]{terminal object} in \(\category{C}\) the definitions simplify.
+Furthermore, since by \autoref{remark:empty-set-sheaf} \(\sheaf{F}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\) the definitions simplify.
 \begin{definition}[Global section] \label{def:global-section-sheaf}
   Let \(X\) be a topological space.
   Let \(\sheaf{F}\) be a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf} over \(X\).
@@ -66,7 +66,7 @@ Furthermore, since by \autoref{remark:empty-set-sheaf} \(\sheaf{F}(\varnothing)\
 
 \begin{definition}[Skyscraper sheaf] \label{def:skyscraper-sheaf}
   Let \(X\) be a topological space and \(p \in X\).
-  Let \(\category{C}\) be a \hyperref[def:category]{category} with a \hyperref[def:terminal-object]{terminal object} \(\ast \in \category{C}\).
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with a \hyperref[def:initial-terminal-object]{terminal object} \(\ast \in \category{C}\).
 
   Using \autoref{ex:skyscraper-presheaf} we can define the \textbf{skyscraper sheaf} supported at \(S \in \category{C}\) as
   \begin{align*}
@@ -124,7 +124,7 @@ The \hyperref[def:adjoint-functors]{adjunction} of \autoref{thm:direct-inverse-i
 \begin{theorem}
   Let \(f: X \to Y\) be a continuous function between two topological spaces \(X, Y\).
   Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:direct-limit]{direct limits}.
-  Then there exists an \hyperref[def:adjoint-functor]{adjunction}
+  Then there exists an \hyperref[def:adjoint-functors]{adjunction}
   \begin{center}
     \begin{tikzcd}
       f^{-1} \dashv f_{\ast}: \PSh_{X}(\category{C}) \arrow[r, shift right, "f_{\ast}"'] &  \PSh_{Y}(\category{C}) \arrow[l, shift right, "f^{-1}"']
@@ -132,7 +132,7 @@ The \hyperref[def:adjoint-functors]{adjunction} of \autoref{thm:direct-inverse-i
   \end{center}
 \end{theorem}
 \begin{proof}
-  Using the \hyperref[def:adjoint-functor]{adjunctions} \(-^{\#} \dashv \iota\) and \(f_{\operatorname{pre}}^{-1} \dashv f_{\ast}\) we have
+  Using the \hyperref[def:adjoint-functors]{adjunctions} \(-^{\#} \dashv \iota\) and \(f_{\operatorname{pre}}^{-1} \dashv f_{\ast}\) we have
   \begin{align*}
         \Hom_{\Sh_{X}(\category{C})}(f^{-1} \sheaf{G}, \sheaf{F}) &= \Hom_{\PSh_{X}(\category{C})}(f^{-1} \iota\sheaf{G}, \iota\sheaf{F})  \\
                                                                   &= \Hom_{\PSh_{X}(\category{C})}(\iota\sheaf{G}, f_{\ast}\iota\sheaf{F}) \\
@@ -149,7 +149,7 @@ Therefore we have the analogous adjunctions of \autoref{cor:stalk-skyscraper-adj
 \begin{proof}
   Note that the \hyperref[def:stalk-sheaf]{stalk functor} \(-_{p}: \Sh_{X}(\category{C}) \to \category{C}\) can be written as the \(-_{p}^{\operatorname{pre}} \circ \iota\) where \(\iota: \Sh_{X}(\category{C}) \to \PSh_{X}(\category{C})\) is the inclussion \hyperref[def:functor]{functor} and \(-_{p}^{\operatorname{pre}}: \PSh_{X}(\category{C}) \to \mathsf{Arr}(\category{C})\) is the \hyperref[ex:stalk-presheaf]{presheaf stalk functor}.
 
-  Note that \(\iota_{p, \ast}^{\operatorname{pre}}: \mathsf{Arr}(\category{C}) \to \PSh_{X}(\category{C})\) is, by \autoref{cor:stalk-skyscraper-adjunction-presheaf}, \hyperref[def:adjoint-functor]{right adjoint} to \(-_{p}^{\operatorname{pre}}\).
+  Note that \(\iota_{p, \ast}^{\operatorname{pre}}: \mathsf{Arr}(\category{C}) \to \PSh_{X}(\category{C})\) is, by \autoref{cor:stalk-skyscraper-adjunction-presheaf}, \hyperref[def:adjoint-functors]{right adjoint} to \(-_{p}^{\operatorname{pre}}\).
   Furthermore, by \autoref{def:skyscrapper-sheaf} we have that \(\iota_{p, \ast}: \category{C} \to \Sh_{X}(\category{C})\) verifies \(\iota_{p, \ast} = -_{p}^{\operatorname{pre}} \circ \iota\).
 
   Therefore if \(F = (-_{p}^{\operatorname{pre}} \circ \iota) \circ -^{\#}\) we have that its \hyperref[def:adjoint-functors]{right adjoint} is
@@ -159,6 +159,9 @@ Therefore we have the analogous adjunctions of \autoref{cor:stalk-skyscraper-adj
   Therefore by \textit{uniqueness} of the \hyperref[def:adjoint-functors]{adjoint} we have that \(\mathcal{F}_{p} \cong \mathcal{F}_{p}^{\#}\).
 \end{proof}
 
+\begin{proposition}\label{prop:sheaf-morphism-and-stalks}
+  \hyperref[def:sheaf]{Sheaf morphisms} are determined by their induced maps on \hyperref[def:stalk-sheaf]{stalks}
+\end{proposition}
 
 
 \subsection*{Existence of sheafification}
@@ -222,7 +225,7 @@ We will study first the construction of the \hyperref[def:sheafification]{sheafi
   Applying \ref{axiom:sheaf-gluability} to this family we get that there is a unique section \(t \in \sheaf{G}(U)\) such that \(\forall i \in \mathcal{I} t|_{U_{i}} = \phi(t_{i})\).
   Therefore we can define \(\psi_{U}(s) = t\), which verifies the universal property by construction.
 
-  To check uniqueness, since \hyperref[def:sheaf-morphism-and-stalks]{sheaf morphisms are determined by their induced maps on stalks} and for all points \(x \in X\) we have \(\theta_{x} = \id\), \(\psi\) verifies \(\forall x \in X \quad \psi_{x} = \phi_{x}\) making it unique.
+  To check uniqueness, since \hyperref[prop:sheaf-morphism-and-stalks]{sheaf morphisms are determined by their induced maps on stalks} and for all points \(x \in X\) we have \(\theta_{x} = \id\), \(\psi\) verifies \(\forall x \in X \quad \psi_{x} = \phi_{x}\) making it unique.
 \end{construction}
 
 Now that we have seen how to construct the \hyperref[def:sheafification]{sheafification} of a \hyperref[def:set-valued-sheaf]{sheaf of sets}, we will see that it also exists for \textit{algebraic structures}.
@@ -231,7 +234,7 @@ Now that we have seen how to construct the \hyperref[def:sheafification]{sheafif
   A \textbf{type of algebraic structure} is a \hyperref[def:category]{category} \(\category{C}\) together with a \hyperref[def:functor]{functor} \(F: \category{C} \to \Set\) verifying:
   \begin{enumerate}
     \item \(F\) is \hyperref[def:functor-types]{faithful}.
-    \item \(\category{C}\) has \hyperref[def:categorical-limits]{limits} and \(F\) commutes with them.
+    \item \(\category{C}\) has \hyperref[def:categorical-limit]{limits} and \(F\) commutes with them.
     \item \(\category{C}\) has \hyperref[def:direct-limit]{direct limits} and \(F\) commutes with them.
     \item \(F\) reflects \hyperref[def:categorical-isomorphism]{isomorphisms}.
   \end{enumerate}
@@ -258,7 +261,7 @@ We state some properties of this types of \hyperref[def:category]{categories} wi
 \begin{lemma}[Properties of types of algebraic structures] \label{lemma:algebraic-structure-properties}
   Let \((\category{C}, F)\) be a \hyperref[def:algebraic-structure]{type of algebraic structure}. Then:
   \begin{enumerate}
-    \item \(\category{C}\) has a \hyperref[def:terminal-object]{terminal object} \(0\) and \(F(0) = \{\ast\}\).
+    \item \(\category{C}\) has a \hyperref[def:initial-terminal-object]{terminal object} \(0\) and \(F(0) = \{\ast\}\).
     \item \(\category{C}\) has \hyperref[def:categorical-product]{products} and \(F \left( \prod A_{i} \right) = \prod F \left( A_{i} \right)\).
     \item \(\category{C}\) has \hyperref[def:fibre-product]{fibre products} and \(F(A \times_{B} C) = F(A) \times_{F(B)} F(C)\).
     \item \(\category{C}\) has \hyperref[def:equalizer]{equalizers} and if \(E \to A\) is the \hyperref[def:equalizer]{equalizer} of \(a, b: A \to B\) then \(F(E) \to F(A)\) is the \hyperref[def:equalizer]{equalizer} of \(F(a), F(b): F(A) \to F(B)\).
@@ -280,7 +283,7 @@ We state some properties of this types of \hyperref[def:category]{categories} wi
 \end{lemma}
 
 
-\begin{proposition} \hyperref[prop:sheafification-of-algebraic-structure]
+\begin{proposition}\label[prop:sheafification-of-algebraic-structure]
   Let \(X\) be a topological space.
   Let \((\category{C}, F)\) be a \hyperref[def:algebraic-structure]{type of algebraic structure}.
   Let \(\mathcal{F}\) be a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} over \(X\).
@@ -298,7 +301,7 @@ We state some properties of this types of \hyperref[def:category]{categories} wi
   This is well-defined because \(\category{C}\) has products.
   Notice that we have a map \(\mathcal{F} \to \prod(\mathcal{F})\) defined by \(\mathcal{F}(U) \mapsto \prod(\mathcal{F})(U)\).
 
-  For any open set \(U \subseteq X\) we define \(\mathcal{F}^{\#}(U)\) as the \hyperref[def:fiber-product]{fiber product} in \(\category{C}\) of the diagram
+  For any open set \(U \subseteq X\) we define \(\mathcal{F}^{\#}(U)\) as the \hyperref[def:fibre-product]{fiber product} in \(\category{C}\) of the diagram
   \begin{center}
     \begin{tikzcd}
       & \displaystyle\prod(\mathcal{F})(U) \arrow[d] \\

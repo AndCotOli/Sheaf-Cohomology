@@ -66,7 +66,7 @@
 \begin{definition} \label{def:sheaf-of-modules}
   Let \(X\) be a topological space.
   Let \(\sheaf{O}_{X}\) be a \hyperref[def:sheaf]{sheaf} of rings.
-  The \hyperref[def:category]{category} of \textbf{sheaves of \(\sheaf{O}_{X}\)-modules} \(\Mod(\sheaf{O}_{X})\) is the \hyperref[def:full-subcategory]{full subcategory} of \(\PMod(\iota\sheaf{O}_{X})\) consisting of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}_{X}\)-modules} where the the underlying \hyperref[def:presheaf]{presheaves} of abelian modules are \hyperref[def:sheaf]{sheaves}.
+  The \hyperref[def:category]{category} of \textbf{sheaves of \(\sheaf{O}_{X}\)-modules} \(\Mod(\sheaf{O}_{X})\) is the \hyperref[def:subcategory]{full subcategory} of \(\PMod(\iota\sheaf{O}_{X})\) consisting of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}_{X}\)-modules} where the the underlying \hyperref[def:presheaf]{presheaves} of abelian modules are \hyperref[def:sheaf]{sheaves}.
 \end{definition}
 
 Since, at the end of the day, \hyperref[def:presheaf-of-modules]{presheaves of \(\mathcal{O}\)-modules} and \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}\)-modules} are \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves} of abelian groups respectively, all the constructions we have seen in the past chapters apply.
@@ -188,7 +188,7 @@ We also have an analogous of \autoref{lemma:restriction-tensor-adjunction-preshe
   \(\Mod(\sheaf{O})_{X}\) is an \hyperref[def:abelian-category]{abelian category}
 \end{theorem}
 \begin{proof}
-  In \autoref{def:limits-colimits-presheaf} we have seen that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} of \hyperref[def:presheaf]{presheaves} can be computed \textit{open set by open set}.
+  In \autoref{prop:limits-colimits-presheaf} we have seen that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} of \hyperref[def:presheaf]{presheaves} can be computed \textit{open set by open set}.
   Therefore since the \hyperref[def:category]{category} of modules over a ring is \hyperref[def:abelian-category]{abelian}, the category \(\PMod(\mathcal{O}_{X})\) inherits this property.
 
   Let's see how we can see that \(\Mod(\sheaf{O}_{X})\) is also \hyperref[def:abelian-category]{abelian}.
@@ -203,7 +203,6 @@ We also have an analogous of \autoref{lemma:restriction-tensor-adjunction-preshe
     \ker \varphi &\coloneq \left( \ker_{\operatorname{pre}} \iota\varphi \right)^{\#} = \ker_{\operatorname{pre}} \left( \iota \varphi \right)^{\#} = \ker_{\operatorname{pre}} \varphi \\
     \coker \varphi &\coloneq \left( \operatorname{coker}_{\operatorname{pre}} \iota\varphi \right)^{\#}
   \end{align*}
-  where the equalities in \(\ker \varphi\) come from the fact that \hyperref[def:adjoint-properties]{right adjoints preserve limits}.
+  where the equalities in \(\ker \varphi\) come from the fact that \hyperref[prop:adjoint-properties]{right adjoints preserve limits}.
 \end{proof}
-
 \end{document}
