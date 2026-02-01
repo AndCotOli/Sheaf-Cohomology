@@ -9,9 +9,9 @@
 }{}
 
 \begin{document}
-\section{Vector bundles} \label{sec:vector-bundles}
+\section{Vector bundles}\label{sec:vector-bundles}
 
-\begin{definition}[Topological vector bundle] \label{def:topological-vector-bundle}
+\begin{definition}[Topological vector bundle]\label{def:topological-vector-bundle}
   Let \(X\) be a topological space.
   Let \(k \in \{\mathbb{R}, \mathbb{C}\}\) be either the field of real or complex numbers.
  
@@ -47,17 +47,48 @@
 \end{notation}
 
 
-\begin{example}[Trivial topological vector bundle] \label{ex:trivial-topological-vector-bundle}
+\begin{example}[Trivial topological vector bundle]\label{ex:trivial-topological-vector-bundle}
   Let \(X\) be a topological space and \(n \in \mathbb{N}\).
   The product topological space \(X \times k^{n} \xrightarrow{\operatorname{pr}_{1}} X\) is a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle} of rank \(n\) called the \textbf{trivial} topological vector bundle over \(X\).
 \end{example}
+
+\begin{remark}
+  Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle} of rank \(n\) with local trivialization
+  \begin{equation*}
+    \{\phi_{i}: U_{i} \times k^{n} \isoarrow \pi^{-1}(U_{i})\}_{i \in \mathcal{I}}
+  \end{equation*}
+  For each \(i, j \in \mathcal{I}\) the composite function
+  \begin{equation*}
+    \phi_{i}^{-1} \circ \phi_{j}: (U_{i} \cap U_{j}) \times k^{n} \to (U_{i} \cap U_{j}) \times k^{n}
+  \end{equation*}
+  is well-defined and satisfies
+  \begin{equation*}
+    \left(  \phi_{i}^{-1} \circ \phi_{j} \right)(x, y) = (x, g_{i,j}(x)y)
+  \end{equation*}
+  for some \(\operatorname{GL}_{n}(k)\)-valued function
+  \begin{equation*}
+    g_{i,j}: U_{i} \cap U_{j} \to \operatorname{GL}_{n}(k)
+  \end{equation*}
+  We call these functions \(g_{i, j}\) the \textbf{transition functions} of the bundle.
+
+  Note that this functions satisfy \(g_{i,i}(x) = \operatorname{Id}_{n}\) for all \(x \in U_{i}\) and, for all open subsets \(U_{i}, U_{j}, U_{k}\) such that the bundle \hyperref[def:trivial-vector-bundle]{trivializes} and \(U_{i} \cap U_{j} \cap U_{k} \neq \varnothing\)
+  \begin{equation*}
+    \forall x \in U_{i} \cap U_{j} \cap U_{k} \quad g_{i,j}(x)g_{j,k}(x)g_{k,i}(x) = \operatorname{Id}_{n}
+  \end{equation*}
+  This is called a \textit{\v{C}ech cocycle}.
+\end{remark}
+
+\begin{lemma}
+  Let \((E, X, \pi, k^{n})\) be a fiber bundle with a \(\operatorname{GL}_{n}(k)\) cocycle acting in the standard way on the fiber \(k^{n}\).
+  Then there exists a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle} with transition functions determined by the cocycle.
+\end{lemma}
 
 
 \begin{example}
   \todo[inline]{Examples of vector bundles: Cylinder, Möbius, ...}
 \end{example}
 
-\begin{definition}[Section of a topological vector bundle] \label{def:section-topological-vector-bundle}
+\begin{definition}[Section of a topological vector bundle]\label{def:section-topological-vector-bundle}
   Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
 
   For any open set \(U \subseteq X\) a \textbf{section} of \(E \xrightarrow{\pi} X\) over \(U\) is a continuous map \(\sigma: U \to E\) such that \(\pi \circ \sigma = \id_{U}\).
@@ -68,14 +99,7 @@
   The set \(\Gamma(U, E \xrightarrow{\pi} X)\) admits the structure of a \(k\)-vector space.
 \end{remark}
 
-
-\begin{lemma}
-  Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
-
-  The \hyperref[def:functor]{functor} \(\mathcal{E} \coloneq \Gamma(-, E \xrightarrow{\pi} X)\) that assigns an open subset \(U \subseteq X\) to the set of all its \hyperref[def:section-topological-vector-bundle]{sections over \(E \xrightarrow{\pi} X\)} is a \hyperref[def:sheaf]{sheaf} of \(k\)-vector spaces over \(X\).
-\end{lemma}
-
-\begin{definition} \label{def:sheaf-of-sections-topological-vector-bundle}
+\begin{definition}\label{def:sheaf-of-sections-topological-vector-bundle}
   Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
   The \textbf{\hyperref[def:sheaf]{sheaf} of sections} of \(E \xrightarrow{\pi} X\) is
   \begin{align*}
@@ -84,7 +108,7 @@
   \end{align*}
 \end{definition}
 
-\begin{proposition} \label{prop:sheaf-of-sections-topological-vector-bundle-is-C-x-module}
+\begin{proposition}\label{prop:sheaf-of-sections-topological-vector-bundle-is-C-x-module}
   Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
   Let \(\mathcal{C}_{X}(k)\) be the \hyperref[def:sheaf]{sheaf} of continuous \(k\)-valued functions over \(X\).
 
@@ -109,7 +133,7 @@
   The module axioms follow directly from the vector space structure on \(E_{p}\).
 \end{proof}
 
-\begin{definition}[Locally free sheaf] \label{def:locally-free-sheaf}
+\begin{definition}[Locally free sheaf]\label{def:locally-free-sheaf}
   A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{locally free} of rank \(n\) if there exist an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that for every \(i \in \mathcal{I}\) there is an isomorphism of \(\sheaf{O}_{X}|_{U_{i}}\)-modules
   \begin{equation*}
     \sheaf{F}|_{U_{i}} \cong \bigoplus_{j=1}^{n} \sheaf{O}_{X}|_{U_{i}} \eqcolon (\sheaf{O}_{X}|_{U_{i}})^{\oplus n}
@@ -118,7 +142,7 @@
   We denote by \(\category{LocFree}_{n}(\sheaf{O}_{X})\) the \hyperref[def:subcategory]{full subcategory} of \(\Mod(\sheaf{O}_{X})\) consisting of locally free \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}_{X}\)-modules}.
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm:topological-vector-bundle-is-free-sheaf}
   Let \(k \in \{\mathbb{R}, \mathbb{C}\}\).
   There is an \hyperref[def:equivalent-categories]{equivalence of categories} between the category of \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundles} of rank \(n\) over \(X\) and the category of \hyperref[def:locally-free-sheaf]{locally free sheaves of \(\mathcal{C}_{X}(k)\)-modules} of rank \(n\).
 
@@ -129,26 +153,45 @@
   \end{itemize}
 \end{theorem}
 \begin{proof}
-  We want to construct \hyperref[def:functor]{functors}
+  In \autoref{prop:sheaf-of-sections-topological-vector-bundle-is-C-x-module} we have seen that \(\mathcal{E}\) defines a \hyperref[def:functor]{functor}
   \begin{equation*}
-    \Gamma: \Vect_{n}(X) \to \category{LocFree}_{n}(\sheaf{O}_{X}) \quad V: \category{LocFree}_{n}(\sheaf{O}_{X}) \to \Vect_{n}(X)
+    \Vect_{n}(X) \to \category{LocFree}_{n}(\mathcal{C}_{X}(k))
   \end{equation*}
-  that are inverses of each other (up to \hyperref[def:natural-transformation]{natural transformation}).
+  Therefore we only need to construct the inverse correspondence.
 
-  Let \(E \xrightarrow{\pi} X\) be a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle}.
-  We define \(\Gamma(E \xrightarrow{\pi} X) \coloneq \mathcal{E}\) as the \hyperref[def:sheaf-of-sections-topological-vector-bundle]{sheaf of sections} associated to \(E \xrightarrow{\pi} X\).
-  By \autoref{prop:sheaf-of-sections-topological-vector-bundle-is-C-x-module} we have that \(\mathcal{E}\) is a \hyperref[def:sheaf-of-modules]{sheaf of \(\mathcal{C}_{X}(k)\)-modules}.
-  Therefore we only need to check that \(\mathcal{E}\) is \hyperref[def:locally-free-sheaf]{locally free}.
+  Let \(\mathcal{E}\) be a \hyperref[def:locally-free-sheaf]{locally free sheaf of \(\mathcal{C}_{X}(k)\)-modules}.
+  Then there exists an open covering \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that for every \(U_{i} \in \mathcal{U}\) there is an \hyperref[def:categorical-isomorphism]{isomorphism} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathcal{C}_{X}(k)\)-modules}
+  \begin{equation*}
+    \tau|_{i}: \mathcal{E}|_{U_{i}} \isoarrow \left( \mathcal{C}_{X}(k)|_{U_{i}} \right)^{\oplus n}
+  \end{equation*}
+  Therefore on \(U_{i} \cap U_{j}\) we have an isomorphism of \hyperref[def:locally-free-sheaf]{locally free sheaves of \(\mathcal{C}_{X}(k)\)-modules}
+  \begin{equation*}
+    \tau_{j} \circ \tau_{i}^{-1}: \left( \mathcal{C}_{X}(k)|_{U_{i} \cap U_{j}}  \right)^{\oplus n} \isoarrow \left( \mathcal{C}_{X}(k)|_{U_{i} \cap U_{j}}  \right)^{\oplus n}
+  \end{equation*}
+  Note that this isomorphism is given by an \(n \times n\) matrix \(M_{i,j}\) consisting of elements of \(\mathcal{C}_{X}(k)|_{U_{i} \cap U_{j}}\) that is invertible at every point.
 
-  To do this, note that since \(E \xrightarrow{\pi} X\) is a \hyperref[def:topological-vector-bundle]{topological \(k\)-vector bundle} there exists an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) and \textit{local trivializations} \(\phi_{i}: \pi^{-1}(U_{i}) \isoarrow U_{i} \times k^{n}\).
-  Under this map a section \(\sigma: U_{i} \to U_{i} \times k^{n}\) is uniquely determined by a continuous map \(\hat{s}: U_{i} \to k^{n}\), which is an \(n\)-tuple of continuous functions.
-  Therefore we have an isomorphism of \(\mathcal{C}_{X}|_{U_{i}}\)-modules \(\mathcal{E}|_{U_{i}} \cong \left( \mathcal{C}_{X}(k)|_{U_{i}} \right)^{\oplus n}\), making \(\mathcal{E} \in \category{LocFree}_{n}(\sheaf{O}_{X})\).
+  This matrices are not arbitrary.
+  Indeed they satisfy the \textit{cocycle condition}:
+  \begin{equation*}
+    M_{i, j} \cdot M_{j, k} \cdot M_{k, i} = \operatorname{Id}_{n}
+  \end{equation*}
+  
+  Therefore we can assign to \(\mathcal{E}\) the \hyperref[def:vector-bundle]{vector bundle} of rank \(n\), \hyperref[ex:trivial-vector-bundle]{trivial} on the open sets \(U_{i}\) of the covering, and whose transitions are the matrics \(M_{i,j}\).
+  Less abstractly, \(E\) is obtained by gluing \(U_{i} \times \mathbb{R}^{n}\) via the identification
+  \begin{equation*}
+    U_{i} \cap U_{j} \times \mathbb{R}^{n} \subset U_{i} \times \mathbb{R}^{n} \isoarrow U_{i} \times U_{j} \times \mathbb{R}^{n} \subset U_{j} \times \mathbb{R}^{n}
+  \end{equation*}
+  given by \(\id \times M_{i, j}\).
 
-  On the other hand, let \(\sheaf{F}\) be a \hyperref[def:locally-free-sheaf]{locally free sheaf of \(\mathcal{C}_{X}(k)\)-modules} of rank \(n\).
+  This defines a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \category{LocFree}_{n}(\mathcal{C}_{X}(k)) \to \Vect_{n}(X)
+  \end{equation*}
+  that by construction is \textit{inverse} to the previous \hyperref[def:functor]{functor}.
 \end{proof}
 
 
-\begin{definition}[Smooth vector bundle] \label{def:smooth-vector-bundle}
+\begin{definition}[Smooth vector bundle]\label{def:smooth-vector-bundle}
   Let \(M\) be a smooth manifold.
   Let \(k \in \{\mathbb{R}, \mathbb{C}\}\) be either the field of real or complex numbers.
 
@@ -165,7 +208,25 @@
   We denote by \(\Vect_{k}^{\infty}(X)\) the category of smooth \(k\)-vector bundles over \(X\).
 \end{definition}
 
+\begin{definition}[Holomorphic vector bundle]\label{def:holomorphic-vector-bundle}
+  Let \(M\) be a complex manifold.
 
+  A \textbf{holomorphic vector bundle} is a \hyperref[def:topological-vector-bundle]{topological \(\mathbb{C}\)-vector bundle} \(E \xrightarrow{\pi} M\) such that
+  \begin{enumerate}
+    \item \(E\) is a complex manifold.
+    \item The projection map \(\pi: E \to M\) is an holomorphism.
+    \item The local trivialization maps \(\phi_{i}: U_{i} \times \mathbb{C}^{n_{i}} \isoarrow \pi^{-1}(U_{i})\) are biholomorphisms\footnote{A map \(f: \mathbb{C} \to \mathbb{C}\) is biholomorphic is it is holomorphic, bijective and its inverse is holomorphic.}.
+  \end{enumerate}
+
+  
+  A \textbf{morphism} of holomorphic vector bundles from \(E_{1} \xrightarrow{\pi_{1}} M\) to \(E_{2} \xrightarrow{\pi_{2}} M\) is \hyperref[def:topological-vector-bundle]{morphism of topological vector bundles} \(f: E_{1} \to E_{2}\) such that \(f\) is holomorphic.
+
+  We denote by \(\Vect_{\mathbb{C}}^{\omega}(X)\) the category of holomorphic vector bundles over \(X\).
+\end{definition}
+
+\begin{remark}
+  \autoref{thm:topological-vector-bundle-is-free-sheaf} can be proved analogously to the case of \hyperref[def:smooth-vector-bundle]{smooth} and \hyperref[def:holomorphic-vector-bundle]{holomorphic} vector bundles.
+\end{remark}
 
 
 \end{document}

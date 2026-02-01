@@ -102,7 +102,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
   \end{align*}
   Using the definition of the \hyperref[def:direct-image-presheaf]{direct image presheaf} we have
   \begin{align*}
-    f_{\ast}\mathcal{F}(\{\varnothing\}) &= \mathcal{F}(f^{-1}(\varnothing)) = \mathcal{F}(\varnothing) \\
+    f_{\ast}\mathcal{F}(\varnothing) &= \mathcal{F}(f^{-1}(\varnothing)) = \mathcal{F}(\varnothing) \\
     f_{\ast}\mathcal{F}(\{\ast\}) &= \mathcal{F}(f^{-1}(\{\ast\})) = \mathcal{F}(X)
   \end{align*}
 
@@ -116,7 +116,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
   In particular, if \(\mathcal{F}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\) we can identify \(\mathcal{F}(X) \to \mathcal{F}(\varnothing)\) with \(\mathcal{F}(X)\), getting a \hyperref[def:functor]{functor} \(\Gamma(X, -): \PSh_{X}(\category{C}) \to \category{C}\).
 \end{example}
 
-\begin{example}[Skyscraper presheaf] \label{ex:skyscraper-presheaf}
+\begin{example}[Skyscraper presheaf]\label{ex:skyscraper-presheaf}
   Let \(X\) be a topological space and \(p \in X\).
   Consider the one-point topological space \(\{\ast\}\) and the continuous map \(\iota_{p}: \{\ast\} \to X, \ast \mapsto p\).
   Consider a morphism \(\rho: S \to T\) in \(\category{C}\), which by \autoref{ex:one-point-presheaf} corresponds to a \hyperref[def:presheaf]{presheaf} \(\mathcal{R} \in \PSh_{\{\ast\}}(\category{C})\).
