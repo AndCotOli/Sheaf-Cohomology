@@ -25,7 +25,7 @@ Since \hyperref[def:sheaf]{sheaves} are the objects with "local-to-global" gluin
         \Hom_{\Sh_{X}(\category{C})}(\mathcal{F}^{\#}, \sheaf{G}) \cong \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota\sheaf{G})
     \end{equation*}
 
-    The unit of this adjunction gives a canonical morphism \(\theta: \mathcal{F} \to \iota(\mathcal{F}^{\#})\) in \(\PSh_{X}(\category{C})\).
+    The unit of this adjunction gives a canonical morphism \(\theta: \mathcal{F} \mapsto \iota(\mathcal{F}^{\#})\) in \(\PSh_{X}(\category{C})\).
 \end{definition}
 
 The existence of the \hyperref[def:sheafification]{sheafification functor} ...
@@ -144,13 +144,13 @@ Therefore we have the analogous adjunctions of \autoref{cor:stalk-skyscraper-adj
 
 \begin{proposition}
   Let \(X\) be a topological space and \(p \in X\).
-  For any \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} \(\mathcal{F} \in \PSh_{X}(\category{C})\) we have that \(\mathcal{F}_{p} = \mathcal{F}_{p}^{\#}\).
+  For any \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} \(\mathcal{F} \in \PSh_{X}(\category{C})\) we have that \(\mathcal{F}_{p} = (\mathcal{F}^{\#})_{p}\).
 \end{proposition}
 \begin{proof}
   Note that the \hyperref[def:stalk-sheaf]{stalk functor} \(-_{p}: \Sh_{X}(\category{C}) \to \category{C}\) can be written as the \(-_{p}^{\operatorname{pre}} \circ \iota\) where \(\iota: \Sh_{X}(\category{C}) \to \PSh_{X}(\category{C})\) is the inclussion \hyperref[def:functor]{functor} and \(-_{p}^{\operatorname{pre}}: \PSh_{X}(\category{C}) \to \mathsf{Arr}(\category{C})\) is the \hyperref[ex:stalk-presheaf]{presheaf stalk functor}.
 
   Note that \(\iota_{p, \ast}^{\operatorname{pre}}: \mathsf{Arr}(\category{C}) \to \PSh_{X}(\category{C})\) is, by \autoref{cor:stalk-skyscraper-adjunction-presheaf}, \hyperref[def:adjoint-functors]{right adjoint} to \(-_{p}^{\operatorname{pre}}\).
-  Furthermore, by \autoref{def:skyscrapper-sheaf} we have that \(\iota_{p, \ast}: \category{C} \to \Sh_{X}(\category{C})\) verifies \(\iota_{p, \ast} = -_{p}^{\operatorname{pre}} \circ \iota\).
+  Furthermore, by \autoref{def:skyscraper-sheaf} we have that \(\iota_{p, \ast}: \category{C} \to \Sh_{X}(\category{C})\) verifies \(\iota_{p, \ast} = -_{p}^{\operatorname{pre}} \circ \iota\).
 
   Therefore if \(F = (-_{p}^{\operatorname{pre}} \circ \iota) \circ -^{\#}\) we have that its \hyperref[def:adjoint-functors]{right adjoint} is
   \begin{equation*}
@@ -162,6 +162,27 @@ Therefore we have the analogous adjunctions of \autoref{cor:stalk-skyscraper-adj
 \begin{proposition}\label{prop:sheaf-morphism-and-stalks}
   \hyperref[def:sheaf]{Sheaf morphisms} are determined by their induced maps on \hyperref[def:stalk-sheaf]{stalks}
 \end{proposition}
+\begin{proof}
+  Let \(\varphi, \psi: \sheaf{F} \to \sheaf{G}\) be two \hyperref[def:sheaf]{sheaf morphisms} such that, for every point \(p \in X\) \(\varphi_{x} = \psi_{x}\). We want to show that, for every open subset \(U \subseteq X\) the component maps \(\varphi_{U}, \psi_{U}: \sheaf{F}(U) \to \sheaf{G}(U)\) are equal.
+
+  Let \(U \subseteq X\) be an open subset and \(s \in \sheaf{F}(U)\) be an arbitrary section.
+  Consider \(t_{1} \coloneq \varphi_{U}(s), t_{2} \coloneq \psi_{U}(s)\).
+
+  By the definition of \hyperref[def:stalk-sheaf]{stalk} we have a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      \sheaf{F}(U) \arrow[r, "\varphi_{U}"] \arrow[d] & \sheaf{G}(U) \arrow[d] \\
+      \sheaf{F}_{p} \arrow[r, "\varphi_{p}"] & \sheaf{G}_{p}
+    \end{tikzcd}
+  \end{center}
+  Then for any \(p \in U\) we have
+  \begin{align*}
+    (t_{1})_{p} &= (\varphi_{U}(s))_{p} = \varphi_{p}(s_{p}) \\
+    (t_{2})_{p} &= (\psi_{U}(s))_{p} = \psi_{p}(s_{p})
+  \end{align*}
+  and therefore by hypothesis \((t_{1})_{p} = (t_{2})_{p}\)
+\end{proof}
+
 
 
 \subsection*{Existence of sheafification}

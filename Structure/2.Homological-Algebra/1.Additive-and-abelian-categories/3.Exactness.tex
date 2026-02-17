@@ -3,7 +3,7 @@
 \ifSubfilesClassLoaded{%
     \zexternaldocument*{../../1.Category-Theory/exported/aux/main}%
     \zexternaldocument*{1.Additive-categories}
-    \zexternaldocument*{1.Abelian-categories}
+    \zexternaldocument*{2.Abelian-categories}
 }{}
 
 \begin{document}
@@ -143,9 +143,92 @@
   \end{center}
 \end{proof}
 
-\begin{theorem}[Nine lemma]\label{thm:nine-lemma}
+\begin{theorem}[Freyd-Mitchell embedding]\label{thm:freyd-mitchell}
+  Let \(\category{A}\) be a \hyperref[def:small-category]{small} \hyperref[def:abelian-category]{abelian category}.
+  Then there exists a ring \(R\) (with unit, not necessarilly commutative) and a \hyperref[def:functor-types]{fully faithful} \hyperref[def:exact-functor]{exact} \hyperref[def:functor]{functor} \(F: \category{A} \to \Mod(R)\).
 
+  This means that \(\category{A}\) and \(\Mod(R)\) are \hyperref[def:equivalent-categories]{equivalent categories}.
 \end{theorem}
+
+
+\begin{theorem}[Nine lemma]\label{thm:nine-lemma}
+  Consider the following diagram in an \hyperref[def:abelian-category]{abelian category}
+  \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d] & \\
+      0 \arrow[r] & A_{1} \arrow[r] \arrow[d] & A_{2} \arrow[r] \arrow[d] & A_{3} \arrow[r] \arrow[d] & 0 \\
+      0 \arrow[r] & B_{1} \arrow[r] \arrow[d] & B_{2} \arrow[r] \arrow[d] & B_{3} \arrow[r] \arrow[d] & 0 \\
+      0 \arrow[r] & C_{1} \arrow[r] \arrow[d] & C_{2} \arrow[r] \arrow[d] & C_{3} \arrow[r] \arrow[d] & 0 \\
+      & 0 & 0 & 0 &
+    \end{tikzcd}
+  \end{center}
+  Suppose that all the columns are \hyperref[def:short-exact-sequence]{exact}. Then
+  \begin{enumerate}
+    \item If the two bottom rows are \hyperref[def:short-exact-sequence]{exact}, so is the first row.
+    \item If the two top rows are \hyperref[def:short-exact-sequence]{exact}, so is the last row.
+    \item If the top and bottom rows are \hyperref[def:short-exact-sequence]{exact} and \(A_{2} \to C_{2}\) is the \hyperref[def:zero-object]{zero morphism}, the middle row is \hyperref[def:short-exact-sequence]{exact}.
+  \end{enumerate}
+
+  By symmetry, exchainging "row" and "column" gives three more true statements.
+\end{theorem}
+\begin{proof}
+  We will only show the first statement.
+  The other two follow analogously considering the corresponding diagram.
+
+  We have the following
+   \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d] & \\
+      0 \arrow[r] & A_{1} \arrow[r, "f_{A}"] \arrow[d, "i_{1}", tail] & A_{2} \arrow[r, "g_{A}"] \arrow[d,, "i_{2}", tail] & A_{3} \arrow[r] \arrow[d, "i_{3}", tail] & 0 \\
+      0 \arrow[r] & B_{1} \arrow[r, "f_{B}", tail] \arrow[d, "p_{1}", two heads] & B_{2} \arrow[r, "g_{B}", two heads] \arrow[d, "p_{2}", two heads] & B_{3} \arrow[r] \arrow[d, "p_{3}", two heads] & 0 \\
+      0 \arrow[r] & C_{1} \arrow[r, "f_{C}", tail] \arrow[d] & C_{2} \arrow[r, "g_{C}", two heads] \arrow[d] & C_{3} \arrow[r] \arrow[d] & 0 \\
+      & 0 & 0 & 0 &
+    \end{tikzcd}
+  \end{center}
+  By \autoref{remark:exactness-mono-epi} we need to check that \(f_{A}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} and \(g_{A}\) is an \hyperref[def:mono-epi-morphism]{epimorphism}.
+  
+  Applying the \hyperref[thm:snake-lemma]{snake lemma} to
+   \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & B_{1} \arrow[r, "f_{B}", tail] \arrow[d, "p_{1}", two heads] & B_{2} \arrow[r, "g_{B}", two heads] \arrow[d, "p_{2}", two heads] & B_{3} \arrow[r] \arrow[d, "p_{3}", two heads] & 0 \\
+      0 \arrow[r] & C_{1} \arrow[r, "f_{C}", tail] & C_{2} \arrow[r, "g_{C}", two heads] & C_{3} \arrow[r] & 0 \\
+    \end{tikzcd}
+  \end{center}
+  we get a \hyperref[def:short-exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      \ker p_{1} \arrow[r] & \ker p_{2} \arrow[r] \arrow[d, phantom, ""{coordinate, name=Z}] & \ker p_{3} \arrow[dll, rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east)
+        |- (Z) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \coker p_{1} \arrow[r] & \coker p_{2} \arrow[r] & \coker p_{3}
+    \end{tikzcd}
+  \end{center}
+
+  Since the columns \(0 \to A_{k} \xrightarrow{i_{k}} B_{k} \xrightarrow{p_{k}} C_{k} \to 0\) are \hyperref[def:short-exact-sequence]{exact} we have
+  \begin{align*}
+    \ker p_{k} = A_{k} \quad \coker p_{k} = 0 
+  \end{align*}
+  i.e: the snake lemma sequence is
+  \begin{center}
+    \begin{tikzcd}
+      A_{1} \arrow[r, "f_{A}"] & A_{2} \arrow[r, "g_{A}"] & A_{3} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Since this sequence is exact we get that \(\ker f_{A} = \coker g_{A}\) and that \(g_{A}\) is an \hyperref[def:mono-epi-morphism]{epimorphism}.
+
+  We still need to check that \(f_{A}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+  To do this, by \autoref{lemma:mono-epi-additive} let \(x: X \to A_{1}\) be a morphism in \(\category{A}\) such that \(f_{A} \circ x = 0\).
+  We need to check that \(x = 0\).
+
+  We have
+  \begin{align*}
+    0 &= i_{2} \circ (f_{A} \circ x) & \left( \text{Composition is associative} \right) \\
+      &= (i_{2} \circ f_{A}) \circ x & \left( \text{Commutativity of the diagram} \right) \\
+      &= (f_{B} \circ i_{1}) \circ x
+  \end{align*}
+  Since \(f_{B} \circ i_{1}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (both \(f_{B}\) and \(i_{1}\) are \hyperref[def:mono-epi-morphism]{monomorphisms}) by \autoref{lemma:mono-epi-additive} we have that \(x = 0\).
+\end{proof}
 
 
 \subsection{Exact functors}
@@ -192,7 +275,7 @@
   By \autoref{remark:exactness-mono-epi}, to show exacteness at \(\Hom(X, A)\) we need to check that \(f_{\ast}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} in \(\Ab\), i.e: \(f_{\ast}\) is injective.
 
   Let \(\alpha \in \Hom(X, A)\) such that \(f_{\ast}(\alpha) = f \circ \alpha = 0\).
-  Since \(0 \to A \xrightarrow{f} B\) is exact by \autoref{remark:exactness-and-mono-epi} \(f\) is a monomorphism.
+  Since \(0 \to A \xrightarrow{f} B\) is exact by \autoref{remark:exactness-mono-epi} \(f\) is a monomorphism.
   Therefore \(f \circ \alpha = 0 \iff \alpha = 0\), proving that \(f_{\ast}\) is injective.
 
   To see exactness at \(\Hom(X, B)\) we are going to check that \(\im f_{\ast} = \ker g_{\ast}\):

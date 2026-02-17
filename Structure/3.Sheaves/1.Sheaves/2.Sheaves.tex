@@ -9,7 +9,7 @@
 \begin{document}
 \section{Sheaves} \label{sec:sheaves}
 
-\textbf{Write motivation on why sheaves capture more \textit{geometric} information}.
+\todo[inline]{Write motivation on why sheaves capture more \textit{geometric} information}
 
 We now turn our attention to a particular class of \hyperref[def:presheaf]{presheaves}.
 Let's first tackle the case where the evaluation category is \(\Set\).
@@ -105,10 +105,10 @@ is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
 \end{remark}
 
 
-\subsection{Sheaves of concrete categories} \label{ssec:concrete-category-sheaf}
-Let's consider the case where \(\category{C}\) is a \hyperref[def:concrete-category]{concrete category}, i.e: there exists a \hyperref[def:functor-types]{fully faithful and essentially surjective functor} \(F: \category{C} \to \Set\).
+\subsection{Sheaves of \(\Set\)-like categories} \label{ssec:concrete-category-sheaf}
+Let's consider the case where our \hyperref[def:category]{category} \(\category{C}\) comes with a \hyperref[def:functor]{functor} \(F: \category{C} \to \Set\).
 
-Here, for every \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} we have an associated \textit{underlying \hyperref[def:presheaf]{presheaf of sets}}.
+Here, for every \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) we have an associated \textit{underlying \hyperref[def:presheaf]{presheaf of sets}} \(F\mathcal{F}\).
 
 We want to know in which \hyperref[def:category]{categories} we can check the \hyperref[def:sheaf]{sheaf} conditions in the underlying \hyperref[def:presheaf]{presheaf} of sets.
 
@@ -119,9 +119,9 @@ We have the following diagram
       (F\sheaf{F})(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} (F\sheaf{F})(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} (F\sheaf{F})(U_{i} \cap U_{j})
   \end{tikzcd}
 \end{center}
-If we suppose that the top row is an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}) then \(F\) need to \hyperref[def:functor-and-limits]{preserve limits} to make the bottom row an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}).
+If we suppose that the top row is an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}) then \(F\) needs to \hyperref[def:functor-and-limits]{preserve limits} to make the bottom row an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}).
 
-Similarly, if we suppose that the bottom row is an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of stes}) then \(F\) need to \hyperref[def:functor-and-limits]{reflect limits} to make the top row an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}).
+Similarly, if we suppose that the bottom row is an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}) then \(F\) needs to \hyperref[def:functor-and-limits]{reflect limits} to make the top row an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}).
 
 Note that this does not happen in general for all \hyperref[def:concrete-category]{concrete categories}.
 For example the \hyperref[def:functor]{functor} \(F: \Top \to \Set\) sending every topological space to its underlying set does not \hyperref[def:functor-and-limits]{reflect limits}.

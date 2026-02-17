@@ -71,7 +71,7 @@
       0 \arrow[r] & A \arrow[r] & Q^{0} \arrow[r] & Q^{1} \arrow[r] & \cdots \arrow[r] & Q^{m} \arrow[r] & M \arrow[r] & 0
     \end{tikzcd}
   \end{center}
-  is \hyperref[def:short-exact-sequence]{exact} with \(Q^{i}\) \hyperref[def:acyclic-object]{\(F\)-acyclic} then for all \(i \geq m + 2 \quad R^{i}F(A) \cong R^{i-m-1}F(A)\) and \(R^{m+1}F(A)\) is the \hyperref[def:categorical-cokernel]{cokernel} of \(F(I^{m}) \to F(M)\).
+  is \hyperref[def:short-exact-sequence]{exact} with \(Q^{i}\) \hyperref[def:acyclic-object]{\(F\)-acyclic} then for all \(i \geq m + 2 \quad R^{i}F(A) \cong R^{i-m-1}F(A)\) and \(R^{m+1}F(A)\) is the \hyperref[def:categorical-cokernel]{cokernel} of \(F(Q^{m}) \to F(M)\).
 
   In particular if \(A[0] \to Q^{\bullet}\) is an \hyperref[def:acyclic-object]{\(F\)-acyclic resolution} of \(A\) then
   \begin{align*}
@@ -109,12 +109,12 @@
     \item For \(i = 1\) the segment
           \begin{center}
             \begin{tikzcd}
-              F(I) \arrow[r] & F(M) \arrow[r, "\delta^{0}"] & R^{1}F(A) \arrow[r] & 0
+              F(Q^{0}) \arrow[r] & F(M) \arrow[r, "\delta^{0}"] & R^{1}F(A) \arrow[r] & 0
             \end{tikzcd}
           \end{center}
           By \hyperref[def:short-exact-sequence]{exactness} at \(R^{1}F(A)\) we have
           \begin{equation*}
-            R^{1}F(A) \cong \quot{F(M)}{\im F(I)} \cong \coker \left( F(I) \to F(M) \right)
+            R^{1}F(A) \cong \quot{F(M)}{\im F(Q^{0})} \cong \coker \left( F(Q^{0}) \to F(M) \right)
           \end{equation*}
     \item For \(i \geq 2\) the segment
           \begin{center}

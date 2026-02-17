@@ -108,7 +108,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
 
   Therefore we define the \textbf{global sections} of \(\mathcal{F}\) as
   \begin{align*}
-    \Gamma(X, \mathcal{F}) \coloneq f_{\ast}\mathcal{F}
+    \Gamma(X, \mathcal{F}) \coloneq f_{\ast}\mathcal{F} \cong \mathcal{F}(X) \to \mathcal{F}(\varnothing)
   \end{align*}
 
   This defines a \hyperref[def:functor]{functor} \(\Gamma(X, -): \PSh_{X}(\category{C}) \to \mathsf{Arr}(\category{C})\).
@@ -131,11 +131,11 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
       T & p \notin U
     \end{cases}
   \end{align*}
-  Note that the restriction maps are given by
+  Note that if \(V \subseteq U\) the restriction map is given by
   \begin{align*}
     \res_{U, V} = \begin{cases}
-      \id_{A} & p \in V \\
-      \id_{B} & p \notin U \\
+      \id_{S} & p \in V \\
+      \id_{T} & p \notin U \\
       \rho & p \in U \land p \notin V
     \end{cases}
   \end{align*}
@@ -151,7 +151,7 @@ In particular if \(\category{C}\) is an \hyperref[def:abelian-category]{abelian 
 \end{example}
 
 
-For sufficiently nice \hyperref[def:category]{categories} (those with \hyperref[def:direct-limit]{direct limits}), we have \textit{dual} construction.
+For sufficiently nice \hyperref[def:category]{categories} (those with \hyperref[def:direct-limit]{direct limits}), we have a \textit{dual} construction.
 \begin{definition}[Inverse image presheaf] \label{def:inverse-image-presheaf}
   Let \(f: X \to Y\) be a continuous map between two topological spaces \(X, Y\).
   Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:direct-limit]{direct limits}.
@@ -196,7 +196,7 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
   \end{itemize}
   Therefore
   \begin{equation*}
-    \forall U \in \Open(X) \quad \left( f_{\operatorname{pre}}^{-1}\mathcal{R} \right) = \begin{cases}
+    \forall U \in \Open(X) \quad \left( f_{\operatorname{pre}}^{-1}\mathcal{R} \right)(U) = \begin{cases}
       S & U \neq \varnothing \\
       T & U = \varnothing
     \end{cases}
@@ -235,11 +235,11 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
   Using the definition of the \hyperref[def:inverse-image-presheaf]{inverse image presheaf} we have that
   \begin{align*}
     f_{\operatorname{pre}}^{-1}\mathcal{F}(\{\ast\}) &= \varinjlim_{\substack{U \supseteq f(\{\ast\}) \\ U \in \Open(X)}} \mathcal{F}(U) = \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U) \\
-    f_{\operatorname{pre}}^{-1}\mathcal{F}(\varnothing) &= \varinjlim_{\substack{U \supseteq f(\varnothing) \\ U \in \Open(X)}} \mathcal{F}(U) = \varinjlim_{\substack{U \in \Open(X)}} \mathcal{F}(U)
+    f_{\operatorname{pre}}^{-1}\mathcal{F}(\varnothing) &= \varinjlim_{\substack{U \supseteq f(\varnothing) \\ U \in \Open(X)}} \mathcal{F}(U) = \varinjlim_{\substack{U \in \Open(X)}} \mathcal{F}(U) = \mathcal{F}(\varnothing)
   \end{align*}
   Therefore
   \begin{align*}
-    f_{\operatorname{pre}}^{-1} \mathcal{F} \cong \left( \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U) \to \varinjlim_{\substack{U \in \Open(X)}} \mathcal{F}(U) \right)
+    f_{\operatorname{pre}}^{-1} \mathcal{F} \cong \left( \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U) \to \mathcal{F}(\varnothing) \right)
   \end{align*}
 
   We define the \textbf{stalk} of \(\mathcal{F}\) at \(p\) as
@@ -248,9 +248,9 @@ In the following examples, we assume that the \hyperref[def:category]{category} 
   \end{equation*}
   This defines a \hyperref[def:functor]{functor} \(-_{p}: \PSh_{X}(\category{C}) \to \mathsf{Arr}(\category{C})\).
 
-  In particular if \(\varinjlim_{U \in \Open(X)} \mathcal{F}(U)\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\) we can identify
+  In particular if \(\mathcal{F}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\) we can identify
   \begin{equation*}
-    \left(\varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U) \to \varinjlim_{\substack{U \in \Open(X)}} \mathcal{F}(U) \right) \cong \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U)
+    \left(\varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U) \to \mathcal{F}(\varnothing) \right) \cong \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U)
   \end{equation*}
   getting a \hyperref[def:functor]{functor} \(-_{p}: \PSh_{X}(\category{C}) \to \category{C}\).
 \end{example}
@@ -328,7 +328,7 @@ In particular, we get the following particular cases of \autoref{thm:direct-inve
     \Hom_{\PSh_{X}(\category{C})}(\underline{\rho}_{\operatorname{pre}}, \mathcal{F}) \simeq \Hom_{\mathsf{Arr}(\category{C})}(\rho, \Gamma(X, \mathcal{F}))
   \end{align*}
 
-  And in particular, if \(\mathcal{F}(\varnothing)\) and \(T\) are \hyperref[def:initial-terminal-object]{terminal objects} in \(\category{C}\) we get
+  In particular, if \(\mathcal{F}(\varnothing)\) and \(T\) are \hyperref[def:initial-terminal-object]{terminal objects} in \(\category{C}\) we get
   \begin{align*}
     \Hom_{\PSh_{X}(\category{C})}(\underline{S}_{\operatorname{pre}}, \mathcal{F}) \simeq \Hom_{\category{C}}(S, \Gamma(X, \mathcal{F}))
   \end{align*}
@@ -342,7 +342,7 @@ In particular, we get the following particular cases of \autoref{thm:direct-inve
     \Hom_{\mathsf{Arr}(\category{C})}(\mathcal{F}_{p}, \rho) \simeq \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota_{p, \ast} \underline{\rho}_{\operatorname{pre}} )
   \end{align*}
 
-  In particular if \(T\) and \(\varinjlim_{U \in \Open(X)} \mathcal{F}(U)\) are \hyperref[def:initial-terminal-object]{terminal objects} in \(\category{C}\) we get
+  In particular, if \(\mathcal{F}(\varnothing)\) and \(T\) are \hyperref[def:initial-terminal-object]{terminal objects} in \(\category{C}\) we get
   \begin{align*}
     \Hom_{\category{C}}(\mathcal{F}_{p}, S) \simeq \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota_{p, \ast} \underline{S}_{\pre})
   \end{align*}

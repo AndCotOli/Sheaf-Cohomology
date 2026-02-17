@@ -11,7 +11,7 @@
 
 \begin{definition} \label{def:presheaf-of-modules}
   Let \(X\) be a topological space.
-  Let \(\mathcal{O}_{X}\) be a \hyperref[def:sheaf]{sheaf} of rings over \(X\).
+  Let \(\mathcal{O}_{X}\) be a \hyperref[def:presheaf]{presheaf} of rings over \(X\).
 
   A \textbf{presheaf of \(\mathcal{O}_{X}\)-modules} is a \hyperref[def:presheaf]{presheaf} of abelian groups \(\mathcal{F}\) together with a map of \hyperref[def:presheaf]{presheaves} of sets \(\mathcal{O} \times \mathcal{F} \to \mathcal{F}\) such that for every open subset \(U \subseteq X\) the map \(\mathcal{O}(U) \times \mathcal{F}(U) \to \mathcal{F}(U)\) defines the structure of an \(\mathcal{O}(U)\)-module on \(\mathcal{F}(U)\).
 
@@ -189,7 +189,7 @@ We also have an analogous of \autoref{lemma:restriction-tensor-adjunction-preshe
 \end{theorem}
 \begin{proof}
   In \autoref{prop:limits-colimits-presheaf} we have seen that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} of \hyperref[def:presheaf]{presheaves} can be computed \textit{open set by open set}.
-  Therefore since the \hyperref[def:category]{category} of modules over a ring is \hyperref[def:abelian-category]{abelian}, the category \(\PMod(\mathcal{O}_{X})\) inherits this property.
+  Therefore since the \hyperref[def:category]{category} of modules over a ring is \hyperref[def:abelian-category]{abelian}, the category \(\PMod(\sheaf{O}_{X})\) inherits this property.
 
   Let's see how we can see that \(\Mod(\sheaf{O}_{X})\) is also \hyperref[def:abelian-category]{abelian}.
   It is clear that \(\Mod(\sheaf{O}_{X})\) is an \hyperref[def:additive-category]{additive category}.
@@ -197,7 +197,7 @@ We also have an analogous of \autoref{lemma:restriction-tensor-adjunction-preshe
 
   Let \(\varphi: \sheaf{F} \to \sheaf{G}\) be a morphism of \hyperref[def:sheaf-of-modules]{sheaves of \(\sheaf{O}\)-modules}.
   We have an associated morphism of \hyperref[def:presheaf-of-modules]{presheaves of \(\iota\sheaf{O}\)-modules} \(\iota\varphi: \iota\sheaf{F} \to \iota\sheaf{G}\).
-  Using that \(\PMod(\iota\sheaf{O}_{X})\) is \hyperref[def:abelian-category]{category} the morphism \(\iota\varphi\) admits a \hyperref[def:categorical-kernel]{kernel} \(\ker_{\operatorname{pre}} \iota \varphi\) and \hyperref[def:categorical-cokernel]{cokernel} \(\coker_{\operatorname{pre}} \iota\varphi\).
+  Using that \(\PMod(\iota\sheaf{O}_{X})\) is an \hyperref[def:abelian-category]{abelian category} the morphism \(\iota\varphi\) admits a \hyperref[def:categorical-kernel]{kernel} \(\ker_{\operatorname{pre}} \iota \varphi\) and \hyperref[def:categorical-cokernel]{cokernel} \(\coker_{\operatorname{pre}} \iota\varphi\) in \(\PMod(\iota\sheaf{O}_{X})\).
   Therefore we can define the \hyperref[def:categorical-kernel]{kernel} and \hyperref[def:categorical-cokernel]{cokernel} of \(\varphi\) using the \hyperref[def:sheafification]{sheafification functor}
   \begin{align*}
     \ker \varphi &\coloneq \left( \ker_{\operatorname{pre}} \iota\varphi \right)^{\#} = \ker_{\operatorname{pre}} \left( \iota \varphi \right)^{\#} = \ker_{\operatorname{pre}} \varphi \\
