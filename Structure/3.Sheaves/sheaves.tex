@@ -194,7 +194,7 @@ Let's start by considering the case \(\category{C} = \Set\):
   \begin{equation} \label{diagram:sheaf-condition}
     \mathcal{F}(U) \to \prod_{i \in \mathcal{I}} \mathcal{F}(U_{i}) \rightrightarrows \prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \mathcal{F}(U_{i} \cap U_{j})
   \end{equation}
-  is an \nameref{def:equalizer}.
+  is an \nameref{def:equaliser}.
 
   We denote by \(\Sh_{X}(\Set)\) (or just \(\Sh\) if the context is clear) the \nameref{def:subcategory} of the \hyperref[def:presheaf]{category of presheaves} of sets whose objects are sheaves of sets.
 
@@ -213,11 +213,11 @@ The \nameref{def:category} \(\Sh_{X}(\Set)\) of \namerefs{def:sheaf-set} is the 
 Let's try to make \autoref{def:sheaf-set} more general by considering another evaluation category \(\category{C}\).
 
 Firstly, note that if \namerefs{def:categorical-product} indexed by \(\mathcal{I}\) and \(\mathcal{I} \times \mathcal{I}\) for any indexing set \(\mathcal{I}\) exist in \(\category{C}\) then the diagram \eqref{diagram:sheaf-condition} makes sense.
-Secondly, we have that \eqref{diagram:sheaf-condition} is an \nameref{def:equalizer} if and only if for every object \(C \in \category{C}\) the diagram in \(\Set\)
+Secondly, we have that \eqref{diagram:sheaf-condition} is an \nameref{def:equaliser} if and only if for every object \(C \in \category{C}\) the diagram in \(\Set\)
 \begin{equation*}
   \Hom_{\category{C}}(C, \mathcal{F}(U)) \to \prod_{i \in \mathcal{I}} \Hom_{\category{C}}(C, \mathcal{F}(U_{i})) \rightrightarrows \prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \Hom_{\category{C}}(C, \mathcal{F}(U_{i} \cap U_{j}))
 \end{equation*}
-is an \nameref{def:equalizer}.
+is an \nameref{def:equaliser}.
 
 Therefore we get
 \begin{definition}[Sheaf] \label{def:sheaf}
@@ -414,7 +414,7 @@ For cohomology we will be interested in the case \(\category{C} = \Ab\).
   Since \(b\) is \hyperref[def:adjunction]{left-adjoint} it is \hyperref[def:exact-complex-functor]{right-exact} and therefore, \hyperref[def:exact-complex-functor]{exact}.
 
   Let \(\varphi: B_{1} \to B_{2}\) be a morphism in \(\category{B}\).
-  If \(K = \ker(\varphi)\) then \(K\) is the \nameref{def:equalizer} of the diagram
+  If \(K = \ker(\varphi)\) then \(K\) is the \nameref{def:equaliser} of the diagram
   \begin{center}
     \begin{tikzcd}
       K \arrow[r] & B_{1} \arrow[r, shift left, "\varphi"] \arrow[r, shift right, "0"'] & B_{2}

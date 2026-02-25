@@ -127,6 +127,10 @@
 \begin{proposition}[Uniqueness of limits and colimits]
   If a diagram \(X: \category{J} \to \category{C}\) has a \hyperref[def:categorical-limit]{limit}/\hyperref[def:categorical-colimit]{colimit}, it is unique up to unique \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{proposition}
+\begin{proof}
+  Direct from \autoref{prop:uniqueness-initial-terminal-objects}.
+\end{proof}
+
 
 \begin{definition}[Functors and limits]\label{def:functor-and-limits}
   Let \(F: \category{C} \to \category{D}\) be a \hyperref[def:functor]{functor} and \(X: \category{J} \to \category{C}\) a \hyperref[def:diagram]{diagram}.
@@ -172,7 +176,7 @@
   Consider the \textit{parallel pair} \hyperref[def:small-category]{category} \(\category{J} = \bullet \rightrightarrows \bullet\).
   A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphisms \(f, g: A \rightrightarrows B\), making a \hyperref[def:cone]{cone} with apex \(C\) over \(X\) is a morphism \(a: C \to A\) such that \(fa = ga\).
   
-  The \textbf{equaliser} of \(f\) and \(g\) is the \hyperref[def:limit]{limit} of this diagram.
+  The \textbf{equaliser} of \(f\) and \(g\) is the \hyperref[def:categorical-limit]{limit} of this diagram.
   Les abstractly, it is a morphism \(\operatorname{eq}: E \to A\) such that for any morphism \(C \to A\) there exists a unique map \(C \to E\) the following diagram commute
   \begin{center}
     \begin{tikzcd}
@@ -186,7 +190,7 @@
   Consider the \textit{parallel pair} \hyperref[def:small-category]{category} \(\category{J} = \bullet \rightrightarrows \bullet\).
   A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphisms \(f, g: A \rightrightarrows B\), making a \hyperref[def:cocone]{cocone} with nadir \(C\) over \(X\) is a morphism \(a: A \to C\) such that \(af = ag\).
   
-  The \textbf{coequaliser} of \(f\) and \(g\) is the \hyperref[def:colimit]{limit} of this diagram.
+  The \textbf{coequaliser} of \(f\) and \(g\) is the \hyperref[def:categorical-colimit]{limit} of this diagram.
   Less abstractly, it is a morphism \(\operatorname{coeq}: B \to Q\) such that for any morphism \(Y \to C\) there exists a unique map \(Q \to C\) the following diagram commute
   \begin{center}
     \begin{tikzcd}

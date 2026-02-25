@@ -132,6 +132,21 @@
   Let \(\category{C}, \category{D}\) be two \hyperref[def:big-category]{categories} and \(F: \category{C} \to \category{D}\) a \hyperref[def:functor]{functor} between them.
   If \(f\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) then \(Ff\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
 \end{proposition}
+\begin{proof}
+  Let \(f: X \to Y\) be a \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
+  Then there exists an inverse \(f^{-1}: Y \to X\) in \(\category{C}\) such that
+  \begin{equation*}
+    f^{-1} \circ f = \id_{X} \quad f \circ f^{-1} = \id_{Y}
+  \end{equation*}
+
+  Applying \(F\) to this equalities we have
+  \begin{align*}
+    F(f^{-1} \circ f) = F(\id_{X}) &\implies F(f^{-1}) \circ F(f) = \id_{F(X)} \\
+    F(f \circ f^{-1}) = F(\id_{Y}) &\implies F(f) \circ F(f^{-1}) = \id_{F(Y)}
+  \end{align*}
+  i.e: \(F(f)\) has an inverse \(F(f^{-1})\) in \(\category{D}\).
+\end{proof}
+
 
 \begin{definition}[Functor types]\label{def:functor-types}
   A \hyperref[def:functor]{functor} \(F: \category{C} \to \category{D}\) is:
@@ -182,8 +197,9 @@
   Two categories \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist functors \(F: \category{C} \to \category{D}\) and \(G: \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.
 \end{definition}
 
-\begin{theorem}
-  A functor \(F: \category{C} \to \category{D}\) is an \hyperref[def:equivalent-categories]{equivalence of categories} if and only if it is \hyperref[def:functor-types]{fully faithful and essentially surjective}.
+\begin{theorem}[{\cite[Theorem 1.5.9]{riehlCategoryTheoryContext}}]
+  A \hyperref[def:functor]{functor} \(F: \category{C} \to \category{D}\) defining an \hyperref[def:equivalent-categories]{equivalence of categories} is \hyperref[def:functor-types]{fully faithful and essentially surjective}.
+  Assuming the axiom of choice, any \hyperref[def:functor]{functor} with these properties defines an  \hyperref[def:equivalent-categories]{equivalence of categories}.
 \end{theorem}
 
 \end{document}

@@ -10,32 +10,86 @@
 \begin{document}
 \chapter{More on functors}
 
+\section{Representable functors}
+\begin{definition}\label{def:representable-functor}
+  A \hyperref[def:functor]{functor} \(F: \category{C} \to \Set\) is \textbf{representable} if there exists an object \(X \in \category{C}\) such that
+  \begin{equation*}
+    F \cong \Hom_{\category{C}}(X, -)
+  \end{equation*}
+  where \(\Hom_{\category{C}}(X, -)\) is the \hyperref[ex:hom-functor]{covariant Hom functor}.
+\end{definition}
+
+\begin{definition}[Concrete category]\label{def:concrete-category}
+  A \hyperref[def:category]{category} \(\category{C}\) is \textbf{concrete} if there exists a \hyperref[def:functor-types]{faithful functor} \(U: \category{C} \to \Set\). Such a functor is often called a \textbf{forgetful functor}.
+\end{definition}
+
+\begin{lemma}[{Yoneda - \cite[Theorem 2.2.4]{riehlCategoryTheoryContext}}]\label{lemma:yoneda}
+  Let \(\category{C}\) be a \hyperref[def:category]{locally small category}, \(X \in \category{C}\) an object, and \(F: \category{C} \to \Set\) a \hyperref[def:functor]{functor}. There is a bijection:
+  \begin{equation*}
+    \Phi: \Hom(\Hom(X, -), F) \isoarrow F(X)
+  \end{equation*}
+  given by \(\alpha \mapsto \alpha_{X}(\id_{X})\). This bijection is natural in both \(X\) and \(F\).
+\end{lemma}
+
 \section{Adjunctions}
 
 \begin{definition}[Adjoint functors]\label{def:adjoint-functors}
-  Let \(F: \category{C} \to \category{D}\) and \(G: \category{D} \to \category{C}\) be two \hyperref[def:functor]{functors}. We say that \(F\) is \textbf{left adjoint} to \(G\), and \(G\) is \textbf{right adjoint} to \(F\), denoted \(F \dashv G\), if there is a \hyperref[def:natural-transformation]{natural isomorphism}:
+  Let \(\category{C}\), \(\category{D}\) be two \hyperref[def:category]{locally small categories} and let \(L: \category{C} \to \category{D}\) and \(R: \category{D} \to \category{C}\) be two \hyperref[def:functor]{functors}. We say that \(L\) is \textbf{left adjoint} to \(R\), and \(R\) is \textbf{right adjoint} to \(L\), denoted \(L \dashv R\), if there is a bijection:
   \begin{equation} \label{eq:adjunction-hom-iso}
-    \phi_{X,Y}: \Hom_{\category{D}}(F(X), Y) \isoarrow \Hom_{\category{C}}(X, G(Y))
+    \phi_{X,Y}: \Hom_{\category{D}}(L(X), Y) \isoarrow \Hom_{\category{C}}(X, R(Y))
   \end{equation}
   which is natural in both \(X \in \category{C}\) and \(Y \in \category{D}\).
 \end{definition}
 
 \begin{definition}[Unit and counit]\label{def:unit-counit}
-  The adjunction \eqref{eq:adjunction-hom-iso} is uniquely determined by two natural transformations:
+  The adjunction \eqref{eq:adjunction-hom-iso} is uniquely determined by two \hyperref[def:natural-transformation]{natural transformations}:
   \begin{itemize}
-    \item The \textbf{unit} \(\eta: \id_{\category{C}} \implies G \circ F\), where \(\eta_X = \phi_{X, F(X)}(\id_{F(X)})\).
-    \item The \textbf{counit} \(\varepsilon: F \circ G \implies \id_{\category{D}}\), where \(\varepsilon_Y = \phi^{-1}_{G(Y), Y}(\id_{G(Y)})\).
+    \item The \textbf{unit} \(\eta: \id_{\category{C}} \implies R \circ L\), where \(\eta_{X} = \phi_{X, L(X)}(\id_{L(X)})\).
+    \item The \textbf{counit} \(\varepsilon: L \circ R \implies \id_{\category{D}}\), where \(\varepsilon_{Y} = \phi^{-1}_{R(Y), Y}(\id_{R(Y)})\).
   \end{itemize}
-  These satisfy the \textbf{triangular identities}: \(G(\varepsilon_{Y}) \circ \eta_{G(Y)} = \id_{G(Y)}\) and \(\varepsilon_{F(X)} \circ F(\eta_{X}) = \id_{F(X)}\).
+  These satisfy the \textbf{triangular identities}: \(R(\varepsilon_{Y}) \circ \eta_{R(Y)} = \id_{R(Y)}\) and \(\varepsilon_{L(X)} \circ L(\eta_{X}) = \id_{L(X)}\).
 \end{definition}
 
-\begin{proposition}\label{prop:adjoint-properties}
-  Let \(F \dashv G\) be an \hyperref[def:adjoint-functors]{adjunction}.
-  \begin{itemize}
-    \item Adjoints are unique up to \hyperref[def:natural-transformation]{natural isomorphism}.
-    \item \hyperref[def:adjoint-functors]{Left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in \(\category{C}\).
-    \item \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in \(\category{D}\).
-  \end{itemize}
+\begin{remark}
+  \hyperref[def:adjoint-functors]{Left and right adjoints} are \hyperref[def:dual]{dual concepts}.
+\end{remark}
+
+
+\begin{proposition}[Adjoints are unique]\label{prop:uniqueness-adjoints}
+  The \hyperref[def:adjoint-functors]{right adjoint} (resp. \hyperref[def:adjoint-functors]{left adjoint}) to a \hyperref[def:functor]{functor}, provided it exists, is unique up to \hyperref[def:natural-transformation]{natural isomorphism}
+\end{proposition}
+\begin{proof}
+  Let \(L: \category{C} \to \category{D}\) be a \hyperref[def:functor]{functor}.
+  
+  Let \(R_{1}, R_{2}: \category{D} \to \category{C}\) be two \hyperref[def:functor]{functors} which are \hyperref[def:adjoint-functors]{right adjoint} to \(L\).
+  This means that for all \(X \in \category{C}\) and \(Y \in \category{D}\) we have bijections
+  \begin{align*}
+    \phi_{X, Y}:& \Hom_{\category{D}}(L(X), Y) \isoarrow \Hom_{\category{C}}(X, R_{1}(Y)) \\
+    \psi_{X, Y}:& \Hom_{\category{D}}(L(X), Y) \isoarrow \Hom_{\category{C}}(X, R_{2}(Y))
+  \end{align*}
+  Using this we can define a bijection
+  \begin{equation*}
+    \Theta_{X, Y} = \psi_{X, Y} \circ \phi_{X, Y}^{-1}: \Hom_{\category{C}}(X, R_{1}(Y)) \isoarrow \Hom_{\category{C}}(X, R_{2}(Y))
+  \end{equation*}
+  Since \(\psi\) and \(\phi\) are natural in \(X\) so is \(\Theta\).
+  Therefore for a fixed \(Y \in \category{D}\) we have a \hyperref[def:natural-transformation]{natural isomorphism}
+  \begin{center}
+    \begin{tikzcd}[column sep=huge]
+      \category{C} \arrow[r, bend left=50, "{\Hom_{\category{C}}(-, R_{1}(Y))}" ""{name=source, below}]
+      \arrow[r, bend right=50, "{\Hom_{\category{C}}(-, R_{2}(Y))}"' ""{name=target, above}]
+      & \category{Set}
+      \arrow[Rightarrow, from=source, to=target, "\Theta_{-, Y}"]
+    \end{tikzcd}
+  \end{center}
+
+\end{proof}
+
+
+
+\begin{proposition}\label{prop:adjoints-preserve-limits}
+  \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in \(\category{D}\).
+  
+  \hyperref[def:dual]{Dually} \hyperref[def:adjoint-functors]{left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in \(\category{C}\).
 \end{proposition}
 
 
@@ -47,7 +101,7 @@
     \item \textbf{Objects}: \hyperref[def:functor]{functors} \(F: \category{C} \to \category{D}\).
     \item \textbf{Morphisms}: \hyperref[def:natural-transformation]{natural transformations} \(\eta: F \implies G\).
   \end{itemize}
-  Composition and identities are defined componentwise. If \(\category{D}\) has (co)limits of shape \(\category{J}\), then \(\category{D}^{\category{C}}\) has (co)limits of shape \(\category{J}\), computed object-wise.
+  Composition and identities are defined componentwise.
 \end{definition}
 
 \begin{lemma}
@@ -67,6 +121,14 @@
   Furthermore, they are computed objectwise.
 \end{lemma}
 
+
+\begin{corollary}[{Yoneda embedding - \cite[Corollary 2.2.8]{riehlCategoryTheoryContext}}]
+  Let \(\category{C}\) be a \hyperref[def:category]{locally small category}.
+  The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}. This allows us to view any locally small category as a \hyperref[def:subcategory]{full subcategory} of a \hyperref[def:functor-category]{functor category}.
+\end{corollary}
+
+\section{Higher categories}
+
 We can go a step further.
 \begin{definition}\label{def:natural-transformation-category}
   Let \(F: \category{C} \to \category{D}\), \(G: \category{C} \to \category{D}\) be two \hyperref[def:functor]{functors}.
@@ -77,33 +139,6 @@ We can go a step further.
   \end{itemize}
 \end{definition}
 
-
-\section{Representable functors}
-\begin{definition}\label{def:representable-functor}
-  A \hyperref[def:functor]{functor} \(F: \category{C} \to \Set\) is \textbf{representable} if there exists an object \(X \in \category{C}\) such that
-  \begin{equation*}
-    F \cong \Hom_{\category{C}}(X, -)
-  \end{equation*}
-  where \(\Hom_{\category{C}}(X, -)\) is the \hyperref[ex:hom-functor]{covariant Hom functor}.
-\end{definition}
-
-\begin{definition}[Concrete category]\label{def:concrete-category}
-  A \hyperref[def:category]{category} \(\category{C}\) is \textbf{concrete} if there exists a \hyperref[def:functor-types]{faithful functor} \(U: \category{C} \to \Set\). Such a functor is often called a \textbf{forgetful functor}.
-\end{definition}
-
-\begin{lemma}[Yoneda]\label{lemma:yoneda}
-  Let \(\category{C}\) be a \hyperref[def:category]{locally small category}, \(X \in \category{C}\) an object, and \(F: \category{C} \to \Set\) a \hyperref[def:functor]{functor}. There is a bijection:
-  \begin{equation*}
-    \Phi: \category{Nat}(\Hom(X, -), F) \isoarrow F(X)
-  \end{equation*}
-  given by \(\eta \mapsto \eta_X(\id_X)\). This bijection is natural in both \(X\) and \(F\).
-\end{lemma}
-
-\begin{corollary}[Yoneda embedding]
-  Let \(\category{C}\) be a \hyperref[def:category]{locally small category}.
-  
-  The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}. This allows us to view any locally small category as a \hyperref[def:subcategory]{full subcategory} of a \hyperref[def:functor-category]{functor category}.
-\end{corollary}
 
 
 \end{document}

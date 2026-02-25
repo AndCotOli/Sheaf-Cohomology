@@ -46,9 +46,9 @@ To do this, the first thing we need to do is to write axioms \ref{axiom:sheaf-id
         \end{align*}
         where \(p\) takes the section on \(U_{i}\) and sends it to the intersection and \(q\) takes the section on \(U_{j}\) and sends it to the intersection.
 
-        The condition \ref{axiom:sheaf-gluability} is then equivalent to saying that \(\sheaf{F}\) is the \hyperref[def:equalizer]{equalizer} of the diagram consisting of \(p\) and \(q\).
+        The condition \ref{axiom:sheaf-gluability} is then equivalent to saying that \(\sheaf{F}\) is the \hyperref[def:equaliser]{equalizer} of the diagram consisting of \(p\) and \(q\).
 \end{enumerate}
-Therefore a \hyperref[def:presheaf]{presheaf} of sets \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} of sets if for every open set \(U\) and open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) the following diagram is an \hyperref[def:equalizer]{equalizer sequence}
+Therefore a \hyperref[def:presheaf]{presheaf} of sets \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} of sets if for every open set \(U\) and open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) the following diagram is an \hyperref[def:equaliser]{equalizer sequence}
 \begin{center}
   \begin{tikzcd}
     \sheaf{F}(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
@@ -56,14 +56,14 @@ Therefore a \hyperref[def:presheaf]{presheaf} of sets \(\sheaf{F}\) is a \hyperr
 \end{center}
 
 Let's try to go now to a more general \hyperref[def:category]{category} \(\category{C}\).
-First of all, note that the \hyperref[def:equalizer]{equalizer sequence} makes sense if \hyperref[def:categorical-product]{products} indexed by \(\mathcal{I}\) and \(\mathcal{I} \times \mathcal{I}\) exist in \(\category{C}\).
-Furthermore, since our \hyperref[def:category]{categories} are \hyperref[def:category]{locally small categories} applying the \hyperref[def:functor]{functor} \(\Hom_{\category{C}}(-, -): \category{C} \times \category{C} \to \Set\) by the \hyperref[lemma:yoneda]{Yoneda lemma} we have that the diagram is an \hyperref[def:equalizer]{equalizer} if and only if for every object \(C \in \category{C}\) the diagram
+First of all, note that the \hyperref[def:equaliser]{equalizer sequence} makes sense if \hyperref[def:categorical-product]{products} indexed by \(\mathcal{I}\) and \(\mathcal{I} \times \mathcal{I}\) exist in \(\category{C}\).
+Furthermore, since our \hyperref[def:category]{categories} are \hyperref[def:category]{locally small categories} applying the \hyperref[def:functor]{functor} \(\Hom_{\category{C}}(-, -): \category{C} \times \category{C} \to \Set\) by the \hyperref[lemma:yoneda]{Yoneda lemma} we have that the diagram is an \hyperref[def:equaliser]{equalizer} if and only if for every object \(C \in \category{C}\) the diagram
 \begin{center}
   \begin{tikzcd}
     \Hom_{\category{C}}(C, \sheaf{F}(U)) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i})) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i} \cap U_{j}))
   \end{tikzcd}
 \end{center}
-is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
+is an \hyperref[def:equaliser]{equalizer diagram} in \(\Set\).
 
 \begin{definition}[Sheaf] \label{def:sheaf}
   Let \(X\) be a topological space.
@@ -75,7 +75,7 @@ is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
       \Hom_{\category{C}}(C, \sheaf{F}(U)) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i})) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i} \cap U_{j}))
     \end{tikzcd}
   \end{center}
-  is an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\).
+  is an \hyperref[def:equaliser]{equalizer sequence} in \(\Set\).
 \end{definition}
 
 \begin{remark}
@@ -93,7 +93,7 @@ is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
 \end{remark}
 
 \begin{remark} \label{remark:small-limits-sheaf}
-  If \(\category{C}\) has \hyperref[def:categorical-limit]{small limits} then the \hyperref[def:equalizer]{equalizer sequence} in \autoref{def:sheaf} can be written directly in \(\category{C}\).
+  If \(\category{C}\) has \hyperref[def:categorical-limit]{small limits} then the \hyperref[def:equaliser]{equalizer sequence} in \autoref{def:sheaf} can be written directly in \(\category{C}\).
 
   In this case, a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} is a \hyperref[def:sheaf]{sheaf} if for every open set \(U \subseteq X\) and open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) the following diagram
   \begin{center}
@@ -101,7 +101,7 @@ is an \hyperref[def:equalizer]{equalizer diagram} in \(\Set\).
       \sheaf{F}(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
     \end{tikzcd}
   \end{center}
-  is an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\).
+  is an \hyperref[def:equaliser]{equalizer sequence} in \(\category{C}\).
 \end{remark}
 
 
@@ -119,9 +119,9 @@ We have the following diagram
       (F\sheaf{F})(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} (F\sheaf{F})(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} (F\sheaf{F})(U_{i} \cap U_{j})
   \end{tikzcd}
 \end{center}
-If we suppose that the top row is an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}) then \(F\) needs to \hyperref[def:functor-and-limits]{preserve limits} to make the bottom row an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}).
+If we suppose that the top row is an \hyperref[def:equaliser]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}) then \(F\) needs to \hyperref[def:functor-and-limits]{preserve limits} to make the bottom row an \hyperref[def:equaliser]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}).
 
-Similarly, if we suppose that the bottom row is an \hyperref[def:equalizer]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}) then \(F\) needs to \hyperref[def:functor-and-limits]{reflect limits} to make the top row an \hyperref[def:equalizer]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}).
+Similarly, if we suppose that the bottom row is an \hyperref[def:equaliser]{equalizer sequence} in \(\Set\) (\(F\sheaf{F}\) is a \hyperref[def:set-valued-sheaf]{sheaf of sets}) then \(F\) needs to \hyperref[def:functor-and-limits]{reflect limits} to make the top row an \hyperref[def:equaliser]{equalizer sequence} in \(\category{C}\) (\(\sheaf{F}\) is a \(\category{C}\)-valued \hyperref[def:sheaf]{sheaf}).
 
 Note that this does not happen in general for all \hyperref[def:concrete-category]{concrete categories}.
 For example the \hyperref[def:functor]{functor} \(F: \Top \to \Set\) sending every topological space to its underlying set does not \hyperref[def:functor-and-limits]{reflect limits}.
