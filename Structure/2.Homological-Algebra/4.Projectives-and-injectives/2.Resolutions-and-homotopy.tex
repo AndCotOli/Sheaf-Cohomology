@@ -13,8 +13,8 @@
 
 \begin{definition}~ \label{def:injective-projective-resolution}
   \begin{itemize}
-    \item An \textbf{injective resolution} of an object \(A \in \category{A}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(\iota(\category{A}) \to Q^{\bullet}\), where \(Q^{\bullet}\) is a \hyperref[def:complex]{complex} in \(\Complex[\geq 0]{I}\).
-    \item A \textbf{projective resolution} of an object \(A \in \category{A}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(P^{\bullet} \to \iota(\category{A})\), where \(P^{\bullet}\) is a \hyperref[def:complex]{complex} in \(\Complex[\leq 0]{P}\).
+    \item An \textbf{injective resolution} of an object \(A \in \category{A}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(\iota(A) \to Q^{\bullet}\), where \(Q^{\bullet}\) is a \hyperref[def:complex]{complex} in \(\Complex[\geq 0]{I}\).
+    \item A \textbf{projective resolution} of an object \(A \in \category{A}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(P^{\bullet} \to \iota(A)\), where \(P^{\bullet}\) is a \hyperref[def:complex]{complex} in \(\Complex[\leq 0]{P}\).
   \end{itemize}
 
   We will refer to this resolutions using \(Q^{\bullet}, P^{\bullet}\), \textit{forgetting} about the \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
@@ -54,7 +54,7 @@ We will assume that \(\category{A}\) is an \hyperref[def:abelian-category]{abeli
 
 By \textit{flipping} the corresponding arrows, all the results may be adapted to the \hyperref[def:injective-projective-object]{projective} case.
 
-\begin{lemma}
+\begin{lemma}\label{lemma:lifting-to-cohomology}
   Let \(A\) be an object in a \(\category{A}\), let \(M^{\bullet}\) be an \hyperref[def:injective-projective-resolution]{injective resolution} of \(A\) and let \(Q^{\bullet}\) be a \hyperref[def:complex]{complex} in \(\Complex[\geq 0]{I}\).
   Let \(\varphi: \cohomology{0}(M^{\bullet}) = A \to \cohomology{0}(Q^{\bullet})\) be an arbitrary morphism. Then
   \begin{itemize}
@@ -117,21 +117,99 @@ By \textit{flipping} the corresponding arrows, all the results may be adapted to
   \todo[inline]{Falta unicitat}
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:injective-resolutions-are-homotopy-equivalent}
   Any two \hyperref[def:injective-projective-resolution]{injective resolutions} (resp. \hyperref[def:injective-projective-resolution]{projective}) of an object \(A\) in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) are \hyperref[def:homotopy-equivalence]{homotopy equivalent}.
 \end{proposition}
+\begin{proof}
+  Let \(I^{\bullet}, J^{\bullet}\) be two \hyperref[def:injective-projective-resolution]{injective resolutions} of an object \(A \in \category{A}\).
+  By definition we have \(\cohomology{0}(I^{\bullet}) = A = \cohomology{0}(J^{\bullet})\).
+
+  Consider the identity morphism \(\id_{A}: \cohomology{0}(I^{\bullet}) \to \cohomology{0}(J^{\bullet})\).
+  By \autoref{lemma:lifting-to-cohomology} taking \(M^{\bullet} = I^{\bullet}\) and \(Q^{\bullet} = J^{\bullet}\) there exists a \hyperref[def:complex-morphism]{morphism of complexes} \(f: I^{\bullet} \to J^{\bullet}\) that induces \(\id_{A}\) at the level of \(\cohomology{0}\).
+  Taking now \(M^{\bullet} = J^{\bullet}\) and \(Q^{\bullet} = I^{\bullet}\) we find another \hyperref[def:complex-morphism]{morphism of complexes} \(g: J^{\bullet} \to I^{\bullet}\) inducing \(\id_{A}\) at the level of \(\cohomology{0}\).
+
+  If we consider the composite morphism \(g \circ f: I^{\bullet} \to I^{\bullet}\) we have that
+  \begin{equation*}
+    \cohomology{0}(g \circ f) = \cohomology{0}(g) \circ \cohomology{0}(f) = \id_{A} \circ \id_{A} = \id_{A}
+  \end{equation*}
+  Therefore since \(\id_{I^{\bullet}}: I^{\bullet} \to I^{\bullet}\) also induces \(\id_{A}\) at the level of \(\cohomology{0}\) by the second part of \autoref{lemma:lifting-to-cohomology}
+  \begin{equation*}
+    f \circ g \simeq \id_{I^{\bullet}}
+  \end{equation*}
+  If we consider \(f \circ g\) analogously we get
+  \begin{equation*}
+    g \circ f \simeq \id_{J^{\bullet}}
+  \end{equation*}
+  Therefore \(f\) and \(g\) are an \hyperref[def:homotopy-equivalence]{homotopy equivalence}.
+\end{proof}
+
 
 \begin{corollary} \label{cor:injective-have-same-cohomology}
-  Any two \hyperref[def:injective-projective-resolution]{injective resolutions} (resp. \hyperref[def:injective-projective-resolution]{projective}) of an object \(A\) in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) have the same \hyperref[def:cohomology]{cohomology}.
+  Any two \hyperref[def:injective-projective-resolution]{injective resolutions} (resp. \hyperref[def:injective-projective-resolution]{projective}) of an object \(A\) in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\) have \hyperref[def:categorical-isomorphism]{isomorphic} \hyperref[def:cohomology]{cohomology}.
 \end{corollary}
+\begin{proof}
+  Direct from \autoref{prop:injective-resolutions-are-homotopy-equivalent} and \autoref{cor:homotopy-equivalent-isomorphic-cohomology}
+\end{proof}
 
 
-\begin{proposition}
+\begin{theorem}\label{thm:existence-of-lifting}
   Let \(A_{0}, A_{1}\) be two objects in an \hyperref[def:abelian-category]{abelian category} \(\category{A}\).
-  Let \(Q_{i}^{\bullet}\) be an \hyperref[def:injective-projective-resolution]{injective resolution} of \(A_{i}, i \in \{0, 1\}\).
+  Let \(I_{i}^{\bullet}\) be an \hyperref[def:injective-projective-resolution]{injective resolution} of \(A_{i}, i \in \{0, 1\}\).
   Then every morphism \(\varphi: A_{0} \to A_{1}\) in \(\category{A}\) is induced by a morphism \(\alpha^{\bullet}: I_{0}^{\bullet} \to I_{1}^{\bullet}\), uniquely determined up to \hyperref[def:homotopy]{homotopy}.
   We call the morphism \(\alpha^{\bullet}\) a \textit{lifting} of \(\varphi\).
-\end{proposition}
+\end{theorem}
+\begin{proof}
+  We will first construct \(\alpha^{\bullet}\) by induction.
+  
+  We have \hyperref[def:injective-projective-resolution]{injective resolutions}
+  \begin{center}
+    \begin{tikzcd}
+      I_{0}^{\bullet} = 0 \arrow[r] & A_{0} \arrow[r, "\varepsilon_{0}"] & I_{0}^{0} \arrow[r, "d_{0}^{0}"] & \cdots \\
+      I_{1}^{\bullet} = 0 \arrow[r] & A_{1} \arrow[r, "\varepsilon_{1}"] & I_{1}^{0} \arrow[r, "d_{1}^{0}"] & \cdots 
+    \end{tikzcd}
+  \end{center}
+  Consider \(\varepsilon_{1} \circ \varphi: A_{0} \to I_{1}^{0}\).
+  Since \(\varepsilon_{0}: A_{0} \to I_{0}^{0}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} and \(I_{1}^{0}\) is \hyperref[def:injective-projective-object]{injective} there exists a morphism \(\alpha_{0}: I_{0}^{0} \to I_{1}^{1}\) extending \(\varepsilon_{1} \circ \varphi\)
+  \begin{center}
+    \begin{tikzcd}
+      A_{0} \arrow[r, "\varepsilon_{1} \circ \varphi"] \arrow[d, "\varepsilon_{0}"', tail] & I_{1}^{0} \\
+      I_{0}^{0} \arrow[ur, "\widetilde{\alpha}_{0}"', dotted]
+    \end{tikzcd}
+  \end{center}
+  Therefore we can define \(\alpha_{0} \coloneq \widetilde{\alpha}_{0} \circ \varepsilon_{0}\).
+  
+  Supose now that for all \(i \in \{0, \ldots, n\}\) we have a morphism \(\alpha_{i}: I_{0}^{i} \to I_{1}^{i}\) such that \(d_{1}^{i-1} \circ \alpha^{i-1} = \alpha_{i} \circ d_{0}^{i}\). We want to construct \(\alpha_{n}: I_{0}^{n+1} \to I_{1}^{n+1}\).
 
+  Consider the morphism \(d_{1}^{n} \circ \alpha^{n}: I_{0}^{n} \to I_{1}^{n+1}\).
+  We have that
+  \begin{equation*}
+    (d_{1} \circ \alpha^{n}) \circ d_{0}^{n-1} = d_{1}^{n} \circ (\alpha^{n} \circ d_{0}^{n-1}) = d_{1}^{n} \circ d_{1}^{n-1} \circ \alpha^{n-1} = 0 \circ \alpha^{n-1} = 0
+  \end{equation*}
+  Therefore \(d_{1}^{n} \circ \alpha^{n}\) factors through \(\coker d_{0}^{n-1} \cong \operatorname{im} d_{0}^{n} \subseteq I_{0}^{n+1}\) and since \(I_{1}^{n+1}\) is \hyperref[def:injective-projective-object]{injective}
+  \begin{center}
+    \begin{tikzcd}
+        I_{0}^{n+1} \arrow[r, "d_{1}^{n} \circ \alpha^{n}"] \arrow[d, "d_{0}"', tail] & I_{1}^{n+1} \\
+       \operatorname{im} d_{0}^{n} \arrow[ur, "\widetilde{\alpha}_{n}"', dotted]
+    \end{tikzcd}
+  \end{center}
+  Defining \(\alpha_{n} \coloneq d_{0} \circ \widetilde{\alpha}_{n}\) we finish the proof of existence.
+  
+  To check uniqueness, consider \(\beta^{\bullet}: I_{0}^{\bullet} \to I_{1}^{\bullet}\) another lifting of \(\varphi\).
+  Let \(\gamma^{\bullet} \coloneq \alpha^{\bullet} - \beta^{\bullet}\), which is a lifting of \(0: A_{0} \to A_{1}\).
+  We are going to construct \hyperref[def:homotopy]{homotopy} \(h^{n}: I_{0}^{n} \to I_{1}^{n-1}\) such that
+  \begin{equation*}
+    \gamma^{n} = d_{1}^{n-1} \circ h^{n} + h^{n+1} \circ d_{0}^{n}
+  \end{equation*}
+  by induction, where \(h^{0} \coloneq 0\) and \(I_{1}^{-1} = A_{1}\).
 
+  For the base case, since \(\gamma^{0} \circ \varepsilon_{0} = 0\) we have that \(\gamma^{0}\) factors through \(\coker \varepsilon_{0} \cong \operatorname{im} d_{0}^{0} \subseteq I_{0}^{1}\).
+  Therefore since \(I_{0}^{1}\) is \hyperref[def:injective-projective-object]{injective} we have
+  \begin{center}
+    \begin{tikzcd}
+      I_{0}^{0} \arrow[r, "\gamma^{0} \circ \varepsilon_{0}"] \arrow[d, "d_{0}"', tail] & I_{0}^{1} \\
+      \operatorname{im} d_{0}^{0} \arrow[ur, "\widetilde{h}_{1}"', dotted]
+    \end{tikzcd}
+  \end{center}
+  \todo[inline]{FINISH}
+\end{proof}
 \end{document}

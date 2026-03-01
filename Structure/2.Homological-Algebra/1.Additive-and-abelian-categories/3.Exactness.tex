@@ -287,17 +287,15 @@
   \end{itemize}
 \end{proof}
 
-
-The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
-\begin{lemma} \label{lemma:schapira-exact-functor}
+\begin{lemma}[{\cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}}]\label{lemma:schapira-exact-functor}
   Let \(F: \category{A} \to \category{B}\) be an \hyperref[def:additive-functor]{additive functor}.
   \begin{enumerate}
     \item The following are equivalent
           \begin{enumerate}
-            \item \(F\) is \hyperref[def:exact-complex-functor]{left exact}.
-            \item \(F\) commutes with \hyperref[def:categorical-kernel]{kernels}: for any morphism \(f: X \to Y\), \(F(\ker f) \isoarrow \ker F(f)\).
-            \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits}.
-            \item For any \hyperref[def:short-exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{A}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:short-exact-sequence]{exact} in \(\category{B}\).
+            \item \(F\) is \hyperref[def:exact-complex-functor]{left exact} (resp. \hyperref[def:exact-complex-functor]{right exact}).
+            \item \(F\) commutes with \hyperref[def:categorical-kernel]{kernels}: for any morphism \(f: X \to Y\), \(F(\ker f) \isoarrow \ker F(f)\) (resp. with \hyperref[def:categorical-cokernel]{cokernels}).
+            \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits} (resp. \hyperref[def:categorical-colimit]{finite colimits}).
+            \item For any \hyperref[def:short-exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{A}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:short-exact-sequence]{exact} in \(\category{B}\) (resp. \(F(X) \to F(Y) \to F(Z) \to 0\) is \hyperref[def:short-exact-sequence]{exact}).
           \end{enumerate}
 
     \item  The following are equivalent
@@ -308,6 +306,15 @@ The following is \cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}.
           \end{enumerate}
   \end{enumerate}
 \end{lemma}
+
+\begin{lemma}\label{lemma:exact-is-additive}
+  Let \(A, B\) be \hyperref[def:abelian-category]{abelian categories} and \(F: \category{A} \to \category{B}\) a \hyperref[def:exact-complex-functor]{left} or \hyperref[def:exact-complex-functor]{right exact functor} between them.
+  Then \(F\) is \hyperref[def:additive-functor]{additive}.
+\end{lemma}
+\begin{proof}
+  Since \(F\) is \hyperref[def:exact-complex-functor]{left} or \hyperref[def:exact-complex-functor]{right exact} by \autoref{lemma:schapira-exact-functor} \(F\) commutes with finite \hyperref[def:categorical-product]{products} or \hyperref[def:categorical-coproduct]{coproducts}.
+  Since \hyperref[lemma:products-coproducts-additive]{products and coproducts coincide} \(F\) preserves \hyperref[def:direct-sum]{direct sums} and therefore by \autoref{lemma:additive-functor-characterization} \(F\) is \hyperref[def:additive-functor]{additive}.
+\end{proof}
 
 \begin{theorem} \label{thm:adjointness-and-exactness}
   Let \(L: \category{A} \to \category{B}\) and \(R: \category{B} \to \category{A}\) be an \hyperref[def:adjoint-functors]{adjoint} pair of \hyperref[def:additive-functor]{additive functors}.

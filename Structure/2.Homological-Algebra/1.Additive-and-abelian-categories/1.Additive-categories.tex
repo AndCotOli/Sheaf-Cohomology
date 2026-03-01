@@ -66,20 +66,56 @@
   Therefore \(X_{1} \times X_{2}\) verifies the universal property of \(X_{1} \amalg X_{2}\).
 \end{proof}
 
-\begin{notation}
+\begin{notation}\label{def:direct-sum}
   If \(\{X_{i}\}_{i=1}^{n}\) is a finite set of objects in an \hyperref[def:additive-category]{additive category} we will denote its \hyperref[def:categorical-product]{product} (and therefore by \autoref{lemma:products-coproducts-additive} its \hyperref[def:categorical-coproduct]{coproduct}) by \(\bigoplus_{i=1}^{n} X_{i}\) and call it its \textbf{direct sum}.
 \end{notation}
+
+\begin{remark}\label{rem:morphisms-in-direct-sum}
+  Let \(X, Y \in \category{A}\) be two objects.
+  By the proof of \autoref{lemma:products-coproducts-additive} given morphisms \(p: X \oplus Y \to X, q: X \oplus Y \to Y\) we get morphisms \(i: X \to X \oplus Y, j: Y \to X \oplus Y\) given by the commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[rr, "\id_{X}"] \arrow[dr, "i"] & & X \\
+      & X \oplus Y \arrow[ur, "p"] \arrow[dr, "q"] & \\
+      Y \arrow[ur, "j"] \arrow[rr, "\id_{Y}"] & & Y
+    \end{tikzcd}
+  \end{center}
+  Furthermore we have
+  \begin{align*}
+    p \circ j = q \circ i &= 0 \\
+    i \circ p + j \circ q &= \id_{X \oplus Y}
+  \end{align*}
+
+  On the other hand, given objects \(X, Y, Z \in \category{A}\) and morphisms \(i, j, p, q\) as above then \(Z = X \oplus Y\).
+\end{remark}
+
 
 \begin{lemma} \label{lemma:mono-epi-additive}
   A morphism \(\varphi: A \to B\) in an \hyperref[def:additive-category]{additive category} is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if for every morphism \(\xi: Z \to A\)
   \begin{equation*}
     \varphi \circ \xi = 0 \implies \xi = 0
   \end{equation*}
-  Dually \(\varphi\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if for every morphism \(\xi: B \to Z\)
+  \hyperref[def:dual]{Dually} \(\varphi\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if for every morphism \(\xi: B \to Z\)
   \begin{equation*}
     \xi \circ \varphi = 0 \implies \xi = 0
   \end{equation*}
 \end{lemma}
+\begin{proof}
+  We will check the \hyperref[def:mono-epi-morphism]{monomorphism} caracterization.
+  \begin{itemize}
+    \item[\(\implies\)] Let \(\varphi: A \monoarrow B\) be a \hyperref[def:mono-epi-morphism]{monomorphism}.
+          Consider a morphism \(\xi: Z \to A\) such that \(\varphi \circ \xi = 0\).
+          Since \(\varphi \circ 0 = 0\) applying left-cancellativity we have that \(\xi = 0\).
+    \item[\(\impliedby\)] Let \(\xi_{1}, \xi_{2}: Z \to A\) be two morphisms such that \(\varphi \circ \xi_{1} = \varphi \circ \xi_{2}\).
+
+          Since \(\Hom(Z, B)\) is an abelian group we have
+          \begin{equation*}
+            0 = \varphi \circ \xi_{1} - \varphi \circ \xi_{2} = \varphi \circ (\xi_{1} - \xi_{2})
+          \end{equation*}
+          Therefore by hypothesis \(\xi_{1} - \xi_{2} = 0 \iff \xi_{1} = \xi_{2}\), proving that \(\varphi\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+  \end{itemize}
+\end{proof}
+
 
 \begin{definition}[Kernel] \label{def:categorical-kernel}
   Let \(f: A \to B\) be a morphism in an \hyperref[def:additive-category]{additive category}.
@@ -149,5 +185,78 @@
 \begin{definition}[Additive functor] \label{def:additive-functor}
   Let \(\category{A}, \category{B}\) be two \hyperref[def:additive-category]{additive categories}. A \hyperref[def:functor]{functor} \(F: \category{A} \to \category{B}\) is \textbf{additive} if it preserves the abelian group structure of all Hom-sets.
 \end{definition}
+
+\begin{lemma}\label{lemma:additive-functor-preserves-sum}
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:functor]{functor} between two \hyperref[def:additive-category]{additive categories} \(\category{A}\) and \(\category{B}\).
+  Then \(F\) transforms \hyperref[def:direct-sum]{direct sums} to \hyperref[def:direct-sum]{direct sums}.
+\end{lemma}
+\begin{proof}
+  Let \(X, Y \in \category{A}\) be two objects and \(X \oplus Y\) be its \hyperref[def:direct-sum]{direct sum}.
+  Applying \(F\) to the diagram in \autoref{rem:morphisms-in-direct-sum} defining \(A \oplus B\) we get
+  \begin{center}
+    \begin{tikzcd}
+      F(X) \arrow[rr, "\id_{F(X)}"] \arrow[dr, "Fi"] & & F(X) \\
+      & F(X \oplus Y) \arrow[ur, "Fp"] \arrow[dr, "Fq"] & \\
+      F(Y) \arrow[ur, "Fj"] \arrow[rr, "\id_{F(Y)}"] & & F(Y)
+    \end{tikzcd}
+  \end{center}
+  Note that
+  \begin{align*}
+    Fp \circ Fj &= F(p \circ j) = F(0) = 0 \\
+    Fq \circ Fi &= F(q \circ i) = F(0) = 0
+  \end{align*}
+  Furthermore since \(F\) is \hyperref[def:additive-functor]{additive}
+  \begin{equation*}
+    Fp \circ Fi + Fj \circ Fq = F(p \circ i + j \circ q) = F\id_{X \oplus Y} = \id_{F(X \oplus Y)}
+  \end{equation*}
+  Therefore \(F(X \oplus Y)\) is also a \hyperref[def:direct-sum]{direct sum}.
+\end{proof}
+
+
+\begin{lemma}\label{lemma:additive-functor-characterization}
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:functor]{functor} between two \hyperref[def:additive-category]{additive categories} \(\category{A}\) and \(\category{B}\). The following are equivalent:
+  \begin{enumerate}
+    \item \(F\) is \hyperref[def:additive-functor]{additive}.
+    \item For all \(A, B \in \category{A}\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
+          \begin{equation*}
+            F(A) \oplus F(B) \isoarrow F(A \oplus B)
+          \end{equation*}
+    \item For all \(A, B \in \category{A}\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
+          \begin{equation*}
+             F(A \oplus B) \isoarrow F(A) \oplus F(B)
+          \end{equation*}
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  Since by \autoref{lemma:additive-functor-preserves-sum} \(F\) commutes with \hyperref[def:direct-sum]{direct sums} 1 implies 2 and 3.
+  Furthermore since the composition
+  \begin{center}
+    \begin{tikzcd}
+      F(A) \oplus F(B) \arrow[r] & F(A \oplus B) \arrow[r] & F(A) \oplus F(B)
+    \end{tikzcd}
+  \end{center}
+  is the identity map 2 and 3 are equivalent.
+
+  To finish the proof, assume 2 and 3 hold and consider two maps \(f, g: A \to B\).
+  Note that \(f + g\) is equal to the composition
+  \begin{center}
+    \begin{tikzcd}
+      A \arrow[r] & A \oplus A \arrow[r, "f \oplus g"] & B \oplus B \arrow[r] & B
+    \end{tikzcd}
+  \end{center}
+  Consider the diagram
+  \begin{center}
+    \begin{tikzcd}
+      F(A) \arrow[dr] \arrow[r] & F(A \oplus A) \arrow[r, "F(f \oplus g)"] & F(B \oplus B) \arrow[r] \arrow[d, "\sim"] & F(B) \\
+      &  F(A) \oplus F(A) \arrow[r, "Ff \oplus Fg"] \arrow[u, "\sim"] &  F(B) \oplus F(B) \arrow[ur]
+    \end{tikzcd}
+  \end{center}
+  Checking for each of the four induced maps \(F(A) \to F(B)\) since \(F\) is a \hyperref[def:functor]{functor} we have that the middle square commutes.
+  Moreover since the vertical maps are \hyperref[def:categorical-isomorphism]{isomorphisms} the triangles commute.
+  Therefore we get
+  \begin{equation*}
+    Ff \oplus Fg = F(f \oplus g)
+  \end{equation*}
+\end{proof}
 
 \end{document}

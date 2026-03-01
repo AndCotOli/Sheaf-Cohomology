@@ -39,6 +39,15 @@
     \phi_{X,Y}: \Hom_{\category{D}}(L(X), Y) \isoarrow \Hom_{\category{C}}(X, R(Y))
   \end{equation}
   which is natural in both \(X \in \category{C}\) and \(Y \in \category{D}\).
+
+  We represent this diagramatically using
+  \begin{center}
+    \begin{tikzcd}
+      \category{C} \arrow[r, "L"{name=U}, bend left=25] & \category{D} \arrow[l, "R"{name=D}, bend left=25]
+      \arrow[phantom, from=U, to=D, "\perp"]
+    \end{tikzcd}
+  \end{center}
+
 \end{definition}
 
 \begin{definition}[Unit and counit]\label{def:unit-counit}
@@ -86,12 +95,11 @@
 
 
 
-\begin{proposition}\label{prop:adjoints-preserve-limits}
+\begin{proposition}[{\cite[Theorem 4.5.2]{riehlCategoryTheoryContext}}]\label{prop:adjoints-preserve-limits}
   \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in \(\category{D}\).
   
   \hyperref[def:dual]{Dually} \hyperref[def:adjoint-functors]{left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in \(\category{C}\).
 \end{proposition}
-
 
 \section{Functor categories}
 
@@ -105,21 +113,58 @@
 \end{definition}
 
 \begin{lemma}
-  Let \(\category{C}\) be a \hyperref[def:small-category]{small category}.
-  Then
-  \begin{itemize}
-    \item If \(\category{D}\) is a \hyperref[def:category]{locally small category} then the \hyperref[def:functor-category]{functor category} \([\category{C}, \category{D}]\) is \hyperref[def:category]{locally small}.
-    \item If \(\category{D}\) is a \hyperref[def:small-category]{small category} then the \hyperref[def:functor-category]{functor category} \([\category{C}, \category{D}]\) is \hyperref[def:small-category]{small}.
-  \end{itemize}
+  Let \(\category{C}\) be a \hyperref[def:small-category]{small category} and \(\category{D}\) a \hyperref[def:category]{locally small category}.
+  Then the \hyperref[def:functor-category]{functor category} \([\category{C}, \category{D}]\) is \hyperref[def:category]{locally small}.
 \end{lemma}
+\begin{proof}
+  Let \(F, G \in [\category{C}, \category{D}]\) be two \hyperref[def:functor]{functors}.
+
+  Note that, by definition, any \hyperref[def:natural-transformation]{natural transformation} \(\eta: F \Rightarrow G\) is determined by its components \(\{\eta_{X}: FX \to GX\}_{X \in \category{C}}\). Therefore we have
+  \begin{equation*}
+    \Hom_{[\category{C}, \category{D}]}(F, G) \subseteq \prod_{X \in \category{C}} \Hom_{\category{D}}(FX, GX)
+  \end{equation*}
+  Since \(\category{D}\) is \hyperref[def:category]{locally small} for all \(X \in \category{C}\) we have \(\Hom_{\category{D}}(FX, GX)\) is a set.
+  Moreover since \(\category{C}\) is \hyperref[def:small-category]{small} the above product is indexed by family of sets, making
+  \begin{equation*}
+    \prod_{X \in \category{C}} \Hom_{\category{D}}(FX, GX) \in \Set
+  \end{equation*}
+  Therefore \(\Hom_{\category{D}}(F, G)\) is a set.
+\end{proof}
 
 
-\begin{lemma}
-  Let \(\category{C}\) and \(\category{D}\) be two \hyperref[def:big-category]{categories} and \([\category{C}, \category{D}]\) be a \hyperref[def:functor-category]{functor category}.
+\begin{proposition}\label{prop:limits-in-functor-category}
+  Let \(\category{C}\) and \(\category{D}\) be two \hyperref[def:big-category]{categories} and \([\category{C}, \category{D}]\) be its \hyperref[def:functor-category]{functor category}.
 
   If \(\category{D}\) has \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\) then \([\category{C}, \category{D}]\) has  \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\).
   Furthermore, they are computed objectwise.
-\end{lemma}
+\end{proposition}
+\begin{proof}
+  Consider a \hyperref[def:diagram]{\(\category{J}\)-shaped diagram} \(X: \category{J} \Rightarrow [\category{C}, \category{D}]\).
+  We wish to construct a \hyperref[def:categorical-limit]{limit object} \(L \in [\category{C}, \category{D}]\) together with a \hyperref[def:categorical-limit]{limit cone} \(\pi_{j}: L \to X_{j}\) for all \(j \in \category{J}\).
+
+  For any object \(c \in \category{C}\) the \textit{evaluation} \hyperref[def:functor]{functor}
+  \begin{center}
+    \begin{tikzcd}
+      \llap{\(\operatorname{ev}_{c}: \;\;\)} [\category{C}, \category{D}] \arrow[r] & \category{D} \\[-2em]
+      F \arrow[d, "\eta"' ""{name=source, right}, Rightarrow] & Fc \arrow[d, "\eta_{c}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
+      G  & Gc
+    \end{tikzcd}
+  \end{center}
+  allows us to define a \hyperref[def:diagram]{diagram} \(X^{c} \coloneq \operatorname{ev}_{c} \circ X: J \Rightarrow \category{D}\).
+  By hypothesis there exists
+  \begin{equation*}
+    \lim_{j \in \category{J}} X_{j}^{c} \eqcolon Lc \qquad \pi_{j, c}: Lc \to X_{j}^{c}
+  \end{equation*}
+
+  To make \(L\) into a \hyperref[def:functor]{functor} we need to define its action on morphisms.
+  Consider a morphism \(f: c \to c'\) in \(\category{C}\).
+  Since \(X_{j}\) is a \hyperref[def:functor]{functor} for all \(j \in \category{J}\) we have an induced morphism \(X_{j}(f): X_{j}(c) \to X_{j}(c')\).
+  Let's consider the family of morphism
+  \begin{equation*}
+    \left\{ X_{j}(f) \circ \pi_{j, c}: Lc \to X_{j}(c') \right\}_{j \in \category{J}}
+  \end{equation*}
+  
+\end{proof}
 
 
 \begin{corollary}[{Yoneda embedding - \cite[Corollary 2.2.8]{riehlCategoryTheoryContext}}]
@@ -127,18 +172,7 @@
   The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}. This allows us to view any locally small category as a \hyperref[def:subcategory]{full subcategory} of a \hyperref[def:functor-category]{functor category}.
 \end{corollary}
 
-\section{Higher categories}
-
-We can go a step further.
-\begin{definition}\label{def:natural-transformation-category}
-  Let \(F: \category{C} \to \category{D}\), \(G: \category{C} \to \category{D}\) be two \hyperref[def:functor]{functors}.
-  The \textbf{natural transformations category} \(\category{Nat}(F, G)\) constists of:
-  \begin{itemize}
-    \item \textbf{Objects}: \hyperref[def:natural-transformation]{natural transformations} \(F \Rightarrow G\).
-    \item \textbf{Morphisms}: 
-  \end{itemize}
-\end{definition}
-
+\section{Size issues}
 
 
 \end{document}

@@ -37,13 +37,47 @@
   Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
   For every \(i \in \mathbb{N}\) the \hyperref[def:right-derived-functor]{right derived functor} \(R^{i}F\) is an \hyperref[def:additive-functor]{additive functor} from \(\category{A}\) to \(\category{B}\).
 \end{lemma}
+\begin{proof}
+  Let \(f, g: X \to Y\) be two morphisms in \(\category{A}\).
+  We want to show that, for all \(i \in \mathbb{N}\)
+  \begin{equation*}
+    R^{i}F(f + g) \cong R^{i}F(f) + R^{i}F(g)
+  \end{equation*}
 
-\begin{theorem}
+  Let \(I_{X}^{\bullet}, I_{Y}^{\bullet}\) be \hyperref[def:injective-projective-resolution]{injective resolutions} of \(X\) and \(Y\) respectively.
+  By \autoref{thm:existence-of-lifting} there exist unique (up to \hyperref[def:homotopy]{homotopy}) liftings \(\widetilde{f}: I_{X}^{\bullet} \to I_{Y}^{\bullet}, \widetilde{g}: I_{X}^{\bullet} \to I_{Y}^{\bullet}\) of \(f\) and \(g\).
+
+  Consider \(f + g: X \to Y\). Since \hyperref[thm:complex-category-is-abelian]{the complex category is abelian} we have a map \(\widetilde{f} + \widetilde{g}: I_{X}^{\bullet} \to I_{Y}^{\bullet}\).
+  Clearly both \(\widetilde{f} + \widetilde{g}\) and \(\widetilde{f + g}\) are liftings of \(f + g\) and thus
+  \begin{equation*}
+    \widetilde{f + g} \simeq \widetilde{f} + \widetilde{g}
+  \end{equation*}
+
+  Since \(F\) by \autoref{lemma:exact-is-additive} \(F\) is an \hyperref[def:additive-functor]{additive functor} we have
+  \begin{equation*}
+    F(\widetilde{f} + \widetilde{g}) = F(\widetilde{f}) + F(\widetilde{g})
+  \end{equation*}
+  Furthermore since \hyperref[lemma:additive-functors-and-homotopy]{additive functors preserve homotopies}
+  \begin{equation*}
+    F \left( \widetilde{f + g} \right) \simeq F(\widetilde{f}) + F(\widetilde{g})
+  \end{equation*}
+  Therefore since \hyperref[cor:homotopy-equivalent-isomorphic-cohomology]{homotopic maps induce the same cohomology}
+  \begin{align*}
+    R^{i}F(f + g) &= \cohomology{i}(F \left( \widetilde{f + g} \right)) \\
+                  &= \cohomology{i}(F \left( \widetilde{f} + \widetilde{g}\right)) \\
+                  &= \cohomology{i}(F(\widetilde{f}) + F(\widetilde{g})) \\
+                  &= \cohomology{i}(F(\widetilde{f})) + \cohomology{i}(F(\widetilde{g})) \\
+                  &= R^{i}F(f) + R^{i}F(g)
+  \end{align*}
+\end{proof}
+
+
+\begin{theorem}[{Dual of \cite[Theorem 2.4.6]{weibelIntroductionHomologicalAlgebra1994}}]
   Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
   The \hyperref[def:right-derived-functor]{right derived functors} \(R^{\bullet}F\) form a \hyperref[def:delta-functor]{cohomological \(\delta\)-functor}.
 \end{theorem}
 
-\begin{theorem}
+\begin{theorem}[{Dual of \cite[Theorem 2.4.7]{weibelIntroductionHomologicalAlgebra1994}}]
   Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-complex-functor]{left exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
   Suppose that \(\category{A}\) \hyperref[def:enough-injectives-projectives]{has enough injectives}.
   Then for any object \(A \in \category{A}\) the \hyperref[def:right-derived-functor]{right derived functors} \(R^{\bullet}F\) form an \hyperref[def:universal-delta-functor]{universal \(\delta\)-functor}.

@@ -58,14 +58,14 @@
   If \(\alpha^{\bullet}\) is \hyperref[def:homotopy]{homotopic} to the identity by \autoref{cor:exactness-mapping-cone} the \hyperref[def:mapping-cone]{mapping cone} of \(\alpha^{\bullet}\) must be \hyperref[def:exact-complex]{exact}.
 \end{remark}
 
-\begin{corollary}
+\begin{corollary}\label{cor:homotopy-equivalent-isomorphic-cohomology}
   \hyperref[def:homotopy-equivalence]{Homotopy equivalent} \hyperref[def:complex]{complexes} have \hyperref[def:categorical-isomorphism]{isomorphic} \hyperref[def:cohomology]{cohomology}.
 \end{corollary}
 \begin{proof}
   If \(\alpha^{\bullet}: L^{\bullet} \to M^{\bullet}\) and \(\beta^{\bullet}: M^{\bullet} \to L^{\bullet}\) are \hyperref[def:complex-morphism]{morphisms of complexes} such that \(\beta^{\bullet} \circ \alpha^{\bullet}\) and \(\alpha^{\bullet} \circ \beta^{\bullet}\) are \hyperref[def:homotopy]{homotopic} to the identity then by \autoref{prop:homotopy-induces-same-cohomology} they induce inverse morphisms in \hyperref[def:cohomology]{cohomology}.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:additive-functors-and-homotopy}
   Let \(F: \category{A} \to \category{B}\) be an \hyperref[def:additive-functor]{additive functor}.
   \begin{itemize}
   \item If \(\alpha^{\bullet} \sim \beta^{\bullet}\) are \hyperref[def:homotopy]{homotopic} in \(\Complex{\category{A}}\) then \(\Complex{F}(\alpha^{\bullet}) \sim \Complex{F}(\beta^{\bullet})\) in \(\Complex{\category{B}}\).
