@@ -1,0 +1,616 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument{1.Additive-categories}%
+}{}
+
+\begin{document}
+\chapter{Abelian categories}
+
+\begin{definition}
+  Let \(f: X \to Y\) be a morphism in a \hyperref[def:additive-category]{additive category} \(\category{C}\) that admits \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels}.
+  Consider the following
+  \begin{center}
+    \begin{tikzcd}
+      \ker f \arrow[r, "h"] & X \arrow[r, "f"] & Y \arrow[r, "k"] & \coker f
+    \end{tikzcd}
+  \end{center}
+  We denote
+  \begin{equation*}
+    \operatorname{Im} f \coloneq \ker k \qquad \operatorname{Coim} f \coloneq \coker h
+  \end{equation*}
+  I.e: we have the following diagram
+  \begin{center}
+    \begin{tikzcd}
+      \ker f \arrow[r, "h"] & X \arrow[r, "f"] \arrow[d, "s"'] & Y \arrow[r, "k"] & \coker f \\
+      & \operatorname{Coim} f \arrow[ur, dotted, "\widetilde{f}"] \arrow[r, dotted, "u"'] & \operatorname{Im} f \arrow[u]
+    \end{tikzcd}
+  \end{center}
+  Note that, since \(f \circ h = 0\), \(f\) factors uniquely through \(\operatorname{Coim} f\) producing the morphism \(\widetilde{f}\).
+  Furthermore since \(k \circ f = k \circ \widetilde{f} = 0\) we have that \(\widetilde{f}\) factors uniquely through \(\operatorname{Im} f\).
+  Therefore we have a canonical morphism
+  \begin{equation*}
+    u: \operatorname{Coim} f \to \operatorname{Im} f
+  \end{equation*}
+\end{definition}
+
+
+\begin{definition}[Abelian category]\label{def:abelian-category}
+  An \hyperref[def:additive-category]{additive category} \(\category{C}\) is \textbf{abelian} if it verifies
+  \begin{enumerate}[label=Ab.\arabic*), ref=Ab.\arabic*]
+    \item Any morphism in \(\category{C}\) admits a \hyperref[def:categorical-kernel]{kernel} and a \hyperref[def:categorical-cokernel]{cokernel}.
+    \item For any morphism \(f\) in \(\category{C}\) the canonical morphism \(\operatorname{Coim} f \to \operatorname{Im} f\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+  An \hyperref[def:abelian-category]{abelian category} admits all finite \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits}.
+\end{lemma}
+\begin{proof}
+  Direct from \autoref{thm:existence-finite-limits-colimits}.
+\end{proof}
+
+\begin{lemma}\label{lemma:partial-sequence-abelian}
+  Let \(f: X \to Y\) be a morphism in an \hyperref[def:abelian-category]{abelian category}. Then \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if \(0 \to X\) is its \hyperref[def:categorical-kernel]{kernel}.
+
+  \hyperref[def:dual]{Dually} \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if \(Y \to 0\) is its \hyperref[def:categorical-cokernel]{cokernel}.
+\end{lemma}
+\begin{proof}
+  We will do the \hyperref[def:categorical-kernel]{kernel} one.
+  \begin{itemize}
+    \item[\(\implies\)] Suppose \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+
+          If \(g: Z \to X\) is a morphism such that \(f \circ g = 0\) then by \autoref{lemma:mono-epi-additive} \(g = 0\).
+          In particular \(g\) factors uniquely through \(0 \to X\), i.e: \(0 \to X\) is the \hyperref[def:categorical-kernel]{kernel} of \(f\).
+    \item[\(\impliedby\)] Suppose now that \(0 \to X\) is the \hyperref[def:categorical-kernel]{kernel} of \(f\).
+
+          Consider a morphism \(g: Z \to X\) such that \(f \circ g = 0\).
+          By the \hyperref[def:categorical-kernel]{kernel} properties we have the following diagram
+          \begin{center}
+            \begin{tikzcd}
+              Z \arrow[rr, "g"'] \arrow[rrr, bend left, "0"] \arrow[dr, dotted, "\exists!"'] & & X \arrow[r, "f"'] & Y \\
+              & 0 \arrow[ur]
+            \end{tikzcd}
+          \end{center}
+          Therefore by uniqueness \(g = 0\), making \(f\) a \hyperref[def:mono-epi-morphism]{monomorphism} by \autoref{lemma:mono-epi-additive}.
+  \end{itemize}
+\end{proof}
+
+
+\begin{proposition}\label{prop:functor-category-is-abelian}
+  Let \(\category{I}\) be a \hyperref[def:small-category]{small category} and \(\category{C}\) an \hyperref[def:abelian-category]{abelian category}.
+  Then the \hyperref[def:functor-category]{functor category} \(\Fct{\category{I}}{\category{C}}\) is \hyperref[def:abelian-category]{abelian}.
+\end{proposition}
+\begin{proof}
+  By \autoref{lemma:functor-category-is-additive} we have that \(\Fct{\category{I}}{\category{C}}\) is \hyperref[def:additive-category]{additive}.
+  
+  Furthermore since \(\category{C}\) has \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels}, which are no more than special cases of \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits}, by \autoref{prop:limits-in-functor-category} \(\Fct{\category{I}}{\category{C}}\) has \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels} and they are computed elementwise.
+
+  Finally since \(\operatorname{Coim} f(i) \isoarrow \operatorname{Im} f(i)\) for all \(i \in \category{I}\) we have that \(\operatorname{Coim} f \isoarrow \operatorname{Im} f\).
+\end{proof}
+
+\begin{corollary}\label{cor:complex-category-is-abelian}
+  If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:complex]{categories of complexes} \(\Complex[\ast]{\category{C}}\) (\(\ast = +, -, \operatorname{b}\)) are \hyperref[def:abelian-category]{abelian}.
+\end{corollary}
+\begin{proof}
+  Direct since by \autoref{prop:functor-category-is-abelian} the \hyperref[def:differential-object]{category of differential objects} \(\operatorname{Diff}(\category{C})\) is \hyperref[def:abelian-category]{abelian}.
+\end{proof}
+
+In what remains of the chapter we will assume that \(\category{C}\) is an \hyperref[def:abelian-category]{abelian category}.
+
+\begin{definition}\label{def:exact-sequence}~
+\begin{enumerate}
+  \item A \hyperref[def:complex]{complex} \(X \xrightarrow{f} Y \xrightarrow{g} Z\) is \textbf{exact} if \(\operatorname{Im} f \isoarrow \ker g\).
+        Note that this is equivalent to \(\coker f \isoarrow \operatorname{Im} g\).
+  \item More generally, a sequence of morphisms \(X^{p} \xrightarrow{\d^{p}} \cdots \to X^{n}\) with \(\d^{i+1} \circ \d^{i} = 0\) for all \(i \in \{p, \ldots, n-1\}\) is \textbf{exact} if \(\operatorname{Im} \d^{i} \isoarrow \ker \d^{i+1}\) for all \(i \in \{p, \ldots, n-1\}\).
+  \item A \textbf{short exact sequence} is an exact sequence of the form \(0 \to X \to Y \to Z \to 0\).
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+  Note that any morphism \(f: X \to Y\) may be decomposed in \hyperref[def:exact-sequence]{short exact sequences}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \ker f \arrow[r] & X \arrow[r] & \operatorname{Coim} f \arrow[r] & 0 \\
+      0 \arrow[r] & \operatorname{Im} f \arrow[r] & Y \arrow[r] & \coker f \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  with \(\operatorname{Coim} f \cong \operatorname{Im} f\).
+\end{remark}
+
+\begin{proposition}\label{prop:split-exact-sequence}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in an \hyperref[def:abelian-category]{abelian category} \(\category{C}\).
+  We say that the sequence \textbf{splits} if any of the following equivalent conditions are satisfied
+  \begin{enumerate}
+    \item There exists \(h: Z \to Y\) such that \(g \circ h = \id_{Z}\).
+    \item There exists \(k: Y \to X\) such that \(k \circ f = \id_{X}\).
+    \item There exists \(\varphi = (k, h)\) and \(\psi = {f \choose g}\) such that \(Y \xrightarrow{\varphi} X \oplus Z\) and \(X \otimes Z \xrightarrow{\psi} Y\) are inverses to each other.
+    \item The sequence is \hyperref[def:homotopy]{homotopic to \(0\)}.
+    \item The sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to \(0 \to X \to X \oplus Z \to Z \to 0\).
+  \end{enumerate}
+\end{proposition}
+\begin{proof}~
+  \begin{enumerate}
+    \item[\(1 \implies 3\)] Since \(g = g \circ h \circ g\) we have that \(g \circ (\id_{Y} - h \circ g) = 0\), i.e: \(\id_{Y} - h \circ g\) factors through \(\ker g\) and so it factors through \(X\).
+          Therefore there exists \(h: Y \to Z\) such that \(\id_{Y} - h \circ g = f \circ k\).
+    \item[\(3 \implies 1\)] Since \(g \circ f = 0\) we have \(g = g \circ h \circ g\), i.e: \((g \circ h - \id_{Z}) \circ g\).
+          Therefore since \(g\) is an \hyperref[def:mono-epi-morphism]{epimorphism} we have \(g \circ h - \id_{Z} = 0 \iff g \circ h = \id_{Z}\).
+    \item[\(2 \iff 3\)] Analogous to \(1 \iff 3\).
+    \item[\(3 \iff 4\)] By definition the sequence is \hyperref[def:homotopy]{homopic to zero} if and only if there exists
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & X \arrow[d, "\id_{X}"'] \arrow[r, "f"] & Y \arrow[d, "\id_{Y}"'] \arrow[r, "g"] \arrow[dl, dotted, "k"'] & Z \arrow[d, "\id_{Z}"] \arrow[r] \arrow[dl, dotted, "h"'] & 0 \\
+              0 \arrow[r] & X \arrow[r, "f"'] & Y \arrow[r, "g"'] & Z \arrow[r] & 0
+            \end{tikzcd}
+          \end{center}
+          such that \(\id_{X} = k \circ f\), \(\id_{Z} = h \circ g\) and \(\id_{Z} = h \circ g + f \circ k\).
+    \item[\(3 \iff 5\)] Trivial.
+  \end{enumerate}
+\end{proof}
+
+
+
+
+\section{Exact functors}
+
+\begin{definition}\label{def:exact-functor}
+  Let \(\category{C}, \category{D}\) be two \hyperref[def:abelian-category]{abelian categories} and
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in an \(\category{C}\).
+  
+  An \hyperref[def:additive-functor]{additive functor} \(F: \category{C} \to \category{D}\) is \textbf{left-exact} if
+   \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z)
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-sequence]{exact} in \(\category{D}\).
+
+  \hyperref[def:dual]{Dually}, it is \textbf{right-exact} if
+   \begin{center}
+    \begin{tikzcd}
+      F(X) \arrow[r] & F(Y) \arrow[r] & F(Z) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-sequence]{exact} in \(\category{D}\).
+
+  If \(F\) is both left and right exact we say that it is \textbf{exact}.
+\end{definition}
+
+We state the following characterization of \hyperref[def:exact-functor]{exact functors}, which we will not prove.
+\begin{lemma}[{\cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}}]\label{lemma:characterization-exact-functor}
+  Let \(F: \category{C} \to \category{D}\) be an \hyperref[def:additive-functor]{additive functor}.
+  \begin{enumerate}
+    \item The following are equivalent
+          \begin{enumerate}
+            \item \(F\) is \hyperref[def:exact-functor]{left exact} (resp. \hyperref[def:exact-functor]{right exact}).
+            \item \(F\) commutes with \hyperref[def:categorical-kernel]{kernels}: for any morphism \(f: X \to Y\), \(F(\ker f) \isoarrow \ker Ff\) (resp. with \hyperref[def:categorical-cokernel]{cokernels}).
+            \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits} (resp. \hyperref[def:categorical-colimit]{finite colimits}).
+            \item For any \hyperref[def:exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{C}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-sequence]{exact} in \(\category{D}\) (resp. \(F(X) \to F(Y) \to F(Z) \to 0\) is \hyperref[def:exact-sequence]{exact}).
+          \end{enumerate}
+
+    \item  The following are equivalent
+          \begin{enumerate}
+            \item \(F\) is \hyperref[def:exact-functor]{exact}.
+            \item For any \hyperref[def:exact-sequence]{exact sequence} \(X \to Y \to Z\) in \(\category{C}\) the sequence \(F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-complex]{exact} in \(\category{D}\).
+            \item \(F\) commutes with \hyperref[def:categorical-colimit]{finite limits} and \hyperref[def:categorical-colimit]{finite colimits}.
+          \end{enumerate}
+  \end{enumerate}
+\end{lemma}
+
+As a direct application of \autoref{lemma:characterization-exact-functor}.
+\begin{example}\label{ex:hom-left-exact}
+  The \hyperref[ex:hom-functor]{Hom bifunctor} \(\Hom_{\category{C}}: \opcategory{C} \times \category{C} \to \Ab\) is \hyperref[def:exact-functor]{left exact} with respect to each of its arguments.
+\end{example}
+
+\begin{example}\label{ex:adjoint-functors-and-exactness}
+  Recall \autoref{thm:adjoints-preserve-limits}.
+  
+  \hyperref[def:adjoint-functors]{Right adjoints} are \hyperref[def:exact-functor]{left exact}.
+  \hyperref[def:dual]{Dually}, \hyperref[def:adjoint-functors]{left adjoints} are \hyperref[def:exact-functor]{right exact}.
+\end{example}
+
+\begin{example}
+  Let \(\category{I}\) be a \hyperref[def:small-category]{small category}.
+  If \(\category{C}\) admits \hyperref[def:categorical-limit]{\(I\)-indexed limits} then the \hyperref[def:functor]{functor} \(\lim: \Fct{\opcategory{I}}{\category{C}} \to \category{C}\) is \hyperref[def:exact-functor]{left exact}.
+  \hyperref[def:dual]{Dually} if \(\category{C}\) admits \hyperref[def:categorical-colimit]{\(I\)-indexed colimits} then the \hyperref[def:functor]{functor} \(\colim: \Fct{\category{I}}{\category{C}} \to \category{C}\) is \hyperref[def:exact-functor]{right exact}.
+\end{example}
+
+\begin{example}
+  Let \(R\) be a ring and \(\mathcal{I}\) an index set.
+  The two \hyperref[def:functor]{functors}
+  \begin{equation*}
+    \prod_{i \in \mathcal{I}}: \Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R) \qquad \bigoplus_{i \in \mathcal{I}} :\Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R)
+  \end{equation*}
+  are \hyperref[def:exact-functor]{exact}.
+\end{example}
+
+\begin{example}
+  Let \(R\) be a ring and \(\mathcal{I}\) a \hyperref[def:directed-set]{small directed category}.
+  The \hyperref[def:functor]{functor} \(\varinjlim_{i \in \mathcal{I}}: \Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R)\) is \hyperref[def:exact-functor]{exact}.
+\end{example}
+
+\subsection{Diagram lemmas}
+
+\begin{theorem}[{Freyd-Mitchell embedding - \cite[Section 1.6]{weibelIntroductionHomologicalAlgebra1994}}]\label{thm:freyd-mitchell}
+  Let \(\category{C}\) be a \hyperref[def:small-category]{small} \hyperref[def:abelian-category]{abelian category}.
+  Then there exists a ring \(R\) (with unit, not necessarilly commutative) and a \hyperref[def:functor-types]{fully faithful} \hyperref[def:exact-functor]{exact} \hyperref[def:functor]{functor} \(F: \category{C} \to \Mod(R)\) which embeds \(\category{C}\) as a \hyperref[def:full-subcategory]{full subcategory} of \(\Mod(R)\).
+\end{theorem}
+
+
+\begin{lemma}[Five lemma]\label{lemma:five-lemma}
+  Consider a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      X^{0} \arrow[r, "\alpha^{0}"] \arrow[d, "f^{0}"'] & X^{1} \arrow[r, "\alpha^{1}"] \arrow[d, "f^{1}"] & X^{2} \arrow[r, "\alpha^{2}"] \arrow[d, "f^{2}"] & X^{3} \arrow[d, "f^{3}"] \\
+      Y^{0} \arrow[r, "\beta^{0}"'] & Y^{1} \arrow[r, "\beta^{1}"'] & Y^{2} \arrow[r, "\beta^{2}"'] & Y^{3}
+    \end{tikzcd}
+  \end{center}
+  where the rows are \hyperref[def:exact-sequence]{exact}.
+
+  If \(f^{0}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} and \(f^{1}, f^{3}\) are \hyperref[def:mono-epi-morphism]{monomorphisms} then \(f^{2}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+  \hyperref[def:dual]{Dually} if \(f^{3}\) is an \hyperref[def:mono-epi-morphism]{monomorphism} and \(f^{0}, f^{2}\) are \hyperref[def:mono-epi-morphism]{epimorphisms} then \(f^{1}\) is a \hyperref[def:mono-epi-morphism]{epimorphism}.
+\end{lemma}
+\begin{proof}
+  Let \(x_{2} \in X^{2}\) such that \(f^{2}(x_{2}) = 0\).
+  We want to see that \(x_{2} = 0\).
+  
+  We have that \((f^{3} \circ \alpha^{2})(x_{2}) = 0\) which, since \(f^{3}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}, implies that \(\alpha^{2}(x_{2}) = 0\).
+  Since the first row is \hyperref[def:exact-sequence]{exact} there exists \(x_{1} \in X^{1}\) such that \(\alpha(x_{1}) = x_{2}\).
+
+  Let \(y_{1} \coloneq f^{1}(x_{1})\).
+  Since \((\beta^{1} \circ f^{1})(x_{1}) = 0\) and the second row is \hyperref[def:exact-sequence]{exact} there exists \(y_{0} \in X^{0}\) such that \(\beta^{0}(y_{0}) = f^{1}(x_{1})\).
+
+  Since \(f^{0}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} there exists \(x_{0} \in X^{0}\) such that \(y_{0} = f^{0}(x_{0})\).
+  
+  Since \((f^{1} \circ \alpha^{0})(x_{0}) = f^{1}(x_{1})\) and \(f^{1}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} we have \(\alpha^{0}(x_{0}) = x_{1}\).
+  Therefore \(x_{2} = \alpha^{1}(x_{1}) = 0\).
+\end{proof}
+
+
+\begin{lemma}[Snake lemma]\label{lemma:snake-lemma}
+  Consider a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      & X' \arrow[r, "f"] \arrow[d, "\alpha"'] & X \arrow[r, two heads, "g"] \arrow[d, "\beta"] & X'' \arrow[r] \arrow[d, "\gamma"] & 0\\
+      0 \arrow[r] & Y' \arrow[r, tail, "f'"'] & Y \arrow[r, "g'"'] & Y''
+    \end{tikzcd}
+  \end{center}
+  where the rows are \hyperref[def:exact-sequence]{exact}.
+
+  Then there exists a morphism \(\delta: \ker \gamma \to \coker \alpha\) giving rise to an \hyperref[def:exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+        & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d]  &   \\
+        & \ker \alpha \arrow[d, tail] \arrow[r, dashed] & \ker \beta \arrow[d, tail] \arrow[r, dashed] \arrow[ddd, phantom, ""{coordinate, name=Z}] & \ker \gamma \arrow[d, tail] \arrow[dddll, dashed, rounded corners, to path={ -- ([xshift=2ex]\tikztostart.east)
+          |- (Z) [near end]\tikztonodes
+          -| ([xshift=-2ex]\tikztotarget.west)
+          -- (\tikztotarget)}] &   \\
+        & X' \arrow[d, "\alpha" near start] \arrow[r, "f"] & X \arrow[d, "\beta" near start] \arrow[r, two heads, "g"] & X'' \arrow[d, "\gamma" near start] \arrow[r] & 0 \\
+      0 \arrow[r] & Y' \arrow[d, two heads] \arrow[r, tail, "f'"'] & Y \arrow[d, two heads] \arrow[r, "g'"'] & Y'' \arrow[d, two heads] &   \\
+        & \coker \alpha \arrow[d] \arrow[r, dashed] & \coker \beta \arrow[d] \arrow[r, dashed] & \coker \gamma \arrow[d] &   \\
+        & 0  & 0 & 0
+    \end{tikzcd}
+  \end{center}
+\end{lemma}
+\begin{proof}
+  We will first check that \(\ker \alpha \to \ker \beta \to \ker \gamma\) is \hyperref[def:exact-sequence]{exact}.
+  Let \(x \in \ker \beta\) with \(g(x) = 0\).
+  Since the first row is \hyperref[def:exact-sequence]{exact} there exists \(x' \in X'\) with \(f(x') = x\).
+  Then \((f' \circ \alpha)(x') = (\beta \circ f)(x') = 0\).
+  Since \(f'\) is a \hyperref[def:mono-epi-morphism]{monomorphism} we get \(\alpha(x') = 0\) and thus \(x' \in \ker \alpha\).
+
+  A \hyperref[def:dual]{dual} argument shows that \(\coker \alpha \to \coker \beta \to \coker \gamma\) is \hyperref[def:exact-sequence]{exact}.
+
+  It only remains to construct \(\delta\).
+  Let \(x'' \in \ker \gamma\) and choose \(x \in X\) with \(g(x) = x''\).
+  Set \(y \coloneq \beta(y)\).
+  Since \(g'(y) = 0\) there exists \(y' \in Y'\) such that \(f'(y') = y\).
+  Therefore we can define \(\delta(x'')\) to be the image of \(y'\) in \(\coker \alpha\).
+\end{proof}
+
+
+\section{Injective and projective objects}
+
+\begin{definition}\label{def:injective-projective-object}~
+  \begin{itemize}
+    \item An object \(I \in \category{A}\) is \textbf{injective} if all the diagrams of the form
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[r, "k"] \arrow[d, tail, "f"'] & I \\
+              Z
+            \end{tikzcd}
+          \end{center}
+          where \(X \monoarrow Z\) is a \hyperref[def:mono-epi-morphism]{monomorphism} admit an extension
+           \begin{center}
+            \begin{tikzcd}
+              X \arrow[r, "k"] \arrow[d, tail, "f"'] & I \\
+              Z \arrow[ur, dotted, "h"']
+            \end{tikzcd}
+          \end{center}
+    \item An object \(P \in \category{A}\) is \textbf{projective} if all the diagrams of the form
+          \begin{center}
+            \begin{tikzcd}
+              & X \arrow[d, two heads, "f"] \\
+              P \arrow[r, "k"'] & Z
+            \end{tikzcd}
+          \end{center}
+          where \(X \epiarrow Z\) is an \hyperref[def:mono-epi-morphism]{epimorphism} admit an extension
+           \begin{center}
+             \begin{tikzcd}
+               & X \arrow[d, two heads, "f"] \\
+               P \arrow[r, "k"'] \arrow[ur, dotted, "h"] & Z
+            \end{tikzcd}
+          \end{center}
+  \end{itemize}
+\end{definition}
+
+\begin{proposition}~
+  \begin{itemize}
+    \item An object \(I \in \category{A}\) is \hyperref[def:injective-projective-object]{injective} if and only if the functor \(\Hom_{\category{A}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
+    \item An object \(P \in \category{A}\) is \hyperref[def:injective-projective-object]{projective} if and only if the functor \(\Hom_{\category{A}}(P, -)\) is \hyperref[def:exact-functor]{exact}.
+  \end{itemize}
+\end{proposition}
+\begin{proof}
+  By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-functor]{right exactness}.
+
+  We will do the \hyperref[def:injective-projective-object]{injective} version this time:
+  \begin{itemize}
+    \item[\(\implies\)] Suppose \(I \in A\) is \hyperref[def:injective-projective-object]{injective} and consider a \hyperref[def:exact-sequence]{short exact sequence}
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
+            \end{tikzcd}
+          \end{center}
+          Using \autoref{lemma:characterization-exact-functor}, we want to see that
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & \Hom(Z, I) \arrow[r, "g^{\ast}"] & \Hom(Y, I) \arrow[r, "f^{\ast}"] & \Hom(X, I)
+            \end{tikzcd}
+          \end{center}
+          is \hyperref[def:exact-sequence]{exact}.
+
+          Since by \autoref{ex:hom-left-exact} this sequence is \hyperref[def:exact-sequence]{exact} at \(\Hom(Z, I)\) and \(\Hom(Y, I)\), we only need to check exactness at \(\Hom(X, I)\), i.e: we want to see that \(f^{\ast}\) is surjective.
+
+          Consider a morphism \(\alpha: X \to I\).
+          Since \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} and \(I\) is \hyperref[def:injective-projective-object]{injective} there exists a morphism \(\beta: Y \to I\) such that \(\beta \circ f = f^{\ast}(\beta) = \alpha\), making \(f^{\ast}\) surjective as wanted.
+
+    \item[\(\impliedby\)] Suppose \(\Hom(-, I)\) is \hyperref[def:exact-functor]{exact} and consider a \hyperref[def:mono-epi-morphism]{monomorphism} \(f: A \monoarrow B\) in \(\category{A}\).
+
+          We have the following \hyperref[def:exact-sequence]{short exact sequence}
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & A \arrow[r, "f"] & B \arrow[r] & \coker f \arrow[r] & 0 \\
+            \end{tikzcd}
+          \end{center}
+          Applying \(\Hom(-, I)\) to this sequence we get
+           \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & \Hom(\coker f, I) \arrow[r] & \Hom(B, I) \arrow[r, "f^{\ast}"] & \Hom(A, I) \arrow[r] & 0 \\
+            \end{tikzcd}
+          \end{center}
+          which is \hyperref[def:exact-sequence]{exact} since \(\Hom(-, I)\) is \hyperref[def:exact-functor]{exact}.
+          In particular we have that \(f^{\ast}\) is surjective.
+
+          Therefore if \(\gamma: A \to I\) is any morphism there exists \(\beta \in \Hom(B, I)\) such that \(\gamma = \beta \circ f\), which is exactly the universal property of \hyperref[def:injective-projective-object]{injective objects}.
+  \end{itemize}
+\end{proof}
+
+\begin{definition} \label{def:enough-injectives-projectives}~
+  Let \(\category{A}\) be an \hyperref[def:abelian-category]{abelian category}. We say that:
+  \begin{itemize}
+    \item \(\category{A}\) has \textbf{enough injectives} if for every object \(A \in \category{A}\) there exists an \hyperref[def:injective-projective-object]{injective object} \(I \in \category{A}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(A \monoarrow I\).
+    \item \(\category{A}\) has \textbf{enough projectives} if for every object \(A \in \category{A}\) there exists a \hyperref[def:injective-projective-object]{projective object} \(P \in \category{A}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow A\).
+  \end{itemize}
+\end{definition}
+
+\begin{lemma}\label{lemma:first-term-injective-splits}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) \hyperref[def:injective-projective-object]{injective}.
+  Then the \hyperref[prop:split-exact-sequence]{sequence splits}.
+\end{lemma}
+\begin{proof}
+  By \hyperref[def:injective-projective-object]{definition} taking \(k = \id_{X}\) there exists \(h: Y \to X\) such that \(k \circ f = \id_{X}\).
+  Then we just need to apply \autoref{prop:split-exact-sequence}.
+\end{proof}
+
+\begin{remark}
+  If \(F: \category{C} \to \category{D}\) is an \hyperref[def:additive-functor]{additive functor} between \hyperref[def:abelian-category]{abelian categories} and the hypothesis of \autoref{lemma:first-term-injective-splits} are satisfied the sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  \hyperref[prop:split-exact-sequence]{splits} and in particular it is \hyperref[def:exact-sequence]{exact}.
+\end{remark}
+
+\begin{lemma}\label{lemma:direct-sum-injective}
+  Let \(X, Z \in \category{C}\). Then \(X \oplus Z\) is \hyperref[def:injective-projective-object]{injective} if and only if \(X, Z\) are \hyperref[def:injective-projective-object]{injective}.
+\end{lemma}
+\begin{proof}
+  This follows from the fact that if \(F, G\) are two \hyperref[def:additive-functor]{additive functors} between \hyperref[def:abelian-category]{abelian categories} then \(F \oplus G\) is \hyperref[def:exact-functor]{exact} if and only if \(F\) and \(G\) are \hyperref[def:exact-functor]{exact}.
+\end{proof}
+
+\begin{proposition}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) and \(Z\) \hyperref[def:injective-projective-object]{injective}.
+  Then \(Y\) is \hyperref[def:injective-projective-object]{injective}.
+\end{proposition}
+\begin{proof}
+  By \autoref{lemma:first-term-injective-splits} since \(X\) is \hyperref[def:injective-projective-object]{injective} the sequence \hyperref[def:split-exact-sequence]{splits}.
+    Therefore the sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to
+    \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & X \oplus Z \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Finally since \(X\) and \(Z\) are \hyperref[def:injective-projective-object]{injective} by \autoref{lemma:direct-sum-injective} \(X \oplus Z \cong Y\) is \hyperref[def:injective-projective-object]{injective}.
+\end{proof}
+
+\section{Complexes and cohomology}
+
+Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex[\ast]{\category{C}}\) are abelian for \(\ast = +, -, \operatorname{b}, \operatorname{ub}\)}.
+
+\begin{definition}[Cohomology]\label{def:cohomology}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      X^{\bullet} \coloneq \cdots \arrow[r] & X^{n-1} \arrow[r, "\d_{X}^{n-1}"] & X^{n} \arrow[r, "\d_{X}^{n}"] & X^{n+1} \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:complex]{complex} in \(\category{C}\) (i.e: \(X^{\bullet} \in \Complex{\category{C}}\)).
+  We define
+  \begin{align*}
+    Z^{n}(X^{\bullet}) &\coloneq \ker \d_{X}^{n}  \\
+    B^{n}(X^{\bullet}) &= \operatorname{Im} \d_{X}^{n-1} \\
+    \cohomology{n}(X^{\bullet}) &\coloneq \quot{Z^{n}(X^{\bullet})}{B^{n}(X^{\bullet})} = \coker(B^{n}(X^{\bullet}) \to Z^{n}(X^{\bullet}))
+  \end{align*}
+  We call \(\cohomology{n}(X^{\bullet})\) the \(n\)-th \textbf{cohomology} of \(X^{\bullet}\).
+\end{definition}
+
+\begin{lemma}\label{lemma:extension-cohomology-homotopy-category}
+  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} and \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) a morphism in \(\Complex{\category{C}}\) \hyperref[def:homotopy]{homotopic to zero}.
+  Then \(\cohomology{n}f^{\bullet}: \cohomology{n}(X^{\bullet}) \to \cohomology{n}(Y^{\bullet})\) is the zero morphism.
+
+  In particular the \hyperref[def:functor]{functor} \(\cohomology{0}: \Complex{\category{C}} \to \category{C}\) extends to a \hyperref[def:functor]{functor} \(\cohomology{0}: \operatorname{K}(\category{C}) \to \category{C}\)
+\end{lemma}
+\begin{proof}
+  Let
+  \begin{equation*}
+    f^{n} = s^{n+1} \circ \d_{X}^{n} + \d_{Y}^{n-1} \circ s^{n}
+  \end{equation*}
+  Then \(\d_{X}^{n} = 0\) in \(\ker \d_{X}^{n}\) and the image of \(\d_{Y}^{n-1}\) is zero on \(\quot{\ker \d_{Y}^{n}}{\operatorname{Im} \d_{Y}^{n-1}}\).
+  
+  Therefore \(\cohomology{n}f: \quot{Z^{n}(X^{\bullet})}{B^{n}(X^{\bullet})} \to \quot{Z^{n}(Y^{\bullet})}{B^{n}(Y^{\bullet})}\) is the zero morphism.
+\end{proof}
+
+\begin{definition}[Quasi-isomorphism]\label{def:quasi-isormophism}
+  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
+  A morphism \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) is a \textbf{quasi-isomorphism} (abbreviated q.i.s) if \(\cohomology{n}f^{\bullet}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} for all \(n \in \mathbb{Z}\).
+  In this case we say that \(X^{\bullet}\) and \(Y^{\bullet}\) are \textbf{quasi-isomorphic}.
+
+  In particular \(X^{\bullet}\) is quasi-isomorphic to zero if and only if \(X^{\bullet}\) is \hyperref[def:exact-sequence]{exact}.
+\end{definition}
+
+\begin{remark}\label{rem:short-exact-sequence-cohomology}
+  We have \hyperref[def:exact-sequence]{short exact sequences}
+  \begin{center}
+    \begin{tikzcd}
+      X^{n-1} \arrow[r, "\d_{X}^{n-1}"] & \ker \d_{X}^{n} \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & 0 \\
+      0 \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & \coker \d_{X}^{n-1} \arrow[r, "\d_{X}^{n}"] & X^{n+1}
+    \end{tikzcd}
+  \end{center}
+
+  We can glue this into a \hyperref[def:exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & \coker \d_{X}^{n-1} \arrow[r, "\d_{X}^{n}"] & \ker \d_{X}^{n+1} \arrow[r] & \cohomology{n+1}(X^{\bullet}) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+
+\begin{theorem}\label{thm:LES-in-cohomology}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X^{\bullet} \arrow[r] & Y^{\bullet} \arrow[r] & Z^{\bullet} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in an \hyperref[def:abelian-category]{abelian category} \(\Complex{\category{C}}\).
+  \begin{enumerate}
+    \item For all \(k \in \mathbb{Z}\) the sequence \(\cohomology{k}(X^{\bullet}) \to \cohomology{k}(Y^{\bullet}) \to \cohomology{k}(Z^{\bullet})\) is \hyperref[def:exact-sequence]{exact}.
+    \item For all \(k \in \mathbb{Z}\) there exists \(\delta^{k}: \cohomology{k}(Z^{\bullet}) \to \cohomology{k+1}(X^{\bullet})\) making the long sequence
+          \begin{center}
+            \begin{tikzcd}
+              \cdots \arrow[r] & \cohomology{k-1}(Y^{\bullet}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{k-1}(Z^{\bullet}) \arrow[dll, rounded corners, "\delta^{k-1}" description, to path={
+                -- ([xshift=2ex]\tikztostart.east)
+                |- (X) [near end]\tikztonodes
+                -| ([xshift=-2ex]\tikztotarget.west)
+                -- (\tikztotarget)}] \\
+              \cohomology{k}(X^{\bullet}) \arrow[r] & \cohomology{k}(Y^{\bullet}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] & \cohomology{k}(Z) \arrow[dll, rounded corners, "\delta^{k}" description, to path={
+                -- ([xshift=2ex]\tikztostart.east)
+                |- (Y) [near end]\tikztonodes
+                -| ([xshift=-2ex]\tikztotarget.west)
+                -- (\tikztotarget)}] \\
+              \cohomology{k+1}(X^{\bullet}) \arrow[r] & \cohomology{k+1}(Y^{\bullet}) \arrow[r] & \cdots
+            \end{tikzcd}
+          \end{center}
+          \hyperref[def:exact-sequence]{exact}.
+          Furthermore \(\delta^{k}\) can be constructed to be functorial with respect to \hyperref[def:exact-sequence]{short exact sequences} of \(\Complex{\category{C}}\).
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  Consider the diagram
+  \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d] \\
+      & \cohomology{k}(X^{\bullet}) \arrow[d] & \cohomology{k}(Y^{\bullet}) \arrow[d] & \cohomology{k}(Z^{\bullet}) \arrow[d] \\
+      & \coker \d_{X}^{k-1} \arrow[r] \arrow[d] & \coker \d_{Y}^{k-1} \arrow[r] \arrow[d] & \coker \d_{Z}^{k-1} \arrow[r] \arrow[d] & 0 \\
+      0 \arrow[r] & \ker \d_{X}^{k+1} \arrow[r] \arrow[d] & \ker \d_{Y}^{k+1} \arrow[r] \arrow[d] & \ker \d_{Z}^{k+1} \arrow[d] \\
+      & \cohomology{k}(X^{\bullet}) \arrow[d] & \cohomology{k}(Y^{\bullet}) \arrow[d] & \cohomology{k}(Z^{\bullet}) \arrow[d] \\
+      & 0 & 0 & 0 
+    \end{tikzcd}
+  \end{center}
+  where the columns are \hyperref[def:exact-sequence]{exact} by \autoref{rem:short-exact-sequence-cohomology} and the rows are \hyperref[def:exact-sequence]{exact} by hypothesis.
+  Therefore the result follows from the \hyperref[lemma:snake-lemma]{Snake lemma}.
+\end{proof}
+
+\begin{corollary}
+  For any morphism \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) in \(\Complex{\category{C}}\) there exists a \hyperref[def:exact-sequence]{long exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & \cohomology{k-1}(Y^{\bullet}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{k-1}(\operatorname{Cone}(f^{\bullet}) \arrow[dll, rounded corners, "\delta^{k-1}" description, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \cohomology{k}(X^{\bullet}) \arrow[r] & \cohomology{k}(Y^{\bullet}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] & \cohomology{k}(\operatorname{Cone}(f^{\bullet})) \arrow[dll, rounded corners, "\delta^{k}" description, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \cohomology{k+1}(X^{\bullet}) \arrow[r] & \cohomology{k+1}(Y^{\bullet}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{corollary}
+\begin{proof}
+  We have a \hyperref[def:complex]{complex}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & Y^{\bullet} \arrow[r] & \operatorname{Cone}(f^{\bullet}) \arrow[r] & X[1]^{\bullet}
+    \end{tikzcd}
+  \end{center}
+  Since in degree \(n\) this gives the \hyperref[prop:split-exact-sequence]{split sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & Y^{n} \arrow[r] & Y^{n} \oplus X^{n+1} \arrow[r] & X^{n+1}
+    \end{tikzcd}
+  \end{center}
+  the \hyperref[def:complex]{complex} is \hyperref[def:exact-sequence]{exact}.
+  Therefore the result follows from \autoref{thm:LES-in-cohomology}.
+\end{proof}
+
+
+\end{document}

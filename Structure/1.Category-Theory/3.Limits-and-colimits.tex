@@ -13,8 +13,8 @@
 \begin{definition}[Diagram]\label{def:diagram}
   Let \(\category{J}\) be a \hyperref[def:small-category]{small category}.
   
-  A \textbf{diagram} \(X\) in a \hyperref[def:big-category]{category} \(\category{C}\) with shape \(\category{J}\) is a \hyperref[def:functor]{functor} \(X: \category{J} \to \category{C}\).
-  For every \(j \in \category{J}\) we write \(X_{j} \coloneq Xj\).
+  A \textbf{diagram} \(X\) in a \hyperref[def:category]{category} \(\category{C}\) with shape \(\category{J}\) is a \hyperref[def:functor]{functor} \(X: \category{J} \to \category{C}\).
+  For every \(j \in \category{J}\) we write \(X_{j} \coloneq X(j)\).
 \end{definition}
 
 \begin{example}[Constant diagram]\label{ex:constant-diagram}
@@ -94,17 +94,35 @@
   Therefore for any \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) we have a \hyperref[def:category]{category} of cocones \(X \downarrow \Delta\).
 \end{definition}
 
+\begin{notation}
+  For a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) we will denote a \hyperref[def:cone]{cone} \(C: \operatorname{const}_{c} \Rightarrow X\) by
+  \begin{center}
+    \begin{tikzcd}
+      c \arrow[d, shift left] \arrow[d, shift right] \\
+      \{X_{j}\}_{j \in \category{J}}
+    \end{tikzcd}
+  \end{center}
+  and a \hyperref[def:cocone]{cocone} \(D: X \Rightarrow \operatorname{const}_{d}\) by
+  \begin{center}
+    \begin{tikzcd}
+      \{X_{j}\}_{j \in \category{J}} \arrow[d, shift left] \arrow[d, shift right] \\
+      d
+    \end{tikzcd}
+  \end{center}
+\end{notation}
+
+
 \section{Limits and colimits}
 
 \begin{definition}[Limit]\label{def:categorical-limit}
   A \textbf{limit} of a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a \hyperref[def:initial-terminal-object]{terminal object} in the \hyperref[def:cone]{category of cones} \(\Delta \downarrow X\).
 
-  Less abstractly, a limit is a \hyperref[def:cone]{cone} \(\lim X: \operatorname{const}_{\lim X} \Rightarrow X\) such that for any other \hyperref[def:cone]{cone} \(C: \operatorname{const}_{c} \Rightarrow X\) there exists a unique morphism \(c \to \lim X\) making the following diagram commute for all \(i, j \in \category{J}\)
+  Less abstractly, a limit is a \hyperref[def:cone]{cone} \(\lim X: \operatorname{const}_{\lim X} \Rightarrow X\) such that for any other \hyperref[def:cone]{cone} \(C: \operatorname{const}_{c} \Rightarrow X\) there exists a unique morphism \(c \to \lim X\) making the following diagram commute
   \begin{center}
     \begin{tikzcd}
-      & c \arrow[d, dotted] \arrow[ddl, bend right] \arrow[ddr, bend left] & \\
-      & \lim X \arrow[dl] \arrow[dr] & \\
-      X_{i} \arrow[rr] & & X_{j}
+      c \arrow[d, dotted] \arrow[dd, bend right=5em] \arrow[dd, bend left=5em] \\
+      \lim X \arrow[d, shift left] \arrow[d, shift right] \\
+      \{X_{j}\}_{j \in \category{J}}
     \end{tikzcd}
   \end{center}
 \end{definition}
@@ -112,15 +130,14 @@
 \begin{definition}[Colimit]\label{def:categorical-colimit}
   A \textbf{colimit} of a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\), denoted \(\colim X\), is a \hyperref[def:initial-terminal-object]{terminal object} in the \hyperref[def:cone]{category of cocones} \(X \downarrow \Delta\).
 
-  Less abstractly, a colimit is a \hyperref[def:cocone]{cocone} \(\colim X: X \Rightarrow \operatorname{const}_{\colim X}\) such that for any other \hyperref[def:cocone]{cocone} \(C: X \Rightarrow \operatorname{const}_{c}\) there exists a unique morphism \(\colim X \to c\) making the following diagram commute for all \(i, j \in \category{J}\)
+  Less abstractly, a colimit is a \hyperref[def:cocone]{cocone} \(\colim X: X \Rightarrow \operatorname{const}_{\colim X}\) such that for any other \hyperref[def:cocone]{cocone} \(C: X \Rightarrow \operatorname{const}_{c}\) there exists a unique morphism \(\colim X \to c\) making the following diagram commute
   \begin{center}
     \begin{tikzcd}
-      X_{i} \arrow[dr] \arrow[ddr, bend right] \arrow[rr] & & X_{j} \arrow[dl] \arrow[ddl, bend left] \\
-      & \colim X \arrow[d, dotted] & \\
-      & c &
+      \{X_{j}\}_{j \in \category{J}} \arrow[d, shift left] \arrow[d, shift right] \arrow[dd, bend right=5em] \arrow[dd, bend left=5em] \\
+      \colim X \arrow[d, dotted]  \\
+      c
     \end{tikzcd}
   \end{center}
-
 \end{definition}
 
 
@@ -140,17 +157,30 @@
     \item \(F\) \textbf{reflects} \hyperref[def:categorical-limit]{limits} if whenever \((L, \varphi)\) is a \hyperref[def:cone]{cone} over \(X\) such that \((F(L), F(\varphi))\) is the \hyperref[def:categorical-limit]{limit} of \(F \circ X\) in \(\category{D}\) then \((L, \varphi)\) is the \hyperref[def:categorical-limit]{limit} of \(X\) in \(\category{C}\).
   \end{itemize}
 
-  Replacing \hyperref[def:cone]{cones} with \hyperref[def:cocone]{cocones} and \hyperref[def:categorical-limit]{limits} with \hyperref[def:categorical-colimit]{colimits} we get dual statements.
+  Replacing \hyperref[def:cone]{cones} with \hyperref[def:cocone]{cocones} and \hyperref[def:categorical-limit]{limits} with \hyperref[def:categorical-colimit]{colimits} we get \hyperref[def:dual]{dual} statements.
 \end{definition}
 
 \subsection{Examples of limits and colimits}
 
-\begin{definition}[Product]\label{def:categorical-product}
-  Let \(\category{J}\) be a \hyperref[ex:discrete-category]{discrete} \hyperref[def:small-category]{small category}.
-  This means that \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) consists only of a set of objects \(\{X_{j}\}_{j \in \category{J}}\).
-  We define the \textbf{product} of \(\{X_{j}\}_{j \in \category{J}}\), denoted \(\prod_{j \in \category{J}} X_{j}\), as the \hyperref[def:categorical-limit]{limit} of the \hyperref[def:diagram]{diagram} \(X\).
+We now define some special cases of \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} that are generally useful.
+However, it is important to take into account that this constructions do not exist in general for all \hyperref[def:category]{categories}.
 
-  Less abstractly, a \textbf{product} is an object \(\prod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(\prod_{j \in \category{J}} X_{j} \to X_{j}\) for every \(j \in \category{J}\) such that, for any map \(Y \to X_{j}\) there exists a unique morphism \(Y \to \prod_{j \in \category{J}} X_{j}\) making the following diagram commute
+\subsubsection{Products and coproducts}
+
+Let \(\category{J}\) be a \hyperref[def:small-category]{small} and \hyperref[ex:discrete-category]{discrete category}.
+
+Since the only morphisms in \(\category{J}\) are the identity morphisms, a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) consists in a collection of objects \(\{X_{j}\}_{j \in \category{J}}\).
+
+Therefore a \hyperref[def:cone]{cone} with apex \(c\) over \(X\) is an object \(c \in \category{C}\) together with morphisms \(c \to X_{j}\) for each \(j \in \category{J}\) and a \hyperref[def:cocone]{cocone} with nadir \(c \in \category{C}\) over \(X\) is an object \(c\) together with morphisms \(X_{j} \to c\) for each \(j  \in \category{J}\).
+
+Note that any collection of objects \(\{X_{j}\}_{j \in \category{J}}\) in \(\category{C}\) may be considered as a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\).
+
+\begin{definition}[Product]\label{def:categorical-product}
+  Let \(\{X_{j}\}_{j \in \category{J}}\) be a collection of objects in a \hyperref[def:category]{category} \(\category{C}\).
+
+  We define the \textbf{product} of \(\{X_{j}\}_{j \in \category{J}}\), denoted \(\prod_{j \in \category{J}} X_{j}\), as the \hyperref[def:categorical-limit]{limit} of the \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\).
+
+  Less abstractly, a \textbf{product} is an object \(\prod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(\pi_{j}: \prod_{j \in \category{J}} X_{j} \to X_{j}\) for every \(j \in \category{J}\) such that, for any map \(Y \to X_{j}\) there exists a unique morphism \(Y \to \prod_{j \in \category{J}} X_{j}\) making the following diagram commute
   \begin{center}
     \begin{tikzcd}
       Y \arrow[rr, bend left] \arrow[r, dotted] & \prod_{j \in \category{J}} X_{j} \arrow[r] & X_{j}
@@ -159,11 +189,12 @@
 \end{definition}
 
 \begin{definition}[Coproduct]\label{def:categorical-coproduct}
-  Let \(\category{J}\) be a \hyperref[ex:discrete-category]{discrete} \hyperref[def:small-category]{small category}.
-  This means that \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) consists only of a set of objects \(\{X_{j}\}_{j \in \category{J}}\).
-  We define the \textbf{coproduct} of \(\{X_{j}\}_{j \in \category{J}}\), denoted \(\coprod_{j \in \category{J}} X_{j}\), as the \hyperref[def:categorical-colimit]{colimit} of the \hyperref[def:diagram]{diagram} \(X\).
+  Let \(\{X_{j}\}_{j \in \category{J}}\) be a collection of objects in a \hyperref[def:category]{category} \(\category{C}\).
 
-  Less abstractly, a \textbf{coproduct} is an object \(\coprod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(X_{j} \to \coprod_{j \in \category{J}} X_{j}\) for every \(j \in \category{J}\) such that, for any map \(X_{j} \to Y\) a unique morphism \(\coprod_{j \in \category{J}} X_{j} \to Y\) making the following diagram commute
+  We define the \textbf{coproduct} of \(\{X_{j}\}_{j \in \category{J}}\), denoted \(\coprod_{j \in \category{J}} X_{j}\), as the \hyperref[def:categorical-colimit]{colimit} of the \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\).
+
+
+  Less abstractly, a \textbf{coproduct} is an object \(\coprod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(\iota_{j}: X_{j} \to \coprod_{j \in \category{J}} X_{j}\) for every \(j \in \category{J}\) such that, for any map \(X_{j} \to Y\) there exists a unique morphism \(\coprod_{j \in \category{J}} X_{j} \to Y\) making the following diagram commute
   \begin{center}
     \begin{tikzcd}
       Y & \arrow[l, dotted] \prod_{j \in \category{J}} X_{j} & \arrow[ll, bend left] \arrow[l] X_{j}
@@ -171,13 +202,46 @@
   \end{center}
 \end{definition}
 
+\begin{example}[Products in \(\Set\)]\label{ex:product-Set}
+  In \(\Set\) the \hyperref[def:categorical-product]{categorical product} coincides with the cartesian product.
+\end{example}
+
+\begin{example}[Coproducts in \(\Set\)]\label{ex:coproduct-Set}
+  In \(\Set\) the \hyperref[def:categorical-coproduct]{categorical coproduct} coincides with the disjoint union.
+\end{example}
+
+
+
+\subsubsection{Equalisers and coequalisers}
+
+Consider the \textit{parallel pair} \hyperref[def:category]{category}
+\begin{center}
+  \(\category{J}\) = \begin{tikzcd}
+    \bullet \arrow[r, shift left] \arrow[r, shift right] & \bullet
+  \end{tikzcd}
+\end{center}
+A diagram \(X: \category{J} \to \category{C}\) corresponds to a pair of morphisms \(f, g: A \rightrightarrows B\) in \(\category{C}\).
+
+Therefore a \hyperref[def:cone]{cone} \(C: \operatorname{const}_{c} \Rightarrow X\) is a morphism \(c: C \to A\) such that \(fc = gc\):
+\begin{center}
+  \begin{tikzcd}
+    C \arrow[r, "c"] & A \arrow[r, shift left, "f"] \arrow[r, shift right, "g"'] & B
+  \end{tikzcd}
+\end{center}
+Analogously a \hyperref[def:cocone]{cocone} \(D: X \Rightarrow \operatorname{const}_{d}\) is a morphism \(d: B \to D\) such that \(df = dg\):
+\begin{center}
+  \begin{tikzcd}
+    A \arrow[r, shift left, "f"] \arrow[r, shift right, "g"'] & B \arrow[r, "d"] & D
+  \end{tikzcd}
+\end{center}
+
+Note that any pair of morphisms \(f, g: A \rightrightarrows B\) can be considered as a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\).
 
 \begin{definition}[Equaliser]\label{def:equaliser}
-  Consider the \textit{parallel pair} \hyperref[def:small-category]{category} \(\category{J} = \bullet \rightrightarrows \bullet\).
-  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphisms \(f, g: A \rightrightarrows B\), making a \hyperref[def:cone]{cone} with apex \(C\) over \(X\) is a morphism \(a: C \to A\) such that \(fa = ga\).
-  
+  Let \(f, g: A \rightrightarrows B\) be two morphisms in \(\category{C}\), considered as a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\).
   The \textbf{equaliser} of \(f\) and \(g\) is the \hyperref[def:categorical-limit]{limit} of this diagram.
-  Les abstractly, it is a morphism \(\operatorname{eq}: E \to A\) such that for any morphism \(C \to A\) there exists a unique map \(C \to E\) the following diagram commute
+  
+  Less abstractly, it is an object \(E \in \category{C}\) together with a morphism \(\operatorname{eq}: E \to A\) such that for any morphism \(c: C \to A\) with \(fc = gc\) there exists a unique map \(C \to E\) the following diagram commute
   \begin{center}
     \begin{tikzcd}
       C \arrow[d, dotted] \arrow[dr] \\
@@ -187,11 +251,10 @@
 \end{definition}
 
 \begin{definition}[Coequaliser]\label{def:coequaliser}
-  Consider the \textit{parallel pair} \hyperref[def:small-category]{category} \(\category{J} = \bullet \rightrightarrows \bullet\).
-  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphisms \(f, g: A \rightrightarrows B\), making a \hyperref[def:cocone]{cocone} with nadir \(C\) over \(X\) is a morphism \(a: A \to C\) such that \(af = ag\).
-  
+  Let \(f, g: A \rightrightarrows B\) be two morphisms in \(\category{C}\), considered as a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\).
   The \textbf{coequaliser} of \(f\) and \(g\) is the \hyperref[def:categorical-colimit]{limit} of this diagram.
-  Less abstractly, it is a morphism \(\operatorname{coeq}: B \to Q\) such that for any morphism \(Y \to C\) there exists a unique map \(Q \to C\) the following diagram commute
+
+  Less abstractly, it is an object \(Q \in \category{C}\) together with a morphism \(\operatorname{coeq}: B \to Q\) such that for any morphism \(d: B \to C\) with \(df = dg\) there exists a unique map \(Q \to C\) making the following diagram commute
   \begin{center}
     \begin{tikzcd}
       A \arrow[r, shift right] \arrow[r, shift left] & B \arrow[r] \arrow[dr] & Q \arrow[d, dotted] \\
@@ -200,97 +263,338 @@
   \end{center}
 \end{definition}
 
+\begin{proposition}\label{prop:equaliser-coequaliser-mono-epi}
+  \hyperref[def:equaliser]{Equaliser arrows} are \hyperref[def:mono-epi-morphism]{monomorphisms}.
+  \hyperref[def:dual]{Dually}, \hyperref[def:coequaliser]{coequaliser arrows} are \hyperref[def:mono-epi-morphism]{epimorphisms}.
+\end{proposition}
+\begin{proof}
+  Let \(\operatorname{eq}: E \to X\) be a \hyperref[def:equaliser]{equaliser}.
+  Consider two morphisms \(f, g: C \rightrightarrows E\) in \(\category{C}\) such that \(\operatorname{eq} \circ f = \operatorname{eq} \circ g\).
+  By the uniqueness of the map \(\operatorname{eq}: E \to X\) we have \(f = g\).
+\end{proof}
 
-\begin{definition}[Pullback]\label{def:pullback}
-  Consider the \hyperref[def:small-category]{category}
+\begin{example}[Equalisers in \(\Set\)]\label{ex:equaliser-Set}
+  In \(\Set\) the \hyperref[def:equaliser]{equaliser} of two maps \(f, g: A \rightrightarrows B\) is \(E = \{a \in A \mid f(a) = g(a)\}\) together with the inclussion \(E \hookrightarrow A\).
+\end{example}
+
+\begin{example}[Coequalisers in \(\Set\)]\label{ex:coequalier-Set}
+  In \(\Set\) the \hyperref[def:coequaliser]{coequaliser} of two maps \(f, g: A \rightrightarrows B\) is \(Q = \quot{B}{\sim}\) where \(\sim\) is the smallest equivalence relation such that for all \(a \in A \quad f(a) \sim g(a)\) together with the natural projection
+  \begin{align*}
+    \operatorname{coeq}:&\, B \to Q \\
+                        & b \mapsto [b]
+  \end{align*}
+\end{example}
+
+A special case of \hyperref[def:equaliser]{equalisers} and \hyperref[def:coequaliser]{coequalisers} are kernels and cokernels.
+
+\begin{definition}[Kernel]\label{def:categorical-kernel}
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with a \hyperref[def:zero-object]{zero object} \(0 \in \category{C}\).
+  The \textbf{kernel} \(\ker f\) of a morphism \(f: A \to B\) is the \hyperref[def:equaliser]{equaliser}
   \begin{center}
-    \(\category{J} = \)
     \begin{tikzcd}
-      & \bullet \arrow[d] \\
-      \bullet \arrow[r] & \bullet
-    \end{tikzcd}
-  \end{center}
-  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphism \(X \xrightarrow{f} Z \xleftarrow{g} Y\), making a \hyperref[def:cone]{cone} with apex \(C\) over \(X\) a pair of morphisms \(C \to X, C \to Y\) making the following diagram commute
-  \begin{center}
-    \begin{tikzcd}
-      C \arrow[r] \arrow[d] & X \arrow[d, "f"] \\
-      Y \arrow[r, "g"'] & Z
+      \ker f \arrow[r] & A \arrow[r, shift left, "f"] \arrow[r, shift right, "0"'] & B
     \end{tikzcd}
   \end{center}
   
-  A \textbf{pullback} (or \textbf{fibre product}) of two morphisms \(f: X \to Z\) and \(g: Y \to Z\) is the \hyperref[def:categorical-limit]{limit} of the diagram \(X \xrightarrow{f} Z \xleftarrow{g} Y\).
-  It is denoted by \(X \times_{Z} Y\).
+  Less abstractly, it is an object \(\ker f\) together with a morphism \(i: \ker f \to X\) such that for every \(C \in \category{C}\) and every morphism \(g: C \to X\) such that \(f \circ g = 0\) there is a unique morphism \(\phi: C \to \ker f\) such that \(g = p \circ \phi\)
+\end{definition}
 
-  Less abstractly, it is a pair of morphisms \(X \times_{Z} Y \to X, X \times_{Z} Y \to Y\) such that for any pair of morphisms \(C \to X, C \to Y\) making the square commute, there exists a unique morphism \(C \to X \times_{Z} Y\) such that
+\begin{definition}[Cokernel]\label{def:categorical-cokernel}
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with a \hyperref[def:zero-object]{zero object} \(0 \in \category{C}\).
+  The \textbf{cokernel} \(\coker f\) of a morphism \(f: A \to B\) is the \hyperref[def:coequaliser]{coequaliser}
+  \begin{center}
+    \begin{tikzcd}
+      A \arrow[r, shift left, "f"] \arrow[r, shift right, "0"'] & B \arrow[r] & \coker f
+    \end{tikzcd}
+  \end{center}
+  
+  Less abstractly, it is an object \(\coker f\) together with a morphism \(p: Y \to \coker f\) such that for every \(C \in \category{C}\) and every morphism \(g: Y \to C\) such that \(g \circ f = 0\) there is a unique morphism \(\phi: \coker f \to C\) such that \(g = \phi \circ p\).
+
+  We denote
+  \begin{equation*}
+    \quot{A}{B} \coloneq \coker(A \to B)
+  \end{equation*}
+\end{definition}
+
+\begin{remark}
+  By \autoref{prop:equaliser-coequaliser-mono-epi}, \hyperref[def:categorical-kernel]{kernels} are \hyperref[def:mono-epi-morphism]{monomorphisms} and \hyperref[def:categorical-cokernel]{cokernels} are \hyperref[def:mono-epi-morphism]{epimorphisms}.
+\end{remark}
+
+
+\subsubsection{Pullbacks and pushouts}
+
+Consider the \hyperref[def:category]{category}
+\begin{center}
+  \(\category{J} = \) \begin{tikzcd}
+    & \bullet \arrow[d] \\
+    \bullet \arrow[r] & \bullet
+  \end{tikzcd} \(=\)
+  \begin{tikzcd}
+    \bullet \arrow[r] & \bullet & \bullet \arrow[l]
+  \end{tikzcd}
+\end{center}
+A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) consists of a pair of morphisms \(A \xrightarrow{f} Z \xleftarrow{g} B\).
+
+Therefore a \hyperref[def:cone]{cone} \(\operatorname{const}_{C} \Rightarrow X\) consists of an object \(C \in \category{C}\) together with morphisms \(C \to X\) and \(C \to Y\) making the following diagram commute.
+\begin{center}
+  \begin{tikzcd}
+    C \arrow[r] \arrow[d] & A \arrow[d, "f"] \\
+    B \arrow[r, "g"'] & Z
+  \end{tikzcd}
+\end{center}
+
+Note that any pair of morphisms \(A \xrightarrow{f} Z \xleftarrow{g} B\) can be considered as a diagram \(X: \category{J} \to \category{C}\).
+
+Consider now the \hyperref[def:opposite-category]{opposite category}
+\begin{center}
+  \(\opcategory{J} = \) \begin{tikzcd}
+    & \bullet \\
+    \bullet  & \bullet \arrow[l] \arrow[u]
+  \end{tikzcd} \(=\)
+  \begin{tikzcd}
+    \bullet & \bullet \arrow[l] \arrow[r] & \bullet
+  \end{tikzcd}
+\end{center}
+A \hyperref[def:diagram]{diagram} \(Y: \opcategory{J} \to \category{C}\) consists of a pair of morphisms \(A \xleftarrow{f} Z \xrightarrow{g} B\).
+
+Therefore a \hyperref[def:cocone]{cocone} \(X \Rightarrow \operatorname{const}_{D}\) consists of an object \(D \in \category{D}\) together with morphisms \(A \to D\) and \(B \to D\) making the following diagram commute
+\begin{center}
+  \begin{tikzcd}
+    Z \arrow[r, "f"] \arrow[d, "g"'] & A \arrow[d] \\
+    B \arrow[r] & D
+  \end{tikzcd}
+\end{center}
+
+Note that any pair of morphisms \(A \xleftarrow{f} Z \xrightarrow{g} B\) can be considered as a diagram \(X: \category{J} \to \category{C}\).
+
+\begin{definition}[Pullback]\label{def:pullback}
+  Let \(A \xrightarrow{f} Z \xleftarrow{g} B\) be a pair of morphisms in \(\category{C}\), considered as a \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\).
+  
+  The \textbf{pullback} (or \textbf{fibre product}) of \(f\) and \(g\) is the \hyperref[def:categorical-limit]{limit} of this \hyperref[def:diagram]{diagram}, denoted by \(A \times_{Z} B\).
+
+  Less abstractly, it is an object \(A \times_{Z} B \in \category{C}\) together with a pair of morphisms \(\pi_{A}: A \times_{Z} B \to A, \pi_{B}: A \times_{Z} B \to B\) such that for any pair of morphisms \(C \to A, C \to B\) making the square commute, there exists a unique morphism \(C \to A \times_{Z} B\) such that
   \begin{center}
     \begin{tikzcd}
       C \arrow[dr, dotted] \arrow[drr, bend left] \arrow[ddr, bend right] \\
-      & X \times_{Z} Y \arrow[r] \arrow[d] & X \arrow[d, "f"]\\
-      & Y \arrow[r, "g"'] & Z
+      & A \times_{Z} B \arrow[r] \arrow[d] & A \arrow[d, "f"]\\
+      & B \arrow[r, "g"'] & Z
     \end{tikzcd}
   \end{center}
 
-  Pushout diagrams are often denoted by
+  Pullback diagrams are often denoted by
   \begin{center}
     \begin{tikzcd}
-      X \times_{Z} Y  \arrow[dr, phantom, "\ulcorner", very near start] \arrow[r] \arrow[d] & X \arrow[d, "f"] \\
-      Y \arrow[r, "g"'] & Z
+      A \times_{Z} B  \arrow[dr, phantom, "\ulcorner", very near start] \arrow[r] \arrow[d] & A \arrow[d, "f"] \\
+      B \arrow[r, "g"'] & Z
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \begin{definition}[Pushout]\label{def:pushout}
-  Consider the \hyperref[def:small-category]{category}
-  \begin{center}
-    \(\category{J} = \)
-    \begin{tikzcd}
-      & \bullet  \\
-      \bullet  & \bullet \arrow[u] \arrow[l]
-    \end{tikzcd}
-  \end{center}
-  A \hyperref[def:diagram]{diagram} \(X: \category{J} \to \category{C}\) is a pair of morphism \(X \xleftarrow{f} Z \xrightarrow{g} Y\), making a \hyperref[def:cocone]{cocone} with nadir \(C\) over \(X\) a pair of morphisms \(X \to C, Y \to C\) making the following diagram commute
-  \begin{center}
-    \begin{tikzcd}
-      C & X \arrow[l]  \\
-      Y \arrow[u] & Z \arrow[u, "f"'] \arrow[l, "g"]
-    \end{tikzcd}
-  \end{center}
+  Let \(A \xleftarrow{f} Z \xrightarrow{g} B\) be a pair of morphisms in \(\category{C}\), considered as a \hyperref[def:diagram]{diagram} \(X: \opcategory{J} \to \category{C}\).
   
-  A \textbf{pushout} of two morphisms \(f: Z \to X, g: Z \to Y\) is the \hyperref[def:categorical-colimit]{colimit} of the diagram \(X \xleftarrow{f} Z \xrightarrow{g} Y\).
-  It is denoted by \(X \coprod_{Z} Y\).
+  The \textbf{pushout} of \(f\) and \(g\) is the \hyperref[def:categorical-colimit]{colimit} of this \hyperref[def:diagram]{diagram}, denoted by \(X \coprod_{Z} Y\).
 
-  Less abstractly, it is a pair of morphisms \(X \to X \coprod_{Z} Y, Y \to X \coprod_{Z} Y\) such that for any pair of morphisms \(X \to C, Y \to  C\) making the square commute, there exists a unique morphism \(X \coprod_{Z} Y \to C\) such that
+  Less abstractly, it is an object \(A \coprod_{Z} B \in \category{C}\) together with a pair of morphisms \(\iota_{A}: A \to A \coprod_{Z} B, \iota_{B}: B \to A \coprod_{Z} B\) such that for any pair of morphisms \(A \to C, B \to  C\) making the square commute, there exists a unique morphism \(A \coprod_{Z} B \to C\) such that
   \begin{center}
     \begin{tikzcd}
-      C \\
-      & X \coprod_{Z} Y \arrow[lu, dotted] & X \arrow[l] \arrow[llu, bend right]  \\
-      & Y \arrow[u] \arrow[luu, bend left] & Z \arrow[u, "f"'] \arrow[l, "g"]
+      Z \arrow[r, "f"] \arrow[d, "g"'] & A \arrow[d] \arrow[ddr, bend left] & \\
+      B \arrow[r] \arrow[drr, bend right] & A \coprod_{Z} B \arrow[dr, dotted] & \\
+      & & C
     \end{tikzcd}
   \end{center}
 
   Pushout diagrams are often denoted by
   \begin{center}
     \begin{tikzcd}
-      X \coprod_{Z} Y & X \arrow[l] \\
-      Y \arrow[u] & Z \arrow[u, "f"'] \arrow[l, "g"] \arrow[ul, phantom, "\lrcorner", very near start]
+      Z \arrow[r, "f"] \arrow[d, "g"'] & A \arrow[d] \\
+      B \arrow[r] & A \coprod_{Z} B \arrow[ul, phantom, "\ulcorner", very near start]
     \end{tikzcd}
   \end{center}
 \end{definition}
 
-\begin{definition}[Directed set]\label{def:directed-set}
-  A \textbf{directed set} is a preordered set \((I, \leq)\) such that for every \(i, j \in I\), there exists \(k \in I\) with \(i \leq k\) and \(j \leq k\).
+\begin{example}[Pullbacks in \(\Set\)]\label{ex:pullback-Set}
+  In \(\Set\) the \hyperref[def:pullback]{pullback} of two morphisms \(A \xrightarrow{f} Z \xleftarrow{g} B\) is the set
+  \begin{equation*}
+    A \times_{Z} B = \{ (a, b) \in A \times B \mid f(a) = g(b)\}
+  \end{equation*}
+  together with the projection maps
+  \begin{align*}
+    \pi_{A}:\,& A \times_{Z} B \to A  & \pi_{B}:\,& A \times_{Z} B \to B \\
+            & (a, b) \mapsto a & & (a, b) \mapsto b
+  \end{align*}
+\end{example}
 
+\begin{example}[Pushouts in \(\Set\)]\label{ex:pushout-Set}
+  In \(\Set\) the \hyperref[def:pushout]{pushout} of two morphisms \(A \xleftarrow{f} Z \xrightarrow{g} B\) is the set
+  \begin{equation*}
+    A \coprod_{Z} B = \quot{A \coprod B}{\sim}
+  \end{equation*}
+  where \(\sim\) is the equivalence relation generated by \(f(a) \sim g(a)\) for all \(a \in A\) together the inclussion maps
+  \begin{align*}
+    \iota_{A}:\,& A \to A \coprod_{Z} B  & \iota_{B}:\,& B \to  A \coprod_{Z} B \\
+            & a \mapsto [a, 0] & & b \mapsto [b, 1]
+  \end{align*}
+\end{example}
+
+\begin{remark}\label{rem:pullbacks-pushouts-as-equalisers-coequalisers}
+  Notice how \hyperref[ex:pullback-Set]{pullbacks in \(\Set\)} can be seen as a \hyperref[def:equaliser-Set]{equaliser in \(\Set\)} from the \hyperref[ex:product-Set]{product maps} \(f \circ \pi_{A}, g \circ \pi_{B}: A \times B \to Z\).
+  From the \hyperref[ex:pushout-Set]{pushouts in \(\Set\)} we get a \textit{\hyperref[def:dual]{dual} observation}.
+
+  Indeed, it is not difficult to check that if \(\category{C}\) has \hyperref[def:categorical-product]{products} then the \hyperref[def:pullback]{pullback}
+  \begin{center}
+    \begin{tikzcd}
+      A \times_{Z} B  \arrow[dr, phantom, "\ulcorner", very near start] \arrow[r] \arrow[d] & A \arrow[d, "f"] \\
+      B \arrow[r, "g"'] & Z
+    \end{tikzcd}
+  \end{center}
+  is equivalent to the \hyperref[def:equaliser]{equaliser}
+  \begin{center}
+    \begin{tikzcd}
+      A \times_{Z} B \arrow[r] & A \times B \arrow[r, shift right, "g \circ \pi_{B}"'] \arrow[r, shift left, "f \circ \pi_{A}"] & Z
+    \end{tikzcd}
+  \end{center}
+
+  \hyperref[def:dual]{Dually} if \(\category{C}\) has \hyperref[def:categorical-coproduct]{coproducts} the \hyperref[def:pushout]{pushout}
+  \begin{center}
+    \begin{tikzcd}
+      Z \arrow[r, "f"] \arrow[d, "g"'] & A \arrow[d] \\
+      B \arrow[r] & A \coprod_{Z} B \arrow[ul, phantom, "\ulcorner", very near start]
+    \end{tikzcd}
+  \end{center}
+  is equivalent to the \hyperref[def:coequaliser]{coequaliser}
+  \begin{center}
+    \begin{tikzcd}
+      Z \arrow[r, shift right, "\iota_{B} \circ g"'] \arrow[r, shift left, "\iota_{A} \circ f"] & A \coprod B \arrow[r] & A \coprod_{Z} B
+    \end{tikzcd}
+  \end{center}
+  For a proof see \cite[Lemmas 3.4.16, 3.4.17]{riehlCategoryTheoryContext}.
+\end{remark}
+
+
+\subsubsection{Inverse and direct limits}
+
+\begin{definition}[Directed set]\label{def:directed-set}
+  A \textbf{directed set} is a preordered set \((\mathcal{I}, \leq)\) such that for every \(i, j \in \mathcal{I}\), there exists \(k \in \mathcal{I}\) with \(i \leq k\) and \(j \leq k\).
   We can view this as a category following \autoref{ex:poset-category-dual}.
 \end{definition}
 
-\begin{definition}[Inverse limit]\label{def:inverse-limit}
-  An \textbf{inverse limit} (or \textbf{projective limit}) is a \hyperref[def:categorical-limit]{limit} of a \hyperref[def:diagram]{diagram} over a \hyperref[def:directed-set]{directed set} \(\category{I}\). We write it as \(\varprojlim_{i \in \category{I}} X_i\).
+\begin{example}
+  Let \((X, \mathcal{T})\) be a topological space.
+  Then \((\mathcal{T}, \subseteq)\) forms a \hyperref[def:directed-set]{directed set}.
+  
+  This means that the \hyperref[ex:open-set-category]{category of open sets} \(\Open(X)\) can be seen as a \hyperref[def:directed-set]{directed set}.
+\end{example}
+
+\begin{definition}[Direct and inverse systems]\label{def:direct-inverse-system}
+  A \textbf{direct system} in \(\category{C}\) over \(\mathcal{I}\) is a \hyperref[def:diagram]{diagram} \(X: \mathcal{I} \to \category{C}\).
+  Less abstractly, it consists of a family of objects \(\{X_{i}\}_{i \in \mathcal{I}}\) and morphisms \(f_{ij}: X_{i} \to X_{j}\) for all \(i \leq j\), such that \(f_{ii} = \operatorname{id}_{X_{i}}\) and \(f_{jk} \circ f_{ij} = f_{ik}\) for all \(i \leq j \leq k\).
+ 
+  \hyperref[def:dual]{Dually}, an \textbf{inverse system} in \(\category{C}\) over \(\mathcal{I}\) is a \hyperref[def:diagram]{diagram} \(X: \mathcal{I}^{\operatorname{op}} \to \category{C}\).
+  Less abstractly, it consists of a family of objects \(\{X_{i}\}_{i \in \mathcal{I}}\) and morphisms \(p_{ij}: X_{j} \to X_{i}\) for all \(i \leq j\), such that \(p_{ii} = \operatorname{id}_{X_{i}}\) and \(p_{ij} \circ p_{jk} = p_{ik}\) for all \(i \leq j \leq k\).
 \end{definition}
 
+\begin{definition}[Inverse limit]\label{def:inverse-limit}
+  The \textbf{inverse limit} (or \textbf{projective limit}) of an inverse system \(X: \mathcal{I} \to \category{C}\) is the \hyperref[def:categorical-limit]{limit} of this \hyperref[def:diagram]{diagram}, denoted as \(\varprojlim_{i \in \mathcal{I}} X_{i}\).
+  
+  Less abstractly, it is an object \(\varprojlim_{i \in \mathcal{I}} X_{i} \in \category{C}\) together with morphisms \(\pi_{i}: \varprojlim_{i \in \mathcal{I}} X_{i} \to X_{i}\) such that \(p_{ij} \circ \pi_{j} = \pi_{i}\) for all \(i \leq j\). For any other object \(C\) and morphisms \(c_{i}: C \to X_{i}\) compatible with the system (\(p_{ij} \circ c_{j} = c_{i}\)), there exists a unique morphism \(C \to \varprojlim_{i \in \mathcal{I}} X_{i}\) making the following diagram commute:
+  \begin{center}
+    \begin{tikzcd}
+      C \arrow[d, dotted] \arrow[dd, bend right=5em] \arrow[dd, bend left=5em] \\
+      \varprojlim_{i \in \mathcal{I}} X_{i} \arrow[d, shift left] \arrow[d, shift right] & \\
+      \{X_{i}\}_{i \in \mathcal{I}}
+    \end{tikzcd}
+  \end{center}
+\end{definition}
 
 \begin{definition}[Direct limit]\label{def:direct-limit}
-  A \textbf{direct limit} (or \textbf{inductive limit}) is a \hyperref[def:categorical-colimit]{colimit} of a \hyperref[def:diagram]{diagram} over a \hyperref[def:directed-set]{directed set} \(\category{I}\). We write it as \(\varinjlim_{i \in \category{I}} X_i\).
+  The \textbf{direct limit} (or \textbf{inductive limit}) of a direct system \(X: \mathcal{I} \to \category{C}\) is the \hyperref[def:categorical-colimit]{colimit} of this \hyperref[def:diagram]{diagram}, denoted as \(\varinjlim_{i \in \mathcal{I}} X_{i}\).
+  
+  Less abstractly, it is an object \(\varinjlim_{i \in \mathcal{I}} X_{i} \in \category{C}\) together with morphisms \(\iota_{i}: X_{i} \to \varinjlim_{i \in \mathcal{I}} X_{i}\) such that \(\iota_{j} \circ f_{ij} = \iota_{i}\) for all \(i \leq j\). For any other object \(C\) and morphisms \(c_{i}: X_{i} \to C\) compatible with the system (\(c_{j} \circ f_{ij} = c_{i}\)), there exists a unique morphism \(\varinjlim_{i \in \mathcal{I}} X_{i} \to C\) making the following diagram commute:
+  \begin{center}
+    \begin{tikzcd}
+      \{X_{i}\}_{i \in \mathcal{I}} \arrow[d, shift left] \arrow[d, shift right] \arrow[dd, bend right=5em] \arrow[dd, bend left=5em] \\
+      \varinjlim_{i \in \mathcal{I}} X_{i} \arrow[d, dotted] \\
+      C
+    \end{tikzcd}
+  \end{center}
 \end{definition}
+
+\begin{example}[Inverse limits in \(\Set\)]
+  In \(\Set\), if \((\{X_{i}\}_{i \in \mathcal{I}}, \{p_{ij}\}_{i \leq j})\) is an inverse system indexed by a \hyperref[def:directed-set]{directed set} \((\mathcal{I}, \leq)\), its \hyperref[def:inverse-limit]{inverse limit} is
+  \begin{equation*}
+    \varprojlim_{i \in \mathcal{I}} X_{i} = \left\{ (x_{i})_{i \in \mathcal{I}} \in \prod_{i \in \mathcal{I}} X_{i} \mid \forall i \leq j \quad x_{i} = p_{ij}(x_{j}) \right\}
+  \end{equation*}
+  together with the natural projection maps \(\pi_k((x_i)_{i \in \mathcal{I}}) = x_k\).
+\end{example}
+
+\begin{example}[Direct limits in \(\Set\)]
+  In \(\Set\), if \((\{X_{i}\}_{i \in \mathcal{I}}, \{f_{ij}\}_{i \leq j})\) is a direct system indexed by a \hyperref[def:directed-set]{directed set} \((\mathcal{I}, \leq)\), its \hyperref[def:direct-limit]{direct limit} is
+  \begin{equation*}
+    \varinjlim_{i \in \mathcal{I}} X_{i} = \quot{\coprod_{i \in \mathcal{I}} X_{i}}{\sim}
+  \end{equation*}
+  where \(\sim\) is the equivalence relation defined by \(x_{i} \sim x_{j}\) if and only if there exists \(k \in \mathcal{I}\) with \(k \geq i, j\) such that
+  \begin{equation*}
+    f_{ik}(x_{i}) = f_{jk}(x_{j})
+  \end{equation*}
+  together with the natural insertion maps \(\iota_k(x_k) = [x_k]\).
+\end{example}
+
+We finish this chapter by giving a condition for the existence of finite \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits}
+\begin{theorem}\label{thm:existence-finite-limits-colimits}
+  A \hyperref[def:category]{category} has all finite \hyperref[def:categorical-limit]{limits} if and only if it has a \hyperref[def:initial-terminal-object]{terminal object}, \hyperref[def:categorical-product]{products} and \hyperref[def:equaliser]{equalisers}.
+
+  \hyperref[def:dual]{Dually} it has all finite \hyperref[def:categorical-colimit]{colimits} if and only if it has a \hyperref[def:initial-terminal-object]{initial object}, \hyperref[def:categorical-coproduct]{coproducts} and \hyperref[def:coequaliser]{coequalisers}.
+\end{theorem}
+\begin{proof}~
+  \begin{itemize}
+    \item[\(\implies\)] Direct since all of these are particular cases of \hyperref[def:categorical-limit]{limits}.
+    \item[\(\impliedby\)] Consider a \hyperref[def:diagram]{diagram} \(X: \category{J} \Rightarrow \category{C}\).
+
+          Since \hyperref[def:categorical-product]{products} exist in \(\category{C}\) there exists
+          \begin{equation*}
+            P \coloneq \prod_{j \in \category{J}} X_{j}
+          \end{equation*}
+
+          For every morphism \(u: j \to k\) in \(\category{J}\) we can consider two maps from \(P\) to \(X_{k}\): the projection \(\pi_{k}: P \to X_{k}\) and the composition \(Xu \circ \pi_{j}: P \to X_{j} \to X_{k}\).
+          Therefore we can consider a pair of parallel morphisms
+          \begin{center}
+            \begin{tikzcd}
+              \displaystyle\prod_{j \in \category{J}} X_{j} \arrow[r, shift left, "s"] \arrow[r, shift right, "t"'] & \displaystyle\prod_{u: j \to k \in \category{J}} X_{k}
+            \end{tikzcd}
+          \end{center}
+          where \(s\) is defined in each component as \(\pi_{k}\) and \(t\) is \(Xu \circ \pi_{j}\) in each component.
+
+          The \hyperref[def:equaliser]{equaliser} of \(s\) and \(t\) (which exists by hypothesis) is then the \hyperref[def:categorical-limit]{limit} of \(X\).
+          Indeed, let \(\operatorname{eq}: L \to \prod_{j \in \category{J}} X_{j}\) be this \hyperref[def:equaliser]{equaliser}.
+          This comes with a set of morphisms \(\{\phi_{j}: L \to X_{j}\}_{j \in \category{J}}\) such that
+          \begin{equation*}
+            \phi_{j} = \pi_{j} \circ \operatorname{eq}
+          \end{equation*}
+          By definition \(s \circ \operatorname{eq} = t \circ \operatorname{eq}\), so for every \(u: j \to k\) in \(\category{J}\) we have
+          \begin{equation*}
+            \pi_{k} \circ \operatorname{eq} = (Xu \circ \pi_{j}) \circ \operatorname{eq}
+          \end{equation*}
+          Therefore
+          \begin{equation*}
+            \phi_{k} = Xu \circ \phi_{j}
+          \end{equation*}
+          and so \(L\) is a \hyperref[def:cone]{cone} over \(X\).
+
+          To see that it is a \hyperref[def:categorical-limit]{limit cone} consider another \hyperref[def:cone]{cone} \((W, \{\psi_{j}: W \to X_{j}\})\) such that for any \(u: j \to k\) we have \(\psi_{k} = Xu \circ \psi_{j}\).
+          By \hyperref[def:categorical-product]{definition of the product} there exists a unique morphism \(h: W \to \prod_{j \in \category{J}} W_{j}\) such that \(\pi_{j} \circ h = \psi_{j}\).
+
+          Note that \(s \circ h = t \circ h\). Indeed the components of \(s \circ h\) are \(\pi_{k} \circ h = \psi_{k}\) and the components of \(t \circ h\) are \(Xu \circ \pi_{j} \circ h = Xu \circ \psi_{j} = \psi_{k}\).
+
+          Therefore by the \hyperref[def:equaliser]{definition of equaliser} there exists a unique morphism \(\widetilde{h}: W \to L\) such that \(\operatorname{eq} \circ \widetilde{h} = h\).
+          Finally since for any \(j \in \category{J}\)
+          \begin{equation*}
+            \phi_{j} \circ \widetilde{h} = \pi_{j} \circ \operatorname{eq} \circ \widetilde{h} = \pi_{j} \circ h = \psi_{j}
+          \end{equation*}
+          we have that \(W\) factors uniquely through \(L\) and so \(L\) is the \hyperref[def:categorical-limit]{limit} of \(X\).
+  \end{itemize}
+\end{proof}
+
 
 
 \end{document}

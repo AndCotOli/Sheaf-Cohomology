@@ -1,0 +1,232 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+    \zexternaldocument*{../2.Complexes-and-cohomology/exported/aux/main}%
+    \zexternaldocument*{../3.Cones-and-homotopy/exported/aux/main}%
+    \zexternaldocument*{../4.Projectives-and-injectives/exported/aux/main}%
+    \zexternaldocument*{1.Delta-functors}
+}{}
+
+\begin{document}
+\section{Derived functors}
+
+In the following \(\category{A}, \category{B}\) are \hyperref[def:abelian-category]{abelian categories} and \(F: \category{A} \to \category{B}\) is a \hyperref[def:exact-functor]{left-exact functor}.
+
+\begin{definition}\label{def:adapted-class-of-objects}
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-functor]{left-exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
+  
+  A class of objects \(\mathcal{R} \subseteq \operatorname{Ob}(\category{A})\) is \textbf{adapted} to \(F\) (or is an \(F\)-adapted class of objects) if it satisfies:
+  \begin{enumerate}[label=\(\mathcal{R}\).\arabic*), ref=\(\mathcal{R}\).\arabic*]
+    \item\label{axiom:R-class-closed} \(\mathcal{R}\) is closed under finite \hyperref[def:direct-sum]{direct sums}.
+    \item\label{axiom:R-class-monomorphism} For every object \(X \in \category{A}\) there exists a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow R\) with \(R \in \mathcal{R}\).
+    \item\label{axiom:R-class-complex} For every \hyperref[def:bounded-complexes]{bounded below} \hyperref[def:exact-complex]{exact complex} \(E^{\bullet} \in \Complex[+]{\category{A}}\) consisting entirely of objects in \(\mathcal{R}\) the complex \(F(E^{\bullet}) \in \Complex[+]{\category{B}}\) is \hyperref[def:exact-complex]{exact}.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}\label{lemma:injective-objects-are-adapted}
+  Suppose that \(\category{A}\) \hyperref[def:enough-injectives-projectives]{has enough injective objects}.
+  Then the class of \hyperref[def:injective-projective-object]{injective objects} \(\mathcal{I} \subseteq \operatorname{Ob}(A)\) is \hyperref[def:adapted-class-of-objects]{\(F\)-adapted} for any \hyperref[def:exact-functor]{left exact functor} \(F: \category{A} \to \category{B}\).
+\end{lemma}
+\begin{proof}~
+  \begin{enumerate}[label=\(\mathcal{R}\).\arabic*), ref=\(\mathcal{R}\).\arabic*]
+    \item Let \(I, J \in \mathcal{I}\) be two \hyperref[def:injective-projective-object]{injective objects}.
+          We have that the \hyperref[]{covariant \(\Hom\) functors \(\Hom(-, I), \Hom(-, J)\) are exact}.
+          Therefore since {\color{red} \(\Hom(-, I \oplus J) \cong \Hom(-, I) \oplus \Hom(-, J)\)} and the {\color{red} \hyperref[]{direct sum of exact functors is exact}}, \(I \oplus J\) is \hyperref[def:injective-object]{injective}.
+    \item It is the definition of \hyperref[def:enough-injectives-projectives]{having enough injectives}.
+    \item {\color{red} A bounded below complex \(E^{\bullet} \in \Complex[+]{\category{A}}\) of injective objects is split exact}.
+          Therefore {\color{red} any \hyperref[def:additive-functor]{additive functor} \(F\) preserves its exactness}.
+          In particular since \hyperref[lemma:exact-is-additive]{\(F\) is additive because it is exact} \(F(E^{\bullet})\) is an \hyperref[def:exact-complex]{exact complex}.
+  \end{enumerate}
+\end{proof}
+
+
+
+\begin{definition}\label{def:right-R-resolution}
+  Let \(X \in \category{A}\).
+  A \textbf{right \(\mathcal{R}\)-resolution} of \(X\) is a \hyperref[def:bounded-complexes]{bounded below complex} \(J^{\bullet} \in \Complex[+]{\category{A}}\) consisting entirely of objects in \(\mathcal{R}\) equiped with a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(\varepsilon: X \to J^{\bullet}\).
+\end{definition}
+
+\begin{lemma}
+  Suppose that \(\category{A}\) admits a \hyperref[def:adapted-class-of-objects]{\(F\)-adapted class of objects} \(\mathcal{R}\).
+  Then every object \(X \in \category{A}\) admits a \hyperref[def:right-R-resolution]{right \(\mathcal{R}\)-resolution}.
+\end{lemma}
+\begin{proof}
+  Let \(X \in \category{A}\).
+  We will construct a \hyperref[def:right-R-resolution]{right \(\mathcal{R}\)-resolution}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "\varepsilon"] & J^{0} \arrow[r, "\pi^{0}"] & \cdots
+    \end{tikzcd}
+  \end{center}
+  by induction.
+
+  For \(n = 0\) by \ref{axiom:R-class-monomorphism} there exist a \hyperref[def:mono-epi-morphism]{monomorphism} \(\varepsilon: X \monoarrow J^{0}\) with \(J^{0} \in \mathcal{R}\).
+  If we define \(K^{1} \coloneq \coker \varepsilon\) we get a \hyperref[def:short-exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, tail, "\varepsilon"] & J^{0} \arrow[r, two heads, "\pi^{0}"] & K^{1} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+
+  Assume now that for any \(n \geq 1\) we have constructed object \(K^{n} \in \category{A}\).
+  Let's see how we can construct \(K^{n+1}\).
+
+  By \ref{axiom:R-class-monomorphism} there exists a \hyperref[def:mono-epi-morphism]{monomorphism} \(\alpha^{n}: K^{n} \monoarrow J^{n}\) with \(J^{n} \in \mathcal{R}\).
+  Taking \(K^{n+1} \coloneq \coker \alpha^{n}\) we get a \hyperref[def:short-exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & K^{n} \arrow[r, tail, "\alpha^{n}"] & J^{n} \arrow[r, two heads, "\pi^{n+1}"] & K^{n+1} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+
+  Therefore for all \(n \geq 0\) we can define a differential map \(d^{n}: J^{n} \to J^{n+1}\) as \(d^{n} \coloneq \alpha^{n+1} \circ \pi^{n}\).
+  Graphically
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, tail, "\varepsilon"] & J^{0} \arrow[d, two heads, "\pi^{0}"'] \arrow[dr, dotted, "d^{0}"] \\
+      & K_{1} \arrow[r, tail, "\alpha^{1}"'] & J^{1} \arrow[d, two heads, "\pi^{1}"'] \arrow[dr, dotted, "d^{1}"] \\
+      & & K_{2} \arrow[r, tail, "\alpha^{2}"'] & J^{2} \arrow[d, two heads] \arrow[dr, dotted] \\
+      & & & \vdots & \phantom{.}
+    \end{tikzcd}
+  \end{center}
+  This produces a \hyperref[def:bounded-complexes]{bounded below complex} with objects entirely in \(\mathcal{R}\)
+  \begin{center}
+    \begin{tikzcd}
+      J^{\bullet} = \cdots \arrow[r] & 0 \arrow[r] & J^{0} \arrow[r, "d^{0}"] & J^{1} \arrow[r, "d^{1}"] & \cdots
+    \end{tikzcd}
+  \end{center}
+  To verify that \(\varepsilon: X \to J^{\bullet}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} we must check that the complex
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "\varepsilon"] & J^{0} \arrow[r, "d^{0}"] & J^{1} \arrow[r, "d^{1}"] & \cdots
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-complex]{exact}.
+  \begin{itemize}
+    \item Exactness at \(X\): Since \(\varepsilon: X \to J^{0}\) is a \hyperref[def:mono-epi-morphism]{monormophism} by \autoref{remark:exactness-mono-epi} the complex is exact at \(X\).
+    \item Exactness at \(J^{0}\): Since \(d^{0} = \alpha^{1} \circ \pi^{0}\) and \(\alpha^{1}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} we have \(\ker d^{0} = \ker \pi^{0}\) and from our first short exact sequence we have \(\ker \pi^{0} = \im \varepsilon\).
+    \item Exactness at \(J^{n}\) for \(n \geq 1\): Since \(\pi^{n-1}\) is an \hyperref[def:mono-epi-morphism]{epimorphism}
+          \begin{equation*}
+            \im d^{n-1} = \im (\alpha^{n} \circ \pi^{n-1}) = \im \alpha^{n}
+          \end{equation*}
+          Since \(\alpha^{n}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}
+          \begin{equation*}
+            \ker d^{n} = \ker (\alpha^{n+1} \circ \pi^{n}) = \ker \pi^{n}
+          \end{equation*}
+          And from our second short exact sequence we have \(\ker \pi^{n} = \im \alpha^{n}\).
+  \end{itemize}
+\end{proof}
+
+In what follows we will assume that \(\category{A}\) admits an \hyperref[def:adapted-class-of-objects]{\(F\)-adapted class of objects} \(\mathcal{R}\).
+
+\begin{lemma}\label{lemma:existence-roof-R-resolutions}
+  Let \(X \in \category{A}\).
+  Consider two \hyperref[def:right-R-resolution]{right \(\mathcal{R}\)-resolutions} \(\varepsilon_{I}: X \to I^{\bullet}\), \(\varepsilon_{J}: X \to J^{\bullet}\) of \(X\).
+  Then there exists a third \hyperref[def:right-R-resolution]{right \(\mathcal{R}\)-resolution} \(K^{\bullet}\) of \(X\) and \hyperref[def:complex-morphism]{morphisms of complexes} \(u: I^{\bullet} \to K^{\bullet}\), \(v: J^{\bullet} \to K^{\bullet}\) such that
+  \begin{enumerate}
+    \item The following diagram commutes
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[r, "\varepsilon_{I}"] \arrow[d, "\varepsilon_{J}"] & I^{\bullet} \arrow[d, "u"] \\
+              J^{\bullet} \arrow[r, "v"] & K^{\bullet}
+            \end{tikzcd}
+          \end{center}
+    \item \(u\) and \(v\) are \hyperref[def:quasi-isomorphism]{quasi-isomorphisms}.
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+
+\begin{lemma}\label{lemma:induced-morphism-from-qis}
+  Let \(I^{\bullet}, K^{\bullet} \in \Complex[+]{\category{A}}\) be two \hyperref[def:bounded-complexes]{bounded below complexes} consisting entirely of objects in \(\mathcal{R}\).
+  Then for any \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(u: I^{\bullet} \to K^{\bullet}\) between them the induced morphism \(Fu: F(I^{\bullet}) \to F(K^{\bullet})\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+\end{lemma}
+\begin{proof}
+  Since \(u\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} its \hyperref[def:mapping-cone]{mapping cone} \(\mCone{u}{\bullet}\) \hyperref[rem:quasi-isomorphism-and-mapping-cone]{is exact}.
+  Recall that the objects of \(\mCone{u}{\bullet}\) are
+  \begin{equation*}
+    \forall i \in \mathbb{Z} \quad \mCone{u}{i} = I^{i+1} \oplus K^{i}
+  \end{equation*}
+  Therefore since \(I^{\bullet}\) and \(K^{\bullet}\) are \hyperref[def:bounded-complexes]{bounded below} \(\mCone{u}{\bullet}\) must also be \hyperref[def:bounded-complexes]{bounded below}.
+  Furthermore since \(I^{i+1}, K^{i} \in \mathcal{R}\) and by \ref{axiom:R-class-closed} \(\mathcal{R}\) is closed under finite \hyperref[def:direct-sum]{direct sums} \(\mCone{u}{\bullet}\) consists entirely of objects in \(\mathcal{R}\).
+
+  In this way by \ref{axiom:R-class-complex} \(F(\mCone{u}{\bullet}) \in \Complex[+]{\category{A}}\) is an \hyperref[def:exact-complex]{exact complex}.
+  Since \hyperref[lemma:exact-is-additive]{\(F\) is additive because it is left-exact} we have that
+  \begin{equation*}
+    F(\mCone{u}{\bullet}) \cong \mCone{Fu}{\bullet}
+  \end{equation*}
+  Therefore since \(\mCone{Fu}{\bullet}\) is \hyperref[def:exact-complex]{exact} \(Fu\) must be a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+\end{proof}
+
+
+\begin{theorem}\label{thm:cohomology-and-R-resolutions}
+  Let \(X \in \category{A}\) be an object and \(\varepsilon_{I}: X \to I^{\bullet}\), \(\varepsilon_{J}: X \to J^{\bullet}\) be two \hyperref[def:right-R-resolution]{right \(\mathcal{R}\)-resolutions} of \(X\).
+  Then there exists a canonical isomorphism in \hyperref[def:cohomology]{cohomology}
+  \begin{equation*}
+    \cohomology{\bullet}(F(I^{\bullet})) \cong \cohomology{\bullet}(F(J^{\bullet}))
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  By \autoref{lemma:existence-roof-R-resolutions} there exists a \hyperref[def:right-R-resolution]{right \(\mathcal{R}\)-resolution} \(K^{\bullet}\) together with \hyperref[def:quasi-isomorphism]{quasi-isomorphisms} \(u: I^{\bullet} \to K^{\bullet}\), \(v: J^{\bullet} \to K^{\bullet}\).
+
+  Since \(u\) and \(v\) are \hyperref[def:quasi-isomorphism]{quasi-isomorphisms} by \autoref{lemma:induced-morphism-from-qis} we have \hyperref[def:quasi-isomorphism]{quasi-isomorphisms}
+  \begin{equation*}
+    Fu: F(I^{\bullet}) \to F(K^{\bullet}) \quad Fv: F(J^{\bullet}) \to F(K^{\bullet})
+  \end{equation*}
+  Therefore by definition of \hyperref[def:quasi-isomorphism]{quasi-isomorphism} we have \hyperref[thm:LES-in-cohomology]{induced} \hyperref[def:categorical-isomorphism]{isomorphisms} in \hyperref[def:cohomology]{cohomology}
+  \begin{equation*}
+    \cohomology{\bullet}(Fu): \cohomology{\bullet}(F(I^{\bullet})) \isoarrow \cohomology{\bullet}(F(K^{\bullet})) \quad \cohomology{\bullet}(Fv): \cohomology{\bullet}(F(J^{\bullet})) \isoarrow \cohomology{\bullet}(F(K^{\bullet}))
+  \end{equation*}
+  Combining this two we get a canonical \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \cohomology{\bullet}(F(I^{\bullet})) \cong \cohomology{\bullet}(F(J^{\bullet}))
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}\label{thm:injective-and-R-adapted-resolutions}
+  Suppose that \(\category{A}\) \hyperref[def:enough-injective-projective-objects]{enough injectives}.
+  Let \(\varepsilon_{I}: X \to I^{\bullet}\) be a \hyperref[def:injective-projective-resolution]{injective resolution} of \(X\) and \(\varepsilon_{J}: X \to J^{\bullet}\) be a \hyperref[def:right-R-resolution]{right \(\mathcal{R}\)-resolution} of an object \(X \in \category{A}\).
+  Then there exists a canonical isomorphism of \hyperref[def:cohomology]{cohomology}
+  \begin{equation*}
+    \cohomology{\bullet}(F(I^{\bullet})) \cong \cohomology{\bullet}(F(J^{\bullet}))
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  By (theorem) there exists a \hyperref[def:complex-morphism]{morphism of complexes} \(f: J^{\bullet} \to I^{\bullet}\) extending the identity map \(\id_{X}\).
+  Since both \(X \to I^{\bullet}\) and \(X \to J^{\bullet}\) are resolutions of \(X\), \(f\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+
+  Consider \(I^{n}\).
+  By \ref{axiom:R-class-monomorphism} there exists a \hyperref[def:mono-epi-morphism]{monomorphism} \(I^{n} \monoarrow R^{n}\) with \(R^{n} \in \mathcal{R}\).
+  Note that {\color{red} since \(I^{n}\) the following short exact sequence splits}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & I^{n} \arrow[r, tail] & R^{n} \arrow[r] & K^{n} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Therefore \(R^{n} \cong I^{n} \oplus K^{n}\).
+\end{proof}
+
+\begin{corollary}
+  Let \(F: \category{A} \to \category{B}\) be a \hyperref[def:exact-functor]{left-exact functor} between two \hyperref[def:abelian-category]{abelian categories} \(\category{A}\) and \(\category{B}\).
+  Let \(\mathcal{R}_{1}, \mathcal{R}_{2}\) be two \hyperref[def:adapted-class-of-objects]{\(F\)-adapted classes of objects}.
+  Let \(X \to J^{\bullet}\) be a \hyperref[def:right-R-resolution]{right \(\mathcal{R}_{2}\)-resolution} and \(X \to K^{\bullet}\) be a \hyperref[def:right-R-resolution]{right \(\mathcal{R}_{2}\)-resolution}.
+  Then if \(A\) \hyperref[def:enough-injectives-projectives]{has enough injectives} there exists a canonical \hyperref[def:categorical-isomorphism]{isomorphism} in \hyperref[def:cohomology]{cohomology}
+  \begin{equation*}
+    \cohomology{\bullet}(F(J^{\bullet})) \cong \cohomology{\bullet}(F(K^{\bullet}))
+  \end{equation*}
+\end{corollary}
+\begin{proof}
+  Since \(A\) \hyperref[def:enough-injectives-projectives]{has enough injectives} \(X\) admits a \hyperref[def:injective-projective-resolution]{injective resolution} \(X \to I^{\bullet}\).
+  Therefore by \autoref{thm:injective-and-R-adapted-resolutions}
+  \begin{equation*}
+    \cohomology{\bullet}(F(J^{\bullet})) \cong \cohomology{\bullet}(F(I^{\bullet})) \cong \cohomology{\bullet}(F(K^{\bullet}))
+  \end{equation*}
+\end{proof}
+
+
+
+\end{document}

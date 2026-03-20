@@ -6,6 +6,7 @@
 \DeclareMathOperator*{\colim}{colim}
 \DeclareMathOperator*{\pre}{pre}
 \DeclareMathOperator*{\op}{op}
+\renewcommand{\d}{\mathrm{d}}
 \newcommand\res{\operatorname{res}}
 
 % Arrows
@@ -32,12 +33,13 @@
 \newcommand\Vect{\category{Vect}}
 %\newcommand{\Mod}[1]{#1\text{-}\category{Mod}}
 \newcommand\Open{\category{Op}} % Open subsets
+\newcommand{\Fct}[2]{\category{Fct}(#1, #2)}
 
 % Homological Algebra
 \DeclareMathOperator*{\im}{im}
 \DeclareMathOperator*{\coim}{coim}
 \DeclareMathOperator*{\coker}{coker}
-\newcommand{\Complex}[2][]{\category{Ch}^{#1}(#2)}
+\newcommand{\Complex}[2][]{\category{Comp}^{#1}(#2)}
 \newcommand{\cohomology}[1]{\operatorname{H}^{#1}}
 \newcommand{\mCone}[2]{\operatorname{Cone}(#1)^{#2}}
 \newcommand{\Total}{\operatorname{Tot}}

@@ -1,0 +1,161 @@
+\documentclass[../../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../1.Additive-and-abelian-categories/exported/aux/main}%
+    \zexternaldocument*{../2.Complexes-and-cohomology/exported/aux/main}%
+    \zexternaldocument*{../3.Cones-and-homotopy/exported/aux/main}%
+    \zexternaldocument*{../4.Projectives-and-injectives/exported/aux/main}%
+    \zexternaldocument*{1.Delta-functors}
+}{}
+
+\begin{document}
+\section{Derived functors}
+
+In the following \(\category{A}, \category{B}\) are abelian categories and \(F: \category{A} \to \category{B}\) is a left-exact functor.
+
+\begin{definition}\label{def:adapted-class-of-objects}
+  Let \(F: \category{A} \to \category{B}\) be a left-exact functor between two \hyperref[def:abelian-category]{abelian categories \(\category{A}\) and \(\category{B}\).
+  
+  A class of objects \(\mathcal{R} \subseteq \operatorname{Ob}(\category{A})\) is \textbf{adapted} to \(F\) (or is an \(F\)-adapted class of objects) if it satisfies:
+  \begin{enumerate}[label=\(\mathcal{R}\).\arabic*), ref=\(\mathcal{R}\).\arabic*]
+    \item\label{axiom:R-class-closed} \(\mathcal{R}\) is closed under finite direct sums.
+    \item\label{axiom:R-class-monomorphism} For every object \(X \in \category{A}\) there exists a monomorphism \(X \monoarrow R\) with \(R \in \mathcal{R}\).
+    \item\label{axiom:R-class-complex} For every bounded below exact complex \(E^{\bullet} \in \Complex[+]{\category{A}}\) consisting entirely of objects in \(\mathcal{R}\) the complex \(F(E^{\bullet}) \in \Complex[+]{\category{B}}\) is exact.
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}\label{lemma:injective-objects-are-adapted}
+  Suppose that \(\category{A}\) has enough injective objects.
+  Then the class of injective objects \(\mathcal{I} \subseteq \operatorname{Ob}(A)\) is \(F\)-adapted for any left exact functor \(F: \category{A} \to \category{B}\).
+\end{lemma}
+\begin{proof}~
+  \begin{enumerate}[label=\(\mathcal{R}\).\arabic*), ref=\(\mathcal{R}\).\arabic*]
+    \item Let \(I, J \in \mathcal{I}\) be two injective objects.
+          We have that the covariant \(\Hom\) functors \(\Hom(-, I), \Hom(-, J)\) are exact.
+          Therefore since \(\Hom(-, I \oplus J) \cong \Hom(-, I) \oplus \Hom(-, J)\) and the direct sum of exact functors is exact, \(I \oplus J\) is injective.
+    \item It is the definition of having enough injectives.
+    \item A bounded below complex \(E^{\bullet} \in \Complex[+]{\category{A}}\) of injective objects is split exact.
+          Therefore any additive functor \(F\) preserves its exactness.
+          In particular since \(F\) is additive because it is exact \(F(E^{\bullet})\) is an exact complex.
+  \end{enumerate}
+\end{proof}
+
+
+\begin{definition}\label{def:right-R-resolution}
+  Let \(X \in \category{A}\).
+  A \textbf{right \(\mathcal{R}\)-resolution} of \(X\) is a bounded below complex \(J^{\bullet} \in \Complex[+]{\category{A}}\) consisting entirely of objects in \(\mathcal{R}\) equiped with a quasi-isomorphism \(\varepsilon: X \to J^{\bullet}\).
+\end{definition}
+
+\begin{lemma}
+  Suppose that \(\category{A}\) admits a \(F\)-adapted class of objects \(\mathcal{R}\).
+  Then every object \(X \in \category{A}\) admits a right \(\mathcal{R}\)-resolution}.
+\end{lemma}
+\begin{proof}
+  Let \(X \in \category{A}\).
+  We will construct a right \(\mathcal{R}\)-resolution
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "\varepsilon"] & J^{0} \arrow[r, "\pi^{0}"] & \cdots
+    \end{tikzcd}
+  \end{center}
+  by induction.
+
+  For \(n = 0\) by \ref{axiom:R-class-monomorphism} there exist a monomorphism \(\varepsilon: X \monoarrow J^{0}\) with \(J^{0} \in \mathcal{R}\).
+  If we define \(K^{1} \coloneq \coker \varepsilon\) we get a short exact sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, tail, "\varepsilon"] & J^{0} \arrow[r, two heads, "\pi^{0}"] & K^{1} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+
+  Assume now that for any \(n \geq 1\) we have constructed object \(K^{n} \in \category{A}\).
+  Let's see how we can construct \(K^{n+1}\).
+
+  By \ref{axiom:R-class-monomorphism} there exists a monomorphism \(\alpha^{n}: K^{n} \monoarrow J^{n}\) with \(J^{n} \in \mathcal{R}\).
+  Taking \(K^{n+1} \coloneq \coker \alpha^{n}\) we get a short exact sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & K^{n} \arrow[r, tail, "\alpha^{n}"] & J^{n} \arrow[r, two heads, "\pi^{n+1}"] & K^{n+1} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+
+  Therefore for all \(n \geq 0\) we can define a differential map \(d^{n}: J^{n} \to J^{n+1}\) as \(d^{n} \coloneq \alpha^{n+1} \circ \pi^{n}\).
+  Graphically
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, tail, "\varepsilon"] & J^{0} \arrow[d, two heads, "\pi^{0}"'] \arrow[dr, dotted, "d^{0}"] \\
+      & K_{1} \arrow[r, tail, "\alpha^{1}"'] & J^{1} \arrow[d, two heads, "\pi^{1}"'] \arrow[dr, dotted, "d^{1}"] \\
+      & & K_{2} \arrow[r, tail, "\alpha^{2}"'] & J^{2} \arrow[d, two heads] \arrow[dr, dotted] \\
+      & & & \vdots & \phantom{.}
+    \end{tikzcd}
+  \end{center}
+  This produces a bounded below complex with objects entirely in \(\mathcal{R}\)
+  \begin{center}
+    \begin{tikzcd}
+      J^{\bullet} = \cdots \arrow[r] & 0 \arrow[r] & J^{0} \arrow[r, "d^{0}"] & J^{1} \arrow[r, "d^{1}"] & \cdots
+    \end{tikzcd}
+  \end{center}
+  To verify that \(\varepsilon: X \to J^{\bullet}\) is a quasi-isomorphism we must check that the complex
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "\varepsilon"] & J^{0} \arrow[r, "d^{0}"] & J^{1} \arrow[r, "d^{1}"] & \cdots
+    \end{tikzcd}
+  \end{center}
+  is exact.
+  \begin{itemize}
+    \item Exactness at \(X\): Since \(\varepsilon: X \to J^{0}\) is a monormophism the complex is exact at \(X\).
+    \item Exactness at \(J^{0}\): Since \(d^{0} = \alpha^{1} \circ \pi^{0}\) and \(\alpha^{1}\) is a monomorphism we have \(\ker d^{0} = \ker \pi^{0}\) and from our first short exact sequence we have \(\ker \pi^{0} = \im \varepsilon\).
+    \item Exactness at \(J^{n}\) for \(n \geq 1\): Since \(\pi^{n-1}\) is an epimorphism
+          \begin{equation*}
+            \im d^{n-1} = \im (\alpha^{n} \circ \pi^{n-1}) = \im \alpha^{n}
+          \end{equation*}
+          Since \(\alpha^{n}\) is a monomorphism
+          \begin{equation*}
+            \ker d^{n} = \ker (\alpha^{n+1} \circ \pi^{n}) = \ker \pi^{n}
+          \end{equation*}
+          And from our second short exact sequence we have \(\ker \pi^{n} = \im \alpha^{n}\).
+  \end{itemize}
+\end{proof}
+
+In what follows we will assume that \(\category{A}\) admits an \(F\)-adapted class of objects \(\mathcal{R}\).
+
+\begin{theorem}\label{thm:injective-and-R-adapted-resolutions}
+  Suppose that \(\category{A}\) has enough injectives.
+  Let \(\varepsilon_{I}: X \to I^{\bullet}\) be a injective resolution of \(X\) and \(\varepsilon_{J}: X \to J^{\bullet}\) be a right \(\mathcal{R}\)-resolution of an object \(X \in \category{A}\).
+  Then there exists a canonical isomorphism in cohomology
+  \begin{equation*}
+    \cohomology{\bullet}(F(I^{\bullet})) \cong \cohomology{\bullet}(F(J^{\bullet}))
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  TODO
+\end{proof}
+
+\begin{corollary}
+  Let \(F: \category{A} \to \category{B}\) be a left-exact functor between two abelian categories \(\category{A}\) and \(\category{B}\).
+  Let \(\mathcal{R}_{1}, \mathcal{R}_{2}\) be two \(F\)-adapted classes of objects.
+  Let \(X \to J^{\bullet}\) be a right \(\mathcal{R}_{2}\)-resolution and \(X \to K^{\bullet}\) be a right \(\mathcal{R}_{2}\)-resolution.
+  Then if \(A\) has enough injectives there exists a canonical isomorphism in cohomology
+  \begin{equation*}
+    \cohomology{\bullet}(F(J^{\bullet})) \cong \cohomology{\bullet}(F(K^{\bullet}))
+  \end{equation*}
+\end{corollary}
+\begin{proof}
+  Since \(A\) has enough injectives \(X\) admits a injective resolution \(X \to I^{\bullet}\).
+  Therefore by \autoref{thm:injective-and-R-adapted-resolutions}
+  \begin{equation*}
+    \cohomology{\bullet}(F(J^{\bullet})) \cong \cohomology{\bullet}(F(I^{\bullet})) \cong \cohomology{\bullet}(F(K^{\bullet}))
+  \end{equation*}
+\end{proof}
+
+\begin{definition}
+  Let \(F: \category{A} \to \category{B}\) be a left-exact functor between two abelian categories \(\category{A}\) and \(\category{B}\), with \(\category{A}\) having enough injectives.
+  The \(i\)-th \textbf{right derived functor} of \(F\) is
+  \begin{equation*}
+    R^{i}F(A) = \cohomology{i}(F(J^{\bullet}))
+  \end{equation*}
+  where \(J^{\bullet}\) is any right \(\mathcal{R}\)-resolution of \(A\).
+\end{definition}
+
+\end{document}

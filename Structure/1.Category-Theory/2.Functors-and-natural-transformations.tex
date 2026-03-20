@@ -10,45 +10,45 @@
 \section{Functors}
 
 \begin{definition}[Functor]\label{def:functor}
-  Let \(\category{C}, \category{D}\) be two \hyperref[def:big-category]{categories}.
+  Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories}.
   A (covariant) \textbf{functor} \(F: \category{C} \to \category{D}\) consists of:
   \begin{itemize}
     \item for each object \(X \in \category{C}\), an object \(F(X) \in \category{D}\).
-    \item for each morphism \(f: X \to Y\) in \(\category{C}\), a morphism \(F(f): F(X) \to F(Y)\) in \(\category{D}\),
+    \item for each morphism \(f: X \to Y\) in \(\category{C}\), a morphism \(Ff: F(X) \to F(Y)\) in \(\category{D}\),
   \end{itemize}
   such that:
   \begin{itemize}
     \item \(F(\id_X) = \id_{F(X)}\) for every \(X \in \category{C}\).
-    \item \(F(g \circ f) = F(g) \circ F(f)\) for every composable pair of morphisms \(f, g\) in \(\category{C}\).
+    \item \(F(g \circ f) = Fg \circ Ff\) for every composable pair of morphisms \(f, g\) in \(\category{C}\).
   \end{itemize}
 
-  A functor is \textbf{contravariant} if it reverses the order of composition: \(F(g \circ f) = F(f) \circ F(g)\). This is equivalent to a covariant functor \(F: \opcategory{C} \to \category{D}\).
+  A functor is \textbf{contravariant} if it reverses the order of composition: \(F(g \circ f) = Ff \circ Fg\). This is equivalent to a covariant functor \(F: \opcategory{C} \to \category{D}\).
 
   Diagramatically, a covariant functor is represent by
   \begin{center}
     \begin{tikzcd}
       \llap{\(F: \;\;\)} \category{C} \arrow[r] & \category{D} \\[-2em]
-      X \arrow[d, "f"' ""{name=source, right}] & FX \arrow[d, "Ff" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
-      Y  & FY
+      X \arrow[d, "f"' ""{name=source, right}] & F(X) \arrow[d, "Ff" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
+      Y  & F(Y)
     \end{tikzcd}
   \end{center}
   And a contravariant functor by
   \begin{center}
     \begin{tikzcd}
       \llap{\(F: \;\;\)} \category{C} \arrow[r] & \category{D} \\[-2em]
-      X \arrow[d, "f"' ""{name=source, right}] & FX  \arrow[from=source, to=target, mapsto] \\
-      Y  & FY \arrow[u, "Ff"' ""{name=target, left}]
+      X \arrow[d, "f"' ""{name=source, right}] & F(X)  \arrow[from=source, to=target, mapsto] \\
+      Y  & F(Y) \arrow[u, "Ff"' ""{name=target, left}]
     \end{tikzcd}
   \end{center}
 \end{definition}
 
 \begin{remark}
-  We will disfavour the covariant/contravariant distintinction.
+  We will disfavour the covariant/contravariant distinction.
   Therefore all \hyperref[def:functor]{functors} will be covariant (unless otherwise specified) and contravariant \hyperref[def:functor]{functors} will be covariant \hyperref[def:functor]{functors} from the \hyperref[def:opposite-category]{opposite category}.
 \end{remark}
 
 \begin{example}[Identity functor]\label{ex:identity-functor}
-  Let \(\category{C}\) be a \hyperref[def:big-category]{category}.
+  Let \(\category{C}\) be a \hyperref[def:category]{category}.
   There exists an identity \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
@@ -60,7 +60,7 @@
 \end{example}
 
 \begin{example}[Constant functor]\label{ex:constant-functor}
-  Let \(\category{C}\) be a \hyperref[def:big-category]{category}.
+  Let \(\category{C}\) be a \hyperref[def:category]{category}.
   For every object \(C \in \category{C}\) there exists a constant \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
@@ -71,8 +71,25 @@
   \end{center}
 \end{example}
 
+\begin{example}[Bifunctor] \label{ex:bifunctor}
+  Let \(\category{C}, \category{C}'\) and \(\category{D}\) be three \hyperref[def:category]{categories}.
+  Recall that we can construct the \hyperref[def:product-category]{product category} \(\category{C} \times \category{C}'\).
+
+  A \textbf{bifunctor} is a \hyperref[def:functor]{functor} of the form \(F: \category{C} \times \category{C}' \to \category{D}\).
+  This means that for any \(X \in \category{C}\) and \(X' \in \category{C}\), \(F(X, -): \category{C}' \to \category{D}\) and \(F(-, X'): \category{C} \to \category{D}\) are \hyperref[def:functor]{functors}.
+
+  Furthermore for any morphism \(f: X \to Y\) in \(\category{C}\) and \(g: X' \to Y'\) in \(\category{C}'\) we have a commutative diagram
+  \begin{center}
+    \begin{tikzcd}[row sep=huge, column sep=huge]
+      F(X, X') \arrow[r, "{F(X, g)}"] \arrow[d, "{F(f, X')}"'] \arrow[dr, "{F(f, g)}"] & F(X, Y') \arrow[d, "{F(f, Y')}"] \\
+      F(Y, X') \arrow[r, "{F(Y, g)}"'] & F(Y, Y')
+    \end{tikzcd}
+  \end{center}
+\end{example}
+
+
 \begin{example}\label{ex:hom-functor}
-  Let \(\category{C}\) be a \hyperref{def:category}{locally small category}.
+  Let \(\category{C}\) be a \hyperref{def:category}{category}.
   For every object \(C \in \category{C}\) there exists a \textit{covariant} \(\Hom\) \hyperref[def:functor]{functor}
    \begin{center}
     \begin{tikzcd}
@@ -90,7 +107,7 @@
     \end{tikzcd}
   \end{center}
 
-  We can combine this two into a \textit{bifunctor}
+  We can combine this two into a \hyperref[ex:bifunctor]{bifunctor}
   \begin{center}
     \begin{tikzcd}
       \llap{\(\text{Hom}(-,-): \;\;\)} \opcategory{C} \times \category{C} \arrow[r] & \Set \\[-2em]
@@ -129,7 +146,7 @@
 \end{example}
 
 \begin{proposition}[Functors preseve isomorphisms]
-  Let \(\category{C}, \category{D}\) be two \hyperref[def:big-category]{categories} and \(F: \category{C} \to \category{D}\) a \hyperref[def:functor]{functor} between them.
+  Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories} and \(F: \category{C} \to \category{D}\) a \hyperref[def:functor]{functor} between them.
   If \(f\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) then \(Ff\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
 \end{proposition}
 \begin{proof}
@@ -141,10 +158,10 @@
 
   Applying \(F\) to this equalities we have
   \begin{align*}
-    F(f^{-1} \circ f) = F(\id_{X}) &\implies F(f^{-1}) \circ F(f) = \id_{F(X)} \\
-    F(f \circ f^{-1}) = F(\id_{Y}) &\implies F(f) \circ F(f^{-1}) = \id_{F(Y)}
+    F(f^{-1} \circ f) = F\id_{X} &\implies Ff^{-1} \circ Ff = \id_{F(X)} \\
+    F(f \circ f^{-1}) = F\id_{Y} &\implies Ff \circ Ff^{-1} = \id_{F(Y)}
   \end{align*}
-  i.e: \(F(f)\) has an inverse \(F(f^{-1})\) in \(\category{D}\).
+  i.e: \(Ff\) has an inverse \(Ff^{-1}\) in \(\category{D}\).
 \end{proof}
 
 
@@ -162,14 +179,13 @@
   A \hyperref[def:subcategory]{subcategory} \(\category{D}\) of a \hyperref[def:category]{category} \(\category{C}\) is \hyperref[def:subcategory]{full} if and only if the \hyperref[ex:inclussion-functor]{inclussion functor} \(\iota: \category{D} \to \category{C}\) is \hyperref[def:functor-types]{full}.
 \end{example}
 
-
 \section{Natural transformations}
 
 \begin{definition}\label{def:natural-transformation}
   Let \(F, G: \category{C} \to \category{D}\) be two functors. A \textbf{natural transformation} \(\psi: F \implies G\) consists of a family of morphisms \(\psi_X: F(X) \to G(X)\) in \(\category{D}\) for each object \(X \in \category{C}\), called the \textbf{components} of \(\psi\), such that for every morphism \(f: X \to Y\) in \(\category{C}\), the following diagram commutes:
   \begin{center}
     \begin{tikzcd}
-      F(X) \arrow[r, "\psi_X"] \arrow[d, "F(f)"'] & G(X) \arrow[d, "G(f)"] \\
+      F(X) \arrow[r, "\psi_X"] \arrow[d, "Ff"'] & G(X) \arrow[d, "Gf"] \\
       F(Y) \arrow[r, "\psi_Y"'] & G(Y)
     \end{tikzcd}
   \end{center}
@@ -186,18 +202,11 @@
   If each component \(\psi_{X}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\), we say that \(\psi\) is a \textbf{natural isomorphism}, and we write \(F \cong G\).
 \end{definition}
 
-\begin{definition}[Composition of natural transformations]~
-  \begin{itemize}
-    \item \textbf{Vertical composition}: Given natural transformations \(\eta: F \implies G\) and \(\varepsilon: G \implies H\), their vertical composite \(\varepsilon \cdot \eta: F \implies H\) is defined component-wise by \((\varepsilon \cdot \eta)_X = \varepsilon_X \circ \eta_X\).
-    \item \textbf{Horizontal composition}: Given natural transformations \(\eta: F \implies G\) (where \(F, G: \category{C} \to \category{D}\)) and \(\mu: H \implies K\) (where \(H, K: \category{D} \to \category{E}\)), their horizontal composite \(\mu * \eta: H \circ F \implies K \circ G\) is defined by \((\mu * \eta)_X = \mu_{G(X)} \circ H(\eta_X) = K(\eta_X) \circ \mu_{F(X)}\).
-  \end{itemize}
-\end{definition}
-
 \begin{definition}[Equivalent categories]\label{def:equivalent-categories}
-  Two categories \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist functors \(F: \category{C} \to \category{D}\) and \(G: \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.
+  Two \hyperref[def:category]{categories} \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist \hyperref[def:functor]{functors} \(F: \category{C} \to \category{D}\) and \(G: \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.
 \end{definition}
 
-\begin{theorem}[{\cite[Theorem 1.5.9]{riehlCategoryTheoryContext}}]
+\begin{theorem}[{\cite[Theorem 1.5.9]{riehlCategoryTheoryContext}}]\label{thm:equivalent-categories-characterization}
   A \hyperref[def:functor]{functor} \(F: \category{C} \to \category{D}\) defining an \hyperref[def:equivalent-categories]{equivalence of categories} is \hyperref[def:functor-types]{fully faithful and essentially surjective}.
   Assuming the axiom of choice, any \hyperref[def:functor]{functor} with these properties defines an  \hyperref[def:equivalent-categories]{equivalence of categories}.
 \end{theorem}

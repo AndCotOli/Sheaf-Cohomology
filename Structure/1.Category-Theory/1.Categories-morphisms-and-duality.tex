@@ -6,11 +6,11 @@
 
 \section{Categories}
 
-\begin{definition}[Category]\label{def:big-category}
+\begin{definition}[Category]\label{def:category}
   A \textbf{category} \(\category{C}\) consists of:
   \begin{itemize}
-    \item a collection \(\operatorname{Ob}(\category{C})\) of \textbf{objects}.
-    \item for each pair of objects \(X, Y \in \operatorname{Ob}(\category{C})\) a collection \(\Hom_{\category{C}}(X, Y)\) of \textbf{morphisms from \(X\) to \(Y\)}.
+    \item a class \(\operatorname{Ob}(\category{C})\) of \textbf{objects}.
+    \item for each pair of objects \(X, Y \in \operatorname{Ob}(\category{C})\) a collection of sets \(\Hom_{\category{C}}(X, Y)\) of \textbf{morphisms from \(X\) to \(Y\)}.
     \item for each object \(X \in \operatorname{Ob}(\category{C})\) a morphisms \(\id_{X} \in \Hom_{\category{C}}(X, X)\) called the \textbf{identity} morphism.
     \item for each pair of morphisms \(f \in \Hom_{\category{C}}(X, Y)\) and \(g \in \Hom_{\category{C}}(Y, Z)\) a morphism \(g \circ f \in \Hom_{\category{C}}(X, Z)\) called their \textbf{composite}.
   \end{itemize}
@@ -27,23 +27,45 @@
   \end{itemize}
 \end{definition}
 
+\begin{definition}[Small category]\label{def:small-category}
+  A \hyperref[def:category]{category} \(\category{C}\) is \textbf{small} if its collection of objects \(\operatorname{Ob}(\category{C})\) is a set.
+\end{definition}
+
+\begin{remark}[Size issues]
+  We will be sketchy about foundational issues (set-theoretic issues, universes, ...).
+  
+  Therefore all \hyperref[def:category]{categories} will be \(\mathcal{U}\)-categories for a large enough \textit{universe} \(\mathcal{U}\) (i.e: for any pair of objects \(X, Y \in \category{C}\) the \(\Hom\)-set \(\Hom(X, Y)\) is \(\mathcal{U}\)-small) and \hyperref[def:small-category]{small categories} will be \(\mathcal{U}\)-small (the set of objects \(\operatorname{Ob}(\category{C})\) is \(\mathcal{U}\)-small).
+  
+  We will refer as "big" categories those that are \(\mathcal{V}\)-categories for a larger universe \(\mathcal{V}\).
+  By Grothendieck's axiom (for any set \(X\) there exists a universe \(\mathcal{U}\) such that \(X \in \mathcal{U}\)) every category \(\category{C}\) is a \(\mathcal{V}\)-category for a big enough universe \(\mathcal{V}\), and this universe can be chosen so that \(\category{C}\) is \(\mathcal{V}\)-small.
+  
+  For a basic introduction of what an \textit{universe} is and a more carefull treatment of this type of size issues see \cite[Section 1.1]{kashiwaraCategoriesSheaves2006}.
+  More details can also be found at \cite{SGA4}
+\end{remark}
 
 \begin{notation}
-  To indicate that \(X\) is an object of a \hyperref[def:big-category]{category} \(\category{C}\) we write \(X \in \category{C}\) instead of \(X \in \operatorname{Ob}(\category{C})\).
-
-  To indicate that \(f \in \Hom_{\category{C}}(X, Y)\) is a morphisms from \(X\) to \(Y\) we write \(f: X \to Y\) or \(X \xrightarrow{f} Y\).
+  To indicate that \(X\) is an object of a \hyperref[def:category]{category} \(\category{C}\) we write
+  \begin{equation*}
+    X \in \category{C} \text{ instead of } X \in \operatorname{Ob}(\category{C})
+  \end{equation*}
+  To indicate that \(f \in \Hom_{\category{C}}(X, Y)\) is a morphism from \(X\) to \(Y\) we write
+  \begin{equation*}
+    f: X \to Y \text{ or } X \xrightarrow{f} Y
+  \end{equation*}
+  We will sometimes abbreviate the composition \(f \circ g\) as \(fg\).
 \end{notation}
+
 
 \begin{example}~
   \begin{itemize}
-    \item The \hyperref[def:big-category]{category} \(\Set\) has the collection of all sets as objects and functions as morphisms.
-    \item The \hyperref[def:big-category]{category} \(\Grp\) has groups as objects and group homomorphisms as morphisms.
-    \item The \hyperref[def:big-category]{category} \(\Ab\) has abelian groups as objects and group homomorphisms as morphisms. It is a full subcategory of \(\Grp\).
-    \item The \hyperref[def:big-category]{category} \(\Ring\) has rings as objects and ring homomorphisms as morphisms.\footnote{We adopt the convetion that all rings have an unit and all ring homomorphisms preserve it.}
-    \item The \hyperref[def:big-category]{category} \(\category{Rng}\) has (not necessarilly unital) rings as objects and ring homomorphisms as morphism.
-    \item The \hyperref[def:big-category]{category} \(\Top\) has topological spaces as objects and continuous functions as morphisms.
-    \item For a fixed ring \(R\), the \hyperref[def:big-category]{category} \(\Mod(R)\) has (left) \(R\)-modules as objects and \(R\)-linear maps as morphisms.
-    \item For a fixed field \(k\), the \hyperref[def:big-category]{category} \(\Vect_{k}\) has \(k\)-vector spaces as objects and \(k\)-linear maps as morphisms.
+    \item The \hyperref[def:category]{category} \(\Set\) has the collection of all sets as objects and functions as morphisms.
+    \item The \hyperref[def:category]{category} \(\Grp\) has groups as objects and group homomorphisms as morphisms.
+    \item The \hyperref[def:category]{category} \(\Ab\) has abelian groups as objects and group homomorphisms as morphisms. It is a full subcategory of \(\Grp\).
+    \item The \hyperref[def:category]{category} \(\Ring\) has rings as objects and ring homomorphisms as morphisms.\footnote{We adopt the convetion that all rings have an unit and all ring homomorphisms preserve it.}
+    \item The \hyperref[def:category]{category} \(\category{Rng}\) has (not necessarilly unital) rings as objects and ring homomorphisms as morphism.
+    \item The \hyperref[def:category]{category} \(\Top\) has topological spaces as objects and continuous functions as morphisms.
+    \item For a fixed ring \(R\), the \hyperref[def:category]{category} \(\Mod(R)\) has (left) \(R\)-modules as objects and \(R\)-linear maps as morphisms.
+    \item For a fixed field \(k\), the \hyperref[def:category]{category} \(\Vect_{k}\) has \(k\)-vector spaces as objects and \(k\)-linear maps as morphisms.
   \end{itemize}
 \end{example}
 
@@ -51,12 +73,12 @@
 
 
 \begin{example}[Discrete category]\label{ex:discrete-category}
-  Given a \hyperref[def:big-category]{category} \(\category{C}\) we can define the \textbf{discrete category} \(\category{C}_{d}\) considering the same collection of objects as \(\category{C}\) but only the identity morphisms between them.
+  Given a \hyperref[def:category]{category} \(\category{C}\) we can define the \textbf{discrete category} \(\category{C}_{d}\) considering the same collection of objects as \(\category{C}\) but only the identity morphisms between them.
 \end{example}
 
 
 \begin{definition}[Subcategory]\label{def:subcategory}
-  Given a \hyperref[def:big-category]{category} \(\category{C}\), a \textbf{subcategory} \(\category{D}\) consists of a subcollection of objects and a subcollection of morphisms in \(\category{C}\) such that
+  Given a \hyperref[def:category]{category} \(\category{C}\), a \textbf{subcategory} \(\category{D}\) consists of a subcollection of objects and a subcollection of morphisms in \(\category{C}\) such that
   \begin{itemize}
     \item If \(f: X \to Y\) is a morphism in \(\category{D}\) then \(X, Y\) are objects in \(\category{D}\).
     \item If \(f: X \to Y\) and \(g: Y \to Z\) are morphisms in \(\category{D}\), the composition \(gf: X \to Z\) is in \(\category{D}\).
@@ -69,7 +91,7 @@
 \begin{example}~
   \begin{itemize}
     \item \(\Ab\) is a \hyperref[def:subcategory]{full subcategory} of \(\Grp\).
-    \item The \hyperref[def:big-category]{category} of finite sets \(\category{FinSet}\) is a \hyperref[def:subcategory]{full subcategory} of \(\Set\).
+    \item The \hyperref[def:category]{category} of finite sets \(\category{FinSet}\) is a \hyperref[def:subcategory]{full subcategory} of \(\Set\).
     \item \(\Ring\) is a \hyperref[def:subcategory]{subcategory} of \(\category{Rng}\) that is not full.
     \item If \(k\) is a field, \(\Vect_{k}\) is a \hyperref[def:subcategory]{full subcategory} of \(\Mod(k)\).
   \end{itemize}
@@ -77,7 +99,7 @@
 
 
 \begin{definition}[Product category]\label{def:product-category}
-  Let \(\category{C}, \category{D}\) be two \hyperref[def:big-category]{categories}.
+  Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories}.
   The \textbf{product category} \(\category{C} \times \category{D}\) is the \hyperref[def:category]{category} consisting of
   \begin{itemize}
     \item As objects: ordered pairs \((C, D)\), where \(C\) is an object in \(\category{C}\) and \(D\) is an object in \(\category{D}\), i.e:
@@ -88,69 +110,30 @@
           \begin{equation*}
             \Hom_{\category{C} \times \category{D}}((C, D), (C', D')) = \Hom_{\category{C}}(C, C') \times \Hom_{\category{D}}(D, D')
           \end{equation*}
-    \item Composition is defined \textit{componentwise}: if \((C \xrightarrow{f} C', D \xrightarrow{g} D')\) and \((C' \xrightarrow{f'} C'', D' \xrightarrow{g'} D'')\) are two morphisms in \(\category{C} \times \category{D}\) them
+    \item Composition is defined \textit{componentwise}: if \((C \xrightarrow{f} C', D \xrightarrow{g} D')\) and \((C' \xrightarrow{f'} C'', D' \xrightarrow{g'} D'')\) are two morphisms in \(\category{C} \times \category{D}\) then
           \begin{equation*}
             (f', g') \circ (f, g) \coloneq (f' \circ f, g' \circ g): C \times D \to C'' \times D''
           \end{equation*}
   \end{itemize}
 \end{definition}
 
-\todo[inline]{Why do we need locally small categories? Explain size issues briefly}
-
-\begin{definition}[Locally small category]\label{def:category}
-  A \hyperref[def:big-category]{category} \(\category{C}\) is \textbf{locally small} if for every pair of objects \(X, Y \in \category{C}\) the collection \(\Hom(X, Y)\) is a set.
-\end{definition}
-
-\begin{example}
-  The \hyperref[def:big-category]{categories} \(\Set, \Grp, \Ring, \Top\) and \(R-\Mod\) are \hyperref[def:category]{locally small}.
-\end{example}
-
-\begin{lemma}
-  Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{locally small categories}.
-  The \hyperref[def:product-category]{product category} \(\category{C} \times \category{D}\) is \hyperref[def:category]{locally small}.
-\end{lemma}
-\begin{proof}
-  Let \(C, C' \in \category{C}\) and \(D, D' \in \category{D}\).
-  Since \(\category{C}\) and \(\category{D}\) are \hyperref[def:category]{locally small} \(\Hom_{\category{C}}(C, C')\) and \(\Hom_{\category{D}}(D, D')\) are both sets.
-  Therefore so is
-  \begin{equation*}
-    \Hom_{\category{C}}(C, C') \times \Hom_{\category{D}}(D, D') = \Hom_{\category{C} \times \category{D}}((C, D), (C', D'))
-  \end{equation*}
-\end{proof}
-
-
-\begin{definition}[Small category]\label{def:small-category}
-  A \hyperref[def:category]{locally small category} \(\category{C}\) is \textbf{small} if its collection of objects \(\operatorname{Ob}(\category{C})\) is a set.
-\end{definition}
 
 \begin{example}[Category of open sets]\label{ex:open-set-category}
   Let \(X\) be a topological space.
 
-  The \hyperref[def:big-category]{category} \(\Open(X)\) consisting of
+  The \hyperref[def:category]{category} \(\Open(X)\) consisting of
   \begin{itemize}
-    \item As objects: the open subsets of \(X\).
-    \item As morphisms: inclussion of open sets: \(U \to V\) if and only if \(U \subseteq V\)
+    \item As objects, the open subsets of \(X\).
+    \item As morphisms, inclussion of open sets: \(U \to V\) if and only if \(U \subseteq V\)
   \end{itemize}
   is \hyperref[def:small-category]{small}.
 \end{example}
-
-\begin{lemma}
-  Let \(\category{C}, \category{D}\) be two \hyperref[def:small-category]{small categories}.
-  The \hyperref[def:product-category]{product category} \(\category{C} \times \category{D}\) is \hyperref[def:small-category]{small}.
-\end{lemma}
-\begin{proof}
-  Since \(\category{C}\) and \(\category{D}\) are \hyperref[def:small-category]{small}, \(\operatorname{Ob}_{\category{C}}\) and \(\operatorname{Ob}_{\category{D}}\) are both sets.
-  Therefore so is
-  \begin{equation*}
-    \operatorname{Ob}_{\category{C}} \times \operatorname{Ob}_{\category{D}} = \operatorname{Ob}_{\category{C} \times \category{D}}
-  \end{equation*}
-\end{proof}
 
 
 \subsection{Duality}
 
 \begin{definition}[Opposite category]\label{def:opposite-category}
-  Let \(\category{C}\) be a \hyperref[def:big-category]{category}. The \textbf{opposite category} \(\opcategory{C}\) consists of:
+  Let \(\category{C}\) be a \hyperref[def:category]{category}. The \textbf{opposite category} \(\opcategory{C}\) consists of:
   \begin{itemize}
     \item The same objects as \(\category{C}\): \(\operatorname{Ob}(\opcategory{C}) = \operatorname{Ob}(\category{C})\).
     \item For each pair of objects \(X, Y \in \category{C}^{\op}\): \(\Hom_{\opcategory{C}}(X, Y) = \Hom_{\category{C}}(Y, X)\).
@@ -169,19 +152,19 @@
 \end{example}
 
 \begin{remark}
-  Let \(f^{\op}: Y \to X\) and \(g^{\op}: Y \to X\) be two morphisms in the \hyperref[def:opposite-category]{oppsite category} \(\opcategory{C}\).
+  Let \(f^{\op}: Y \to X\) and \(g^{\op}: Y \to X\) be two morphisms in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\).
   Then \(f^{\op} = g^{\op}\) in \(\opcategory{C}\) if and only if \(f = g\) in \(\category{C}\).
 \end{remark}
 
 \begin{definition}[Dual statement]\label{def:dual}
-  A categorical statement \(P^{\ast}\) is defined as the \textbf{dual} of a statement \(P\) in a \hyperref[def:big-category]{category} \(\category{C}\) if \(P^{\ast}\) holds in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\) if and only if \(P\) holds in \(\category{C}\).
+  A categorical statement \(P^{\ast}\) is defined as the \textbf{dual} of a statement \(P\) in a \hyperref[def:category]{category} \(\category{C}\) if \(P^{\ast}\) holds in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\) if and only if \(P\) holds in \(\category{C}\).
 \end{definition}
 
 \begin{remark}
-  Note that by definition for any \hyperref[def:big-category]{category} \(\category{C}\) we have that \((\opcategory{C})^{\op} = \category{C}\).
+  Note that by definition for any \hyperref[def:category]{category} \(\category{C}\) we have that \((\opcategory{C})^{\op} = \category{C}\).
 
-  Therefore if a statement is true for all \hyperref[def:big-category]{categories} \(\category{C}\), its \hyperref[def:dual]{dual} is true for all \hyperref[def:big-category]{categories} \(\opcategory{C}\).
-  Since \(\opcategory{C}\) is an arbitrary \hyperref[def:big-category]{category} the \hyperref[def:dual]{dual} statement is also true for all \hyperref[def:big-category]{categories}.
+  Therefore if a statement is true for all \hyperref[def:category]{categories} \(\category{C}\), its \hyperref[def:dual]{dual} is true for all \hyperref[def:category]{categories} \(\opcategory{C}\).
+  Since \(\opcategory{C}\) is an arbitrary \hyperref[def:category]{category} the \hyperref[def:dual]{dual} statement is also true for all \hyperref[def:category]{categories}.
 
   In practice, this means that proving an statement directly proves its \hyperref[def:dual]{dual} for free.
 \end{remark}
@@ -190,7 +173,7 @@
 \section{Types of morphisms}
 
 \begin{definition}[Monomorphism and epimorphism]\label{def:mono-epi-morphism}
-  Let \(f: X \to Y\) be a morphism in a \hyperref[def:big-category]{category} \(\category{C}\).
+  Let \(f: X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
   We say that \(f\) is a
   \begin{itemize}
     \item \textbf{Monomorphism} (or is \textbf{monic}) if for every pair of parallel morphisms \(g, h: Z \to X\) in \(\category{C}\), the equality \(f \circ g = f \circ h\) implies \(g = h\).
@@ -207,7 +190,7 @@
 \end{example}
 
 \begin{lemma}[Monomorphisms and epimorphisms are dual]
-  Let \(f: X \to Y\) be a morphism in a \hyperref[def:big-category]{category} \(\category{C}\).
+  Let \(f: X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
   Consider the associated morphism \(f^{\op}: Y \to X\) in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\).
 
   Then \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) in \(\category{C}\) if and only if \(f^{\op}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) in \(\opcategory{C}\).
@@ -225,7 +208,7 @@
 
 
 \begin{definition}[Isomorphism]\label{def:categorical-isomorphism}
-  A morphism \(f: X \to Y\) in a \hyperref[def:big-category]{category} \(\category{C}\) is an \textbf{isomorphism} if there exists another morphism \(g: Y \to X\) in \(\category{C}\) such that
+  A morphism \(f: X \to Y\) in a \hyperref[def:category]{category} \(\category{C}\) is an \textbf{isomorphism} if there exists another morphism \(g: Y \to X\) in \(\category{C}\) such that
   \begin{equation*}
     g \circ f = \id_X \quad \text{and} \quad f \circ g = \id_Y
   \end{equation*}
@@ -246,7 +229,7 @@
   Then \(f\) is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism}.
 \end{proposition}
 \begin{proof}
-  Suppose \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in a \hyperref[def:big-category]{category} \(\category{C}\).
+  Suppose \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in a \hyperref[def:category]{category} \(\category{C}\).
   Then there exists a morphism \(f^{-1}: Y \to X\) in \(\category{C}\) such that
   \begin{equation*}
     f^{-1} \circ f = \id_{X} \quad f \circ f^{-1} = \id_{Y}
@@ -272,12 +255,12 @@
   Consider the identity map \(f: X_{d} \to X_{t}\), which is continuous.
   Since \(f\) is injective we have that it is a \hyperref[def:mono-epi-morphism]{monomorphism} and, since it is surjective, it is an \hyperref[def:mono-epi-morphism]{epimorphism}.
 
-  However since there does not exists a continuous function \(g: X_{t} \to X_{d}\), \(f\) cannot be a \hyperref[def:categorical-isomorphism]{isomorphism}.
+  However since there does not exists a continuous function \(g: X_{t} \to X_{d}\), \(f\) cannot be an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{example}
 
 
 \begin{proposition}
-  Let \(f: X \to Y\) and \(g: Y \to Z\) be \hyperref[def:categorical-isomorphism]{isomorphisms} in a \hyperref[def:big-category]{category} \(\category{C}\). Then:
+  Let \(f: X \to Y\) and \(g: Y \to Z\) be \hyperref[def:categorical-isomorphism]{isomorphisms} in a \hyperref[def:category]{category} \(\category{C}\). Then:
   \begin{enumerate}
     \item The inverse \(f^{-1}\) of \(f\) is unique.
     \item The identity \(\id_X\) is an \hyperref[def:categorical-isomorphism]{isomorphism} for every \(X \in \category{C}\).
@@ -331,7 +314,7 @@
 \end{proof}
 
 
-\begin{proposition}
+\begin{proposition}\label{prop:full-subcategory-reflects-isomorphisms}
   Let \(\category{D}\) be a \hyperref[def:subcategory]{full subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
   If \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) and \(X, Y \in \category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
 \end{proposition}
@@ -352,7 +335,7 @@
 \end{definition}
 
 \begin{proposition}[Uniqueness of initial and terminal objects]\label{prop:uniqueness-initial-terminal-objects}
-  Let \(X, Y\) be two \hyperref[def:initial-terminal-object]{initial} (resp. \hyperref[def:initial-terminal-object]{terminal}) objects in a \hyperref[def:big-category]{category} \(\category{C}\).
+  Let \(X, Y\) be two \hyperref[def:initial-terminal-object]{initial} (resp. \hyperref[def:initial-terminal-object]{terminal}) objects in a \hyperref[def:category]{category} \(\category{C}\).
   Then there exists a unique \hyperref[def:categorical-isomorphism]{isomorphism} \(X \isoarrow Y\) in \(\category{C}\).
 \end{proposition}
 \begin{proof}
@@ -376,7 +359,7 @@
 \end{definition}
 
 \begin{corollary}[Uniqueness of zero objects]\label{def:uniqueness-zero-objects}
-  Let \(0, \widetilde{0}\) be two \hyperref[def:zero-object]{zero} objects in a \hyperref[def:big-category]{category} \(\category{C}\).
+  Let \(0, \widetilde{0}\) be two \hyperref[def:zero-object]{zero} objects in a \hyperref[def:category]{category} \(\category{C}\).
   Then there exists a unique \hyperref[def:categorical-isomorphism]{isomorphism} \(0 \isoarrow \widetilde{0}\) in \(\category{C}\).
 \end{corollary}
 \begin{proof}

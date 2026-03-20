@@ -1,0 +1,475 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument{1.Additive-categories}%
+    \zexternaldocument{2.Abelian-categories}%
+    \zexternaldocument{3.Triangulated-categories}%
+}{}
+
+\begin{document}
+\chapter{Derived categories}
+
+\begin{theorem}[{\cite[Theorem 11.2.6]{kashiwaraCategoriesSheaves2006}}]
+  Let \(\category{C}\) be an \hyperref[def:additive-category]{additive category}.
+  Consider \hyperref[def:homotopy-category]{homotopy category} \(\operatorname{K}(\category{C})\) together with the \hyperref[def:shift-functor]{shift functor} \([1]: X \mapsto X[1]\) and a \hyperref[def:triangle]{triangle} \(X \to Y \to Z \to X[1]\) being distinguished if and only if it is \hyperref[def:catetgorical-isomorphism]{isomorphic} to a \hyperref[def:triangle]{triangle} of the form \(X \to Y \to \operatorname{Cone}(f) \to X[1]\).
+
+  Then \(\operatorname{K}(\category{C})\) is a \hyperref[def:triangulated-category]{triangulated category}.
+\end{theorem}
+
+In the rest of this chapter \(\category{C}\) will be an \hyperref[def:abelian-category]{abelian category}.
+
+\begin{proposition}\label{prop:cohomology-is-cohomological}
+  The \hyperref[def:cohomology]{cohomology functor} \(\cohomology{k}: \operatorname{K}(\category{C}) \to \category{C}\) is \hyperref[def:cohomological-functor]{cohomological} for all \(k \in \mathbb{Z}\).
+\end{proposition}
+\begin{proof}
+  Let \(X \xrightarrow{f} Y \to Z \xrightarrow{+1}\) be a d.t.
+  By definition it is \hyperref[def:categorical-isomorphism]{isomorphic} to
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r] & Y \arrow[r, "\alpha f"] & \operatorname{Cone}(f) \arrow[r, "\beta f"] & X[1] \arrow[r, "+1"] & \phantom{.}
+    \end{tikzcd}
+  \end{center}
+  Since
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & Y \arrow[r, "\alpha f"] & \operatorname{Cone}(f) \arrow[r, "\beta f"] & X[1] \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-sequence]{exact}, by \autoref{thm:LES-in-cohomology} the sequence
+  \begin{center}
+    \begin{tikzcd}
+      \cohomology{k}(Y) \arrow[r] & \cohomology{k}{\operatorname{Cone}(f)} \arrow[r] & \cohomology{k+1}(X)
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-sequence]{exact}.
+  Therefore \(\cohomology{k}(Y) \to \cohomology{k}(Z) \to \cohomology{k+1}(x)\) is \hyperref[def:exact-sequence]{exact}.
+\end{proof}
+
+\begin{corollary}
+  Let \(0 \to X \xrightarrow{f} Y \xrightarrow{g} Z \to 0\) be a \hyperref[def:exact-sequence]{short exact sequence} in \(\Complex{\category{C}}\).
+  The morphism \(\varphi: \operatorname{Cone}(f) \to Z, \varphi^{n} \coloneq (0, g)\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+\end{corollary}
+\begin{proof}
+  Consider the \hyperref[def:exact-sequence]{exact sequence} in \(\Complex{\category{C}}\)
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \operatorname{Cone}(\id_{X}) \arrow[r, "\gamma"] & \operatorname{Cone}(f) \arrow[r, "\varphi"] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  where \(\gamma: \operatorname{Cone}(\id_{X}) \to \operatorname{Cone}(f), \gamma^{n} \coloneq \begin{pmatrix} \id_{X^{n+1}} & 0 \\ 0 & f^{n} \end{pmatrix}\).
+  Since \(\cohomology{H}(\operatorname{Cone}(\id_{X})) = 0\) for all \(k \in \mathbb{Z}\) we get the result from \autoref{prop:cohomology-is-cohomological}.
+\end{proof}
+
+We want to \hyperref[def:localization-category]{localize} \(\operatorname{K}(\category{C})\) \textit{inverting} the \hyperref[def:quasi-isomorphism]{quasi-isomorphisms}.
+Define
+\begin{equation*}
+  N(\category{C}) \coloneq \{X \in \operatorname{K}(\category{C}) \mid \cohomology{k}(X) = 0 \quad \forall k \in \mathbb{Z} \}
+\end{equation*}
+We can also define \(N^{\ast}(\category{C}) \coloneq N(\category{C}) \cap \operatorname{K}^{\ast}(\category{C})\) for \(\ast = +, -, \operatorname{b}\).
+
+\begin{lemma}
+  \(N^{\ast}(\category{C})\) is a \hyperref[def:null-system]{null system}.
+\end{lemma}
+\begin{proof}~
+  \begin{enumerate}
+    \item[N.1] Since \(\cohomology{k}(0) = 0\) for all \(k \in \mathbb{Z}\), \(0 \in N^{\ast}(\category{C})\).
+    \item[N.2] We have
+          \begin{align*}
+            X \in N^{\ast}(\category{C}) &\iff \cohomology{k}(X) = 0 \quad \forall k \in \mathbb{Z} \\
+                                    &\iff \cohomology{k+1}(X) = 0 \quad \forall k \in \mathbb{Z} \\
+                                    &\iff \cohomology{k}(X[1]) = 0 \quad \forall k \in \mathbb{Z} \\
+                                    &\iff X[1] \in N^{\ast}(\category{C})
+          \end{align*}
+    \item[N.3] Let \(X \to Y \to Z \to X[1]\) be a d.t. with \(X, Y \in N^{\ast}(\category{C})\).
+          Since \(\cohomology{k}(X) = \cohomology{k}(Y) = 0\) for all \(k \in \mathbb{Z}\) the \hyperref[thm:LES-in-cohomology]{long exact sequence in cohomology} is
+          \begin{center}
+            \begin{tikzcd}
+              \cdots \arrow[r] & 0 \arrow[r] & \cohomology{k}(Z) \arrow[r] & 0 \arrow[r] & \cdots
+            \end{tikzcd}
+          \end{center}
+          Therefore \(\cohomology{k}(Z) = 0\) for all \(k \in \mathbb{Z}\), i.e: \(Z \in N^{\ast}(\category{C})\).
+  \end{enumerate}
+\end{proof}
+
+Let
+\begin{equation*}
+  \mathcal{S}^{\ast}(\category{C}) \coloneq \{ f: X \to Y \mid \exists X \xrightarrow{f} Y \to Z \to X[1] \text{d.t. with } Z \in N^{\ast}(\category{C}) \}
+\end{equation*}
+be the \hyperref[def:multiplicative-system]{multiplicative system} associated to \(N^{\ast}(\category{C})\).
+
+\begin{lemma}
+  For \(\ast = +, -, \operatorname{b}, \operatorname{ub}\), the \hyperref[def:multiplicative-system]{multiplicative system} \(\mathcal{S}^{\ast}(\category{C})\) is \hyperref[def:saturated-multiplicative-system]{saturated}.
+\end{lemma}
+\begin{proof}
+  It is enough to see the case \(\ast = \operatorname{ub}\).
+
+  Let \(f: X \to Y, g: Y \to Z\) and \(h: Z \to W\) be morphisms in \(\operatorname{K}(\category{C})\) and suppose that \(g \circ f\) and \(h \circ g\) are \hyperref[def:quasi-isomorphism]{quasi-isomorphisms}.
+  This means that for all \(k \in \mathbb{Z}\)
+  \begin{equation*}
+    \cohomology{k}(g \circ f): \cohomology{k}(X) \isoarrow \cohomology{k}(Z) \qquad  \cohomology{k}(h \circ g): \cohomology{k}(Y) \isoarrow \cohomology{k}(W)
+  \end{equation*}
+  Since \(\cohomology{k}(g \circ f) = \cohomology{k}g \circ \cohomology{k}f\) and \(\cohomology{k}(h \circ g) = \cohomology{k}h \circ \cohomology{k}g\) we have that \(\cohomology{k}f\) is an \hyperref[def:categorical-isomorphism]{isomorphism} and thus \(f\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+\end{proof}
+
+\begin{definition}[Derived category]\label{def:derived-category}
+  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
+  We define the \textbf{derived category} \(\operatorname{D}^{\ast}(\category{C})\) of \(\category{C}\) as the \hyperref[def:localization-category]{localization} \(\operatorname{K}^{\ast}(\category{C})[N^{\ast}(\category{C})^{-1}]\) for \(\ast = +, -, \operatorname{b}, \operatorname{ub}\).
+  The \hyperref[def:localization-category]{localization functor} is denoted by \(Q: \operatorname{K}^{\ast}(\category{C}) \to \operatorname{D}^{\ast}(\category{C})\).
+\end{definition}
+
+
+\begin{proposition}
+  Let \(X \in \operatorname{K}(\category{C})\) and let \(Q(X)\) be its image in \(\operatorname{D}(X)\).
+  Then \(Q(X) = 0\) in \(\operatorname{D}(\category{C})\) if and only if \(X\) is \hyperref[def:quasi-isomorphism]{q.i.s} to 0 in \(\operatorname{K}(\category{C})\).
+\end{proposition}
+
+\begin{remark}
+  We know that \(\cohomology{k}: \Complex{\category{C}} \to \category{C}\) can be extended to a \hyperref[def:functor]{functor} \(\cohomology{k}: \operatorname{K}(\category{C}) \to \category{C}\).
+  Since this \hyperref[def:functor]{functor} sends 0 to an object \hyperref[def:quasi-isomorphism]{q.i.s} to 0, it defines a \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \cohomology{k}: \operatorname{D}(\category{C}) \to \category{C}
+  \end{equation*}
+  Moreover all of this \hyperref[def:functor]{functors} are \hyperref[def:cohomological-functor]{cohomological} by \autoref{prop:cohomology-is-cohomological}.
+
+  Therefore for all d.t. \(X \to Y \to Z \to X[1]\) in \(\operatorname{D}(\category{C})\) we get a \hyperref[def:exact-sequence]{long exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & \cohomology{i-1}(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{i-1}(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \cohomology{i}(X) \arrow[r] & \cohomology{i}(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] & \cohomology{i}(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      \cohomology{i+1}(X) \arrow[r] & \cohomology{i+1}(Y) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+\begin{proposition}
+  The \hyperref[def:triangulated-category]{triangulated category} \(\operatorname{D}^{+}(\category{C})\) is \hyperref[def:equivalent-categories]{equivalent} to the \hyperref[def:subcategory]{full subcategory} of \(\operatorname{D}(\category{C})\) consisting of objects \(X\) satisfying \(\cohomology{j}(X) = 0\) for all \(j \ll 0\).
+
+  There is an analogous result for \(\operatorname{D}^{-}(\category{C})\) and \(\operatorname{D}^{\operatorname{b}}(\category{C})\).
+
+  In particular, \(\category{C}\) is \hyperref[def:equivalent-categories]{equivalent} to the  \hyperref[def:subcategory]{full subcategory} of \(\operatorname{D}(\category{C})\) consisting of objects \(X\) satisfying \(\cohomology{j}(X) = 0\) for all \(j \neq 0\).
+\end{proposition}
+\begin{proof}
+  Direct from \autoref{prop:equivalence-localization-null-system}.
+\end{proof}
+
+
+\section{Resolutions}
+
+\begin{definition}\label{def:cogenerating-category}
+  Let \(\category{D}\) be a \hyperref[def:full-additive-subcategory]{full additive subcategory} of \(\category{C}\).
+  We say that \(\category{D}\) is \textbf{cogenerating} if for all \(X \in \category{C}\) there exists \(Y \in \category{D}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow Y\).
+\end{definition}
+
+\begin{theorem}[{\cite[Lemma 13.2.1]{kashiwaraCategoriesSheaves2006}}]
+  Let \(\category{D}\) be a \hyperref[def:cogenerating-category]{cogenerating category} of \(\category{C}\).
+  Then for all \(a \in \mathbb{Z}\) and \(X \in \Complex[\geq a](\category{C})\) there exists \(Y \in \Complex[\geq a]{\category{C}}\) and a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(X \xrightarrow{\text{q.i.s}} Y\).
+\end{theorem}
+
+\begin{notation}
+  If \(\category{D}\) is an \hyperref[def:additive-category]{additive} \hyperref[def:subcategory]{subcategory} of \(\category{C}\) we set
+  \begin{equation*}
+    N^{+}(\category{D}) \coloneq N(\category{C}) \cap \operatorname{K}^{+}(\category{D})
+  \end{equation*}
+  which is a \hyperref[def:null-system]{null system} in \(\operatorname{K}^{+}(\category{D})\).
+\end{notation}
+
+\begin{corollary}\label{cor:localization-cogenerating}
+  Let \(\category{D}\) be an \hyperref[def:additive-category]{additive} \hyperref[def:subcategory]{subcategory} of \(\category{C}\) and assume that \(\category{D}\) is \hyperref[def:cogenerating-category]{cogenerating}.
+  For any \(X \in \operatorname{K}^{+}(\category{C})\) there exists \(Y \in \operatorname{K}^{+}(\category{D})\) and a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(X \to Y\).
+  Furthermore the natural \hyperref[def:functor]{functor} \(\theta: \operatorname{K}^{+}(\category{D})[(N^{+}(\category{D}))^{-1}] \to \operatorname{D}^{+}(\category{D})\) is an \hyperref[def:equivalent-categories]{equivalence of categories}.
+\end{corollary}
+\begin{proof}
+  Direct from \autoref{prop:equivalence-localization-null-system}.
+\end{proof}
+
+
+
+\subsection{Injective resolutions}
+In this subsection \(\category{C}\) denotes an \hyperref[def:abelian-category]{abelian category} and \(\mathcal{I}_{\category{C}}\) is \hyperref[def:full-additive-subcategory]{full additive subcategory} of \hyperref[def:injective-projective-objects]{injective objects}.
+We will assume that \(\category{C}\) \hyperref[def:enough-injectives-projectives]{admits enough injectives} or, in other words, that \(\mathcal{I}_{\category{C}}\) is \hyperref[def:cogenerating-category]{cogenerating}.
+
+\begin{proposition}~
+  \begin{enumerate}
+    \item Let \(f: X \to I\) be a morphism in \(\Complex[+]{\category{C}}\) with \(I \in \mathcal{I}_{\category{C}}\). Then \(f\) is \hyperref[def:homotopy]{homotopic to zero}.
+    \item Let \(I \in \Complex[+]{\category{C}}\) be an \hyperref[def:exact-complex]{exact complex}.
+          Then \(I\) is \hyperref[def:homotopy]{homotopic to zero}.
+  \end{enumerate}
+\end{proposition}
+\begin{proof}~
+  \begin{enumerate}
+    \item We want to complete the following diagram
+          \begin{center}
+            \begin{tikzcd}
+              X^{k-2} \arrow[r, "\d_{X}^{k-2}"] & X^{k-1} \arrow[r, "\d_{X}^{k-1}"] \arrow[dl, dotted, "s^{k-1}"'] & X^{k} \arrow[r, "\d_{X}^{k}"] \arrow[dl, dotted, "s^{k}"'] & X^{k+1} \arrow[dl, dotted, "s^{k+1}"'] \\
+              I^{k-2} \arrow[r, "\d_{I}^{k-2}"'] & I^{k-1} \arrow[r, "\d_{I}^{k-1}"'] & I^{k} \arrow[r, "\d_{I}^{k}"'] & I^{k+1}
+            \end{tikzcd}
+          \end{center}
+          with morphisms \(s^{k}\) satisfying
+          \begin{equation*}
+            f^{k} = s^{k+1} \circ \d_{X}^{k} + \d_{I}^{k-1} \circ s^{k}
+          \end{equation*}
+
+          We will do it by induction.
+          
+          For \(j \ll 0\) it suffices to set \(s^{j} \coloneq 0\).
+          Suppose that we have constructe \(s^{j}\) for \(j \leq k\).
+          If we define \(g^{k} \coloneq f^{k} - \d_{I}^{k-1} \circ s^{k}\) we have
+          \begin{align*}
+            g^{k} \circ \d_{X}^{k-1} &= (f^{k} - \d_{I}^{k-1} \circ s^{k}) \circ \d_{X}^{k-1} \\
+                                 &= f^{k} \circ \d_{X}^{k-1} - \d_{I}^{k-1} \circ s^{k} \circ \d_{X}^{k-1} \\
+                                 &= f^{k} \circ \d_{X}^{k-1} - \d_{I}^{k-1} \circ (f^{k-1} - \d_{I}^{k-2} \circ s^{k-1}) \\
+                                 &= f^{k} \circ \d_{X}^{k-1} - \d_{I}^{k-1} \circ f^{k-1} + \d_{I}^{k-1} \circ \d_{I}^{k-2} \circ s^{k-1} \\
+                                 &= 0
+          \end{align*}
+          Therefore \(g^{k}\) factorizes through \(\quot{X^{k}}{\operatorname{Im} \d_{X}^{k-1}}\).
+
+          Since \(X\) is \hyperref[def:exact-complex]{exact}, the sequence \(0 \to \quot{X}{\operatorname{Im} \d_{X}^{k-1}} \to X^{k+1}\) is \hyperref[def:exact-sequence]{exact}.
+          Therefore by \hyperref[def:injective-projective-object]{definition of injective object} the following diagram may be completed
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & \quot{X^{k}}{\operatorname{Im} \d_{X}^{k-1}} \arrow[r, "\d_{X}^{k}"] \arrow[d, "g^{k}"'] & X^{k+1} \arrow[dl, dotted, "s^{k+1}"] \\
+              & I^{k}
+            \end{tikzcd}
+          \end{center}
+    \item Apply the result of part 1 to \(X = I\) and \(f = \id_{I}\).
+  \end{enumerate}
+\end{proof}
+
+
+\begin{corollary}
+  Suppose \(\category{C}\) \hyperref[def:enough-injectives-projectives]{admits enough injectives}.
+  Then \(\operatorname{K}^{+}(\mathcal{I}_{\category{C}}) \to \operatorname{D}^{+}(\category{C})\) is an \hyperref[def:equivalent-categories]{equivalence of categories}.
+\end{corollary}
+\begin{proof}
+  Recall that \(N^{+}(\mathcal{I}_{\category{C}})\) is the \hyperref[def:subcategory]{subcategory} of \(\operatorname{K}^{+}(\mathcal{I}_{\category{C}})\) consisting of \hyperref[def:complex]{complexes} \hyperref[def:quasi-isomorphism]{quasi-isomorphic to 0}.
+  By \autoref{cor:localization-cogenerating} the natural \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \operatorname{K}^{+}(\mathcal{I}_{\category{C}})[N^{+}(\mathcal{I}_{\category{C}})^{-1}] \to \operatorname{D}^{+}(\mathcal{I}_{\category{C}})
+  \end{equation*}
+  is an \hyperref[def:equivalent-categories]{equivalence of categories}.
+
+  Finally, since the objects of \(N^{+}(\mathcal{I}_{\category{C}})\) are \hyperref[def:categorical-isomorphism]{isomorphic} to \(0\) in \(\operatorname{K}^{+}(\mathcal{I}_{\category{C}})\) we have that \(\operatorname{K}^{+}(\mathcal{I}_{\category{C}})[N^{+}(\mathcal{I}_{\category{C}})^{-1}]\) is \hyperref[def:equivalent-categories]{equivalent} to \(\operatorname{K}^{+}(\mathcal{I}_{\category{C}})\).
+\end{proof}
+
+\section{Derived functors}
+In this section \(\category{C}\) and \(\category{C'}\) are \hyperref[def:abelian-category]{abelian categories} and \(F: \category{C} \to \category{C'}\) is a \hyperref[def:left-exact]{left-exact functor}.
+
+There are \hyperref[def:dual]{dual} definitions and statements for \hyperref[def:left-exact]{right-exact functors} of all of the given in this section.
+
+Note that by \autoref{rem:functor-extension-to-homotopy} \(F\) defines a \hyperref[def:functor]{functor}
+\begin{equation*}
+  \operatorname{K}^{+}(F): \operatorname{K}^{+}(\category{C}) \to \operatorname{K}^{+}(\category{C'})
+\end{equation*}
+
+\begin{definition}\label{def:right-derived-functor}
+  If the \hyperref[def:functor]{functor} \(\operatorname{K}^{+}(F): \operatorname{K}^{+}(\category{C}) \to \operatorname{K}^{+}(\category{C'})\) admits a \hyperref[def:localization-functor]{right localization} (with respect to \hyperref[def:quasi-isomorphism]{quasi-isomorphisms} in \(\operatorname{K}^{+}(\category{C})\)) we say that \(F\) admits a \textbf{right derived functor} and denote this \hyperref[def:localization-functor]{localization} by
+  \begin{equation*}
+    \operatorname{R}F: \operatorname{D}^{+}(\category{C}) \to \operatorname{D}^{+}(\category{C'})
+  \end{equation*}
+
+  For every \(X \in \category{C}\) and \(j \geq 0\) we set
+  \begin{equation*}
+    \operatorname{R}^{j}F(X) \coloneq \cohomology{j}(\operatorname{R}F(X))
+  \end{equation*}
+
+  There are \hyperref[def:dual]{dual} definitions of \textbf{left derived functors} \(\operatorname{L}F: \operatorname{D}^{-}(\category{C}) \to \operatorname{D}^{-}(\category{C})\) for \hyperref[def:exact-functor]{right-exact functors}.
+\end{definition}
+
+\begin{notation}
+  If \(F: \category{C} \to \category{C'}\) is \hyperref[def:exact-functor]{exact} then it admits both a \hyperref[def:right-derived-functor]{right and left derived functor} and both they coincide.
+  In this case we denote by \(F\) its \hyperref[def:localization-functor]{localization}.
+\end{notation}
+
+\begin{definition}\label{def:F-acyclic-object}
+  An object \(X \in \category{C}\) is \(F\)-\textbf{acyclic} if \(\operatorname{R}^{j}F(X) = 0\) for all \(j \neq 0\).
+\end{definition}
+
+\begin{proposition}\label{prop:LES-derived-functor}
+  For any \hyperref[def:exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  in \(\category{C}\) there exists a \hyperref[def:exact-sequence]{long exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & F(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \operatorname{R}^{1}F(X) \arrow[r] & \operatorname{R}^{1}F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] & \operatorname{R}^{1}F(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \operatorname{R}^{2}F(X) \arrow[r] & \operatorname{R}^{2}F(Y) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{proposition}
+\begin{proof}
+  \(\operatorname{R}F\) sends distinguished triangles to distinguished triangles.
+\end{proof}
+
+\begin{definition}\label{def:F-injective-subcategory}
+  Let \(\category{D}\) be a \hyperref[def:full-additive-subcategory]{full additive subcategory} of \(\category{C}\).
+  We say that \(\category{D}\) is \(F\)-\textbf{injective} if
+  \begin{enumerate}
+    \item \(\category{D}\) is \hyperref[def:cogenerating-category]{cogenerating}.
+    \item For any \hyperref[def:exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{C}\) if \(X\) and \(Y\) are in \(\category{D}\) then so is \(\category{D}\).
+    \item For any \hyperref[def:exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{C}\) with \(X\) in \(\category{D}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z) \to 0\) is \hyperref[def:exact-sequence]{exact}.
+  \end{enumerate}
+
+  The \hyperref[def:dual]{dual} concept is of a \(F\)-projective subcategory.
+\end{definition}
+
+\begin{example}
+  If \(\category{C}\) \hyperref[def:enough-injectives-projectives]{has enough injectives} then \(\mathcal{I}_{\category{C}}\) is \hyperref[def:F-injective-subcategory]{\(F\)-injective} for any \hyperref[def:exact-functor]{left-exact functor} \(F\).
+\end{example}
+
+\begin{example}
+  Let \(\mathcal{I}_{F}\) be the \hyperref[def:full-additive-subcategory]{full additive subcategory} of \(\category{C}\) made of \hyperref[def:F-acyclic-object]{\(F\)-acyclic objects}.
+  If \(\mathcal{I}_{F}\) is \hyperref[def:cogenerating-category]{cogenerating} then it is \hyperref[def:F-injective-subcategory]{\(F\)-injective}, since conditions 2 and 3 are satisfied by \autoref{prop:LES-derived-functor}.
+\end{example}
+
+
+\begin{lemma}\label{lemma:F-preserves-qis-derived}
+  Let \(\category{D}\) be \hyperref[def:F-injective-subcategory]{\(F\)-injective} and let \(X^{\bullet} \in \Complex[+]{\category{C}}\) be a \hyperref[def:complex]{complex} \hyperref[def:quasi-isomorphism]{quasi-isomorphic to \(0\)}.
+  Then \(F(X^{\bullet})\) is \hyperref[def:quasi-isomorphism]{quasi-isomorphic to \(0\)}.
+\end{lemma}
+\begin{proof}
+  Let's assume that \(X^{\bullet}\) starts at zero to ease the notation.
+
+  We can decompose \(X^{\bullet}\) into \hyperref[def:short-exact-sequence]{short exact sequences}
+  \begin{align*}
+    &0 \to X^{0} \to X^{1} \to Z^{1} \to 0 \\
+    &0 \to Z^{k-1} \to X^{k} \to Z^{k} \to 0 \quad \forall k \in \{2, \ldots, n\} 
+  \end{align*}
+  Applying the second axiom of being \(F\)-injective by induction we see that all of the \(Z^{k}\) are in \(\category{D}\).
+  Therefore the sequences
+  \begin{align*}
+    &0 \to F(X^{0}) \to F(X^{1}) \to F(Z^{1}) \to 0 \\
+    &0 \to F(Z^{k-1}) \to F(X^{k}) \to F(Z^{k}) \to 0 \quad \forall k \in \{2, \ldots, n\} 
+  \end{align*}
+  are \hyperref[def:exact-sequence]{exact}.
+  \textit{Glueing} them we get that
+  \begin{align*}
+    0 \to F(X^{0}) \to F(X^{1}) \to F(X^{2}) \to \cdots
+  \end{align*}
+  is \hyperref[def:exact-sequence]{exact}.
+\end{proof}
+
+\begin{theorem}
+  Let \(F: \category{C} \to \category{C'}\) be a \hyperref[def:exact-functor]{left-exact functor} between \hyperref[def:abelian-category]{abelian categories}.
+  Let \(\category{D}\) be an \hyperref[def:F-injective-subcategory]{\(F\)-injective subcategory} of \(\category{C}\).
+  Then \(F\) admits a \hyperref[def:right-derived-functor]{right derived functor} \(\operatorname{R}F: \operatorname{D}^{+}(\category{C}) \to \operatorname{D}^{+}(\category{C'})\).
+\end{theorem}
+\begin{proof}
+  We want to apply \autoref{thm:conditions-localization-null-system}.
+  The first condition is satisfied by \autoref{cor:localization-cogenerating} and the second thanks to \autoref{lemma:F-preserves-qis-derived}.
+\end{proof}
+
+\begin{remark}\label{rem:right-derived-functor-construction}
+  The construction of \(\operatorname{R}F\) may be visualized by the diagram
+  \begin{center}
+    \begin{tikzcd}
+      \operatorname{K}^{+}(\category{D}) \arrow[r, "\operatorname{K}^{+}F"] \arrow[d, "Q"'] & \operatorname{K}^{+}(\category{C'}) \arrow[dd, "Q"] \\
+      \operatorname{K}^{+}(\category{D})[N^{+}(\category{D})^{-1}] \arrow[d, "\sim"'] \arrow[dr] & \\
+      \operatorname{D}^{+}(\category{C}) \arrow[r, dotted, "\operatorname{R}F"'] & \operatorname{D}^{+}(\category{C'})
+    \end{tikzcd}
+  \end{center}
+  Furthermore \(\operatorname{R}F\) is \hyperref[def:triangulated-functor]{triangulated} and does not depend on \(\category{D}\).
+  Therefore if \(X \to Y \to Z \xrightarrow{+1}\) is a d.t. in \(\operatorname{D}^{+}(\category{C})\) then \(\operatorname{R}F(X) \to \operatorname{R}F(Y) \to \operatorname{R}F(Z) \xrightarrow{+1}\) is a d.t. in \(\operatorname{D}^{+}(\category{C'})\).
+\end{remark}
+
+The following result gives an explicit construction of the \hyperref[def:right-derived-functor]{derived functor}.
+\begin{proposition}\label{prop:computation-right-derived-functor}
+  Let \(\category{D}\) be \hyperref[def:F-injective-subcategory]{\(F\)-injective}.
+  Then for any \(X \in \category{C}\) and resolution \(0 \to X \to Y^{\bullet}\) with \(Y^{\bullet} \in \Complex[+]{\category{D}}\) there is an \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \operatorname{R}^{n}F(X) \cong \cohomology{n}(F(Y^{\bullet}))
+  \end{equation*}
+
+  In other words, to compute the \hyperref[def:functor]{functors} \(\operatorname{R}^{n}F(X)\) it is enough to replace \(X\) with a right \(\category{D}\)-resolution, apply \(F\) to this complex and take its \hyperref[def:cohomology]{cohomology}.
+\end{proposition}
+\begin{proof}
+  Note that \(0 \to X \to Y^{\bullet}\) being a resolution is equivalent to saying that \(X \to Y^{\bullet}\) is a \hyperref[def:quasi-isormophism]{quasi-isomorphism} in \(\operatorname{K}^{+}(\category{C})\).
+  Therefore since \(Q\) \textit{inverts} \hyperref[def:quasi-isormophism]{quasi-isomorphisms} we get that \(X \cong Y^{\bullet}\) in \(\operatorname{D}^{+}(\category{C})\).
+  Applying \(\operatorname{R}F\) we get \(\operatorname{R}F(X) \cong \operatorname{R}F(Y^{\bullet})\) in \(\operatorname{D}^{+}(\category{C'})\).
+
+  Since we can view \(Y^{\bullet} \in \operatorname{K}^{+}(\category{D})\) by the \hyperref[rem:right-derived-functor-construction]{construction of \(\operatorname{R}F\)} we have \(\operatorname{R}F(Y^{\bullet}) \cong Q(F(Y^{\bullet}))\), which gives
+  \begin{equation*}
+    \operatorname{R}F(X) \cong Q(F(Y^{\bullet}))
+  \end{equation*}
+
+  Therefore for all \(n \in \mathbb{Z}\) applying \hyperref[def:cohomology]{cohomology}
+  \begin{equation*}
+    \operatorname{R}^{n}F(X) = \cohomology{n}(\operatorname{R}F(X)) \cong \cohomology{n}(Q(F(Y^{\bullet}))) = \cohomology{n}(F(Y^{\bullet}))
+  \end{equation*}
+\end{proof}
+
+\begin{remark}
+  In particular \autoref{prop:computation-right-derived-functor} applies if \(\category{C}\) has \hyperref[def:enough-injective-projectives]{enough injectives}.
+\end{remark}
+
+
+\subsection{Derived functor of the composition}
+In this subsection we consider two \hyperref[def:exact-functor]{left-exact functors} \(F: \category{C} \to \category{C'}\) and \(G: \category{C'} \to \category{C''}\) between \hyperref[def:abelian-category]{abelian categories}.
+
+\begin{theorem}\label{thm:right-derived-functor-composition}
+  Suppose there exist \hyperref[def:full-additive-subcategory]{full additive subcategories} \(\category{D} \subseteq \category{C}\) and \(\category{D'} \subseteq \category{C'}\) such that \(\category{D}\) is \hyperref[def:F-injective-subcategory]{\(F\)-injective}, \(\category{D'}\) is \hyperref[def:F-injective-subcategory]{\(G\)-injective} and \(F(\category{D}) \subseteq \category{D'}\).
+
+  Then \(\category{D}\) is \hyperref[def:F-injective-subcategory]{\((G \circ F)\)-injective} and there exists an \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \operatorname{R}(G \circ F) \isoarrow \operatorname{R}G \circ \operatorname{R}F
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  It is clear that \(\category{D}\) is \hyperref[def:F-injective-subcategory]{\((G \circ F)\)-injective}.
+
+  To see the \hyperref[def:categorical-isomorphism]{isomorphism}, consider \(X \in \operatorname{K}^{+}(\category{C})\) and \(Y \in \operatorname{K}^{+}(\category{D})\) together with a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(X \to Y\).
+  Then \(\operatorname{R}F(X)\) is represented by the complex \(F(Y)\), which belongs to \(\operatorname{K}^{+}(\category{D'})\).
+
+  Therefore \(\operatorname{R}G(\operatorname{R}F(X))\) is represented by \((G \circ F)(Y)\), which also represents \(\operatorname{R}(G \circ F)(Y)\) since \(Y \in \Complex[+]{\category{D}}\) and \(\category{D}\) is \hyperref[def:F-injective-subcategory]{\((G \circ F)\)-injective}.
+\end{proof}
+
+\begin{corollary}
+  Let \(\category{D}\) be a \hyperref[def:F-injective-subcategory]{\(F\)-injective subcategory} of \(\category{C}\).
+  If \(G\) is \hyperref[def:exact-functor]{exact} then \(\category{D}\) is \hyperref[def:F-injective-subcategory]{\((G \circ F)\)-injective} and there exists an \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \operatorname{R}(G \circ F) \isoarrow \operatorname{R}G \circ \operatorname{R}F
+  \end{equation*}
+\end{corollary}
+\begin{proof}
+  Since \(G\) is \hyperref[def:exact-functor]{exact} we have that \(\category{C'}\) is \hyperref[def:F-injective-subcategory]{\(G\)-injective}.
+  Therefore we can apply \autoref{thm:right-derived-functor-composition} with \(\category{D'} = \category{C'}\).
+\end{proof}
+
+\begin{corollary}
+  Suppose there exist \hyperref[def:full-additive-subcategory]{full additive subcategories} \(\category{D} \subseteq \category{C}\) and \(\category{D'} \subseteq \category{C'}\) such that \(\category{D}\) is \hyperref[def:F-injective-subcategory]{\(F\)-injective}, \(\category{D'}\) is \hyperref[def:F-injective-subcategory]{\(G\)-injective} and \(F(\category{D}) \subseteq \category{D'}\).
+
+  If \(X \in \category{C}\) is \hyperref[def:F-acyclic-object]{\(F\)-acyclic} then for all \(n \in \mathbb{Z}\)
+  \begin{equation*}
+    \operatorname{R}^{n}(G \circ F)(X) \cong (\operatorname{R}^{n}G)(F(X))
+  \end{equation*}
+\end{corollary}
+\begin{proof}
+  Since \(X\) is \hyperref[def:F-acyclic-object]{\(F\)-acyclic} we have \(\operatorname{R}F(X) \cong F(X)\) in \(\operatorname{D}^{+}(\category{C'})\).
+  Therefore by \autoref{thm:right-derived-functor-composition} we have
+  \begin{equation*}
+    \operatorname{R}(G \circ F)(X) \cong \left( \operatorname{R}G \circ \operatorname{R}F \right)(X) \cong \operatorname{R}G(F(X))
+  \end{equation*}
+\end{proof}
+
+
+\end{document}

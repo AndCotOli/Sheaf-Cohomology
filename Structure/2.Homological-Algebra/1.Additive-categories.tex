@@ -1,0 +1,609 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+}{}
+
+\begin{document}
+
+\chapter{Additive categories}
+
+\begin{definition}[Additive category]\label{def:additive-category}
+  A \hyperref[def:category]{category} \(\category{C}\) is \textbf{additive} if it satisfies
+  \begin{enumerate}[label=Ad.\arabic*), ref=Ad.\arabic*]
+    \item\label{axiom:additive-hom} For every pair of objects \(X, Y \in \category{C}\) the set \(\Hom_{\category{C}}(X, Y)\) is endowed with an abelian group structure and the composition maps are bilinear with respect to the group operation.
+    \item\label{axiom:additive-zero} There exists a \hyperref[def:zero-object]{zero object} \(0 \in \category{C}\).
+    \item\label{axiom:additive-coproducts} \(\category{C}\) admits finite \hyperref[def:categorical-coproduct]{coproducts}.
+    \item\label{axiom:additive-products} \(\category{C}\) admits finite \hyperref[def:categorical-product]{products}.
+  \end{enumerate}
+\end{definition}
+
+\begin{notation}\label{def:direct-sum}
+  If \(X, Y \in \category{C}\) we denote by \(X \oplus Y\) its \hyperref[def:categorical-coproduct]{coproduct} and call it their \textbf{direct sum}.
+\end{notation}
+
+\begin{lemma}\label{lemma:products-coproducts-additive-category}
+  Let \(\category{C}\) be a \hyperref[def:category]{category} satisfying \ref{axiom:additive-hom} and \ref{axiom:additive-zero}.
+
+  Suppose that \(\category{C}\) verifies
+  \begin{enumerate}
+    \item[Ad.5)]\label{axiom:additive-morphisms} For any pair of objects \(X, Y \in \category{C}\) there exists \(Z \in \category{C}\) and morphisms
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[dd, "\id"'] \arrow[dr, "i_{1}"] &       & Y \arrow[dd, "\id"] \arrow[dl, "i_{2}"'] \\
+              & \arrow[dl, "p_{1}"] Z \arrow[dr, "p_{2}"'] &   \\
+              X &       & Y
+            \end{tikzcd}
+          \end{center}
+          such that
+          \begin{align*}
+            p_{1} \circ i_{1} = \id_{X} \quad p_{1} \circ i_{2} = 0 \\
+            p_{2} \circ i_{2} = \id_{Y} \quad p_{2} \circ i_{1} = 0 \\
+            i_{1} \circ p_{1} + i_{2} \circ p_{2} = \id_{Z}
+          \end{align*}
+  \end{enumerate}
+  Then conditions~\ref{axiom:additive-products},~\ref{axiom:additive-coproducts} and \hyperref[axiom:additive-morphisms]{Ad.5} are equivalent and the objects \(X \times Y, X \oplus Y\) and \(Z\) are naturally \hyperref[def:categorical-isomorphism]{isomorphic}.
+\end{lemma}
+\begin{proof}
+  We will show that conditions~\ref{axiom:additive-coproducts} and~\hyperref[axiom:additive-morphisms]{Ad.5} are equivalent and that \(X \oplus Y \cong Z\).
+  A \hyperref[def:dual]{dual} argument shows that~\ref{axiom:additive-products} and~\hyperref[axiom:additive-morphisms]{Ad.5} are equivalent and that \(X \times Y \cong Z\).
+  \begin{itemize}
+    \item[{\ref{axiom:additive-coproducts} \(\implies\) \hyperref[axiom:additive-morphisms]{Ad.5}}] Let \(X \oplus Y\) be the \hyperref[def:categorical-coproduct]{coproduct} of \(X\) and \(Y\), that comes with morphisms \(i_{1}: X \to X \oplus Y\) and \(i_{2}: Y \to X \oplus Y\).
+
+          By definition, for all morphisms \(f: X \to A\), \(g: Y \to B\) there exist unique morphisms \(X \oplus Y \to A, X \oplus Y \to B\) such that
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[dr, "i_{1}"] \arrow[dd, "f"'] & & Y \arrow[dl, "i_{2}"'] \arrow[dd, "g"] \\
+              & X \oplus Y \arrow[dl, dotted] \arrow[dr, dotted] & \\
+              A & & B
+            \end{tikzcd}
+          \end{center}
+          In particular if \(f = \id_{X}\) and \(g = \id_{Y}\)
+    \item[{\hyperref[axiom:additive-morphisms]{Ad.5} \(\implies\) \ref{axiom:additive-coproducts}}] We are going to see that \(Z\) verifies the universal property of the \hyperref[def:categorical-coproduct]{coproduct}.
+
+          Let \(f: X \to A\) be a morphism. We want to find a morphism \(\widetilde{f}: Z \to A\) such that \(f = \widetilde{f} \circ i_{1}\).
+          We have the following
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[dr, "i_{1}"] \arrow[dd, "\id_{X}"] & \\
+              & Z \arrow[dl, "p_{1}"] \\
+              X \arrow[d, "f"] \\
+              A
+            \end{tikzcd}
+          \end{center}
+          Therefore if \(\widetilde{f} \coloneq f \circ p_{1}\) since \(i_{1} \circ p_{1} = \id_{X}\) we have \(\widetilde{f} \circ i_{1} = f\).
+
+          Analogously we see that any morphism \(g: Y \to B\) can can be factored through \(Z\).
+          Therefore since \(Z\) verifies the universal property of the \hyperref[def:categorical-coproduct]{coproduct}, \(Z \cong X \oplus Y\).
+  \end{itemize}
+\end{proof}
+
+\begin{lemma} \label{lemma:mono-epi-additive}
+  A morphism \(f: X \to Y\) in an \hyperref[def:additive-category]{additive category} is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if for every morphism \(g: Z \to X\)
+  \begin{equation*}
+    f \circ g = 0 \implies g = 0
+  \end{equation*}
+  \hyperref[def:dual]{Dually} \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if for every morphism \(g: Y \to Z\)
+  \begin{equation*}
+    g \circ f = 0 \implies g = 0
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  We will check the \hyperref[def:mono-epi-morphism]{monomorphism} caracterization.
+  \begin{itemize}
+    \item[\(\implies\)] Let \(f: X \monoarrow Y\) be a \hyperref[def:mono-epi-morphism]{monomorphism}.
+          Consider a morphism \(g: Z \to X\) such that \(f \circ g = 0\).
+          Since \(f \circ 0 = 0\) applying left-cancellativity we have that \(g = 0\).
+    \item[\(\impliedby\)] Let \(g_{1}, g_{2}: Z \to X\) be two morphisms such that \(f \circ g_{1} = f \circ g_{2}\).
+
+          Since \(\Hom(Z, Y)\) is an abelian group we have
+          \begin{equation*}
+            0 = f \circ g_{1} - f \circ g_{2} = f \circ (g_{1} - g_{2})
+          \end{equation*}
+          Therefore by hypothesis \(g_{1} - g_{2} = 0 \iff g_{1} = g_{2}\), proving that \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+  \end{itemize}
+\end{proof}
+
+\begin{lemma}\label{lemma:functor-category-is-additive}
+  Let \(\category{I}\) be a \hyperref[def:small-category]{small category}.
+  If \(\category{C}\) is \hyperref[def:additive-category]{additive} then the \hyperref[def:functor-category]{functor category} \(\Fct{\category{I}}{\category{C}}\) is \hyperref[def:additive-category]{additive}.
+\end{lemma}
+\begin{proof}~
+  \begin{enumerate}
+    \item[\ref{axiom:additive-hom}] For any two \hyperref[def:natural-transformation]{natural transformations} \(\phi, \psi: \category{I} \Rightarrow \category{C}\) we can define their addition componentwise: \((\phi + \psi)_{i} = \phi_{i} + \psi_{i}\) for all \(i \in \category{I}\).
+          Since \(\phi_{i}, \psi_{i} \in \Hom_{\category{C}}(-, -)\) this is well defined.
+    \item[\ref{axiom:additive-zero}] Consider the zero \hyperref[def:functor]{functor}
+          \begin{center}
+            \begin{tikzcd}
+              \llap{\(0: \;\;\)} \category{I} \arrow[r] & \category{C} \\[-2em]
+              X \arrow[d, "f"' ""{name=source, right}] & 0 \arrow[d, "0" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
+              Y  & 0
+            \end{tikzcd}
+          \end{center}
+          This is clearly the \hyperref[def:zero-object]{zero object} in \(\Fct{\category{I}, \category{C}}\).
+    \item[\ref{axiom:additive-coproducts}, \ref{axiom:additive-products}] Direct from \autoref{prop:limits-in-functor-category}. 
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}[Additive functor]\label{def:additive-functor}
+  Let \(\category{C}\), \(\category{D}\) be \hyperref[def:additive-category]{additive categories}.
+  A \hyperref[def:functor]{functor} \(F: \category{C} \to \category{D}\) is \textbf{additive} if for all \(X, Y \in \category{C}\)
+  \begin{equation*}
+    \Hom_{\category{C}}(X, Y) \to \Hom_{\category{D}}(F(X), F(Y))
+  \end{equation*}
+  is a morphism of abelian groups.
+\end{definition}
+
+\begin{proposition}\label{prop:additive-functor-characterization}
+  Let \(\category{C}\), \(\category{D}\) be \hyperref[def:additive-category]{additive categories}.
+  A \hyperref[def:functor]{functor} \(F: \category{C} \to \category{D}\) is \hyperref[def:additive-functor]{additive} if and only if it commutes with finite \hyperref[def:direct-sum]{direct sums}, i.e: if \(F(0) \cong 0\) and for all \(X, Y \in \category{C}\)
+  \begin{equation*}
+    F(X \oplus Y) = F(X) \oplus F(Y)
+  \end{equation*}
+\end{proposition}
+\begin{proof}~
+  \begin{itemize}
+    \item[\(\implies\)] Since \(F\) is a \hyperref[def:functor]{functor} \(F(\id_{0}) = \id_{F(0)}\).
+          Furthermore since \(F\) is \hyperref[def:additive-functor]{additive} if \(0_{X, Y}\) is the zero morphism between \(X, Y \in \category{C}\) then \(F(0_{X, Y}) = 0_{F(X), F(Y)}\) because group homomorphisms preserve the identity.
+          In particular taking \(X = Y = 0\) since \(0_{0, 0} = \id_{0}\) we have
+          \begin{equation*}
+            \id_{F(0)} = F(\id_{0}) = F(0_{0, 0}) = 0_{F(0), F(0)}
+          \end{equation*}
+          which means that \(F(0)\) is the \hyperref[def:zero-object]{zero object} in \(\category{D}\).
+          
+          Let \(X, Y \in \category{C}\) be two objects and \(X \oplus Y\) be its \hyperref[def:direct-sum]{direct sum}.
+          Applying \(F\) to the diagram in \autoref{lemma:products-coproducts-additive-category} defining \(Z \cong X \oplus Y\) we get
+          \begin{center}
+            \begin{tikzcd}
+              F(X) \arrow[dd, "{\id_{F(X)}}"'] \arrow[dr, "Fi_{1}"] &       & F(Y) \arrow[dd, "{\id_{F(Y)}}"] \arrow[dl, "Fi_{2}"'] \\
+              & \arrow[dl, "Fp_{1}"] F(X \oplus Y) \arrow[dr, "Fp_{2}"'] &   \\
+              F(X) &       & F(Y)
+            \end{tikzcd}
+          \end{center}
+          Note that
+          \begin{align*}
+            Fp_{1} \circ Fi_{1} &= F(p_{1} \circ i_{1}) = F(\id_{X}) = \id_{F(X)} & Fp_{1} \circ Fi_{2} &= F(p_{1} \circ i_{2}) = F(0) = 0 \\
+            Fp_{2} \circ Fi_{2} &= F(p_{2} \circ i_{2}) = F(\id_{Y}) = \id_{F(Y)} & Fp_{2} \circ Fi_{1} &= F(p_{2} \circ i_{1}) = F(0) = 0
+          \end{align*}
+          Furthermore since \(F\) is \hyperref[def:additive-functor]{additive}
+          \begin{equation*}
+            Fp \circ Fi + Fj \circ Fq = F(p \circ i + j \circ q) = F\id_{X \oplus Y} = \id_{F(X \oplus Y)}
+          \end{equation*}
+          Therefore by \autoref{lemma:products-coproducts-additive-category} \(F(X \oplus Y) \cong F(X) \oplus F(Y)\).
+    \item[\(\impliedby\)] Applying \autoref{lemma:products-coproducts-additive-category} to \(X \oplus X\) and \(Y \oplus Y\) we get maps \(\Delta_{X}: X \to X \oplus X\) and \(\nabla_{Y}: Y \oplus Y \to Y\) such that
+          \begin{align*}
+            p_{1} \circ \Delta_{X} &= \id_{X} = p_{2} \circ \Delta_{X} \\
+            \nabla_{Y} \circ i_{1} &= \id_{Y} = \nabla_{Y} \circ i_{2}
+          \end{align*}
+          Then for any pair of morphisms \(f, g: X \to Y\) in \(\category{D}\) we have
+          \begin{equation*}
+            f + g = \nabla_{Y} \circ (f \oplus g) \circ \Delta_{X}
+          \end{equation*}
+          where \(f \oplus g\) is the unique morphism such that
+          \begin{equation*}
+            p_{k} \circ (f \oplus g) \circ i_{j} = \begin{cases}
+              f & j = k = 1 \\
+              g & j = k = 2 \\
+              0 & \text{otherwise}
+            \end{cases}
+          \end{equation*}
+          Applying \(F\) to this expression we get
+          \begin{equation*}
+            F(f + g) = F(\nabla_{Y} \circ (f \oplus g) \circ \Delta_{X}) = F\nabla_{Y} \circ F(f \oplus g) \circ F\Delta_{X}
+          \end{equation*}
+          Since by hypothesis \(F\) preserves finit \hyperref[def:direct-sum]{direct sums}
+          \begin{equation*}
+            F\nabla_{Y} \circ F(f \oplus g) \circ F\Delta_{X} = \nabla_{F(Y)} \circ (Ff \oplus Fg) \oplus \Delta_{F(X)} = Ff + Fg
+          \end{equation*}
+          Therefore \(F(f + g) = Ff + Fg\), which means that \(F\) is \hyperref[def:additive-functor]{additive}.
+  \end{itemize}
+\end{proof}
+
+\begin{definition}[Full additive subcategory]\label{def:full-additive-subcategory}
+  Let \(\category{C}\) be an \hyperref[def:additive-category]{additive category}.
+
+  A \hyperref[def:subcategory]{full subcategory} \(\category{D}\) of \(\category{C}\) is a \textbf{full additive subcategory} if the inclussion \hyperref[def:functor]{functor} \(\iota: D \hookrightarrow \category{C}\) is \hyperref[def:additive-functor]{additive}.
+\end{definition}
+\begin{remark}
+  By \autoref{prop:additive-functor-characterization} a \hyperref[def:subcategory]{full subcategory} \(\category{D}\) of \(\category{C}\) is a \hyperref[def:full-additive-subcategory]{full additive subcategory} if and only if \(0 \in \category{D}\) and \(\category{D}\) is closed under finite \hyperref[def:direct-sum]{direct sums}.
+\end{remark}
+
+
+\section{Complexes}
+
+From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:additive-category]{additive category}.
+
+\begin{definition}[Differential object]\label{def:differential-object-additive}
+  A \textbf{differential object} \((X^{\bullet}, \d_{X}^{\bullet})\) in \(\category{C}\) is a sequence of objects \(X^{k} \in \category{C}\) and morphisms \(\d_{X}^{k}\) for every \(k \in \mathbb{Z}\):
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & X^{k-1} \arrow[r, "\d_{X}^{k-1}"] & X^{k} \arrow[r, "\d_{X}^{k}"] & X^{k+1} \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+
+  A morphism of differential objects \(f^{\bullet}: (X^{\bullet}, \d_{X}^{\bullet}) \to (Y^{\bullet}, \d_{Y}^{\bullet})\) is a collection of morphisms \(\{f^{k}: X^{k} \to Y^{k}\}_{k \in \mathbb{Z}}\) such that, for all \(k \in \mathbb{Z}\), the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & X^{k} \arrow[r, "\d_{X}^{k}"] \arrow[d, "f^{k}"'] & X^{k+1} \arrow[d, "f^{k+1}"] \arrow[r] & \cdots \\
+      \cdots \arrow[r] & Y^{k} \arrow[r, "\d_{Y}^{k}"'] & Y^{k+1} \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+
+  Therefore we get a \hyperref[def:category]{category} \(\category{Diff}(\category{C})\) of differential objects in \(\category{C}\).
+  By abuse of notation we will often denote differential objects \((X^{\bullet}, \d_{X}^{\bullet})\) as \(X^{\bullet}\).
+\end{definition}
+
+\begin{remark}
+  We can view the \hyperref[def:differential-object]{category of differential objects} \(\category{Diff}(\category{C})\) as the \hyperref[def:functor-category]{functor category} \(\Fct{\mathbb{Z}}{\category{C}}\).
+  Therefore by \autoref{lemma:functor-category-is-additive} \(\category{Diff}(\category{C})\) is an \hyperref[def:additive-category]{additive category}.
+\end{remark}
+
+
+\begin{definition}[Complex]\label{def:complex}
+  A \textbf{complex} in \(\category{C}\) is a \hyperref[def:differential-object]{differential object} \((X^{\bullet}, \d_{X}^{\bullet})\) such that for all \(k \in \mathbb{Z}\)
+  \begin{equation*}
+    \d_{X}^{k+1} \circ \d_{X}^{k} = 0
+  \end{equation*}
+  We denote by \(\Complex{\category{C}}\) the \hyperref[def:full-additive-subcategory]{full additive subcategory} of \(\category{Diff}(\category{C})\) consisting of complexes in \(\category{C}\).
+\end{definition}
+
+\begin{definition}\label{def:bounded-complex}
+  A \hyperref[def:complex]{complex} \(X^{\bullet}\) is
+  \begin{enumerate}
+    \item \textbf{Bounded above} if \(X^{n} = 0\) of \(n \gg 0\).
+    \item \textbf{Bounded below} if \(X^{n} = 0\) of \(n \ll 0\).
+    \item \textbf{Bounded} if it is bounded above and below.
+  \end{enumerate}
+  We denote by \(\Complex[\ast]{\category{C}}\) (\(\ast = +, -, \operatorname{b}\)) the \hyperref[def:full-additive-subcategory]{full additive subcategory} of \(\Complex{\category{C}}\) consisting of bounded above (resp. bounded below, bounded) complexes.
+  To emphasize that we are working with unbounded complexes we may write \(\Complex[\operatorname{ub}]{\category{C}} \coloneq \Complex{\category{C}}\).
+\end{definition}
+
+\begin{notation}
+  For \(a \in \mathbb{Z}\) we denote \(\Complex[\geq a]{\category{C}}\) the \hyperref[def:full-additive-subcategory]{full additive subcategory} of \(\Complex{\category{C}}\) consisting of \hyperref[def:complex]{complexes} \(X^{\bullet}\) such that \(X^{j} = 0\) for all \(j < a\).
+  We define the \hyperref[def:category]{categories} \(\Complex[\leq a]{\category{C}}\) and \(\Complex[{[a, b]}]{\category{C}}\) for \(a \leq b\) analogously.
+\end{notation}
+
+\begin{definition}[Shift functor]\label{def:shift-functor}
+  Let \(p \in \mathbb{Z}\).
+  The \textbf{shift functor} is the \hyperref[def:functor]{functor}
+  \begin{equation*}
+    [p]: \Complex{\category{C}} \to \Complex{\category{C}}
+  \end{equation*}
+  as
+  \begin{itemize}
+    \item For all \hyperref[def:complex]{complexes} \((X^{\bullet}, \d_{X}^{\bullet}) \in \Complex{\category{C}}\)
+          \begin{align*}
+            (X[p])^{n} \coloneq X^{n+p}  \qquad \d_{X[p]}^{n} \coloneq (-1)^{p} \d_{X}^{n+p}
+          \end{align*}
+    \item For all \hyperref[def:complex]{morphisms of complexes} \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\)
+          \begin{equation*}
+            f^{\bullet}[p]: X[p] \to Y[p],\, (f[p])^{n} \coloneq f^{n+p}
+          \end{equation*}
+  \end{itemize}
+\end{definition}
+
+\begin{remark}
+  Note that, for all \(p \in \mathbb{Z}\)
+  \begin{align*}
+    \d_{X[p]}^{n+1} \circ \d_{X[p]}^{n} = (-1)^{p}\d_{X}^{n+p+1} \circ (-1)^{p}\d_{X}^{n+p} = (-1)^{p} \left( \d_{X}^{(n+p) + 1} \circ \d_{X}^{n+p} \right) = (-1)^{p} 0 = 0
+  \end{align*}
+  Therefore the \hyperref[def:shift-functor]{shift functor} is well defined.
+\end{remark}
+
+
+\begin{definition}[Mapping cone]\label{def:mapping-cone}
+  Let \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) be a \hyperref[def:complex]{morphism of complexes}.
+  The \textbf{mapping cone} of \(f\), denoted \(\operatorname{Cone}(f)\) is the \hyperref[def:complex]{complex} defined by
+  \begin{align*}
+    \operatorname{Cone}(f^{\bullet})^{n} &\coloneq (X[1])^{n} \oplus Y^{n} = X^{n+1} \oplus Y^{n} \\
+    \d_{\operatorname{Cone}(f^{\bullet})}^{n} &\coloneq \begin{pmatrix} \d_{X[1]}^{n} & 0 \\ f^{n+1} & \d_{Y}^{n} \end{pmatrix} = \begin{pmatrix} -\d_{X}^{n+1} & 0 \\ f^{n+1} & \d_{Y}^{n} \end{pmatrix}
+  \end{align*}
+  Note that there a natural \hyperref[def:complex]{morphisms of complexes}
+  \begin{equation*}
+    \alpha f^{\bullet}: Y \to \operatorname{Cone}(f^{\bullet}) \qquad \beta f^{\bullet}: \operatorname{Cone}(f^{\bullet}) \to X[1]
+  \end{equation*}
+\end{definition}
+
+\begin{remark}
+  Note that for any \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\)
+  \begin{align*}
+    \d_{\operatorname{Cone}(f^{\bullet})}^{n+1} \circ \d_{\operatorname{Cone}(f^{\bullet})}^{n} &= \begin{pmatrix} -\d_{X}^{n+2} & 0 \\ f^{n+2} & \d_{Y}^{n+1} \end{pmatrix} \circ \begin{pmatrix} -\d_{X}^{n+1} & 0 \\ f^{n+1} & \d_{Y}^{n} \end{pmatrix} \\
+                                                                        &= \begin{pmatrix}
+                                                                          -\d_{X}^{n+2} \circ -d_{X}^{n+1} & 0 \\
+                                                                          f^{n+2} \circ -\d_{X}^{n+1} + \d_{Y}^{n+1} \circ f^{n+1} & \d_{Y}^{n+1} \circ \d_{Y}^{n}
+                                                                        \end{pmatrix} \\
+                                                                        &= 0
+  \end{align*}
+  were we have used that \(\d_{Y}^{n+1} \circ f^{n+1} = f^{n+2} \circ \d_{X}\).
+  
+  Therefore the \hyperref[def:mapping-cone]{mapping cone} is well defined.
+\end{remark}
+
+
+\begin{proposition}
+  Let \(F: \category{C} \to \category{D}\) be a \hyperref[def:additive-functor]{additive functor}.
+  Then \(F\) commutes with \hyperref[def:mapping-cone]{mapping cones}: for all morphisms \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) in \(\Complex{\category{C}}\)
+  \begin{equation*}
+    F(\operatorname{Cone}(f^{\bullet})) \cong \operatorname{Cone}(Ff^{\bullet})
+  \end{equation*}
+\end{proposition}
+\begin{proof}
+  Since \(F\) \hyperref[prop:additive-functor-characterization]{preserves finite direct sums} for all \(n \in \mathbb{Z}\)
+  \begin{equation*}
+    F(X^{n+1} \oplus Y^{n}) \cong F(X^{n+1}) \oplus F(Y^{n})
+  \end{equation*}
+  Therefore the objects of \(F(\operatorname{Cone}(f^{\bullet}))\) and \(\operatorname{Cone}(Ff^{\bullet})\) are the same.
+
+  Furthermore
+  \begin{align*}
+    F \d_{\operatorname{Cone}(f^{\bullet})}^{n} &= F \begin{pmatrix} -\d_{X}^{n+1} & 0 \\ f^{n+1} & \d_{Y}^{n} \end{pmatrix} \\
+                                      &= \begin{pmatrix} F(-\d_{X}^{n+1}) & F0 \\ Ff^{n+1} & F\d_{Y}^{n} \end{pmatrix} \\
+                                      &= \begin{pmatrix} -Fd_{X}^{n+1} & 0 \\ Ff^{n+1} & F\d_{Y}^{n} \end{pmatrix} \\
+                                      &= \begin{pmatrix} -d_{F(X)}^{n+1} & 0 \\ Ff^{n+1} & \d_{F(Y)}^{n} \end{pmatrix} \\
+                                      &= \d_{\operatorname{Cone}(Ff^{\bullet})}^{n}
+  \end{align*}
+\end{proof}
+
+% \section{Double complexes}
+
+% \begin{definition}[Double complex]\label{def:double-complex}
+%   A \textbf{double complex} in \(\category{C}\) is the data of
+%   \begin{equation*}
+%     \{X^{n, m}, \d_{\uparrow}^{n,m}, \d_{\to}^{n,m}\}_{n,m \in \mathbb{Z}}
+%   \end{equation*}
+%   where \(X^{n, m} \in \category{C}\) and the \textit{differential maps}
+%   \begin{equation*}
+%     \d_{\uparrow}^{n,m}: X^{n, m} \to X^{n+1, m} \qquad \d_{\to}^{n,m}: X^{n,m} \to X^{n, m+1}
+%   \end{equation*}
+%   satisfy
+%   \begin{equation*}
+%     \d_{\uparrow}^{n+1, m} \circ \d_{\uparrow}^{n, m} = \d_{\to}^{n, m+1} \circ \d_{\to}^{n, m} = 0 \qquad \d_{\to}^{n+1, m} \circ \d_{\uparrow}^{n, m} = \d_{\uparrow}^{n, m+1} \circ \d_{\to}^{n, m} 
+%   \end{equation*}
+%   This can be represented by a commutative diagram
+%   \begin{center}
+%     \begin{tikzcd}
+%       & \vdots & \vdots & & \\
+%       \cdots \arrow[r] & X^{n+1, m} \arrow[u] \arrow[r, "{\d_{\to}^{n+1, m}}"] & X^{n+1, m+1} \arrow[u] \arrow[r] & \cdots \\
+%       \cdots \arrow[r] & X^{n, m} \arrow[u, "{\d_{\uparrow}}^{n,m}"] \arrow[r, "{\d_{\to}^{n,m}}"'] & X^{n, m+1} \arrow[u, "\d_{\uparrow}^{n, m+1}"'] \arrow[r] & \cdots \\
+%       & \vdots \arrow[u] & \vdots \arrow[u] &
+%     \end{tikzcd}
+%   \end{center}
+%   We denote double complexes by \(X^{\bullet, \bullet}\)
+
+%   A morphism of double complexes \(f^{\bullet, \bullet}: X^{\bullet, \bullet} \to Y^{\bullet, \bullet}\) consists of maps \(\{f^{n, m}: X^{n, m} \to Y^{n, m}\}_{n, m \in \mathbb{Z}}\) such that the following cube commutes for all \(n, m \in \mathbb{Z}\):
+%   \begin{center}
+%     \begin{tikzcd}[row sep=huge, column sep=huge]
+%       & X^{n+1, m} \arrow[rr, "{\d_{X, \to}^{n+1, m}}"] \arrow[dl, "f^{n+1, m}"'] &  & X^{n+1, m+1} \arrow[dl, "f^{n+1, m+1}"] \\
+%       Y^{n+1, m} \arrow[rr, crossing over, "{\d_{Y, \to}^{n+1, m}}" near start] & & Y^{n+1, m+1} \\
+%       & X^{n, m} \arrow[rr, "{\d_{X, \to}^{n, m}}"' near start] \arrow[dl, "f^{n, m}"'] \arrow[uu, "{\d_{X, \uparrow}^{n, m}}"' near end] & & X^{n, m+1} \arrow[dl, "f^{n, m+1}"] \arrow[uu, "{\d_{X, \uparrow}^{n, m+1}}"'] \\
+%       Y^{n, m} \arrow[rr, "{\d_{Y, \to}^{n, m}}"'] \arrow[uu, "{\d_{Y, \uparrow}^{n, m}}"] & & Y^{n, m+1} \arrow[uu, crossing over, "{\d_{Y, \uparrow}^{n, m+1}}"' near end]
+%     \end{tikzcd}
+%   \end{center}
+
+%   In this way we obtain the \hyperref[def:additive-category]{additive category} \(\Complex[2]{\category{C}}\) of double complexes in \(\category{C}\).
+% \end{definition}
+
+% \begin{remark}
+%   There is a \hyperref[def:functor]{functor} \(F_{I}: \Complex[2]{\category{C}} \to \Complex{\Complex{C}}\) which to a \hyperref[def:double-complex]{double complex} \(X\) associates the \hyperref[def:complex]{complex} whose objects are the rows of \(X\).
+%   More precisely for all \(n \in \mathbb{Z}\) consider the \hyperref[def:complex]{complex}
+%   \begin{equation*}
+%     X_{I}^{n} \coloneq \{X^{n, m}, \d_{\to}^{n, m}\}_{m \in \mathbb{Z}}
+%   \end{equation*}
+%   The collection of morphisms \(\{\d_{\to}^{n, m}\}_{m \in \mathbb{Z}}\) defines a morphism \(\d_{I}^{n}: X_{I}^{n} \to X_{I}^{n+1}\), which trivially verifies \(\d_{I}^{n+1} \circ \d_{I}^{n} = 0\).
+%   Therefore \(X_{I}\) is a \hyperref[def:complex]{complex} in \(\Complex{\category{C}}\) and we have constructed the \hyperref[def:functor]{functor} \(F_{I}\).
+
+%   Interchainging rows and columns we get a \hyperref[def:functor]{functor} \(F_{II}: \Complex[2]{\category{C}} \to \Complex{\Complex{C}}\).
+% \end{remark}
+
+
+% \begin{remark}\label{rem:finiteness-condition-double-complex}
+%   To make things easier we will assume that all \hyperref[def:double-complex]{double complexes} \(X^{\bullet, \bullet} \in \Complex[2]{\category{C}}\)  verify the following finiteness condition:
+%   \begin{equation*}
+%     \forall p \in \mathbb{Z} \quad \{ (n, m) \in \mathbb{Z}^{2} \mid X^{n, m} \neq 0 \text{ and } n + m = p\} \text{ is finite.}
+%   \end{equation*}
+% \end{remark}
+
+
+% \begin{definition}[Total complex]
+%   Let \(X^{\bullet, \bullet}\) be a \hyperref[def:double-complex]{double complex}.
+%   The \textbf{total complex} \(\operatorname{tot}(X)^{\bullet}\) associated to \(X^{\bullet, \bullet}\) is the \hyperref[def:complex]{complex} defined by
+%   \begin{equation*}
+%     \operatorname{tot}(X^{\bullet, \bullet})^{n} \coloneq \bigoplus_{p+q=n} X^{p, q} \qquad \d_{\operatorname{tot}(X)}^{n} \coloneq \sum_{p+q=n} \left( \d_{\to}^{p, q} + (-1)^{p}\d_{\uparrow}^{p, q} \right)
+%   \end{equation*}
+% \end{definition}
+
+% \begin{proposition}\label{prop:tot-is-additive}
+%   The \hyperref[def:differential-object]{differential object} \(\{\operatorname{tot}(X^{\bullet, \bullet})^{p}, \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{p}\}_{p \in \mathbb{Z}}\) is a \hyperref[def:complex]{complex} and \(\operatorname{tot}: \Complex[2]{\category{C}} \to \Complex{\category{C}}\) is an \hyperref[def:additive-functor]{additive functor}.
+% \end{proposition}
+% \begin{proof}
+%   To see that \(\d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n+1} \circ \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} = 0\) we look at the maps from a specific source \(X^{p, q}\) with \(p+q = n\) to \(\operatorname{tot}^{n+2}\).
+%   Note that in two steps the only targets possible are
+%   \begin{itemize}
+%     \item[\(X^{p+2, q}\)] Reached via \(\d_{\to}^{p+1, q} \circ \d_{\to}^{p, q} = 0\).
+%     \item[\(X^{p, q+2}\)] Reached via \((-1)^{p}(\d_{\uparrow}^{p, q+1} \circ \d_{\uparrow}^{p, q}) = 0\).
+%     \item[\(X^{p+1, q+1}\)] There are two possible paths: \((-1)^{p+1}\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q}\) or \(\d_{\to}^{p, q+1} \circ (-1)^{p}\d_{\uparrow}^{p, q}\).
+%           Summing these we have
+%           \begin{align*}
+%             (-1)^{p+1}\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\to}^{p, q+1} \circ (-1)^{p}\d_{\uparrow}^{p, q} &= (-1)^{p} \left( -\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\to}^{p, q+1} \circ \d_{\uparrow}^{p, q} \right) \\
+%                                                                                                 &= (-1)^{p} \left( -\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} \right) \\
+%                                                                                                 &= 0
+%           \end{align*}
+%   \end{itemize}
+%   Therefore since all possibilities lead to the map being zero, \(\d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n+1} \circ \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} = 0\).
+  
+%   To see that \(\operatorname{tot}\) is \hyperref[def:additive-functor]{additive} note that
+%   \begin{equation*}
+%     \operatorname{tot}(0^{\bullet, \bullet}) = \bigoplus_{p+q=n} 0^{p, q} = 0^{\bullet}
+%   \end{equation*}
+%   Furthermore for any \(X^{\bullet, \bullet}, Y^{\bullet, \bullet} \in \Complex[2]{\category{C}}\)
+%   \begin{align*}
+%     \operatorname{tot}(X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}) &= \bigoplus_{p+q=n} \left( X^{p, q} \oplus Y^{p, q} \right) = \left( \bigoplus_{p+q=n} X^{p, q} \right) \oplus \left( \bigoplus_{p+q=n} Y^{p, q} \right) = \operatorname{tot}(X^{\bullet, \bullet}) \oplus \operatorname{tot}(Y^{\bullet, \bullet}) \\
+%     \d_{\operatorname{tot}(X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet})}^{n} &= \sum_{p+q=n} \left( \d_{X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \\
+%                                             &= \sum_{p+q=n} \left( \left(\d_{X^{\bullet, \bullet}, \to}^{p, q} \oplus \d_{Y^{\bullet, \bullet}, \to}^{p, q} \right) + (-1)^{p} \left(\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \oplus \d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right)  \right) \\
+%                                             &= \sum_{p+q=n} \left( \left( \d_{X^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \right) \oplus \left( \d_{Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \\
+%                                             &=  \left( \sum_{p+q=n} \left( \d_{X^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \oplus \left( \sum_{p+q=n} \left( \d_{Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \\
+%                                             &= \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} \oplus \d_{\operatorname{tot}(Y^{\bullet, \bullet})}^{n}
+%   \end{align*}
+%   Therefore by \autoref{prop:additive-functor-characterization} \(\operatorname{tot}\) is \hyperref[def:additive-functor]{additive}.
+% \end{proof}
+
+% \begin{remark}
+%   Since \hyperref[def:complex]{\(\Complex{\category{C}}\) is additive} and thus \hyperref[lemma:products-coproducts-additive-category]{finite products and coproducts coincide} we can write \(\prod\) instead of \(\bigoplus\) in the \hyperref[def:tot-complex]{\(\operatorname{tot}\) definition}.
+%   We can do this because we are assuming the \hyperref[rem:finiteness-condition-double-complex]{finiteness condition}.
+% \end{remark}
+
+
+% \begin{remark}[Bifunctors and double complexes]
+%   If \(\category{C}, \category{C'}\) and \(\category{C''}\) are \hyperref[def:additive-category]{additive categories} and \(F: \category{C} \times \category{C'} \to \category{C''}\) is an \hyperref[def:additive-functor]{additive bifunctor} (i.e: it is \hyperref[def:additive-functor]{additive} in each component).
+%   Then it defines an \hyperref[def:additive-functor]{additive bifunctor}
+%   \begin{equation*}
+%     \Complex[2]{F}: \Complex{\category{C}} \times \Complex{\category{C'}} \to \Complex[2]{\category{C''}}
+%   \end{equation*}
+%   In other words, if \(X \in \Complex{\category{C}}\) and \(X' \in \Complex{\category{C'}}\) are \hyperref[def:complex]{complexes} then \(\Complex[2]{F}(X, X')\) is a \hyperref[def:double-complex]{double complex}.
+% \end{remark}
+
+% \begin{example}\label{ex:tensor-product-double-complex}
+%   Let \(A\) be a ring.
+%   Consider the tensor product bifunctor
+%   \begin{equation*}
+%     - \otimes -: \Mod{A^{\op}} \times \Mod{A} \to \Ab
+%   \end{equation*}
+%   In what follows we will write \(\otimes\) instead of \(\Complex[2]{\otimes}\).
+%   Then for any \hyperref[def:complex]{complexes} \(X^{\bullet} \in \Complex{\Mod{A^{\op}}}, Y^{\bullet} \in \Complex{\Mod{A}}\) we have
+%   \begin{align*}
+%     (X^{\bullet} \otimes Y^{\bullet})^{n, m} = X^{n} \otimes Y^{m} \quad \d_{\uparrow}^{n, m} = \d_{X^{\bullet}}^{n} \otimes \id_{Y^{m}} \quad \d_{\to}^{n, m} = \id_{X^{n}} \otimes \d_{Y^{\bullet}}^{m}
+%   \end{align*}
+% \end{example}
+
+
+% \begin{example}[\(\Hom^{\bullet, \bullet}\) complex]\label{ex:hom-double-complex}
+%   Consider the bifunctor
+%   \begin{equation*}
+%     \Hom_{\category{C}}: \opcategory{C} \times \category{C} \to \Ab
+%   \end{equation*}
+%   In what follows we will write \(\Hom_{\category{C}}^{\bullet, \bullet}\) instead of \(\Complex[2]{\Hom_{\category{C}}}\).
+%   Then for any \hyperref[def:complex]{complexes} \(X^{\bullet} \in \Complex{\opcategory{C}}, Y^{\bullet} \in \Complex{\category{C}}\) we have
+%   \begin{align*}
+%     \Hom_{\category{C}}^{\bullet, \bullet}(X^{\bullet}, Y^{\bullet})^{n, m} = \Hom_{\category{C}}(X^{-m}, Y^{n}) \\
+%     \d_{\uparrow}^{n, m} = \Hom_{\category{C}}(X^{-m}, \d_{Y^{\bullet}}^{n}) \quad \d_{\to}^{n, m} = \Hom_{\category{C}}((-1)^{m+1}\d_{X^{\bullet}}^{m+1}, Y^{n})
+%   \end{align*}
+
+%   Using that \(\Ab\) admits \hyperref[def:categorical-product]{countable products} we set
+%   \begin{equation*}
+%     \Hom_{\category{C}}^{\bullet}(X^{\bullet}, Y^{\bullet}) \coloneq \operatorname{tot} \Hom_{\category{C}}^{\bullet, \bullet}(X^{\bullet}, Y^{\bullet}) \in \Complex{\Ab}
+%   \end{equation*}
+% \end{example}
+
+\section{The homotopy category}
+
+\begin{definition}[Homotopy]\label{def:homotopy}~
+  \begin{enumerate}
+    \item A \hyperref[def:complex]{morphism of complexes} \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) is \textbf{homotopic} to zero if for all \(p \in \mathbb{Z}\) there exists a morphism \(s^{p}: X^{p} \to Y^{p-1}\) in \(\category{C}\) such that
+          \begin{equation*}
+            f^{p} = s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}
+          \end{equation*}
+    \item Two morphisms \(f^{\bullet}, g^{\bullet}: X^{\bullet} \to Y^{\bullet}\) are homotopic if \(f^{\bullet}-g^{\bullet}\) is homotopic to zero.
+          We denote this by \(f^{\bullet} \sim g^{\bullet}\).
+    \item A \hyperref[def:complex]{complex} \(X^{\bullet} \in \Complex{\category{C}}\) is homotopic to zero if \(\id_{X^{\bullet}} \sim 0\).
+    \item A \hyperref[def:complex]{morphism of complexes} \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) is a \textbf{homotopy equivalence} if there exists \(g^{\bullet}: Y^{\bullet} \to X^{\bullet}\) such that \(g^{\bullet} \circ f^{\bullet} \sim \id_{X^{\bullet}}\)  and \(f^{\bullet} \circ g^{\bullet} \sim \id_{Y^{\bullet}}\).
+  \end{enumerate}
+\end{definition}
+
+\begin{lemma}\label{lemma:additive-preserves-homotopy}
+  Let \(F: \category{C} \to \category{D}\) be an \hyperref[def:additive-functor]{additive functor}.
+  If \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) is \hyperref[def:homotopy]{homotopic to zero} then \(Ff\) is also \hyperref[def:homotopy]{homotopic to zero}.
+\end{lemma}
+\begin{proof}
+  Since \(f^{\bullet}\) is \hyperref[def:homotopy]{homotopic to zero} for all \(p \in \mathbb{Z}\) there exists a morphism \(s^{p}: X^{p} \to Y^{p-1}\) such that
+  \begin{equation*}
+    f^{p} = s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    Ff^{p} = F(s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}) = Fs^{p+1} \circ \d_{F(X)}^{p} + \d_{F(Y)}^{p-1} \circ Fs^{p}
+  \end{equation*}
+\end{proof}
+
+\begin{lemma}\label{lemma:composition-homotopic-to-zero}
+  Let \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) and \(g^{\bullet}: Y^{\bullet} \to Z^{\bullet}\) be two \hyperref[def:complex]{morphisms of complexes} in \(\Complex{\category{C}}\).
+  If either \(f\) or \(g\) is \hyperref[def:homotopy]{homotopic to 0} then \(g \circ f\) is \hyperref[def:homotopy]{homotopic to 0}.
+\end{lemma}
+\begin{proof}
+  Assume that \(f\) is \hyperref[def:homotopy]{homotopic to 0}.
+  The proof consists on chasing the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      X^{p-1} \arrow[r] \arrow[d, "f^{p-1}"'] & X^{p} \arrow[r] \arrow[d, "f^{p}"'] \arrow[dl, "s^{p}"'] & X^{p+1} \arrow[d, "f^{p+1}"] \arrow[dl, "s^{p+1}"'] \\
+      Y^{p-1} \arrow[r] \arrow[d, "g^{p-1}"'] & Y^{p} \arrow[r] \arrow[d, "g^{p}"'] & X^{p+1} \arrow[d, "g^{p+1}"] \\
+      Z^{p-1} \arrow[r] & Z^{p} \arrow[r] & Z^{p+1}
+    \end{tikzcd}
+  \end{center}
+
+  We have that for all \(p \in \mathbb{Z}\) there exists \(s^{p}: X^{p} \to Y^{p-1}\) such that
+  \begin{equation*}
+    f^{p} = s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}
+  \end{equation*}
+  Therefore
+  \begin{align*}
+    g^{p} \circ f^{p} &= g^{p} \circ \left( s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p} \right) \\
+                  &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \left(g^{p} \circ \d_{Y}^{p-1}\right) \circ s^{p} \\
+                  &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \d_{Z}^{p-1} \circ \left( g^{p-1} \circ s^{p} \right) \\
+  \end{align*}
+\end{proof}
+
+\begin{definition}[Homotopy category]\label{def:homotopy-category}
+  Let \(\category{C}\) be a \hyperref[def:additive-category]{additive-category}.
+  For every pair of \hyperref[def:complex]{complexes} \(X^{\bullet}, Y^{\bullet} \in \Complex{\category{C}}\) set
+  \begin{equation*}
+    \operatorname{Ht}(X^{\bullet}, Y^{\bullet}) \coloneq \{f^{\bullet}: X^{\bullet} \to Y^{\bullet} \mid f \sim 0\}
+  \end{equation*}
+  The \textbf{homotopy category} \(\operatorname{K}(\category{C})\) of \(\category{C}\) is the \hyperref[def:category]{category} defined by
+  \begin{align*}
+    \operatorname{Ob}(\operatorname{K}(\category{C})) &\coloneq \operatorname{Ob}(\Complex{\category{C}}) \\
+    \Hom_{\operatorname{K}(\category{C})}(X^{\bullet}, Y^{\bullet}) &\coloneq \quot{\Hom_{\Complex{\category{C}}}(X^{\bullet}, Y^{\bullet})}{\operatorname{Ht}(X^{\bullet}, Y^{\bullet})}
+  \end{align*}
+
+  We define analogously the \hyperref[def:category]{categories} \(\operatorname{K}^{\ast}(\category{C})\) (\(\ast = +, -, \operatorname{b}\)).
+  
+  Note that all of these \hyperref[def:category]{categories} are endowed with an \hyperref[def:equivalent-categories]{equivalence}, the \hyperref[def:shift-functor]{shift functor} \([1]: X \mapsto X[1]\).
+\end{definition}
+
+\begin{remark}\label{rem:functor-extension-to-homotopy}
+  Let \(F: \category{C} \to \category{C'}\) be an \hyperref[def:additive-functor]{additive functor}.
+  This defines a \hyperref[def:additive-functor]{additive functor} \(F: \Complex{\category{C}} \to \Complex{\category{C}}\).
+
+  If \(f: X \to Y\) is \hyperref[def:homotopy]{homotopic to \(0\)} in \(\category{C}\) then by \autoref{lemma:additive-preserves-homotopy} \(Ff\) is \hyperref[def:homotopy]{homotopic to \(0\)}.
+  Therefore \(F\) defines an \hyperref[def:additive-functor]{additive functor}
+  \begin{equation*}
+    \operatorname{K}(F): \operatorname{K}(\category{C}) \to \operatorname{K}(\category{C'})
+  \end{equation*}
+
+  Now let \(F: \category{C} \times \category{C'} \to \category{C''}\) be an \hyperref[def:additive-functor]{additive bifunctor}.
+  This defines an \hyperref[def:additive-functor]{additive bifunctor} \(F: \Complex{\category{C}} \times \Complex{\category{C'}} \to \Complex{\category{C''}}\) and by composing with the \(\operatorname{tot}\) \hyperref[def:functor]{functor} a bifunctor \(\Complex[+]{\category{C}} \times \Complex[+]{\category{C'}} \to \Complex[+]{\category{C''}}\).
+
+  If \(f: X \to Y\) \hyperref[def:homotopy]{homotopic to \(0\)} in \(\category{C}\) and \(X' \in \category{C'}\) then \(F(f, X')\) is \hyperref[def:homotopy]{homotopic to \(0\)}, and analogously interchanging \(\category{C}\) and \(\category{C'}\).
+  Therefore \(F\) defines an \hyperref[def:additive-functor]{additive bifunctor}
+  \begin{equation*}
+    \operatorname{K}(F): \operatorname{K}(\category{C}) \times \operatorname{K}(\category{C'}) \to \operatorname{K}(\category{C''})
+  \end{equation*}
+
+  By abuse of notation when the context is clear we will write \(F\) instead of \(\operatorname{K}(F)\).
+\end{remark}
+
+% \begin{proposition}\label{prop:hom-}
+%   Let \(\category{C}\) be an \hyperref[def:additive-category]{additive category} and \(X^{\bullet}, Y^{\bullet} \in \Complex{\category{C}}\).
+%   There are \hyperref[def:categorical-isomorphism]{isomorphisms}
+%   \begin{align*}
+%     Z^{0}(\Hom_{\category{C}}^{\bullet}(X, Y)) &\coloneq \ker \d_{\Hom_{\category{C}}^{\bullet}(X, Y)}^{0} \cong \Hom_{\Complex{category{C}}}(X, Y) \\
+%     B^{0}(\Hom_{\category{C}}^{\bullet}(X, Y)) &\coloneq \operatorname{Im} \d_{\Hom_{\category{C}}^{\bullet}(X, Y)}^{-1} \cong \operatorname{Ht}(X, Y) \\
+%     \cohomology{0}(\Hom_{\category{C}}^{\bullet}(X, Y)) &\coloneq \quot{\ker \d_{\Hom_{\category{C}}^{\bullet}(X, Y)}^{0}}{\operatorname{Im} \d_{\Hom_{\category{C}}^{\bullet}(X, Y)}^{-1}} \cong \Hom_{\operatorname{K}(\category{C})}(X, Y) \\
+%   \end{align*}
+% \end{proposition}
+% \begin{proof}~
+%   \begin{enumerate}
+%     \item 
+%   \end{enumerate}
+% \end{proof}
+
+
+\end{document}

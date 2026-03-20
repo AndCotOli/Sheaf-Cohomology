@@ -1,0 +1,335 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument{1.Additive-categories}%
+    \zexternaldocument{2.Abelian-categories}%
+}{}
+
+\begin{document}
+\chapter{Triangulated categories}
+
+\begin{definition}[Triangle]\label{def:triangle}
+  Let \(\category{C}\) be an \hyperref[def:additive-category]{additive category} and \(T: \category{C} \to \category{C}\) a \hyperref[def:equivalent-categories]{equivalence}.
+  A \textbf{triangle} in \((\category{C}, T)\) is a sequence of morphisms
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r, "h"] & T(X)
+    \end{tikzcd}
+  \end{center}
+  A morphism of triangles is a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "f"] \arrow[d, "\alpha"] & Y \arrow[r, "g"] \arrow[d, "\beta"] & Z \arrow[r, "h"] \arrow[d, "\gamma"] & T(X) \arrow[d, "T\alpha"] \\
+      X' \arrow[r, "f'"'] & Y' \arrow[r, "g'"'] & Z' \arrow[r, "h'"'] & T(X')
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{definition}[Triangulated category]\label{def:triangulated-category}
+  A \textbf{triangulated category} is an \hyperref[def:additive-category]{additive category} \(\category{C}\) endowed with an \hyperref[def:equivalent-categories]{equivalence} \(T: \category{C} \to \category{C}\) called the \textit{shift} or \textit{translation} functor and a collection of \hyperref[def:triangle]{triangles} called \textit{distinguished triangles} (d.t. for short) that satisfy
+  \begin{enumerate}[start=0, label=Tr.\arabic*), ref=Tr.\arabic*]
+    \item\label{axiom:tr-0} A \hyperref[def:triangle]{triangle} \hyperref[def:categorical-isomorphism]{isomorphic} to a d.t. is a d.t.
+    \item\label{axiom:tr-1} The \hyperref[def:triangle]{triangle} \(X \xrightarrow{\id_{X}} X \to 0 \to T(X)\) is a d.t.
+    \item\label{axiom:tr-2} For all \(f: X \to Y\) there exists a d.t \(X \xrightarrow{f} Y \xrightarrow{g} Z \to T(X)\).
+    \item\label{axiom:tr-3} A \hyperref[def:triangle]{triangle} \(X \xrightarrow{f} Y \xrightarrow{g} Z \xrightarrow{h} T(X)\) is a d.t. if and only if \(Y \xrightarrow{g} Z \xrightarrow{h} T(X) \xrightarrow{-Tf} T(Y)\) is a d.t.
+    \item\label{axiom:tr-4} Given two d.t. \(X \xrightarrow{f} Y \xrightarrow{g} Z \xrightarrow{h} T(X)\) and \(X' \xrightarrow{f'} Y' \xrightarrow{g'} Z' \xrightarrow{h'} T(X')\) and morphisms \(\alpha: X \to X', \beta: Y \to Y'\) with \(f' \circ \alpha = \beta \circ f\) there exists a morphism \(\gamma: Z \to Z'\) giving rise to a morphism of d.t.
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[r, "f"] \arrow[d, "\alpha"] & Y \arrow[r, "g"] \arrow[d, "\beta"] & Z \arrow[r, "h"] \arrow[d, dotted, "\gamma"] & T(X) \arrow[d, "T\alpha"] \\
+              X' \arrow[r, "f'"'] & Y' \arrow[r, "g'"'] & Z' \arrow[r, "h'"'] & T(X')
+            \end{tikzcd}
+          \end{center}
+    \item\label{axiom:tr-5} Given three d.t.
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[r, red, "f" black] & Y \arrow[r, red, "g" black] & Z' \arrow[r, red] & T(X) \\
+              Y \arrow[r, blue, "g" black] & Z \arrow[r, blue, "k" black] & X' \arrow[r, blue] & T(Y) \\
+              X \arrow[r, green, "g \circ f" black] & Z \arrow[r, green, "\ell" black] & Y' \arrow[r, green] & T(X)
+            \end{tikzcd}
+          \end{center}
+          There exists a d.t. \(Z' \xrightarrow{\varphi} Y' \xrightarrow{\psi} X' \to T(Z)\) making the diagram below commute
+          \begin{center}
+            \begin{tikzcd}
+              & Y' \arrow[ddl, green, "+1"]  \arrow[dr, dotted, "\psi"] & \\
+              Z' \arrow[ur, dotted, "\varphi"] \arrow[d, red, "+1"'] & & X' \arrow[ll, dotted, "+1"'] \arrow[ddl, blue, "+1"'] \\
+              X \arrow[rr, green] \arrow[dr, red] & & Z \arrow[u, blue] \arrow[uul, green] \\
+              & Y \arrow[uul, red] \arrow[ur, blue]
+            \end{tikzcd}
+          \end{center}
+          where \(A \xrightarrow{+1} B\) means \(A \to T(B)\).
+  \end{enumerate}
+\end{definition}
+
+\section{Triangulated and cohomological functors}
+
+\begin{definition}[Triangulated functor]\label{def:triangulated-functor}
+  Let \((\category{C}, T)\), \((\category{C'}, T')\) be two \hyperref[def:triangulated-category]{triangulated categories}.
+  A \textbf{triangulated functor} \(F: (\category{C}, T) \to (\category{C'}, T')\) is an \hyperref[def:additive-functor]{additive functor} \(F: \category{C} \to \category{C'}\) such that \(F \circ T \cong T' \circ F\) and which sends distinguished triangles to distinguished triangles.
+\end{definition}
+
+\begin{definition}[Triangulated subcategory]\label{def:triangulated-subcategory}
+  A \textbf{triangulated subcategory} \(\category{C'}\) of a \hyperref[def:triangulated-category]{triangulated category} \(\category{C}\) is a \hyperref[def:subcategory]{subcategory} \(\category{C'}\) of  \(\category{C}\) that is \hyperref[def:triangulated-subcategory]{triangulated} and such that the inclussion \hyperref[def:functor]{functor} \(\category{C'} \hookrightarrow \category{C}\) is \hyperref[def:triangulated-functor]{triangulated}.
+\end{definition}
+
+\begin{definition}[Cohomological functor]\label{def:cohomological-functor}
+  Let \((\category{C}, T)\) be a \hyperref[def:triangulated-category]{triangulated category} and \(\category{D}\) an \hyperref[def:abelian-category]{abelian category}.
+  An \hyperref[def:additive-functor]{additive functor} \(F: \category{C} \to \category{D}\) is \textbf{cohomological} if for any d.t. \(X \to Y \to Z \to T(X)\) in \(\category{C}\) the sequence \(F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-sequence]{exact} in \(\category{D}\).
+\end{definition}
+
+\begin{remark}
+  By \ref{axiom:tr-3} any \hyperref[def:cohomological-functor]{cohomological functor} \(F\) gives rise to a \hyperref[def:exact-sequence]{long exact sequence}
+    \begin{center}
+    \begin{tikzcd}
+      \cdots \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] & F(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & FT(X) \arrow[r] & FT(Y) \arrow[r] & FT(Z) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+\begin{proposition}\label{prop:dt-and-hom}
+  Let \((\category{C}, T)\) be a \hyperref[def:triangulated-category]{triangulated category}.
+  \begin{enumerate}
+    \item If \(X \xrightarrow{f} Y \xrightarrow{g} Z \to T(X)\) is a d.t. then \(g \circ f = 0\).
+    \item For any \(W \in \category{C}\) the \hyperref[ex:hom-functor]{Hom functors} \(\Hom_{\category{C}}(W, -)\) and \(\Hom_{\category{C}}(-, W)\) are \hyperref[def:cohomological-functor]{cohomological}.
+
+          This means that if \(\varphi: W \to Y\) (resp. \(\varphi: Y \to W\)) satisfies \(g \circ \varphi = 0\) (resp. \(\varphi \circ f = 0\)) then \(\varphi\) factorizes through \(f\) (resp. through \(g\)).
+  \end{enumerate}
+\end{proposition}
+\begin{proof}~
+\begin{enumerate}
+  \item By \ref{axiom:tr-1} and \ref{axiom:tr-4} we have a commutative diagram
+        \begin{center}
+          \begin{tikzcd}
+            X \arrow[r, "\id_{X}"] \arrow[d, "\id_{X}"] & X \arrow[r] \arrow[d, "f"] & 0 \arrow[r] \arrow[d] & T(X) \arrow[d, "{\id_{T(X)}}"] \\
+            X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & T(X)
+          \end{tikzcd}
+        \end{center}
+        Therefore by the commutativity of the middle square \(g \circ f = 0\).
+  \item We will check \(\Hom(W, -)\), the other case is analogous.
+
+        Let \(X \xrightarrow{f} Y \xrightarrow{g} Z \to T(X)\) be a d.t. and \(W \in \category{D}\).
+        We want to show that
+        \begin{center}
+          \begin{tikzcd}
+            \Hom(W, X) \arrow[r, "f \circ"] & \Hom(W, Y) \arrow[r, "g \circ "] & \Hom(W, Z)
+          \end{tikzcd}
+        \end{center}
+        is \hyperref[def:exact-sequence]{exact}, i.e: for all \(\varphi: W \to Y\) such that \(g \circ \varphi = 0\) there exists \(\psi: W \to X\) such that \(\varphi = f \circ \psi\).
+        In other words, that the dotted arrow below may be completed
+        \begin{center}
+          \begin{tikzcd}
+            W \arrow[r, "\id_{X}"] \arrow[d, dotted] & W \arrow[r] \arrow[d, "\varphi"] & 0 \arrow[r] \arrow[d] & T(W) \arrow[d, dotted] \\
+            X \arrow[r, "f"'] & Y \arrow[r, "g"'] & Z \arrow[r] & T(X)
+          \end{tikzcd}
+        \end{center}
+        This follows directly from \ref{axiom:tr-1} and \ref{axiom:tr-4}.
+\end{enumerate}
+\end{proof}
+
+\begin{proposition}\label{prop:triangulated-two-isos}
+  Consider a morphism of d.t. in a \hyperref[def:triangulated-category]{triangulated category} \((\category{C}, T)\)
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "f"] \arrow[d, "\alpha"] & Y \arrow[r, "g"] \arrow[d, "\beta"] & Z \arrow[r, "h"] \arrow[d, "\gamma"] & T(X) \arrow[d, "T\alpha"] \\
+      X' \arrow[r, "f'"'] & Y' \arrow[r, "g'"'] & Z' \arrow[r, "h'"'] & T(X')
+    \end{tikzcd}
+  \end{center}
+  If \(\alpha\) and \(\beta\) are \hyperref[def:categorical-isomorphism]{isomorphisms} then so is \(\gamma\).
+\end{proposition}
+\begin{proof}
+  Let \(W \in \category{C}\).
+  If we apply \(\Hom(W, -)\) to the above diagram, denoting by \(\widetilde{X} \coloneq \Hom(W, X), \widetilde{\alpha} \coloneq \Hom(W, \alpha), \ldots\), we get a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      \widetilde{X} \arrow[r, "\widetilde{f}"] \arrow[d, "\widetilde{\alpha}"] & \widetilde{Y} \arrow[r, "\widetilde{g}"] \arrow[d, "\widetilde{\beta}"] & \widetilde{Z} \arrow[r, "\widetilde{h}"] \arrow[d, "\widetilde{\gamma}"] & \widetilde{T(X)} \arrow[d, "\widetilde{T\alpha}"] \arrow[r, "\widetilde{Tf}"] & \widetilde{T(Y)} \arrow[d, "\widetilde{T\beta}"] \\
+      \widetilde{X'} \arrow[r, "\widetilde{f'}"'] & \widetilde{Y'} \arrow[r, "\widetilde{g'}"'] & \widetilde{Z'} \arrow[r, "\widetilde{h'}"'] & \widetilde{T(X')}  \arrow[r, "\widetilde{Tf'}"'] & \widetilde{T(Y')}
+    \end{tikzcd}
+  \end{center}
+  By \autoref{prop:dt-and-hom} the rows are \hyperref[def:exact-sequence]{exact} and \(\widetilde{\alpha}, \widetilde{\beta}, \widetilde{T(\alpha)}, \widetilde{T(\beta)}\) are \hyperref[def:categorical-isomorphism]{isomorphisms}.
+  Therefore by the \hyperref[lemma:five-lemma]{lemma} \(\widetilde{\gamma} = \Hom(W, \gamma): \Hom(W, Z) \to \Hom(W, Z')\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  Applying the \hyperref[thm:yoneda-lemma]{Yoneda lemma} we get that \(\gamma\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+\end{proof}
+
+\begin{corollary}
+  Let \(\category{C'}\) be a \hyperref[def:subcategory]{full} \hyperref[def:triangulated-subcategory]{triangulated subcategory} of a \hyperref[def:triangulated-category]{triangulated category} \(\category{C}\).
+  \begin{enumerate}
+    \item Consider a \hyperref[def:triangle]{triangle} \(X \xrightarrow{f} Y \to Z \to T(X)\) in \(\category{C'}\).
+          If this \hyperref[def:triangle]{triangle} is distinguished in \(\category{C}\) then it is distinguished in \(\category{C'}\).
+    \item Consider a d.t. \(X \xrightarrow{f} Y \to Z \to T(X)\) in \(\category{C}\) with \(X, Y \in \category{C'}\). Then there exists \(Z' \in \category{C'}\) and an \hyperref[def:categorical-isomorphim]{isomorphism} \(Z \cong Z'\).
+  \end{enumerate}
+\end{corollary}
+\begin{proof}~
+  By \ref{axiom:tr-2} there exists a d.t. \(X \xrightarrow{f} Y \to Z' \to T(X)\) in \(\category{C'}\).
+  By \ref{axiom:tr-4} there exists a morphism of d.t. in \(\category{C}\)
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "f"] \arrow[d, "\id_{X}"] & Y \arrow[r] \arrow[d, "\id_{Y}"] & Z' \arrow[r] \arrow[d, "\gamma"] & T(X) \arrow[d, "{\id_{T(X)}}"] \\
+      X \arrow[r, "f"'] & Y \arrow[r] & Z \arrow[r] & T(X)
+    \end{tikzcd}
+  \end{center}
+  By \autoref{prop:triangulated-two-isos} this morphism is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  Therefore \(Z \cong Z'\) and the original \hyperref[def:triangle]{triangle} is distinguished.
+\end{proof}
+
+\section{Localization of triangulated categories}
+
+Recall the definitions of \autoref{chapter:localization}.
+
+\begin{definition}\label{def:full-saturated-subcategory}
+  A \hyperref[def:full-subcategory]{full subcategory} \(\category{C'}\) of a \hyperref[def:category]{category} \(\category{C}\) is \textbf{saturated} if \(X \in \category{C'}\) and \(Y \cong X\) implies \(Y \in \category{C'}\).
+\end{definition}
+
+\begin{definition}[Null system]
+  A \textbf{null system} \(\mathcal{N}\) in a \hyperref[def:triangulated-category]{triangulated category} \(\category{C}\) is a \hyperref[def:subcategory]{full} \hyperref[def:triangulated-subcategory]{triangulated subcategory} of \(\category{C}\) that satisies
+  \begin{enumerate}[label=N.\arabic*), ref=N.\arabic*]
+    \item \(0 \in \mathcal{N}\).
+    \item \(X \in \mathcal{N}\) if and only if \(T(X) \in \mathcal{N}\).
+    \item If \(X \to Y \to Z \to T(X)\) is a d.t. in \(\category{D}\) and \(X, Y \in \mathcal{N}\) then \(Z \in \mathcal{N}\).
+  \end{enumerate}
+
+  To every null system we associate the following family of morphisms
+  \begin{equation*}
+    \mathcal{S} \coloneq \{f: X \to Y \mid \exists X \xrightarrow{f} Y \to Z \to T(X) \text{ d.t. with } Z \in \mathcal{N}\}
+  \end{equation*}
+\end{definition}
+
+\begin{lemma}
+  \(\mathcal{S}\) is a \hyperref[def:multiplicative-system]{right and left multiplicative system}.
+\end{lemma}
+\begin{proof}
+  We will show that \(\mathcal{S}\) is a \hyperref[def:multiplicative-system]{right multiplicative system}.
+  The other one is analogous.
+  \begin{enumerate}
+    \item[\ref{axiom:multiplicative-id}] Since \(X \xrightarrow{\id_{X}} X \to 0 \to T(X)\) is a d.t., \(\id_{X} \in \mathcal{S}\).
+    \item[\ref{axiom:multiplicative-composition}] Direct from the \hyperref[axiom:tr-5]{octahedral axiom Tr.5}.
+    \item[\ref{axiom:multiplicative-diagram}] There exists a d.t.
+          \begin{center}
+            \begin{tikzcd}
+              W \arrow[r, "h"] & X \arrow[r, "s"] & X' \arrow[r] & T(W)
+            \end{tikzcd}
+          \end{center}
+          with \(W \in \mathcal{N}\).
+          The morphism \(h \circ f: W \to Y\) gives rise to a d.t.
+          \begin{center}
+            \begin{tikzcd}
+              W \arrow[r] & Y \arrow[r, "t"] & Y' \arrow[r] & T(W)
+            \end{tikzcd}
+          \end{center}
+          so \(t \in \mathcal{S}\).
+          Therefore by \ref{axiom:tr-4} there exists a \hyperref[def:triangle]{morphism of triangles}
+          \begin{center}
+            \begin{tikzcd}
+              W \arrow[r, "h"] \arrow[d, equal] & X \arrow[r, "s"] \arrow[d, "f"'] & X' \arrow[r] \arrow[d, dotted, "g"] & T(W) \arrow[d, equal] \\
+              W \arrow[r] & Y \arrow[r, dotted, "t"'] & Y' \arrow[r] & T(W)
+            \end{tikzcd}
+          \end{center}
+    \item[\ref{axiom:multiplicative-equaliser}] By replacing \(f\) with \(f-g\) it is enough to check that there exists \(s: W \to X \in \mathcal{S}\) such that if \(f \circ s = 0\) then there exists \(t: Y \to Z \in \mathcal{S}\) such that \(t \circ f = 0\).
+          Consider the diagram
+           \begin{center}
+            \begin{tikzcd}
+              W \arrow[r, "s"] & X \arrow[r, "k"] \arrow[dr, "f"'] & X' \arrow[r] \arrow[d, dotted, "h"] & T(W) \\
+              & & Y \arrow[d, dotted, "t"] \\
+              & & Z
+            \end{tikzcd}
+          \end{center}
+          where the top row is a d.t.
+          Since the \hyperref[prop:dt-and-hom]{Hom functors are cohomological} the sequence
+          \begin{center}
+            \begin{tikzcd}
+              \Hom(X', Y) \arrow[r, "\circ k"] & \Hom(X, Y) \arrow[r, "\circ s"] & \Hom(W, Y)
+            \end{tikzcd}
+          \end{center}
+          is \hyperref[def:exact-sequence]{exact}.
+          Since \(f \circ s = 0\) the dotted arrow \(h\) may be completed making the diagram commutative.
+          If we then embed \(h\) into a d.t. \(X' \xrightarrow{h} Y \xrightarrow{t} Z \to T(X')\) we get an arrow \(t\) such that \(t \circ h = 0\).
+          Finally we get \(t \circ f = 0\) and, since \(X' \in \mathcal{N}\), \(t \in \mathcal{S}\).
+  \end{enumerate}
+\end{proof}
+
+The proof of the following theorem is straightforward but rather tedious, so we refer to \cite{kashiwaraCategoriesSheaves2006} for a full proof.
+\begin{theorem}
+  Let \(\category{C}\) be a \hyperref[def:triangulated-category]{triangulated category}, \(\mathcal{N}\) a \hyperref[def:null-system]{null system} in \(\category{C}\) and \(\mathcal{S}\) its associated \hyperref[def:multiplicative-system]{right multiplicative system}.
+  Let \(\category{C}[\mathcal{S}^{-1}]\) be the \hyperref[def:localization-category]{localization} of \(\category{C}\) by \(\mathcal{S}\) and \(Q\) the \hyperref[def:localization-category]{localization functor}.
+  \begin{enumerate}
+    \item \(\category{C}[\mathcal{S}^{-1}]\) is an \hyperref[def:additive-category]{additive category} endowed with an \hyperref[def:equivalent-categories]{equivalence} (the image of \(T\)), which we still denote by \(T\).
+    \item If we define a d.t. in \(\category{C}[\mathcal{S}^{-1}]\) as being \hyperref[def:categorical-isomorphism]{isomorphic} to the image of a d.t. by \(Q\), then \(\category{C}[\mathcal{S}^{-1}]\) is \hyperref[def:triangulated-category]{triangulated}.
+    \item If \(X \in \mathcal{N}\) then \(Q(X) \cong 0\).
+    \item Let \(F: \category{C} \to \category{C'}\) be a \hyperref[def:triangulated-functor]{functor of triangulated categories} such that \(F(X) \cong 0\) for all \(X \in \mathcal{N}\). Then \(F\) factors uniquely through \(Q\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proposition}
+  Let \(\category{C}\) be a \hyperref[def:triangulated-category]{triangulated category}, \(\mathcal{N}\) a \hyperref[def:null-system]{null system} in \(\category{C}\) and \(\category{C'}\) a \hyperref[def:subcategory]{full} \hyperref[def:triangulated-subcategory]{triangulated subcategory} of \(\category{C}\).
+  Assume that either of this conditions hold
+  \begin{enumerate}
+    \item Any morphism \(Y \to Z\) with \(Y \in \category{C'}\) and \(Z \in \mathcal{N}\) factorizes as \(Y \to Z' \to Z\) with \(Z' \in \mathcal{N} \cap \category{C'}\).
+    \item Any morphism \(Z \to Y\) with \(Y \in \category{C'}\) and \(Z \in \mathcal{N}\) factorizes as \(Z \to Z' \to Y\) with \(Z' \in \mathcal{N} \cap \category{C'}\).
+  \end{enumerate}
+  Then the \hyperref[def:functor]{functor} \(\category{C'}[(\mathcal{N} \cap \category{C'})^{-1}] \to \category{C}[\mathcal{N}^{-1}]\) is \hyperref[def:functor-types]{fully faithful}.
+\end{proposition}
+\begin{proof}
+  We will suppose \(2.\) The proof assuming \(1\) is analogous.
+
+  Let \(f: Y \to X\) be a morphism in \(\category{C'}\) with \(Y \in \category{C'}\).
+  We want to show that there exists \(g: X \to W\) with \(W \in \category{C'}\) and \(g \circ f \in \category{C'}\).
+  We embed \(f\) into a d.t.
+  \begin{center}
+    \begin{tikzcd}
+      Y \arrow[r, "f"] & X \arrow[r] & Z \arrow[r] & T(Y)
+    \end{tikzcd}
+  \end{center}
+  with \(Z \in \mathcal{N}\).
+  By hypothesis the morphism \(Z \to T(Y)\) factorizes through an object \(Z' \in \mathcal{N} \cap \category{C'}\).
+  If we embed \(Z' \to T(Y)\) into a d.t. we obtain \hyperref[def:triangle]{morphism of d.t.}
+  \begin{center}
+    \begin{tikzcd}
+      Y \arrow[r, "f"] \arrow[d, equal] & X \arrow[r] \arrow[d, dotted, "g"'] & Z \arrow[r] \arrow[d] & T(Y) \arrow[d, equal] \\
+      Y \arrow[r, "g \circ f"] & W \arrow[r, "f"] & Z' \arrow[r] & T(Y)
+    \end{tikzcd}
+  \end{center}
+  By \ref{axiom:tr-4} the dotted arrow \(g\) may be completed and since \(Z' \in \mathcal{N}\) we have \(g \circ f \in \category{C'}\).
+\end{proof}
+
+\begin{proposition}\label{prop:equivalence-localization-null-system}
+  Let \(\category{C}\) be \hyperref[def:triangulated-category]{triangulated}, \(\mathcal{N}\) a \hyperref[def:null-system]{null system} and \(\category{C'}\) a \hyperref[def:subcategory]{full} \hyperref[def:triangulated-subcategory]{triangulated subcategory} of \(\category{C}\).
+  Assume that
+  \begin{enumerate}
+    \item For any \(X \in \category{C}\) there exists a d.t. \(X \to Y \to Z \to T(X)\) with \(Z \in \mathcal{N}\) and \(Y \in \category{C'}\).
+    \item For any \(X \in \category{C}\) there exists a d.t. \(Y \to X \to Z \to T(Y)\) with \(Z \in \mathcal{N}\) and \(Y \in \category{C'}\).
+  \end{enumerate}
+  Then \(\category{C'}[(\mathcal{N} \cap \category{C'})^{-1}] \to \category{C}[\mathcal{N}^{-1}]\) is an \hyperref[def:equivalent-categories]{equivalence of categories}.
+\end{proposition}
+\begin{proof}
+  Direct from \autoref{cor:equivalence-localization-multiplicative}.
+\end{proof}
+
+\begin{theorem}\label{thm:conditions-localization-null-system}
+  Let \(F: \category{C} \to \category{D}\) be a \hyperref[def:functor]{functor} between \hyperref[def:triangulated-category]{triangulated categories}.
+  Let \(\mathcal{N}\) be a \hyperref[def:null-system]{null system} in \(\category{C}\) and \(\category{C'}\) a \hyperref[def:subcategory]{full} \hyperref[def:triangulated-subcategory]{triangulated subcategory} of \(\category{C}\).
+  Suppose
+  \begin{enumerate}
+    \item For all \(X \in \category{C}\) there exists a d.t. \(X \to Y \to Z \to T(X)\) with \(Z \in \mathcal{N}\) and \(Y \in \category{C'}\).
+    \item \(F(Y) \cong 0\) for all \(Y \in \mathcal{N} \cap \category{C'}\).
+  \end{enumerate}
+  Then \(F\) is \hyperref[def:localization-functor]{right localizable} and its \hyperref[def:localization-functor]{localizable} is a \hyperref[def:triangulated-functor]{triangulated functor}.
+\end{theorem}
+\begin{proof}
+  Direct from \autoref{prop:conditions-for-localization}.
+\end{proof}
+
+To finish this chapter, we state how \hyperref[def:localization-category]{localization} interacts with \hyperref[def:direct-sum]{direct sums}.
+\begin{proposition}[{\cite[Propositions 10.1.19, 10.2.8]{kashiwaraCategoriesSheaves2006}}]
+  Let \(\category{C}\) be a \hyperref[def:triangulated-category]{triangulated category} admitting \hyperref[def:direct-sum]{small direct sums}.
+  \begin{enumerate}
+    \item The \hyperref[def:localization-category]{localization functor} commutes with \hyperref[def:direct-sum]{small direct sums} and a \hyperref[def:direct-sum]{small direct sums} of a d.t. is a d.t.
+    \item Let \(\mathcal{N}\) be a \hyperref[def:null-system]{null system} in \(\category{C}\) stable under \hyperref[def:direct-sum]{small direct sums}. Then \(\category{C}[\mathcal{N}^{-1}]\) admits \hyperref[def:direct-sum]{small direct sums} and the \hyperref[def:localization-category]{localization functor} commutes with them.
+  \end{enumerate}
+\end{proposition}
+
+
+\end{document}

@@ -1,0 +1,394 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{1.Categories-morphisms-and-duality}%
+    \zexternaldocument*{2.Functors-and-natural-transformations}%
+    \zexternaldocument*{3.Limits-and-colimits}
+    \zexternaldocument*{4.More-on-functors}
+}{}
+
+\begin{document}
+\chapter{Localization}\label{chapter:localization}
+
+\section{Localization of categories}
+
+\begin{definition}\label{def:localization-category}
+  A \textbf{localization} of a \hyperref[def:category]{category} \(\category{C}\) by a class of morphisms \(\mathcal{W}\) in \(\category{C}\) is a \hyperref[def:category]{category} \(\category{C}[\mathcal{W}^{-1}]\) together with a \hyperref[def:functor]{functor} \(Q: \category{C} \to \category{C}[\mathcal{W}^{-1}]\) called the \textit{localization functor} satisfying:
+  \begin{enumerate}
+    \item For every morphism \(w \in \mathcal{W} \quad Qw\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+    \item For any \hyperref[def:category]{category} \(\category{D}\) and \hyperref[def:functor]{functor} \(F: \category{C} \to \category{D}\) such that \(Fw\) is an \hyperref[def:categorical-isomorphims]{isomorphism} for all \(w \in \mathcal{W}\) there exists a \hyperref[def:functor]{functor} \(F_{\mathcal{W}}: \category{C}[\mathcal{W}^{-1}] \to \category{D}\) and a \hyperref[def:natural-transformation]{natural isomorphism} \(F \cong F_{\mathcal{W}} \circ Q\):
+          \begin{center}
+            \begin{tikzcd}
+              \category{C} \arrow[r, "F"] \arrow[d, "Q"'] & \category{D} \\
+              \category{C}[\mathcal{W}^{-1}] \arrow[ru, dotted, "F_{\mathcal{W}}"']
+            \end{tikzcd}
+          \end{center}
+    \item The map between \hyperref[def:functor-category]{functor categories}
+          \begin{equation*}
+            - \circ Q: \Fct{\category{C}[\mathcal{W}^{-1}]}{\category{D}} \to \Fct{\category{C}}{\category{D}}
+          \end{equation*}
+          is \hyperref[def:functor-types]{fully faithful} for every \hyperref[def:category]{category} \(\category{D}\).
+
+          Less abstractly, for any two \hyperref[def:functor]{functors} \(G_{1}, G_{2}: \category{C}[\mathcal{W}^{-1}] \to \category{D}\) the map
+          \begin{equation*}
+            \Hom_{\Fct{\category{C}[W^{-1}]}{\category{D}}}(G_{1}, G_{2}) \isoarrow \Hom_{\Fct{\category{C}}{\category{D}}}(G_{1} \circ Q, G_{2} \circ Q)
+          \end{equation*}
+          is bijective.
+
+          This makes the \hyperref[def:functor]{functor} \(F_{\mathcal{W}}\) unique up to unique \hyperref[def:natural-transformation]{natural isomorphism}.
+  \end{enumerate}
+\end{definition}
+
+\begin{proposition}~
+  \begin{enumerate}
+    \item If \(\category{C}[\mathcal{W}^{-1}]\) exists, it is unique up to unique \hyperref[def:equivalent-categories]{equivalence of categories}.
+    \item If \(\category{C}[\mathcal{W}^{-1}]\) exists then, denoting \(\mathcal{W}^{\operatorname{op}}\) the image of \(\mathcal{W}\) in \(\opcategory{C}\) by the \hyperref[def:functor]{functor} \(\operatorname{op}: \category{C} \to \opcategory{C}\), \(\opcategory{C}[(\mathcal{W}^{\operatorname{op}})^{-1}]\) exists and \(\opcategory{C}[(\mathcal{W}^{\operatorname{op}})^{-1}] \cong \left( \category{C}[\mathcal{W}^{-1}] \right)^{\operatorname{op}}\).
+  \end{enumerate}
+\end{proposition}
+\begin{proof}~
+\begin{enumerate}
+  \item Direct from the definition.
+  \item Assume \(\category{C}[\mathcal{W}^{-1}]\) exists.
+        Set \(\opcategory{C}[(\mathcal{W}^{\operatorname{op}})^{-1}] \coloneq \left( \category{C}[\mathcal{W}^{-1}] \right)^{\operatorname{op}}\) and define
+        \begin{equation*}
+          Q^{\operatorname{op}}: \opcategory{C} \to \opcategory{C}[(\mathcal{W}^{\operatorname{op}})^{-1}], Q^{\operatorname{op}} \coloneq  \operatorname{op} \circ Q \circ \operatorname{op}
+        \end{equation*}
+        The properties of \autoref{def:localization-category} are clearly satisfied.
+\end{enumerate}
+\end{proof}
+
+\begin{definition}\label{def:multiplicative-system}
+  A class of morphisms \(\mathcal{S}\) of a \hyperref[def:category]{category} \(\category{C}\) is a \textbf{right multiplicative system} if it satisfies
+  \begin{enumerate}[label=S.\arabic*), ref=S.\arabic*]
+    \item\label{axiom:multiplicative-id} \(\id_{X} \in \mathcal{S}\) for all \(X \in \category{C}\).
+    \item\label{axiom:multiplicative-composition} For all \(f, g \in \mathcal{S}\) if \(g \circ f\) exists then \(g \circ f \in \mathcal{S}\).
+    \item\label{axiom:multiplicative-diagram} Given \(f: X \to Y\) in \(\category{C}\) and \(s: X \to X'\) in \(\mathcal{S}\) there exist \(g: X' \to Y'\) in \(\category{C}\) and \(t: Y \to Y'\) in \(\mathcal{S}\) making the following diagram commute
+          \begin{center}
+            \begin{tikzcd}
+              X' \arrow[r, dotted, "g"] & Y' \\
+              X \arrow[r, "f"'] \arrow[u, "s"] & Y \arrow[u, dotted, "t"']
+            \end{tikzcd}
+          \end{center}
+    \item\label{axiom:multiplicative-equaliser} For any pair of morphisms \(f, g: X \rightrightarrows Y\) in \(\category{C}\) if their \hyperref[def:equaliser]{equaliser} \(\operatorname{eq}: E \to X\) exists and \(\operatorname{eq} \in \mathcal{S}\) then the \hyperref[def:coequaliser]{coequaliser} \(\operatorname{coeq}: Y \to C\) exists and \(\operatorname{coeq} \in \mathcal{S}\).
+          Visually
+          \begin{center}
+            \begin{tikzcd}
+              E \arrow[r, "\operatorname{eq}"] & X \arrow[r, shift left, "f"] \arrow[r, shift right, "g"'] & Y \arrow[r, dotted, "\operatorname{coeq}"] & C
+            \end{tikzcd}
+          \end{center}
+  \end{enumerate}
+
+  We can define a \hyperref[def:dual]{dual} system called \textbf{left multiplicative system} by reversing the arrows of \ref{axiom:multiplicative-diagram} and \ref{axiom:multiplicative-equaliser}.
+\end{definition}
+
+\begin{remark}
+  Axioms \ref{axiom:multiplicative-id} and \ref{axiom:multiplicative-composition} assert that \(\mathcal{S}\) is the family of morphisms of a \hyperref[def:subcategory]{subcategory} \(\widetilde{\mathcal{S}}\) with \(\operatorname{Ob}(\widetilde{\mathcal{S}}) = \operatorname{Ob}(\category{C})\).
+\end{remark}
+
+\begin{definition}
+  Suppose \(\mathcal{S}\) satisfies \ref{axiom:multiplicative-id} and \ref{axiom:multiplicative-composition} and let \(X \in \category{C}\).
+  We define the \hyperref[def:category]{categories} \(\mathcal{S}^{X}\) and \(\mathcal{S}_{X}\) as
+  \begin{align*}
+    \operatorname{Ob}(\mathcal{S}^{X}) &\coloneq \{s: X \to Y \mid s \in \mathcal{S}\}  \\
+    \Hom_{\mathcal{S}^{X}}( (s: X \to Y), (s': X \to Y') ) &\coloneq \{ h \in \Hom_{\category{C}}(Y, Y') \mid h \circ s = s'\}  \\ \\
+    \operatorname{Ob}(\mathcal{S}_{X}) &\coloneq \{s: Y \to X \mid s \in \mathcal{S}\} \\
+    \Hom_{\mathcal{S}_{X}}( (s: Y \to X), (s': Y' \to X) ) &\coloneq \{ h \in \Hom_{\category{C}}(Y, Y') \mid s ' \circ h = s \}
+  \end{align*}
+\end{definition}
+
+\begin{proposition}
+  Let \(\mathcal{S}\) be a right (resp. left) \hyperref[def:multiplicative-system]{multiplicative system}.
+  Then the \hyperref[def:category]{category} \(\mathcal{S}^{X}\) (resp. \((\mathcal{S}^{x})^{\operatorname{op}}\)) is directed.
+\end{proposition}
+\begin{proof}
+  Note that \(\mathcal{S}^{X}\) is non-empty since \(\id_{X} \in \mathcal{S}^{X}\).
+
+  Let \(s: X \to Y, s': X \to Y' \in \mathcal{S}^{X}\).
+  On the one hand by \ref{axiom:multiplicative-diagram} there exists \(t: Y \to Z\) and \(t': Y' \to Z\) such that \(t' \circ s' = t \circ s\) and \(t \in \mathcal{S}\).
+  Therefore by \ref{axiom:multiplicative-composition} \(t \circ s \in \mathcal{S}\) and \((X \to Z) \in \mathcal{S}^{X}\).
+
+  On the other if \(f, g: Y \to Y'\) are two morphisms in \(\category{C}\) with \(f \circ s = g \circ s = s'\) by \ref{axiom:multiplicative-equaliser} there exists \(t: Y' \to W\) in \(\mathcal{S}\) such that \(t \circ f = t \circ g\).
+  Therefore by \ref{axiom:multiplicative-composition} \(t \circ s' \in \mathcal{S}^{X}\).
+\end{proof}
+
+\begin{definition}\label{def:right-multiplicative-morphism}
+  Let \(\mathcal{S}\) be a \hyperref[def:multiplicative-system]{right multiplicative system} and \(X, Y \in \category{C}\).
+  We set
+  \begin{equation*}
+    \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X, Y) \coloneq \varinjlim_{(Y \to Y') \in \mathcal{S}^{Y}} \Hom_{\category{C}}(X, Y')
+  \end{equation*}
+
+  Less abstractly a morphism \(f \in \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X, Y)\) is represented by a \textit{roof} diagram
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "f"] & Y' \\
+      & Y \arrow[u, "s"]
+    \end{tikzcd}
+  \end{center}
+  where \(f: X \to Y'\) is in \(\category{C}\) and \(s: Y \to Y'\) in \(\mathcal{S}\).
+  We denote this by \((Y', f, t)\) or more simply by \((f, t)\).
+\end{definition}
+
+\begin{lemma}\label{lemma:right-multiplicative-iso}
+  Let \(\mathcal{S}\) be a \hyperref[def:multiplicative-system]{right multiplicative system}.
+  Let \(Y \in \category{C}\) and \(s: X \to X'\) in \(\mathcal{S}\).
+  Then \(s\) induces an \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X', Y) \xrightarrow[\circ s]{\sim} \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X, Y)
+  \end{equation*}
+\end{lemma}
+\begin{proof}~
+  \begin{itemize}
+    \item[Injectivity] Since \(\mathcal{S}^{Z}\) is directed two morphisms \(f, g \in \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X', Y)\) can be represented as
+          \begin{center}
+            \begin{tikzcd}
+              X' \arrow[r, shift left, "f"] \arrow[r, shift right, "g"'] & Y' \\
+              & Y \arrow[u, "t"]
+            \end{tikzcd}
+          \end{center}
+          with \(t: Y \to Y'\) in \(\mathcal{S}\).
+          
+          If \(f \circ s = g \circ s\) then by \ref{axiom:multiplicative-equaliser} there exists \(t': Y' \to Y''\) in \(\mathcal{S}\) making the following diagram commute
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[r, "s"] & X' \arrow[r, shift left, "f"] \arrow[r, shift right, "g"'] & Y' \arrow[r, dotted, "t'"] & Y'' \\
+              & & Y \arrow[u, "t"] \arrow[ur, dotted, "t' \circ t"']
+            \end{tikzcd}
+          \end{center}
+          Therefore \((f, t)\) and \((g, t)\) have the same image in \(\Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X', Y)\).
+    \item[Surjectivity] By \ref{axiom:multiplicative-diagram} we have the following commutative diagram
+          \begin{center}
+            \begin{tikzcd}
+              X' \arrow[r, dotted, "g"] & Y'' \\
+              X \arrow[r, "f"'] \arrow[u, "s"] & Y' \arrow[u, dotted, "t"'] & Y \arrow[l, "t"]
+            \end{tikzcd}
+          \end{center}
+          where \(s, t, t' \in \mathcal{S}\).
+          Therefore the map \((f, t)\) is the image by \(\circ s\) of \((g, t' \circ t)\).
+  \end{itemize}
+\end{proof}
+
+An easy but very tedious comprovation shows the following lemma.
+\begin{lemma}\label{lemma:right-multiplicative-composition}
+  Let \(\mathcal{S}\) be a \hyperref[def:multiplicative-system]{right multiplicative system}.
+  The \textit{composition}
+  \begin{equation*}
+    \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X, Y) \times \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(Y, Z) \to \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X, Z)
+  \end{equation*}
+  defined as
+  \begin{align*}
+    &\varinjlim_{Y \to Y'} \Hom_{\category{C}}(X, Y') \times \varinjlim_{Z \to Z'} \Hom_{\category{C}}(Y, Z') \\
+    &\cong \varinjlim_{Y \to Y'} \left( \Hom_{\category{C}}(X, Y') \times \varinjlim_{Z \to Z'} \Hom_{\category{C}}(Y, Z') \right) \\
+    &\xleftarrow{\sim} \varinjlim_{Y \to Y'} \left( \Hom_{\category{C}}(X, Y') \times \varinjlim_{Z \to Z'} \Hom_{\category{C}}(Y', Z') \right) \\
+    &\mapsto \varinjlim_{Y \to Y'}\varinjlim_{Z \to Z'} \Hom_{\category{C}}(X, Z') \\
+    &\cong \varinjlim_{Z \to Z'} \Hom_{\category{C}}(X, Z')
+  \end{align*}
+  where \(\xleftarrow{\sim}\) comes from \autoref{lemma:right-multiplicative-iso}, is associative.
+\end{lemma}
+
+Therefore by \autoref{lemma:right-multiplicative-composition} we can define a \hyperref[def:category]{category} \(\category{C}[\mathcal{S}^{-1}]^{r}\) where morphisms are given by \autoref{def:right-multiplicative-morphism}.
+This \hyperref[def:category]{category} comes with a \hyperref[def:functor]{functor} \(Q_{\mathcal{S}}: \category{C} \to \category{C}[\mathcal{S}^{-1}]^{r}\), which when there is no risk of confussion we will simply denote by \(Q\), associated with the map
+\begin{equation*}
+  \Hom_{\category{C}}(X, Y) \to \varinjlim_{(Y \to Y') \in \mathcal{S}^{Y}} \Hom_{\category{C}}(X, Y')
+\end{equation*}
+
+\begin{lemma}
+  If \(s: X \to Y\) is in \(\mathcal{S}\) then \(Qs\) is invertible.
+\end{lemma}
+\begin{proof}
+  By \autoref{lemma:right-multiplicative-iso} for any \(Z \in \category{C}[\mathcal{S}^{-1}]^{r}\) the map \(\Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(Y, Z) \isoarrow \Hom_{\category{C}[\mathcal{S}^{-1}]^{r}}(X, Z)\) is bijective.
+\end{proof}
+
+\begin{remark}\label{rem:properties-right-multiplicative-category}
+  A morphism \(f: X \to Y\) in \(\category{C}[\mathcal{S}^{-1}]^{r}\) is given by an equivalence class of triplets \((Y', t, f')\) with \(t: Y \to Y'\) in \(\mathcal{S}\) and \(f: X \to Y'\):
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "f"] & Y' & \arrow[l, "t"'] Y
+    \end{tikzcd}
+  \end{center}
+  and \((Y', t, f') \sim (Y'', t', f'')\) if and only if there exists \((Y''', t'', f''')\) and a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      & Y' \arrow[d, dotted] & \\
+      X \arrow[r, dotted, "f'''"'] \arrow[ur, "f'"] \arrow[dr, "f''"'] & Y''' & Y \arrow[l, "t''"] \arrow[ul, "t"'] \arrow[dl, "t'"] \\
+      & Y'' \arrow[u, dotted]
+    \end{tikzcd}
+  \end{center}
+
+  Note that the morphism \((Y', t, f')\) in \(\category{C}[\mathcal{S}^{-1}]^{r}\) is \((Qt)^{-1} \circ Qf'\), i.e: \(f = (Qt)^{-1} \circ f'\).
+
+  For any pair of morphisms \(f, g: X \rightrightarrows Y\) in \(\category{C}\) we have the equivalence
+  \begin{equation*}
+    Qf = Qg \text{ in } \category{C}[\mathcal{S}^{-1}]^{r} \iff \exists (s: Y \to Y') \in \mathcal{S} \mid s \circ f = s \circ g
+  \end{equation*}
+ 
+  The composition of two morphisms \((Y', t, f'): X \to Y\) and \((Z', s, g'): Y \to Z\) is defined by the diagram
+  \begin{center}
+    \begin{tikzcd}
+      & & W & & \\
+      X \arrow[r, "f'"'] & Y' \arrow[ur, dotted, "h"] & Y \arrow[l, "t"] \arrow[r, "g'"'] & Z' \arrow[ul, dotted, "s'"'] & Z \arrow[l, "s"]
+    \end{tikzcd}
+  \end{center}
+  where \(t, s, s' \in \mathcal{S}\).
+  In other words the composition is given by \((W, s' \circ s, h \circ f')\).
+\end{remark}
+
+We will not prove the following
+\begin{theorem}[{\cite[Theorem 7.1.6]{kashiwaraCategoriesSheaves2006}}]\label{thm:right-multiplicative-is-localization}
+  Let \(\mathcal{S}\) be a \hyperref[def:multiplicative-system]{right multiplicative system}.
+  The \hyperref[def:category]{category} \(\category{C}[\mathcal{S}^{-1}]^{r}\) and the \hyperref[def:functor]{functor} \(Q_{\mathcal{S}}\) define a \hyperref[def:localization-category]{localization} of \(\category{C}\) by \(\mathcal{S}\).
+\end{theorem}
+
+\begin{notation}
+  We will write \(\category{C}[\mathcal{S}^{-1}]\) instead of \(\category{C}[\mathcal{S}^{-1}]^{r}\).
+  This is justified by \autoref{thm:right-multiplicative-is-localization}.
+\end{notation}
+
+\subsection{Saturated multiplicative systems}
+In this subsection \(\category{C}\) is a \hyperref[def:category]{category}, \(\mathcal{S}\) is a \hyperref[def:multiplicative-system]{right multiplicative system} and \(Q: \category{C} \to \category{C}[\mathcal{S}^{-1}]\) is the \hyperref[def:localization-category]{localization functor}.
+
+\begin{proposition}\label{prop:saturated-system-characterization}
+  For any morphism \(f: X \to Y\) in \(\category{C}\), \(Qf\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}[\mathcal{S}^{-1}]\) if and only if there exist \(g: Y \to Z\) and \(h: Z \to W\) such that \(g \circ f \in \mathcal{S}\) and \(h \circ g \in \mathcal{S}\).
+\end{proposition}
+\begin{proof}~
+  \begin{itemize}
+    \item[\(\implies\)] Represent \((Qf)^{-1}\) by
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[r, "f"] & Y \arrow[r, "g"] & X' & X \arrow[l, "s"']
+            \end{tikzcd}
+          \end{center}
+          Then \((Qs)^{-1} \circ Qg\) is the inverse of \(Qf\) and \(Qg \circ Qf = Q(g \circ f) = Qs\).
+          By \autoref{rem:properties-right-multiplicative-category} there exists \(t: X' \to X''\) in \(\mathcal{S}\) such that \(t \circ g \circ f = t \circ s\).
+          If by abuse of notation we replace \(g\) with \(t \circ g\) we have found \(g: Y \to Z\) such that \(g \circ f \in \mathcal{S}\).
+          Then since \(Qg\) is an \hyperref[def:categorical-isomorphism]{isomorphism} by hypothesis so is \(Qg \circ Qf\).
+
+          An analogous argument applied to \(g\) instead of \(f\) shows that there exists \(h: Z \to W\) such that \(h \circ g \in \mathcal{S}\).
+
+    \item[\(\impliedby\)] In any \hyperref[def:category]{category} if we consider
+          \begin{center}
+            \begin{tikzcd}
+              X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r, "h"] & W
+            \end{tikzcd}
+          \end{center}
+          where \(g \circ f\) and \(h \circ g\) are \hyperref[def:categorical-isomorphism]{isomorphisms} then \(f, g\) and \(h\) are \hyperref[def:categorical-isomorphism]{isomorphisms}.
+
+          Therefore this implication is a particular case with \(Qf, Qg\) and \(Qh\).
+  \end{itemize}
+\end{proof}
+
+\begin{definition}\label{def:saturated-multiplicative-system}
+  We say that \(\mathcal{S}\) is \textbf{saturated} if it verifies
+  \begin{enumerate}
+    \item[S.5)] For any morphisms \(f: X \to Y, g: Y \to Z\) and \(h: Z \to W\) in \(\category{C}\) such that \(g \circ f\) and \(h \circ g\) are in \(\mathcal{S}\), \(f \in \mathcal{S}\).
+  \end{enumerate}
+\end{definition}
+
+\begin{corollary}
+  \(\mathcal{S}\) is saturated if and only if a morphism \(f\) in \(\category{C}\) is in \(\mathcal{S}\) if and only if \(Qf\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+\end{corollary}
+\begin{proof}~
+ \begin{itemize}
+   \item[\(\implies\)] If \(f \in \mathcal{S}\) then by \autoref{lemma:right-multiplicative-iso} \(Qf\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+
+         Conversely if \(Qf\) is an \hyperref[def:categorical-isomorphism]{isomorphism} then by \autoref{prop:saturated-system-characterization} and the definition of a \hyperref[def:saturated-multiplicative-system]{saturated multiplicative system} \(f \in \mathcal{S}\).
+   \item[\(\impliedby\)] Consider \(g: Y \to Z\) and \(h: Z \to W\) in \(\category{C}\) such that \(g \circ f\) and \(h \circ g\) are in \(\mathcal{S}\).
+         Then by \autoref{prop:saturated-system-characterization} \(Qf\) is an \hyperref[def:categorical-isomorphism]{isomorphism}, which by hypothesis implies that \(f \in \mathcal{S}\).
+ \end{itemize} 
+\end{proof}
+
+\subsection{Localization of subcategories}
+
+We will not prove the following.
+\begin{proposition}[{\cite[Proposition 7.2.1]{kashiwaraCategoriesSheaves2006}}]\label{prop:localization-subcategory-fully-faithful}
+  Let \(\category{C}\) be a \hyperref[def:category]{category}, \(\category{D}\) a \hyperref[def:subcategory]{full subcategory}, \(\mathcal{S}\) a \hyperref[def:multiplicative-system]{right multiplicative system} in \(\category{C}\) and \(\mathcal{T}\) the family of morphisms in \(\category{D}\) which belong to \(\mathcal{S}\).
+  \begin{enumerate}
+    \item If \(\mathcal{T}\) is a \hyperref[def:multiplicative-system]{right multiplicative system} in \(\category{D}\) the \hyperref[def:functor]{functor} \(\category{D}[\mathcal{T}^{-1}] \to \category{C}[\mathcal{S}^{-1}]\) is well defined.
+    \item If for every \(f: Y \to X\) in \(\mathcal{S}\) with \(Y \in \category{D}\) there exists \(W \in \category{D}\) and \(g: X \to W\) with \(g \circ f \in \mathcal{S}\) then \(\mathcal{T}\) is a \hyperref[def:multiplicative-system]{right multiplicative system} and the \hyperref[def:functor]{functor} \(\category{D}[\mathcal{T}^{-1}] \to \category{C}[\mathcal{S}^{-1}]\) is \hyperref[def:functor-types]{fully faithful}.
+  \end{enumerate}
+\end{proposition}
+
+\begin{corollary}\label{cor:equivalence-localization-multiplicative}
+  Let \(\category{C}\) be a \hyperref[def:category]{category}, \(\category{D}\) a \hyperref[def:subcategory]{full subcategory}, \(\mathcal{S}\) a \hyperref[def:multiplicative-system]{right multiplicative system} in \(\category{C}\) and \(\mathcal{T}\) the family of morphisms in \(\category{D}\) which belong to \(\mathcal{S}\).
+  Suppose that for all \(X \in \category{C}\) there exists \(s: X \to W\) with \(W \in \category{D}\) and \(s \in \mathcal{S}\).
+  Then \(\mathcal{T}\) is a \hyperref[def:multiplicative-system]{right multiplicative system} and \(\category{D}[\mathcal{T}^{-1}]\) is \hyperref[def:equivalent-categories]{equivalent} to \(\category{C}[\mathcal{S}^{-1}]\).
+\end{corollary}
+\begin{proof}
+  By \autoref{prop:localization-subcategory-fully-faithful} \(\mathcal{T}\) is a \hyperref[def:multiplicative-system]{right multiplicative system} and the \hyperref[def:functor]{functor} \(\category{D}[\mathcal{T}^{-1}] \to \category{C}[\mathcal{S}^{-1}]\) is \hyperref[def:functor-types]{fully faithful}.
+  Furthermore by assumption it is \hyperref[def:functor-types]{essentially surjective}.
+
+  Therefore by \autoref{thm:equivalent-categories-characterization} it is an \hyperref[def:equivalent-categories]{equivalence of categories}.
+\end{proof}
+
+
+
+
+\section{Localization of functors}
+
+\begin{definition}\label{def:localization-functor}
+  Let \(\category{C}\) be a \hyperref[def:category]{category}, \(\mathcal{S}\) a \hyperref[def:multiplicative-system]{right multiplicative system} and \(F: \category{C} \to \category{D}\) a \hyperref[def:functor]{functor}.
+
+  A \textbf{right localization} of \(F\) is a \hyperref[def:functor]{functor} \(R_{\mathcal{S}}F: \category{C}[\mathcal{S}^{-1}] \to \category{D}\) together with a \hyperref[def:natural-transformation]{natural transformation} \(\tau: F \to R_{\mathcal{S}}F \circ Q\) such that for any \hyperref[def:functor]{functor} \(G: \category{C}[\mathcal{S}^{-1}] \to \category{D}\) the map
+  \begin{equation*}
+    \Hom_{\Fct{\category{C}[\mathcal{S}^{-1}]}{\category{D}}}(R_{\mathcal{S}}F, G) \to \Hom_{\Fct{\category{C}}{\category{D}}}(F, G \circ Q)
+  \end{equation*}
+  is bijective.
+
+  We say that a \hyperref[def:functor]{functor} is right localizable if it admits a right localization.
+\end{definition}
+
+\begin{notation}
+  Since we will mainly work with \hyperref[def:localization-functor]{right localizations}, we may sometimes ommit the word "right".
+\end{notation}
+
+
+\begin{lemma}
+  \hyperref[def:localization-functor]{Localizations of functors} are unique up to unique \hyperref[def:natural-transformation]{natural isomorphism}.
+\end{lemma}
+\begin{proof}
+  The \hyperref[def:functor]{functor} \(R_{\mathcal{S}}\) is a \hyperref[def:representable-functor]{representative} of the \hyperref[def:functor]{functor}
+  \begin{equation*}
+    G \mapsto \Hom_{\Fct{\category{C}}{\category{D}}}(F, G \circ Q)
+  \end{equation*}
+\end{proof}
+
+\begin{proposition}\label{prop:conditions-for-localization}
+  Let \(\category{C}\) be a \hyperref[def:category]{category}, \(\category{C'}\) be a \hyperref[def:subcategory]{full subcategory} of \(\category{C}\), \(\mathcal{S}\) a \hyperref[def:multiplicative-system]{right multiplicative system} and \(\mathcal{T}\) the family of morphisms in \(\category{D}\) which belong to \(\mathcal{S}\).
+  Let \(F: \category{C} \to \category{D}\) a \hyperref[def:functor]{functor}.
+  Suppose that
+  \begin{enumerate}
+    \item For any \(X \in \category{C}\) there exists \(s: X \to W\) with \(W \in \category{C'}\) and \(s \in \mathcal{S}\).
+    \item \(Ft\) is an \hyperref[def:categorical-isomorphism]{isomorphism} for any \(t \in \mathcal{T}\).
+  \end{enumerate}
+  Then \(F\) is \hyperref[def:localization-functor]{right localizable}.
+\end{proposition}
+\begin{proof}
+  Let \(\iota: \category{C'} \hookrightarrow \category{C}\) the inclussion \hyperref[def:functor]{functor}.
+  By hypothesis the \hyperref[def:localization-functor]{localization} \(R_{\mathcal{T}}F\) of \(F \circ \iota\) exists.
+
+  Consider the diagram
+  \begin{center}
+    \begin{tikzcd}
+      \category{C} \arrow[rr, "Q_{\mathcal{S}}"] & & \category{C}[\mathcal{S}^{-1}] \arrow[dd, dotted, "R_{\mathcal{S}}F"] \\
+      \category{C'} \arrow[u, hook, "\iota"] \arrow[r, "Q_{\mathcal{T}}"] \arrow[drr, "F \circ \iota"'] & \category{C'}[\mathcal{T}^{-1}] \arrow[ur, "\sim", "\iota_{Q}"'] \arrow[dr, "R_{\mathcal{T}}F"] & \\
+      & & \category{D}
+    \end{tikzcd}
+  \end{center}
+  Denote by \(\iota_{Q}^{-1}\) a \hyperref[def:equivalent-categories]{quasi-inverse} of \(\iota_{Q}\) and set \(R_{\mathcal{S}}F \coloneq R_{\mathcal{T}}F \circ \iota_{Q}^{-1}\).
+  Let \(G: \category{C}[\mathcal{S}^{-1}] \to \category{D}\) be a \hyperref[def:functor]{functor}.
+  We have a chain of morphism
+  \begin{align*}
+    \Hom_{\Fct{\category{C}}{\category{D}}}(F, G \circ Q_{\mathcal{S}}) &\xrightarrow{\lambda} \Hom_{\Fct{\category{C'}}{\category{D}}}(F \circ \iota, G \circ Q_{\mathcal{S}} \circ \iota) \\
+                                                          &\cong \Hom_{\Fct{\category{C'}}{\category{D}}}(R_{\mathcal{T}}F \circ Q_{\mathcal{T}}, G \circ \iota_{Q} \circ Q_{\mathcal{T}}) \\
+                                                          &\cong \Hom_{\Fct{\category{C'}[\mathcal{T}^{-1}]}{\category{D}}}(R_{\mathcal{T}}F, G \circ \iota_{Q}) \\
+                                                          &\cong \Hom_{\Fct{\category{C}[\mathcal{S}^{-1}]}{\category{D}}}(R_{\mathcal{T}}F \circ \iota_{Q}^{-1}, G) \\
+                                                          &\cong \Hom_{\Fct{\category{C}[\mathcal{S}^{-1}]}{\category{D}}}(R_{\mathcal{S}}F, G)
+  \end{align*}
+  One can see that \(\lambda\) is an isomorphism (see \cite[Proposition 7.3.2]{
+    kashiwaraCategoriesSheaves2006}).
+  The second isomorphism comes from \(Q_{\mathcal{T}}\) being a \hyperref[def:localization-category]{localization functor} and the rest are trivial.
+\end{proof}
+
+
+
+\end{document}

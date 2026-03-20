@@ -16,29 +16,39 @@
   \begin{equation*}
     F \cong \Hom_{\category{C}}(X, -)
   \end{equation*}
-  where \(\Hom_{\category{C}}(X, -)\) is the \hyperref[ex:hom-functor]{covariant Hom functor}.
+  where \(\Hom_{\category{C}}(X, -)\) is the \hyperref[ex:hom-functor]{covariant \(\Hom\) functor}.
 \end{definition}
+
+\begin{example}
+  The \hyperref[ex:hom-functor]{covariant \(\Hom\) functor} is \hyperref[def:representable-functor]{representable}.
+\end{example}
+
 
 \begin{definition}[Concrete category]\label{def:concrete-category}
   A \hyperref[def:category]{category} \(\category{C}\) is \textbf{concrete} if there exists a \hyperref[def:functor-types]{faithful functor} \(U: \category{C} \to \Set\). Such a functor is often called a \textbf{forgetful functor}.
 \end{definition}
 
-\begin{lemma}[{Yoneda - \cite[Theorem 2.2.4]{riehlCategoryTheoryContext}}]\label{lemma:yoneda}
-  Let \(\category{C}\) be a \hyperref[def:category]{locally small category}, \(X \in \category{C}\) an object, and \(F: \category{C} \to \Set\) a \hyperref[def:functor]{functor}. There is a bijection:
+\begin{theorem}[{Yoneda - \cite[Theorem 2.2.4]{riehlCategoryTheoryContext}}]\label{thm:yoneda-lemma}
+  Let \(\category{C}\) be a \hyperref[def:category]{category}, \(X \in \category{C}\) an object, and \(F: \category{C} \to \Set\) a \hyperref[def:functor]{functor}. There is a bijection:
   \begin{equation*}
     \Phi: \Hom(\Hom(X, -), F) \isoarrow F(X)
   \end{equation*}
   given by \(\alpha \mapsto \alpha_{X}(\id_{X})\). This bijection is natural in both \(X\) and \(F\).
-\end{lemma}
+\end{theorem}
+
+\begin{corollary}[{Yoneda embedding - \cite[Corollary 2.2.8]{riehlCategoryTheoryContext}}]
+  Let \(\category{C}\) be a \hyperref[def:category]{category}.
+  The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}.
+\end{corollary}
 
 \section{Adjunctions}
 
 \begin{definition}[Adjoint functors]\label{def:adjoint-functors}
-  Let \(\category{C}\), \(\category{D}\) be two \hyperref[def:category]{locally small categories} and let \(L: \category{C} \to \category{D}\) and \(R: \category{D} \to \category{C}\) be two \hyperref[def:functor]{functors}. We say that \(L\) is \textbf{left adjoint} to \(R\), and \(R\) is \textbf{right adjoint} to \(L\), denoted \(L \dashv R\), if there is a bijection:
-  \begin{equation} \label{eq:adjunction-hom-iso}
-    \phi_{X,Y}: \Hom_{\category{D}}(L(X), Y) \isoarrow \Hom_{\category{C}}(X, R(Y))
+  Let \(L: \category{C} \to \category{D}\) and \(R: \category{D} \to \category{C}\) be a pair of \hyperref[def:functor]{functors}.
+  We say that \((L, R)\) is a pair of \textbf{adjoint functors} or that \(L\) is left-adjoint to \(R\) and \(R\) is right-adjoint to \(L\) if there exists a \hyperref[def:natural-transformation]{natural isomorphism} of \hyperref[ex:bifunctor]{bifunctors}
+  \begin{equation}\label{eq:adjunction-hom-iso}
+    \Hom_{\category{D}}(L(-), -) \cong \Hom_{\category{C}}(-, R(-))
   \end{equation}
-  which is natural in both \(X \in \category{C}\) and \(Y \in \category{D}\).
 
   We represent this diagramatically using
   \begin{center}
@@ -50,14 +60,32 @@
 
 \end{definition}
 
-\begin{definition}[Unit and counit]\label{def:unit-counit}
-  The adjunction \eqref{eq:adjunction-hom-iso} is uniquely determined by two \hyperref[def:natural-transformation]{natural transformations}:
-  \begin{itemize}
-    \item The \textbf{unit} \(\eta: \id_{\category{C}} \implies R \circ L\), where \(\eta_{X} = \phi_{X, L(X)}(\id_{L(X)})\).
-    \item The \textbf{counit} \(\varepsilon: L \circ R \implies \id_{\category{D}}\), where \(\varepsilon_{Y} = \phi^{-1}_{R(Y), Y}(\id_{R(Y)})\).
-  \end{itemize}
-  These satisfy the \textbf{triangular identities}: \(R(\varepsilon_{Y}) \circ \eta_{R(Y)} = \id_{R(Y)}\) and \(\varepsilon_{L(X)} \circ L(\eta_{X}) = \id_{L(X)}\).
-\end{definition}
+\begin{remark}[Unit and counit of an adjunction]\label{def:unit-counit}
+  Let \((L, R)\) be a pair of \hyperref[def:adjoint-functor]{adjoint functors}.
+  The \hyperref[def:natural-transformation]{natural isomorphism} \eqref{eq:adjunction-hom-iso} gives the \hyperref[def:natural-transformation]{natural isomorphisms}
+  \begin{align*}
+    \Hom_{\category{D}}(L(-), L(-)) &\cong \Hom_{\category{C}}(-, (G \circ L)(-)) \\
+    \Hom_{\category{D}}((L \circ R)(-), -) &\cong \Hom_{\category{C}}(R(-), R(-))
+  \end{align*}
+  In particular we get \hyperref[def:natural-transformation]{natural transformations}
+  \begin{align*}
+    \eta: \id_{\category{C}} \Rightarrow R \circ L \qquad \varepsilon: L \circ R \Rightarrow \id_{\category{D}}
+  \end{align*}
+  that satisfy the \textit{triangular identities}
+  \begin{center}
+    \begin{tikzcd}
+      L \arrow[r, Rightarrow, "L\eta"] \arrow[dr, Rightarrow, "\id_{F}"'] & L \circ R \circ L \arrow[d, Rightarrow, "\varepsilon F"] \\
+      & L
+    \end{tikzcd}
+    \begin{tikzcd}
+      R \arrow[r, Rightarrow, "\eta R"] \arrow[dr, Rightarrow, "\id_{R}"'] & R \circ L \circ R \arrow[d, Rightarrow, "F\varepsilon"] \\
+      & R
+    \end{tikzcd}
+  \end{center}
+  
+  Conversely, if \(L, R\) are two pair of \hyperref[def:functor]{functors} and \(\varepsilon, \eta\) are \hyperref[def:natural-transformation]{natural transformations} as above then \((L, R)\) form an \hyperref[def:adjoint-functors]{adjoint pair}.
+  For a proof of this see \cite[Proposition 4.2.6]{riehlCategoryTheory}.
+\end{remark}
 
 \begin{remark}
   \hyperref[def:adjoint-functors]{Left and right adjoints} are \hyperref[def:dual]{dual concepts}.
@@ -91,20 +119,27 @@
     \end{tikzcd}
   \end{center}
 
+  By the \hyperref[thm:yoneda-lemma]{Yoneda lemma} \(\Theta_{-, Y}\) induces a unique \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\)
+  \begin{equation*}
+    \alpha_{Y}: R_{1}(Y) \isoarrow R_{2}(Y)
+  \end{equation*}
+  Furthermore, since \(\phi\) and \(\psi\) are natural this ensemble into a \hyperref[def:natural-transformation]{natural isomorphism}
+  \begin{equation*}
+    \alpha: R_{1} \Rightarrow R_{2}
+  \end{equation*}
 \end{proof}
 
 
-
-\begin{proposition}[{\cite[Theorem 4.5.2]{riehlCategoryTheoryContext}}]\label{prop:adjoints-preserve-limits}
-  \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in \(\category{D}\).
+\begin{theorem}[{\cite[Theorem 4.5.2]{riehlCategoryTheoryContext}}]\label{thm:adjoints-preserve-limits}
+  \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in their codomain.
   
-  \hyperref[def:dual]{Dually} \hyperref[def:adjoint-functors]{left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in \(\category{C}\).
-\end{proposition}
+  \hyperref[def:dual]{Dually} \hyperref[def:adjoint-functors]{left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in their domain.
+\end{theorem}
 
 \section{Functor categories}
 
 \begin{definition}[Functor category]\label{def:functor-category}
-  Let \(\category{C}\) and \(\category{D}\) be \hyperref[def:big-category]{categories}. The \textbf{functor category} \([C, D]\) (also denoted \(\category{D}^{\category{C}}\)) has:
+  Let \(\category{C}\) and \(\category{D}\) be \hyperref[def:category]{categories}. The \textbf{functor category} \(\Fct{\category{C}}{\category{D}}\) has:
   \begin{itemize}
     \item \textbf{Objects}: \hyperref[def:functor]{functors} \(F: \category{C} \to \category{D}\).
     \item \textbf{Morphisms}: \hyperref[def:natural-transformation]{natural transformations} \(\eta: F \implies G\).
@@ -112,67 +147,96 @@
   Composition and identities are defined componentwise.
 \end{definition}
 
-\begin{lemma}
-  Let \(\category{C}\) be a \hyperref[def:small-category]{small category} and \(\category{D}\) a \hyperref[def:category]{locally small category}.
-  Then the \hyperref[def:functor-category]{functor category} \([\category{C}, \category{D}]\) is \hyperref[def:category]{locally small}.
-\end{lemma}
-\begin{proof}
-  Let \(F, G \in [\category{C}, \category{D}]\) be two \hyperref[def:functor]{functors}.
-
-  Note that, by definition, any \hyperref[def:natural-transformation]{natural transformation} \(\eta: F \Rightarrow G\) is determined by its components \(\{\eta_{X}: FX \to GX\}_{X \in \category{C}}\). Therefore we have
-  \begin{equation*}
-    \Hom_{[\category{C}, \category{D}]}(F, G) \subseteq \prod_{X \in \category{C}} \Hom_{\category{D}}(FX, GX)
-  \end{equation*}
-  Since \(\category{D}\) is \hyperref[def:category]{locally small} for all \(X \in \category{C}\) we have \(\Hom_{\category{D}}(FX, GX)\) is a set.
-  Moreover since \(\category{C}\) is \hyperref[def:small-category]{small} the above product is indexed by family of sets, making
-  \begin{equation*}
-    \prod_{X \in \category{C}} \Hom_{\category{D}}(FX, GX) \in \Set
-  \end{equation*}
-  Therefore \(\Hom_{\category{D}}(F, G)\) is a set.
-\end{proof}
-
 
 \begin{proposition}\label{prop:limits-in-functor-category}
-  Let \(\category{C}\) and \(\category{D}\) be two \hyperref[def:big-category]{categories} and \([\category{C}, \category{D}]\) be its \hyperref[def:functor-category]{functor category}.
+  Let \(\category{C}\) and \(\category{D}\) be two \hyperref[def:category]{categories} and \(\Fct{\category{C}}{\category{D}}\) be its \hyperref[def:functor-category]{functor category}.
 
-  If \(\category{D}\) has \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\) then \([\category{C}, \category{D}]\) has  \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\).
+  If \(\category{D}\) has \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\) then \(\Fct{\category{C}}{\category{D}}\) has  \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\).
   Furthermore, they are computed objectwise.
 \end{proposition}
 \begin{proof}
   Consider a \hyperref[def:diagram]{\(\category{J}\)-shaped diagram} \(X: \category{J} \Rightarrow [\category{C}, \category{D}]\).
-  We wish to construct a \hyperref[def:categorical-limit]{limit object} \(L \in [\category{C}, \category{D}]\) together with a \hyperref[def:categorical-limit]{limit cone} \(\pi_{j}: L \to X_{j}\) for all \(j \in \category{J}\).
+  We wish to construct a \hyperref[def:categorical-limit]{limit object} \(L \in \Fct{\category{C}}{\category{D}}\) together with a \hyperref[def:categorical-limit]{limit cone} \(\pi_{j}: L \to X_{j}\) for all \(j \in \category{J}\).
 
   For any object \(c \in \category{C}\) the \textit{evaluation} \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
       \llap{\(\operatorname{ev}_{c}: \;\;\)} [\category{C}, \category{D}] \arrow[r] & \category{D} \\[-2em]
-      F \arrow[d, "\eta"' ""{name=source, right}, Rightarrow] & Fc \arrow[d, "\eta_{c}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
-      G  & Gc
+      F \arrow[d, "\eta"' ""{name=source, right}, Rightarrow] & F(c) \arrow[d, "\eta_{c}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
+      G  & G(c)
     \end{tikzcd}
   \end{center}
   allows us to define a \hyperref[def:diagram]{diagram} \(X^{c} \coloneq \operatorname{ev}_{c} \circ X: J \Rightarrow \category{D}\).
   By hypothesis there exists
   \begin{equation*}
-    \lim_{j \in \category{J}} X_{j}^{c} \eqcolon Lc \qquad \pi_{j, c}: Lc \to X_{j}^{c}
+    \lim_{j \in \category{J}} X^{c}(j) \eqcolon L(c) \qquad \pi_{j}^{c} : L(c) \to X^{c}(j)
   \end{equation*}
 
   To make \(L\) into a \hyperref[def:functor]{functor} we need to define its action on morphisms.
-  Consider a morphism \(f: c \to c'\) in \(\category{C}\).
-  Since \(X_{j}\) is a \hyperref[def:functor]{functor} for all \(j \in \category{J}\) we have an induced morphism \(X_{j}(f): X_{j}(c) \to X_{j}(c')\).
+  Consider a morphism \(f: c \to d\) in \(\category{C}\).
+  Since \(X_{j}\) is a \hyperref[def:functor]{functor} for all \(j \in \category{J}\) we have an induced morphism \(X_{j}f: X_{j}(c) \to X_{j}(d)\).
   Let's consider the family of morphism
   \begin{equation*}
-    \left\{ X_{j}(f) \circ \pi_{j, c}: Lc \to X_{j}(c') \right\}_{j \in \category{J}}
+    \left\{ X_{j}f \circ \pi_{j}^{c}: L(c) \to X_{j}(d) \right\}_{j \in \category{J}}
   \end{equation*}
-  
+  We want to show that this forms a \hyperref[def:cone]{cone} over \(L(d)\) with apex \(L(c)\)
+
+  Let \(u: j \to k\) be a morphism in \(\category{J}\).
+  Since \(Xu: X_{j} \Rightarrow X_{k}\) is a \hyperref[def:natural-transformation]{natural transformation} we have a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      X_{j}(c) \arrow[r, "(Xu)_{c}"] \arrow[d, "X_{j}f"'] & X_{k}(x) \arrow[d, "X_{k}f"] \\
+      X_{j}(d) \arrow[r, "(Xu)_{d}"'] & X_{k}(d)
+    \end{tikzcd}
+  \end{center}
+  Since \(\pi^{c}\) is a \hyperref[def:categorical-limit]{limit} over \(X^{c}\) we also now that \((Xu)_{c} \circ \pi_{j}^{c} = \pi_{k}^{c}\).
+  Therefore we have
+  \begin{equation*}
+    (Xu)_{d} \circ (X_{j}f \circ \pi_{j}^{c}) = ((Xu)_{d} \circ X_{j}f) \circ \pi_{j}^{c} = X_{k}f \circ (Xu)_{c} \circ \pi_{j}^{c} = X_{k}f \circ \pi_{k}^{c}
+  \end{equation*}
+  i.e: it is a valid \hyperref[def:cone]{cone} over \(L(d)\).
+  By the universal property of \(L(d) = \lim_{j \in \category{J}} X^{d}(j)\) there exists a unique morphism \(Lf: L(c) \to L(d)\) such that for all \(j \in \category{J}\) the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}
+      L(c) \arrow[r, "Lf"] \arrow[d, "\pi_{j}^{c}"'] & L(d) \arrow[d, "\pi_{j}^{d}"] \\
+      X^{c}(j) \arrow[r, "X_{j}f"'] & X^{d}(j)
+    \end{tikzcd}
+  \end{center}
+
+  The functiorality of \(L\) follows directly from the uniqueness of this induced map into \(L(d)\).
+  Moreover the above commutative square is the \hyperref[def:natural-tranformation]{naturallity} condition for \(\pi_{j}\) with respect to \(f\).
+  Therefore, for each \(j \in \category{J}\) the collection \(\{\pi_{j}^{c}\}_{c \in \category{C}}\) is a \hyperref[def:natural-transformation]{natural transformation} \(\pi_{j}: L \Rightarrow X_{j}\).
+  It is an easy check to see that this collection forms a \hyperref[def:cone]{cone} over \(X\) in the \hyperref[def:functor-category]{functor category} \(\Fct{\category{C}}{\category{D}}\).
+
+  To finish the proof, we need to check the universal property.
+  Consider another functor \(M \in \Fct{\category{C}}{\category{D}}\) equipped with a \hyperref[def:cone]{cone} \(\tau_{j}: M \Rightarrow X_{j}\).
+
+  For each \(c \in \category{C}\) the evaluation \(\tau_{j}^{c} \coloneq \operatorname{ev}_{c} \circ M: M(c) \to X^{c}(j)\) is a \hyperref[def:cone]{cone} over \(X^{c}\).
+  This induces a unique morphism \(\phi_{c}: M(c) \to L(c)\) such that \(\pi_{j}^{c} \circ \phi_{c} = \tau_{j}^{c}\).
+
+  To show that \(\phi \equiv \{\phi_{c}\}_{c \in \category{C}}\) is a \hyperref[def:natural-transformation]{natural transformation} let \(f: c \to d\) be a morphism in \(\category{C}\).
+  We want to see that the following diagram commutes
+  \begin{center}
+    \begin{tikzcd}
+      M(c) \arrow[r, "\phi_{c}"] \arrow[d, "Mf"'] & L(c) \arrow[d, "Lf"] \\
+      M(d) \arrow[r, "\phi_{d}"'] & L(d)
+    \end{tikzcd}
+  \end{center}
+  Postcompossing with \(\pi_{j}^{d}\) we get, on the one hand
+  \begin{equation*}
+    \pi_{j}^{d} \circ (Lf \circ \phi_{c}) = (\pi_{j}^{d} \circ Lf) \circ \phi_{c} = X_{j}f \circ \pi_{j}^{c} \circ \phi_{c} = X_{j}f \circ \tau_{j}^{c}
+  \end{equation*}
+  And on the other
+  \begin{equation*}
+    \pi_{j}^{d} \circ (\phi_{d} \circ Mf) = (\pi_{j}^{d} \circ \phi_{d}) \circ Mf  = \tau_{j}^{d} \circ Mf
+  \end{equation*}
+  Since \(\tau_{j}\) is a \hyperref[def:natural-transformation]{natural transformation} we have
+  \begin{equation*}
+    X_{j}f \circ \tau_{j}^{c} = \tau_{j}^{d} \circ Mf
+  \end{equation*}
+  Therefore since the projections agree for all \(j \in \category{J}\) by uniqueness of the maps \(\pi_{j}\) we get the commutativity of the diagram.
+  Its uniqueness as a morphism of cones follows directly from the objectwise uniqueness of each \(\phi_{c}\).
 \end{proof}
-
-
-\begin{corollary}[{Yoneda embedding - \cite[Corollary 2.2.8]{riehlCategoryTheoryContext}}]
-  Let \(\category{C}\) be a \hyperref[def:category]{locally small category}.
-  The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}. This allows us to view any locally small category as a \hyperref[def:subcategory]{full subcategory} of a \hyperref[def:functor-category]{functor category}.
-\end{corollary}
-
-\section{Size issues}
 
 
 \end{document}
