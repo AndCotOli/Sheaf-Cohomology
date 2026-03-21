@@ -53,3 +53,28 @@
 \newcommand\Mod{\category{Mod}}
 \newcommand\OxMod{\Mod{\sheaf{O}_{X}}}
 \newcommand\etale{\operatorname{Et}}
+
+
+% From https://tex.stackexchange.com/a/570976
+\ExplSyntaxOn
+
+\keys_define:nn { cinque/tensor }
+ {
+  der .tl_set:N = \l__cinque_tensor_upper_tl,
+  der .default:n = L,
+  unknown .code:n = \tl_set_rescan:Nnx \l__cinque_tensor_subscript_tl { } { \l_keys_key_str },
+ }
+\tl_new:N \l__cinque_tensor_subscript_tl
+
+\NewDocumentCommand{\tensor}{O{}}
+ {
+  \group_begin:
+  \keys_set:nn { cinque/tensor } { #1 }
+  \tl_if_empty:NTF \l__cinque_tensor_upper_tl
+   { \otimes }
+   { \overset{\l__cinque_tensor_upper_tl}{\otimes} }
+  \tl_if_empty:NF \l__cinque_tensor_subscript_tl { \sb{\l__cinque_tensor_subscript_tl} }
+  \group_end:
+ }
+
+\ExplSyntaxOff

@@ -344,155 +344,176 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
   \end{align*}
 \end{proof}
 
-% \section{Double complexes}
+\section{Double complexes}
 
-% \begin{definition}[Double complex]\label{def:double-complex}
-%   A \textbf{double complex} in \(\category{C}\) is the data of
-%   \begin{equation*}
-%     \{X^{n, m}, \d_{\uparrow}^{n,m}, \d_{\to}^{n,m}\}_{n,m \in \mathbb{Z}}
-%   \end{equation*}
-%   where \(X^{n, m} \in \category{C}\) and the \textit{differential maps}
-%   \begin{equation*}
-%     \d_{\uparrow}^{n,m}: X^{n, m} \to X^{n+1, m} \qquad \d_{\to}^{n,m}: X^{n,m} \to X^{n, m+1}
-%   \end{equation*}
-%   satisfy
-%   \begin{equation*}
-%     \d_{\uparrow}^{n+1, m} \circ \d_{\uparrow}^{n, m} = \d_{\to}^{n, m+1} \circ \d_{\to}^{n, m} = 0 \qquad \d_{\to}^{n+1, m} \circ \d_{\uparrow}^{n, m} = \d_{\uparrow}^{n, m+1} \circ \d_{\to}^{n, m} 
-%   \end{equation*}
-%   This can be represented by a commutative diagram
-%   \begin{center}
-%     \begin{tikzcd}
-%       & \vdots & \vdots & & \\
-%       \cdots \arrow[r] & X^{n+1, m} \arrow[u] \arrow[r, "{\d_{\to}^{n+1, m}}"] & X^{n+1, m+1} \arrow[u] \arrow[r] & \cdots \\
-%       \cdots \arrow[r] & X^{n, m} \arrow[u, "{\d_{\uparrow}}^{n,m}"] \arrow[r, "{\d_{\to}^{n,m}}"'] & X^{n, m+1} \arrow[u, "\d_{\uparrow}^{n, m+1}"'] \arrow[r] & \cdots \\
-%       & \vdots \arrow[u] & \vdots \arrow[u] &
-%     \end{tikzcd}
-%   \end{center}
-%   We denote double complexes by \(X^{\bullet, \bullet}\)
+\begin{definition}[Double complex]\label{def:double-complex}
+  A \textbf{double complex} in \(\category{C}\) is the data of
+  \begin{equation*}
+    \{X^{n, m}, \d_{\uparrow}^{n,m}, \d_{\to}^{n,m}\}_{n,m \in \mathbb{Z}}
+  \end{equation*}
+  where \(X^{n, m} \in \category{C}\) and the \textit{differential maps}
+  \begin{equation*}
+    \d_{\uparrow}^{n,m}: X^{n, m} \to X^{n+1, m} \qquad \d_{\to}^{n,m}: X^{n,m} \to X^{n, m+1}
+  \end{equation*}
+  satisfy
+  \begin{equation*}
+    \d_{\uparrow}^{n+1, m} \circ \d_{\uparrow}^{n, m} = \d_{\to}^{n, m+1} \circ \d_{\to}^{n, m} = 0 \qquad \d_{\to}^{n+1, m} \circ \d_{\uparrow}^{n, m} = \d_{\uparrow}^{n, m+1} \circ \d_{\to}^{n, m} 
+  \end{equation*}
+  This can be represented by a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      & \vdots & \vdots & & \\
+      \cdots \arrow[r] & X^{n+1, m} \arrow[u] \arrow[r, "{\d_{\to}^{n+1, m}}"] & X^{n+1, m+1} \arrow[u] \arrow[r] & \cdots \\
+      \cdots \arrow[r] & X^{n, m} \arrow[u, "{\d_{\uparrow}}^{n,m}"] \arrow[r, "{\d_{\to}^{n,m}}"'] & X^{n, m+1} \arrow[u, "\d_{\uparrow}^{n, m+1}"'] \arrow[r] & \cdots \\
+      & \vdots \arrow[u] & \vdots \arrow[u] &
+    \end{tikzcd}
+  \end{center}
+  We denote double complexes by \(X^{\bullet, \bullet}\)
 
-%   A morphism of double complexes \(f^{\bullet, \bullet}: X^{\bullet, \bullet} \to Y^{\bullet, \bullet}\) consists of maps \(\{f^{n, m}: X^{n, m} \to Y^{n, m}\}_{n, m \in \mathbb{Z}}\) such that the following cube commutes for all \(n, m \in \mathbb{Z}\):
-%   \begin{center}
-%     \begin{tikzcd}[row sep=huge, column sep=huge]
-%       & X^{n+1, m} \arrow[rr, "{\d_{X, \to}^{n+1, m}}"] \arrow[dl, "f^{n+1, m}"'] &  & X^{n+1, m+1} \arrow[dl, "f^{n+1, m+1}"] \\
-%       Y^{n+1, m} \arrow[rr, crossing over, "{\d_{Y, \to}^{n+1, m}}" near start] & & Y^{n+1, m+1} \\
-%       & X^{n, m} \arrow[rr, "{\d_{X, \to}^{n, m}}"' near start] \arrow[dl, "f^{n, m}"'] \arrow[uu, "{\d_{X, \uparrow}^{n, m}}"' near end] & & X^{n, m+1} \arrow[dl, "f^{n, m+1}"] \arrow[uu, "{\d_{X, \uparrow}^{n, m+1}}"'] \\
-%       Y^{n, m} \arrow[rr, "{\d_{Y, \to}^{n, m}}"'] \arrow[uu, "{\d_{Y, \uparrow}^{n, m}}"] & & Y^{n, m+1} \arrow[uu, crossing over, "{\d_{Y, \uparrow}^{n, m+1}}"' near end]
-%     \end{tikzcd}
-%   \end{center}
+  A morphism of double complexes \(f^{\bullet, \bullet}: X^{\bullet, \bullet} \to Y^{\bullet, \bullet}\) consists of maps \(\{f^{n, m}: X^{n, m} \to Y^{n, m}\}_{n, m \in \mathbb{Z}}\) such that the following cube commutes for all \(n, m \in \mathbb{Z}\):
+  \begin{center}
+    \begin{tikzcd}[row sep=huge, column sep=huge]
+      & X^{n+1, m} \arrow[rr, "{\d_{X, \to}^{n+1, m}}"] \arrow[dl, "f^{n+1, m}"'] &  & X^{n+1, m+1} \arrow[dl, "f^{n+1, m+1}"] \\
+      Y^{n+1, m} \arrow[rr, crossing over, "{\d_{Y, \to}^{n+1, m}}" near start] & & Y^{n+1, m+1} \\
+      & X^{n, m} \arrow[rr, "{\d_{X, \to}^{n, m}}"' near start] \arrow[dl, "f^{n, m}"'] \arrow[uu, "{\d_{X, \uparrow}^{n, m}}"' near end] & & X^{n, m+1} \arrow[dl, "f^{n, m+1}"] \arrow[uu, "{\d_{X, \uparrow}^{n, m+1}}"'] \\
+      Y^{n, m} \arrow[rr, "{\d_{Y, \to}^{n, m}}"'] \arrow[uu, "{\d_{Y, \uparrow}^{n, m}}"] & & Y^{n, m+1} \arrow[uu, crossing over, "{\d_{Y, \uparrow}^{n, m+1}}"' near end]
+    \end{tikzcd}
+  \end{center}
 
-%   In this way we obtain the \hyperref[def:additive-category]{additive category} \(\Complex[2]{\category{C}}\) of double complexes in \(\category{C}\).
-% \end{definition}
+  In this way we obtain the \hyperref[def:additive-category]{additive category} \(\Complex[2]{\category{C}}\) of double complexes in \(\category{C}\).
+\end{definition}
 
-% \begin{remark}
-%   There is a \hyperref[def:functor]{functor} \(F_{I}: \Complex[2]{\category{C}} \to \Complex{\Complex{C}}\) which to a \hyperref[def:double-complex]{double complex} \(X\) associates the \hyperref[def:complex]{complex} whose objects are the rows of \(X\).
-%   More precisely for all \(n \in \mathbb{Z}\) consider the \hyperref[def:complex]{complex}
-%   \begin{equation*}
-%     X_{I}^{n} \coloneq \{X^{n, m}, \d_{\to}^{n, m}\}_{m \in \mathbb{Z}}
-%   \end{equation*}
-%   The collection of morphisms \(\{\d_{\to}^{n, m}\}_{m \in \mathbb{Z}}\) defines a morphism \(\d_{I}^{n}: X_{I}^{n} \to X_{I}^{n+1}\), which trivially verifies \(\d_{I}^{n+1} \circ \d_{I}^{n} = 0\).
-%   Therefore \(X_{I}\) is a \hyperref[def:complex]{complex} in \(\Complex{\category{C}}\) and we have constructed the \hyperref[def:functor]{functor} \(F_{I}\).
+\begin{remark}\label{rem:functor-double-complex-to-complex}
+  There is a \hyperref[def:functor]{functor} \(F_{I}: \Complex[2]{\category{C}} \to \Complex{\Complex{C}}\) which to a \hyperref[def:double-complex]{double complex} \(X\) associates the \hyperref[def:complex]{complex} whose objects are the rows of \(X\).
+  More precisely for all \(n \in \mathbb{Z}\) consider the \hyperref[def:complex]{complex}
+  \begin{equation*}
+    X_{I}^{n} \coloneq \{X^{n, m}, \d_{\to}^{n, m}\}_{m \in \mathbb{Z}}
+  \end{equation*}
+  The collection of morphisms \(\{\d_{\to}^{n, m}\}_{m \in \mathbb{Z}}\) defines a morphism \(\d_{I}^{n}: X_{I}^{n} \to X_{I}^{n+1}\), which trivially verifies \(\d_{I}^{n+1} \circ \d_{I}^{n} = 0\).
+  Therefore \(X_{I}\) is a \hyperref[def:complex]{complex} in \(\Complex{\category{C}}\) and we have constructed the \hyperref[def:functor]{functor} \(F_{I}\).
 
-%   Interchainging rows and columns we get a \hyperref[def:functor]{functor} \(F_{II}: \Complex[2]{\category{C}} \to \Complex{\Complex{C}}\).
-% \end{remark}
-
-
-% \begin{remark}\label{rem:finiteness-condition-double-complex}
-%   To make things easier we will assume that all \hyperref[def:double-complex]{double complexes} \(X^{\bullet, \bullet} \in \Complex[2]{\category{C}}\)  verify the following finiteness condition:
-%   \begin{equation*}
-%     \forall p \in \mathbb{Z} \quad \{ (n, m) \in \mathbb{Z}^{2} \mid X^{n, m} \neq 0 \text{ and } n + m = p\} \text{ is finite.}
-%   \end{equation*}
-% \end{remark}
+  Interchainging rows and columns we get a \hyperref[def:functor]{functor} \(F_{II}: \Complex[2]{\category{C}} \to \Complex{\Complex{C}}\).
+\end{remark}
 
 
-% \begin{definition}[Total complex]
-%   Let \(X^{\bullet, \bullet}\) be a \hyperref[def:double-complex]{double complex}.
-%   The \textbf{total complex} \(\operatorname{tot}(X)^{\bullet}\) associated to \(X^{\bullet, \bullet}\) is the \hyperref[def:complex]{complex} defined by
-%   \begin{equation*}
-%     \operatorname{tot}(X^{\bullet, \bullet})^{n} \coloneq \bigoplus_{p+q=n} X^{p, q} \qquad \d_{\operatorname{tot}(X)}^{n} \coloneq \sum_{p+q=n} \left( \d_{\to}^{p, q} + (-1)^{p}\d_{\uparrow}^{p, q} \right)
-%   \end{equation*}
-% \end{definition}
+\begin{remark}\label{rem:finiteness-condition-double-complex}
+  To make things easier we will assume that all \hyperref[def:double-complex]{double complexes} \(X^{\bullet, \bullet} \in \Complex[2]{\category{C}}\)  verify the following finiteness condition:
+  \begin{equation*}
+    \forall p \in \mathbb{Z} \quad \{ (n, m) \in \mathbb{Z}^{2} \mid X^{n, m} \neq 0 \text{ and } n + m = p\} \text{ is finite.}
+  \end{equation*}
+\end{remark}
 
-% \begin{proposition}\label{prop:tot-is-additive}
-%   The \hyperref[def:differential-object]{differential object} \(\{\operatorname{tot}(X^{\bullet, \bullet})^{p}, \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{p}\}_{p \in \mathbb{Z}}\) is a \hyperref[def:complex]{complex} and \(\operatorname{tot}: \Complex[2]{\category{C}} \to \Complex{\category{C}}\) is an \hyperref[def:additive-functor]{additive functor}.
-% \end{proposition}
-% \begin{proof}
-%   To see that \(\d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n+1} \circ \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} = 0\) we look at the maps from a specific source \(X^{p, q}\) with \(p+q = n\) to \(\operatorname{tot}^{n+2}\).
-%   Note that in two steps the only targets possible are
-%   \begin{itemize}
-%     \item[\(X^{p+2, q}\)] Reached via \(\d_{\to}^{p+1, q} \circ \d_{\to}^{p, q} = 0\).
-%     \item[\(X^{p, q+2}\)] Reached via \((-1)^{p}(\d_{\uparrow}^{p, q+1} \circ \d_{\uparrow}^{p, q}) = 0\).
-%     \item[\(X^{p+1, q+1}\)] There are two possible paths: \((-1)^{p+1}\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q}\) or \(\d_{\to}^{p, q+1} \circ (-1)^{p}\d_{\uparrow}^{p, q}\).
-%           Summing these we have
-%           \begin{align*}
-%             (-1)^{p+1}\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\to}^{p, q+1} \circ (-1)^{p}\d_{\uparrow}^{p, q} &= (-1)^{p} \left( -\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\to}^{p, q+1} \circ \d_{\uparrow}^{p, q} \right) \\
-%                                                                                                 &= (-1)^{p} \left( -\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} \right) \\
-%                                                                                                 &= 0
-%           \end{align*}
-%   \end{itemize}
-%   Therefore since all possibilities lead to the map being zero, \(\d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n+1} \circ \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} = 0\).
+
+\begin{definition}[Total complex]\label{def:tot-complex}
+  Let \(X^{\bullet, \bullet}\) be a \hyperref[def:double-complex]{double complex}.
+  The \textbf{total complex} \(\operatorname{tot}(X)^{\bullet}\) associated to \(X^{\bullet, \bullet}\) is the \hyperref[def:complex]{complex} defined by
+  \begin{equation*}
+    \operatorname{tot}(X^{\bullet, \bullet})^{n} \coloneq \bigoplus_{p+q=n} X^{p, q} \qquad \d_{\operatorname{tot}(X)}^{n} \coloneq \sum_{p+q=n} \left( \d_{\to}^{p, q} + (-1)^{p}\d_{\uparrow}^{p, q} \right)
+  \end{equation*}
+\end{definition}
+
+\begin{proposition}\label{prop:tot-is-additive}
+  The \hyperref[def:differential-object]{differential object} \(\{\operatorname{tot}(X^{\bullet, \bullet})^{p}, \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{p}\}_{p \in \mathbb{Z}}\) is a \hyperref[def:complex]{complex} and \(\operatorname{tot}: \Complex[2]{\category{C}} \to \Complex{\category{C}}\) is an \hyperref[def:additive-functor]{additive functor}.
+\end{proposition}
+\begin{proof}
+  To see that \(\d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n+1} \circ \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} = 0\) we look at the maps from a specific source \(X^{p, q}\) with \(p+q = n\) to \(\operatorname{tot}^{n+2}\).
+  Note that in two steps the only targets possible are
+  \begin{itemize}
+    \item[\(X^{p+2, q}\)] Reached via \(\d_{\to}^{p+1, q} \circ \d_{\to}^{p, q} = 0\).
+    \item[\(X^{p, q+2}\)] Reached via \((-1)^{p}(\d_{\uparrow}^{p, q+1} \circ \d_{\uparrow}^{p, q}) = 0\).
+    \item[\(X^{p+1, q+1}\)] There are two possible paths: \((-1)^{p+1}\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q}\) or \(\d_{\to}^{p, q+1} \circ (-1)^{p}\d_{\uparrow}^{p, q}\).
+          Summing these we have
+          \begin{align*}
+            (-1)^{p+1}\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\to}^{p, q+1} \circ (-1)^{p}\d_{\uparrow}^{p, q} &= (-1)^{p} \left( -\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\to}^{p, q+1} \circ \d_{\uparrow}^{p, q} \right) \\
+                                                                                                &= (-1)^{p} \left( -\d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} + \d_{\uparrow}^{p+1, q} \circ \d_{\to}^{p, q} \right) \\
+                                                                                                &= 0
+          \end{align*}
+  \end{itemize}
+  Therefore since all possibilities lead to the map being zero, \(\d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n+1} \circ \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} = 0\).
   
-%   To see that \(\operatorname{tot}\) is \hyperref[def:additive-functor]{additive} note that
-%   \begin{equation*}
-%     \operatorname{tot}(0^{\bullet, \bullet}) = \bigoplus_{p+q=n} 0^{p, q} = 0^{\bullet}
-%   \end{equation*}
-%   Furthermore for any \(X^{\bullet, \bullet}, Y^{\bullet, \bullet} \in \Complex[2]{\category{C}}\)
-%   \begin{align*}
-%     \operatorname{tot}(X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}) &= \bigoplus_{p+q=n} \left( X^{p, q} \oplus Y^{p, q} \right) = \left( \bigoplus_{p+q=n} X^{p, q} \right) \oplus \left( \bigoplus_{p+q=n} Y^{p, q} \right) = \operatorname{tot}(X^{\bullet, \bullet}) \oplus \operatorname{tot}(Y^{\bullet, \bullet}) \\
-%     \d_{\operatorname{tot}(X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet})}^{n} &= \sum_{p+q=n} \left( \d_{X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \\
-%                                             &= \sum_{p+q=n} \left( \left(\d_{X^{\bullet, \bullet}, \to}^{p, q} \oplus \d_{Y^{\bullet, \bullet}, \to}^{p, q} \right) + (-1)^{p} \left(\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \oplus \d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right)  \right) \\
-%                                             &= \sum_{p+q=n} \left( \left( \d_{X^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \right) \oplus \left( \d_{Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \\
-%                                             &=  \left( \sum_{p+q=n} \left( \d_{X^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \oplus \left( \sum_{p+q=n} \left( \d_{Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \\
-%                                             &= \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} \oplus \d_{\operatorname{tot}(Y^{\bullet, \bullet})}^{n}
-%   \end{align*}
-%   Therefore by \autoref{prop:additive-functor-characterization} \(\operatorname{tot}\) is \hyperref[def:additive-functor]{additive}.
-% \end{proof}
+  To see that \(\operatorname{tot}\) is \hyperref[def:additive-functor]{additive} note that
+  \begin{equation*}
+    \operatorname{tot}(0^{\bullet, \bullet}) = \bigoplus_{p+q=n} 0^{p, q} = 0^{\bullet}
+  \end{equation*}
+  Furthermore for any \(X^{\bullet, \bullet}, Y^{\bullet, \bullet} \in \Complex[2]{\category{C}}\)
+  \begin{align*}
+    \operatorname{tot}(X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}) &= \bigoplus_{p+q=n} \left( X^{p, q} \oplus Y^{p, q} \right) = \left( \bigoplus_{p+q=n} X^{p, q} \right) \oplus \left( \bigoplus_{p+q=n} Y^{p, q} \right) = \operatorname{tot}(X^{\bullet, \bullet}) \oplus \operatorname{tot}(Y^{\bullet, \bullet}) \\
+    \d_{\operatorname{tot}(X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet})}^{n} &= \sum_{p+q=n} \left( \d_{X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet} \oplus Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \\
+                                            &= \sum_{p+q=n} \left( \left(\d_{X^{\bullet, \bullet}, \to}^{p, q} \oplus \d_{Y^{\bullet, \bullet}, \to}^{p, q} \right) + (-1)^{p} \left(\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \oplus \d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right)  \right) \\
+                                            &= \sum_{p+q=n} \left( \left( \d_{X^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \right) \oplus \left( \d_{Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \\
+                                            &=  \left( \sum_{p+q=n} \left( \d_{X^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{X^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \oplus \left( \sum_{p+q=n} \left( \d_{Y^{\bullet, \bullet}, \to}^{p, q} + (-1)^{p}\d_{Y^{\bullet, \bullet}, \uparrow}^{p, q} \right) \right) \\
+                                            &= \d_{\operatorname{tot}(X^{\bullet, \bullet})}^{n} \oplus \d_{\operatorname{tot}(Y^{\bullet, \bullet})}^{n}
+  \end{align*}
+  Therefore by \autoref{prop:additive-functor-characterization} \(\operatorname{tot}\) is \hyperref[def:additive-functor]{additive}.
+\end{proof}
 
-% \begin{remark}
-%   Since \hyperref[def:complex]{\(\Complex{\category{C}}\) is additive} and thus \hyperref[lemma:products-coproducts-additive-category]{finite products and coproducts coincide} we can write \(\prod\) instead of \(\bigoplus\) in the \hyperref[def:tot-complex]{\(\operatorname{tot}\) definition}.
-%   We can do this because we are assuming the \hyperref[rem:finiteness-condition-double-complex]{finiteness condition}.
-% \end{remark}
-
-
-% \begin{remark}[Bifunctors and double complexes]
-%   If \(\category{C}, \category{C'}\) and \(\category{C''}\) are \hyperref[def:additive-category]{additive categories} and \(F: \category{C} \times \category{C'} \to \category{C''}\) is an \hyperref[def:additive-functor]{additive bifunctor} (i.e: it is \hyperref[def:additive-functor]{additive} in each component).
-%   Then it defines an \hyperref[def:additive-functor]{additive bifunctor}
-%   \begin{equation*}
-%     \Complex[2]{F}: \Complex{\category{C}} \times \Complex{\category{C'}} \to \Complex[2]{\category{C''}}
-%   \end{equation*}
-%   In other words, if \(X \in \Complex{\category{C}}\) and \(X' \in \Complex{\category{C'}}\) are \hyperref[def:complex]{complexes} then \(\Complex[2]{F}(X, X')\) is a \hyperref[def:double-complex]{double complex}.
-% \end{remark}
-
-% \begin{example}\label{ex:tensor-product-double-complex}
-%   Let \(A\) be a ring.
-%   Consider the tensor product bifunctor
-%   \begin{equation*}
-%     - \otimes -: \Mod{A^{\op}} \times \Mod{A} \to \Ab
-%   \end{equation*}
-%   In what follows we will write \(\otimes\) instead of \(\Complex[2]{\otimes}\).
-%   Then for any \hyperref[def:complex]{complexes} \(X^{\bullet} \in \Complex{\Mod{A^{\op}}}, Y^{\bullet} \in \Complex{\Mod{A}}\) we have
-%   \begin{align*}
-%     (X^{\bullet} \otimes Y^{\bullet})^{n, m} = X^{n} \otimes Y^{m} \quad \d_{\uparrow}^{n, m} = \d_{X^{\bullet}}^{n} \otimes \id_{Y^{m}} \quad \d_{\to}^{n, m} = \id_{X^{n}} \otimes \d_{Y^{\bullet}}^{m}
-%   \end{align*}
-% \end{example}
+\begin{remark}
+  Since \hyperref[def:complex]{\(\Complex{\category{C}}\) is additive} and thus \hyperref[lemma:products-coproducts-additive-category]{finite products and coproducts coincide} we can write \(\prod\) instead of \(\bigoplus\) in the \hyperref[def:tot-complex]{\(\operatorname{tot}\) definition}.
+  We can do this because we are assuming the \hyperref[rem:finiteness-condition-double-complex]{finiteness condition}.
+\end{remark}
 
 
-% \begin{example}[\(\Hom^{\bullet, \bullet}\) complex]\label{ex:hom-double-complex}
-%   Consider the bifunctor
-%   \begin{equation*}
-%     \Hom_{\category{C}}: \opcategory{C} \times \category{C} \to \Ab
-%   \end{equation*}
-%   In what follows we will write \(\Hom_{\category{C}}^{\bullet, \bullet}\) instead of \(\Complex[2]{\Hom_{\category{C}}}\).
-%   Then for any \hyperref[def:complex]{complexes} \(X^{\bullet} \in \Complex{\opcategory{C}}, Y^{\bullet} \in \Complex{\category{C}}\) we have
-%   \begin{align*}
-%     \Hom_{\category{C}}^{\bullet, \bullet}(X^{\bullet}, Y^{\bullet})^{n, m} = \Hom_{\category{C}}(X^{-m}, Y^{n}) \\
-%     \d_{\uparrow}^{n, m} = \Hom_{\category{C}}(X^{-m}, \d_{Y^{\bullet}}^{n}) \quad \d_{\to}^{n, m} = \Hom_{\category{C}}((-1)^{m+1}\d_{X^{\bullet}}^{m+1}, Y^{n})
-%   \end{align*}
+\begin{remark}[Bifunctors and double complexes]
+  If \(\category{C}, \category{C'}\) and \(\category{C''}\) are \hyperref[def:additive-category]{additive categories} and \(F: \category{C} \times \category{C'} \to \category{C''}\) is an \hyperref[def:additive-functor]{additive bifunctor} (i.e: it is \hyperref[def:additive-functor]{additive} in each component).
+  Then it defines an \hyperref[def:additive-functor]{additive bifunctor}
+  \begin{equation*}
+    \Complex[2]{F}: \Complex{\category{C}} \times \Complex{\category{C'}} \to \Complex[2]{\category{C''}}
+  \end{equation*}
+  In other words, if \(X \in \Complex{\category{C}}\) and \(X' \in \Complex{\category{C'}}\) are \hyperref[def:complex]{complexes} then \(\Complex[2]{F}(X, X')\) is a \hyperref[def:double-complex]{double complex}.
+\end{remark}
 
-%   Using that \(\Ab\) admits \hyperref[def:categorical-product]{countable products} we set
-%   \begin{equation*}
-%     \Hom_{\category{C}}^{\bullet}(X^{\bullet}, Y^{\bullet}) \coloneq \operatorname{tot} \Hom_{\category{C}}^{\bullet, \bullet}(X^{\bullet}, Y^{\bullet}) \in \Complex{\Ab}
-%   \end{equation*}
-% \end{example}
+\begin{example}\label{ex:tensor-product-double-complex}
+  Let \(A\) be a ring.
+  Consider the tensor product bifunctor
+  \begin{equation*}
+    - \otimes -: \Mod{A^{\op}} \times \Mod{A} \to \Ab
+  \end{equation*}
+  In what follows we will write \(\otimes\) instead of \(\Complex[2]{\otimes}\).
+  Then for any \hyperref[def:complex]{complexes} \(X^{\bullet} \in \Complex{\Mod{A^{\op}}}, Y^{\bullet} \in \Complex{\Mod{A}}\) we have
+  \begin{align*}
+    (X^{\bullet} \otimes Y^{\bullet})^{n, m} = X^{n} \otimes Y^{m} \quad \d_{\uparrow}^{n, m} = \d_{X^{\bullet}}^{n} \otimes \id_{Y^{m}} \quad \d_{\to}^{n, m} = \id_{X^{n}} \otimes \d_{Y^{\bullet}}^{m}
+  \end{align*}
+
+  Therefore applying \hyperref[def:tot-complex]{\(\operatorname{tot}\)} we have
+  \begin{align*}
+    (\operatorname{tot}(X, Y))^{k} &= \bigoplus_{n+m=k} X^{n} \oplus Y^{m} \\
+    \d_{\operatorname{tot}(X^{\bullet}, Y^{\bullet})}|_{X^{n} \oplus Y^{m}} &= \d_{\to}^{n, m} + (-1)^{n}\d_{\uparrow}^{n, m}
+  \end{align*}
+\end{example}
+
+
+\begin{example}[\(\Hom^{\bullet, \bullet}\) complex]\label{ex:hom-double-complex}
+  Consider the bifunctor
+  \begin{equation*}
+    \Hom_{\category{C}}: \opcategory{C} \times \category{C} \to \Ab
+  \end{equation*}
+  In what follows we will write \(\Hom_{\category{C}}^{\bullet, \bullet}\) instead of \(\Complex[2]{\Hom_{\category{C}}}\).
+  Then for any \hyperref[def:complex]{complexes} \(X^{\bullet} \in \Complex{\opcategory{C}}, Y^{\bullet} \in \Complex{\category{C}}\) we have
+  \begin{align*}
+    \Hom_{\category{C}}^{\bullet, \bullet}(X^{\bullet}, Y^{\bullet})^{n, m} = \Hom_{\category{C}}(X^{-m}, Y^{n}) \\
+    \d_{\uparrow}^{n, m} = \Hom_{\category{C}}(X^{-m}, \d_{Y^{\bullet}}^{n}) \quad \d_{\to}^{n, m} = \Hom_{\category{C}}((-1)^{m+1}\d_{X^{\bullet}}^{m+1}, Y^{n})
+  \end{align*}
+
+  Using that \(\Ab\) admits \hyperref[def:categorical-product]{countable products} we set
+  \begin{equation*}
+    \Hom_{\category{C}}^{\bullet}(X^{\bullet}, Y^{\bullet}) \coloneq \operatorname{tot} \Hom_{\category{C}}^{\bullet, \bullet}(X^{\bullet}, Y^{\bullet}) \in \Complex{\Ab}
+  \end{equation*}
+  Therefore we have
+  \begin{align*}
+    \Hom_{\category{C}}(X^{\bullet}, Y^{\bullet})^{n} &= \prod_{j \in \mathbb{Z}} \Hom_{\category{C}}(X^{j}, Y^{n-j}) \\
+    (\d^{n}f)^{j} &= \d_{Y}^{j+n} \circ f^{n} + (-1)^{n+1} f^{j+1} \circ \d_{X}^{j}
+  \end{align*}
+
+  Note that for \(X^{\bullet}, Y^{\bullet}, Z^{\bullet} \in \Complex{\category{C}}\) we have \textit{composition} map
+  \begin{equation*}
+    \Hom_{\category{C}}^{\bullet}(X^{\bullet}, Y^{\bullet}) \times \Hom_{\category{C}}(Y^{\bullet}, Z^{\bullet}) \xrightarrow{\circ} \Hom_{\category{C}}(X^{\bullet}, Z^{\bullet})
+  \end{equation*}
+  associated to the maps
+  \begin{align*}
+    \Hom_{\category{C}}(X^{\bullet}, Y^{\bullet})^{m} \times \Hom_{\category{C}}(Y^{\bullet}, Z^{\bullet})^{n} &\to \Hom_{\category{C}}(X^{\bullet}, Z^{\bullet})^{n+m} \\
+    \prod_{j \in \mathbb{Z}} \Hom_{\category{C}}(X^{j}, Y^{j+j}) \times \prod_{j \in \mathbb{Z}} \Hom_{\category{C}}(Y^{j+m}, Z^{j+m+n}) &\mapsto  \prod_{j \in \mathbb{Z}} \Hom_{\category{C}}(X^{j}, Z^{j+m+n}) 
+  \end{align*}
+\end{example}
 
 \section{The homotopy category}
 
@@ -547,7 +568,7 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
   \begin{align*}
     g^{p} \circ f^{p} &= g^{p} \circ \left( s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p} \right) \\
                   &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \left(g^{p} \circ \d_{Y}^{p-1}\right) \circ s^{p} \\
-                  &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \d_{Z}^{p-1} \circ \left( g^{p-1} \circ s^{p} \right) \\
+                  &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \d_{Z}^{p-1} \circ \left( g^{p-1} \circ s^{p} \right)
   \end{align*}
 \end{proof}
 

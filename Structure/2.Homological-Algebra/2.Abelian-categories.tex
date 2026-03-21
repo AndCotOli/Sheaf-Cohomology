@@ -221,13 +221,13 @@ As a direct application of \autoref{lemma:characterization-exact-functor}.
   \hyperref[def:dual]{Dually}, \hyperref[def:adjoint-functors]{left adjoints} are \hyperref[def:exact-functor]{right exact}.
 \end{example}
 
-\begin{example}
+\begin{example}\label{ex:limit-colimit-exact}
   Let \(\category{I}\) be a \hyperref[def:small-category]{small category}.
   If \(\category{C}\) admits \hyperref[def:categorical-limit]{\(I\)-indexed limits} then the \hyperref[def:functor]{functor} \(\lim: \Fct{\opcategory{I}}{\category{C}} \to \category{C}\) is \hyperref[def:exact-functor]{left exact}.
   \hyperref[def:dual]{Dually} if \(\category{C}\) admits \hyperref[def:categorical-colimit]{\(I\)-indexed colimits} then the \hyperref[def:functor]{functor} \(\colim: \Fct{\category{I}}{\category{C}} \to \category{C}\) is \hyperref[def:exact-functor]{right exact}.
 \end{example}
 
-\begin{example}
+\begin{example}\label{ex:product-direct-sum-exact}
   Let \(R\) be a ring and \(\mathcal{I}\) an index set.
   The two \hyperref[def:functor]{functors}
   \begin{equation*}
@@ -236,7 +236,7 @@ As a direct application of \autoref{lemma:characterization-exact-functor}.
   are \hyperref[def:exact-functor]{exact}.
 \end{example}
 
-\begin{example}
+\begin{example}\label{ex:injlim-exact}
   Let \(R\) be a ring and \(\mathcal{I}\) a \hyperref[def:directed-set]{small directed category}.
   The \hyperref[def:functor]{functor} \(\varinjlim_{i \in \mathcal{I}}: \Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R)\) is \hyperref[def:exact-functor]{exact}.
 \end{example}
@@ -505,7 +505,7 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
   Therefore \(\cohomology{n}f: \quot{Z^{n}(X^{\bullet})}{B^{n}(X^{\bullet})} \to \quot{Z^{n}(Y^{\bullet})}{B^{n}(Y^{\bullet})}\) is the zero morphism.
 \end{proof}
 
-\begin{definition}[Quasi-isomorphism]\label{def:quasi-isormophism}
+\begin{definition}[Quasi-isomorphism]\label{def:quasi-isomorphism}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
   A morphism \(f^{\bullet}: X^{\bullet} \to Y^{\bullet}\) is a \textbf{quasi-isomorphism} (abbreviated q.i.s) if \(\cohomology{n}f^{\bullet}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} for all \(n \in \mathbb{Z}\).
   In this case we say that \(X^{\bullet}\) and \(Y^{\bullet}\) are \textbf{quasi-isomorphic}.
@@ -611,6 +611,169 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
   the \hyperref[def:complex]{complex} is \hyperref[def:exact-sequence]{exact}.
   Therefore the result follows from \autoref{thm:LES-in-cohomology}.
 \end{proof}
+
+\subsection{Truncation functors}
+
+\begin{definition}[Truncation functor]\label{def:truncation-functor}
+  The \textbf{truncation functors}
+  \begin{align*}
+    \tau^{\leq n}, \widetilde{\tau}^{\leq n}:\,& \Complex{\category{C}} \to \Complex[-]{\category{C}} \\
+    \tau^{\geq n}, \widetilde{\tau}^{\geq n}:\,& \Complex{\category{C}} \to \Complex[+]{\category{C}}
+  \end{align*}
+  are defined as, for any \hyperref[def:complex]{complex} \(X^{\bullet} \in \Complex{\category{C}}\)
+  \begin{center}
+    \begin{tikzcd}[column sep=small]
+      \tau^{\leq n}(X^{\bullet}) \coloneq& \cdots \arrow[r] & X^{n-2} \arrow[r] & X^{n-1} \arrow[r] & \ker \d_{X}^{n} \arrow[r] & 0 \arrow[r] & 0 \arrow[r] & \cdots \\
+      \widetilde{\tau}^{\leq n}(X^{\bullet}) \coloneq& \cdots \arrow[r] & X^{n-2} \arrow[r] & X^{n-1} \arrow[r] & X^{n} \arrow[r] & \operatorname{Im} \d_{X}^{n} \arrow[r] & 0 \arrow[r] & \cdots \\
+      \tau^{\geq n}(X^{\bullet}) \coloneq& \cdots \arrow[r] & 0 \arrow[r] & 0 \arrow[r] & \coker \d_{X}^{n-1} \arrow[r] & X^{n+1} \arrow[r] & X^{n+2} \arrow[r] & \cdots \\
+      \widetilde{\tau}^{\geq n}(X^{\bullet}) \coloneq& \cdots \arrow[r] & 0 \arrow[r] & \operatorname{Im} \d_{X}^{n-1} \arrow[r] & X^{n} \arrow[r] & X^{n+1} \arrow[r] & X^{n+2} \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{remark}\label{rem:truncation-functor-sequences}
+  For any \hyperref[def:complex]{complex} \(X^{\bullet} \in \Complex{\category{C}}\) we have a chain of morphisms
+  \begin{equation*}
+    \tau^{\leq n}(X^{\bullet}) \to \widetilde{\tau}^{\leq n}(X^{\bullet}) \to X^{\bullet} \to \widetilde{\tau}^{\geq n}(X^{\bullet}) \to \tau^{\geq n}(X^{\bullet})
+  \end{equation*}
+  in \(\Complex{\category{C}}\) given by
+  \begin{center}
+    \begin{tikzcd}[column sep=small]
+      \tau^{\leq n}(X^{\bullet}) \arrow[d] =& \cdots \arrow[r] & X^{n-2} \arrow[r] \arrow[d, equal] & X^{n-1} \arrow[r] \arrow[d, equal] & \ker \d_{X}^{n} \arrow[r] \arrow[d] & 0 \arrow[r] \arrow[d] & 0 \arrow[r] \arrow[d, equal] & \cdots \\
+      \widetilde{\tau}^{\leq n}(X^{\bullet}) \arrow[d] =& \cdots \arrow[r] & X^{n-2} \arrow[r] \arrow[d, equal] & X^{n-1} \arrow[r] \arrow[d, equal] & X^{n} \arrow[r] \arrow[d, equal] & \operatorname{Im} \d_{X}^{n} \arrow[r] \arrow[d] & 0 \arrow[r] \arrow[d] & \cdots \\
+      X^{\bullet} \arrow[d] =& \cdots \arrow[r] & X^{n-2} \arrow[r] \arrow[d] & X^{n-1} \arrow[r] \arrow[d] & X^{n} \arrow[r] \arrow[d, equal] & X^{n+1} \arrow[r] \arrow[d, equal] & X^{n+2} \arrow[r] \arrow[d, equal] & \cdots \\
+      \widetilde{\tau}^{\geq n}(X^{\bullet}) \arrow[d] =& \cdots \arrow[r] & 0 \arrow[r] \arrow[d, equal] & \operatorname{Im} \d_{X}^{n-1} \arrow[r] \arrow[d] & X^{n} \arrow[r] \arrow[d] & X^{n+1} \arrow[r] \arrow[d, equal] & X^{n+2} \arrow[r] \arrow[d, equal] & \cdots \\
+      \tau^{\geq n}(X^{\bullet}) =& \cdots \arrow[r] & 0 \arrow[r] & 0 \arrow[r] & \coker \d_{X}^{n-1} \arrow[r] & X^{n+1} \arrow[r] & X^{n+2} \arrow[r] & \cdots \\
+    \end{tikzcd}
+  \end{center}
+
+  Therefore we get \hyperref[def:exact-sequence]{exact sequences}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \widetilde{\tau}^{\leq n-1}(X^{\bullet}) \arrow[r] & \tau^{\leq n}(X^{\bullet}) \arrow[r] & \cohomology{n}(X^{\bullet})[-n] \arrow[r] & 0 \\
+      0 \arrow[r] & \cohomology{n}(X^{\bullet})[-n] \arrow[r] & \tau^{\geq n}(X^{\bullet}) \arrow[r] & \widetilde{\tau}^{\geq n+1}(X^{\bullet}) \arrow[r] & 0 \\
+      0 \arrow[r] & \tau^{\leq n}(X^{\bullet}) \arrow[r] & X^{\bullet} \arrow[r] & \widetilde{\tau}^{n+1}(X^{\bullet}) \arrow[r] & 0 \\
+      0 \arrow[r] & \widetilde{\tau}^{\leq n-1}(X^{\bullet}) \arrow[r] & X^{\bullet} \arrow[r] & \tau^{n}(X^{\bullet}) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+
+  Furthermore we have
+  \begin{align*}
+    \cohomology{j}(\tau^{\leq n}(X^{\bullet})) &\cong \cohomology{j}(\widetilde{\tau}^{\leq n}(X^{\bullet})) = \begin{cases} \cohomology{j}(X^{\bullet}) & j \leq n \\ 0 & j > n \end{cases} \\
+    \cohomology{j}(\tau^{\geq n}(X^{\bullet})) &\cong \cohomology{j}(\widetilde{\tau}^{\geq n}(X^{\bullet})) = \begin{cases} \cohomology{j}(X^{\bullet}) & j \geq n \\ 0 & j < n \end{cases}
+  \end{align*}
+\end{remark}
+
+\section{Double complexes}
+
+Recall the \hyperref[rem:finiteness-condition-double-complex]{finiteness condition} we are assuming for all double complexes.
+
+\begin{lemma}\label{lemma:tot-is-exact}
+  The \hyperref[def:functor]{functor} \(\operatorname{tot}: \Complex[2]{\category{C}} \to \Complex{\category{C}}\) is \hyperref[def:exact-functor]{exact}.
+\end{lemma}
+\begin{proof}
+  Since \hyperref[ex:product-direct-sum-exact]{direct products are exact} and \(\operatorname{tot}(X^{\bullet, \bullet})^{n} = \bigoplus_{p+q=n}X^{p, q}\), the result follows.
+\end{proof}
+
+Recall that we \hyperref[rem:functor-double-complex-to-complex]{have defined functors \(F_{I}, F_{II}: \Complex[2]{\category{C}} \to \Complex{\Complex{\category{C}}}\)}.
+Since \(\category{C}\) is \hyperref[def:abelian-category]{category} we can combine these with the \hyperref[def:truncation-functor]{truncation functors}.
+For example we define \(\tau_{I}^{\leq n} \coloneq F_{I}^{-1} \circ \tau^{\leq n} \circ F_{I}\), i.e:
+\begin{equation*}
+  \tau_{I}^{\leq n}(X^{\bullet, \bullet}) \coloneq \cdots \to F_{I}(X^{\bullet, \bullet})^{n} \to \ker \d_{F_{I}(X^{\bullet, \bullet})}^{n} \to 0
+\end{equation*}
+and similary for \(\widetilde{\tau}_{I}^{\leq n}, \tau_{I}^{\geq n}, \widetilde{\tau}_{I}^{\geq n}\).
+
+For \(n \in \mathbb{Z}\) we define the \hyperref[def:complex]{complex}
+\begin{equation*}
+  \operatorname{H}_{I}^{n}(X^{\bullet, \bullet}) \coloneq \operatorname{H}^{n}(F_{I}(X^{\bullet, \bullet}))
+\end{equation*}
+and the \hyperref[def:double-complex]{double complex}
+\begin{equation*}
+  \operatorname{H}_{I}(X^{\bullet, \bullet}) \coloneq \cdots \to \operatorname{H}^{n}(F_{I}(X^{\bullet, \bullet})) \xrightarrow{0} \operatorname{H}^{n+1}(F_{I}(X^{\bullet, \bullet})) \to \cdots 
+\end{equation*}
+
+We get analogous definitions using \(F_{II}\) instead of \(F_{I}\).
+
+\begin{remark}
+  By \autoref{rem:truncation-functor-sequences} and \autoref{lemma:tot-is-exact} we get that the natural morphism
+  \begin{equation*}
+    \operatorname{tot}(\tau_{I}^{\leq n}(X^{\bullet, \bullet})) \to \operatorname{tot}(\widetilde{\tau}_{I}^{\leq n}(X^{\bullet, \bullet}))
+  \end{equation*}
+  is an \hyperref[def:categorical-isomorphism]{isomorphism} for all \(n \in \mathbb{N}\).
+
+  Furthermore we get the \hyperref[def:exact-sequence]{exact sequence} in \(\Complex{\category{C}}\)
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \operatorname{tot}(\widetilde{\tau}_{I}^{\leq n-1}(X^{\bullet, \bullet})) \arrow[r] & \operatorname{tot}(\tau_{I}^{\leq n}(X^{\bullet, \bullet})) \arrow[r] & \operatorname{H}_{I}^{n}(X^{\bullet, \bullet})[-n] \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  which is \hyperref[def:functor]{functorial} with respect to \(X^{\bullet, \bullet}\).
+\end{remark}
+
+
+\begin{theorem}\label{thm:tot-is-qis}
+  Let \(f^{\bullet, \bullet}: X^{\bullet, \bullet} \to Y^{\bullet, \bullet}\) be a \hyperref[def:double-complex]{morphism of double complexes}.
+  If \(f^{\bullet, \bullet}\) induces an \hyperref[def:categorical-isomorphism]{isomorphism} \(\operatorname{H}_{II}\operatorname{H}_{I}(X^{\bullet, \bullet}) \cong \operatorname{H}_{II}\operatorname{H}_{I}(Y^{\bullet, \bullet})\) then \(\operatorname{tot}f: \operatorname{tot}(X^{\bullet, \bullet}) \to \operatorname{tot}(Y^{\bullet, \bullet})\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+\end{theorem}
+\begin{proof}
+  Note that the hypothesis is equivalent to \(\operatorname{H}_{I}^{n}f: \operatorname{H}_{I}^{n}(X^{\bullet, \bullet}) \to \operatorname{H}_{I}^{n}(Y^{\bullet, \bullet})\) being a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} for all \(n \in \mathbb{N}\).
+
+  Since by \autoref{rem:truncation-functor-sequences} we have
+  \begin{equation*}
+    \operatorname{H}_{I}^{n}(\tau_{I}^{\geq p}(X^{\bullet, \bullet})) \cong \begin{cases} \operatorname{H}_{I}^{n}(X^{\bullet, \bullet}) & n \geq p \\ 0 & n < p \end{cases}
+  \end{equation*}
+  for all \(p \in \mathbb{Z}\) we get the \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \operatorname{H}_{II}\operatorname{H}_{I}(\tau_{I}^{\geq p}(X^{\bullet, \bullet})) \isoarrow \operatorname{H}_{II}\operatorname{H}_{I}(\tau_{I}^{\geq p}(Y^{\bullet, \bullet}))
+  \end{equation*}
+
+  For a fixed \(n \in \mathbb{Z}\) we have, for \(p \ll 0\)
+  \begin{equation*}
+    \operatorname{H}^{n}(\operatorname{tot}(X^{\bullet, \bullet})) \cong \operatorname{H}^{n}(\operatorname{tot}(\tau_{I}^{\geq p}(X^{\bullet, \bullet})))
+  \end{equation*}
+  and analogously for \(Y^{\bullet, \bullet}\).
+  Therefore by replacing \(X^{\bullet, \bullet}\) and \(Y^{\bullet, \bullet}\) by \(\tau_{I}^{\geq p}(X^{\bullet, \bullet})\) and \(\tau_{I}^{\geq p}(Y^{\bullet, \bullet})\) we may assume that \(X_{I}^{n} = Y_{I}^{n} = 0\) for \(n \ll 0\).
+
+  Consider now the commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \operatorname{tot}(\widetilde{\tau}_{I}^{\leq n-1}(X^{\bullet, \bullet})) \arrow[r] \arrow[d, "{\operatorname{tot}(\widetilde{\tau}_{I}^{\leq n-1}f)}"'] & \operatorname{tot}(\tau_{I}^{\leq n}(X^{\bullet, \bullet})) \arrow[r] \arrow[d, "{\operatorname{tot}(\tau_{I}^{\leq n}f)}"] & \operatorname{H}_{I}^{n}(X^{\bullet, \bullet})[-n] \arrow[r] \arrow[d, "{(\operatorname{H}_{I}^{n}f)[-n]}"] & 0 \\
+      0 \arrow[r] & \operatorname{tot}(\widetilde{\tau}_{I}^{\leq n-1}(Y^{\bullet, \bullet})) \arrow[r] & \operatorname{tot}(\tau_{I}^{\leq n}(Y^{\bullet, \bullet})) \arrow[r] & \operatorname{H}_{I}^{n}(Y^{\bullet, \bullet})[-n] \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Note that by hypothesis the right vertical arrow is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} and for \(n \ll 0\) the left arrow is also a \hyperref[def:quasi-isomorphism]{quasi-isomorphism}.
+  Therefore by induction and using \(\operatorname{tot}(\tau_{I}^{\leq n}(X^{\bullet, \bullet})) \cong \operatorname{tot}(\widetilde{\tau}_{I}^{\leq n}(X^{\bullet, \bullet}))\) we get that all vertical arrows are \hyperref[def:quasi-isomorphism]{quasi-isomorphisms}.
+
+  Finally the results follows since for a fixed \(n \in \mathbb{Z}\) and \(p \gg 0\) we have
+  \begin{equation*}
+    \operatorname{H}^{n}(\operatorname{tot}(X^{\bullet, \bullet})) \cong \operatorname{H}^{n}(\operatorname{tot}(\tau_{I}^{\leq p}(X^{\bullet, \bullet})))
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}
+  Let \(X^{\bullet, \bullet}\) be a \hyperref[def:double-complex]{double complex} in \(\category{C}\).
+  If \(\operatorname{H}_{I}(X^{\bullet, \bullet}) = 0\) then \(\operatorname{tot}(X^{\bullet, \bullet})\) is \hyperref[def:quasi-isomorphism]{quasi-isomorphic to \(0\)}.
+\end{corollary}
+\begin{proof}
+  Take \(Y^{\bullet, \bullet} = 0\) in \autoref{thm:tot-is-qis}.
+\end{proof}
+
+\begin{corollary}\label{cor:tot-qis-to-zero}
+  Let \(X^{\bullet, \bullet}\) be a \hyperref[def:double-complex]{double complex} in \(\category{C}\).
+  If all rows \(X^{j, \bullet}\) are \hyperref[def:exact-sequence]{exact} for \(j \neq n\) then \(\operatorname{tot}(X^{\bullet, \bullet})\) is \hyperref[def:quasi-isomorphism]{quasi-isomorphic} to \(X^{n, \bullet}[-n]\).
+\end{corollary}
+\begin{proof}
+  Apply \autoref{thm:tot-is-qis} first to \(\sigma_{I}^{\geq n}(X^{\bullet, \bullet}) \to X^{\bullet, \bullet}\) and then to \(\sigma_{I}^{\geq n}(X^{\bullet, \bullet}) \to \sigma_{I}^{\leq n}\sigma_{I}^{\geq n}(X^{\bullet, \bullet}) \cong X^{n, \bullet}[-n]\).
+\end{proof}
+
+\begin{corollary}\label{cor:rows-cols-zero-and-exact}
+  Let \(X^{\bullet, \bullet}\) be a \hyperref[def:double-complex]{double complex} in \(\category{C}\).
+  If all rows \(X^{j, \bullet}\) and columns \(X^{\bullet, j}\) are zero for \(j < 0\) and \hyperref[def:exact-sequence]{exact} for \(j > 0\) then \(\operatorname{H}^{p}(X^{0, \bullet}) \cong \operatorname{H}^{p}(X^{\bullet, 0})\) for all \(p \in \mathbb{Z}\).
+\end{corollary}
+\begin{proof}
+  By hypothesis \(X^{0, \bullet}\) and \(X^{\bullet, 0}\) are \hyperref[def:quasi-isomorphism]{quasi-isomorphic} to 0.
+\end{proof}
+
 
 
 \end{document}

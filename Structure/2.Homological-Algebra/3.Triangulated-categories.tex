@@ -322,6 +322,23 @@ The proof of the following theorem is straightforward but rather tedious, so we 
   Direct from \autoref{prop:conditions-for-localization}.
 \end{proof}
 
+\begin{theorem}\label{thm:conditions-localization-null-system-bifunctor}
+  Let \(F: \category{C} \times \category{C'} \to \category{C''}\) be a \hyperref[def:triangulated-functor]{triangulated bifunctor}.
+  Let \(\mathcal{N}, \mathcal{N}\) be \hyperref[def:null-system]{null systems} of \(\category{C}\) and \(\category{C'}\) respectively and let \(\category{D}, \category{D'}\) be \hyperref[def:triangulated-subcategory]{full triangulated subcategories} of \(\category{C}\) and \(\category{C'}\) respectively.
+  Suppose
+  \begin{enumerate}
+    \item For any \(X \in \category{C}\) there exists a d.t. \(X \to Y \to Z \to T(X)\) with \(Z \in \mathcal{N}\) and \(Y \in \category{D}\).
+    \item For any \(X' \in \category{C'}\) there exists a d.t. \(X' \to Y' \to Z' \to T(X')\) with \(Z' \in \mathcal{N}\) and \(Y' \in \category{D}\).
+    \item For any \(Y \in \category{D}\) and \(Y' \in \category{D'} \cap \mathcal{N}'\), \(F(Y, Y') = 0\).
+    \item For any \(Y' \in \category{D'}\) and \(Y \in \category{D} \cap \mathcal{N}\), \(F(Y, Y') = 0\).
+  \end{enumerate}
+  Then \(F\) is \hyperref[def:localizable-functor]{right localizable}.
+\end{theorem}
+\begin{proof}
+  Direct from \autoref{prop:conditions-for-localization}.
+\end{proof}
+
+
 To finish this chapter, we state how \hyperref[def:localization-category]{localization} interacts with \hyperref[def:direct-sum]{direct sums}.
 \begin{proposition}[{\cite[Propositions 10.1.19, 10.2.8]{kashiwaraCategoriesSheaves2006}}]
   Let \(\category{C}\) be a \hyperref[def:triangulated-category]{triangulated category} admitting \hyperref[def:direct-sum]{small direct sums}.

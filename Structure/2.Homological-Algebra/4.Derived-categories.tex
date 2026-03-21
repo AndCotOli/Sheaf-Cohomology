@@ -471,5 +471,212 @@ In this subsection we consider two \hyperref[def:exact-functor]{left-exact funct
   \end{equation*}
 \end{proof}
 
+\section{Bifunctors}
+
+We now consider three \hyperref[def:abelian-category]{abelian categories} together with an \hyperref[def:additive-functor]{additive bifunctor}
+\begin{equation*}
+  F: \category{C} \times \category{C'} \to \category{C''}
+\end{equation*}
+We will also assume that \(F\) is \hyperref[def:exact-functor]{left-exact} with respect to each of its arguments.
+
+Let \(X \in \Complex[+]{\category{C}}\) and \(X' \in \Complex[+]{\category{C}}\).
+Then the \hyperref[def:double-complex]{double complex} \(F(X, X') \in \Complex[2]{\category{C''}}\) satisfies the \hyperref[def:finiteness-condition-double-complex]{finiteness condition} and thus \(\operatorname{tot}(F(X, X')) \in \Complex[+]{\category{C''}}\) is a well-defined and defines a \hyperref[def:functor]{functor}
+\begin{align*}
+  \operatorname{K}^{+}F:\,& \operatorname{K}^{+}(\category{C}) \times \operatorname{K}^{+}(\category{C'}) \to \operatorname{K}^{+}(\category{C''}) \\
+                          & (X, X') \mapsto \operatorname{tot}(F(X, X'))
+\end{align*}
+When the context is clear we will write \(F\) instead of \(\operatorname{K}^{+}F\).
+
+\begin{definition}\label{def:right-derived-bifunctor}
+  If the \hyperref[def:functor]{functor}
+  \begin{equation*}
+    \operatorname{K}^{+}F: \operatorname{K}^{+}(\category{C}) \times \operatorname{K}^{+}(\category{C'}) \to \operatorname{D}^{+}(\category{C''})
+  \end{equation*}
+  admits a \hyperref[def:localization-functor]{right localization} with respect to \hyperref[def:quasi-isomorphism]{quasi-isomorphisms} in \(\operatorname{K}^{+}(\category{C})\) and \(\operatorname{K}^{+}(\category{C'})\) we say that \(F\) admits a \textbf{right derived functor} and denote this functor by
+  \begin{equation*}
+    \operatorname{R}F: \operatorname{D}^{+}(\category{C}) \times \operatorname{D}^{+}(\category{C'}) \to \operatorname{D}^{+}(\category{C''})
+  \end{equation*}
+
+  There is a \hyperref[def:dual]{dual} definition of \textbf{left derived functor} for a \hyperref[def:exact-functor]{right exact} bifunctor.
+\end{definition}
+
+\begin{definition}\label{def:F-injective-bifunctor}
+  Let \(\category{D}, \category{D'}\) be \hyperref[def:subcategory]{additive subcategories} of \(\category{C}\) and \(\category{C'}\) respectively.
+  We say that \((\category{D}, \category{D'})\) is \textbf{\(F\)-injective} if
+  \begin{enumerate}
+    \item for all \(X' \in \category{D'}\), \(\category{D}\) is \hyperref[def:F-injective-subcategory]{\(F(-, X')\)-injective}.
+    \item for all \(X \in \category{D}\), \(\category{D'}\) is \hyperref[def:F-injective-subcategory]{\(F(X, -)\)-injective}.
+  \end{enumerate}
+
+  There is a \hyperref[def:dual]{dual} definition of being \textbf{\(G\)-projective} for a \hyperref[def:exact-functor]{right exact} bifunctor \(G\).
+\end{definition}
+
+\begin{theorem}\label{thm:existence-right-derived-bifunctor}
+  Let \(F: \category{C} \times \category{C'} \to \category{C''}\) be a \hyperref[def:exact-functor]{left exact} bifunctor between \hyperref[def:abelian-category]{abelian categories}.
+  If there exists \((\category{D}, \category{D'})\) \hyperref[def:F-injective-bifunctor]{\(F\)-injective} subcategories then \(F\) admits a \hyperref[def:right-derived-bifunctor]{right derived functor}
+  \begin{equation*}
+    \operatorname{R}F: \operatorname{D}^{+}(\category{C}) \times \operatorname{D}^{+}(\category{C'}) \to \operatorname{D}^{+}(\category{C''})
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  Let \(X \in \operatorname{D}^{+}(\category{C})\) and \(X' \in \operatorname{D}^{+}(\category{C'})\).
+  If \(X\) or \(X'\) is \hyperref[def:quasi-isomorphism]{quasi-isomorphic to \(0\)} then all rows or all columns or \(F(X, X')\) are \hyperref[def:exact-sequence]{exact}.
+
+  Therefore by \autoref{cor:tot-qis-to-zero} \(\operatorname{tot}(F(X, X'))\) is \hyperref[def:quasi-isomorphism]{quasi-isomorphic to zero}.
+  Finally applying \autoref{thm:conditions-localization-null-system-bifunctor} with \(\category{D} = \operatorname{K}^{+}(\category{D})\) and \(\category{D'} = \operatorname{K}^{+}(\category{D'})\) we get the result.
+\end{proof}
+
+\begin{theorem}
+  Let \(F: \category{C} \times \category{C'} \to \category{C''}\) be a \hyperref[def:exact-functor]{left exact} bifunctor between \hyperref[def:abelian-category]{abelian categories}.
+  Let \(\category{D}, \category{D'}\) be \hyperref[def:subcategory]{additive subcategories} of \(\category{C}\) and \(\category{C'}\) respectively.
+  If there exists \((\category{D}, \category{D'})\) \hyperref[def:F-injective-bifunctor]{\(F\)-injective} subcategories then for all \(X \in \category{C}, Y \in \category{C'}\) we have
+  \begin{equation*}
+    \operatorname{R}F(X, Y) \cong \operatorname{R}_{II}F(X, Y) \cong \operatorname{R}_{I}F(X, Y)
+  \end{equation*}
+  where \(\operatorname{R}_{I}F, \operatorname{R}_{II}F\) are the \hyperref[def:right-derived-functor]{derived functors} of \(F_{I}\) and \(F_{II}\) respectively.
+\end{theorem}
+\begin{proof}
+  Let \(X \in \category{C}\) and \(Y \in \category{C'}\).
+  Consider resolutions \(0 \to X \to I_{X}^{\bullet}\), \(0 \to Y \to I_{Y}^{\bullet}\) with \(I_{X}^{\bullet} \in \Complex{\category{D}}\) and \(I_{Y}^{\bullet} \in \Complex{\category{D'}}\).
+
+  The object \(\operatorname{R}F(X, Y)\) is the image by the localization functor \(Q\) of the object \(\operatorname{tot}(F(I_{X}^{\bullet}, I_{Y}^{\bullet})) \in \operatorname{K}^{+}(\category{C''})\).
+  Consider the \hyperref[def:double-complex]{double complex}
+  \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d] \\
+      0 \arrow[r] & 0 \arrow[r] \arrow[d] & F(I_{X}^{0}, Y) \arrow[r] \arrow[d] & F(I_{X}^{1}, Y) \arrow[r] \arrow[d] & \cdots \\
+      0 \arrow[r] & F(X, I_{Y}^{0}) \arrow[r] \arrow[d] & F(I_{X}^{0}, I_{Y}^{0}) \arrow[r] \arrow[d] & F(I_{X}^{1}, I_{Y}^{0}) \arrow[r] \arrow[d] & \cdots \\
+      0 \arrow[r] & F(X, I_{Y}^{1}) \arrow[r] \arrow[d] & F(I_{X}^{0}, I_{Y}^{1}) \arrow[r] \arrow[d] & F(I_{X}^{1}, I_{Y}^{1}) \arrow[r] \arrow[d] & \cdots \\
+      & \vdots & \vdots & \vdots
+    \end{tikzcd}
+  \end{center}
+  By hypothesis all rows and columns except the first (the ones starting with \(0 \to 0\)) are \hyperref[def:exact-sequence]{exact}.
+  Therefore by \autoref{cor:rows-cols-zero-and-exact} \(\operatorname{tot}(F(I_{X}^{\bullet}, I_{Y}^{\bullet}))\) is \hyperref[def:quasi-isomorphism]{quasi-isomorphic} to the \hyperref[def:cohomology]{cohomology} of the \(0\)-column, which computes \(\operatorname{R}_{II}F(X, -)(Y)\), and to the \hyperref[def:cohomology]{cohomology} of the \(0\)-row, which computes \(\operatorname{R}_{I}F(X, Y)\).
+\end{proof}
+
+\begin{lemma}\label{lemma:bifunctor-and-cogenerating-sequences}
+  Let \(F: \category{C} \times \category{C'} \to \category{C''}\) be a \hyperref[def:exact-functor]{left exact} bifunctor between \hyperref[def:abelian-category]{abelian categories}.
+  Let \(\category{D'}\) be a \hyperref[def:cogenerating-category]{cogenerating subcategory} of \(\category{C'}\) and let \(I \in \category{C}\).
+
+  If \(F(I, -)\) and \(F(-, Y)\) for all \(Y \in \category{D'}\) are \hyperref[def:exact-functor]{exact} then for any \(Y' \in \category{C'}\) and any \hyperref[def:exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & I \arrow[r] & X \arrow[r] & X'' \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  in \(\category{C}\) the sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(I, Y') \arrow[r] & F(X, Y') \arrow[r] & F(X'', Y') \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-sequence]{exact}.
+\end{lemma}
+\begin{proof}
+  Choose a \hyperref[def:exact-sequence]{short exact sequence} \(0 \to Y' \to Y \to Y'' \to 0\) with \(Y' \in \category{D'}\).
+  Consider the commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d] \\
+      0 \arrow[r] & F(I, Y') \arrow[r] \arrow[d] & F(I, Y) \arrow[r] \arrow[d] & F(I, Y'') \arrow[r] \arrow[d] & 0 \\
+      0 \arrow[r] & F(X, Y') \arrow[r] \arrow[d] & F(X, Y) \arrow[r] \arrow[d] & F(X, Y'') \arrow[d] \\
+      0 \arrow[r] & F(X'', Y') \arrow[r] \arrow[d] & F(X'', Y) \arrow[r] \arrow[d] & F(X'', Y'') \\
+      & 0 & 0
+    \end{tikzcd}
+  \end{center}
+  The first row is \hyperref[def:exact-sequence]{exact} since \(F(I, -)\) is \hyperref[def:exact-functor]{exact}.
+  The second and third rows are \hyperref[def:exact-sequence]{exact} since \(F\) is \hyperref[def:exact-functor]{left-exact}.
+  The second column is \hyperref[def:exact-sequence]{exact} since \(Y \in \category{D'}\).
+
+  Therefore by the \hyperref[lemma:snake-lemma]{Snake lemma} the first column is \hyperref[def:exact-sequence]{exact}.
+\end{proof}
+
+\begin{theorem}
+  Let \(F: \category{C} \times \category{C'} \to \category{C''}\) be a \hyperref[def:exact-functor]{left exact} bifunctor between \hyperref[def:abelian-category]{abelian categories}.
+
+  Define the \hyperref[def:additive-category]{additive subcategories} \(\category{D}_{F}\) and \(\category{D'}_{F}\) of \(\category{C}\) and \(\category{C}'\) respectively by
+  \begin{align*}
+    \category{D}_{F} &\coloneq \{X \in \category{C} \mid F(X, -) \text{ \hyperref[def:exact-functor]{exact} }\} \\
+    \category{D'}_{F} &\coloneq \{X' \in \category{C'} \mid F(-, X') \text{ \hyperref[def:exact-functor]{exact} }\}
+  \end{align*}
+  If \(\category{D}_{F}\) and \(\category{D'}_{F}\) are \hyperref[def:cogenerating-category]{cogenerating} then for any \(Y \in \category{C'} \quad \category{D}_{F}\) is \hyperref[def:F-injective-bifunctor]{\(F(-, Y)\)-injective} and for any \(X \in \category{C} \quad \category{D'}_{F}\) is \hyperref[def:F-injective-bifunctor]{\(F(X, -)\)-injective}
+\end{theorem}
+\begin{proof}
+  We will see that for any \(Y \in \category{C} \quad  \category{D}_{F}\) is \hyperref[def:F-injective-bifunctor]{\(F(-, Y)\)-injective}.
+  The other case follows analogously.
+  \begin{enumerate}
+    \item \(\category{D}_{F}\) is \hyperref[def:cogenerating-category]{cogenerating} by hypothesis.
+    \item For any \hyperref[def:exact-sequence]{exact sequence}
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & I \arrow[r] & X \arrow[r] & X'' \arrow[r] & 0
+            \end{tikzcd}
+          \end{center}
+          in \(\category{C}\) with \(I \in \category{D}_{F}\) the sequence
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & F(I, Y') \arrow[r] & F(X, Y') \arrow[r] & F(X'', Y') \arrow[r] & 0
+            \end{tikzcd}
+          \end{center}
+          is \hyperref[def:exact-sequence]{exact} by \autoref{lemma:bifunctor-and-cogenerating-sequences}.
+    \item Consider an \hyperref[def:exact-sequence]{exact sequence} as above with \(I, X \in \category{D}_{F}\).
+          Consider the \hyperref[def:double-complex]{double complex}
+          \begin{center}
+            \begin{tikzcd}
+              & 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d] \\
+              0 \arrow[r] & F(I, Y') \arrow[r] \arrow[d] & F(I, Y) \arrow[r] \arrow[d] & F(I, Y'') \arrow[r] \arrow[d] & 0 \\
+              0 \arrow[r] & F(X, Y') \arrow[r] \arrow[d] & F(X, Y) \arrow[r] \arrow[d] & F(X, Y'') \arrow[d] \arrow[r] & 0 \\
+              0 \arrow[r] & F(X'', Y') \arrow[r] \arrow[d] & F(X'', Y) \arrow[r] \arrow[d] & F(X'', Y'') \arrow[r] \arrow[d] & 0 \\
+              & 0 & 0 & 0
+            \end{tikzcd}
+          \end{center}
+          By hypothesis the first and second rows are \hyperref[def:exact-sequence]{exact}.
+          Therefore since by \autoref{lemma:bifunctor-and-cogenerating-sequences} all columns are \hyperref[def:exact-sequence]{exact}, the whole diagram is \hyperref[def:exact-complex]{exact}.
+  \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+  Let \(F: \category{C} \times \category{C'} \to \category{C''}\) be a \hyperref[def:exact-functor]{left exact} bifunctor between \hyperref[def:abelian-category]{abelian categories} and let \(G: \category{C''} \to \category{C'''}\) be a \hyperref[def:exact-functor]{left-exact} functor.
+
+  If \((\category{D}, \category{D'})\) is \hyperref[def:F-injective-bifunctor]{\(F\)-injective}, \(\category{D''}\) is \hyperref[def:F-injective-subcategory]{\(G\)-injective} and \(F(\category{D}, \category{D'}) \subseteq D''\) then the \hyperref[def:right-derived-bifunctor]{right derived functor} \(\operatorname{R}(G \circ F)\) exists and moreover \(\operatorname{R}(G \circ F) \cong \operatorname{R}G \circ \operatorname{R}F\).
+\end{proposition}
+\begin{proof}
+  Analogous to \autoref{thm:right-derived-functor-composition}.
+\end{proof}
+
+\begin{example}
+  Suppose that \(\category{C}\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
+  Then
+  \begin{equation*}
+    \operatorname{R}\Hom_{\category{C}}: \operatorname{D}^{-}(\category{C})^{\op} \times \operatorname{D}^{+}(\category{C}) \to \operatorname{D}^{+}(\Ab)
+  \end{equation*}
+  exists and can be computed as follows.
+
+  Let \(X^{\bullet} \in \Complex[-]{\category{C}}\) and \(Y^{\bullet} \in \Complex[+]{\category{C}}\).
+  There exists a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(Y^{\bullet} \to I^{\bullet}\) in \(\operatorname{K}^{+}(\category{C})\) with \(I^{j}\) \hyperref[def:injective-projective-object]{injective}.
+  Then
+  \begin{equation*}
+    \operatorname{R}\Hom_{\category{C}}(X^{\bullet}, Y^{\bullet}) \cong \Hom_{\category{C}}^{\bullet}(X^{\bullet}, I^{\bullet})
+  \end{equation*}
+
+  If \(\category{C}\) has \hyperref[def:enough-injectives-projectives]{enough projectives} and \(X^{\bullet} \to P^{\bullet}\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} in \(\operatorname{K}^{-}(\category{C})\) with \(P^{j}\) \hyperref[def:injective-projective-object]{projective} then
+  \begin{equation*}
+    \operatorname{R}\Hom_{\category{C}}(X^{\bullet}, Y^{\bullet}) \cong \Hom_{\category{C}}^{\bullet}(P^{\bullet}, Y^{\bullet})
+  \end{equation*}
+\end{example}
+
+\begin{example}
+  Let \(A\) be a \(R\)-algebra.
+  By choosing the \hyperref[def:category]{category} of \hyperref[def:projective-injective-object]{projective modules} as \(\category{D}\) and \(\category{D'}\) in \autoref{thm:existence-right-derived-bifunctor} we get that the bifunctor
+  \begin{equation*}
+    - \tensor[der, A] -: \operatorname{D}^{-}(\Mod{A}^{\op}) \times \operatorname{D}^{-}(\Mod{A}) \to \operatorname{D}^{-}(\Mod(R))
+  \end{equation*}
+  is well defined.
+  
+  Furthermore if \(M^{\bullet} \to P^{\bullet}\) and \(N^{\bullet} \to Q^{\bullet}\) are \hyperref[def:quasi-isomorphism]{quasi-isomorphisms} with \(P^{j}, Q^{j}\) \hyperref[def:injective-projective-object]{projective} then
+  \begin{equation*}
+    N^{\bullet} \tensor[der, A] M^{\bullet} \cong \operatorname{tot}(N^{\bullet} \otimes_{A} P^{\bullet}) \cong \operatorname{tot}(Q^{\bullet} \otimes_{A} M^{\bullet})
+  \end{equation*}
+\end{example}
 
 \end{document}
