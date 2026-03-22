@@ -10,7 +10,28 @@
 \begin{document}
 \chapter{de Rham Cohomology}
 
-\begin{definition}[Fine sheaf] \label{def:fine-sheaf}
+\begin{definition}[Partition of unity]\label{def:partition-of-unity}
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
+  A \textbf{partition of unity} of \(\sheaf{F}\) subordinate to a locally finite open covering \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) is a collection of endomorphisms of \(\sheaf{O}_{X}\)-modules
+  \begin{equation*}
+    \{ f_{i}: \sheaf{F} \to \sheaf{F} \}_{i \in \mathcal{I}}
+  \end{equation*}
+  satisfying
+  \begin{enumerate}
+    \item For all \(i \in \mathcal{I}\)
+          \begin{equation*}
+            \operatorname{supp} f_{i} \coloneq \overline{\{x \in X \mid (f_{i})_{x} \neq 0\}} \subset U_{i}
+          \end{equation*}
+    \item
+          \begin{equation*}
+            \sum_{i \in \mathcal{I}} f_{i} = \id_{\sheaf{F}}
+          \end{equation*}
+        Note that this sum is well defined since for any point \(x \in X\) there is an open neighbourhood where all but finitely many of the maps \(f_{i}\) are the zero maps, i.e: the sum is locally finite.
+  \end{enumerate}
+\end{definition}
+
+
+\begin{definition}[Fine sheaf]\label{def:fine-sheaf}
   A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to this covering.
 \end{definition}
 
@@ -244,7 +265,7 @@
   By \autoref{lemma:de-rham-complex-exact} we know that \(\Omega^{\bullet}(M)\) is \hyperref[def:exact-complex]{exact}, therefore we only need to show that this resolution is \hyperref[def:exact-complex]{exact} at \(\Omega^{0}(M)\), i.e: that for all \(p \in M\)
   \begin{center}
     \begin{tikzcd}
-      0 \arrow[r] & \underline{\mathbb{R}}_{p} \arrow[r, "\iota_{p}"] & \Omega_{p}^{0} \arrow[r, "\mathrm{d}_{p}"] & \Omega_{p}^{1}
+      0 \arrow[r] & \underline{\mathbb{R}}_{p} \arrow[r, "\iota_{p}"] & \Omega_{p}^{0} \arrow[r, "\mathrm{d}_{p}"] & \Omega_{p}^{1} \arrow[r] & 0
     \end{tikzcd}
   \end{center}
   is a \hyperref[def:short-exact-sequence]{short exact sequence}, i.e: \(\im \iota_{p} = \ker \mathrm{d}_{p}\).
@@ -254,10 +275,9 @@
 
           Since \(c\) is locally constant we have that \(\mathrm{d}c|_{U} = 0\), i.e \(\mathrm{d}_{p}[c]_{p} = 0\).
     \item[\(\supseteq\)] Let \([f]_{p} \in \Omega_{p}^{0}\) such that \(\mathrm{d}_{p}[f]_{p} = 0\).
-          This means that there exists an open neighbourhood \(U\) of \(p\) and a function \(f \in \Omega^{0}(V) \cong \mathcal{C}^{\infty}(M)\) such that \(\mathrm{d}f|_{V} = 0\).
+          This means that there exists an open neighbourhood \(U\) of \(p\) and a function \(f \in \Omega^{0}(V) \cong \mathcal{C}^{\infty}(M)\) such that \(\mathrm{d}f|_{U} = 0\).
 
-          Without loss of generality we may assume that \(U\) is connected.
-          Therefore we have that \(f|_{U}\) is a constant function, i.e: \([f]_{p} \in \underline{\mathbb{R}}_{p}\).
+          Therefore \(f\) is locally constant in each of the connected components of \(U\), i.e: \([f]_{p} \in \underline{\mathbb{R}}_{p}\).
   \end{itemize}
 
   Therefore since by \autoref{lemma:smooth-k-form-fine} the resolution is made of \hyperref[def:fine-sheaf]{fine sheaves} and \hyperref[prop:fine-are-acyclic]{fine sheaves are \(\Gamma(X, -)\) acyclic} by definition of \hyperref[def:sheaf-cohomology]{sheaf cohomology}

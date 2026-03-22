@@ -44,7 +44,7 @@
   \end{enumerate}
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lemma:abelian-admits-limits-colimits}
   An \hyperref[def:abelian-category]{abelian category} admits all finite \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits}.
 \end{lemma}
 \begin{proof}
@@ -156,8 +156,6 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
 \end{proof}
 
 
-
-
 \section{Exact functors}
 
 \begin{definition}\label{def:exact-functor}
@@ -199,7 +197,6 @@ We state the following characterization of \hyperref[def:exact-functor]{exact fu
             \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits} (resp. \hyperref[def:categorical-colimit]{finite colimits}).
             \item For any \hyperref[def:exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{C}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-sequence]{exact} in \(\category{D}\) (resp. \(F(X) \to F(Y) \to F(Z) \to 0\) is \hyperref[def:exact-sequence]{exact}).
           \end{enumerate}
-
     \item  The following are equivalent
           \begin{enumerate}
             \item \(F\) is \hyperref[def:exact-functor]{exact}.

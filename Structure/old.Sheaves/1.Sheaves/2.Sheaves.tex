@@ -57,7 +57,7 @@ Therefore a \hyperref[def:presheaf]{presheaf} of sets \(\sheaf{F}\) is a \hyperr
 
 Let's try to go now to a more general \hyperref[def:category]{category} \(\category{C}\).
 First of all, note that the \hyperref[def:equaliser]{equalizer sequence} makes sense if \hyperref[def:categorical-product]{products} indexed by \(\mathcal{I}\) and \(\mathcal{I} \times \mathcal{I}\) exist in \(\category{C}\).
-Furthermore, since our \hyperref[def:category]{categories} are \hyperref[def:category]{locally small categories} applying the \hyperref[def:functor]{functor} \(\Hom_{\category{C}}(-, -): \category{C} \times \category{C} \to \Set\) by the \hyperref[lemma:yoneda]{Yoneda lemma} we have that the diagram is an \hyperref[def:equaliser]{equalizer} if and only if for every object \(C \in \category{C}\) the diagram
+Furthermore applying the \hyperref[def:functor]{functor} \(\Hom_{\category{C}}(-, -): \category{C} \times \category{C} \to \Set\) by the \hyperref[thm:yoneda-lemma]{Yoneda lemma} we have that the diagram is an \hyperref[def:equaliser]{equalizer} if and only if for every object \(C \in \category{C}\) the diagram
 \begin{center}
   \begin{tikzcd}
     \Hom_{\category{C}}(C, \sheaf{F}(U)) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i})) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \Hom_{\category{C}}(C, \sheaf{F}(U_{i} \cap U_{j}))

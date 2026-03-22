@@ -1,0 +1,94 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{../3.Sheaves/exported/aux/main}%
+    \zexternaldocument*{1.Cohomology-of-sheaves}
+}{}
+
+\begin{document}
+\chapter{Cohomology and homotopy}
+
+Our goal in this chapter will be to prove that \hyperref[def:sheaf-cohomology]{sheaf cohomology} of \hyperref[def:constant-sheaf-ox-mod]{locally constant sheaves} are a homotopy invariant.
+
+We will denote \(I \coloneq [0, 1]\) the unit interval.
+
+\section{Sheaves on the interval \([0, 1]\)}
+
+\begin{lemma}
+  Let \(\sheaf{F} \in \Mod(\underline{R}_{X})\). Then
+  \begin{enumerate}
+    \item For \(j > 1\) we have \(\cohomology{j}(I; \sheaf{F}) = 0\).
+    \item If \(\sheaf{F}(I) \to \sheaf{F}_{t}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} for all \(t \in I\) then \(\cohomology{1}(I; \sheaf{F}) = 0\).
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  Let \(j \geq 1\) and \(s \in \cohomology{j}(I; \sheaf{F})\).
+
+  For \(0 \leq t_{1} < t_{2} \leq 1\) consider the morphism
+  \begin{equation*}
+    f_{t_{1}, t_{2}}: \cohomology{j}(I; \sheaf{F}) \to \cohomology{j}([t_{1}, t_{2}], \sheaf{F})
+  \end{equation*}
+  and let
+  \begin{equation*}
+    J \coloneq \{t \in [0, 1] \mid f_{0, t}(s) = 0\}
+  \end{equation*}
+
+  Since \(\cohomology{j}(\{0\}, \sheaf{F}) = 0\) we have that \(0 \in J\).
+  Furthermore since \(f_{0, t}(s) = 0\) implies \(f_{0, t'}(s) = 0\) for \(t' \in [0, t]\), \(J\) is an interval and thus connected.
+ 
+  We want to see that \(J\) is both open and closed.
+  \begin{itemize}
+    \item[Open] By ... we have that
+          \begin{equation*}
+            \cohomology{j}([0, t_{0}]; \sheaf{F}) \cong \varinjlim_{t > t_{0}} \cohomology{j}([0, t]; \sheaf{F})
+          \end{equation*}
+          Therefore \(J\) is open.
+    \item[Closed] For \(t \in [0, t_{0}]\) consider the Mayer-Vietoris sequence
+          \begin{center}
+            \begin{tikzcd}
+              \cdots \arrow[r] & \cohomology{j}([0, t_{0}]; \sheaf{F}) \arrow[r] & \cohomology{j}([0, t]; \sheaf{F}) \oplus \cohomology{j}([t, t_{0}]; \sheaf{F}) \arrow[r] & \cohomology{j}(\{t\}, \sheaf{F}) \arrow[r] & \cdots
+            \end{tikzcd}
+          \end{center}
+          For \(j > 1\) or for \(j = 1\) and assuming that \(\cohomology{0}(I; \sheaf{F}) \epiarrow \cohomology{0}(\{t\}, \sheaf{F})\) is surjective we get
+          \begin{equation*}
+            \cohomology{j}([0, t_{0}], \sheaf{F}) \cong \cohomology{j}([0, t]; \sheaf{F}) \oplus \cohomology{j}([t, t_{0}]; \sheaf{F})
+          \end{equation*}
+          Let \(t_{0} = \sup \{t \mid t \in J\}\).
+          Then \(f_{0, t}(s) = 0\) for all \(t < t_{0}\).
+          On the other hand by ...
+          \begin{equation*}
+            \varinjlim_{t < t_{0}} \cohomology{j}([t, t_{0}], \sheaf{F}) \cong \cohomology{j}(\{t_{0}\}; \sheaf{F}) = 0
+          \end{equation*}
+          Therefore there exists \(t < t_{0}\) with \(f_{t, t_{0}}(s) = 0\) which implies \(f_{0, t_{0}}(s) = 0\) meaning that \(t_{0} \in J\).
+  \end{itemize}
+\end{proof}
+
+\newpage
+
+\section{Invariance by homotopy}
+
+\begin{definition}\label{def:homotopy-topological-spaces}
+  Let \(X, Y\) be two topological spaces
+  \begin{itemize}
+    \item Two continuous maps \(f_{0}, f_{1}: X \rightrightarrows Y\) are \textbf{homotopic} if there exists a continuous map \(h: I \times X \to Y\) such that, for all \(x \in X\)
+          \begin{equation*}
+            f_{0}(x) = h(0, x) \quad f_{1}(x) = h(1, x)
+          \end{equation*}
+        We denote this by \(f_{0} \simeq f_{1}\).
+    \item A continuous map \(f: X \to Y\) is a \textbf{homotopy equivalence} if there exists a continuous map \(g: Y \to X\) such that
+          \begin{equation*}
+            g \circ f \simeq \operatorname{id}_{X} \quad f \circ g = \operatorname{id}_{Y}
+          \end{equation*}
+          In this case we say that \(X\) and \(Y\) are \textbf{homotopic} and denote it by \(X \simeq Y\).
+    \item A topological space \(Z\) is \textbf{contractible} if \(Z \simeq \{\ast\}\).
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}[Invariance by homotopy]
+  Let \(f_{0}, f_{1}: X \rightrightarrows Y\) be two \hyperref[def:homotopy-topological-spaces]{homotopic maps} and let \(\sheaf{G}\) be a \hyperref[def:constant-sheaf-ox-mod]{locally constant sheaf}
+\end{theorem}
+
+
+\end{document}

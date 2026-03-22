@@ -199,6 +199,27 @@
   \end{itemize}
 \end{proof}
 
+\begin{proposition}\label{prop:additive-functors-and-adjunctions}
+  Let \(L \dashv R: \category{C} \to \category{D}\) be a pair of \hyperref[def:adjoint-functors]{adjoint functors} between \hyperref[def:additive-category]{additive categories}.
+  Then \(L\) is \hyperref[def:additive-functor]{additive} if and only if \(R\) is \hyperref[def:additive-functor]{additive}.
+\end{proposition}
+\begin{proof}
+  Since \hyperref[thm:adjoints-preserve-limits]{left adjoints preserve colimits and right adjoints preserve limits} we have
+  \begin{align*}
+    L(X \oplus Y) &= L(X) \oplus L(Y) \\
+    R(X \oplus Y) &= R(X \times Y) = R(X) \times R(Y) = R(X) \oplus R(Y)
+  \end{align*}
+
+  Note that if \(R\) is \hyperref[def:additive-functor]{additive} then \(L(0) = 0\) since
+  \begin{align*}
+    \Hom_{\category{C}}(L(0), 0) = \Hom_{\category{D}}(0, R(0)) = \Hom_{\category{D}}(0, 0)
+  \end{align*}
+  and viceversa.
+  
+  Therefore by \autoref{prop:additive-functor-characterization} we have the result.
+\end{proof}
+
+
 \begin{definition}[Full additive subcategory]\label{def:full-additive-subcategory}
   Let \(\category{C}\) be an \hyperref[def:additive-category]{additive category}.
 
