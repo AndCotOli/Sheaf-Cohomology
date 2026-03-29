@@ -50,7 +50,7 @@
   \end{equation*}
   To indicate that \(f \in \Hom_{\category{C}}(X, Y)\) is a morphism from \(X\) to \(Y\) we write
   \begin{equation*}
-    f: X \to Y \text{ or } X \xrightarrow{f} Y
+    f\colon X \to Y \text{ or } X \xrightarrow{f} Y
   \end{equation*}
   We will sometimes abbreviate the composition \(f \circ g\) as \(fg\).
 \end{notation}
@@ -58,7 +58,7 @@
 
 \begin{example}~
   \begin{itemize}
-    \item The \hyperref[def:category]{category} \(\Set\) has the collection of all sets as objects and functions as morphisms.
+    \item The \hyperref[def:category]{category} \(\Set\) has the collection of all sets as objects and mappings as morphisms.
     \item The \hyperref[def:category]{category} \(\Grp\) has groups as objects and group homomorphisms as morphisms.
     \item The \hyperref[def:category]{category} \(\Ab\) has abelian groups as objects and group homomorphisms as morphisms. It is a full subcategory of \(\Grp\).
     \item The \hyperref[def:category]{category} \(\Ring\) has rings as objects and ring homomorphisms as morphisms.\footnote{We adopt the convetion that all rings have an unit and all ring homomorphisms preserve it.}
@@ -73,19 +73,19 @@
 
 
 \begin{example}[Discrete category]\label{ex:discrete-category}
-  Given a \hyperref[def:category]{category} \(\category{C}\) we can define the \textbf{discrete category} \(\category{C}_{d}\) considering the same collection of objects as \(\category{C}\) but only the identity morphisms between them.
+  Given a \hyperref[def:category]{category} \(\category{C}\) we can define the \textbf{discrete category} \(\category{C}_{d}\) taking the same collection of objects as \(\category{C}\) but only the identity morphisms between them.
 \end{example}
 
 
 \begin{definition}[Subcategory]\label{def:subcategory}
   Given a \hyperref[def:category]{category} \(\category{C}\), a \textbf{subcategory} \(\category{D}\) consists of a subcollection of objects and a subcollection of morphisms in \(\category{C}\) such that
   \begin{itemize}
-    \item If \(f: X \to Y\) is a morphism in \(\category{D}\) then \(X, Y\) are objects in \(\category{D}\).
-    \item If \(f: X \to Y\) and \(g: Y \to Z\) are morphisms in \(\category{D}\), the composition \(gf: X \to Z\) is in \(\category{D}\).
+    \item If \(f\colon X \to Y\) is a morphism in \(\category{D}\) then \(X, Y\) are objects in \(\category{D}\).
+    \item If \(f\colon X \to Y\) and \(g\colon Y \to Z\) are morphisms in \(\category{D}\), the composition \(gf\colon X \to Z\) is in \(\category{D}\).
     \item If \(X\) is an object in \(\category{D}\) then the identity map \(\id_{X}\) is in \(\category{D}\).
   \end{itemize}
 
-  We say that \(\category{D}\) is a \textbf{full subcategory} if for all objects \(X, Y\) in \(\category{D}\) every morphism \(f: X \to Y\) in \(\category{C}\) is also in \(\category{D}\).
+  We say that \(\category{D}\) is a \textbf{full subcategory} if for all objects \(X, Y\) in \(\category{D}\) every morphism \(f\colon X \to Y\) in \(\category{C}\) is also in \(\category{D}\).
 \end{definition}
 
 \begin{example}~
@@ -104,11 +104,11 @@
   \begin{itemize}
     \item As objects: ordered pairs \((C, D)\), where \(C\) is an object in \(\category{C}\) and \(D\) is an object in \(\category{D}\), i.e:
           \begin{equation*}
-            \operatorname{Ob}_{\category{C} \times \category{D}} = \operatorname{Ob}_{\category{C}} \times \operatorname{Ob}_{\category{D}}
+            \operatorname{Ob}(\category{C} \times \category{D}) \coloneq \operatorname{Ob}(\category{C}) \times \operatorname{Ob}(\category{D})
           \end{equation*}
     \item As morphisms: ordered pairs \((C \xrightarrow{f} C', D \xrightarrow{g} D')\), where \(C \xrightarrow{f} C'\) is a morphism in \(\category{C}\) and \(D \xrightarrow{g} D'\) is a morphism in \(\category{D}\), i.e: for all objects \((C, D), (C', D')\) in \(\category{C} \times \category{D}\)
           \begin{equation*}
-            \Hom_{\category{C} \times \category{D}}((C, D), (C', D')) = \Hom_{\category{C}}(C, C') \times \Hom_{\category{D}}(D, D')
+            \Hom_{\category{C} \times \category{D}}((C, D), (C', D')) \coloneq \Hom_{\category{C}}(C, C') \times \Hom_{\category{D}}(D, D')
           \end{equation*}
     \item Composition is defined \textit{componentwise}: if \((C \xrightarrow{f} C', D \xrightarrow{g} D')\) and \((C' \xrightarrow{f'} C'', D' \xrightarrow{g'} D'')\) are two morphisms in \(\category{C} \times \category{D}\) then
           \begin{equation*}
@@ -124,9 +124,10 @@
   The \hyperref[def:category]{category} \(\Open(X)\) consisting of
   \begin{itemize}
     \item As objects, the open subsets of \(X\).
-    \item As morphisms, inclussion of open sets: \(U \to V\) if and only if \(U \subseteq V\)
+    \item As morphisms, inclusion of open sets: \(U \to V\) if and only if \(U \subseteq V\)
   \end{itemize}
-  is \hyperref[def:small-category]{small}.
+
+  This is a \hyperref[def:small-category]{small category}.
 \end{example}
 
 
@@ -137,47 +138,42 @@
   \begin{itemize}
     \item The same objects as \(\category{C}\): \(\operatorname{Ob}(\opcategory{C}) = \operatorname{Ob}(\category{C})\).
     \item For each pair of objects \(X, Y \in \category{C}^{\op}\): \(\Hom_{\opcategory{C}}(X, Y) = \Hom_{\category{C}}(Y, X)\).
-    \item If \(f^{\op}: X \to Y\), \(g^{\op}: Y \to Z\) are morphisms in \(\category{C}^{\op}\) their composition is defined by
+    \item If \(f^{\op}\colon X \to Y\), \(g^{\op}\colon Y \to Z\) are morphisms in \(\category{C}^{\op}\) their composition is defined by
           \begin{equation*}
-            f^{\op} \circ g^{\op} = (g \circ f)^{\op}
+            {\color{red} f^{\op} \circ g^{\op} = (g \circ f)^{\op}}
           \end{equation*}
-          where \(f: Y \to X\) and \(g: Z \to Y\) are the associated morphisms in \(\category{C}\).
+          where \(f\colon Y \to X\) and \(g\colon Z \to Y\) are the associated morphisms in \(\category{C}\).
   \end{itemize}
 \end{definition}
 
 \begin{example}\label{ex:poset-category-dual}
   Consider a preordered set \((P, \leq)\) viewed as a \hyperref[def:small-category]{small category} where a unique morphism \(x \to y\) exists if and only if \(x \leq y\).
 
-  The \hyperref[def:opposite-category]{opposite category} \(P^{\op}\) corresponds to the same set \(P\) equipped with the reversed order \(\geq\). That is, a morphism \(x \to y\) exists in \(P^{\text{op}}\) if and only if \(y \leq x\) in \(P\).
+  The \hyperref[def:opposite-category]{opposite category} \(P^{\op}\) corresponds to the same set \(P\) equipped with the reversed ordering \(\geq\). That is, a morphism \(x \to y\) exists in \(P^{\text{op}}\) if and only if \(y \leq x\) in \(P\).
 \end{example}
 
 \begin{remark}
-  Let \(f^{\op}: Y \to X\) and \(g^{\op}: Y \to X\) be two morphisms in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\).
+  Let \(f^{\op}\colon Y \to X\) and \(g^{\op}\colon Y \to X\) be two morphisms in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\).
   Then \(f^{\op} = g^{\op}\) in \(\opcategory{C}\) if and only if \(f = g\) in \(\category{C}\).
 \end{remark}
 
-\begin{definition}[Dual statement]\label{def:dual}
-  A categorical statement \(P^{\ast}\) is defined as the \textbf{dual} of a statement \(P\) in a \hyperref[def:category]{category} \(\category{C}\) if \(P^{\ast}\) holds in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\) if and only if \(P\) holds in \(\category{C}\).
-\end{definition}
+A categorical statement \(P^{\ast}\) is defined as the \textbf{dual} of a statement \(P\) in a \hyperref[def:category]{category} \(\category{C}\) if \(P^{\ast}\) holds in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\) if and only if \(P\) holds in \(\category{C}\).
 
-\begin{remark}
-  Note that by definition for any \hyperref[def:category]{category} \(\category{C}\) we have that \((\opcategory{C})^{\op} = \category{C}\).
+Note that, by definition, for any \hyperref[def:category]{category} \(\category{C}\) we have that \((\opcategory{C})^{\op} = \category{C}\).
 
-  Therefore if a statement is true for all \hyperref[def:category]{categories} \(\category{C}\), its \hyperref[def:dual]{dual} is true for all \hyperref[def:category]{categories} \(\opcategory{C}\).
-  Since \(\opcategory{C}\) is an arbitrary \hyperref[def:category]{category} the \hyperref[def:dual]{dual} statement is also true for all \hyperref[def:category]{categories}.
+Therefore if a statement is true for all \hyperref[def:category]{categories} \(\category{C}\), its dual is true for all \hyperref[def:category]{categories} \(\opcategory{C}\).
+Since \(\opcategory{C}\) is an arbitrary \hyperref[def:category]{category} the dual statement is also true for all \hyperref[def:category]{categories}.
 
-  In practice, this means that proving an statement directly proves its \hyperref[def:dual]{dual} for free.
-\end{remark}
-
+In practice, this means that proving an statement directly proves its dual for free.
 
 \section{Types of morphisms}
 
 \begin{definition}[Monomorphism and epimorphism]\label{def:mono-epi-morphism}
-  Let \(f: X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
+  Let \(f\colon X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
   We say that \(f\) is a
   \begin{itemize}
-    \item \textbf{Monomorphism} (or is \textbf{monic}) if for every pair of parallel morphisms \(g, h: Z \to X\) in \(\category{C}\), the equality \(f \circ g = f \circ h\) implies \(g = h\).
-    \item \textbf{Epimorphism} (or is \textbf{epic}) if for every pair of parallel morphisms \(g, h: Y \to Z\) in \(\category{C}\), the equality \(g \circ f = h \circ f\) implies \(g = h\).
+    \item \textbf{Monomorphism} (or is \textbf{monic}) if for every pair of parallel morphisms \(g, h\colon Z \to X\) in \(\category{C}\), the equality \(f \circ g = f \circ h\) implies \(g = h\).
+    \item \textbf{Epimorphism} (or is \textbf{epic}) if for every pair of parallel morphisms \(g, h\colon Y \to Z\) in \(\category{C}\), the equality \(g \circ f = h \circ f\) implies \(g = h\).
   \end{itemize}
 \end{definition}
 
@@ -190,13 +186,13 @@
 \end{example}
 
 \begin{lemma}[Monomorphisms and epimorphisms are dual]
-  Let \(f: X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
-  Consider the associated morphism \(f^{\op}: Y \to X\) in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\).
+  Let \(f\colon X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
+  Consider the associated morphism \(f^{\op}\colon Y \to X\) in the \hyperref[def:opposite-category]{opposite category} \(\opcategory{C}\).
 
   Then \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) in \(\category{C}\) if and only if \(f^{\op}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) in \(\opcategory{C}\).
 \end{lemma}
 \begin{proof}
-  Consider of pair of morphisms \(g, h: Z \rightrightarrows X\) in \(\category{C}\) and their opposites \(g^{\op}, h^{\op}: X \rightrightarrows Z\) in \(\category{C}^{\op}\).
+  Consider of pair of morphisms \(g, h\colon Z \rightrightarrows X\) in \(\category{C}\) and their opposites \(g^{\op}, h^{\op}\colon X \rightrightarrows Z\) in \(\category{C}^{\op}\).
 
   Note that, by definition of composition in \(\category{C}^{\op}\) we have
   \begin{equation*}
@@ -208,7 +204,7 @@
 
 
 \begin{definition}[Isomorphism]\label{def:categorical-isomorphism}
-  A morphism \(f: X \to Y\) in a \hyperref[def:category]{category} \(\category{C}\) is an \textbf{isomorphism} if there exists another morphism \(g: Y \to X\) in \(\category{C}\) such that
+  A morphism \(f\colon X \to Y\) in a \hyperref[def:category]{category} \(\category{C}\) is an \textbf{isomorphism} if there exists another morphism \(g\colon Y \to X\) in \(\category{C}\) such that
   \begin{equation*}
     g \circ f = \id_X \quad \text{and} \quad f \circ g = \id_Y
   \end{equation*}
@@ -216,51 +212,8 @@
   The morphism \(g\) is called the \textbf{inverse} of \(f\) and is denoted by \(f^{-1}\).
 \end{definition}
 
-\begin{example}~
-  \begin{itemize}
-    \item In \(\Set\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijection.
-    \item In \(\Grp\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective group homomorphism.
-    \item In \(\Top\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a homeomorphism.
-  \end{itemize}
-\end{example}
-
 \begin{proposition}
-  Let \(f: X \to Y\) be an \hyperref[def:categorical-isomorphism]{isomorphism}.
-  Then \(f\) is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism}.
-\end{proposition}
-\begin{proof}
-  Suppose \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in a \hyperref[def:category]{category} \(\category{C}\).
-  Then there exists a morphism \(f^{-1}: Y \to X\) in \(\category{C}\) such that
-  \begin{equation*}
-    f^{-1} \circ f = \id_{X} \quad f \circ f^{-1} = \id_{Y}
-  \end{equation*}
-
-  Consider a pair of morphisms \(g, h: Z \rightrightarrows X\) such that \(f \circ g = f \circ h\).
-  Precomposing with \(f^{-1}\) we get
-  \begin{align*}
-    f^{-1} \circ (f \circ g) = f^{-1} \circ (f \circ h) \implies (f^{-1} \circ f) \circ g = (f^{-1} \circ f) \circ h \implies g = h
-  \end{align*}
-  Therefore \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
-
-  Analogously, if we consider pair of morphism \(g', h': Y \rightrightarrows Z\) such that \(g' \circ f = h' \circ f\) this time by postcomposing with \(f^{-1}\) we get \(g' = h'\), i.e: \(f\) is a \hyperref[def:mono-epi-morphism]{epimorphism}.
-\end{proof}
-
-
-
-\begin{example}
-  In general, a morphism \(f: X \to Y\) that is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism} is not an \hyperref[def:categorical-isomorphism]{isomorphism}.
-
-  Indeed, in the \hyperref[def:category]{category} \(\Top\) of topological spaces consider a set with more than one point \(X\) endowed with the discrete \(X_{d}\) and trivial \(X_{t}\) topology.
-  
-  Consider the identity map \(f: X_{d} \to X_{t}\), which is continuous.
-  Since \(f\) is injective we have that it is a \hyperref[def:mono-epi-morphism]{monomorphism} and, since it is surjective, it is an \hyperref[def:mono-epi-morphism]{epimorphism}.
-
-  However since there does not exists a continuous function \(g: X_{t} \to X_{d}\), \(f\) cannot be an \hyperref[def:categorical-isomorphism]{isomorphism}.
-\end{example}
-
-
-\begin{proposition}
-  Let \(f: X \to Y\) and \(g: Y \to Z\) be \hyperref[def:categorical-isomorphism]{isomorphisms} in a \hyperref[def:category]{category} \(\category{C}\). Then:
+  Let \(f\colon X \to Y\) and \(g\colon Y \to Z\) be \hyperref[def:categorical-isomorphism]{isomorphisms} in a \hyperref[def:category]{category} \(\category{C}\). Then:
   \begin{enumerate}
     \item The inverse \(f^{-1}\) of \(f\) is unique.
     \item The identity \(\id_X\) is an \hyperref[def:categorical-isomorphism]{isomorphism} for every \(X \in \category{C}\).
@@ -303,25 +256,64 @@
   \end{enumerate}
 \end{proof}
 
+\begin{example}~
+  \begin{itemize}
+    \item In \(\Set\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijection.
+    \item In \(\Grp\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective group homomorphism.
+    \item In \(\Top\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a homeomorphism.
+  \end{itemize}
+\end{example}
 
 \begin{proposition}
-  Let \(\category{D}\) be a \hyperref[def:subcategory]{subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
-  If \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
+  Let \(f\colon X \to Y\) be an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  Then \(f\) is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism}.
 \end{proposition}
 \begin{proof}
-  Since \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\) there exists an inverse \(f^{-1}: Y \to X \in \Hom_{D}(Y, X)\).
+  Suppose \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in a \hyperref[def:category]{category} \(\category{C}\).
+  Then there exists a morphism \(f^{-1}\colon Y \to X\) in \(\category{C}\) such that
+  \begin{equation*}
+    f^{-1} \circ f = \id_{X} \quad f \circ f^{-1} = \id_{Y}
+  \end{equation*}
+
+  Consider a pair of morphisms \(g, h\colon Z \rightrightarrows X\) such that \(f \circ g = f \circ h\).
+  Precomposing with \(f^{-1}\) we get
+  \begin{align*}
+    f^{-1} \circ (f \circ g) = f^{-1} \circ (f \circ h) \implies (f^{-1} \circ f) \circ g = (f^{-1} \circ f) \circ h \implies g = h
+  \end{align*}
+  Therefore \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+
+  Analogously, if we consider pair of morphism \(g', h'\colon Y \rightrightarrows Z\) such that \(g' \circ f = h' \circ f\) this time by postcomposing with \(f^{-1}\) we get \(g' = h'\), i.e: \(f\) is a \hyperref[def:mono-epi-morphism]{epimorphism}.
+\end{proof}
+
+\begin{example}
+  In general, a morphism \(f\colon X \to Y\) that is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism} is not an \hyperref[def:categorical-isomorphism]{isomorphism}.
+
+  Indeed, in the \hyperref[def:category]{category} \(\Top\) of topological spaces consider a set with more than one point \(X\) endowed with the discrete \(X_{d}\) and trivial \(X_{t}\) topology.
+  
+  Consider the identity map \(\id_{X}\colon X_{d} \to X_{t}\), which is continuous.
+  Since \(\id_{X}\) is injective we have that it is a \hyperref[def:mono-epi-morphism]{monomorphism} and, since it is surjective, it is an \hyperref[def:mono-epi-morphism]{epimorphism}.
+
+  However since there does not exists a continuous bijection \(X_{t} \to X_{d}\), \(\id_{X}\) cannot be an \hyperref[def:categorical-isomorphism]{isomorphism}.
+\end{example}
+
+
+\begin{proposition}[Llevar?]
+  Let \(\category{D}\) be a \hyperref[def:subcategory]{subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
+  If \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
+\end{proposition}
+\begin{proof}
+  Since \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\) there exists an inverse \(f^{-1}\colon Y \to X\) in \(\category{D}\).
   Therefore since \(\Hom_{\category{D}}(Y, X) \subseteq \Hom_{\category{C}}(Y, X)\), \(f^{-1}\) is an inverse of \(f\) in \(\category{C}\).
 \end{proof}
 
 
-\begin{proposition}\label{prop:full-subcategory-reflects-isomorphisms}
+\begin{proposition}[Llevar?]\label{prop:full-subcategory-reflects-isomorphisms}
   Let \(\category{D}\) be a \hyperref[def:subcategory]{full subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
-  If \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) and \(X, Y \in \category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
+  If \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) and \(X, Y \in \category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
 \end{proposition}
 \begin{proof}
-  Since \(f: X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) there exists an inverse \(f^{-1}: Y \to X \in \Hom_{C}(Y, X)\).
-
-  Since \(\category{D}\) is a \hyperref[def:subcategory]{full subcategory} of \(\category{D}\) and \(X, Y \in \category{D}\) we have that \(f^{1} \in \Hom_{\category{D}}(Y, X)\).
+  Since \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) there exists an inverse \(f^{-1}\colon Y \to X\) in \(\category{D}\).
+  Since \(\category{D}\) is a \hyperref[def:subcategory]{full subcategory} of \(\category{D}\) and \(X, Y \in \category{D}\) we have that \(f^{-1} \in \Hom_{\category{D}}(Y, X)\).
   Therefore \(f\) admits an inverse in \(\category{D}\).
 \end{proof}
 
@@ -331,7 +323,7 @@
 \begin{definition}[Initial and terminal objects]\label{def:initial-terminal-object}
   An object \(I \in \category{C}\) is \textbf{initial} if for every object \(X \in \category{C}\) there is a unique morphism \(I \to X\).
 
-  \hyperref[def:dual]{Dually}, an object \(T \in \category{C}\) is \textbf{terminal} if for every object \(X \in \category{C}\) there is a unique morphism \(X \to T\).
+  Dually, an object \(T \in \category{C}\) is \textbf{terminal} if for every object \(X \in \category{C}\) there is a unique morphism \(X \to T\).
 \end{definition}
 
 \begin{proposition}[Uniqueness of initial and terminal objects]\label{prop:uniqueness-initial-terminal-objects}
@@ -339,10 +331,10 @@
   Then there exists a unique \hyperref[def:categorical-isomorphism]{isomorphism} \(X \isoarrow Y\) in \(\category{C}\).
 \end{proposition}
 \begin{proof}
-  Since \(X\) is \hyperref[def:initial-terminal-object]{initial} in \(\category{C}\) there exists a unique morphism \(f: X \to Y\).
-  Analogously there exist a unique morphism \(g: Y \to X\).
+  Since \(X\) is \hyperref[def:initial-terminal-object]{initial} in \(\category{C}\) there exists a unique morphism \(f\colon X \to Y\).
+  Analogously there exist a unique morphism \(g\colon Y \to X\).
 
-  Note that \(g \circ f: X \to X\).
+  Note that \(g \circ f\colon X \to X\).
   Therefore since \(X\) is \hyperref[def:initial-terminal-object]{initial} \(g \circ f = \id_{X}\).
   Analogously since \(f \circ g: Y \to Y\) we have \(f \circ g = \id_{Y}\).
 
@@ -350,12 +342,19 @@
   Moreover they are unique by definition.
 \end{proof}
 
-
 \begin{definition}[Zero object]\label{def:zero-object}
   An object \(0 \in \category{C}\) is a \textbf{zero} object if it is both \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal}.
 
-  Note that for any two objects \(X, Y \in \category{C}\) there exist maps \(X \to 0 \to Y\).
-  We call this composite map the \textbf{zero map} between \(X\) and \(Y\) and denote it \(X \xrightarrow{0} Y\).
+  Note that for any two objects \(X, Y \in \category{C}\) there exist unique maps \(0_{X}\colon X \to 0\) and \(0_{Y}\colon 0 \to Y\).
+  We call this composite map the \textbf{zero map} between \(X\) and \(Y\) and denote it \(X \xrightarrow{0_{X, Y}} Y\):
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[dr, "0_{X}"'] \arrow[rr, dotted, "0_{X, Y}"] & & Y \\
+      & 0 \arrow[ur, "0_{Y}"']
+    \end{tikzcd}
+  \end{center}
+
+  By abuse of notation, we will denote all of these maps by \(0\).
 \end{definition}
 
 \begin{corollary}[Uniqueness of zero objects]\label{def:uniqueness-zero-objects}

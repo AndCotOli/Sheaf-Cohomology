@@ -36,10 +36,10 @@
   given by \(\alpha \mapsto \alpha_{X}(\id_{X})\). This bijection is natural in both \(X\) and \(F\).
 \end{theorem}
 
-\begin{corollary}[{Yoneda embedding - \cite[Corollary 2.2.8]{riehlCategoryTheoryContext}}]
-  Let \(\category{C}\) be a \hyperref[def:category]{category}.
-  The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}.
-\end{corollary}
+% \begin{corollary}[{Yoneda embedding - \cite[Corollary 2.2.8]{riehlCategoryTheoryContext}}]
+%   Let \(\category{C}\) be a \hyperref[def:category]{category}.
+%   The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}.
+% \end{corollary}
 
 \section{Adjunctions}
 
@@ -123,12 +123,11 @@
   \begin{equation*}
     \alpha_{Y}: R_{1}(Y) \isoarrow R_{2}(Y)
   \end{equation*}
-  Furthermore, since \(\phi\) and \(\psi\) are natural this ensemble into a \hyperref[def:natural-transformation]{natural isomorphism}
+  which ensemble into a \hyperref[def:natural-transformation]{natural isomorphism}
   \begin{equation*}
     \alpha: R_{1} \Rightarrow R_{2}
   \end{equation*}
 \end{proof}
-
 
 \begin{theorem}[{\cite[Theorem 4.5.2]{riehlCategoryTheoryContext}}]\label{thm:adjoints-preserve-limits}
   \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in their codomain.
@@ -235,7 +234,7 @@
     X_{j}f \circ \tau_{j}^{c} = \tau_{j}^{d} \circ Mf
   \end{equation*}
   Therefore since the projections agree for all \(j \in \category{J}\) by uniqueness of the maps \(\pi_{j}\) we get the commutativity of the diagram.
-  Its uniqueness as a morphism of cones follows directly from the objectwise uniqueness of each \(\phi_{c}\).
+  Its uniqueness as a \hyperref[def:cone]{morphism of cones} follows directly from the objectwise uniqueness of each \(\phi_{c}\).
 \end{proof}
 
 

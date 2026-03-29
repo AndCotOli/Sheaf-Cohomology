@@ -1,0 +1,201 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{1.Additive-categories}%
+    \zexternaldocument*{2.Abelian-categories}%
+}{}
+
+\begin{document}
+
+\chapter{Derived functors}
+
+
+\section{Injective and projective objects}
+
+\begin{definition}\label{def:injective-projective-object}~
+  Let \(\category{C}\) be a \hyperref[def:category]{category}.
+  An object \(I \in \category{C}\) is \textbf{injective} if all the diagrams of the form
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "k"] \arrow[d, tail, "f"'] & I \\
+      Z
+    \end{tikzcd}
+  \end{center}
+  where \(X \monoarrow Z\) is a \hyperref[def:mono-epi-morphism]{monomorphism} admit an extension
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, "k"] \arrow[d, tail, "f"'] & I \\
+      Z \arrow[ur, dotted, "h"']
+    \end{tikzcd}
+  \end{center}
+
+  Dually, an object \(P \in \category{C}\) is \textbf{projective} if all the diagrams of the form
+  \begin{center}
+    \begin{tikzcd}
+      & X \arrow[d, two heads, "f"] \\
+      P \arrow[r, "k"'] & Z
+    \end{tikzcd}
+  \end{center}
+  where \(X \epiarrow Z\) is an \hyperref[def:mono-epi-morphism]{epimorphism} admit an extension
+  \begin{center}
+    \begin{tikzcd}
+      & X \arrow[d, two heads, "f"] \\
+      P \arrow[r, "k"'] \arrow[ur, dotted, "h"] & Z
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+\begin{notation}
+  If \(\category{C}\) is any \hyperref[def:category]{category} we denote by \(\mathcal{I}_{\category{C}}\) its \hyperref[def:subcategory]{full subcategory} made of \hyperref[def:injective-projective-object]{injective objects} and by \(\mathcal{P}_{\category{C}}\) its \hyperref[def:subcategory]{full subcategory} of \hyperref[def:injective-projective-object]{projective objects}.
+\end{notation}
+
+
+\begin{proposition}
+  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
+  \begin{itemize}
+    \item An object \(I \in \category{C}\) is \hyperref[def:injective-projective-object]{injective} if and only if the functor \(\Hom_{\category{C}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
+    \item An object \(P \in \category{C}\) is \hyperref[def:injective-projective-object]{projective} if and only if the functor \(\Hom_{\category{C}}(P, -)\) is \hyperref[def:exact-functor]{exact}.
+  \end{itemize}
+\end{proposition}
+\begin{proof}
+  By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-functor]{right exactness}.
+
+  We will do the \hyperref[def:injective-projective-object]{injective} version this time:
+  \begin{itemize}
+    \item[\(\implies\)] Suppose \(I \in \mathcal{I}_{\category{C}}\) is \hyperref[def:injective-projective-object]{injective} and consider a \hyperref[def:exact-sequence]{short exact sequence}
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
+            \end{tikzcd}
+          \end{center}
+          Using \autoref{lemma:characterization-exact-functor} (recall that \(\Hom\) is a \hyperref[def:functor]{contravariant functor}), we want to see that
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & \Hom(Z, I) \arrow[r, "g^{\ast}"] & \Hom(Y, I) \arrow[r, "f^{\ast}"] & \Hom(X, I)
+            \end{tikzcd}
+          \end{center}
+          is \hyperref[def:exact-sequence]{exact}.
+
+          Since by \autoref{ex:hom-left-exact} this sequence is \hyperref[def:exact-sequence]{exact} at \(\Hom(Z, I)\) and \(\Hom(Y, I)\), we only need to check exactness at \(\Hom(X, I)\), i.e: we want to see that \(f^{\ast}\) is surjective.
+
+          Consider a morphism \(\alpha\colon X \to I\).
+          Since \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} and \(I\) is \hyperref[def:injective-projective-object]{injective} there exists a morphism \(\beta\colon Y \to I\) such that \(\beta \circ f = f^{\ast}(\beta) = \alpha\), making \(f^{\ast}\) surjective as wanted.
+
+    \item[\(\impliedby\)] Suppose \(\Hom(-, I)\) is \hyperref[def:exact-functor]{exact} and consider a \hyperref[def:mono-epi-morphism]{monomorphism} \(f\colon X \monoarrow Y\) in \(\category{C}\).
+
+          We have the following \hyperref[def:exact-sequence]{short exact sequence}
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r] & \coker f \arrow[r] & 0 \\
+            \end{tikzcd}
+          \end{center}
+          Applying \(\Hom(-, I)\) to this sequence we get
+           \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & \Hom(\coker f, I) \arrow[r] & \Hom(Y, I) \arrow[r, "f^{\ast}"] & \Hom(X, I) \arrow[r] & 0 \\
+            \end{tikzcd}
+          \end{center}
+          which is \hyperref[def:exact-sequence]{exact} since \(\Hom(-, I)\) is \hyperref[def:exact-functor]{exact}.
+          In particular we have that \(f^{\ast}\) is surjective.
+
+          Therefore if \(\gamma\colon X \to I\) is any morphism there exists \(\beta \in \Hom(X, I)\) such that \(\gamma = \beta \circ f\), which is exactly the universal property of \hyperref[def:injective-projective-object]{injective objects}.
+  \end{itemize}
+\end{proof}
+
+\begin{definition} \label{def:enough-injectives-projectives}~
+  Let \(\category{C}\) be a \hyperref[def:category]{category}. We say that:
+  \begin{itemize}
+    \item \(\category{C}\) has \textbf{enough injectives} if for every object \(X \in \category{X}\) there exists an \hyperref[def:injective-projective-object]{injective object} \(I \in \mathcal{I}_{\category{C}}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow I\).
+    \item \(\category{C}\) has \textbf{enough projectives} if for every object \(X \in \category{A}\) there exists a \hyperref[def:injective-projective-object]{projective object} \(P \in \mathcal{P}_{\category{C}}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow X\).
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}\label{thm:existence-injective-resolution}
+  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
+  Then every object \(X \in \category{C}\) admits a \hyperref[def:resolution]{right resolution} \(X \to I^{\bullet}\) where \(I^{n} \in \mathcal{I}_{\category{C}}\) is \hyperref[def:injective-projective-object]{injective} for all \(n \in \mathbb{Z}\).
+
+  Dually, if \(\category{C}\) has \hyperref[def:enough-injectives-projectives]{enough projectives} every object \(X \in \category{C}\) admits a \hyperref[def:resolution]{left resolution} \(P^{\bullet} \to X\) where \(P^{n} \in \mathcal{P}_{\category{C}}\) is \hyperref[def:injective-projective-object]{projective} for all \(n \in \mathbb{Z}\).
+\end{theorem}
+\begin{proof}
+  Let \(X \in \category{C}\).
+
+  We want to construct an \hyperref[def:exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & I^{0} \arrow[r] & \cdots \arrow[r] & I^{n} \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  We will do it by induction over \(n\).
+
+  For the base case, since \(\category{C}\) has \hyperref[def:enough-injectives-projectives]{enough injectives} there exists an \hyperref[def:injective-projective-object]{injective object} \(I_{0} \in \mathcal{I}_{\category{C}}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow I_{0}\).
+
+  Suppose now that we have a \hyperref[def:exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & I^{0} \arrow[r] & \cdots \arrow[r] & I^{n-1} \arrow[r] & I^{n}
+    \end{tikzcd}
+  \end{center}
+  Since \(\category{C}\) is \hyperref[def:abelian-category]{abelian} there exists
+  \begin{equation*}
+    \coker(I^{n-1} \to I^{n})\colon I^{n} \epiarrow B^{n}
+  \end{equation*}
+  Note that
+  \begin{center}
+    \begin{tikzcd}
+      I^{n-1} \arrow[r] & I^{n} \arrow[r, two heads] & B^{n} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center} 
+  is \hyperref[def:exact-sequence]{exact}.
+  Since \(\category{C}\) has \hyperref[def:enough-injectives-projectives]{enough injectives} there exists \(I^{n+1} \in \mathcal{I}_{\category{C}}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(B^{n} \monoarrow I^{n+1}\)
+  Therefore
+  \begin{center}
+    \begin{tikzcd}
+      & B^{n} \arrow[dr, tail] \\
+      I^{n-1} \arrow[r] & I^{n} \arrow[r] \arrow[u, two heads] & I^{n+1}
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-sequence]{exact} and induction follows.
+\end{proof}
+
+\section{Derived functors}
+In this section \(\category{C}\) and \(\category{D}\) will be \hyperref[def:abelian-category]{abelian categories}, which we will assume that \hyperref[def:enough-injectives-projectives]{have enough injectives}.
+
+We will consider \hyperref[def:exact-functor]{left-exact functor} \(F\colon \category{C} \to \category{D}\), but there are dual definitions and statements for \hyperref[def:exact-functor]{right-exact functors}.
+
+\begin{definition}\label{def:F-acyclic-object}
+  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
+  Let \(F\colon \category{C} \to \category{D}\) be a \hyperref[def:exact-functor]{left-exact functor}.
+  An object \(X \in \category{C}\) is \textbf{\(F\)-acyclic} if for all \hyperref[def:resolution]{injective resolutions} \(X \to I^{\bullet}\) of \(X\) and \(n > 0\) we have
+  \begin{equation*}
+    \cohomology{n}(F(I^{\bullet})) = 0
+  \end{equation*}
+\end{definition}
+
+\begin{example}
+  \hyperref[def:injective-projective-object]{Injective objects} are \hyperref[def:F-acyclic-object]{\(F\)-acyclic} for all \hyperref[def:exact-functor]{left-exact functors} \(F\).
+
+  Indeed, any \hyperref[def:injective-projective-object]{injective object} \(I \in \mathcal{I}_{\category{C}}\) 
+\end{example}
+
+
+\begin{definition}
+  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
+  Let \(F\colon \category{C} \to \category{D}\) be a \hyperref[def:exact-functor]{left-exact functor}.
+  We define the \(i\)-th \textbf{right derived functor} of \(F\)
+  \begin{equation*}
+    \operatorname{R}^{i}F\colon \category{C} \to \category{D}
+  \end{equation*}
+  as, for any object \(X \in \category{C}\)
+  \begin{equation*}
+    \left(\operatorname{R}^{i}F\right)\left(X\right) \coloneq \cohomology{i}(F(Q^{\bullet}))
+  \end{equation*}
+  where \(Q^{\bullet}\) is a \hyperref[def:f-acyclic-resolution]{\(F\)-acyclic resolution} of \(X\), and for any morphism \(f: X \to Y\)
+  \begin{align*}
+    \left(\operatorname{R}^{i}F\right)f
+  \end{align*}
+
+\end{definition}
+
+
+\end{document}

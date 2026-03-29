@@ -27,7 +27,7 @@
   Diagramatically, a covariant functor is represent by
   \begin{center}
     \begin{tikzcd}
-      \llap{\(F: \;\;\)} \category{C} \arrow[r] & \category{D} \\[-2em]
+      \llap{\(F\colon\)} \category{C} \arrow[r] & \category{D} \\[-2em]
       X \arrow[d, "f"' ""{name=source, right}] & F(X) \arrow[d, "Ff" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
       Y  & F(Y)
     \end{tikzcd}
@@ -35,7 +35,7 @@
   And a contravariant functor by
   \begin{center}
     \begin{tikzcd}
-      \llap{\(F: \;\;\)} \category{C} \arrow[r] & \category{D} \\[-2em]
+      \llap{\(F\colon\)} \category{C} \arrow[r] & \category{D} \\[-2em]
       X \arrow[d, "f"' ""{name=source, right}] & F(X)  \arrow[from=source, to=target, mapsto] \\
       Y  & F(Y) \arrow[u, "Ff"' ""{name=target, left}]
     \end{tikzcd}
@@ -52,7 +52,7 @@
   There exists an identity \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(\id: \;\;\)} \category{C} \arrow[r] & \category{C} \\[-2em]
+      \llap{\(\id\colon\)} \category{C} \arrow[r] & \category{C} \\[-2em]
       X \arrow[d, "f"' ""{name=source, right}] & X \arrow[d, "f" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
       Y  & Y
     \end{tikzcd}
@@ -64,7 +64,7 @@
   For every object \(C \in \category{C}\) there exists a constant \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(\operatorname{ct}_{C}: \;\;\)} \category{C} \arrow[r] & \category{C} \\[-2em]
+      \llap{\(\operatorname{ct}_{C}\colon \;\;\)} \category{C} \arrow[r] & \category{C} \\[-2em]
       X \arrow[d, "f"' ""{name=source, right}] & C \arrow[d, "\id_{C}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
       Y  & C
     \end{tikzcd}
@@ -75,10 +75,10 @@
   Let \(\category{C}, \category{C}'\) and \(\category{D}\) be three \hyperref[def:category]{categories}.
   Recall that we can construct the \hyperref[def:product-category]{product category} \(\category{C} \times \category{C}'\).
 
-  A \textbf{bifunctor} is a \hyperref[def:functor]{functor} of the form \(F: \category{C} \times \category{C}' \to \category{D}\).
-  This means that for any \(X \in \category{C}\) and \(X' \in \category{C}\), \(F(X, -): \category{C}' \to \category{D}\) and \(F(-, X'): \category{C} \to \category{D}\) are \hyperref[def:functor]{functors}.
+  A \textbf{bifunctor} is a \hyperref[def:functor]{functor} of the form \(F\colon \category{C} \times \category{C}' \to \category{D}\).
+  This means that for any \(X \in \category{C}\) and \(X' \in \category{C}\), \(F(X, -)\colon \category{C}' \to \category{D}\) and \(F(-, X')\colon \category{C} \to \category{D}\) are \hyperref[def:functor]{functors}.
 
-  Furthermore for any morphism \(f: X \to Y\) in \(\category{C}\) and \(g: X' \to Y'\) in \(\category{C}'\) we have a commutative diagram
+  Furthermore for any morphisms \(f\colon X \to Y\) in \(\category{C}\) and \(g\colon X' \to Y'\) in \(\category{C}'\) we have a commutative diagram
   \begin{center}
     \begin{tikzcd}[row sep=huge, column sep=huge]
       F(X, X') \arrow[r, "{F(X, g)}"] \arrow[d, "{F(f, X')}"'] \arrow[dr, "{F(f, g)}"] & F(X, Y') \arrow[d, "{F(f, Y')}"] \\
@@ -93,7 +93,7 @@
   For every object \(C \in \category{C}\) there exists a \textit{covariant} \(\Hom\) \hyperref[def:functor]{functor}
    \begin{center}
     \begin{tikzcd}
-      \llap{\(\Hom(C, -): \;\;\)} \category{C} \arrow[r] & \Set \\[-2em]
+      \llap{\(\Hom(C, -)\colon\)} \category{C} \arrow[r] & \Set \\[-2em]
       X \arrow[d, "f"' ""{name=source, right}] & \Hom(C, X) \arrow[d, "f \circ " ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
       Y  & \Hom(C, Y)
     \end{tikzcd}
@@ -101,7 +101,7 @@
   and a \textit{contravariant} \(\Hom\) \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(\Hom(-, C): \;\;\)} \category{C} \arrow[r] & \Set \\[-2em]
+      \llap{\(\Hom(-, C)\colon\)} \category{C} \arrow[r] & \Set \\[-2em]
       X \arrow[d, "f"' ""{name=source, right}] & \Hom(C, X)  \arrow[from=source, to=target, mapsto] \\
       Y  & \Hom(C, Y) \arrow[u, "\circ f"' ""{name=target, left}]
     \end{tikzcd}
@@ -110,7 +110,7 @@
   We can combine this two into a \hyperref[ex:bifunctor]{bifunctor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(\text{Hom}(-,-): \;\;\)} \opcategory{C} \times \category{C} \arrow[r] & \Set \\[-2em]
+      \llap{\(\text{Hom}(-,-)\colon\)} \opcategory{C} \times \category{C} \arrow[r] & \Set \\[-2em]
       (X, Y) \arrow[d, "{(f, g)}"' ""{name=source, right}]  & \text{Hom}(X, Y) \arrow[d, "{g \circ \,-\, \circ f}", ""{name=target, left}] \\
       (Z, W) & \text{Hom}(Z, W)
       \arrow[from=source, to=target, mapsto]
@@ -123,13 +123,12 @@
   There exist an inclussion \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(\iota: \;\;\)} \category{D} \arrow[r, hookrightarrow] & \category{C} \\[-2em]
+      \llap{\(\iota\colon\)} \category{D} \arrow[r, hookrightarrow] & \category{C} \\[-2em]
       X \arrow[d, "f"' ""{name=source, right}] & X \arrow[d, "f" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
       Y  & Y
     \end{tikzcd}
   \end{center}
 \end{example}
-
 
 \begin{example}[Preimage functor]
   Let \(X, Y\) be two topological spaces.
@@ -138,7 +137,7 @@
   For every continuous map \(f: X \to Y\) we have a preimage \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(f^{-1}: \;\;\)} \Open(Y) \arrow[r] & \Open(X) \\[-2em]
+      \llap{\(f^{-1}\colon\)} \Open(Y) \arrow[r] & \Open(X) \\[-2em]
       U \arrow[d, ""{name=source, right}, hookrightarrow] & f^{-1}(U) \arrow[d, ""{name=target, left}, hookrightarrow] \arrow[from=source, to=target, mapsto] \\
       V  & f^{-1}(V)
     \end{tikzcd}
@@ -146,12 +145,12 @@
 \end{example}
 
 \begin{proposition}[Functors preseve isomorphisms]
-  Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories} and \(F: \category{C} \to \category{D}\) a \hyperref[def:functor]{functor} between them.
+  Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories} and \(F\colon \category{C} \to \category{D}\) a \hyperref[def:functor]{functor} between them.
   If \(f\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) then \(Ff\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
 \end{proposition}
 \begin{proof}
-  Let \(f: X \to Y\) be a \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
-  Then there exists an inverse \(f^{-1}: Y \to X\) in \(\category{C}\) such that
+  Let \(f\colon X \to Y\) be a \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
+  Then there exists an inverse \(f^{-1}\colon Y \to X\) in \(\category{C}\) such that
   \begin{equation*}
     f^{-1} \circ f = \id_{X} \quad f \circ f^{-1} = \id_{Y}
   \end{equation*}
@@ -166,7 +165,7 @@
 
 
 \begin{definition}[Functor types]\label{def:functor-types}
-  A \hyperref[def:functor]{functor} \(F: \category{C} \to \category{D}\) is:
+  A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) is:
   \begin{itemize}
     \item \textbf{faithful} if for every pair of objects \(X, Y \in \category{C}\), the map \(\Hom_{\category{C}}(X, Y) \to \Hom_{\category{D}}(F(X), F(Y))\) is injective.
     \item \textbf{full} if for every pair \(X, Y \in \category{C}\), the map \(\Hom_{\category{C}}(X, Y) \to \Hom_{\category{D}}(F(X), F(Y))\) is surjective.
@@ -182,11 +181,11 @@
 \section{Natural transformations}
 
 \begin{definition}\label{def:natural-transformation}
-  Let \(F, G: \category{C} \to \category{D}\) be two functors. A \textbf{natural transformation} \(\psi: F \implies G\) consists of a family of morphisms \(\psi_X: F(X) \to G(X)\) in \(\category{D}\) for each object \(X \in \category{C}\), called the \textbf{components} of \(\psi\), such that for every morphism \(f: X \to Y\) in \(\category{C}\), the following diagram commutes:
+  Let \(F, G\colon \category{C} \to \category{D}\) be two functors. A \textbf{natural transformation} \(\psi\colon F \implies G\) consists of a family of morphisms \(\psi_X: F(X) \to G(X)\) in \(\category{D}\), one for each object \(X \in \category{C}\), called the \textbf{components} of \(\psi\), such that for every morphism \(f\colon X \to Y\) in \(\category{C}\), the following diagram commutes:
   \begin{center}
     \begin{tikzcd}
-      F(X) \arrow[r, "\psi_X"] \arrow[d, "Ff"'] & G(X) \arrow[d, "Gf"] \\
-      F(Y) \arrow[r, "\psi_Y"'] & G(Y)
+      F(X) \arrow[r, "\psi_{X}"] \arrow[d, "Ff"'] & G(X) \arrow[d, "Gf"] \\
+      F(Y) \arrow[r, "\psi_{Y}"'] & G(Y)
     \end{tikzcd}
   \end{center}
   Diagramatically, a natural transformations is represented by

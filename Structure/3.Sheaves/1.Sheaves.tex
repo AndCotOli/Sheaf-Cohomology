@@ -20,7 +20,7 @@
   Less abstractly, a \(\category{C}\)-valued \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) is the collection of data:
   \begin{itemize}
     \item For each open set \(U \subseteq X\) an object \(\mathcal{F}(U) \in \category{C}\) called \textit{sections of \(\mathcal{F}\) over \(U\)}.
-    \item For every inclusion of open sets \(V \subseteq U\) a morphism \(\res_{U, V}: \mathcal{F}(U) \to \mathcal{F}(V)\) in \(\category{C}\) called \textit{restriction} such that
+    \item For every inclusion of open sets \(V \subseteq U\) a morphism \(\res_{U, V}\colon \mathcal{F}(U) \to \mathcal{F}(V)\) in \(\category{C}\) called \textit{restriction} such that
           \begin{itemize}
             \item For every open set \(U \subseteq X\), \(\res_{U, U} = \id_{U}\).
             \item For every inclusion of open sets \(W \subseteq V \subseteq U\), \(\res_{U, V} \circ \res_{V, W} = \res_{U, W}\).
@@ -28,7 +28,7 @@
   \end{itemize}
   A morphism of \hyperref[def:presheaf]{presheaves} \(\phi: \mathcal{F} \to \mathcal{G}\) is a collection of morphisms
   \begin{equation*}
-    \{\phi(U): \mathcal{F}(U) \to \mathcal{G}(U)\}_{U \in \Open(X)}
+    \{\phi(U)\colon \mathcal{F}(U) \to \mathcal{G}(U)\}_{U \in \Open(X)}
   \end{equation*}
   in \(\category{C}\) making the following diagram commute for all \(V \subseteq U\)
   \begin{center}
@@ -44,7 +44,7 @@
   For any object \(A \in \category{C}\) the \textbf{constant presheaf} with value \(A\), denoted \(\underline{A}_{X}^{\operatorname{pre}}\) is the \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} associated to the \hyperref[ex:constant-functor]{constant functor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(\underline{A}_{X}^{\operatorname{pre}}: \;\;\)} \Open(X)^{\op} \arrow[r] & \category{C} \\[-2em]
+      \llap{\(\underline{A}_{X}^{\operatorname{pre}}\colon\)} \Open(X)^{\op} \arrow[r] & \category{C} \\[-2em]
       U \arrow[d, , "V \subseteq U"', ""{name=source, right}] & A \arrow[d, "\id_{A}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
       V  & A
     \end{tikzcd}
@@ -52,7 +52,7 @@
 
   Note that this defines a \hyperref[def:functor]{functor}
   \begin{align*}
-    \underline{-}_{X}^{\operatorname{pre}}: \category{C} \to \PSh_{X}(\category{C})
+    \underline{-}_{X}^{\operatorname{pre}}\colon \category{C} \to \PSh_{X}(\category{C})
   \end{align*}
 \end{definition}
 
@@ -61,7 +61,7 @@ We now turn our attention to a particular class of \hyperref[def:presheaf]{presh
 Instead of working on a general \hyperref[def:category]{category} \(\category{C}\), we will work with \hyperref[def:category]{categories} which are "sets with an algebraic structure" (for example \(\Grp, \Ab, \Ring, \ldots\) but not \(\Top\)).
 
 \begin{definition}\label{def:algebraic-structure}
-  A \textbf{type of algebraic structure} is a \hyperref[def:category]{category} \(\category{C}\) together with a \hyperref[def:functor]{functor} \(F: \category{C} \to \Set\) verifying:
+  A \textbf{type of algebraic structure} is a \hyperref[def:category]{category} \(\category{C}\) together with a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) verifying:
   \begin{enumerate}
     \item \(F\) is \hyperref[def:functor-types]{faithful}.
     \item \(\category{C}\) has \hyperref[def:categorical-limit]{limits} and \(F\) commutes with them.
@@ -89,10 +89,10 @@ We state some properties of this types of \hyperref[def:category]{categories} wi
     \item \(\category{C}\) has a \hyperref[def:initial-terminal-object]{terminal object} \(0\) and \(F(0) = \{\ast\}\).
     \item \(\category{C}\) has \hyperref[def:categorical-product]{products} and \(F \left( \prod X_{i} \right) = \prod F \left( X_{i} \right)\).
     \item \(\category{C}\) has \hyperref[def:pullback]{pullbacks} and \(F(X \times_{Z} Y) = F(X) \times_{F(Z)} F(Y)\).
-    \item \(\category{C}\) has \hyperref[def:equaliser]{equalizers} and if \(\operatorname{eq} \to X\) is the \hyperref[def:equaliser]{equalizer} of \(f, g: X \rightrightarrows Y\) then \(F(\operatorname{eq}) \to F(X)\) is the \hyperref[def:equaliser]{equalizer} of \(Ff, Fg: F(X) \rightrightarrows F(Y)\).
+    \item \(\category{C}\) has \hyperref[def:equaliser]{equalizers} and if \(\operatorname{eq} \to X\) is the \hyperref[def:equaliser]{equalizer} of \(f, g\colon X \rightrightarrows Y\) then \(F(\operatorname{eq}) \to F(X)\) is the \hyperref[def:equaliser]{equalizer} of \(Ff, Fg\colon F(X) \rightrightarrows F(Y)\).
     \item \(X \to Y\) is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if \(F(X) \to F(Y)\) is injective.
-    \item If \(Ff: F(X) \to F(Y)\) is surjective then \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism}.
-    \item Given \(X_{1} \to X_{2} \to \cdots\), \(\colim X_{i}\) exists and \(F(\colim X_{i}) = \colim F(X_{i})\). And more generally for any \hyperref[def:direct-limit]{direct limit}.
+    \item If \(Ff\colon F(X) \to F(Y)\) is surjective then \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism}.
+    \item Given \(X_{1} \to X_{2} \to \cdots\), \(\varinjlim X_{i}\) exists and \(F(\varinjlim X_{i}) = \varinjlim F(X_{i})\). And more generally for any \hyperref[def:direct-limit]{direct limit}.
     \item \hyperref[def:direct-limit]{Direct limits} commute with \hyperref[def:categorical-limit]{limits}.
   \end{enumerate}
 \end{lemma}
@@ -106,8 +106,6 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
     \item\label{axiom:sheaf-identity} \textbf{Identity}: Given two sections \(s, t \in \sheaf{F}(U)\) such that for every \(i \in \mathcal{I} \quad s|_{U_{i}} = t|_{U_{i}}\) we have that \(s = t\).
     \item\label{axiom:sheaf-gluability} \textbf{Gluability}: Given a collection of sections \(\{s_{i} \mid s_{i} \in \sheaf{F}(U_{i})\}_{i \in \mathcal{I}}\) that agree on pairwise intersections (\(\forall i, j \in \mathcal{I} \;\; s_{i}|_{U_{i} \cap U_{j}} = s_{j}|_{U_{i} \cap U_{j}}\)) there exists a section \(s \in \sheaf{F}(U)\) such that \(\forall i \in \mathcal{I} \;\; s|_{U_{i}} = s_{i}\).
   \end{enumerate}
-
-  \hyperref[def:presheaf]{Presheaves} that only satisfy axiom \ref{axiom:sheaf-identity} are called \textbf{separated presheaves}.
 \end{definition}
 
 \begin{notation}
@@ -144,17 +142,17 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   
   Using this characterization we may define the stalk of a \hyperref[def:presheaf]{morphism of presheaves} \(\phi: \mathcal{F} \to \mathcal{G}\) as
   \begin{align*}
-    \phi_{x}:\,& \mathcal{F}_{x} \to \mathcal{G}_{x} \\
+    \phi_{x}\colon& \mathcal{F}_{x} \to \mathcal{G}_{x} \\
             & (U, s) \mapsto (U, \phi(s))
   \end{align*}
 
   Therefore we have a stalk \hyperref[def:functor]{functor}
   \begin{equation*}
-    -_{p}: \PSh_{X}(\category{C}) \to \category{C}
+    -_{p}\colon \PSh_{X}(\category{C}) \to \category{C}
   \end{equation*}
   By using the same definition we can extend this to a \hyperref[def:functor]{functor}
   \begin{equation*}
-    -_{p}: \Sh_{X}(\category{C}) \to \category{C}
+    -_{p}\colon \Sh_{X}(\category{C}) \to \category{C}
   \end{equation*}
 \end{definition}
 
@@ -172,7 +170,7 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
 \end{proof}
 
 \begin{theorem}\label{thm:sheaf-morphism-determined-by-stalks}
-  Let \(\phi, \psi: \mathcal{F} \to \sheaf{G}\) be a \hyperref[def:presheaf]{morphism of presheaves} where \(\mathcal{F}\) is a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} and \(\sheaf{G}\) is a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf}.
+  Let \(\phi, \psi\colon \mathcal{F} \to \sheaf{G}\) be a \hyperref[def:presheaf]{morphism of presheaves} where \(\mathcal{F}\) is a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} and \(\sheaf{G}\) is a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf}.
   Then \(\phi = \psi\) if and only if for all \(p \in X\) the \hyperref[def:stalk]{stalks at \(p\)} are equal, i.e: \(\phi_{p} = \psi_{p}\).
 \end{theorem}
 \begin{proof}
@@ -182,14 +180,14 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   \begin{center}
     \begin{tikzcd}
       \mathcal{F}(U) \arrow[r] \arrow[d] & \sheaf{G}(U) \arrow[d, tail] \\
-      \displaystyle\prod_{p \in U} \mathcal{F}_{p} \arrow[r] & \displaystyle_{p \in U} \sheaf{G}_{p}
+      \displaystyle\prod_{p \in U} \mathcal{F}_{p} \arrow[r] & \displaystyle\prod_{p \in U} \sheaf{G}_{p}
     \end{tikzcd}
   \end{center}
 \end{proof}
 
 \begin{proposition}\label{prop:sheaf-isomorphism-determined-at-stalks}
-  Let \(\phi: \sheaf{F} \to \sheaf{G}\) be a \hyperref[def:sheaf]{morphism of sheaves}.
-  Then \(\phi\) is a \hyperref[def:categorical-isomorphism]{isomorphism} if and only if for all \(p \in X\) the \hyperref[def:stalk]{induced stalk map} \(\phi_{p}: \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  Let \(\phi\colon \sheaf{F} \to \sheaf{G}\) be a \hyperref[def:sheaf]{morphism of sheaves}.
+  Then \(\phi\) is a \hyperref[def:categorical-isomorphism]{isomorphism} if and only if for all \(p \in X\) the \hyperref[def:stalk]{induced stalk map} \(\phi_{p}\colon \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{proposition}
 
 
@@ -199,10 +197,10 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
     \item A \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) is a \textbf{subpresheaf} of a \hyperref[def:presheaf]{presheaf} \(\mathcal{G}\) if for all open sets \(U \subseteq X\) we have \(\mathcal{F}(U) \subseteq \mathcal{G}(U)\) and the restriction maps of \(\mathcal{G}\) induce the restriction maps of \(\mathcal{F}\).
 
           If \(\sheaf{F}\) and \(\sheaf{G}\) are \hyperref[def:sheaf]{sheaves} we say that \(\sheaf{F}\) is a \textbf{subsheaf} of \(\sheaf{G}\).
-    \item A \hyperref[def:presheaf]{morphism of presheaves} \(\phi: \mathcal{F} \to \mathcal{G}\) is \textbf{injective} if for all open sets \(U \subseteq X\) the map \(\mathcal{F}(U) \to \mathcal{G}(U)\) is injective.
-    \item A \hyperref[def:presheaf]{morphism of presheaves} \(\phi: \mathcal{F} \to \mathcal{G}\) is \textbf{surjective} if for all open sets \(U \subseteq X\) the map \(\mathcal{F}(U) \to \mathcal{G}(U)\) is surjective.
-    \item A \hyperref[def:sheaf]{morphism of sheaves} \(\varphi: \sheaf{F} \to \sheaf{G}\) is \textbf{injective} if for all open sets \(U \subseteq X\) the map \(\sheaf{F}(U) \to \sheaf{G}(U)\) is injective.
-    \item A \hyperref[def:sheaf]{morphism of sheaves} \(\varphi: \sheaf{F} \to \sheaf{G}\) is \textbf{surjective} if for all open sets \(U \subseteq X\) and every section \(s \in \sheaf{G}(U)\) there exists an open covering \(U = \bigcup_{i \in \mathcal{I}} U_{i}\) such that \(s|_{U_{i}}\) is in the image of \(\sheaf{F}(U_{i}) \to \sheaf{G}(U_{i})\) for all \(i\).
+    \item A \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \mathcal{G}\) is \textbf{injective} if for all open sets \(U \subseteq X\) the map \(\mathcal{F}(U) \to \mathcal{G}(U)\) is injective.
+    \item A \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \mathcal{G}\) is \textbf{surjective} if for all open sets \(U \subseteq X\) the map \(\mathcal{F}(U) \to \mathcal{G}(U)\) is surjective.
+    \item A \hyperref[def:sheaf]{morphism of sheaves} \(\varphi\colon \sheaf{F} \to \sheaf{G}\) is \textbf{injective} if for all open sets \(U \subseteq X\) the map \(\sheaf{F}(U) \to \sheaf{G}(U)\) is injective.
+    \item A \hyperref[def:sheaf]{morphism of sheaves} \(\varphi\colon \sheaf{F} \to \sheaf{G}\) is \textbf{surjective} if for all open sets \(U \subseteq X\) and every section \(s \in \sheaf{G}(U)\) there exists an open covering \(U = \bigcup_{i \in \mathcal{I}} U_{i}\) such that \(s|_{U_{i}}\) is in the image of \(\sheaf{F}(U_{i}) \to \sheaf{G}(U_{i})\) for all \(i\).
   \end{enumerate}
 \end{definition}
 
@@ -211,21 +209,21 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
 
 We have established the definition of \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves}. It is clear from the definitions that every \hyperref[def:sheaf]{sheaf} is a \hyperref[def:presheaf]{presheaf}. This defines a "forgetful" \hyperref[def:functor]{functor}:
 \begin{equation*}
-    \iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})
+    \iota\colon \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})
 \end{equation*}
 
 We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:sheaf]{sheaf}.
 
 \begin{definition}[Sheafification] \label{def:sheafification}
     Let \(X\) be a topological space and \(\category{C}\) a \hyperref[def:category]{category}.
-    The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{\#}: \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functors]{left adjoint} to the inclusion functor \(\iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
+    The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{\#}\colon \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functors]{left adjoint} to the inclusion functor \(\iota\colon \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
 
     That is, for every \hyperref[def:presheaf]{presheaf} \(\mathcal{F} \in \PSh_{X}(\category{C})\) and every \hyperref[def:sheaf]{sheaf} \(\sheaf{G} \in \Sh_{X}(\category{C})\), there is a natural bijection:
     \begin{equation*}
         \Hom_{\Sh_{X}(\category{C})}(\mathcal{F}^{\#}, \sheaf{G}) \cong \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota\sheaf{G})
     \end{equation*}
 
-    The unit of this adjunction gives a canonical morphism \(\theta: \mathcal{F} \mapsto \iota(\mathcal{F}^{\#})\) in \(\PSh_{X}(\category{C})\) which verifies that for any \hyperref[def:presheaf]{presheaf morphism} \(\phi: \mathcal{F} \to \sheaf{G}\) where \(\mathcal{F}\) is a \hyperref[def:presheaf]{presheaf} and \(\sheaf{G}\) is a \hyperref[def:sheaf]{sheaf} there exists a unique morphism \(\psi: \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
+    The unit of this adjunction gives a canonical morphism \(\theta\colon \mathcal{F} \mapsto \iota(\mathcal{F}^{\#})\) in \(\PSh_{X}(\category{C})\) which verifies that for any \hyperref[def:presheaf]{presheaf morphism} \(\phi\colon \mathcal{F} \to \sheaf{G}\) where \(\mathcal{F}\) is a \hyperref[def:presheaf]{presheaf} and \(\sheaf{G}\) is a \hyperref[def:sheaf]{sheaf} there exists a unique morphism \(\psi\colon \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
 \end{definition}
 
 \begin{construction}[Godement construction of sheafification] \label{const:sheafification-godement}
@@ -237,7 +235,7 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
   \end{equation*}
   Considering for \(V \subseteq U\) the morphism
   \begin{align*}
-    \res_{U, V}: \Lambda(\mathcal{F})(U) &\to \Lambda(\mathcal{F})(V) \\
+    \res_{U, V}\colon \Lambda(\mathcal{F})(U) &\to \Lambda(\mathcal{F})(V) \\
     \prod_{p \in U} \mathcal{F}_{p} &\mapsto \prod_{p \in V} \mathcal{F}_{p}
   \end{align*}
   as the restriction maps, we see that \(\Lambda(\mathcal{F})\) is a \(\category{\category{C}}\)-valued \hyperref[def:presheaf]{presheaf}.
@@ -256,7 +254,7 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
           Furthermore, for all \(i \in \mathcal{I}\) by construction we have that \(s|_{U_{i}} = s_{i}\).
   \end{enumerate}
 
-  Note that there is a \hyperref[def:presheaf]{presheaf morphism} \(\theta: \mathcal{F} \to \Lambda(\mathcal{F})\) defined for any \(s \in \mathcal{F}(U)\) by sending \(s\) to its germ at every point:
+  Note that there is a \hyperref[def:presheaf]{presheaf morphism} \(\theta\colon \mathcal{F} \to \Lambda(\mathcal{F})\) defined for any \(s \in \mathcal{F}(U)\) by sending \(s\) to its germ at every point:
   \begin{align*}
     \theta(U)(s) = (s_{p})_{p \in U} \in \prod_{p \in U} \mathcal{F}_{p}
   \end{align*}
@@ -269,8 +267,8 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
   \end{quote}
 
   We need to check that our definition of \(\mathcal{F}^{\#}\) verifies the universal propery of \hyperref[def:sheafification]{sheafification}.
-  To do this, consider a \hyperref[def:set-valued-sheaf]{sheaf} \(\sheaf{G}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\phi: \mathcal{F} \to \sheaf{G}\).
-  We wish to show that there exists a unique \hyperref[def:sheaf]{sheaf} morphism \(\psi: \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
+  To do this, consider a \hyperref[def:set-valued-sheaf]{sheaf} \(\sheaf{G}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \sheaf{G}\).
+  We wish to show that there exists a unique \hyperref[def:sheaf]{sheaf} morphism \(\psi\colon \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
 
   Let's check existence first by defining \(\psi\) explicitly.
   Let \(U \subseteq X\) be an open set and \(s \in \mathcal{F}^{\#}(U)\).
@@ -280,7 +278,7 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
 
   Let's see that \(\{\phi(t_{i})\}_{i \in \mathcal{I}}\) can be glued in \(\sheaf{G}\).
   Note that for all \(y \in U_{i} \cap U_{j}\) we have \((t_{i})_{y} = (t_{j})_{y}\).
-  Therefore using the \hyperref[def:stalk]{induced stalk morphism} \(\phi_{y}: \mathcal{F}_{y} \to \sheaf{G}_{y}\) we have \(\phi_{y}((t_{i})_{y}) = \phi_{y}((t_{j})_{y})\).
+  Therefore using the \hyperref[def:stalk]{induced stalk morphism} \(\phi_{y}\colon \mathcal{F}_{y} \to \sheaf{G}_{y}\) we have \(\phi_{y}((t_{i})_{y}) = \phi_{y}((t_{j})_{y})\).
   Therefore \((\phi(t_{i}))_{y} = (\phi(t_{j}))_{y}\) for all \(y \in U_{i} \cap U_{j}\), meaning that \(\phi(t_{i})|_{U_{i} \cap U_{j}} = \phi(t_{j})|_{U_{i} \cap U_{j}}\).
 
   Applying \ref{axiom:sheaf-gluability} to this family we get that there is a unique section \(t \in \sheaf{G}(U)\) such that \(\forall i \in \mathcal{I} \quad t|_{U_{i}} = \phi(t_{i})\).
@@ -320,7 +318,7 @@ We are going to see that \(\Sh_{X}(\category{C})\) is an \hyperref[def:abelian-c
 Consider the following category-theoretic auxiliary lemma.
 
 \begin{lemma}\label{lemma:abelian-category-from-adjunction}
-  Let \(a: \category{A} \to \category{B}\) and \(b: \category{B} \to \category{A}\) be two \hyperref[def:functor]{functors}.
+  Let \(a\colon \category{A} \to \category{B}\) and \(b: \category{B} \to \category{A}\) be two \hyperref[def:functor]{functors}.
   Suppose that
   \begin{enumerate}
     \item \(\category{A}\) and \(\category{B}\) are \hyperref[def:additive-category]{additive categories}, \(a, b\) are \hyperref[def:additive-functor]{additive functors} and there is an \hyperref[def:adjoint-functors]{adjunction} \(b \dashv a\).
@@ -335,7 +333,7 @@ Consider the following category-theoretic auxiliary lemma.
   Since \(b\) is \hyperref[def:adjoint-functors]{left-adjoint} by \autoref{ex:adjoint-functors-and-exactness} it is \hyperref[def:exact-functor]{right-exact} and therefore, \hyperref[def:exact-functor]{exact}.
   Analogously we have that \(a\) is \hyperref[def:exact-functor]{left-exact}.
 
-  Let \(\varphi: B_{1} \to B_{2}\) be a morphism in \(\category{B}\).
+  Let \(\varphi\colon B_{1} \to B_{2}\) be a morphism in \(\category{B}\).
   Since \(\category{B}\) is \hyperref[def:abelian-category]{abelian} there exist \(\ker_{\category{B}} \varphi\) and \(\coker_{\category{B}} \varphi\).
 
   Since \hyperref[lemma:characterization-exact-functor]{exact functors preserve kernels and cokernels} we have that
@@ -371,7 +369,7 @@ Consider the following category-theoretic auxiliary lemma.
 \end{proof}
 
 \begin{lemma}\label{lemma:sheaves-category-is-additive}
-  \(\Sh_{X}(\category{C})\) is an \hyperref[def:additive-category]{additive category} and the forgetful \hyperref[def:functor]{functor} \(\iota: \Sh_{X}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:additive-functor]{additive}.
+  \(\Sh_{X}(\category{C})\) is an \hyperref[def:additive-category]{additive category} and the forgetful \hyperref[def:functor]{functor} \(\iota\colon \Sh_{X}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:additive-functor]{additive}.
 \end{lemma}
 \begin{proof}
   Let's check first that \(\Sh_{X}(\category{C})\) satisfies \hyperref[def:additive-category]{additive category axioms}.
@@ -410,7 +408,7 @@ Consider the following category-theoretic auxiliary lemma.
 
 \begin{proposition}\label{prop:sheafification-is-exact}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
-  The \hyperref[def:sheafification]{sheafification functor} \(-^{\#}: \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
+  The \hyperref[def:sheafification]{sheafification functor} \(-^{\#}\colon \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
 \end{proposition}
 \begin{proof}
   Since \(-^{\#}\) is \hyperref[def:adjoint-functors]{left adjoint} by \autoref{ex:adjoint-functors-and-exactness} it is \hyperref[def:exact-functor]{right exact}.
@@ -418,27 +416,31 @@ Consider the following category-theoretic auxiliary lemma.
   To see that it is \hyperref[def:exact-functor]{left exact} we will use \autoref{lemma:characterization-exact-functor}.
   In particular we are going to see that \hyperref[def:sheafification]{sheafification} commutes with \hyperref[def:categorical-product]{finite products}.
 
-  Let \(\mathcal{F}: \category{I} \to \PSh_{X}(\category{C})\) be a \hyperref[def:diagram]{diagram} in \(\PSh_{X}(\category{C})\) with \(\category{I}\) finite.
+  Let \(\mathcal{F}\colon \category{I} \to \PSh_{X}(\category{C})\) be a \hyperref[def:diagram]{diagram} in \(\PSh_{X}(\category{C})\) with \(\category{I}\) finite.
 
   We need to see that
   \begin{equation*}
     \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \cong \lim_{i \in \category{I}} \mathcal{F}_{i}^{\#}
   \end{equation*}
-  Note that since \(\iota: \Sh_{X}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:adjoint-functors]{right adjoint} it \hyperref[thm:adjoints-preserve-limits]{preserves limits}. Therefore \hyperref[def:categorical-limit]{limits} of \hyperref[def:sheaf]{sheaves} are computed exactly as \hyperref[def:categorical-limit]{limits} of \hyperref[def:presheaf]{presheaves}.
+  Note that since \(\iota\colon \Sh_{X}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:adjoint-functors]{right adjoint} it \hyperref[thm:adjoints-preserve-limits]{preserves limits}. Therefore \hyperref[def:categorical-limit]{limits} of \hyperref[def:sheaf]{sheaves} are computed exactly as \hyperref[def:categorical-limit]{limits} of \hyperref[def:presheaf]{presheaves}.
 
   By \hyperref[def:categorical-limit]{definition of limit} we have a morphism
   \begin{equation*}
-    \phi: \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \to \lim_{i \in \category{I}} \mathcal{F}_{i}^{\#}
+    \phi\colon \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \to \lim_{i \in \category{I}} \mathcal{F}_{i}^{\#}
   \end{equation*}
-  To see that this is an \hyperref[def:categorical-isomorphism]{isomorphism} we will see that the \hyperref[def:stalk-map]{induced stalk maps} \(\phi_{p}\) are \hyperref[def:categorical-isomorphism]{isomorphisms} for all \(p \in X\).
+  To see that this is an \hyperref[def:categorical-isomorphism]{isomorphism} we will see that the \hyperref[def:stalk-map]{induced stalk maps} \(\phi_{p}\) are \hyperref[def:categorical-isomorphism]{isomorphisms} for all \(p \in X\), i.e: we want to show that
+  \begin{equation*}
+    \left( \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \right)_{p} \cong \left( \lim_{i \in \category{I}} \mathcal{F}_{i}^{\#} \right)_{p}
+  \end{equation*}
+
 
   On the one hand since \hyperref[lemma:stalk-commute-sheafification]{stalks commute with sheafification} we have
   \begin{equation*}
-    \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)_{p}^{\#} \cong \left( \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)_{p} \right)^{\#}
+    \left( \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \right)_{p} \cong \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)_{p}
   \end{equation*}
   Furthermore since \hyperref[rem:stalk-commute-finite-limits]{stalks commute with finite limits}
   \begin{equation*}
-    \left( \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)_{p} \right)^{\#} \cong \left( \lim_{i \in \category{I}} \mathcal{F}_{i, p} \right)^{\#}
+    \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)_{p} \cong \lim_{i \in \category{I}} \left(\mathcal{F}_{i}\right)_{p}
   \end{equation*}
 
   On the other hand since \hyperref[rem:stalk-commute-finite-limits]{stalks commute with finite limits}
@@ -447,12 +449,16 @@ Consider the following category-theoretic auxiliary lemma.
   \end{equation*}
   Furthermore since \hyperref[lemma:stalk-commute-sheafification]{stalks commute with sheafification} we have
   \begin{equation*}
-    \lim_{i \in \category{I}} \left(\left( \mathcal{F}_{i} \right)^{\#}\right)_{p} \cong \left( \lim_{i \in \category{I}} \mathcal{F}_{i, p} \right)^{\#}
+    \lim_{i \in \category{I}} \left(\left( \mathcal{F}_{i} \right)^{\#}\right)_{p} \cong \lim_{i \in \category{I}} \left(\mathcal{F}_{i}\right)_{p}
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    \left( \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \right)_{p} \cong \lim_{i \in \category{I}} \left(\mathcal{F}_{i}\right)_{p} \cong \left(\lim_{i \in \category{I}} \mathcal{F}_{i}^{\#} \right)_{p}
   \end{equation*}
 \end{proof}
 
 \begin{theorem}
-  Let \(\varphi: \sheaf{F} \to \sheaf{G}\) be a morphism in \(\Sh(\category{C})\).
+  Let \(\varphi\colon \sheaf{F} \to \sheaf{G}\) be a morphism in \(\Sh(\category{C})\).
   \begin{enumerate}
     \item The \hyperref[def:category]{category} \(\Sh_{X}(\category{C})\) is \hyperref[def:abelian-category]{abelian}.
     \item The \hyperref[def:categorical-kernel]{kernel} of \(\varphi\) is the same as the \hyperref[def:categorical-kernel]{kernel} of \(\varphi\) in \(\PSh_{X}(\Ab)\).
@@ -467,8 +473,8 @@ Consider the following category-theoretic auxiliary lemma.
 
   Therefore we only need to prove \(1., 2.\) and \(4\), but these come directly from \autoref{lemma:abelian-category-from-adjunction} with
   \begin{align*}
-    \category{A} = \Sh_{X}(\category{C}) &\quad \category{B} = \PSh_{X}(\category{B}) \\
-    a = \iota: \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C}) \text{ inclussion } &\quad b = -^{\#}: \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C}) \text{ \hyperref[def:sheafification]{sheafification} }
+    \category{A} \coloneq \Sh_{X}(\category{C}) &\quad \category{B} \coloneq \PSh_{X}(\category{B}) \\
+    a \coloneq \iota\colon \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C}) \text{ forgetful} &\quad b \coloneq -^{\#}\colon \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C}) \text{ \hyperref[def:sheafification]{sheafification}}
   \end{align*}
   We can indeed apply \hyperref[lemma:abelian-category-from-adjunction]{this lemma} since
   \begin{enumerate}
@@ -477,221 +483,5 @@ Consider the following category-theoretic auxiliary lemma.
     \item \(-^{\#} \circ \iota = \id_{\Sh_{X}(\category{C})}\) comes from \autoref{lemma:sheafification-of-sheaf-is-sheaf}.
   \end{enumerate}
 \end{proof}
-
-\section{Sheaves and continuous maps}
-
-Consider a continuous map between topological spaces \(f: X \to Y\).
-
-We want to find a way of translating \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves} from \(X\) to \(Y\) along \(f\) and viceversa.
-
-We will start in the \hyperref[def:presheaf]{presheaf} case and move to the \hyperref[def:sheaf]{sheaf} case using \hyperref[def:sheafification]{sheafification}.
-
-\begin{definition}[Direct image presheaf]\label{def:direct-image-sheaf}
-  Let \(f: X \to Y\) be a continuous map.
-  For any \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(X\) we define the \textbf{direct image} (or pushforward) of \(\mathcal{F}\) via \(f\) as the \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} \(f_{\ast}\mathcal{F}\) over \(Y\) which, for any open subset \(V \subseteq Y\)
-  \begin{equation*}
-    \left(f_{\ast}\mathcal{F}\right)(V) \coloneq \mathcal{F}(f^{-1}(V))
-  \end{equation*}
-  and for any \(V_{1} \subseteq V_{2} \subseteq Y\) the restriction is given by
-  \begin{center}
-    \begin{tikzcd}
-      f_{\ast}(\mathcal{F}(V_{2})) \arrow[d, dotted] \arrow[r, equal] & \mathcal{F}(f^{-1}(V_{2})) \arrow[d] \\
-      f_{\ast}(\mathcal{F}(V_{1})) \arrow[r, equal] & \mathcal{F}(f^{-1}(V_{1}))
-    \end{tikzcd}
-  \end{center}
-
-  Note that this defines a \hyperref[def:functor]{functor}
-  \begin{equation*}
-    f_{\ast}: \PSh_{X}(\category{C}) \to \PSh_{Y}(\category{C})
-  \end{equation*}
-\end{definition}
-
-\begin{lemma}\label{lemma:composition-direct-image}
-  Let \(f: X \to Y\) and \(g: Y \to Z\) be two continuous maps.
-  Then the \hyperref[def:direct-image-sheaf]{direct images} \((g \circ f)_{\ast}\) and \(g_{\ast} \circ f_{\ast}\) are equal.
-\end{lemma}
-\begin{proof}
-  Let \(\mathcal{F}\) be a \hyperref[def:presheaf]{presheaf} over \(X\) and \(W \subseteq Z\) an open subset.
-  On the one hand
-  \begin{equation*}
-    (g \circ f)_{\ast}(\mathcal{F}(W)) = \mathcal{F}((g \circ f)^{-1}(W)) = \mathcal{F}((f^{-1} \circ g^{-1})(W))
-  \end{equation*}
-  On the other
-  \begin{equation*}
-    (g_{\ast} \circ f_{\ast})(\mathcal{F}(W)) = f_{\ast}(\mathcal{F}(g^{-1}(W))) = \mathcal{F}((f^{-1} \circ g^{-1})(W))
-  \end{equation*}
-\end{proof}
-
-\begin{lemma}
-  If \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} then \(f_{\ast}\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf}.
-\end{lemma}
-\begin{proof}
-  This follows since for any open cover \(V = \bigcup_{i} V_{i}\) we have
-  \begin{equation*}
-    f^{-1}\left(\bigcup_{i} V_{i}\right) = \bigcup_{i} f^{-1}(V_{i})
-  \end{equation*}
-\end{proof}
-
-This means that we have a \hyperref[def:functor]{functor}
-\begin{equation*}
-  f_{\ast}: \Sh_{X}(\category{C}) \to \Sh_{Y}(\category{C})
-\end{equation*}
-which verifies the \hyperref[lemma:composition-direct-image]{presheaf composition law}.
-
-\begin{definition}[Inverse image presheaf]\label{def:inverse-image-presheaf}
-  Let \(f: X \to Y\) be a continuous map between two topological spaces \(X, Y\).
-  For any \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} \(\mathcal{G}\) over \(Y\) we define the \textbf{inverse image} (or pullback) of \(\mathcal{G}\) via \(f\) as the \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} \(f_{\pre}^{-1}\mathcal{G}\) over \(X\) which, for any open subset \(U \subseteq X\)
-  \begin{equation*}
-    \left( f_{\pre}^{-1}\mathcal{G} \right)(U) \coloneq \varinjlim_{\substack{V \supseteq f(U) \\ V \in \Open(Y) }} \mathcal{G}(V)
-  \end{equation*}
-
-  Since this is a \hyperref[def:direct-limit]{direct limit} following \autoref{ex:direct-limits-set} we may describe \(\mathcal{F}_{p}\) as
-  \begin{equation*}
-    \left( f_{\pre}^{-1}\mathcal{G} \right)(U) = \quot{\{(s, V) \mid f(U) \subseteq V \in \Open(X) \land s \in \mathcal{G}(V)\}}{\sim}
-  \end{equation*}
-  where
-  \begin{equation*}
-    (s, V) \sim (t, Z) \iff \exists W \subseteq V \cap Z \mid f(U) \subseteq W \in \Open(Y) \land s|_{W} = t|_{W}
-  \end{equation*}
-  
-  Note that this defines a \hyperref[def:functor]{functor} \(f_{\pre}^{-1}: \PSh_{Y}(\category{C}) \to \PSh_{X}(\category{C})\).
-\end{definition}
-
-
-\begin{theorem}\label{thm:direct-inverse-image-adjunction-presheaf}
-  Let \(f: X \to Y\) be a continuous function between two topological spaces \(X, Y\).
-  Let \(\category{C}\) be a \hyperref[def:category]{category}.
-  Then there exists an \hyperref[def:adjoint-functors]{adjunction}
-  \begin{center}
-    \begin{tikzcd}
-      f_{\operatorname{pre}}^{-1} \dashv f_{\ast}: \PSh_{X}(\category{C}) \arrow[r, shift right, "f_{\ast}"'] &  \PSh_{Y}(\category{C}) \arrow[l, shift right, "f_{\operatorname{pre}}^{-1}"']
-    \end{tikzcd}
-  \end{center}
-\end{theorem}
-\begin{proof}
-  We want to construct \hyperref[def:natural-transformation]{natural transformations}
-  \begin{align*}
-    \eta: \id_{\PSh_{Y}(\category{C})} &\implies f_{\ast} \circ f_{\operatorname{pre}}^{-1} \\
-    \varepsilon: f_{\operatorname{pre}}^{-1} \circ f_{\ast} &\implies \id_{\PSh_{X}(\category{C})}
-  \end{align*}
-  making for all \(\mathcal{F} \in \PSh_{X}(\category{C})\) and \(\mathcal{G} \in \PSh_{Y}(\category{C})\) the following diagrams commute
-  \begin{center}
-    \begin{tikzcd}
-      f_{\operatorname{pre}}^{-1}(\mathcal{G}) \arrow[r, "\id_{\mathcal{G}}"] \arrow[d, "f_{\operatorname{pre}}^{-1}(\eta_{\mathcal{G}})"'] & f_{\operatorname{pre}}^{-1}(\mathcal{G}) \\
-      \left( f_{\operatorname{pre}}^{-1} \circ f_{\ast} \circ f_{\operatorname{pre}}^{-1} \right)(\mathcal{G}) \arrow[ur, "\varepsilon_{f_{\operatorname{pre}}^{-1}(\mathcal{G})}"']
-    \end{tikzcd}
-    \begin{tikzcd}
-      f_{\ast}(\mathcal{G}) \arrow[r, "\id_{\mathcal{F}}"] \arrow[d, "\eta_{f_{\ast}(\mathcal{F})}"'] & f_{\ast}(\mathcal{G}) \\
-      \left( f_{\ast} \circ f_{\operatorname{pre}}^{-1} \circ f_{\ast} \right)(\mathcal{F}) \arrow[ur, "f_{\ast}(\varepsilon_{\mathcal{F}})"']
-    \end{tikzcd}
-  \end{center}
-
-  Note that, by definition of the \hyperref[def:direct-image-presheaf]{direct image presheaf} and \hyperref[def:inverse-image-presheaf]{inverse image presheaf} we have, for \(U \in \Open(X)\) and \(V \in \Open(Y)\)
-  \begin{align*}
-    \left( f_{\operatorname{pre}}^{-1} \circ f_{\ast} \right)(\mathcal{F})(U) &= \varinjlim_{\substack{W \supseteq f(U) \\ W \in \Open(Y)}} (f_{\ast}\mathcal{F})(W) = \varinjlim_{\substack{W \supseteq f(U) \\ W \in \Open(Y)}} \mathcal{F}(f^{-1}(W)) \\
-    \left( f_{\ast} \circ f_{\operatorname{pre}}^{-1} \right)(\mathcal{G})(V) &= (f_{\operatorname{pre}}^{-1}\mathcal{G})(f^{-1}(V)) = \varinjlim_{\substack{W \supseteq (f \circ f^{-1})(V) \\ W \in \Open(Y)}} \mathcal{G}(W) \end{align*}
-
-  Since we have \((f \circ f^{-1})(V) \subseteq V\), we can define \(\eta_{\mathcal{G}}(V)\) as the canonical injection into the \hyperref[def:direct-limit]{direct limit}
-  \begin{equation*}
-    \eta_{\mathcal{G}}(V): \mathcal{G}(V) \to \varinjlim_{\substack{W \supseteq (f \circ f^{-1})(V) \\ W \in \Open(Y)}} \mathcal{G}(W)
-  \end{equation*}
-
-  On the other hand, since for every \(W \subseteq f(U)\) open we have \(f^{-1}(W) \subseteq (f^{-1} \circ f)(U) \subseteq U\) there exists a restriction morphism
-  \begin{equation*}
-    \res_{f^{-1}(W), U}: \mathcal{F}(f^{-1}(W)) \to \mathcal{F}(U)
-  \end{equation*}
-  Using these maps we obtain a morphism
-  \begin{equation*}
-    \varepsilon_{\mathcal{F}}(U): \varinjlim_{\substack{W \supseteq f(U) \\ W \in \Open(Y)}} \mathcal{F}(f^{-1}(W)) \to \mathcal{F}(U)
-  \end{equation*}
-\end{proof}
-
-\begin{lemma}
-  Let \(f: X \to Y\) be a continuous map.
-  Let \(\mathcal{G} \in \PSh_{Y}(\category{C})\) be a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(Y\).
-  Then for all \(p \in X\) there is a bijection of \hyperref[def:stalk]{stalks}.
-  \begin{equation*}
-    \left( f_{\pre}^{-1}\mathcal{G} \right)_{p} \cong \mathcal{G}_{f(p)}
-  \end{equation*}
-\end{lemma}
-\begin{proof}
-  \begin{align*}
-    \left( f_{\pre}^{-1}\mathcal{G} \right)_{p} &= \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}}  \left( f_{\pre}^{-1}\mathcal{G} \right)(U) \\
-                                      &= \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \left( \varinjlim_{\substack{V \supseteq f(U) \\ V \in \Open(Y)}} \mathcal{G}(V) \right) \\
-                                      &= \varinjlim_{\substack{V \ni f(p) \\ V \in \Open(Y)}} \mathcal{G}(V) \\
-                                      &= \mathcal{G}_{f(p)}
-  \end{align*}
-\end{proof}
-
-\begin{lemma}\label{lemma:composition-inverse-image-presheaf}
-  Let \(f: X \to Y\) and \(g: Y \to Z\) be continuous maps.
-  Then the \hyperref[def:inverse-image-presheaf]{inverse images} \((g \circ f)_{\pre}^{-1}\) and \(f_{\pre}^{-1} \circ g_{\pre}^{-1}\) coincide.
-\end{lemma}
-\begin{proof}
-  Using the \hyperref[thm:direct-inverse-image-adjunction-presheaf]{adjunction \(f_{\pre}^{-1} \dashv f_{\ast}\)} and \autoref{lemma:composition-direct-image} we have, on the one hand
-  \begin{equation*}
-    (g \circ f)_{\pre}^{-1} \dashv (g \circ f)_{\ast} = g_{\ast} \circ f_{\ast}
-  \end{equation*}
-  On the other hand note that
-  \begin{equation*}
-    f_{\pre}^{-1} \circ g_{\pre}^{-1} \dashv g_{\ast} \circ f_{\ast}
-  \end{equation*}
-  Indeed
-  \begin{align*}
-    \Hom_{\PSh_{X}(\category{C})} \left( \left( f_{\pre}^{-1} \circ g_{\pre}^{-1} \right) \mathcal{H}, \mathcal{F} \right) &\cong \Hom_{\PSh_{Y}(\category{C})} \left( g_{\pre}^{-1}\mathcal{H}, f_{\ast}\mathcal{F} \right) \\
-                                                                                                   &\cong \Hom_{\PSh_{Z}(\category{C})} \left( \mathcal{H}, \left( g_{\ast} \circ f_{\ast} \right)\mathcal{F} \right)
-  \end{align*}
-
-  Therefore since \hyperref[prop:uniqueness-adjoints]{adjoints are unique} we have \((g \circ f)_{\pre}^{-1} = f_{\pre}^{-1} \circ g_{\pre}^{-1}\).
-\end{proof}
-
-\begin{definition}\label{def:inverse-image-sheaf}
-  Let \(f: X \to Y\) be a continuous map.
-  The \textbf{inverse image} (or pullback) \hyperref[def:sheaf]{sheaf} via \(f\) is the \hyperref[def:functor]{functor}
-  \begin{equation*}
-    f^{-1} \coloneq -^{\#} \circ f_{\pre}^{-1} \circ \iota: \Sh_{Y}(\category{C}) \to \Sh_{X}(\category{C})
-  \end{equation*}
-  where \(-^{\#}\) is the \hyperref[def:sheafification]{sheafification functor}, \(f_{\pre}^{-1}\) is the \hyperref[def:inverse-image-presheaf]{inverse image of presheaves} and \(\iota: \Sh_{Y}(\category{C}) \hookrightarrow \PSh_{Y}(\category{C})\) is the forgetful \hyperref[def:functor]{functor}.
-\end{definition}
-
-\begin{theorem}\label{thm:direct-inverse-image-adjunction-sheaf}
-  Let \(f: X \to Y\) be a continuous map
-  Then there exists an \hyperref[def:adjoint-functors]{adjunction}
-  \begin{center}
-    \begin{tikzcd}
-      f^{-1} \dashv f_{\ast}: \Sh_{X}(\category{C}) \arrow[r, shift right, "f_{\ast}"'] & \Sh_{Y}(\category{C}) \arrow[l, shift right, "f^{-1}"']
-    \end{tikzcd}
-  \end{center}
-  between the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse} images of \hyperref[def:sheaf]{sheaves}.
-\end{theorem}
-\begin{proof}
-  Using the \hyperref[def:adjoint-functors]{adjunctions} \(-^{\#} \dashv \iota\) and \(f_{\pre}^{-1} \dashv f_{\ast}\) we have
-  \begin{align*}
-        \Hom_{\Sh_{X}(\category{C})}(f^{-1} \sheaf{G}, \sheaf{F}) &= \Hom_{\PSh_{X}(\category{C})}(f^{-1} \iota\sheaf{G}, \iota\sheaf{F})  \\
-                                                                  &= \Hom_{\PSh_{Y}(\category{C})}(\iota\sheaf{G}, f_{\ast}\iota\sheaf{F}) \\
-                                                                  &= \Hom_{\Sh_{Y}(\category{C})}(\sheaf{G}, f_{\ast}\sheaf{F})
-  \end{align*}
-\end{proof}
-
-\begin{lemma}\label{lemma:composition-inverse-image-sheaf}
-  Let \(f: X \to Y\) and \(g: Y \to Z\) be continuous maps.
-  Then the \hyperref[def:inverse-image-sheaf]{inverse images} \((g \circ f)^{-1}\) and \(f^{-1} \circ g^{-1}\) coincide.
-\end{lemma}
-\begin{proof}
-  Analogous to \autoref{lemma:composition-inverse-image-presheaf}
-\end{proof}
-
-\begin{lemma}
-  Let \(f: X \to Y\) be a continuous map.
-  Let \(\mathcal{G} \in \PSh_{Y}(\category{C})\) be a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(Y\).
-  Then for all \(p \in X\) there is a bijection of \hyperref[def:stalk]{stalks}.
-  \begin{equation*}
-    \left( f_{\pre}^{-1}\mathcal{G} \right)_{p} \cong \mathcal{G}_{f(p)}
-  \end{equation*}
-\end{lemma}
-\begin{proof}
-  Direct from \autoref{lemma:stalk-commute-sheafification} and \autoref{thm:direct-inverse-image-adjunction-sheaf}.
-\end{proof}
-
 
 \end{document}
