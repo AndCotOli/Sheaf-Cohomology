@@ -123,7 +123,7 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
 
 \subsection{Stalks}
 
-\begin{definition}
+\begin{definition}\label{def:stalk}
   Let \(X\) be a topological space and let \(\mathcal{F}\) be a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf}.
   For all points \(p \in X\) we define the \textbf{stalk} of \(\mathcal{F}\) at \(p\) as
   \begin{equation*}
@@ -161,12 +161,19 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
 \end{remark}
 
 
-\begin{lemma}\label{lemma:sections-determined-by-germs}
+\begin{lemma}\label{lemma:sheaf-determined-by-germs}
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} over a topological space \(X\).
   For all open subsets \(U \subseteq X\) the map \(\sheaf{F}(U) \to \prod_{p \in U} \sheaf{F}_{p}\) is injective.
+
+  In other words, a \hyperref[def:sheaf]{sheaf} is completely determined by its germs.
 \end{lemma}
 \begin{proof}
-  Let 
+  Let \(s, t \in \sheaf{F}(U)\) such that for all \(s_{p} = t_{p}\) in \(\sheaf{F}_{p}\) for all \(p \in U\).
+
+  By \hyperref[def:stalk]{definition of stalk} there exists an open neighbourhood \(V_{p} \subseteq U\) of \(p\) such that \(s|_{V_{p}} = t|_{V_{p}}\).
+  Since this works for all \(p \in U\), we have an open cover \(\{V_{p}\}_{p \in U}\) of \(U\).
+
+  Therefore since \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} by \ref{axiom:sheaf-identity} we have \(s = t\).
 \end{proof}
 
 \begin{theorem}\label{thm:sheaf-morphism-determined-by-stalks}
@@ -176,19 +183,44 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
 \begin{proof}
   The direction \([\implies]\) is trivial.
 
-  For the \([\impliedby]\) direction suppose that \(\phi_{p} = \psi_{p}\) for all \(p \in X\) and consider the diagram
+  For the \([\impliedby]\) direction suppose that \(\phi_{p} = \psi_{p}\) for all \(p \in X\) and consider the commutative diagram
   \begin{center}
     \begin{tikzcd}
-      \mathcal{F}(U) \arrow[r] \arrow[d] & \sheaf{G}(U) \arrow[d, tail] \\
-      \displaystyle\prod_{p \in U} \mathcal{F}_{p} \arrow[r] & \displaystyle\prod_{p \in U} \sheaf{G}_{p}
+      \mathcal{F}(U) \arrow[r, shift left, "\phi"] \arrow[r, shift right, "\psi"'] \arrow[d, "i_{\mathcal{F}}"'] & \sheaf{G}(U) \arrow[d, tail, "i_{\sheaf{G}}"] \\
+      \displaystyle\prod_{p \in U} \mathcal{F}_{p}  \arrow[r, shift left, "\prod \phi_{p}"] \arrow[r, shift right, "\prod \psi_{p}"']& \displaystyle\prod_{p \in U} \sheaf{G}_{p}
     \end{tikzcd}
   \end{center}
+  For all \(s \in \mathcal{F}(U)\) we have
+  \begin{equation*}
+    i_{\sheaf{G}}(\phi(U)(s)) = \left( \phi_{p}(s_{p}) \right)_{p \in U} = \left( \psi_{p}(s_{p}) \right)_{p \in U} = i_{\sheaf{G}}(\psi(U)(s))
+  \end{equation*}
+  Since \hyperref[lemma:sheaf-determined-by-germs]{\(i_{\sheaf{G}}\) is injective} we have
+  \begin{equation*}
+    \phi(U)(s) = \psi(U)(s)
+  \end{equation*}
+  Therefore since this holds for all \(s \in \mathcal{F}(U)\) and \(U \subseteq X\) open we have that \(\phi = \psi\).
 \end{proof}
 
 \begin{proposition}\label{prop:sheaf-isomorphism-determined-at-stalks}
   Let \(\phi\colon \sheaf{F} \to \sheaf{G}\) be a \hyperref[def:sheaf]{morphism of sheaves}.
   Then \(\phi\) is a \hyperref[def:categorical-isomorphism]{isomorphism} if and only if for all \(p \in X\) the \hyperref[def:stalk]{induced stalk map} \(\phi_{p}\colon \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{proposition}
+\begin{proof}~
+  \begin{itemize}
+    \item[\(\implies\)] Suppose that \(\phi: \sheaf{F} \to \sheaf{G}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\Sh_{X}(\category{C})\).
+          Then there exists \(\psi: \sheaf{G} \to \sheaf{F}\) such that
+          \begin{equation*}
+            \psi \circ \phi = \id_{\sheaf{F}} \qquad \phi \circ \psi = \id_{\sheaf{G}}
+          \end{equation*}
+          Therefore since \hyperref[def:stalk]{taking stalks is functorial} for all \(p \in X\) we have
+          \begin{equation*}
+            \psi_{p} \circ \phi_{p} = \id_{\sheaf{F}_{p}} \qquad \phi_{p} \circ \psi_{p} = \id_{\sheaf{G}_{p}}
+          \end{equation*}
+          i.e: \(\phi_{p}: \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} with inverse \(\psi_{p}\).
+    \item[\(\impliedby\)] 
+  \end{itemize}
+\end{proof}
+
 
 
 \begin{definition}\label{def:types-of-morphisms-pre-sheaves}
@@ -223,7 +255,7 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
         \Hom_{\Sh_{X}(\category{C})}(\mathcal{F}^{\#}, \sheaf{G}) \cong \Hom_{\PSh_{X}(\category{C})}(\mathcal{F}, \iota\sheaf{G})
     \end{equation*}
 
-    The unit of this adjunction gives a canonical morphism \(\theta\colon \mathcal{F} \mapsto \iota(\mathcal{F}^{\#})\) in \(\PSh_{X}(\category{C})\) which verifies that for any \hyperref[def:presheaf]{presheaf morphism} \(\phi\colon \mathcal{F} \to \sheaf{G}\) where \(\mathcal{F}\) is a \hyperref[def:presheaf]{presheaf} and \(\sheaf{G}\) is a \hyperref[def:sheaf]{sheaf} there exists a unique morphism \(\psi\colon \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
+    The unit of this adjunction gives a canonical morphism \(\theta\colon \mathcal{F} \mapsto \mathcal{F}^{\#}\) in \(\PSh_{X}(\category{C})\) which verifies that for any \hyperref[def:presheaf]{presheaf morphism} \(\phi\colon \mathcal{F} \to \sheaf{G}\) where \(\mathcal{F}\) is a \hyperref[def:presheaf]{presheaf} and \(\sheaf{G}\) is a \hyperref[def:sheaf]{sheaf} there exists a unique morphism \(\psi\colon \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\psi \circ \theta = \phi\).
 \end{definition}
 
 \begin{construction}[Godement construction of sheafification] \label{const:sheafification-godement}
@@ -289,11 +321,17 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
 
 \begin{lemma}\label{lemma:sheafification-of-sheaf-is-sheaf}
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf}.
-  Then \((\iota\sheaf{F})^{\#} = \sheaf{F}\), i.e: \(-^{\#} \circ \iota = \id_{\Sh_{X}(\category{C})}\).
+  Then \((\iota\sheaf{F})^{\#} \cong \sheaf{F}\), i.e: \(-^{\#} \circ \iota \cong \id_{\Sh_{X}(\category{C})}\).
 \end{lemma}
 \begin{proof}
-  Consider \(\id: \iota\sheaf{F} \to \sheaf{F}\).
-  By \hyperref[def:sheafification]{definition of sheafification} there exists a map \(\psi: (\iota\sheaf{F})^{\#} \to \sheaf{F}\) such that \(\id \circ \theta = \psi\).
+  Consider the identity map \(\id: \iota\sheaf{F} \to \sheaf{F}\).
+  Since \(\iota\sheaf{F}\) is a \hyperref[def:presheaf]{presheaf} and \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} by \hyperref[def:sheafification]{definition of sheafification} there exists a unique morphism \(\psi: (\iota\sheaf{F})^{\#} \to \sheaf{F}\) such that \(\psi \circ \theta = \id\).
+  Note that
+  \begin{equation*}
+    (\theta \circ \psi) \circ \theta = \theta \circ (\psi \circ \theta) = \theta
+  \end{equation*}
+  Applying now the \hyperref[def:sheafification]{definition of sheafification} to \(\theta: \iota\sheaf{F} \to (\iota\sheaf{F})^{\#}\) we get a unique map \(h: (\iota\sheaf{F})^{\#} \to (\iota\sheaf{F})^{\#}\) such that \(h \circ \theta = \theta\).
+  Therefore since \(\id \circ \theta = \theta\) and \((\theta \circ \psi) \circ \theta = \theta\) we have that \(\theta \circ \psi = \id\), which means that \(\theta\) is an \hyperref[def:categorical-isomorphism]{isormophism}.
 \end{proof}
 
 
@@ -301,11 +339,18 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
   Let \(X\) be a topological space and \(\mathcal{F}\) a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(X\).
   Then for all \(p \in X\) there is bijection of \hyperref[def:stalk]{stalks}
   \begin{equation*}
-    \mathcal{F}_{p} = (\mathcal{F}^{\#})_{p}
+    \mathcal{F}_{p} \cong (\mathcal{F}^{\#})_{p}
   \end{equation*}
 \end{lemma}
 \begin{proof}
-
+  Let \(\mathcal{F} \in \PSh_{X}(\category{C})\) and \(p \in X\). For all \(A \in \category{C}\) we have
+  \begin{align*}
+    \Hom_{\category{C}} \left( (\mathcal{F}^{\#})_{p}, A \right) &\cong \Hom_{\Sh_{X}(\category{C})} \left( \mathcal{F}^{\#}, \underline{A}_{X} \right) & \left( -_{p} \dashv \underline{-}_{X} \right) \\
+                                                       &\cong \Hom_{\PSh_{X}(\category{C})} \left( \mathcal{F}, \iota \underline{A}_{X} \right) & \left( -^{\#} \dashv \iota \right) \\
+                                                       &\cong \Hom_{\PSh_{X}(\category{C})} \left( \mathcal{F}, \underline{A}_{X}^{\pre} \right) & \left( \iota \underline{A}_{X} = \underline{A}_{X}^{\pre} \right) \\
+                                                       &\cong \Hom_{\category{C}} \left( \mathcal{F}_{p}, A \right) & \left( -_{p} \dashv \underline{-}_{X}^{\pre} \right)
+  \end{align*}
+  Therefore by the \hyperref[thm:yoneda-lemma]{Yoneda lemma} \((\mathcal{F}^{\#})_{p} \cong \mathcal{F}_{p}\).
 \end{proof}
 
 \section{Sheaves in an abelian category}
