@@ -86,7 +86,7 @@ We state some properties of this types of \hyperref[def:category]{categories} wi
 \begin{lemma}[{\cite[\href{https://stacks.math.columbia.edu/tag/007O}{Tag 007O}]{stacks-project}}]\label{lemma:algebraic-structure-properties}
   Let \((\category{C}, F)\) be a \hyperref[def:algebraic-structure]{type of algebraic structure}. Then:
   \begin{enumerate}
-    \item \(\category{C}\) has a \hyperref[def:initial-terminal-object]{terminal object} \(0\) and \(F(0) = \{\ast\}\).
+    \item \(\category{C}\) has a \hyperref[def:initial-terminal-object]{terminal object} \(1\) and \(F(1) = \{\ast\}\).
     \item \(\category{C}\) has \hyperref[def:categorical-product]{products} and \(F \left( \prod X_{i} \right) = \prod F \left( X_{i} \right)\).
     \item \(\category{C}\) has \hyperref[def:pullback]{pullbacks} and \(F(X \times_{Z} Y) = F(X) \times_{F(Z)} F(Y)\).
     \item \(\category{C}\) has \hyperref[def:equaliser]{equalizers} and if \(\operatorname{eq} \to X\) is the \hyperref[def:equaliser]{equalizer} of \(f, g\colon X \rightrightarrows Y\) then \(F(\operatorname{eq}) \to F(X)\) is the \hyperref[def:equaliser]{equalizer} of \(Ff, Fg\colon F(X) \rightrightarrows F(Y)\).
@@ -119,7 +119,21 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
       \sheaf{F}(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
     \end{tikzcd}
   \end{center}
+  where \(\{U_{i}\}_{i \in \mathcal{I}}\) is an open cover of \(U\) .
+  
+  In particular taking the empty cover of \(\varnothing \in \Open(X)\), since \hyperref[rem:empty-product-is-terminal]{the empty product is terminal} we have
+  \begin{center}
+    \begin{tikzcd}
+      \sheaf{F}(\varnothing) \arrow[r] & 1  \arrow[r, shift left] \arrow[r, shift right] & 1
+    \end{tikzcd}
+  \end{center}
+  i.e: \(\sheaf{F}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} of \(\category{C}\)
 \end{remark}
+
+\begin{example}[\(\Sh_{\{\ast\}}(\category{C}) \cong \category{C}\)]\label{ex:one-point-sheaves-are-category}
+  Let \(\{\ast\}\) be the one-point topological space.
+\end{example}
+
 
 \subsection{Stalks}
 
@@ -330,8 +344,8 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
   \begin{equation*}
     (\theta \circ \psi) \circ \theta = \theta \circ (\psi \circ \theta) = \theta
   \end{equation*}
-  Applying now the \hyperref[def:sheafification]{definition of sheafification} to \(\theta: \iota\sheaf{F} \to (\iota\sheaf{F})^{\#}\) we get a unique map \(h: (\iota\sheaf{F})^{\#} \to (\iota\sheaf{F})^{\#}\) such that \(h \circ \theta = \theta\).
-  Therefore since \(\id \circ \theta = \theta\) and \((\theta \circ \psi) \circ \theta = \theta\) we have that \(\theta \circ \psi = \id\), which means that \(\theta\) is an \hyperref[def:categorical-isomorphism]{isormophism}.
+  Applying now the \hyperref[def:sheafification]{definition of sheafification} to \(\theta: \sheaf{F} \to (\iota\sheaf{F})^{\#}\) we get a unique map \(h: (\iota\sheaf{F})^{\#} \to (\iota\sheaf{F})^{\#}\) such that \(h \circ \theta = \theta\).
+  Therefore since \(\id \circ \theta = \theta\) and \((\theta \circ \psi) \circ \theta = \theta\) we have that \(\theta \circ \psi = \id\), which means that \(\theta\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{proof}
 
 
@@ -345,10 +359,10 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
 \begin{proof}
   Let \(\mathcal{F} \in \PSh_{X}(\category{C})\) and \(p \in X\). For all \(A \in \category{C}\) we have
   \begin{align*}
-    \Hom_{\category{C}} \left( (\mathcal{F}^{\#})_{p}, A \right) &\cong \Hom_{\Sh_{X}(\category{C})} \left( \mathcal{F}^{\#}, \underline{A}_{X} \right) & \left( -_{p} \dashv \underline{-}_{X} \right) \\
-                                                       &\cong \Hom_{\PSh_{X}(\category{C})} \left( \mathcal{F}, \iota \underline{A}_{X} \right) & \left( -^{\#} \dashv \iota \right) \\
-                                                       &\cong \Hom_{\PSh_{X}(\category{C})} \left( \mathcal{F}, \underline{A}_{X}^{\pre} \right) & \left( \iota \underline{A}_{X} = \underline{A}_{X}^{\pre} \right) \\
-                                                       &\cong \Hom_{\category{C}} \left( \mathcal{F}_{p}, A \right) & \left( -_{p} \dashv \underline{-}_{X}^{\pre} \right)
+    \Hom_{\category{C}} \left( (\mathcal{F}^{\#})_{p}, A \right) &\cong \Hom_{\Sh_{X}(\category{C})} \left( \mathcal{F}^{\#}, \operatorname{sk}_{X}(A) \right) & \left( -_{p} \dashv \operatorname{sk}_{X} \right) \\
+                                                       &\cong \Hom_{\PSh_{X}(\category{C})} \left( \mathcal{F}, \iota \operatorname{sk}_{X}(A) \right) & \left( -^{\#} \dashv \iota \right) \\
+                                                       &\cong \Hom_{\PSh_{X}(\category{C})} \left( \mathcal{F}, \operatorname{sk}_{X}^{\pre}(A) \right) & \left( \iota\operatorname{sk}_{X} = \operatorname{sk}_{X}^{\pre} \right) \\
+                                                       &\cong \Hom_{\category{C}} \left( \mathcal{F}_{p}, A \right) & \left( -_{p} \dashv \operatorname{sk}_{X}^{\pre} \right)
   \end{align*}
   Therefore by the \hyperref[thm:yoneda-lemma]{Yoneda lemma} \((\mathcal{F}^{\#})_{p} \cong \mathcal{F}_{p}\).
 \end{proof}

@@ -164,8 +164,6 @@
 We now define some special cases of \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} that are generally useful.
 However, it is important to take into account that this constructions do not exist in general for all \hyperref[def:category]{categories}.
 
-\subsubsection{Initial and terminal objects}
-
 \subsubsection{Products and coproducts}
 
 Let \(\category{J}\) be a \hyperref[def:small-category]{small} and \hyperref[ex:discrete-category]{discrete category}.
@@ -181,7 +179,7 @@ Note that any collection of objects \(\{X_{j}\}_{j \in \category{J}}\) in \(\cat
 
   We define the \textbf{product} of \(\{X_{j}\}_{j \in \category{J}}\), denoted \(\prod_{j \in \category{J}} X_{j}\), as the \hyperref[def:categorical-limit]{limit} of the \hyperref[def:diagram]{diagram} \(X\colon \category{J} \to \category{C}\).
 
-  Less abstractly, a \textbf{product} is an object \(\prod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(\pi_{j}\colon \prod_{j \in \category{J}} X_{j} \to X_{j}\) for every \(j \in \category{J}\) such that, for any map \(Y \to X_{j}\) there exists a unique morphism \(Y \to \prod_{j \in \category{J}} X_{j}\) making the following diagram commute
+  Less abstractly, a \textbf{product} is an object \(\prod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(\pi_{k}\colon \prod_{j \in \category{J}} X_{j} \to X_{k}\) for every \(j \in \category{J}\) such that, for any map \(Y \to X_{j}\) there exists a unique morphism \(Y \to \prod_{j \in \category{J}} X_{j}\) making the following diagram commute
   \begin{center}
     \begin{tikzcd}
       Y \arrow[rr, bend left] \arrow[r, dotted] & \prod_{j \in \category{J}} X_{j} \arrow[r] & X_{j}
@@ -195,13 +193,27 @@ Note that any collection of objects \(\{X_{j}\}_{j \in \category{J}}\) in \(\cat
   We define the \textbf{coproduct} of \(\{X_{j}\}_{j \in \category{J}}\), denoted \(\coprod_{j \in \category{J}} X_{j}\), as the \hyperref[def:categorical-colimit]{colimit} of the \hyperref[def:diagram]{diagram} \(X\colon \category{J} \to \category{C}\).
 
 
-  Less abstractly, a \textbf{coproduct} is an object \(\coprod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(\iota_{j}\colon X_{j} \to \coprod_{j \in \category{J}} X_{j}\) for every \(j \in \category{J}\) such that, for any map \(X_{j} \to Y\) there exists a unique morphism \(\coprod_{j \in \category{J}} X_{j} \to Y\) making the following diagram commute
+  Less abstractly, a \textbf{coproduct} is an object \(\coprod_{j \in \category{J}} X_{j} \in \category{C}\) together with maps \(\iota_{k}\colon X_{k} \to \coprod_{j \in \category{J}} X_{j}\) for every \(j \in \category{J}\) such that, for any map \(X_{j} \to Y\) there exists a unique morphism \(\coprod_{j \in \category{J}} X_{j} \to Y\) making the following diagram commute
   \begin{center}
     \begin{tikzcd}
       Y & \arrow[l, dotted] \prod_{j \in \category{J}} X_{j} & \arrow[ll, bend left] \arrow[l] X_{j}
     \end{tikzcd}
   \end{center}
 \end{definition}
+
+\begin{remark}\label{rem:empty-product-is-terminal}
+  Consider the case where \(\category{J} = \varnothing\) is the empty \hyperref[def:category]{category}, i.e: \(\operatorname{Ob}(\category{J}) = \varnothing\).
+  Suppose that \hyperref[def:categorical-product]{products} exist in \(\category{C}\).
+
+  Let's see how are \hyperref[def:categorical-product]{\(\varnothing\)-shaped products} (empty products).
+
+  Note that the family of objecs \(\{X_{j}\}_{j \in \varnothing} \subseteq \category{C}\) is empty, and so there are no projection maps \(\pi_{k}: \prod_{j \in \varnothing} X_{j} \to X_{k}\) nor morphisms \(\{f_{j}: Y \to X_{j}\}_{j \in \varnothing}\) for all \(Y \in \category{C}\).
+  Therefore the \hyperref[def:categorical-product]{product condition} is vacuosly true, i.e: there exists a unique map \(Y \to \prod_{j \in \varnothing} X_{j}\) for all \(Y \in \category{C}\).
+  This means that \(\prod_{j \in \varnothing} X_{j}\) is a \hyperref[def:initial-terminal-object]{terminal object} in \(\category{C}\).
+
+  Dually, if \(\category{C}\) has \hyperref[def:categorical-coproduct]{coproducts} then the empty \hyperref[def:categorical-coproduct]{coproduct} is \hyperref[def:initial-terminal-object]{initial} in \(\category{C}\).
+\end{remark}
+
 
 \subsubsection{Equalisers and coequalisers}
 
