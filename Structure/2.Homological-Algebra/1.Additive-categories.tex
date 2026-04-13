@@ -74,7 +74,7 @@
           Therefore if \(\widetilde{f} \coloneq f \circ p_{1}\) since \(i_{1} \circ p_{1} = \id_{X}\) we have \(\widetilde{f} \circ i_{1} = f\).
 
           Analogously we see that any morphism \(g: Y \to B\) can can be factored through \(Z\).
-          Therefore since \(Z\) verifies the universal property of the \hyperref[def:categorical-coproduct]{coproduct}, \(Z \cong X \oplus Y\).
+          Therefore since \(Z\) verifies the universal property of the \hyperref[def:categorical-coproduct]{coproduct}, \(Z \cong X \oplus Y\). \qedhere
   \end{itemize}
 \end{proof}
 
@@ -100,7 +100,7 @@
           \begin{equation*}
             0 = f \circ g_{1} - f \circ g_{2} = f \circ (g_{1} - g_{2})
           \end{equation*}
-          Therefore by hypothesis \(g_{1} - g_{2} = 0 \iff g_{1} = g_{2}\), proving that \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+          Therefore by hypothesis \(g_{1} - g_{2} = 0 \iff g_{1} = g_{2}\), proving that \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism}. \qedhere
   \end{itemize}
 \end{proof}
 
@@ -121,7 +121,7 @@
             \end{tikzcd}
           \end{center}
           This is clearly the \hyperref[def:zero-object]{zero object} in \(\Fct{\category{I}, \category{C}}\).
-    \item[\ref{axiom:additive-coproducts}, \ref{axiom:additive-products}] Direct from \autoref{prop:limits-in-functor-category}. 
+    \item[\ref{axiom:additive-coproducts}, \ref{axiom:additive-products}] Direct from \autoref{prop:limits-in-functor-category}. \qedhere
   \end{enumerate}
 \end{proof}
 
@@ -195,7 +195,7 @@
           \begin{equation*}
             F\nabla_{Y} \circ F(f \oplus g) \circ F\Delta_{X} = \nabla_{F(Y)} \circ (Ff \oplus Fg) \oplus \Delta_{F(X)} = Ff + Fg
           \end{equation*}
-          Therefore \(F(f + g) = Ff + Fg\), which means that \(F\) is \hyperref[def:additive-functor]{additive}.
+          Therefore \(F(f + g) = Ff + Fg\), which means that \(F\) is \hyperref[def:additive-functor]{additive}. \qedhere
   \end{itemize}
 \end{proof}
 
@@ -599,7 +599,7 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
   \end{equation*}
   Therefore
   \begin{equation*}
-    Ff^{p} = F(s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}) = Fs^{p+1} \circ \d_{F(X)}^{p} + \d_{F(Y)}^{p-1} \circ Fs^{p}
+    Ff^{p} = F(s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}) = Fs^{p+1} \circ \d_{F(X)}^{p} + \d_{F(Y)}^{p-1} \circ Fs^{p} \qedhere
   \end{equation*}
 \end{proof}
 
@@ -626,7 +626,7 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
   \begin{align*}
     g^{p} \circ f^{p} &= g^{p} \circ \left( s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p} \right) \\
                   &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \left(g^{p} \circ \d_{Y}^{p-1}\right) \circ s^{p} \\
-                  &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \d_{Z}^{p-1} \circ \left( g^{p-1} \circ s^{p} \right)
+                  &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \d_{Z}^{p-1} \circ \left( g^{p-1} \circ s^{p} \right) \qedhere
   \end{align*}
 \end{proof}
 

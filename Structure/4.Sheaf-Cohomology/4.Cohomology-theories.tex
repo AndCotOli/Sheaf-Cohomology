@@ -1,0 +1,308 @@
+\documentclass[../../main]{subfiles}
+
+\ifSubfilesClassLoaded{%
+    \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
+    \zexternaldocument*{../2.Homological-Algebra/exported/aux/main}%
+    \zexternaldocument*{../3.Sheaves/exported/aux/main}%
+    \zexternaldocument*{1.Cohomology-of-sheaves}%
+    \zexternaldocument*{2.Cohomology-and-homotopy}%
+}{}
+
+\begin{document}
+\chapter{Cohomology theories}
+
+In this chapter, we recap the properties of sheaf cohomology and compare them with the axiomatic approach to cohomology theories.
+
+\begin{definition}\label{def:topological-pair}
+  A \textbf{topological pair} is a tuple \((X, A)\) where \(X\) is a topological space and \(A\) is a subspace of \(X\).
+  A morphism of topological pairs \((X, A) \to (Y, B)\) is a continuous map \(f\colon X \to Y\) such that \(f(A) \subseteq B\).
+  
+  We denote by \(\Top_{2}\) the \hyperref[def:category]{category} of topological pairs.
+\end{definition}
+
+
+We start by giving the definition of a cohomology theory following~\cite{eilenbergAxiomaticApproachHomology1945}.
+\begin{definition}\label{def:cohomology-theory}
+  A \textbf{cohomology theory} (on \(\Top\)) consists of
+  \begin{enumerate}
+    \item A sequence of \hyperref[def:functor]{contravariant functors} \(\cohomology{n}\colon \Top_{2} \to \Ab\) for all \(n \in \mathbb{Z}\).
+          
+          We denote by \(\cohomology{n}(X) \coloneq \cohomology{n}(X, \varnothing)\).
+          If \(f\colon (X, A) \to (Y, B)\) is a continuous map we denote \(f^{\ast}\colon \cohomology{n}(Y, B) \to \cohomology{n}(X, A)\) the induced map (where \(n\) is to be understood from the context).
+    \item A sequence of \hyperref[def:natural-transformation]{natural transformations} \(\delta^{n}\colon \cohomology{n}(A) \to \cohomology{n+1}(X, A)\).
+  \end{enumerate}
+  Satisfying the following axioms:
+  \begin{enumerate}
+    \item \textbf{Homotopy}: If \(f_{0}, f_{1}\colon (X, A) \to (Y, B)\) are homotopic then its induced maps on \(\cohomology{n}\) are equal
+          \begin{equation*}
+            f_{0}^{\ast} = f_{1}^{\ast}\colon \cohomology{n}(Y, B) \to \cohomology{n}(X, A)
+          \end{equation*}
+    \item \textbf{Excission}: If \((X, A) \in \Top_{2}\) and \(U \subseteq A\) is such that \(\operatorname{ad}(U) \subset \operatorname{int}(A)\) then the inclussion map \(i\colon (X \setminus U, A \setminus U) \to (X, A)\) induces an isomorphism in \(\cohomology{n}\):
+          \begin{equation*}
+            i^{\ast}\colon \cohomology{n}(X, A) \isoarrow \cohomology{n}(X \setminus U, A \setminus U)
+          \end{equation*}
+    \item \textbf{Exactness}: Each pair \((X, A) \in \Top_{2}\) induces a \hyperref[def:exact-sequence]{long exact sequence} via the inclussions \(i\colon A \to X\) and \(j\colon X \to (X, A)\):
+          \begin{center}
+            \begin{tikzcd}
+              \cdots \arrow[r] & \cohomology{n-1}(X) \arrow[r, "i^{\ast}"] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{n-1}(A) \arrow[dll, rounded corners, "\delta^{n-1}" description, to path={
+                -- ([xshift=2ex]\tikztostart.east)
+                |- (X) [near end]\tikztonodes
+                -| ([xshift=-2ex]\tikztotarget.west)
+                -- (\tikztotarget)}] \\
+              \cohomology{n}(X, A) \arrow[r, "j^{\ast}"] & \cohomology{n}(X) \arrow[r, "i^{\ast}"] \arrow[d, phantom, ""{coordinate, name=Y}] & \cohomology{n}(A) \arrow[dll, rounded corners, "\delta^{n}" description, to path={
+                -- ([xshift=2ex]\tikztostart.east)
+                |- (Y) [near end]\tikztonodes
+                -| ([xshift=-2ex]\tikztotarget.west)
+                -- (\tikztotarget)}] \\
+              \cohomology{n+1}(X, A) \arrow[r, "j^{\ast}"] & \cohomology{n+1}(X) \arrow[r] & \cdots
+            \end{tikzcd}
+          \end{center}
+  \end{enumerate}
+  We also require the following axiom due to Milnor~\cite{mllnorAXIOMATICHOMOLOGYTHEORY}
+  \begin{enumerate}
+    \item[4.] \textbf{Additivity}: If \(X = \coprod_{i \in \mathcal{I}} X_{i}\) is the disjoint union of topological spaces then
+          \begin{equation*}
+            \cohomology{n}(X) \cong \prod_{i \in \mathcal{I}} \cohomology{n}(X_{i})
+          \end{equation*}
+  \end{enumerate}
+
+  We say that a cohomology theory is ordinary if it further verifies
+  \begin{enumerate}
+    \item[5.] \textbf{Dimension}: If \(\{\ast\}\) is the one-point topological space then for all \(n \neq 0\)
+          \begin{equation*}
+            \cohomology{n}(\{\ast\}) = 0
+          \end{equation*}
+          In this case, \(\cohomology{0}(\{\ast\})\) is called the coefficient group of the theory.
+  \end{enumerate}
+\end{definition}
+
+For sufficiently nice spaces, one can show that there exists only one \hyperref[def:cohomology-theory]{ordinary cohomology theory} with a given coefficient group.
+
+\begin{definition}[CW-complex]\label{def:CW-complex}
+
+\end{definition}
+
+
+\begin{theorem}[{Uniqueness of cohomology theories~---~\cite[Theorem 4.59]{hatcherAlgebraicTopology2002}}]
+
+\end{theorem}
+
+\section{Relative sheaf cohomology}
+
+\begin{definition}[Relative Sheaf Cohomology]\label{def:relative-sheaf-cohomology}
+  Let \(X\) be a topological space and \(A \subseteq X\) a closed subset.
+  Let \(j\colon X \setminus A \hookrightarrow X\) be the open immersion of the complement.
+  For any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) over \(X\), the \textbf{relative cohomology} of the pair \((X, A)\) with coefficients in \(\sheaf{F}\) is:
+  \begin{equation*}
+    \cohomology{i}(X, A; \sheaf{F}) \coloneq \cohomology{i}(X; j_{!}j^{-1}\sheaf{F})
+  \end{equation*}
+
+  If \(A = \varnothing\) we recover the usual \hyperref[def:sheaf-cohomology]{sheaf cohomology}
+  \begin{equation*}
+    \cohomology{i}(X, \varnothing; \sheaf{F}) = \cohomology{i}(X; \sheaf{F})
+  \end{equation*}
+\end{definition}
+
+\begin{remark}
+  \hyperref[def:relative-sheaf-cohomology]{Relative sheaf cohomology} is the \hyperref[def:right-derived-functor]{right derived functor}
+  \begin{equation*}
+    \Gamma(X; j_{!}j^{-1}\sheaf{F}) \coloneq \left\{ s \in \Gamma(X, \sheaf{F}) \mid s|_{A} = 0\right\}
+  \end{equation*}
+\end{remark}
+
+
+\begin{theorem}[Exactness]\label{thm:exactness-axiom}
+  Let \(A \subseteq X\) be a closed subset and \(i\colon A \hookrightarrow X\) the closed immersion.
+  For any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\), there exists a \hyperref[def:exact-sequence]{long exact sequence} in cohomology:
+  \begin{center}
+    \begin{tikzcd}[column sep=small]
+      \cdots \arrow[r] & \cohomology{i}(X, A; \sheaf{F}) \arrow[r] & \cohomology{i}(X; \sheaf{F}) \arrow[r] & \cohomology{i}(A; \sheaf{F}|_{A}) \arrow[r] & \cohomology{i+1}(X, A; \sheaf{F}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  By \autoref{thm:SES-exactness} we have a \hyperref[def:exact-sequence]{short exact sequence} of \hyperref[def:sheaf]{sheaves}:
+  \begin{equation*}
+    0 \to j_{!}j^{-1}\sheaf{F} \to \sheaf{F} \to i_{\ast}i^{-1}\sheaf{F} \to 0
+  \end{equation*}
+  Applying the \hyperref[thm:LES-derived-functor]{long exact sequence of derived functors} to \(\Gamma(X, -)\) and using \autoref{lemma:cohomology-closed-subsets} for the term \(\cohomology{i}(X; i_{\ast}i^{-1}\sheaf{F}) \cong \cohomology{i}(A; \sheaf{F}|_{A})\), we obtain the result.
+\end{proof}
+
+\begin{theorem}[Excision]\label{thm:excision-axiom}
+  Let \(A \subseteq X\) be a closed subset.
+  Let \(Z \subseteq A\) be a subset such that \(\operatorname{ad}(Z) \subseteq \operatorname{int}(A)\).
+  Then for any \hyperref[def:sheaf]{sheaf} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\):
+  \begin{equation*}
+    \cohomology{i}(X, A; \sheaf{F}) \cong \cohomology{i}(X \setminus Z, A \setminus Z; \sheaf{F})
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  Let \(U \coloneq X \setminus A\) and \(j\colon U \hookrightarrow X\) the open immersion.
+  By \hyperref[def:relative-sheaf-cohomology]{definition} we have
+  \begin{equation*}
+    \cohomology{i}(X, A; \sheaf{F}) = \cohomology{i}(X; \sheaf{G})
+  \end{equation*}
+  where \(\sheaf{G} \coloneq j_{!}j^{-1}\sheaf{F}\).
+
+  For simplicity, assume for now that \(Z\) is closed.
+  Let \(V = X \setminus Z\) and \(W = \operatorname{int}(A)\).
+  Since \(Z\) is closed \(V\) is open. Furthermore since \(Z \subseteq \operatorname{int}(A) = W\) we have an open cover \(X = V \cup W\).
+
+  By \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris} we have a \hyperref[def:exact-sequence]{long exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      {} & {} & \cdots \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{i-1}(V \cap W; \sheaf{G}|_{V \cap W}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{i}(X; \sheaf{G}) \arrow[r] & \cohomology{i}(V; \sheaf{G}|_{V}) \oplus \cohomology{i}(W; \sheaf{G}|_{W}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \cohomology{i}(V \cap W; \sheaf{G}|_{V \cap W}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{i+1}(X; \sheaf{G}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+
+  Note that the \hyperref[def:stalk]{stalks} of \(\sheaf{G}\) are
+  \begin{equation*}
+    \sheaf{G}_{p} = \begin{cases}
+      \sheaf{F}_{p} & p \in U \\
+      0 & p \notin U
+    \end{cases}
+  \end{equation*}
+  Therefore since \(W \subseteq A\) and \(A \cap U = \varnothing\) we have \(\sheaf{G}_{p} = 0\) for all \(p \in W\).
+  In particular \(\sheaf{G}|_{W} = 0\) and thus \(\sheaf{G}|_{V \cap W} = 0\).
+  Plugging this into the above \hyperref[def:long-exact-sequence]{long exact sequence} we get \hyperref[def:categorical-isomorphism]{isomorphisms}
+  \begin{equation*}
+    \cohomology{i}(X; \sheaf{G}) \isoarrow \cohomology{i}(V; \sheaf{G}|_{V})
+  \end{equation*}
+  To finish, we need to check that \(\cohomology{i}(V; \sheaf{G}) = \cohomology{i} \left( X \setminus Z, A \setminus Z, \sheaf{F} \right)\).
+  Note that
+  \begin{equation*}
+    V \setminus ( A \setminus Z ) = \left( X \setminus Z \right) \setminus \left( A \setminus Z \right) = X \setminus A = U
+  \end{equation*}
+  Consider the open immersion \(j'\colon U \hookrightarrow V\).
+  Since \(\sheaf{G}\) was formed by extending \(\sheaf{F}|_{U}\) by zero to \(X\), restricting it to \(V\) (which fully contains \(U\)) yields the same extension by zero relative to \(V\):
+  \begin{equation*}
+    \sheaf{G}|_{V} = j'_{!} \left( \sheaf{F}|_{U} \right) = j'_{!} j'^{-1} \left( \sheaf{F}|_{V} \right)
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    \cohomology{i} \left( V; \sheaf{G}|_{V} \right) = \cohomology{i} \left( V; j'_{!}j'^{-1}\sheaf{F}|_{V} \right) = \cohomology{i} \left( X \setminus Z, A \setminus Z; \sheaf{F} \right) \qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}[Homotopy]\label{thm:homotopy-pairs}
+  Let \(f_{0}, f_{1}\colon (X, A) \rightrightarrows (Y, B)\) be two \hyperref[def:homotopy-over]{homotopic maps of pairs}.
+  Let \(\underline{M}_{Y} \in \Mod( \underline{\mathbf{k}}_{Y} )\) be a \hyperref[def:constant-sheaf]{constant sheaf} of \(\mathbf{k}\)-modules over \(Y\).
+  Then for all \(i \geq 0\), the induced maps on \hyperref[def:relative-sheaf-cohomology]{relative cohomology} coincide:
+  \begin{equation*}
+    f_{0}^{\ast} = f_{1}^{\ast} \colon \cohomology{i}(Y, B; \underline{M}_{Y}) \to \cohomology{i}(X, A; \underline{M}_{X})
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  Let \(h\colon (X \times I, A \times I) \to (Y \times I, B \times I)\) be the homotopy between \(f_{0}\) and \(f_{1}\).
+  We have
+  \begin{equation*}
+    f_{0}^{\ast} = j_{0}^{\ast} \circ H \qquad f_{1}^{\ast} = j_{1}^{\ast} \circ H
+  \end{equation*}
+  Therefore we need to prove
+  \begin{equation*}
+    j_{0}^{\ast} = j_{1}^{\ast}\colon \cohomology{i} \left( X \times I, A \times I; \underline{M}_{X \times I} \right) \to \cohomology{i} \left( X, A; \underline{M}_{X} \right)
+  \end{equation*}
+  Note that \(p_{(X, A)} \circ j_{0} = \id_{(X, A)} = p_{(X, A)} \circ j_{1}\).
+  Furthermore
+  \begin{equation*}
+    i_{0} \circ p_{(X, A)}\colon (X \times I, A \times I) \to (X \times I, A \times I)
+  \end{equation*}
+  is homotopic to the identity.
+
+  Therefore by \autoref{thm:homotopy-invariance-cohomology} we get isomorphisms
+  \begin{align*}
+    p_{X}^{\ast}\colon& \cohomology{i}(X; \underline{M}_{X}) \isoarrow \cohomology{i} \left( X \times I; \underline{M}_{X \times I} \right) \\
+    p_{A}^{\ast}\colon& \cohomology{i}(A; \underline{M}_{A}) \isoarrow \cohomology{i} \left( A \times I; \underline{M}_{A \times I} \right)
+  \end{align*}
+  By the \hyperref[thm:exactness-axiom]{exactness axiom} we have \hyperref[def:exact-sequence]{long exact sequences}
+  \begin{center}
+    \begin{tikzcd}[column sep=small]
+      \cdots \arrow[r] & \cohomology{i-1}(A; \underline{M}) \arrow[r] \arrow[d, "p_{A}^{\ast}"', "\sim"] & \cohomology{i}(X, A; \underline{M}) \arrow[r] & \cohomology{i}(X; \underline{M}) \arrow[r] \arrow[d, "p_{X}^{\ast}"', "\sim"]& \cohomology{i}(A; \underline{M}) \arrow[r] \arrow[d, "p_{A}^{\ast}"', "\sim"]& \cdots \\
+      \cdots \arrow[r] & \cohomology{i-1}(A \times I; \underline{M}) \arrow[r] & \cohomology{i}(X \times I, A \times I; \underline{M}) \arrow[r] & \cohomology{i}(X \times I; \underline{M}) \arrow[r] & \cohomology{i}(A \times I; \underline{M}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  Therefore by the \hyperref[lemma:five-lemma]{five lemma}
+  \begin{equation*}
+    p_{(X, A)}^{\ast}\colon \cohomology{i}(X, A; \underline{M}) \isoarrow \cohomology{i}(X \times I, A \times I; \underline{M})
+  \end{equation*}
+  By functoriallity of cohomology we have
+  \begin{equation*}
+    j_{0}^{\ast} \circ p_{(X, A)}^{\ast} = \id = j_{1}^{\ast} \circ p_{(X, A)}^{\ast}
+  \end{equation*}
+  Therefore since \(p_{(X, A)}^{\ast}\) is an isomorphism
+  \begin{equation*}
+    j_{0}^{\ast} = j_{1}^{\ast} \qedhere
+  \end{equation*}
+\end{proof}
+
+
+\begin{theorem}[Additivity]\label{thm:additivity-axiom}
+  Let \(X = \coprod_{\alpha \in \Lambda} X_{\alpha}\) be a disjoint union of topological spaces.
+  Then for any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) on \(X\):
+  \begin{equation*}
+    \cohomology{i}(X; \sheaf{F}) \cong \prod_{\alpha \in \Lambda} \cohomology{i}(X_{\alpha}; \sheaf{F}|_{X_{\alpha}})
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  By definition of the disjoint union topology, each \(X_{\alpha}\) is an open subset of \(X\).
+
+  Let \(\sheaf{F} \in \Mod ( \underline{\mathbf{k}}_{X} )\).
+  Since \(X_{\alpha} \cap X_{\beta} = \varnothing\) if \(\alpha \neq \beta\) we have
+  \begin{equation*}
+    \Gamma(X, \sheaf{F}) \cong \prod_{\alpha \in \Lambda} \Gamma(X_{\alpha}, \sheaf{F})
+  \end{equation*}
+
+  Furthermore if \(\sheaf{F} \to \sheaf{I}^{\bullet}\) is an \label[def:resolution]{injective resolution} since \(j_{\alpha}^{-1}\) is \hyperref[def:adjoint-functors]{right adjoint} by \autoref{prop:adjoints-and-injectives} \(I^{\bullet}|_{X_{\alpha}}\) is an \label[def:resolution]{injective resolution} of \(\sheaf{F}|_{X_{\alpha}}\).
+  
+  Therefore
+  \begin{align*}
+    \cohomology{i}(X; \sheaf{F}) &\cong \cohomology{i}\Gamma(X, \sheaf{I}^{\bullet}) \\
+                                 &\cong  \cohomology{i} \left( \prod_{\alpha \in \Lambda} \Gamma(X, \sheaf{I}^{\bullet}|_{X_{\alpha}}) \right) \\
+                                 &\cong \prod_{\alpha \in \Lambda} \cohomology{i} \Gamma(X_{\alpha}, \sheaf{I}^{\bullet}|_{X_{\alpha}}) \\
+                                 &\cong \prod_{\alpha \in \Lambda} \cohomology{i}(X_{\alpha}, \sheaf{F}|_{X_{\alpha}}) \qedhere
+  \end{align*}
+\end{proof}
+
+\begin{theorem}[Dimension]
+  Let \(\{\ast\}\) be the one point topological space.
+  For all \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) and \(n \neq 0\)
+  \begin{equation*}
+    \cohomology{n}(\{\ast\}; \sheaf{F}) \cong 0
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  We have
+  \begin{align*}
+    \cohomology{n}( \{\ast\}; \sheaf{F} ) = \operatorname{R}^{n} \Gamma(\{\ast\}, \sheaf{F})
+  \end{align*}
+  Note that
+  \begin{equation*}
+    \Gamma(\{\ast\}, \sheaf{F}) = \sheaf{F}(\{\ast\}) = \sheaf{F}_{\ast}
+  \end{equation*}
+  Therefore since the stalk functor is exact for all \(n \neq 0\)
+  \begin{equation*}
+    \cohomology{n} (\{\ast\}; \sheaf{F}) = \operatorname{R}^{n} \sheaf{F}_{\ast} = 0 \qedhere
+  \end{equation*}
+\end{proof}
+
+
+
+\begin{corollary}
+  Let \(X\) be a \hyperref[def:CW-complex]{CW-complex}.
+  For any \hyperref[def:constant-sheaf]{constant sheaf of abelian groups} \(\underline{G} \in \Mod(\underline{\mathbb{Z}}_{X})\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
+    \begin{equation*}
+        \cohomology{i}(X; \underline{G}) \cong \operatorname{H}_{\operatorname{sing}}^{i}(X; G)
+    \end{equation*}
+\end{corollary}
+
+\end{document}

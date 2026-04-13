@@ -112,6 +112,11 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   From now on, to distinguish a \hyperref[def:presheaf]{presheaf} from a \hyperref[def:sheaf]{sheaf} we will denote the former by \(\mathcal{F}, \mathcal{G}, \mathcal{H}, \ldots\) and the latter by \(\sheaf{F}, \sheaf{G}, \sheaf{H}, \ldots\)
 \end{notation}
 
+\begin{notation}
+  Given a ring \(R\), we denote the \hyperref[def:category]{category} of \hyperref[def:sheaf]{sheaves of \(R\)-modules} over a topological space \(X\) by \(\Mod(\underline{R}_{X})\).
+\end{notation}
+
+
 \begin{remark}\label{rem:sheaves-as-equalisers}
   Axioms \ref{axiom:sheaf-identity} and \ref{axiom:sheaf-gluability} can be interpreted as the following \hyperref[def:equaliser]{equaliser sequence}:
   \begin{center}
@@ -130,13 +135,33 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   i.e: \(\sheaf{F}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} of \(\category{C}\)
 \end{remark}
 
-\begin{example}[\(\Sh_{\{\ast\}}(\category{C}) \cong \category{C}\)]\label{ex:one-point-sheaves-are-category}
+\begin{example}[Sheaves on a point]\label{ex:one-point-sheaves-are-category}
   Let \(\{\ast\}\) be the one-point topological space.
+  We are going see that there is an \hyperref[def:equivalent-categories]{equivalence of categories}
+  \begin{equation*}
+    \Sh_{\{\ast\}}(\category{C}) \simeq \category{C}
+  \end{equation*}
+
+  Consider the \hyperref[def:functor]{functors}
+  \begin{align*}
+    F\colon\Sh_{\{\ast\}}(\category{C}) \to \category{C} \qquad G\colon\category{C} \to \Sh_{\{\ast\}}(\category{C})
+  \end{align*}
+  where \(F(\sheaf{F}) \coloneq \sheaf{F}(\{\ast\})\) for all \(\sheaf{F} \in \Sh_{\{\ast\}}(\category{C})\) and for all \(X \in \category{C}\), \(G(X)\) is the \hyperref[def:sheaf]{sheaf} defined as
+  \begin{equation*}
+    G(X)(U) \coloneq \begin{cases}
+      G & U = \{\ast\} \\
+      1 & U = \varnothing
+    \end{cases}
+  \end{equation*}
+  with the obvious restriction maps.
+  We have
+  \begin{equation*}
+    \left( F \circ G \right)(X) = G \qquad \left( G \circ F \right)(\sheaf{F}) \cong \sheaf{F}
+  \end{equation*}
+  where the \hyperref[def:categorical-isomorphism]{isomorphism} comes from \(\sheaf{F}(\varnothing)\) being \hyperref[def:initial-terminal-object]{terminal} (but not necessariliy \(1\)).
 \end{example}
 
-
 \subsection{Stalks}
-
 \begin{definition}\label{def:stalk}
   Let \(X\) be a topological space and let \(\mathcal{F}\) be a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf}.
   For all points \(p \in X\) we define the \textbf{stalk} of \(\mathcal{F}\) at \(p\) as
@@ -231,7 +256,33 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
             \psi_{p} \circ \phi_{p} = \id_{\sheaf{F}_{p}} \qquad \phi_{p} \circ \psi_{p} = \id_{\sheaf{G}_{p}}
           \end{equation*}
           i.e: \(\phi_{p}: \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} with inverse \(\psi_{p}\).
-    \item[\(\impliedby\)] 
+    \item[\(\impliedby\)] Note that we only need to check the case where \(\category{C} = \Set\) since the \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) reflects \hyperref[def:categorical-isomorphism]{isomorphisms}.
+          To do this, we will see that for all open subsets \(U \subseteq X\) the map \(\phi(U)\colon \sheaf{F}(U) \to \sheaf{G}(U)\) is injective and surjective.
+
+          To see injectivity, let \(s, t \in \sheaf{F}(U)\) such that \(\phi(U)(s) = \phi(U)(t)\).
+          For all \(p \in U\) we have
+          \begin{equation*}
+            \phi_{p}(s_{p}) = \left( \phi(U)(s) \right)_{p} = \left( \phi(U)(t) \right)_{p} = \phi_{p}(t_{p})
+          \end{equation*}
+          Therefore since \(\phi_{p}\) is injective \(s_{p} = t_{p}\).
+          Using \hyperref[lemma:sheaf-determined-by-germs]{sheaves are determined by its germs} we get \(s = t\) and thus \(\phi(U)\) is injective.
+
+          To see surjectivity consider \(t \in \sheaf{G}(U)\).
+          For all \(p \in U\) since \(\phi_{p}\) is surjective there exists \(\sigma_{p} \in \sheaf{F}_{p}\) such that \(\phi_{p}(\sigma_{p}) = t_{p}\).
+          By \hyperref[def:stalk]{definition of stalk} there exists an open neighbourhood \(V_{p} \subseteq U\) of \(p\) and a section \(s^{(p)} \in \sheaf{F}(V_{p})\) such that \(s_{p}^{(p)} = \sigma_{p}\).
+
+          By shrinking \(V_{p}\) if necessary we can assume that
+          \begin{equation*}
+            \phi(V_{p})(s^{(p)}) = t|_{V_{p}}
+          \end{equation*}
+          Now consider two such neighbourhoods \(V_{p}\) and \(V_{q}\).
+          On the intersection we have
+          \begin{equation*}
+            \phi(V_{p} \cap V_{q})(s^{(p)}|_{V_{p} \cap V_{q}}) = t|_{V_{p} \cap V_{q}} = \phi(V_{p} \cap V_{q})(s^{(p)}|_{V_{p} \cap V_{q}})
+          \end{equation*}
+          Therefore since \(\phi(V_{p} \cap V_{q})\) is injective \(s^{(p)}|_{V_{p} \cap V_{q}} = s^{(p)}|_{V_{p} \cap V_{q}}\).
+          By the \hyperref[axiom:sheaf-gluability]{gluability axiom} there exists a unique section \(s \in \sheaf{F}(U)\) such that \(s|_{V_{p}} = s^{(p)}\) for all \(p \in U\).
+          Finally since \(\phi(U)(s)|_{V_{p}} = \phi(V_{p})(s^{(p)}) = t|_{V_{p}}\) for all \(p \in U\) the uniqueness of the \hyperref[axiom:sheaf-gluability]{gluability axiom} now on \(\sheaf{G}\) implies that \(\phi(U)(s) = t\) and thus \(\phi(U)\) is surjective. \qedhere
   \end{itemize}
 \end{proof}
 
@@ -349,23 +400,21 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
 \end{proof}
 
 
-\begin{lemma}\label{lemma:stalk-commute-sheafification}
+\begin{restatable}{lemma}{stalksheafification}\label{lemma:stalk-commute-sheafification}
   Let \(X\) be a topological space and \(\mathcal{F}\) a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(X\).
   Then for all \(p \in X\) there is bijection of \hyperref[def:stalk]{stalks}
   \begin{equation*}
     \mathcal{F}_{p} \cong (\mathcal{F}^{\#})_{p}
   \end{equation*}
-\end{lemma}
+\end{restatable}
 \begin{proof}
-  Let \(\mathcal{F} \in \PSh_{X}(\category{C})\) and \(p \in X\). For all \(A \in \category{C}\) we have
-  \begin{align*}
-    \Hom_{\category{C}} \left( (\mathcal{F}^{\#})_{p}, A \right) &\cong \Hom_{\Sh_{X}(\category{C})} \left( \mathcal{F}^{\#}, \operatorname{sk}_{X}(A) \right) & \left( -_{p} \dashv \operatorname{sk}_{X} \right) \\
-                                                       &\cong \Hom_{\PSh_{X}(\category{C})} \left( \mathcal{F}, \iota \operatorname{sk}_{X}(A) \right) & \left( -^{\#} \dashv \iota \right) \\
-                                                       &\cong \Hom_{\PSh_{X}(\category{C})} \left( \mathcal{F}, \operatorname{sk}_{X}^{\pre}(A) \right) & \left( \iota\operatorname{sk}_{X} = \operatorname{sk}_{X}^{\pre} \right) \\
-                                                       &\cong \Hom_{\category{C}} \left( \mathcal{F}_{p}, A \right) & \left( -_{p} \dashv \operatorname{sk}_{X}^{\pre} \right)
-  \end{align*}
-  Therefore by the \hyperref[thm:yoneda-lemma]{Yoneda lemma} \((\mathcal{F}^{\#})_{p} \cong \mathcal{F}_{p}\).
+  Direct from the \hyperref[const:sheafification-godement]{construction of sheafification}.
 \end{proof}
+
+\begin{remark}
+  We will later give another proof of \autoref{lemma:stalk-commute-sheafification} that does not use the \hyperref[const:sheafification-godement]{constructions of sheafification}.
+\end{remark}
+
 
 \section{Sheaves in an abelian category}
 In this section, \(X\) will be a fixed topological space and \(\category{C}\) will be an \hyperref[def:abelian-category]{abelian category} for which \hyperref[def:sheafification]{sheafification} exists.
@@ -423,7 +472,7 @@ Consider the following category-theoretic auxiliary lemma.
             &\cong \ker_{\category{A}} \left( (b \circ a)(A_{2}) \to b(\text{coker}_{\category{B}}(a\psi)) \right) & (b\text{ preserves \hyperref[def:categorical-kernel]{kernels}}) \\
             &\cong \ker_{\category{A}} \left( A_{2} \to b(\text{coker}_{\category{B}}(a\psi)) \right)   & b \circ a \cong \id_{\category{A}}\\
             &\cong \ker_{\category{A}} \left( A_{2} \to \text{coker}_{\category{A}} \psi \right)      & \eqref{eq:ker-coker-lemma} \\
-            &= \text{Im}_{\category{A}} \psi                                     & (\text{definition})
+            &= \text{Im}_{\category{A}} \psi                                     & (\text{definition}) & \qedhere
   \end{align*}
 \end{proof}
 
@@ -512,11 +561,11 @@ Consider the following category-theoretic auxiliary lemma.
   \end{equation*}
   Therefore
   \begin{equation*}
-    \left( \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \right)_{p} \cong \lim_{i \in \category{I}} \left(\mathcal{F}_{i}\right)_{p} \cong \left(\lim_{i \in \category{I}} \mathcal{F}_{i}^{\#} \right)_{p}
+    \left( \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \right)_{p} \cong \lim_{i \in \category{I}} \left(\mathcal{F}_{i}\right)_{p} \cong \left(\lim_{i \in \category{I}} \mathcal{F}_{i}^{\#} \right)_{p} \qedhere
   \end{equation*}
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:sheaf-category-is-abelian}
   Let \(\varphi\colon \sheaf{F} \to \sheaf{G}\) be a morphism in \(\Sh(\category{C})\).
   \begin{enumerate}
     \item The \hyperref[def:category]{category} \(\Sh_{X}(\category{C})\) is \hyperref[def:abelian-category]{abelian}.
@@ -539,7 +588,7 @@ Consider the following category-theoretic auxiliary lemma.
   \begin{enumerate}
     \item \(\Sh_{X}(\category{C})\) is \hyperref[def:additive-category]{additive} by \autoref{lemma:sheaves-category-is-additive} and \(\PSh_{X}(\category{C})\) is \hyperref[def:additive-category]{additive} by \autoref{lemma:functor-category-is-additive}, \(\iota\) is \hyperref[def:additive-functor]{additive} by \autoref{lemma:sheaves-category-is-additive} and \(-^{\#}\) is \hyperref[def:additive-functor]{additive} by \autoref{prop:additive-functors-and-adjunctions}, and the \hyperref[def:adjoint-functors]{adjunction} \(-^{\#} \dashv \iota\) is given by \hyperref[def:sheafification]{definition of sheafification}.
     \item \(\PSh_{X}(\category{C})\) is \hyperref[def:abelian-category]{abelian} by \autoref{prop:functor-category-is-abelian} and \(-^{\#}\) is \hyperref[def:exact-functor]{left exact} by \autoref{prop:sheafification-is-exact}.
-    \item \(-^{\#} \circ \iota = \id_{\Sh_{X}(\category{C})}\) comes from \autoref{lemma:sheafification-of-sheaf-is-sheaf}.
+    \item \(-^{\#} \circ \iota = \id_{\Sh_{X}(\category{C})}\) comes from \autoref{lemma:sheafification-of-sheaf-is-sheaf}. \qedhere
   \end{enumerate}
 \end{proof}
 

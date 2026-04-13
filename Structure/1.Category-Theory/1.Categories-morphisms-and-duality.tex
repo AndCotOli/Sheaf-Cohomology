@@ -140,7 +140,7 @@
     \item For each pair of objects \(X, Y \in \category{C}^{\op}\): \(\Hom_{\opcategory{C}}(X, Y) = \Hom_{\category{C}}(Y, X)\).
     \item If \(f^{\op}\colon X \to Y\), \(g^{\op}\colon Y \to Z\) are morphisms in \(\category{C}^{\op}\) their composition is defined by
           \begin{equation*}
-            {\color{red} f^{\op} \circ g^{\op} = (g \circ f)^{\op}}
+            f^{\op} \circ g^{\op} = (g \circ f)^{\op}
           \end{equation*}
           where \(f\colon Y \to X\) and \(g\colon Z \to Y\) are the associated morphisms in \(\category{C}\).
   \end{itemize}
@@ -251,7 +251,7 @@ In practice, this means that proving an statement directly proves its dual for f
           On the other, since \(h \circ (g \circ f) = \id_{X}\) precomposing with \(f\) and postcomposing with \(f^{-1}\) we have
           \begin{align*}
             f \circ (h \circ g \circ f) \circ f^{-1} = f \circ \id_{X} \circ f^{-1} = \id_{Y} &\implies (f \circ h) \circ g \circ (f \circ f^{-1}) = \id_{Y} \\
-                                                                      &\implies (f \circ h) \circ g = \id_{Y}
+                                                                      &\implies (f \circ h) \circ g = \id_{Y} \qedhere
           \end{align*}
   \end{enumerate}
 \end{proof}

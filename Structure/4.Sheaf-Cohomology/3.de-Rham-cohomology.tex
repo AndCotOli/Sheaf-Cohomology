@@ -11,8 +11,8 @@
 \chapter{de Rham Cohomology}
 
 \begin{definition}[Partition of unity]\label{def:partition-of-unity}
-  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
-  A \textbf{partition of unity} of \(\sheaf{F}\) subordinate to a locally finite open covering \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) is a collection of endomorphisms of \(\sheaf{O}_{X}\)-modules
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules}.
+  A \textbf{partition of unity} of \(\sheaf{F}\) subordinate to a locally finite open covering \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) is a collection of endomorphisms 
   \begin{equation*}
     \{ f_{i}: \sheaf{F} \to \sheaf{F} \}_{i \in \mathcal{I}}
   \end{equation*}
@@ -20,34 +20,34 @@
   \begin{enumerate}
     \item For all \(i \in \mathcal{I}\)
           \begin{equation*}
-            \operatorname{supp} f_{i} \coloneq \overline{\{x \in X \mid (f_{i})_{x} \neq 0\}} \subset U_{i}
+            \operatorname{supp} f_{i} \subset U_{i}
           \end{equation*}
     \item
           \begin{equation*}
             \sum_{i \in \mathcal{I}} f_{i} = \id_{\sheaf{F}}
           \end{equation*}
-        Note that this sum is well defined since for any point \(x \in X\) there is an open neighbourhood where all but finitely many of the maps \(f_{i}\) are the zero maps, i.e: the sum is locally finite.
+        Note that this sum is well defined since for any point \(x \in X\) there exists an open neighbourhood where all but finitely many of the maps \(f_{i}\) are the zero maps, i.e: the sum is locally finite.
   \end{enumerate}
 \end{definition}
 
 
 \begin{definition}[Fine sheaf]\label{def:fine-sheaf}
-  A \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to this covering.
+  A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to this covering.
 \end{definition}
 
 \begin{proposition} \label{prop:fine-are-acyclic}
-  \hyperref[def:fine-sheaf]{Fine sheaves} are \hyperref[def:acyclic-object]{\(\Gamma(X, -)\) acyclic}.
+  \hyperref[def:fine-sheaf]{Fine sheaves} are \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\) acyclic}.
 \end{proposition}
 \begin{proof}
   Let \(\sheaf{F}\) be a \hyperref[def:fine-sheaf]{fine sheaf}.
-  Using the \hyperref[def:godement-resolution]{Godement resolution} we have that \(\sheaf{F}\) admits a \hyperref[def:flasque-sheaf]{flasque} resolution \(\sheaf{F}[0] \to \sheaf{I}^{\bullet}\).
+  Using the \hyperref[def:godement-resolution]{Godement resolution} we have that \(\sheaf{F}\) admits a \hyperref[def:flasque-sheaf]{flasque} resolution \(\sheaf{F} \to \sheaf{I}^{\bullet}\).
 
-  Using \autoref{prop:flasque-are-acyclic} by \autoref{thm:dimension-shifting} we have that
+  Using \autoref{prop:flasque-are-acyclic} by \autoref{thm:right-derived-functor-using-acyclics} we have that
   \begin{equation*}
-    \cohomology{k}(X, \sheaf{F}) = \quot{\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)}{\im \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)}
+    \cohomology{k}(X; \sheaf{F}) = \quot{\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)}{\operatorname{Im} \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)}
   \end{equation*}
   Let \(\alpha \in \ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)\).
-  Since \(\sheaf{I}^{\bullet}\) is locally exact in degree greater than 0 we have that \(\alpha\) comes from \(\sheaf{I}^{k-1}\), i.e: there exists an open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that \(\alpha|_{U_{i}} = d\beta_{i}\) with \(\beta_{i} \in \sheaf{I}^{k-1}(U_{i})\).
+  Since \(\sheaf{I}^{\bullet}\) is locally exact in degree greater than 0 we have that \(\alpha\) comes from \(\sheaf{I}^{k-1}\), i.e: there exists an open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that \(\alpha|_{U_{i}} = \d\beta_{i}\) with \(\beta_{i} \in \sheaf{I}^{k-1}(U_{i})\).
 
   Consider a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to \(\mathscr{U}\) and let
   \begin{equation*}
@@ -63,10 +63,10 @@
   \end{equation*}
   Since \(f_{i}\) has support in \(U_{i}\) this defines a section in \(\sheaf{I}^{k-1}(U_{i})\).
 
-  We have that \(d\beta = \alpha\) since \(\alpha = \sum_{i \in \mathcal{I}} f_{i}\alpha|_{U_{i}}\).
+  We have that \(\d\beta = \alpha\) since \(\alpha = \sum_{i \in \mathcal{I}} f_{i}\alpha|_{U_{i}}\).
   Therefore \(\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right) = \im \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)\), which means
   \begin{equation*}
-    \forall k > 0 \quad \cohomology{k}(X, \sheaf{F}) = 0
+    \forall k > 0 \quad \cohomology{k}(X, \sheaf{F}) = 0 \qedhere
   \end{equation*}
 \end{proof}
 
@@ -145,11 +145,11 @@
       \Omega^{0}(M) \arrow[r, "\mathrm{d}"] & \Omega^{1}(M) \arrow[r, "\mathrm{d}"] & \Omega^{2}(M) \arrow[r, "\mathrm{d}"] & \cdots
     \end{tikzcd}
   \end{center}
-  is a \hyperref[def:complex]{complex} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathcal{C}^{\infty}(M)\)-modules}.
+  is a \hyperref[def:complex]{complex} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathbb{R}\)-modules}.
 \end{lemma}
 \begin{proof}
   It suffices to show that for any smooth function \(f \in \mathcal{C}^{\infty}(M) \cong \Omega^{0}(M)\) we have \(\mathrm{d}^{2}f = 0\).
-  Indeed, if \(\mathrm{d}^{2}f = 0\) then for any \textit{basic} form \(f\mathrm{d}x^{I}\) we have
+  Indeed, if \(\mathrm{d}^{2}f = 0\) then for any basic form \(f\mathrm{d}x^{I}\) we have
   \begin{equation*}
     \mathrm{d}(f\mathrm{d}x^{I}) = \mathrm{d}(\mathrm{d}f \wedge \mathrm{d}x^{I}) = \mathrm{d}^{2}f \wedge \mathrm{d}x^{I} - \mathrm{d}f \wedge \mathrm{d}^{2}x^{I} = 0
   \end{equation*}
@@ -166,7 +166,7 @@
   By Clairaut's theorem we have that \( \frac{\partial^{2} f}{\partial x^{i} \partial x^{j}} =  \frac{\partial^{2} f}{\partial x^{j} \partial x^{i}}\) and by the antisymmetry of the wedge product \(\mathrm{d}x^{i} \wedge \mathrm{d}x^{j} = - \mathrm{d}x^{j} \wedge \mathrm{d}x^{j}\).
   Therefore all the terms cancel leaving
   \begin{equation*}
-    \mathrm{d}^{2} f = 0
+    \mathrm{d}^{2} f = 0 \qedhere
   \end{equation*}
 \end{proof}
 
@@ -282,7 +282,7 @@
 
   Therefore since by \autoref{lemma:smooth-k-form-fine} the resolution is made of \hyperref[def:fine-sheaf]{fine sheaves} and \hyperref[prop:fine-are-acyclic]{fine sheaves are \(\Gamma(X, -)\) acyclic} by definition of \hyperref[def:sheaf-cohomology]{sheaf cohomology}
   \begin{equation*}
-      \cohomology{\bullet}(M, \underline{\mathbb{R}}) = \cohomology{\bullet}_{\operatorname{dR}}(M, \mathbb{R})
+      \cohomology{\bullet}(M, \underline{\mathbb{R}}) = \cohomology{\bullet}_{\operatorname{dR}}(M, \mathbb{R}) \qedhere
   \end{equation*}
 \end{proof}
 
@@ -300,13 +300,13 @@
   We are going to compute its \hyperref[def:sheaf-cohomology]{sheaf cohomology} with coefficients in \(\underline{\mathbb{R}}\), \(\cohomology{\bullet}(S^{1}, \underline{\mathbb{R}})\), using the \hyperref[def:de-rham-complex]{de Rham complex}
   \begin{center}
     \begin{tikzcd}
-      \Omega^{0}(S^{1}) \arrow[r, "\mathrm{d}^{0}"] & \Omega^{1}(S^{1}) \arrow[r, "\mathrm{d}^{1}"] & 0
+      \Omega^{0}(S^{1}) \arrow[r, "\d^{0}"] & \Omega^{1}(S^{1}) \arrow[r, "\d^{1}"] & 0
     \end{tikzcd}
   \end{center}
 
   On the one hand
   \begin{equation*}
-    \cohomology{0}(S^{1}, \underline{\mathbb{R}}) = \ker d^{0} = \{f \in \Omega^{0}(S^{1}) \cong \mathcal{C}^{\infty}(S^{1}) \mid \mathrm{d}f = 0\}
+    \cohomology{0}(S^{1}, \underline{\mathbb{R}}) = \ker \d^{0} = \{f \in \Omega^{0}(S^{1}) \cong \mathcal{C}^{\infty}(S^{1}) \mid \d f = 0\}
   \end{equation*}
   Since \(S^{1}\) is connected, the only functions with 0 derivative are the constant functions.
   Therefore
@@ -316,7 +316,7 @@
 
   On the other
   \begin{equation*}
-    \cohomology{1}(S^{1}, \underline{\mathbb{R}}) = \quot{\ker d^{1}}{\im d^{0}} = \quot{\{\omega \in \Omega^{1}(S^{1}) \mid \mathrm{d}\omega = 0\}}{\{\mathrm{d}f \mid f \in \Omega^{0}(S^{1}) \cong \mathcal{C}^{\infty}(S^{1})\}}
+    \cohomology{1}(S^{1}, \underline{\mathbb{R}}) = \quot{\ker \d^{1}}{\im \d^{0}} = \quot{\{\omega \in \Omega^{1}(S^{1}) \mid \d \omega = 0\}}{\{\d f \mid f \in \Omega^{0}(S^{1}) \cong \mathcal{C}^{\infty}(S^{1})\}}
   \end{equation*}
 
   Note that since \(\Omega^{2}(M) = 0\) all \hyperref[def:smooth-k-form]{\(1\)-forms} \(\omega \in \Omega^{1}(S^{1})\) verify \(\mathrm{d}\omega = 0\).

@@ -51,12 +51,11 @@
 \end{notation}
 
 
-\begin{proposition}
+\begin{proposition}\label{prop:injective-characterization-hom}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
-  \begin{itemize}
-    \item An object \(I \in \category{C}\) is \hyperref[def:injective-projective-object]{injective} if and only if the functor \(\Hom_{\category{C}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
-    \item An object \(P \in \category{C}\) is \hyperref[def:injective-projective-object]{projective} if and only if the functor \(\Hom_{\category{C}}(P, -)\) is \hyperref[def:exact-functor]{exact}.
-  \end{itemize}
+  An object \(I \in \category{C}\) is \hyperref[def:injective-projective-object]{injective} if and only if the functor \(\Hom_{\category{C}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
+
+  Dually, an object \(P \in \category{C}\) is \hyperref[def:injective-projective-object]{projective} if and only if the functor \(\Hom_{\category{C}}(P, -)\) is \hyperref[def:exact-functor]{exact}.
 \end{proposition}
 \begin{proof}
   By \autoref{ex:hom-left-exact} we only need to check \hyperref[def:exact-functor]{right exactness}.
@@ -99,16 +98,68 @@
           which is \hyperref[def:exact-sequence]{exact} since \(\Hom(-, I)\) is \hyperref[def:exact-functor]{exact}.
           In particular we have that \(f^{\ast}\) is surjective.
 
-          Therefore if \(\gamma\colon X \to I\) is any morphism there exists \(\beta \in \Hom(X, I)\) such that \(\gamma = \beta \circ f\), which is exactly the universal property of \hyperref[def:injective-projective-object]{injective objects}.
+          Therefore if \(\gamma\colon X \to I\) is any morphism there exists \(\beta \in \Hom(X, I)\) such that \(\gamma = \beta \circ f\), which is exactly the universal property of \hyperref[def:injective-projective-object]{injective objects}. \qedhere
   \end{itemize}
 \end{proof}
 
-\begin{definition} \label{def:enough-injectives-projectives}~
-  Let \(\category{C}\) be a \hyperref[def:category]{category}. We say that:
-  \begin{itemize}
-    \item \(\category{C}\) has \textbf{enough injectives} if for every object \(X \in \category{X}\) there exists an \hyperref[def:injective-projective-object]{injective object} \(I \in \mathcal{I}_{\category{C}}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow I\).
-    \item \(\category{C}\) has \textbf{enough projectives} if for every object \(X \in \category{A}\) there exists a \hyperref[def:injective-projective-object]{projective object} \(P \in \mathcal{P}_{\category{C}}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow X\).
-  \end{itemize}
+\begin{lemma}\label{lemma:first-term-injective-splits}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) \hyperref[def:injective-projective-object]{injective}.
+  Then the \hyperref[prop:split-exact-sequence]{sequence splits}.
+\end{lemma}
+\begin{proof}
+  By \hyperref[def:injective-projective-object]{definition} taking \(k = \id_{X}\) there exists \(h: Y \to X\) such that \(k \circ f = \id_{X}\).
+  Then we just need to apply \autoref{prop:split-exact-sequence}.
+\end{proof}
+
+\begin{remark}
+  If \(F\colon \category{C} \to \category{D}\) is an \hyperref[def:additive-functor]{additive functor} between \hyperref[def:abelian-category]{abelian categories} and the hypothesis of \autoref{lemma:first-term-injective-splits} are satisfied the sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  \hyperref[prop:split-exact-sequence]{splits} and in particular it is \hyperref[def:exact-sequence]{exact}.
+\end{remark}
+
+\begin{lemma}\label{lemma:direct-sum-injective}
+  Let \(X, Z \in \category{C}\). Then \(X \oplus Z\) is \hyperref[def:injective-projective-object]{injective} if and only if \(X, Z\) are \hyperref[def:injective-projective-object]{injective}.
+\end{lemma}
+\begin{proof}
+  This follows from the fact that if \(F, G\) are two \hyperref[def:additive-functor]{additive functors} between \hyperref[def:abelian-category]{abelian categories} then \(F \oplus G\) is \hyperref[def:exact-functor]{exact} if and only if \(F\) and \(G\) are \hyperref[def:exact-functor]{exact} and \(\Hom(-, I \oplus J) \cong \Hom(-, I) \oplus \Hom(-, J)\).
+\end{proof}
+
+\begin{proposition}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) and \(Z\) \hyperref[def:injective-projective-object]{injective}.
+  Then \(Y\) is \hyperref[def:injective-projective-object]{injective}.
+\end{proposition}
+\begin{proof}
+  By \autoref{lemma:first-term-injective-splits} since \(X\) is \hyperref[def:injective-projective-object]{injective} the sequence \hyperref[def:split-exact-sequence]{splits}.
+    Therefore the sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to
+    \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & X \oplus Z \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Finally since \(X\) and \(Z\) are \hyperref[def:injective-projective-object]{injective} by \autoref{lemma:direct-sum-injective} \(X \oplus Z \cong Y\) is \hyperref[def:injective-projective-object]{injective}.
+\end{proof}
+
+
+\begin{definition}\label{def:enough-injectives-projectives}~
+  A \hyperref[def:category]{category} has \textbf{enough injectives} if for every object \(X \in \category{X}\) there exists an \hyperref[def:injective-projective-object]{injective object} \(I \in \mathcal{I}_{\category{C}}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow I\).
+
+  Dually, \(\category{C}\) has \textbf{enough projectives} if for every object \(X \in \category{A}\) there exists a \hyperref[def:injective-projective-object]{projective object} \(P \in \mathcal{P}_{\category{C}}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow X\).
 \end{definition}
 
 \begin{theorem}\label{thm:existence-injective-resolution}
@@ -158,44 +209,492 @@
   is \hyperref[def:exact-sequence]{exact} and induction follows.
 \end{proof}
 
+\begin{theorem}\label{thm:existence-of-lifting}
+  Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
+  Let \(X \xrightarrow{\varepsilon} I^{\bullet}, Y \xrightarrow{\eta} J^{\bullet}\) be two \hyperref[def:resolution]{right-resolutions} of \(X, Y \in \category{C}\).
+
+  If \(J^{\bullet}\) is made of \hyperref[def:injective-projective-objects]{injectives} then any morphism \(f\colon X \to Y\) can be extended to a morphism \(f^{\bullet}\colon I^{\bullet} \to J^{\bullet}\) in the sense that \(\eta \circ f^{0} = f \circ \varepsilon\).
+  Furthermore this extension is unique up to \hyperref[def:homotopy]{homotopy}.
+
+  We call \(f^{\bullet}\) a \textbf{lifting} of \(f\).
+\end{theorem}
+\begin{proof}
+  We will first prove existence by constructing \(f^{\bullet}\). We will do it by induction.
+
+  For the base case \(n = 0\) we have:
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, tail, "\varepsilon"] \arrow[d, "f"'] & I^{0} \\
+      Y \arrow[r, tail, "\eta"'] & J^{0}
+    \end{tikzcd}
+  \end{center}
+  Since \(\varepsilon\) is a \hyperref[def:mono-epi-morphism]{monomorphism} and \(J^{0}\) is \hyperref[def:injective-projective-object]{injective} there exists a unique \(f^{0}\colon I^{0} \to J^{0}\) making the diagram commute:
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, tail, "\varepsilon"] \arrow[d, "f"'] & I^{0} \arrow[d, dotted, "f^{0}"] \\
+      Y \arrow[r, tail, "\eta"'] & J^{0}
+    \end{tikzcd}
+  \end{center}
+
+  Suppose now that we have constructed \(f^{i}\colon I^{i} \to J^{i}\) for \(i \in \{0, \ldots, n\}\) making the following diagram commute:
+   \begin{center}
+    \begin{tikzcd}
+      X \arrow[r, tail, "\varepsilon"] \arrow[d, "f"'] & I^{0} \arrow[d, "f^{0}"'] \arrow[r, "\d_{I}^{0}"] & \cdots \arrow[r] & I^{n-1} \arrow[r, "\d_{I}^{n-1}"] \arrow[d, "f^{n-1}"'] & I^{n} \arrow[d, "f^{n}"'] \arrow[r, "\d_{I}^{n}"] & I^{n+1} \\
+      Y \arrow[r, tail, "\eta"'] & J^{0} \arrow[r, "\d_{J}^{0}"'] & \cdots \arrow[r] & J^{n-1} \arrow[r, "\d_{J}^{n-1}"'] & J^{n} \arrow[r, "\d_{J}^{n}"'] & J^{n+1}
+    \end{tikzcd}
+  \end{center}
+
+  Consider \(g \coloneq \d_{J}^{n} \circ f^{n}\colon I^{n} \to J^{n+1}\).
+  Since \(\d_{I}^{n-1} \circ f^{n} = f^{n-1} \circ d_{J}^{n-1}\) and \(\d_{J}^{n-1} \circ \d_{J}^{n} = 0\) we have that \(g\) vanishes on \(\operatorname{Im} \d_{I}^{n-1}\).
+  Therefore \(g\) induces a morphism
+  \begin{equation*}
+    \quot{I^{n}}{\operatorname{Im} \d_{I}^{n-1}} \to J^{n+1}
+  \end{equation*}
+  Since \(I^{\bullet}\) is \hyperref[def:exact-sequence]{exact} we have \(\quot{I^{n}}{\operatorname{Im} \d_{I}^{n-1}} \cong \operatorname{Im} \d_{I}^{n} \subseteq I^{n+1}\).
+  Therefore since \(J^{n+1}\) is \hyperref[def:injective-projective-object]{injective} the map \(\operatorname{Im} \d_{I}^{n-1} \to J^{n+1}\) can be extended to the whole \(I^{n+1}\) giving a morphism \(f^{n+1}\colon I^{n+1} \to J^{n+1}\).
+  Diagramatically:
+  \begin{center}
+    \begin{tikzcd}
+      I^{n-1} \arrow[r, "\d_{I}^{n-1}"] \arrow[dd, "f^{n-1}"'] & I^{n} \arrow[rr, "\d_{I}^{n}"] \arrow[dr, "p"', two heads] \arrow[dd, "f^{n}"'] & & I^{n+1} \arrow[dd, "f^{n+1}", dotted] \\
+      & & \text{Im} \d_{I}^{n} \arrow[ur, "i"', hook] \arrow[dr, dotted] & \\
+      J^{n-1} \arrow[r, "\d_{J}^{n-1}"'] & J^{n} \arrow[rr, "\d_{J}^{n}"'] & & J^{n+1}
+    \end{tikzcd}
+  \end{center}
+  This completes the existence part of the proof.
+
+  To see uniqueness, suppose that we have two liftings \(f^{\bullet}, g^{\bullet}\colon I^{\bullet} \to J^{\bullet}\) of \(f\).
+  We want to find an \hyperref[def:homotopy]{homotopy} \(h^{n}\colon I^{n} \to J^{n-1}\) such that for all \(n \in \mathbb{N}\)
+  \begin{equation*}
+    \phi^{n} \coloneq f^{n} - g^{n} = \d_{J}^{n-1} \circ h^{n} + h^{n+1} \circ \d_{I}^{n}
+  \end{equation*}
+  Again, we will do this by induction over \(n\).
+  
+  For the base case \(n = 1\) note that \(\phi^{-1} = f - f = 0\) (since both \(f^{\bullet}\) and \(g^{\bullet}\) are liftings of \(f\)).
+  Therefore
+  \begin{equation*}
+    \phi^{0} \circ \varepsilon = \eta \circ (f - f) = 0
+  \end{equation*}
+  Since \(\phi^{0} \circ \varepsilon = 0\) we have that \(\phi^{0}\) factors through \(\coker \varepsilon_{1} \cong \operatorname{Im} \d_{I}^{0}\).
+  Using that \(J^{0}\) is \hyperref[def:injective-projective-object]{injective} we can construct \(h^{1}\colon I^{1} \to J^{0}\) such that \(h^{1} \circ \d_{I}^{0} = \phi^{0}\).
+
+  Assume now that we have constructed \(h^{i}\colon I^{i} \to J^{i-1}\) for \(i \in \{1, \ldots, n\}\).
+  We want to construct \(h^{n+1}\colon I^{n+1} \to J^{n}\) such that
+  \begin{equation*}
+    \psi \coloneq \phi^{n} - \d_{J}^{n-1} \circ h^{n} = h^{n+1} \circ \d_{I}^{n}
+  \end{equation*}
+  Note that
+  \begin{align*}
+    \psi \circ \d_{I}^{n-1} &= \phi^{n} \circ \d_{I}^{n-1} - \d_{J}^{n-1} \circ h^{n} \circ \d_{I}^{n-1} \\
+                     &= \phi^{n} \circ \d_{I}^{n-1} - \d_{J}^{n-1} \circ \left( \phi^{n-1} - \d_{J}^{n-2} \circ h^{n-1} \right) \\
+                     &= \left( \phi^{n} \circ \d_{I}^{n-1} - \d_{J}^{n-1} \circ \phi^{n-1} \right) + \left( \d_{J}^{n-1} \circ \d_{J}^{n-2} \right) \circ h^{n-1} \\
+                     &= 0
+  \end{align*}
+  Therefore \(\psi\) vanishes on \(\operatorname{Im} \d_{I}^{n-1}\) and thus it factors through \(\quot{I^{n}}{\operatorname{Im} \d_{I}^{n-1}} \cong \operatorname{Im} \d_{I}^{n} \subseteq I^{n+1}\).
+  Using that \(J^{n}\) is \hyperref[def:injective-projective-object]{injective} this map extends to \(h^{n+1}\colon I^{n+1} \to J^{n}\).
+\end{proof}
+
+\begin{corollary}
+  Let \(I^{\bullet}, J^{\bullet}\) be two \hyperref[def:resolution]{injective resolutions} of an object \(X \in \category{C}\).
+  Then
+  \begin{equation*}
+    \cohomology{\bullet}(I^{\bullet}) \cong \cohomology{\bullet}(J^{\bullet})
+  \end{equation*}
+\end{corollary}
+\begin{proof}
+  Taking \(\id_{X}\) in \autoref{thm:existence-of-lifting} we get that \(I^{\bullet}\) and \(J^{\bullet}\) are \hyperref[def:homotopy]{homotopic}.
+  Therefore the result follows from \autoref{cor:homotopy-preserves-cohomology}.
+\end{proof}
+
+\begin{theorem}[Horseshoe lemma]\label{thm:horseshoe}
+  Consider a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] \\
+      0 \arrow[r] & X \arrow[r, tail] \arrow[d] & I^{0} \arrow[r] & I^{1} \arrow[r] & \cdots \\
+      0 \arrow[r] & Y \arrow[d] \\
+      0 \arrow[r] & Z \arrow[r, tail] \arrow[d] & J^{0} \arrow[r] & J^{1} \arrow[r] & \cdots \\
+      & 0
+    \end{tikzcd}
+  \end{center}
+  where the column is \hyperref[def:exact-sequence]{exact} and the rows are \hyperref[def:resolution]{injective resolutions}.
+  Then \(I^{\bullet} \oplus J^{\bullet}\) is an \hyperref[def:resolution]{injective resolution} of \(Y\) and the left-hand column lifts to an \hyperref[def:exact-sequence]{exact sequence} of \hyperref[def:complex]{complexes}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & I^{\bullet} \arrow[r, "\iota"] & I^{\bullet} \oplus J^{\bullet} \arrow[r, "\pi"] & J^{\bullet} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  where \(\iota^{n}\colon I^{n} \monoarrow I^{n} \oplus J^{n}\) and \(\pi^{n}\colon I^{n} \oplus J^{n} \epiarrow J^{n}\) are the natural inclussion and projection respectively.
+  Diagramatically
+  \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] & 0 \arrow[d, dashed] & 0 \arrow[d, dashed] \\
+      0 \arrow[r] & X \arrow[r, tail] \arrow[d] & I^{0} \arrow[r] \arrow[d, dashed, tail] & I^{1} \arrow[r] \arrow[d, dashed, tail] & \cdots \\
+      0 \arrow[r] & Y \arrow[d] \arrow[r, dotted] & I^{0} \oplus J^{0} \arrow[r, dotted] \arrow[d, dashed, two heads] & I^{1} \oplus J^{1} \arrow[r, dotted] \arrow[d, dashed, two heads] & \cdots \\
+      0 \arrow[r] & Z \arrow[r, tail] \arrow[d] & J^{0} \arrow[r] \arrow[d, dashed] & J^{1} \arrow[r] \arrow[d, dashed] & \cdots \\
+      & 0 & 0 & 0
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  We will do it by induction over \(n\).
+  Note that for all \(n \in \mathbb{N}\) by \autoref{lemma:direct-sum-injective} \(I^{n} \oplus J^{n}\) is \hyperref[def:injective-projective-object]{injective}.
+
+  For the base case \(n = 0\) we have
+  \begin{center}
+    \begin{tikzcd}
+      & 0 \arrow[d] & 0 \arrow[d] \\
+      0 \arrow[r] & X \arrow[r, tail, "\varepsilon_{X}"] \arrow[d, tail, "f"'] & I^{0} \arrow[d, tail, "\iota^{0}"] \\
+      0 \arrow[r] & Y \arrow[d, two heads, "g"'] \arrow[ur, dashed, "\phi"] \arrow[r, dotted, "\varepsilon_{Y}"'] & I^{0} \oplus J^{0} \arrow[d, two heads, "\pi^{0}"] \\
+      0 \arrow[r] & Z \arrow[r, tail, "\varepsilon_{Z}"'] \arrow[d] & J^{0} \arrow[d] \\
+      & 0 & 0
+    \end{tikzcd}
+  \end{center}
+  Since \(I^{0}\) is \hyperref[def:injective-projective-object]{injective} and \(f\colon X \monoarrow B\) is a \hyperref[def:mono-epi-morphism]{monomorphism} there exists a morphism \(\phi: Y \to I^{0}\) such that \(\phi \circ f = \varepsilon_{X}\).
+  Define
+  \begin{align*}
+    \varepsilon_{Y}\colon& Y \to I^{0} \oplus J^{0}\\
+           & y \mapsto (\phi, \varepsilon_{Z} \circ g)(y)
+  \end{align*}
+  Let's see that the top and bottom square commute.
+  
+  For the top one, let \(x \in X\).
+  On the one hand \(\left( \iota^{0} \circ \varepsilon_{X} \right)(x) = (\varepsilon(x), 0)\).
+  On the other using that \(\phi \circ f = \varepsilon_{X}\) and \(g \circ f = 0\) we have
+  \begin{equation*}
+    \left( \varepsilon_{Y} \circ f \right)(x) = \left( \phi \circ f ,  \varepsilon_{Z} \circ g \circ f \right)(y) = \left( \varepsilon(x), 0 \right)
+  \end{equation*}
+  Now, to see the commutativity of the bottom square note that for all \(y \in Y\)
+  \begin{equation*}
+    \left( \pi^{0} \circ \varepsilon_{Y} \right)(y) = \left( \varepsilon_{Z} \circ g \right)(y)
+  \end{equation*}
+  It only remains to see that \(\varepsilon_{Y}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+  Suppose that \(\varepsilon_{Y}(y) = 0\). Then \(\phi(y) = 0\) and \(\left( \varepsilon_{Z} \circ g \right)(y) = 0\).
+  Since \(\varepsilon_{Z}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} \(g(y) = 0\).
+  Because \(\ker g = \im f\) there exists \(x \in X\) such that \(f(x) = y\).
+  Then \(\left( \phi \circ f \right)(x) = \varepsilon_{X}(x) = 0\).
+  Using that \(\varepsilon_{X}\) is a \hyperref[def:mono-epi-morphism]{monomorphism} \(x = 0\), which means that \(y = f(0) = 0\) and thus \(\varepsilon_{Y}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
+
+  This completes the base case.
+
+  We have the following diagram:
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "f"] \arrow[d, tail, "\varepsilon_{X}"] & Y \arrow[r, "g"] \arrow[d, tail, "\varepsilon_{X}"] & Z \arrow[r] \arrow[d, tail, "\varepsilon_{X}"] & 0 \\
+      0 \arrow[r] & I^{0} \arrow[r, "\iota^{0}"] & I^{0} \oplus J^{0} \arrow[r, "\pi^{0}"] & J^{0} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Since the vertical maps are \hyperref[def:mono-epi-morphism]{monomorphisms} their \hyperref[def:categorical-kernel]{kernels} are 0.
+  If we denote by \(X^{1}, Y^{1}\) and \(Z^{1}\) their \hyperref[def:categorical-cokernel]{cokernels} by the \hyperref[lemma:snake-lemma]{Snake lemma} we get a \hyperref[exact-sequence]{short exact sequence}:
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X^{1} \arrow[r] & Y^{1} \arrow[r] & Z^{1} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Furthermore the shifted \hyperref[def:complex]{complexes} \(I^{\geq 1}\) and \(J^{\geq 1}\) are \hyperref[def:resolution]{injective resolutions} of \(X^{1}\) and \(Z^{1}\) respectively.
+  Therefore we are in the exact same situation as in the base case and by induction we can construct \(I^{n} \oplus J^{n}\) and \hyperref[exact-sequence]{short exact sequences}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X^{n} \arrow[r] & Y^{n} \arrow[r] & Z^{n} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  for all \(n \geq 0\).
+
+  To finish the proof we need to define differentials \(\d_{Y}^{n}: I^{n} \oplus J^{n} \to I^{n+1} \oplus J^{n+1}\).
+  We define these as by composing the quotient map \(I^{n} \oplus J^{n} \to Y^{n+1}\) with the \hyperref[def:mono-epi-morphism]{monomorphism} \(Y^{n+1} \monoarrow I^{n+1} \oplus J^{n+1}\) constructed in the inductive step.
+  In matrix form
+  \begin{equation*}
+    \d_{Y}^{n} \coloneq \begin{pmatrix}
+      \d_{X}^{n} & \delta^{n} \\
+      0 & \d_{Z}^{n}
+    \end{pmatrix}
+  \end{equation*}
+  where \(\d_{X}\) and \(\d_{Z}\) are the differentials of the resolutions \(I^{\bullet}\) and \(J^{\bullet}\) and \(\delta^{n}\) is the connecting morphism from the \hyperref[lemma:snake-lemma]{Snake lemma}.
+  By construction we have \(\ker \d_{Y}^{n} = \operatorname{Im} \d_{Y}^{n-1}\), making \(I^{\bullet} \oplus J^{\bullet}\) exact.
+\end{proof}
+
+\begin{remark}
+  In the proof of \autoref{thm:horseshoe} we have made implicit use of the \hyperref[thm:freyd-mitchell]{Freyd-Mitchell embedding theorem}.
+  A diagramatic proof of (the dual of) this result can be seen at \cite[Lemma 2.8.8]{weibelIntroductionHomologicalAlgebra1994}.
+\end{remark}
+
+\begin{proposition}\label{prop:adjoints-and-injectives}
+  Let \(R\colon \category{D} \to \category{C}\) be a \hyperref[def:additive-functor]{additive functor} that is \hyperref[def:adjoint-functors]{right adjoint} to an \hyperref[def:exact-functor]{exact functor} \(L\colon \category{C} \to \category{D}\).
+  If \(I \in \category{D}\) is an \hyperref[def:injective-projective-object]{injective object} then \(R(I)\) is also \hyperref[def:injective-projective-object]{injective}.
+  
+  Dually, if \(L\colon \category{C} \to \category{D}\) is an \hyperref[def:additive-functor]{additive functor} that is \hyperref[def:adjoint-functors]{left adjoint} to an \hyperref[def:exact-functor]{exact functor} \(R\colon \category{D} \to \category{C}\) and \(P \in \category{C}\) is a \hyperref[def:injective-projective-object]{projective object} then \(L(P)\) is also \hyperref[def:injective-projective-object]{projective}.
+\end{proposition}
+\begin{proof}
+  By \autoref{prop:injective-characterization-hom} we want to show that \(\Hom_{\category{C}}(-, R(I))\) is \hyperref[def:exact-functor]{exact}.
+  
+  Given a \hyperref[def:mono-epi-morphism]{monomorphism} \(f\colon X \to Y\) in \(\category{C}\) we have
+  \begin{center}
+    \begin{tikzcd}
+      \Hom_{\category{D}}(L(Y), I) \arrow[d, "\sim"'] \arrow[r, "Lf^{\ast}"] & \Hom_{\category{D}}(L(A), I) \arrow[d, "\sim"] \\
+      \Hom_{\category{C}}(Y, R(I)) \arrow[r, "f^{\ast}"'] & \Hom_{\category{C}}(A, R(I))
+    \end{tikzcd}
+  \end{center}
+  Since \(L\) is \hyperref[def:exact-functor]{exact} and \(I\) is \hyperref[def:injective-projective-object]{injective} \(Lf^{\ast}\) is surjective.
+\end{proof}
+
+
 \section{Derived functors}
 In this section \(\category{C}\) and \(\category{D}\) will be \hyperref[def:abelian-category]{abelian categories}, which we will assume that \hyperref[def:enough-injectives-projectives]{have enough injectives}.
 
-We will consider \hyperref[def:exact-functor]{left-exact functor} \(F\colon \category{C} \to \category{D}\), but there are dual definitions and statements for \hyperref[def:exact-functor]{right-exact functors}.
+We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \category{C} \to \category{D}\), but there are dual definitions and statements for \hyperref[def:exact-functor]{right-exact functors}.
 
-\begin{definition}\label{def:F-acyclic-object}
-  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
-  Let \(F\colon \category{C} \to \category{D}\) be a \hyperref[def:exact-functor]{left-exact functor}.
-  An object \(X \in \category{C}\) is \textbf{\(F\)-acyclic} if for all \hyperref[def:resolution]{injective resolutions} \(X \to I^{\bullet}\) of \(X\) and \(n > 0\) we have
-  \begin{equation*}
-    \cohomology{n}(F(I^{\bullet})) = 0
-  \end{equation*}
-\end{definition}
-
-\begin{example}
-  \hyperref[def:injective-projective-object]{Injective objects} are \hyperref[def:F-acyclic-object]{\(F\)-acyclic} for all \hyperref[def:exact-functor]{left-exact functors} \(F\).
-
-  Indeed, any \hyperref[def:injective-projective-object]{injective object} \(I \in \mathcal{I}_{\category{C}}\) 
-\end{example}
-
-
-\begin{definition}
+\begin{definition}\label{def:right-derived-functor}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
   Let \(F\colon \category{C} \to \category{D}\) be a \hyperref[def:exact-functor]{left-exact functor}.
   We define the \(i\)-th \textbf{right derived functor} of \(F\)
   \begin{equation*}
     \operatorname{R}^{i}F\colon \category{C} \to \category{D}
   \end{equation*}
-  as, for any object \(X \in \category{C}\)
+  as, for any object \(X \in \category{C}\):
   \begin{equation*}
-    \left(\operatorname{R}^{i}F\right)\left(X\right) \coloneq \cohomology{i}(F(Q^{\bullet}))
+    \operatorname{R}^{i}F\left(X\right) \coloneq \cohomology{i}(F(I^{\bullet}))
   \end{equation*}
-  where \(Q^{\bullet}\) is a \hyperref[def:f-acyclic-resolution]{\(F\)-acyclic resolution} of \(X\), and for any morphism \(f: X \to Y\)
+  where \(I^{\bullet}\) is a \hyperref[def:resolution]{injective resolution} of \(X\), and for any morphism \(f\colon X \to Y\)
   \begin{align*}
-    \left(\operatorname{R}^{i}F\right)f
+    \operatorname{R}^{i}Ff \coloneq \cohomology{i}(F f^{\bullet})
   \end{align*}
-
+  where \(f^{\bullet}\) is a \hyperref[thm:existence-of-lifting]{lifting} of \(f\).
 \end{definition}
+
+\begin{remark}
+  Since \(F\) is \hyperref[def:exact-functor]{left exact} the sequence \(0 \to F(X) \to F(I^{0}) \to F(I^{1})\) is \hyperref[def:exact-sequence]{exact}.
+  Therefore we always have
+  \begin{equation*}
+    \operatorname{R}^{0}F(X) \cong F(X)
+  \end{equation*}
+  Furthermore, under this identification if \(f\colon X \to Y\) is a morphism in \(\category{C}\) then
+  \begin{equation*}
+    \operatorname{R}^{0}Ff = Ff
+  \end{equation*}
+\end{remark}
+
+\begin{remark}
+  If \(X \in \category{C}\) is \hyperref[def:injective-projective-object]{injective} then for all \(i > 0\)
+  \begin{equation*}
+    \operatorname{R}^{i}F(X) = 0
+  \end{equation*}
+  Indeed, one can resolve \(X\) by \(0 \to X \to X \to 0\).
+\end{remark}
+
+\begin{proposition}
+  For all \(i \geq 0\) the \hyperref[def:right-derived-functor]{right derived functors} \(\operatorname{R}^{i}F\colon \category{C} \to \category{D}\) are \hyperref[def:additive-functor]{additive}.
+\end{proposition}
+\begin{proof}
+  Let \(f, g\colon X \to Y\) be two morphisms in \(\category{C}\).
+  Clearly, if \(f^{\bullet}\) and \(g^{\bullet}\) are \hyperref[thm:existence-of-lifting]{liftings} of \(f\) and \(g\) respectively then \(f^{\bullet} + g^{\bullet}\) is a \hyperref[thm:existence-of-lifting]{lifting} of \(f + g\).
+  Therefore using that \(F\) and \(\cohomology{i}\) are \hyperref[def:additive-functor]{additive}
+  \begin{equation*}
+    \operatorname{R}^{i}F(f + g) = \cohomology{i}(F(f^{\bullet} + g^{\bullet})) = \cohomology{i} \left( Ff^{\bullet} + Fg^{\bullet} \right) = \cohomology{i}(Ff^{\bullet}) + \cohomology{i}(Fg^{\bullet}) = \operatorname{R}^{i}Ff + \operatorname{R}^{i}Fg
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}\label{thm:LES-derived-functor}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\).
+  There exists a \hyperref[def:exact-sequence]{long exact sequence}:
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & F(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \operatorname{R}^{1}F(X) \arrow[r] &  \operatorname{R}^{1}F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \operatorname{R}^{1}F(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \operatorname{R}^{2}F(X) \arrow[r] & \operatorname{R}^{2}F(Y) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  Choose \hyperref[def:resolution]{injective resolutions} \(I^{\bullet}\) and \(J^{\bullet}\) of \(X\) and \(Z\) respectively.
+  By the \hyperref[thm:horseshoe]{Horseshoe lemma} \(I^{\bullet} \oplus J^{\bullet}\) is an \hyperref[def:resolution]{injective resolution} of \(Y\) and we have a \hyperref[def:exact-sequence]{short exact sequence} of \hyperref[def:injective-projective-object]{injective complexes}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & I^{\bullet} \arrow[r] & I^{\bullet} \oplus J^{\bullet} \arrow[r] & J^{\bullet} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Since \(I^{n}\) is \hyperref[def:injective-projective-object]{injective} by \autoref{lemma:first-term-injective-splits} the sequences
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & I^{n} \arrow[r] & I^{n} \oplus J^{n} \arrow[r] & J^{n} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  \hyperref[prop:split-exact-sequence]{split}.
+  Therefore since \(F\) is \hyperref[def:additive-functor]{additive} we have a \hyperref[def:exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(I^{\bullet}) \arrow[r] & F(I^{\bullet} \oplus J^{\bullet}) \arrow[r] & F(J^{\bullet}) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Writing its corresponding \hyperref[thm:LES-in-cohomology]{long exact sequence in cohomology} we get
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & F(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \operatorname{R}^{1}F(X) \arrow[r] &  \operatorname{R}^{1}F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \operatorname{R}^{1}F(Z) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \operatorname{R}^{2}F(X) \arrow[r] & \operatorname{R}^{2}F(Y) \arrow[r] & \cdots \qedhere
+    \end{tikzcd}
+  \end{center}
+\end{proof}
+
+\begin{definition}\label{def:F-acyclic-object}
+  An object \(Q \in \category{C}\) is \textbf{\(F\)-acyclic} if for all \(i > 0\)
+  \begin{equation*}
+    \operatorname{R}^{i}F(Q) = 0
+  \end{equation*}
+  An \textbf{\(F\)-acyclic resolution} of an object \(X \in \category{C}\) is a \hyperref[def:resolution]{right resolution} \(X \to Q^{\bullet}\) made of \(F\)-acyclic objects.
+\end{definition}
+
+\begin{theorem}\label{thm:right-derived-functor-using-acyclics}
+  Let \(Q^{\bullet}\) be a \hyperref[def:F-acyclic-object]{\(F\)-acylic resolution} of \(X \in \category{C}\).
+  Then for all \(i \geq 0\)
+  \begin{equation*}
+    \operatorname{R}^{i}F(X) \cong \cohomology{i}(F(Q^{\bullet}))
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  Let \(I^{\bullet}\) be an \hyperref[def:resolution]{injective resolution} of \(X\).
+  By \autoref{thm:existence-of-lifting} there exists a morphism \(f^{\bullet}\colon Q^{\bullet} \to I^{\bullet}\) lifting \(\id_{X}\):
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[r] \arrow[d, "\id_{X}"'] & Q^{\bullet} \arrow[d, "f^{\bullet}"] \\
+      X \arrow[r] & I^{\bullet}
+    \end{tikzcd}
+  \end{center}
+  This gives a morphism of complexes \(Ff\colon F(Q^{\bullet}) \to F(I^{\bullet})\), which induces maps on \hyperref[def:cohomology]{cohomology}
+  \begin{equation*}
+    \phi_{i}\colon \cohomology{i}(F(Q^{\bullet})) \to \cohomology{i}(F(I^{\bullet})) = \operatorname{R}^{i}F(X)
+  \end{equation*}
+  for all \(i \geq 0\).
+  We will prove that \(\phi_{i}\) are \hyperref[def:categorical-isomorphism]{isomorphisms} by induction over \(i\).
+
+  For the base case \(i = 0\) since \(F\) is \hyperref[def:exact-functor]{left exact} the sequences \(0 \to F(X) \to F(Q^{0}) \to F(Q^{1})\) and \(0 \to F(X) \to F(I^{0}) \to F(I^{1})\) are \hyperref[def:exact-sequence]{exact}.
+  Therefore
+  \begin{equation*}
+    \cohomology{0}(F(Q^{\bullet})) \cong F(X) \cong \cohomology{0}(F(I^{\bullet}))
+  \end{equation*}
+
+  Suppose now that \(\phi_{i}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} for all \(i \in \{0, \ldots, n\}\).
+  Consider the \hyperref[def:exact-sequence]{short exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Q^{0} \arrow[r] & Z^{1} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  where \(Z^{1} \coloneq \operatorname{Im}(Q^{0} \to Q^{1})\).
+  By \autoref{thm:LES-derived-functor} we have a \hyperref[def:exact-sequence]{long exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Q^{0}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & F(Z^{1}) \arrow[dll, rounded corners, "\delta^{0}" description, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \operatorname{R}^{1}F(X) \arrow[r] &  \operatorname{R}^{1}F(Q^{0}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \operatorname{R}^{1}F(Z^{1}) \arrow[dll, rounded corners, "\delta^{1}" description, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \operatorname{R}^{2}F(X) \arrow[r] & \operatorname{R}^{2}F(Q^{0}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  Since \(Q^{0}\) is \hyperref[def:F-acylic-object]{\(F\)-acyclic} for all \(i > 0\) we get an \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \cohomology{i+1}(F(X)) = \operatorname{R}^{i+1}F(X) \cong \operatorname{R}^{i}F(Z^{1}) = \cohomology{i}(F(Z^{1}))
+  \end{equation*}
+
+  On the other hand, the truncated complex
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & Z^{1} \arrow[r] & Q^{1} \arrow[r] & Q^{2} \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  is an \hyperref[def:F-acyclic-object]{\(F\)-acyclic resolution} of \(Z^{1}\).
+  Applying the induction hypothesis for all \(j \in \{1, \ldots, n\}\) we have
+  \begin{equation*}
+    \operatorname{R}^{j}F(Z^{1}) \cong \cohomology{j}(F(Q^{\bullet, \geq 1})) = \cohomology{j+1}(F(Q^{\bullet}))
+  \end{equation*}
+  In particular for \(j = n\) combining the two \hyperref[def:categorical-isomorphism]{isomorphisms}
+  \begin{equation*}
+    \operatorname{R}^{n+1}F(X) \cong \cohomology{n+1}F(Q^{\bullet})
+  \end{equation*}
+
+  It remains to check the case where \(i = 1\).
+  From the \hyperref[def:exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & Z^{1} \arrow[r] & Q^{1} \arrow[r] & Z^{2} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  where \(Z^{2} \coloneq \operatorname{Im} \left( Q^{1} \to Q^{2} \right)\) using that \(F\) is \hyperref[def:exact-functor]{left exact} we get
+  \begin{equation*}
+    F(Z^{1}) \cong \ker \left( F(Q^{1}) \to F(Q^{2}) \right)
+  \end{equation*}
+  Therefore using the \hyperref[def:exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      F(Q^{0}) \arrow[r] & F(Z^{1}) \arrow[r] & \operatorname{R}^{1}F(X) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  we have
+  \begin{align*}
+    \operatorname{R}^{1}F(X) &\cong \quot{F(Z^{1})}{\operatorname{Im} \left( F(Q^{0}) \to F(Q^{1}) \right)} \\
+                             &\cong \quot{\ker \left( F(Q^{1}) \to F(Q^{2}) \right)}{\operatorname{Im} \left( F(Q^{0}) \to F(Q^{1}) \right)} \\
+                             &= \cohomology{1}F(Q^{\bullet}) \qedhere
+  \end{align*}
+\end{proof}
+
+\begin{theorem}\label{thm:derived-functor-composition}
+  Let \(F\colon \category{C} \to \category{D}\) and \(G\colon \category{D} \to \category{E}\) be two \hyperref[def:exact-functor]{left exact} functors of \hyperref[def:abelian-category]{abelian categories}.
+  Suppose that \(\category{C}\) and \(\category{D}\) \hyperref[def:enough-injectives-projectives]{have enough injectives}.
+  \begin{enumerate}
+    \item If \(G\) is \hyperref[def:exact-functor]{exact} then \(\operatorname{R}^{i}(G \circ F) \cong G \circ \operatorname{R}^{i}F\).
+    \item If \(F\) is \hyperref[def:exact-functor]{exact} then there is a natural morphism \(\operatorname{R}^{i}(G \circ F) \to \operatorname{R}^{i}G \circ F\).
+    \item Let \(X \in \category{C}\) be \hyperref[def:F-acyclic-object]{\(F\)-acyclic} and suppose that \(F\) sends \hyperref[def:injective-projective-object]{injective objects} to \hyperref[def:F-acyclic-object]{\(G\)-acyclic} ones.
+          Then \(\operatorname{R}^{i}(G \circ F)(X) \cong (\operatorname{R}^{i}G)(F(X))\).
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  For \(X \in \category{C}\) let \(X \xrightarrow{\text{q.is}} I^{\bullet}\) be an \hyperref[def:resolution]{injective resolution} of \(X\).
+  Then
+  \begin{equation*}
+    \operatorname{R}^{i}(G \circ F)(X) = \cohomology{i}\left( (G \circ F)(I^{\bullet}) \right)
+  \end{equation*}
+  \begin{enumerate}
+    \item If \(G\) is \hyperref[def:exact-functor]{exact} then we have an \hyperref[def:categorical-isomorphism]{isomorphism}
+          \begin{equation*}
+            \cohomology{i} \left( (G \circ F)(I^{\bullet}) \right) \cong G(\cohomology{i}(F(I^{\bullet})))
+          \end{equation*}
+    \item Consider an \hyperref[def:resolution]{injective resolution} \(F(X) \xrightarrow{\text{q.is}} J^{\bullet}\) of \(F(X)\).
+          By \autoref{thm:existence-of-lifting} there exists a morphism \(F(I^{\bullet}) \to J^{\bullet}\).
+          Applying \(G\) we get a morphism
+          \begin{equation*}
+            \left( G \circ F \right)(I^{\bullet}) \to G(J^{\bullet})
+          \end{equation*}
+          Therefore since \(\cohomology{i} \left( (G \circ F)(I^{\bullet}) \right) = \operatorname{R}^{i}(G \circ F)(X)\) and \(\cohomology{i}(G(J^{\bullet})) = \operatorname{R}^{i}G(F(X))\) the result follows.
+    \item By hypothesis \(F(I^{\bullet})\) is \hyperref[def:quasi-isomorphism]{quasi-isomorphic} to \(F(X)\).
+          Therefore \((\operatorname{R}^{i}G)(F(X)) \cong \cohomology{i}(G(F(I^{\bullet})))\) by \autoref{thm:right-derived-functor-using-acyclics} and \(\cohomology{i}(G(F(I^{\bullet}))) \cong \operatorname{R}^{i}(G \circ F)(X)\). \qedhere
+  \end{enumerate}
+\end{proof}
 
 
 \end{document}

@@ -10,25 +10,69 @@
 \begin{document}
 \chapter{Cohomology and homotopy}
 
-Our goal in this chapter will be to prove that \hyperref[def:sheaf-cohomology]{sheaf cohomology} of \hyperref[def:constant-sheaf-ox-mod]{locally constant sheaves} are a homotopy invariant.
+Our goal in this chapter will be to prove that \hyperref[def:sheaf-cohomology]{sheaf cohomology} is an homotopy invariant.
+We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
 
-We will denote \(I \coloneq [0, 1]\) the unit interval.
+\begin{notation}
+  We will denote \(I \coloneq [0, 1]\) the unit interval and \(I_{x} \coloneq I \times \{x\}\).
+\end{notation}
 
-\section{Sheaves on the interval \([0, 1]\)}
 
-\begin{lemma}
-  Let \(\sheaf{F} \in \Mod(\underline{R}_{X})\). Then
+\begin{definition}\label{def:continuous-map-over}
+  Let \(X\) and \(Y\) be topological spaces.
+  A map \(f\colon X \to Y\) is continuous over a topological space \(S\) if it is continuous and there exists continuous maps \(p_{X}\colon X \to S\) and \(p_{Y}\colon Y \to S\) making the following diagram commute
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[rr, "f"] \arrow[dr, "p_{X}"'] & & Y \arrow[dl, "p_{Y}"] \\
+      & S
+    \end{tikzcd}
+  \end{center}
+\end{definition}
+
+
+\begin{definition}\label{def:homotopy-over}
+  Let \(X, Y\) and \(S\) be topological spaces.
   \begin{enumerate}
-    \item For \(j > 1\) we have \(\cohomology{j}(I; \sheaf{F}) = 0\).
+    \item Let \(f_{0},f_{1}\colon X \rightrightarrows Y\) be two \hyperref[def:continuous-map-over]{continuous maps over \(S\)}.
+          We say that \(f_{0}\) and \(f_{1}\) are \textbf{homotopic} over \(S\) if there exists a continuous map \(h\colon X \times I \to Y\) over \(S\) such that \(f_{0} = h(-, 0)\) and \(f_{1} = h(-, 1)\).
+          We denote this by \(f_{0} \sim_{S} f_{1}\).
+    \item A \hyperref[def:continuous-map-over]{continuous maps over \(S\)} \(f\colon X \to Y\) is a \textbf{homotopy equivalence} over \(S\) if there exists a \hyperref[def:continuous-map-over]{continuous maps over \(S\)} \(g\colon Y \to X\) such that \(g \circ f \sim_{S} \id_{X}\) and \(f \circ g \sim_{S} \id_{Y}\).
+          In this case we write \(X \sim_{S} Y\).
+    \item A topological space \(Z\) is \textbf{contractible} over \(S\) if the map \(p_{Z}\colon Z \to S\) is a homotopy equivalence.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}
+  If \(S = \{\ast\}\) is the one-point topological space we recover the usual definition of homotopy of topological spaces.
+\end{example}
+
+\begin{remark}
+  If \(f_{0}, f_{1}\colon X \rightrightarrows Y\) are \hyperref[def:homotopy-over]{homotopic over \(S\)} we have a commutative diagram
+  \begin{center}
+    \begin{tikzcd}
+      X \arrow[d, "j_{i}"'] \arrow[dr, "f_{t}"] & \\
+      X \times I \arrow[d, "p"'] \arrow[r, "h"] & Y \arrow[d, "p_{Y}"] \\
+      X \arrow[r, "p_{X}"'] & S
+    \end{tikzcd}
+  \end{center}
+  where \(j_{t}(z) = (z, t)\) for \(t \in \{0, 1\}\).
+\end{remark}
+
+
+\begin{lemma}\label{lemma:vanishing-cohomology-interval}
+  Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{I})\). Then
+  \begin{enumerate}
+    \item For \(i > 1\) we have \(\cohomology{i}(I; \sheaf{F}) = 0\).
     \item If \(\sheaf{F}(I) \to \sheaf{F}_{t}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} for all \(t \in I\) then \(\cohomology{1}(I; \sheaf{F}) = 0\).
   \end{enumerate}
 \end{lemma}
 \begin{proof}
   Let \(j \geq 1\) and \(s \in \cohomology{j}(I; \sheaf{F})\).
+  We want to show that \(s = 0\).
 
   For \(0 \leq t_{1} < t_{2} \leq 1\) consider the morphism
   \begin{equation*}
-    f_{t_{1}, t_{2}}: \cohomology{j}(I; \sheaf{F}) \to \cohomology{j}([t_{1}, t_{2}], \sheaf{F})
+    f_{t_{1}, t_{2}}: \cohomology{i}(I; \sheaf{F}) \to \cohomology{i}([t_{1}, t_{2}]; \sheaf{F}|_{[t_{1}, t_{2}]})
   \end{equation*}
   and let
   \begin{equation*}
@@ -36,60 +80,204 @@ We will denote \(I \coloneq [0, 1]\) the unit interval.
   \end{equation*}
 
   Since \(\cohomology{j}(\{0\}, \sheaf{F}) = 0\) we have that \(0 \in J\).
-  Furthermore since \(f_{0, t}(s) = 0\) implies \(f_{0, t'}(s) = 0\) for \(t' \in [0, t]\), \(J\) is an interval and thus connected.
- 
-  We want to see that \(J\) is both open and closed.
+  Furthermore if \(t \in J\) then for any \(t' \leq t\) the map \(f_{0, t'}\) factors as
+  \begin{center}
+    \begin{tikzcd}
+      \cohomology{i}(I; \sheaf{F}) \arrow[r, "f_{0, t'}"] \arrow[d, "f_{0, t}"'] & \cohomology{i}([0, t']; \sheaf{F}) \\
+      \cohomology{i}([0, t]; \sheaf{F}) \arrow[ur]
+    \end{tikzcd}
+  \end{center}
+  Therefore since \(f_{0, t}(s) = 0\) we have that \(f_{0, t'}(s) = 0\), i.e: \([0, t] \subseteq J\) and thus \(J\) is a sub-interval of \([0, 1]\) starting at 0.
+
+  To prove that \(J = [0, 1]\) we will see that it is both open and closed.
   \begin{itemize}
-    \item[Open] By ... we have that
+    \item[Open] Suppose \(t_{0} \in S\). By \autoref{lemma:cohomology-compact-subsets} we have that
           \begin{equation*}
             \cohomology{j}([0, t_{0}]; \sheaf{F}) \cong \varinjlim_{t > t_{0}} \cohomology{j}([0, t]; \sheaf{F})
           \end{equation*}
-          Therefore \(J\) is open.
-    \item[Closed] For \(t \in [0, t_{0}]\) consider the Mayer-Vietoris sequence
+          Therefore there exists \([0, t_{0} + \varepsilon[\) such that \(f_{0, t}(s) = 0\) for all \(t \in [0, t_{0} + \varepsilon[\), and thus \(J\) is open.
+    \item[Closed] Let \(t_{0} \coloneq \operatorname{sup} J\). We want to see that \(t_{0} \in J\).
+          For \(t \in [0, t_{0}]\) consider the \hyperref[thm:mayer-vietoris-closed]{Mayer-Vietoris sequence} associated with \([0, t_{0}] = [0, t] \cup [t, t_{0}]\):
           \begin{center}
-            \begin{tikzcd}
-              \cdots \arrow[r] & \cohomology{j}([0, t_{0}]; \sheaf{F}) \arrow[r] & \cohomology{j}([0, t]; \sheaf{F}) \oplus \cohomology{j}([t, t_{0}]; \sheaf{F}) \arrow[r] & \cohomology{j}(\{t\}, \sheaf{F}) \arrow[r] & \cdots
+            \begin{tikzcd}[column sep=small]
+              \cdots \arrow[r] & \cohomology{i}([0, t_{0}]; \sheaf{F}) \arrow[r] & \cohomology{i}([0, t]; \sheaf{F}) \oplus \cohomology{i}([t, t_{0}]; \sheaf{F}) \arrow[r] & \cohomology{i}(\{t\}, \sheaf{F}) \arrow[r] & \cdots
             \end{tikzcd}
           \end{center}
-          For \(j > 1\) or for \(j = 1\) and assuming that \(\cohomology{0}(I; \sheaf{F}) \epiarrow \cohomology{0}(\{t\}, \sheaf{F})\) is surjective we get
+          If \(i > 1\) then since \(\cohomology{i}(\{t\}; \sheaf{F}) = \cohomology{i-1}(\{t\}; \sheaf{F}) = 0\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
           \begin{equation*}
-            \cohomology{j}([0, t_{0}], \sheaf{F}) \cong \cohomology{j}([0, t]; \sheaf{F}) \oplus \cohomology{j}([t, t_{0}]; \sheaf{F})
+            \cohomology{i}([0, t_{0}]; \sheaf{F}) \cong \cohomology{i}([0, t]; \sheaf{F}) \oplus \cohomology{i}([t, t_{0}]; \sheaf{F})
           \end{equation*}
-          Let \(t_{0} = \sup \{t \mid t \in J\}\).
-          Then \(f_{0, t}(s) = 0\) for all \(t < t_{0}\).
-          On the other hand by ...
+          Similarly, if \(\sheaf{F}(I) \epiarrow \sheaf{F}_{t}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} we have
+          \begin{center}
+            \begin{tikzcd}[column sep=small]
+              \cohomology{0}([0, t_{0}]; \sheaf{F}) \arrow[r, two heads] & \cohomology{0}(\{t\}; \sheaf{F}) \arrow[r] & \cohomology{1}([0, t_{0}]; \sheaf{F}) \arrow[r, "\sim"] &  \cohomology{1}([0, t]; \sheaf{F}) \oplus \cohomology{1}([t, t_{0}]; \sheaf{F})
+            \end{tikzcd}
+          \end{center}
+
+          In both cases for \(f_{0, t_{0}}(s)\) to be zero it suffices for its components in \(\cohomology{i}([0, t]; \sheaf{F})\) and \(\cohomology{i}([t, t_{0}]; \sheaf{F})\) to vanish.
+
+          On the one hand since \(t < t_{0} = \operatorname{sup} J\) we can choose \(t \in J\), so \(f_{0, t}(s) = 0\).
+          On the other by \autoref{lemma:cohomology-compact-subsets} we have
           \begin{equation*}
-            \varinjlim_{t < t_{0}} \cohomology{j}([t, t_{0}], \sheaf{F}) \cong \cohomology{j}(\{t_{0}\}; \sheaf{F}) = 0
+            \varinjlim_{t < t_{0}} \cohomology{i}([t, t_{0}]; \sheaf{F}) \cong \cohomology{i}(\{t_{0}\}; \sheaf{F}) = 0
           \end{equation*}
-          Therefore there exists \(t < t_{0}\) with \(f_{t, t_{0}}(s) = 0\) which implies \(f_{0, t_{0}}(s) = 0\) meaning that \(t_{0} \in J\).
+          Therefore \(f_{0, t_{0}}(s) = 0\) and thus \(t_{0} \in J\).
   \end{itemize}
+
+  Since \(J\) is non-empty, open and closed and \([0, 1]\) is connected necessarily \(J = [0, 1]\).
+  Therefore \(s = f_{0, 1}(s) = 0\).
 \end{proof}
 
-\newpage
+\begin{lemma}\label{lemma:induced-map-over}
+  Let \(f\colon X \to Y\) be a \hyperref[def:continuous-map-over]{continuous map} over \(S\).
 
-\section{Invariance by homotopy}
+  For all \(i \geq 0\) there exists a \hyperref[def:natural-transformation]{natural transformation}
+  \begin{equation*}
+    f^{\#, i} \coloneq \operatorname{R}^{i}p_{Y, \ast} \circ p_{Y}^{-1} \to \operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1}
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\) be a \hyperref[def:sheaf]{sheaf} over \(S\).
 
-\begin{definition}\label{def:homotopy-topological-spaces}
-  Let \(X, Y\) be two topological spaces
-  \begin{itemize}
-    \item Two continuous maps \(f_{0}, f_{1}: X \rightrightarrows Y\) are \textbf{homotopic} if there exists a continuous map \(h: I \times X \to Y\) such that, for all \(x \in X\)
-          \begin{equation*}
-            f_{0}(x) = h(0, x) \quad f_{1}(x) = h(1, x)
-          \end{equation*}
-        We denote this by \(f_{0} \simeq f_{1}\).
-    \item A continuous map \(f: X \to Y\) is a \textbf{homotopy equivalence} if there exists a continuous map \(g: Y \to X\) such that
-          \begin{equation*}
-            g \circ f \simeq \operatorname{id}_{X} \quad f \circ g = \operatorname{id}_{Y}
-          \end{equation*}
-          In this case we say that \(X\) and \(Y\) are \textbf{homotopic} and denote it by \(X \simeq Y\).
-    \item A topological space \(Z\) is \textbf{contractible} if \(Z \simeq \{\ast\}\).
-  \end{itemize}
-\end{definition}
+  Consider an \hyperref[def:resolution]{injective resolution} \(p_{Y}^{-1}(\sheaf{F}) \to \sheaf{I}^{\bullet}\) of the \hyperref[def:inverse-image-sheaf]{inverse image} \(p_{Y}^{-1}(\sheaf{F}) \in \Mod(\underline{\mathbf{k}}_{Y})\)
+  Using the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction-sheaf]{\(f_{\ast} \dashv f^{-1}\)} we get a natural map of \hyperref[def:complex]{complexes} in \(Y\)
+  \begin{equation*}
+    \sheaf{I}^{\bullet} \to \left( f_{\ast} \circ f^{-1} \right) \left( \sheaf{I}^{\bullet} \right)
+  \end{equation*}
+  Applying the \hyperref[def:direct-image-sheaf]{direct image} \(p_{Y, \ast}\) to this, since \(p_{Y} \circ f = p_{X}\) we get a \hyperref[def:complex]{morphism of complexes} in \(S\)
+   \begin{equation*}
+    p_{Y, \ast}(\sheaf{I}^{\bullet}) \to \left( p_{X, \ast} \circ f^{-1} \right) \left( \sheaf{I}^{\bullet} \right)
+  \end{equation*}
+  Note that, since \hyperref[cor:inverse-image-sheaf-exact]{\(f^{-1}\) is exact}, \(f^{-1}(\sheaf{I}^{\bullet})\) is an \hyperref[def:exact-sequence]{exact resolution} of \(p_{X}^{-1}(\sheaf{F})\).
+  However, it need to be made of \hyperref[def:injective-projective-object]{injectives}.
+  To fix this, consider a proper \hyperref[def:resolution]{injective resolution} \(p_{X}^{-1}(\sheaf{F}) \to \sheaf{J}^{\bullet}\).
+  By \autoref{thm:existence-of-lifting} there exists a morphism (unique up to \hyperref[def:homotopy]{homotopy of complexes}) lifting the identity
+  \begin{equation*}
+    f^{-1}(\sheaf{I}^{\bullet}) \to \sheaf{J}^{\bullet}
+  \end{equation*}
+  Applying \(p_{X, \ast}\) we get a morphism in \(S\)
+  \begin{equation*}
+    \left( p_{X, \ast} \circ f^{-1} \right) \left(\sheaf{I}^{\bullet}\right) \to p_{X, \ast}\left(\sheaf{J}^{\bullet}\right)
+  \end{equation*}
+  Therefore composing with the previous map we get
+  \begin{equation*}
+    p_{Y, \ast}(\sheaf{I}^{\bullet}) \to \left( p_{X, \ast} \circ f^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to p_{X, \ast} \left( \sheaf{J}^{\bullet} \right)
+  \end{equation*}
+  Applying the \hyperref[def:right-derived-functor]{\(i\)-th right derived functor} we get a map
+   \begin{equation*}
+    \left(\operatorname{R}^{i}p_{Y, \ast} \circ p_{Y}^{-1}\right)(\sheaf{F}) \to \left(\operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1} \right)(\sheaf{F}) \qedhere
+  \end{equation*} 
+\end{proof}
 
-\begin{theorem}[Invariance by homotopy]
-  Let \(f_{0}, f_{1}: X \rightrightarrows Y\) be two \hyperref[def:homotopy-topological-spaces]{homotopic maps} and let \(\sheaf{G}\) be a \hyperref[def:constant-sheaf]{locally constant sheaf} of \(R\)-modules over \(Y\).
-  
+\begin{remark}
+  If \(S = \{\ast\}\) then \hyperref[]{\(\Sh_{\ast}(\category{C}) \simeq \category{C}\)} and \(p_{Z}^{-1} \underline{M} = \underline{M}\) for all \(M \in \category{C}\) and \(Z \in \{X, Y\}\) the morphism of \autoref{lemma:induced-map-over} is
+  \begin{equation*}
+    f^{\#, i}(\underline{M})\colon \cohomology{i}(Y; \underline{M}) \to \cohomology{i}(X; \underline{M})
+  \end{equation*}
+  We denote this map by \(f^{\ast}\).
+\end{remark}
+
+
+\begin{theorem}\label{thm:homotopy-invariance-cohomology}
+  Let \(f_{0}, f_{1}\colon X \rightrightarrows Y\) be two \hyperref[def:homotopy-over]{homotopic maps} over \(S\).
+  Then \(f_{0}^{\#, i} = f_{1}^{\#, i}\) for all \(i \geq 0\).
 \end{theorem}
+\begin{proof}
+  Let \(\sheaf{F} \in \Sh_{S}(\category{C})\).
+  Choose \hyperref[def:resolution]{injective resolutions} \(p_{Y}^{-1}(\sheaf{F}) \to \sheaf{I}^{\bullet}\) and \(p_{X}^{-1}(\sheaf{F}) \to \sheaf{J}^{\bullet}\).
 
+  Since \(f_{t} = h \circ j_{t}\) we can factor \(\sheaf{I}^{\bullet} \to \left( f_{t, \ast} \circ f_{t}^{-1} \right)(\sheaf{I}^{\bullet})\) through
+  \begin{equation*}
+    \sheaf{I}^{\bullet} \to \left( h_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to \left(\left( h \circ j_{t} \right)_{\ast} \circ \left( h \circ j_{t} \right)^{-1}\right) \left(\sheaf{I}^{\bullet}\right)
+  \end{equation*}
+  Pushing this factorization via \(p_{Y, \ast}\) the middle term becomes
+  \begin{equation*}
+    \left( p_{Y, \ast} \circ h_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) = \left( \left( p_{Y} \circ h \right)_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right)
+  \end{equation*}
+  Therefore since \(p_{Y} \circ h = p_{X} \circ h\) we have a factorization of \(f_{t}^{\#, i}\)
+  \begin{equation*}
+    p_{Y, \ast}\left(\sheaf{I}^{\bullet}\right) \to \left( p_{X, \ast} \circ p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to p_{X, \ast}\left(\sheaf{J}^{\bullet}\right)
+  \end{equation*}
+  Denote by \(\alpha_{t}\) the cohomology of the second map.
+  Since the first map does not depend on \(t\), we only need to see that \(\alpha_{0} = \alpha_{1}\).
+  
+  The map \(\alpha_{t}\) is induced by
+  \begin{equation*}
+    \left( p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to \left( j_{t} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to \sheaf{J}^{\bullet}
+  \end{equation*}
+  Note that \(h^{-1}(\sheaf{I}^{\bullet})\) is an \hyperref[def:exact-sequence]{exact sequence} \hyperref[def:resolution]{resolving} \(\left( h^{-1} \circ p_{Y}^{-1} \right) \left( \sheaf{F} \right) \cong \left( p^{-1} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right)\).
+  Therefore \autoref{lemma:vanishing-cohomology-interval} higher cohomology (\(k > 0\)) vanishes and thus, the cohomology of \(\alpha_{t}\) is concentrated in degree zero, which is
+  \begin{equation*}
+    \left( p_{\ast} \circ p^{-1} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right) \to \left( j_{t}^{-1} \circ p^{-1} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right)
+  \end{equation*}
+
+  However, note that we have \hyperref[def:categorical-isomorphism]{isomorphisms}
+  \begin{equation*}
+    p_{X}^{-1} \left( \sheaf{F} \right) \isoarrow \left( p_{\ast} \circ p^{-1} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right) \isoarrow \left( j_{t}^{-1} \circ p^{-1} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right) \isoarrow p_{X}^{-1} \left( \sheaf{F} \right)
+  \end{equation*}
+  whose composition is the identity on \(p_{X}^{-1}\), which means that \(\alpha_{t}\) is induced by the identity.
+  Indeed:
+  \begin{itemize}
+    \item The first one comes from the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction]{\(p_{\ast} \dashv p^{-1}\)}.
+    \item Applying \(p_{\ast}\) to the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction]{\(j_{t, \ast} \dashv j^{-1}\)} we get
+          \begin{equation*}
+            p_{\ast} \isoarrow p_{\ast} \circ j_{t, \ast} \circ j_{t}^{-1} = \left( p \circ j_{t} \right)_{\ast} \circ j_{t}^{-1} = \id_{\ast} \circ j_{t}^{-1} = j_{t}^{-1}
+          \end{equation*}
+    \item The last one is direct from the \hyperref[lemma:composition-inverse-image-sheaf]{composition of the inverse image}
+          \begin{equation*}
+            j_{t}^{-1} \circ p^{-1} = \left( p \circ j_{t} \right)^{-1} = \id^{-1} = \id
+          \end{equation*}
+  \end{itemize}
+
+  Therefore since \(\alpha_{t}\) does not depend on \(t\) we get \(\alpha_{0} = \alpha_{1}\) and thus \(f_{0}^{\#, i} = f_{1}^{\#, i}\).
+\end{proof}
+
+\begin{corollary}\label{cor:cohomology-and-homotopy-equivalence}
+  Let \(f\colon X \to Y\) be a \hyperref[def:homotopy-over]{homotopy equivalence} over \(S\).
+  Then \(f^{\#, i}\) is a \hyperref[def:natural-transformation]{natural isomorphism} for all \(i \geq 0\).
+\end{corollary}
+\begin{proof}
+  By \hyperref[def:homotopy-over]{definition} there exists a \hyperref[def:continuous-map-over]{continuous map over \(S\)} \(g\colon Y \to X\) such that \(g \circ f \sim_{S} \id_{X}\) and \(f \circ g \sim_{S} \id_{Y}\).
+
+  Since \(f^{\#, i}\) is a \hyperref[def:natural-transformation]{natural transformation} we have
+  \begin{equation*}
+    \left( g \circ f \right)^{\#, i} = f^{\#, i} \circ g^{\#, i} \qquad \left( f \circ g \right)^{\#, i} = g^{\#, i} \circ f^{\#, i}
+  \end{equation*}
+  Therefore since \hyperref[thm:homotopy-invariance-cohomology]{homotopic maps induce the same tranformation}
+  \begin{equation*}
+    f^{\#, i} \circ g^{\#, i} = (\id_{X})^{\#, i} = \id \qquad g^{\#, i} \circ f^{\#, i} = \left( \id_{Y} \right)^{\#, i} = \id \qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}
+  Let \(X\) be \hyperref[def:homotopy-over]{contractible over \(S\)}.
+  Then for all \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\) the \hyperref[def:unit-counit]{adjunction unit map}
+  \begin{equation*}
+    \sheaf{F} \to \left(\operatorname{R}^{0}p_{X, \ast} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right)
+  \end{equation*}
+  is an \hyperref[def:categorical-isomorphism]{isomorphism} and for all \(i > 0\)
+  \begin{equation*}
+    \left(\operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right) = 0
+  \end{equation*}
+\end{corollary}
+\begin{proof}
+  We can view \(S\) as a space over itself via the identity map \(\id_{S}\colon S \to S\).
+  By hypothesis the map \(p_{X}\colon X \to S\) is a \hyperref[def:homotopy-over]{homotopy equivalence over \(S\)}.
+  Therefore by \autoref{cor:cohomology-and-homotopy-equivalence} \(p_{X}^{\#, i}\) is a \hyperref[def:natural-transformation]{natural isomorphism}
+  \begin{equation*}
+    \operatorname{R}^{i}\id_{S, \ast} \circ \id_{S}^{-1} \isoarrow \operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1}
+  \end{equation*}
+
+  For \(i = 0\) we have \(\operatorname{R}^{0}\id_{S, \ast} = \id\).
+  Therefore
+  \begin{equation*}
+    \id_{S} \isoarrow \operatorname{R}^{0}p_{X, \ast} \circ p_{X}^{-1}
+  \end{equation*}
+  On the other hand since \(\id_{S, \ast}\) is \hyperref[def:exact-functor]{exact} \(\operatorname{R}^{i}\id_{S, \ast} = 0\) for all \(i > 0\).
+  Therefore
+  \begin{equation*}
+    0 \isoarrow \operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1} \qedhere
+  \end{equation*}
+\end{proof}
 
 \end{document}

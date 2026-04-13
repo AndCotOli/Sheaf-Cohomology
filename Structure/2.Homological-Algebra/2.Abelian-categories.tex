@@ -73,7 +73,7 @@
               & 0 \arrow[ur]
             \end{tikzcd}
           \end{center}
-          Therefore by uniqueness \(g = 0\), making \(f\) a \hyperref[def:mono-epi-morphism]{monomorphism} by \autoref{lemma:mono-epi-additive}.
+          Therefore by uniqueness \(g = 0\), making \(f\) a \hyperref[def:mono-epi-morphism]{monomorphism} by \autoref{lemma:mono-epi-additive}. \qedhere
   \end{itemize}
 \end{proof}
 
@@ -104,7 +104,10 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
   \item A \hyperref[def:complex]{complex} \(X \xrightarrow{f} Y \xrightarrow{g} Z\) is \textbf{exact} if \(\operatorname{Im} f \isoarrow \ker g\).
         Note that this is equivalent to \(\coker f \isoarrow \operatorname{Im} g\).
   \item More generally, a sequence of morphisms \(X^{p} \xrightarrow{\d^{p}} \cdots \to X^{n}\) with \(\d^{i+1} \circ \d^{i} = 0\) for all \(i \in \{p, \ldots, n-1\}\) is \textbf{exact} if \(\operatorname{Im} \d^{i} \isoarrow \ker \d^{i+1}\) for all \(i \in \{p, \ldots, n-1\}\).
-  \item A \textbf{short exact sequence} is an exact sequence of the form \(0 \to X \to Y \to Z \to 0\).
+  \item A \textbf{short exact sequence} is an exact sequence of the form
+        \begin{equation*}
+          0 \to X \to Y \to Z \to 0
+        \end{equation*}
 \end{enumerate}
 \end{definition}
 
@@ -121,41 +124,41 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
   \todo[inline]{Prove}
 \end{remark}
 
-% \begin{proposition}\label{prop:split-exact-sequence}
-%   Let
-%   \begin{center}
-%     \begin{tikzcd}
-%       0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
-%     \end{tikzcd}
-%   \end{center}
-%   be a \hyperref[def:exact-sequence]{short exact sequence} in an \hyperref[def:abelian-category]{abelian category} \(\category{C}\).
-%   We say that the sequence \textbf{splits} if any of the following equivalent conditions are satisfied
-%   \begin{enumerate}
-%     \item There exists \(h: Z \to Y\) such that \(g \circ h = \id_{Z}\).
-%     \item There exists \(k: Y \to X\) such that \(k \circ f = \id_{X}\).
-%     \item There exists \(\varphi = (k, h)\) and \(\psi = {f \choose g}\) such that \(Y \xrightarrow{\varphi} X \oplus Z\) and \(X \otimes Z \xrightarrow{\psi} Y\) are inverses to each other.
-%     \item The sequence is \hyperref[def:homotopy]{homotopic to \(0\)}.
-%     \item The sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to \(0 \to X \to X \oplus Z \to Z \to 0\).
-%   \end{enumerate}
-% \end{proposition}
-% \begin{proof}~
-%   \begin{enumerate}
-%     \item[\(1 \implies 3\)] Since \(g = g \circ h \circ g\) we have that \(g \circ (\id_{Y} - h \circ g) = 0\), i.e: \(\id_{Y} - h \circ g\) factors through \(\ker g\) and so it factors through \(X\).
-%           Therefore there exists \(h: Y \to Z\) such that \(\id_{Y} - h \circ g = f \circ k\).
-%     \item[\(3 \implies 1\)] Since \(g \circ f = 0\) we have \(g = g \circ h \circ g\), i.e: \((g \circ h - \id_{Z}) \circ g\).
-%           Therefore since \(g\) is an \hyperref[def:mono-epi-morphism]{epimorphism} we have \(g \circ h - \id_{Z} = 0 \iff g \circ h = \id_{Z}\).
-%     \item[\(2 \iff 3\)] Analogous to \(1 \iff 3\).
-%     \item[\(3 \iff 4\)] By definition the sequence is \hyperref[def:homotopy]{homopic to zero} if and only if there exists
-%           \begin{center}
-%             \begin{tikzcd}
-%               0 \arrow[r] & X \arrow[d, "\id_{X}"'] \arrow[r, "f"] & Y \arrow[d, "\id_{Y}"'] \arrow[r, "g"] \arrow[dl, dotted, "k"'] & Z \arrow[d, "\id_{Z}"] \arrow[r] \arrow[dl, dotted, "h"'] & 0 \\
-%               0 \arrow[r] & X \arrow[r, "f"'] & Y \arrow[r, "g"'] & Z \arrow[r] & 0
-%             \end{tikzcd}
-%           \end{center}
-%           such that \(\id_{X} = k \circ f\), \(\id_{Z} = h \circ g\) and \(\id_{Z} = h \circ g + f \circ k\).
-%     \item[\(3 \iff 5\)] Trivial.
-%   \end{enumerate}
-% \end{proof}
+\begin{proposition}\label{prop:split-exact-sequence}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in an \hyperref[def:abelian-category]{abelian category} \(\category{C}\).
+  We say that the sequence \textbf{splits} if any of the following equivalent conditions are satisfied
+  \begin{enumerate}
+    \item There exists \(h\colon Z \to Y\) such that \(g \circ h = \id_{Z}\).
+    \item There exists \(k\colon Y \to X\) such that \(k \circ f = \id_{X}\).
+    \item There exists \(\varphi = (k, h)\) and \(\psi = {f \choose g}\) such that \(Y \xrightarrow{\varphi} X \oplus Z\) and \(X \otimes Z \xrightarrow{\psi} Y\) are inverses to each other.
+    \item The sequence is \hyperref[def:homotopy]{homotopic to \(0\)}.
+    \item The sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to \(0 \to X \to X \oplus Z \to Z \to 0\).
+  \end{enumerate}
+\end{proposition}
+\begin{proof}~
+  \begin{enumerate}
+    \item[\(1 \implies 3\)] Since \(g = g \circ h \circ g\) we have that \(g \circ (\id_{Y} - h \circ g) = 0\), i.e: \(\id_{Y} - h \circ g\) factors through \(\ker g\) and so it factors through \(X\).
+          Therefore there exists \(h\colon Y \to Z\) such that \(\id_{Y} - h \circ g = f \circ k\).
+    \item[\(3 \implies 1\)] Since \(g \circ f = 0\) we have \(g = g \circ h \circ g\), i.e: \((g \circ h - \id_{Z}) \circ g\).
+          Therefore since \(g\) is an \hyperref[def:mono-epi-morphism]{epimorphism} we have \(g \circ h - \id_{Z} = 0 \iff g \circ h = \id_{Z}\).
+    \item[\(2 \iff 3\)] Analogous to \(1 \iff 3\).
+    \item[\(3 \iff 4\)] By definition the sequence is \hyperref[def:homotopy]{homopic to zero} if and only if there exists
+          \begin{center}
+            \begin{tikzcd}
+              0 \arrow[r] & X \arrow[d, "\id_{X}"'] \arrow[r, "f"] & Y \arrow[d, "\id_{Y}"'] \arrow[r, "g"] \arrow[dl, dotted, "k"'] & Z \arrow[d, "\id_{Z}"] \arrow[r] \arrow[dl, dotted, "h"'] & 0 \\
+              0 \arrow[r] & X \arrow[r, "f"'] & Y \arrow[r, "g"'] & Z \arrow[r] & 0
+            \end{tikzcd}
+          \end{center}
+          such that \(\id_{X} = k \circ f\), \(\id_{Y} = h \circ g\) and \(\id_{Z} = h \circ g + f \circ k\).
+    \item[\(3 \iff 5\)] Trivial. \qedhere
+  \end{enumerate}
+\end{proof}
 
 
 \section{Exact functors}
@@ -319,58 +322,6 @@ As a direct application of \autoref{lemma:characterization-exact-functor}.
   Therefore we can define \(\delta(x'')\) to be the image of \(y'\) in \(\coker \alpha\).
 \end{proof}
 
-% \begin{lemma}\label{lemma:first-term-injective-splits}
-%   Let
-%   \begin{center}
-%     \begin{tikzcd}
-%       0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
-%     \end{tikzcd}
-%   \end{center}
-%   be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) \hyperref[def:injective-projective-object]{injective}.
-%   Then the \hyperref[prop:split-exact-sequence]{sequence splits}.
-% \end{lemma}
-% \begin{proof}
-%   By \hyperref[def:injective-projective-object]{definition} taking \(k = \id_{X}\) there exists \(h: Y \to X\) such that \(k \circ f = \id_{X}\).
-%   Then we just need to apply \autoref{prop:split-exact-sequence}.
-% \end{proof}
-
-% \begin{remark}
-%   If \(F: \category{C} \to \category{D}\) is an \hyperref[def:additive-functor]{additive functor} between \hyperref[def:abelian-category]{abelian categories} and the hypothesis of \autoref{lemma:first-term-injective-splits} are satisfied the sequence
-%   \begin{center}
-%     \begin{tikzcd}
-%       0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z) \arrow[r] & 0
-%     \end{tikzcd}
-%   \end{center}
-%   \hyperref[prop:split-exact-sequence]{splits} and in particular it is \hyperref[def:exact-sequence]{exact}.
-% \end{remark}
-
-% \begin{lemma}\label{lemma:direct-sum-injective}
-%   Let \(X, Z \in \category{C}\). Then \(X \oplus Z\) is \hyperref[def:injective-projective-object]{injective} if and only if \(X, Z\) are \hyperref[def:injective-projective-object]{injective}.
-% \end{lemma}
-% \begin{proof}
-%   This follows from the fact that if \(F, G\) are two \hyperref[def:additive-functor]{additive functors} between \hyperref[def:abelian-category]{abelian categories} then \(F \oplus G\) is \hyperref[def:exact-functor]{exact} if and only if \(F\) and \(G\) are \hyperref[def:exact-functor]{exact}.
-% \end{proof}
-
-% \begin{proposition}
-%   Let
-%   \begin{center}
-%     \begin{tikzcd}
-%       0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
-%     \end{tikzcd}
-%   \end{center}
-%   be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) and \(Z\) \hyperref[def:injective-projective-object]{injective}.
-%   Then \(Y\) is \hyperref[def:injective-projective-object]{injective}.
-% \end{proposition}
-% \begin{proof}
-%   By \autoref{lemma:first-term-injective-splits} since \(X\) is \hyperref[def:injective-projective-object]{injective} the sequence \hyperref[def:split-exact-sequence]{splits}.
-%     Therefore the sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to
-%     \begin{center}
-%     \begin{tikzcd}
-%       0 \arrow[r] & X \arrow[r] & X \oplus Z \arrow[r] & Z \arrow[r] & 0
-%     \end{tikzcd}
-%   \end{center}
-%   Finally since \(X\) and \(Z\) are \hyperref[def:injective-projective-object]{injective} by \autoref{lemma:direct-sum-injective} \(X \oplus Z \cong Y\) is \hyperref[def:injective-projective-object]{injective}.
-% \end{proof}
 
 \section{Complexes and cohomology}
 
@@ -468,7 +419,7 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
     \end{tikzcd}
   \end{center}
 
-  We can glue this into a \hyperref[def:exact-sequence]{exact sequence}
+  We can glue this into an \hyperref[def:exact-sequence]{exact sequence}
   \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & \coker \d_{X}^{n-1} \arrow[r, "\d_{X}^{n}"] & \ker \d_{X}^{n+1} \arrow[r] & \cohomology{n+1}(X^{\bullet}) \arrow[r] & 0

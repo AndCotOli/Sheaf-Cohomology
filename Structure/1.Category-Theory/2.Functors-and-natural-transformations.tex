@@ -202,11 +202,12 @@
 \end{definition}
 
 \begin{definition}[Equivalent categories]\label{def:equivalent-categories}
-  Two \hyperref[def:category]{categories} \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist \hyperref[def:functor]{functors} \(F: \category{C} \to \category{D}\) and \(G: \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.
+  Two \hyperref[def:category]{categories} \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and \(G\colon \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.
+  We denote this by \(\category{C} \simeq \category{D}\).
 \end{definition}
 
 \begin{theorem}[{\cite[Theorem 1.5.9]{riehlCategoryTheoryContext}}]\label{thm:equivalent-categories-characterization}
-  A \hyperref[def:functor]{functor} \(F: \category{C} \to \category{D}\) defining an \hyperref[def:equivalent-categories]{equivalence of categories} is \hyperref[def:functor-types]{fully faithful and essentially surjective}.
+  A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) defining an \hyperref[def:equivalent-categories]{equivalence of categories} is \hyperref[def:functor-types]{fully faithful and essentially surjective}.
   Assuming the axiom of choice, any \hyperref[def:functor]{functor} with these properties defines an  \hyperref[def:equivalent-categories]{equivalence of categories}.
 \end{theorem}
 
