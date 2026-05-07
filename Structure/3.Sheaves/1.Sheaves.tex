@@ -158,7 +158,7 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   \begin{equation*}
     \left( F \circ G \right)(X) = G \qquad \left( G \circ F \right)(\sheaf{F}) \cong \sheaf{F}
   \end{equation*}
-  where the \hyperref[def:categorical-isomorphism]{isomorphism} comes from \(\sheaf{F}(\varnothing)\) being \hyperref[def:initial-terminal-object]{terminal} (but not necessariliy \(1\)).
+  where the \hyperref[def:categorical-isomorphism]{isomorphism} comes from \(\sheaf{F}(\varnothing)\) being \hyperref[def:initial-terminal-object]{terminal} (but not necessarilly \(1\)).
 \end{example}
 
 \subsection{Stalks}
@@ -366,22 +366,38 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
   We need to check that our definition of \(\mathcal{F}^{\#}\) verifies the universal propery of \hyperref[def:sheafification]{sheafification}.
   To do this, consider a \hyperref[def:set-valued-sheaf]{sheaf} \(\sheaf{G}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \sheaf{G}\).
   We wish to show that there exists a unique \hyperref[def:sheaf]{sheaf} morphism \(\psi\colon \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
+  Diagramatically
+  \begin{center}
+    \begin{tikzcd}
+      \mathcal{F} \arrow[d, "\theta"'] \arrow[r, "\phi"] & \sheaf{G} \\
+      \mathcal{F}^{\#} \arrow[ur, dotted, "\psi"']
+    \end{tikzcd}
+  \end{center}
 
   Let's check existence first by defining \(\psi\) explicitly.
   Let \(U \subseteq X\) be an open set and \(s \in \mathcal{F}^{\#}(U)\).
-  By definition there exists an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) and sections \(t_{i} \in \mathcal{F}(V_{i})\) such that \(\forall i \in \mathcal{I} \quad s|_{U_{i}} = \theta(t_{i})\).
+  By definition there exists an open cover \(\{U_{i}\}_{i \in \mathcal{I}}\) of \(U\) and sections \(t_{i} \in \mathcal{F}(V_{i})\) such that \(s|_{U_{i}} = \theta(t_{i})\) for all \(i \in \mathcal{I}\).
 
-  We want \(\psi\) to verify \(\psi(s)|_{U_{i}} = \psi(s|_{U_{i}}) = \psi(\theta_{t_{i}})\). This forces us to define \(\psi(\theta(t_{i})) = \phi(t_{i}) \in \sheaf{G}(U_{i})\).
+  We want \(\psi\) to verify \(\psi(s)|_{U_{i}} = \psi(s|_{U_{i}}) = \psi(\theta_{t_{i}})\). This forces us to define
+  \begin{equation*}
+    \psi(\theta(t_{i})) \coloneq \phi(t_{i}) \in \sheaf{G}(U_{i})
+  \end{equation*}
 
   Let's see that \(\{\phi(t_{i})\}_{i \in \mathcal{I}}\) can be glued in \(\sheaf{G}\).
   Note that for all \(y \in U_{i} \cap U_{j}\) we have \((t_{i})_{y} = (t_{j})_{y}\).
-  Therefore using the \hyperref[def:stalk]{induced stalk morphism} \(\phi_{y}\colon \mathcal{F}_{y} \to \sheaf{G}_{y}\) we have \(\phi_{y}((t_{i})_{y}) = \phi_{y}((t_{j})_{y})\).
-  Therefore \((\phi(t_{i}))_{y} = (\phi(t_{j}))_{y}\) for all \(y \in U_{i} \cap U_{j}\), meaning that \(\phi(t_{i})|_{U_{i} \cap U_{j}} = \phi(t_{j})|_{U_{i} \cap U_{j}}\).
+  Therefore using the \hyperref[def:stalk]{induced stalk morphism} \(\phi_{y}\colon \mathcal{F}_{y} \to \sheaf{G}_{y}\) we have
+  \begin{equation*}
+    \phi_{y}((t_{i})_{y}) = \phi_{y}((t_{j})_{y})
+  \end{equation*}
+  Therefore \((\phi(t_{i}))_{y} = (\phi(t_{j}))_{y}\) for all \(y \in U_{i} \cap U_{j}\), meaning that
+  \begin{equation*}
+    \phi(t_{i})|_{U_{i} \cap U_{j}} = \phi(t_{j})|_{U_{i} \cap U_{j}}
+  \end{equation*}
 
-  Applying \ref{axiom:sheaf-gluability} to this family we get that there is a unique section \(t \in \sheaf{G}(U)\) such that \(\forall i \in \mathcal{I} \quad t|_{U_{i}} = \phi(t_{i})\).
-  Therefore we can define \(\psi_{U}(s) = t\), which verifies the universal property by construction.
+  Applying \ref{axiom:sheaf-gluability} to this family we get that there is a unique section \(t \in \sheaf{G}(U)\) such that \(t|_{U_{i}} = \phi(t_{i})\) for all \(i \in \mathcal{I}\).
+  Therefore we can define \(\psi_{U}(s) \coloneq t\), which verifies the universal property by construction.
 
-  To check uniqueness, since \hyperref[thm:sheaf-morphism-determined-by-stalks]{sheaf morphisms are determined by their induced maps on stalks} and for all points \(x \in X\) we have \(\theta_{x} = \id\), \(\psi\) verifies \(\forall x \in X \quad \psi_{x} = \phi_{x}\) making it unique.
+  To check uniqueness, since \hyperref[thm:sheaf-morphism-determined-by-stalks]{sheaf morphisms are determined by their induced maps on stalks} and for all points \(x \in X\) we have \(\theta_{x} = \id\), \(\psi\) verifies \(\psi_{x} = \phi_{x}\) for all \(x \in X\), making it unique.
 \end{construction}
 
 \begin{lemma}\label{lemma:sheafification-of-sheaf-is-sheaf}
@@ -522,7 +538,7 @@ Consider the following category-theoretic auxiliary lemma.
   Since \(-^{\#}\) is \hyperref[def:adjoint-functors]{left adjoint} by \autoref{ex:adjoint-functors-and-exactness} it is \hyperref[def:exact-functor]{right exact}.
 
   To see that it is \hyperref[def:exact-functor]{left exact} we will use \autoref{lemma:characterization-exact-functor}.
-  In particular we are going to see that \hyperref[def:sheafification]{sheafification} commutes with \hyperref[def:categorical-product]{finite products}.
+  In particular we are going to see that \hyperref[def:sheafification]{sheafification} commutes with \hyperref[def:categorical-limit]{finite limits}.
 
   Let \(\mathcal{F}\colon \category{I} \to \PSh_{X}(\category{C})\) be a \hyperref[def:diagram]{diagram} in \(\PSh_{X}(\category{C})\) with \(\category{I}\) finite.
 

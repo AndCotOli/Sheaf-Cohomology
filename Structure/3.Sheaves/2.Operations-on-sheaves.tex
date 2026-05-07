@@ -593,7 +593,7 @@ Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-
 
 \section{Closed immersions and (pre)sheaves}
 
-Let's consider now an open immersion \(i\colon Z \hookrightarrow X\), where \(X\) is a topological space and \(Z \subseteq X\) is an closed subset.
+Let's consider now a closed immersion \(i\colon Z \hookrightarrow X\), where \(X\) is a topological space and \(Z \subseteq X\) is an closed subset.
 
 In \autoref{sec:continuous-maps-sheaves} we have constructed two pairs of \hyperref[def:adjoint-functors]{adjoint functors}
 \begin{center}
@@ -624,6 +624,16 @@ Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-
 
   If \(p \in Z\) then any neighbourhood of \(p\) is of the form \(U \cap Z\) with \(U\) a neighbourhood of \(p\) in \(X\).
 \end{proof}
+
+% \begin{remark}
+%   For \(\category{C} = \Set\), the \hyperref[def:extraordinary-inverse-image-sheaf]{extraordinary inverse image} \(i^{!}\colon \Sh_{X}(\Set) \to \Sh_{Z}(\Set)\) of a closed immersion \(i\colon Z \hookrightarrow X\) is not \hyperref[def:exact-functor]{right exact}.
+
+%   Indeed, if \(\sheaf{F} \in \Sh_{Z}(\Set)\) then for all \(x \in X\) by \autoref{lemma:stalk-closed-immersion} we have \((i_{\ast}\sheaf{F})_{x} = \{\ast\}\).
+%   Therefore if \(\sheaf{F} \coloneq \{\ast\} \coprod \{\ast\}\) then \((i_{\ast}\sheaf{F})_{x} = \{\ast\} \neq \left( i_{\ast}\{\ast\} \right)_{x} \coprod \left( i_{\ast}\{\ast\} \right)_{x}\) since the latter is a two-point set.
+%   By \autoref{lemma:characterization-exact-functor} since \(i_{\ast}\) does not commute with \hyperref[def:categorical-coproduct]{finite coproducts}, it cannot be \hyperref[def:exact-functor]{right exact}.
+
+%   In particular, since \hyperref[ex:adjoint-functors-and-exactness]{left adjoints are right exact}, it cannot have a \hyperref[def:adjoint-functors]{right adjoint}.
+% \end{remark}
 
 \begin{corollary}
   If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:direct-image-sheaf]{direct image sheaf functor}
@@ -669,14 +679,14 @@ Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-
   \begin{equation*}
     \sheaf{G} \to i_{\ast}i^{-1}\sheaf{G}
   \end{equation*}
-  is an \hyperref[def:categorical-isomorphism]{isomorphism} on all \hyperref[def:stalk]{stalk} and thus by \autoref{prop:sheaf-isomorphism-determined-at-stalks} it is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  is an \hyperref[def:categorical-isomorphism]{isomorphism} on all \hyperref[def:stalk]{stalks} and thus by \autoref{prop:sheaf-isomorphism-determined-at-stalks} it is an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{proof}
 
-\begin{definition}
+\begin{definition}\label{def:extraordinary-inverse-image-sheaf}
   Let \(X\) be a topological space and \(Z \subseteq X\) a closed subset.
   For any \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} \(\sheaf{F}\) over \(X\), the \textbf{extraordinary inverse image} is the \hyperref[def:types-of-morphisms-pre-sheaves]{subsheaf} \(i^{!}\sheaf{F}\) of \(\sheaf{F}\) defined as, for any open subset \(U \subseteq X\)
   \begin{equation*}
-    i^{!}\sheaf{F}(U) \coloneq \{ s \in \sheaf{F}(U) \mid \operatorname{supp} s \subseteq Z \cap U\}
+    \left(i^{!}\sheaf{F}\right)(U) \coloneq \{ s \in \sheaf{F}(U) \mid \operatorname{supp} s \subseteq Z \cap U\}
   \end{equation*}
   Note that this is the largest \hyperref[def:types-of-morphisms-pre-sheaves]{subsheaf} of \(\sheaf{F}\) whose \hyperref[def:support-sheaf]{support} is contained in \(Z\).
   
@@ -687,9 +697,9 @@ Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-
 \end{definition}
 
 \begin{theorem}\label{thm:closed-immersion-adjunction}
-  Let \(X\) be a topological space and \(i\colon Z \hookrightarrow X\) be an open immersion.
+  Let \(X\) be a topological space and \(i\colon Z \hookrightarrow X\) be a closed immersion.
 
-  There is a \hyperref[def:adjoint-functors]{adjunction}
+  If \(\category{C}\) is \hyperref[def:abelian-category]{abelian}, there is a \hyperref[def:adjoint-functors]{adjunction}
   \begin{center}
     \begin{tikzcd}
     \Sh_{Z}(\category{C}) \arrow[r, "{i_{\ast}}"{name=U}, bend left=25] & \Sh_{X}(\category{C}) \arrow[l, "{i^{!}}"{name=D}, bend left=25]
@@ -698,7 +708,49 @@ Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-
   \end{center}
 \end{theorem}
 \begin{proof}
-  \todo[inline]{Todo}
+  We want to show that, for any \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} \(\sheaf{G} \in \Sh_{Z}(\category{C})\) and \(\sheaf{F} \in \Sh_{X}(\category{C})\), there is a natural bijection
+  \begin{equation*}
+    \Hom_{\Sh_{X}(\category{C})} \left( i_{\ast}\sheaf{G}, \sheaf{F} \right) \cong \Hom_{\Sh_{Z}(\category{C})} \left( \sheaf{G}, i^{!}\sheaf{F} \right)
+  \end{equation*}
+
+  Consider a morphism \(\phi\colon i_{\ast}\sheaf{G} \to \sheaf{F}\).
+  We want to construct a morphism \(\psi\colon \sheaf{G} \to i^{!}\sheaf{F}\).
+
+  For any open subset \(U \subseteq X\) we have a morphism in \(\category{C}\)
+  \begin{equation*}
+    \phi_{U}\colon \sheaf{G}(U \cap Z) \to \sheaf{F}(U)
+  \end{equation*}
+  Let \(W \subseteq Z\) be an open set and write \(W = U \cap Z\) for some \(U \subseteq X\) open.
+  We want to show that the image of \(\phi_{U}\) lands on \(i^{!}\sheaf{F}(U)\).
+  Let \(s \in \sheaf{G}(U \cap Z)\) and consider its restriction to the open set \(U \setminus Z\) of \(X\).
+  By the commutativity of the restriction maps with \(\phi\) we get
+  \begin{equation*}
+    \left( \phi_{U}(s) \right)|_{U \setminus Z} = \phi_{U \setminus Z}(s|_{(U \setminus Z) \cap Z})
+  \end{equation*}
+  Since \((U \setminus Z) \cap Z = \varnothing\) we have
+  \begin{equation*}
+    \left( \phi_{U}(s) \right)|_{U \setminus Z} = \phi_{U \setminus Z}(s|_{(U \setminus Z) \cap Z}) = \phi_{U \setminus Z}(0) = 0
+  \end{equation*}
+  which means that
+  \begin{equation*}
+    \operatorname{supp} (\phi_{U}(s)) \subseteq U \cap Z = W
+  \end{equation*}
+  Therefore since the image of \(\phi_{U}\) is contained in \(i^{!}\sheaf{F}(U)\) it naturally induces a map
+  \begin{equation*}
+    \psi_{W}\colon \sheaf{G}(W) \to i^{!}\sheaf{F}(W)
+  \end{equation*}
+  Since by construction these maps commute with the restrictions, these maps define a morphism \(\psi\colon \sheaf{G} \to i^{!}\sheaf{F}\).
+
+  Conversely, suppose now that we have a morphism \(\psi\colon \sheaf{G} \to i^{!}\sheaf{F}\).
+  We now want to construct a morphism \(\phi\colon i_{\ast}\sheaf{G} \to \sheaf{F}\).
+
+  For any open subset \(V \subseteq X\) let \(H = V \cap Z\).
+  We have a morphism in \(\category{C}\)
+  \begin{equation*}
+    \psi_{H}\colon \sheaf{G}(H) \to i^{!}\sheaf{F}(H)
+  \end{equation*}
+  By composing \(\psi_{H}\) with the inclussion \(i^{!}\sheaf{F}(H) \hookrightarrow \sheaf{F}(V)\) we obtain a map \(\phi_{V}\colon \sheaf{G}(V \cap Z) \to \sheaf{F}(V)\).
+  Therefore since these maps commute with the restrictions they assemble into a morphism \(\phi\colon i_{\ast}\sheaf{G} \to \sheaf{F}\).
 \end{proof}
 
 

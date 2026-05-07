@@ -47,6 +47,18 @@
   Therefore all \hyperref[def:functor]{functors} will be covariant (unless otherwise specified) and contravariant \hyperref[def:functor]{functors} will be covariant \hyperref[def:functor]{functors} from the \hyperref[def:opposite-category]{opposite category}.
 \end{remark}
 
+\begin{example}~
+  \begin{itemize}
+    \item There is a (covariant) \hyperref[def:functor]{endofunctor} \(P\colon \Set \to \Set\) that sends a set \(A\) to its power set \(PA = \{ A' \subseteq A\}\) and a map \(f\colon A \to B\) to the direct image \(f_{\ast}\colon PA \to PB, f_{\ast}(A') \coloneq f(A')\).
+
+          We also get a contravariant version \(P\colon \Set^{\op} \to \Set\) that sends a map \(f\colon A \to B\) to the inverse image \(f^{-1}\colon PB \to PA, f^{-1}(B') \coloneq f^{-1}(B)\).
+    \item There is a \hyperref[def:functor]{functor} \(F\colon \Set \to \Grp\) that sends a set \(X\) to the free group on \(X\).
+    \item There is a \hyperref[def:functor]{functor} \(-^{\ast}\colon \Vect_{\mathbb{K}}^{\op} \to \Vect_{\mathbb{K}}\) that sends a vector space \(V\) to its dual \(V^{\ast}\).
+    \item There is a \hyperref[def:functor]{functor} \(\operatorname{Spec}\colon \mathsf{CRing}^{\op} \to \Top\) that sends a commutative ring \(R\) to its set \(\operatorname{Spec}(R)\) of prime ideals endowed with the Zariski topology.
+  \end{itemize}
+\end{example}
+
+
 \begin{example}[Identity functor]\label{ex:identity-functor}
   Let \(\category{C}\) be a \hyperref[def:category]{category}.
   There exists an identity \hyperref[def:functor]{functor}
@@ -174,9 +186,15 @@
   \end{itemize}
 \end{definition}
 
-\begin{example}
-  A \hyperref[def:subcategory]{subcategory} \(\category{D}\) of a \hyperref[def:category]{category} \(\category{C}\) is \hyperref[def:subcategory]{full} if and only if the \hyperref[ex:inclussion-functor]{inclussion functor} \(\iota: \category{D} \to \category{C}\) is \hyperref[def:functor-types]{full}.
+\begin{example}~
+  \begin{itemize}
+    \item The \hyperref[def:functor]{functor} \(U\colon \Grp \to \Set\) that sends a group to its underlying set is \hyperref[def:functor-types]{faithful}.
+    \item A \hyperref[def:subcategory]{subcategory} \(\category{D}\) of a \hyperref[def:category]{category} \(\category{C}\) is \hyperref[def:subcategory]{full} if and only if the \hyperref[ex:inclussion-functor]{inclussion functor} \(\iota: \category{D} \to \category{C}\) is \hyperref[def:functor-types]{full}.
+    \item Given a field \(\mathbb{K}\), let \(\category{C}_{\mathbb{K}}\) be the \hyperref[def:category]{category} whose objects are \(\mathbb{K}^{n}\) for some \(n \in \mathbb{N}\).
+          The inclussion \(\category{C}_{\mathbb{K}} \to \Vect_{\mathbb{K}}\) is \hyperref[def:functor-types]{essentially surjective}, since all finite dimensional \(\mathbb{K}\)-vector spaces are isomorphic to \(\mathbb{K}^{n}\) for some \(n\).
+  \end{itemize}
 \end{example}
+
 
 \section{Natural transformations}
 
@@ -200,6 +218,11 @@
   
   If each component \(\psi_{X}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\), we say that \(\psi\) is a \textbf{natural isomorphism}, and we write \(F \cong G\).
 \end{definition}
+
+\begin{example}
+  In \(\Vect_{\mathbb{K}}\), the map \(\operatorname{ev}\colon V \to V^{\ast\ast}\) that sends a vector \(v \in V\) to the linear evaluation function \(\operatorname{ev}_{v}\colon V^{\ast} \to \mathbb{K}\) defines the components of a \hyperref[def:natural-transformation]{natural transformation} from the \hyperref[ex:identity-functor]{identity functor} \(\id\colon \Vect_{\mathbb{K}} \to \Vect_{\mathbb{K}}\) to the double dual \hyperref[def:functor]{functor} \(-^{\ast\ast}\colon \Vect_{\mathbb{K}} \to \Vect_{\mathbb{K}}\).
+\end{example}
+
 
 \begin{definition}[Equivalent categories]\label{def:equivalent-categories}
   Two \hyperref[def:category]{categories} \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and \(G\colon \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.

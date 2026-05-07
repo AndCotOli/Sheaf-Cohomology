@@ -128,6 +128,49 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
   \end{equation*}
 \end{lemma}
 \begin{proof}
+  Suppose first that \(i = 0\).
+  In this case we want to show that there is an \hyperref[def:categorical-isomorphism]{isomorphism} induced by the restriction
+  \begin{equation*}
+    \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \isoarrow \Gamma(K, \sheaf{F})
+  \end{equation*}
+  We will do this by showing that this map is both injective and surjective:
+  \begin{itemize}
+    \item[Injectivity:] Let \(s \in \Gamma(U, \sheaf{F})\) for some \(U \supset K\) open such that its restriction to \(K\) is zero, i.e: \(s_{x} = 0\) for all \(x \in K\).
+          We have that for all \(x \in K\) there exists an open neighbourhood \(V_{x} \subseteq U\) such that \(s|_{V_{x}} = 0\).
+
+          Since \(K\) is compact we can extract a finite subcover \(\{V_{x_{1}}, \ldots, V_{x_{n}}\}\) from \(\{V_{x}\}_{x \in K}\).
+          Note that \(V \coloneq \bigcup_{i=1}^{n} V_{x_{i}}\) is an open neighbourhood of \(K\) contained in \(U\) such that \(s|_{V} = 0\).
+          Therefore in the colimit \(s\) becomes \(0\), meaning that the map is injective.
+    \item[Surjectivity:] Let \(s \in \Gamma(K, \sheaf{F})\). By definition there exists an open cover \(\{U_{j}\}_{j=1}^{n}\) of \(K\) and local sections \(s_{j} \in \Gamma(U_{j}, \sheaf{F})\) such that \(s_{j}\) represents \(s\) in \(U_{j} \cap K\).
+
+          On the overlaps \(K \cap U_{j} \cap U_{k}\) the sections \(s_{j}\) and \(s_{k}\) have the same germs.
+          Therefore by the injectivity argument applied to the difference \(s_{j} - s_{k}\) they must agree on an open neighbourhood \(W_{j,k} \subseteq U_{j} \cap U_{k}\) of \(K \cap U_{j} \cap U_{k}\).
+
+          Since \(K\) is compact and relatively Hausdorff it is normal.
+  \end{itemize}
+
+  Now, consider two \hyperref[def:functor]{functors} \(F, G\colon \Mod(\underline{\mathbf{k}}_{X}) \to \Mod(\mathbf{k})\)
+  \begin{equation*}
+    F(\sheaf{F}) \coloneq \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \qquad G(\sheaf{F}) \coloneq \Gamma(K, \sheaf{F})
+  \end{equation*}
+  From the first step we have \(F \cong G\).
+  Therefore for all \(i \geq 0\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \operatorname{R}^{i}F(\sheaf{F}) \cong \operatorname{R}^{i}G(\sheaf{F})
+  \end{equation*}
+  To compute these functors, choose an \hyperref[def:resolution]{injective resolution} \(\sheaf{F} \to \sheaf{I}^{\bullet}\) of \(\sheaf{F}\).
+  On the one hand
+  \begin{equation*}
+    \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}\Gamma(K; I^{\bullet}) = \cohomology{i}(K; \sheaf{F})
+  \end{equation*}
+  On the other
+  \begin{align*}
+    \operatorname{R}^{i}F(\sheaf{F}) = \cohomology{i} \left( \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{I}^{\bullet}) \right) \cong \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( \Gamma(U, \sheaf{I^{\bullet}}) \right) = \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( U; \sheaf{F} \right)
+  \end{align*}
+  Therefore
+  \begin{equation*}
+    \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( U; \sheaf{F} \right) \cong \operatorname{R}^{i}F(\sheaf{F}) \cong \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}(K; \sheaf{F}) \qedhere
+  \end{equation*}
 \end{proof}
 
 \begin{theorem}[Open Mayer-Vietoris]\label{thm:mayer-vietoris-open}

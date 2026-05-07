@@ -69,13 +69,20 @@
   \end{itemize}
 \end{example}
 
-\unsure[inline]{Examples of non-concrete categories?}
+\begin{example}[Category of open sets]\label{ex:open-set-category}
+  Let \(X\) be a topological space.
+  There is a \hyperref[def:category]{category} of open sets \(\Open(X)\) consisting of
+  \begin{itemize}
+    \item As objects, the open subsets of \(X\).
+    \item As morphisms, inclusion of open sets: \(U \to V\) if and only if \(U \subseteq V\)
+  \end{itemize}
+\end{example}
 
+\unsure[inline]{Examples of non-concrete categories?}
 
 \begin{example}[Discrete category]\label{ex:discrete-category}
   Given a \hyperref[def:category]{category} \(\category{C}\) we can define the \textbf{discrete category} \(\category{C}_{d}\) taking the same collection of objects as \(\category{C}\) but only the identity morphisms between them.
 \end{example}
-
 
 \begin{definition}[Subcategory]\label{def:subcategory}
   Given a \hyperref[def:category]{category} \(\category{C}\), a \textbf{subcategory} \(\category{D}\) consists of a subcollection of objects and a subcollection of morphisms in \(\category{C}\) such that
@@ -97,7 +104,6 @@
   \end{itemize}
 \end{example}
 
-
 \begin{definition}[Product category]\label{def:product-category}
   Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories}.
   The \textbf{product category} \(\category{C} \times \category{D}\) is the \hyperref[def:category]{category} consisting of
@@ -117,20 +123,6 @@
   \end{itemize}
 \end{definition}
 
-
-\begin{example}[Category of open sets]\label{ex:open-set-category}
-  Let \(X\) be a topological space.
-
-  The \hyperref[def:category]{category} \(\Open(X)\) consisting of
-  \begin{itemize}
-    \item As objects, the open subsets of \(X\).
-    \item As morphisms, inclusion of open sets: \(U \to V\) if and only if \(U \subseteq V\)
-  \end{itemize}
-
-  This is a \hyperref[def:small-category]{small category}.
-\end{example}
-
-
 \subsection{Duality}
 
 \begin{definition}[Opposite category]\label{def:opposite-category}
@@ -143,6 +135,12 @@
             f^{\op} \circ g^{\op} = (g \circ f)^{\op}
           \end{equation*}
           where \(f\colon Y \to X\) and \(g\colon Z \to Y\) are the associated morphisms in \(\category{C}\).
+          Visually
+          \begin{center}
+            \begin{tikzcd}
+              Z \arrow[r, shift left, "g"] \arrow[rr, bend left=4em, "g \circ f"] & Y \arrow[r, shift left, "f"] \arrow[l, shift left, "g^{\op}"] & X \arrow[l, shift left, "f^{\op}"] \arrow[ll, dotted, bend left=4em, "f^{\op} \circ g^{\op}"]
+            \end{tikzcd}
+          \end{center}
   \end{itemize}
 \end{definition}
 
@@ -172,8 +170,8 @@ In practice, this means that proving an statement directly proves its dual for f
   Let \(f\colon X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
   We say that \(f\) is a
   \begin{itemize}
-    \item \textbf{Monomorphism} (or is \textbf{monic}) if for every pair of parallel morphisms \(g, h\colon Z \to X\) in \(\category{C}\), the equality \(f \circ g = f \circ h\) implies \(g = h\).
-    \item \textbf{Epimorphism} (or is \textbf{epic}) if for every pair of parallel morphisms \(g, h\colon Y \to Z\) in \(\category{C}\), the equality \(g \circ f = h \circ f\) implies \(g = h\).
+    \item \textbf{Monomorphism} (or is \textbf{monic}) if for every pair of parallel morphisms \(g, h\colon Z \to X\) in \(\category{C}\), the equality \(f \circ g = f \circ h\) implies \(g = h\), i.e: \(f\) is left-cancellative.
+    \item \textbf{Epimorphism} (or is \textbf{epic}) if for every pair of parallel morphisms \(g, h\colon Y \to Z\) in \(\category{C}\), the equality \(g \circ f = h \circ f\) implies \(g = h\), i.e: \(f\) is right-cancellative.
   \end{itemize}
 \end{definition}
 
@@ -184,6 +182,18 @@ In practice, this means that proving an statement directly proves its dual for f
     \item In \(\Top\), an \hyperref[def:mono-epi-morphism]{monomorphism} (resp. \hyperref[def:mono-epi-morphism]{epimorphism}) is an injective (resp. surjective) continuous map.
   \end{itemize}
 \end{example}
+
+\begin{example}
+  In \(\Ring\), there are \hyperref[def:mono-epi-morphism]{epimorphisms} that are not surjective ring homomorphisms.
+
+  For example, consider the inclussion \(\iota\colon \mathbb{Z} \hookrightarrow \mathbb{Q}\).
+  For any ring homomorphism \(f\colon \mathbb{Q} \to R\), where \(R\) is any ring, since for all \(\frac{a}{b} \in \mathbb{Q}\) we have \(a, b \in \mathbb{Z}\)
+  \begin{equation*}
+    f \left( \frac{a}{b} \right) = f(a) f(b^{-1}) = f(a) f(b)^{-1}
+  \end{equation*}
+  Therefore \(f\) is completely determined by its values in \(\mathbb{Z}\) and, since \(f \circ \iota = f|_{\mathbb{Z}}\) we get that \(\iota\) is right-cancellative.
+\end{example}
+
 
 \begin{lemma}[Monomorphisms and epimorphisms are dual]
   Let \(f\colon X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
@@ -201,7 +211,6 @@ In practice, this means that proving an statement directly proves its dual for f
 
   Therefore we have that \(f \circ g = f \circ h\) implies \(g = h\) if and only if \((f \circ g)^{\op} = (f \circ h)^{\op}\) implies \(g = h\) if and only if \(g^{\op} \circ f^{\op} = h^{\op} \circ f^{\op}\) implies \(g^{\op} = h^{\op}\).
 \end{proof}
-
 
 \begin{definition}[Isomorphism]\label{def:categorical-isomorphism}
   A morphism \(f\colon X \to Y\) in a \hyperref[def:category]{category} \(\category{C}\) is an \textbf{isomorphism} if there exists another morphism \(g\colon Y \to X\) in \(\category{C}\) such that
@@ -261,6 +270,7 @@ In practice, this means that proving an statement directly proves its dual for f
     \item In \(\Set\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijection.
     \item In \(\Grp\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective group homomorphism.
     \item In \(\Top\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a homeomorphism.
+    \item In \(\Ring\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective ring homomorphism.
   \end{itemize}
 \end{example}
 
@@ -326,6 +336,17 @@ In practice, this means that proving an statement directly proves its dual for f
   Dually, an object \(T \in \category{C}\) is \textbf{terminal} if for every object \(X \in \category{C}\) there is a unique morphism \(X \to T\).
 \end{definition}
 
+\begin{example}~
+  \begin{itemize}
+    \item In \(\Set\), the empty set \(\varnothing\) is \hyperref[def:initial-terminal-object]{initial} and the singleton \(\{\ast\}\) is \hyperref[def:initial-terminal-object]{terminal}.
+    \item In \(\Grp\), trivial groups are both \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal}.
+    \item In \(\Ring\) both \(\mathsf{Rng}\), the zero ring is \hyperref[def:initial-terminal-object]{initial}.
+          However, the \hyperref[def:initial-terminal-object]{terminal} is different: in \(\Ring\) it is \(\mathbb{Z}\) and in \(\mathsf{Rng}\) is the zero ring.
+    \item In \(\Top\), the empty topological space is \hyperref[def:initial-terminal-object]{initial} and the singleton \(\{\ast\}\) is \hyperref[def:initial-terminal-object]{terminal}.
+    \item There are no \hyperref[def:initial-terminal-object]{initial} nor \hyperref[def:initial-terminal-object]{terminal} objects, since there are no homomorphisms between fields of different characteristic.
+  \end{itemize}
+\end{example}
+
 \begin{proposition}[Uniqueness of initial and terminal objects]\label{prop:uniqueness-initial-terminal-objects}
   Let \(X, Y\) be two \hyperref[def:initial-terminal-object]{initial} (resp. \hyperref[def:initial-terminal-object]{terminal}) objects in a \hyperref[def:category]{category} \(\category{C}\).
   Then there exists a unique \hyperref[def:categorical-isomorphism]{isomorphism} \(X \isoarrow Y\) in \(\category{C}\).
@@ -356,6 +377,15 @@ In practice, this means that proving an statement directly proves its dual for f
 
   By abuse of notation, we will denote all of these maps by \(0\).
 \end{definition}
+
+\begin{example}~
+  \begin{itemize}
+    \item \(\Set\) and \(\Top\) have no \hyperref[def:zero-object]{zero objects} since \(\varnothing \neq \{\ast\}\).
+    \item In \(\Grp\) and \(\Ab\), the zero group is the \hyperref[def:zero-object]{zero object}.
+    \item \(\Ring\) has no \hyperref[def:zero-object]{zero objects}. However in \(\mathsf{Rng}\) the zero ring is the \hyperref[def:zero-object]{zero object}.
+  \end{itemize}
+\end{example}
+
 
 \begin{corollary}[Uniqueness of zero objects]\label{def:uniqueness-zero-objects}
   Let \(0, \widetilde{0}\) be two \hyperref[def:zero-object]{zero} objects in a \hyperref[def:category]{category} \(\category{C}\).

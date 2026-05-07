@@ -112,17 +112,23 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
 \end{definition}
 
 \begin{remark}
-  Note that any morphism \(f: X \to Y\) may be decomposed in \hyperref[def:exact-sequence]{short exact sequences}
+  A short sequence \(0 \to X \xrightarrow{f} Y \xrightarrow{g} Z \to 0\) is \hyperref[def:exact-sequence]{short exact} if and only if \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism}, \(g\) is an \hyperref[def:mono-epi-morphism]{epimorphism} and \(\operatorname{Im} f = \ker g\).
+
+  Indeed, it is \hyperref[def:exact-sequence]{exact} at \(X\) iff \(\ker f = \operatorname{Im} 0 = 0\) and is \hyperref[def:exact-sequence]{exact} at \(Z\) iff \(\coker g = \operatorname{Im} 0 = 0\).
+\end{remark}
+
+\begin{example}
+  Any morphism \(f: X \to Y\) may be decomposed in \hyperref[def:exact-sequence]{short exact sequences}
   \begin{center}
     \begin{tikzcd}
-      0 \arrow[r] & \ker f \arrow[r] & X \arrow[r] & \operatorname{Coim} f \arrow[r] & 0 \\
-      0 \arrow[r] & \operatorname{Im} f \arrow[r] & Y \arrow[r] & \coker f \arrow[r] & 0
+      0 \arrow[r] & \ker f \arrow[r, tail] & X \arrow[r, two heads] & \operatorname{Coim} f \arrow[r] & 0 \\
+      0 \arrow[r] & \operatorname{Im} f \arrow[r, tail] & Y \arrow[r, two heads] & \coker f \arrow[r] & 0
     \end{tikzcd}
   \end{center}
   with \(\operatorname{Coim} f \cong \operatorname{Im} f\).
 
-  \todo[inline]{Prove}
-\end{remark}
+  Indeed, by definition we have \(\operatorname{Coim} f = \coker \left( \ker f \to X \right)\) and \(\operatorname{Im} = \ker (Y \to \coker f)\).
+\end{example}
 
 \begin{proposition}\label{prop:split-exact-sequence}
   Let
@@ -344,6 +350,10 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
   We call \(\cohomology{n}(X^{\bullet})\) the \(n\)-th \textbf{cohomology} of \(X^{\bullet}\).
 \end{definition}
 
+\begin{remark}
+  A \hyperref[def:complex]{complex} \(X^{\bullet}\) is \hyperref[def:exact-sequence]{exact} at \(X^{n}\) if and only if \(\cohomology{i}(X^{\bullet}) = 0\).
+\end{remark}
+
 
 \begin{lemma}\label{lemma:extension-cohomology-homotopy}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} and \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) a morphism in \(\Complex{\category{C}}\) \hyperref[def:homotopy]{homotopic to zero}.
@@ -409,7 +419,6 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
   \end{center}
 \end{remark}
 
-
 \begin{remark}\label{rem:short-exact-sequence-cohomology}
   We have \hyperref[def:exact-sequence]{short exact sequences}
   \begin{center}
@@ -426,7 +435,6 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
     \end{tikzcd}
   \end{center}
 \end{remark}
-
 
 \begin{theorem}\label{thm:LES-in-cohomology}
   Let

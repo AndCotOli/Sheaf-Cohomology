@@ -128,7 +128,7 @@
 \end{remark}
 
 \begin{lemma}\label{lemma:direct-sum-injective}
-  Let \(X, Z \in \category{C}\). Then \(X \oplus Z\) is \hyperref[def:injective-projective-object]{injective} if and only if \(X, Z\) are \hyperref[def:injective-projective-object]{injective}.
+  Let \(X, Z \in \category{C}\). Then \(X \oplus Z\) is \hyperref[def:injective-projective-object]{injective} if and only if \(X\) and \(Z\) are \hyperref[def:injective-projective-object]{injective}.
 \end{lemma}
 \begin{proof}
   This follows from the fact that if \(F, G\) are two \hyperref[def:additive-functor]{additive functors} between \hyperref[def:abelian-category]{abelian categories} then \(F \oplus G\) is \hyperref[def:exact-functor]{exact} if and only if \(F\) and \(G\) are \hyperref[def:exact-functor]{exact} and \(\Hom(-, I \oplus J) \cong \Hom(-, I) \oplus \Hom(-, J)\).
@@ -440,7 +440,7 @@
 \section{Derived functors}
 In this section \(\category{C}\) and \(\category{D}\) will be \hyperref[def:abelian-category]{abelian categories}, which we will assume that \hyperref[def:enough-injectives-projectives]{have enough injectives}.
 
-We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \category{C} \to \category{D}\), but there are dual definitions and statements for \hyperref[def:exact-functor]{right-exact functors}.
+We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \category{C} \to \category{D}\), but there are dual definitions and statements for \hyperref[def:exact-functor]{right-exact functors} assuming \(\category{C}\) and \(\category{D}\) \hyperref[def:enough-injectives-projectives]{have enough projectives}.
 
 \begin{definition}\label{def:right-derived-functor}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
@@ -453,7 +453,7 @@ We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \ca
   \begin{equation*}
     \operatorname{R}^{i}F\left(X\right) \coloneq \cohomology{i}(F(I^{\bullet}))
   \end{equation*}
-  where \(I^{\bullet}\) is a \hyperref[def:resolution]{injective resolution} of \(X\), and for any morphism \(f\colon X \to Y\)
+  where \(I^{\bullet}\) is an \hyperref[def:resolution]{injective resolution} of \(X\), and for any morphism \(f\colon X \to Y\)
   \begin{align*}
     \operatorname{R}^{i}Ff \coloneq \cohomology{i}(F f^{\bullet})
   \end{align*}

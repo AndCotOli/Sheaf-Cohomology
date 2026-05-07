@@ -149,7 +149,7 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
     p_{Y, \ast}(\sheaf{I}^{\bullet}) \to \left( p_{X, \ast} \circ f^{-1} \right) \left( \sheaf{I}^{\bullet} \right)
   \end{equation*}
   Note that, since \hyperref[cor:inverse-image-sheaf-exact]{\(f^{-1}\) is exact}, \(f^{-1}(\sheaf{I}^{\bullet})\) is an \hyperref[def:exact-sequence]{exact resolution} of \(p_{X}^{-1}(\sheaf{F})\).
-  However, it need to be made of \hyperref[def:injective-projective-object]{injectives}.
+  However, it need not be made of \hyperref[def:injective-projective-object]{injectives}.
   To fix this, consider a proper \hyperref[def:resolution]{injective resolution} \(p_{X}^{-1}(\sheaf{F}) \to \sheaf{J}^{\bullet}\).
   By \autoref{thm:existence-of-lifting} there exists a morphism (unique up to \hyperref[def:homotopy]{homotopy of complexes}) lifting the identity
   \begin{equation*}
@@ -170,7 +170,9 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
 \end{proof}
 
 \begin{remark}
-  If \(S = \{\ast\}\) then \hyperref[]{\(\Sh_{\ast}(\category{C}) \simeq \category{C}\)} and \(p_{Z}^{-1} \underline{M} = \underline{M}\) for all \(M \in \category{C}\) and \(Z \in \{X, Y\}\) the morphism of \autoref{lemma:induced-map-over} is
+  If \(S = \{\ast\}\) then \hyperref[]{\(\Sh_{\ast}(\category{C}) \simeq \category{C}\)} and \(p_{Z}^{-1} \underline{M} = \underline{M}\) for all \(M \in \category{C}\) and \(Z \in \{X, Y\}\).
+
+  In this case the morphism of \autoref{lemma:induced-map-over} is
   \begin{equation*}
     f^{\#, i}(\underline{M})\colon \cohomology{i}(Y; \underline{M}) \to \cohomology{i}(X; \underline{M})
   \end{equation*}
@@ -190,23 +192,45 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   \begin{equation*}
     \sheaf{I}^{\bullet} \to \left( h_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to \left(\left( h \circ j_{t} \right)_{\ast} \circ \left( h \circ j_{t} \right)^{-1}\right) \left(\sheaf{I}^{\bullet}\right)
   \end{equation*}
-  Pushing this factorization via \(p_{Y, \ast}\) the middle term becomes
+  Pushing this factorization via \(p_{Y, \ast}\) we get
   \begin{equation*}
-    \left( p_{Y, \ast} \circ h_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) = \left( \left( p_{Y} \circ h \right)_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right)
+     p_{Y, \ast} \left(\sheaf{I}^{\bullet}\right) \to \left( p_{Y, \ast} \circ h_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to \left(p_{Y, \ast} \circ \left( h \circ j_{t} \right)_{\ast} \circ \left( h \circ j_{t} \right)^{-1}\right) \left(\sheaf{I}^{\bullet}\right)
   \end{equation*}
-  Therefore since \(p_{Y} \circ h = p_{X} \circ h\) we have a factorization of \(f_{t}^{\#, i}\)
+  On the one hand since \(p_{Y} \circ h = p_{X} \circ p\) the middle term becomes
   \begin{equation*}
-    p_{Y, \ast}\left(\sheaf{I}^{\bullet}\right) \to \left( p_{X, \ast} \circ p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to p_{X, \ast}\left(\sheaf{J}^{\bullet}\right)
+    \left( p_{Y, \ast} \circ h_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) = \left( \left( p_{Y} \circ h \right)_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) = \left( \left( p_{X} \circ p \right)_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right)
   \end{equation*}
-  Denote by \(\alpha_{t}\) the cohomology of the second map.
-  Since the first map does not depend on \(t\), we only need to see that \(\alpha_{0} = \alpha_{1}\).
+  On the other since \(f_{t} = h \circ j_{t}\) and \(p_{Y} \circ f_{t} = p_{X}\) we have
+  \begin{equation*}
+    \left(p_{Y, \ast} \circ \left( h \circ j_{t} \right)_{\ast} \circ \left( h \circ j_{t} \right)^{-1}\right) \left(\sheaf{I}^{\bullet}\right) = \left( \left( p_{Y} \circ f_{t} \right)_{\ast} \circ f_{t}^{-1} \right) \left( \sheaf{I}^{\bullet} \right) = \left( p_{X, \ast} \circ f_{t}^{-1} \right) \left( \sheaf{I}^{\bullet} \right)
+  \end{equation*}
+  As in \autoref{lemma:induced-map-over} since \(f_{t}^{-1}(\sheaf{I}^{\bullet})\) is an \hyperref[def:exact-sequence]{exact} (but not necessarilly \hyperref[def:injective-projective-object]{injective}) \hyperref[def:resolution]{resolution} of \(p_{X}^{-1}(\sheaf{F})\) there exists a unique (up to homotopy) lifting of the identity
+  \begin{equation*}
+    f_{t}^{-1}(\sheaf{I}^{\bullet}) \to \sheaf{J}^{\bullet}
+  \end{equation*}
+  where \(p_{X}^{-1}(\sheaf{F}) \to \sheaf{J}^{\bullet}\) is an \hyperref[def:injective-resolution]{injective resolution} of \(p_{X}^{-1}(\sheaf{F})\).
+  Applying \(p_{X, \ast}\) we obtain a map
+  \begin{equation*}
+    \left( p_{X, \ast} \circ f_{t}^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to p_{X, \ast} \left( \sheaf{J}^{\bullet} \right)
+  \end{equation*}
+
+  Therefore we obtain a factorization of \(f^{\#, t}\)
+  \begin{equation*}
+    p_{Y, \ast}\left(\sheaf{I}^{\bullet}\right) \xrightarrow{g_{1}} \left( p_{X, \ast} \circ p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \xrightarrow{g_{2}} p_{X, \ast}\left(\sheaf{J}^{\bullet}\right)
+  \end{equation*}
+  Denote by
+  \begin{equation*}
+    \alpha_{t} \coloneq \cohomology{\bullet}(g_{2})\colon \cohomology{\bullet} \left( \left( p_{X, \ast} \circ p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \right) \to \cohomology{\bullet} \left( p_{X, \ast}\left(\sheaf{J}^{\bullet}\right) \right)
+  \end{equation*}
+  the induced map on cohomology of \(g_{2}\).
+  Since \(g_{1}\) does not depend on \(t\), we only need to see that \(\alpha_{0} = \alpha_{1}\).
   
   The map \(\alpha_{t}\) is induced by
   \begin{equation*}
-    \left( p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to \left( j_{t} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to \sheaf{J}^{\bullet}
+    \left( p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to \underbrace{\left( j_{t}^{-1} \circ h^{-1} \right)}_{f_{t}^{-1}} \left( \sheaf{I}^{\bullet} \right) \to \sheaf{J}^{\bullet}
   \end{equation*}
   Note that \(h^{-1}(\sheaf{I}^{\bullet})\) is an \hyperref[def:exact-sequence]{exact sequence} \hyperref[def:resolution]{resolving} \(\left( h^{-1} \circ p_{Y}^{-1} \right) \left( \sheaf{F} \right) \cong \left( p^{-1} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right)\).
-  Therefore \autoref{lemma:vanishing-cohomology-interval} higher cohomology (\(k > 0\)) vanishes and thus, the cohomology of \(\alpha_{t}\) is concentrated in degree zero, which is
+  Since by \autoref{lemma:vanishing-cohomology-interval} higher cohomology (\(k > 0\)) vanishes, the cohomology of \(\alpha_{t}\) is concentrated in degree zero, which is
   \begin{equation*}
     \left( p_{\ast} \circ p^{-1} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right) \to \left( j_{t}^{-1} \circ p^{-1} \circ p_{X}^{-1} \right) \left( \sheaf{F} \right)
   \end{equation*}
@@ -243,13 +267,13 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   \begin{equation*}
     \left( g \circ f \right)^{\#, i} = f^{\#, i} \circ g^{\#, i} \qquad \left( f \circ g \right)^{\#, i} = g^{\#, i} \circ f^{\#, i}
   \end{equation*}
-  Therefore since \hyperref[thm:homotopy-invariance-cohomology]{homotopic maps induce the same tranformation}
+  Therefore since \hyperref[thm:homotopy-invariance-cohomology]{homotopic maps induce the same transformation}
   \begin{equation*}
     f^{\#, i} \circ g^{\#, i} = (\id_{X})^{\#, i} = \id \qquad g^{\#, i} \circ f^{\#, i} = \left( \id_{Y} \right)^{\#, i} = \id \qedhere
   \end{equation*}
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{cor:cohomology-and-contractible}
   Let \(X\) be \hyperref[def:homotopy-over]{contractible over \(S\)}.
   Then for all \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\) the \hyperref[def:unit-counit]{adjunction unit map}
   \begin{equation*}
@@ -279,5 +303,37 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
     0 \isoarrow \operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1} \qedhere
   \end{equation*}
 \end{proof}
+
+\begin{definition}\label{def:deformation-retract}
+  Let \(X\) be a topological space over \(S\) with \(p_{X}\colon X \to S\).
+  Let \(i\colon A \hookrightarrow X\) be a subspace with \(p_{A} \coloneq p_{X}|_{A}\).
+
+  We say that \(A\) is a \textbf{deformation retract} of \(X\) over \(S\) if there exists a \hyperref[def:continuous-map-over]{continuous map over \(S\)} \(r\colon X \to A\) with \(r \circ i = \id_{A}\) and a \hyperref[def:homotopy-over]{homotopy over \(S\)} \(F\colon X \times I \to A\) between \(\id_{X}\) and \(i \circ r\).
+  The map \(r\) is called the \textbf{retraction} of \(X\) into \(A\).
+
+  If \(F(a, t) = a\) for all \(t \in I\) and \(a \in A\), we say that \(A\) is a \textbf{strong deformation retract} of \(X\) over \(S\).
+\end{definition}
+
+\begin{corollary}\label{cor:cohomology-and-retraction}
+  Let \(i\colon A \hookrightarrow X\) be a \hyperref[def:deformation-retract]{strong deformation retract} of X over S.
+  Then the induced map
+  \begin{equation*}
+    i^{\#, n} \colon \operatorname{R}^{n}p_{X, \ast} \circ p_{X}^{-1} \to \operatorname{R}^{n}p_{A, \ast} \circ p_{A}^{-1}
+  \end{equation*}
+  is a \hyperref[def:natural-transformation]{natural isomorphism} for all \(n \geq 0\).
+\end{corollary}
+\begin{proof}
+  Let \(r\colon X \to A\) be the \hyperref[def:deformation-retract]{retraction} of \(X\) into \(A\).
+  Since \(r \circ i = \id_{A}\) we have for all \(n \geq 0\)
+  \begin{equation*}
+    i^{\#, n} \circ r^{\#, n} = \left( i \circ r \right)^{\#, n} = \id_{A}^{\#, n} = \id_{\operatorname{R}^{i}p_{A, \ast} \circ p_{A}^{-1}}
+  \end{equation*}
+  On the other hand since \(i \circ r \sim_{S} \operatorname{id}_{X}\) by \autoref{thm:homotopy-invariance-cohomology} we have
+  \begin{equation*}
+    r^{\#, n} \circ i^{\#, n} = \left( r \circ i \right)^{\#, n} = \id_{X}^{\#, n} = \id_{\operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1}}
+  \end{equation*}
+  Therefore \(r^{\#, n}\) and \(i^{\#, n}\) are inverses of each other and thus \hyperref[def:natural-transformation]{natural isomorphisms}.
+\end{proof}
+
 
 \end{document}

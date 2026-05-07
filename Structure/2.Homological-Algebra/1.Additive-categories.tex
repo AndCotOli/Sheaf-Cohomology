@@ -18,6 +18,14 @@
   \end{enumerate}
 \end{definition}
 
+\begin{example}~
+  \begin{itemize}
+    \item The \hyperref[def:category]{category} of abelian groups \(\Ab\) is \hyperref[def:additive-category]{additive}.
+          More generally, for any ring \(R\) the category of \(R\)-modules \(\Mod(R)\) is \hyperref[def:additive-category]{additive}.
+    \item The \hyperref[def:category]{category} of groups \(\Grp\) is not \hyperref[def:additive-category]{additive}, since given two group homomorphisms \(f, g\) its sum is not necessarilly a homomorphism.
+  \end{itemize}
+\end{example}
+
 \begin{notation}\label{def:direct-sum}
   If \(X, Y \in \category{C}\) we denote by \(X \oplus Y\) its \hyperref[def:categorical-coproduct]{coproduct} and call it their \textbf{direct sum}.
 \end{notation}
@@ -78,6 +86,20 @@
   \end{itemize}
 \end{proof}
 
+\begin{remark}
+  Given objects \(A_{1}, \ldots, A_{n}\) and \(B_{1}, \ldots, B_{m}\) in an \hyperref[def:additive-category]{additive category} \(\category{C}\), we can represent morphisms \(f\colon A_{1} \oplus \cdots \oplus A_{n} \to B_{1} \oplus \cdots \oplus B_{m}\) as \(n \times m\) matrices
+  \begin{equation*}
+    \begin{pmatrix}
+      f_{11} & \cdots & f_{1n} \\
+      \vdots & \ddots & \vdots \\
+      f_{m1} & \cdots & f_{mn}
+    \end{pmatrix}
+    \text{ where } f_{k\ell}\coloneq p_{k} \circ f \circ i_{\ell}\colon A_{\ell} \to B_{k}
+  \end{equation*}
+  Using that \(\sum_{k} i_{k} \circ p_{k} = 1\), it follows that addition and composition of matrices obey the usual rules of matrix addition and multiplication respectively.
+\end{remark}
+
+
 \begin{lemma} \label{lemma:mono-epi-additive}
   A morphism \(f\colon X \to Y\) in an \hyperref[def:additive-category]{additive category} is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if for every morphism \(g\colon Z \to X\)
   \begin{equation*}
@@ -133,6 +155,10 @@
   \end{equation*}
   is a morphism of abelian groups.
 \end{definition}
+
+\begin{example}
+  For a fixed \(R\)-module \(M\) the \hyperref[def:functor]{functor} \(\Hom_{R}(M, -)\colon \Mod(R) \to \Ab\) is \hyperref[def:additive-functor]{additive}.
+\end{example}
 
 \begin{proposition}\label{prop:additive-functor-characterization}
   Let \(\category{C}\), \(\category{D}\) be \hyperref[def:additive-category]{additive categories}.
