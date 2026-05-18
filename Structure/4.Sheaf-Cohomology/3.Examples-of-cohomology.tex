@@ -15,12 +15,12 @@ We focus our attention now to the computation of the cohomology of some topologi
 Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris sequence} and the \hyperref[thm:homotopy-invariance-cohomology]{homotopy invariance of cohomology}.
 
 \begin{example}[\(\mathbb{S}^{1}\)]\label{ex:cohomology-S1}
-  Let \(\sheaf{F} \in \Mod( \underline{\mathbf{k}}_{S} )\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} over \(S\) and \(X \coloneq S \times \mathbb{S}^{1}\).
+  Let \(\sheaf{F} \in \Mod( \underline{\mathbf{k}}_{S} )\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} over \(S\) and \(X \coloneq \mathbb{S}^{1} \times S\).
   
   Consider the open cover of \(\mathbb{S}^{1} = H^{+} \cup H^{-}\) where \(H^{+}\) is the upper hemisphere and \(H^{-}\) the lower one, both extended slightly past the equator.
-  Let \(U = S \times H^{+}\) and \(V = S \times H^{-}\).
+  Let \(U = H^{+} \times S\) and \(V = H^{-} \times S\).
   Since \(H^{+}\) and \(H^{-}\) are homeomorphic to open intervals, which are contractible, both \(U\) and \(V\) are \hyperref[def:homotopy-over]{contractible over \(S\)}.
-  Furthermore \(U \cap V = \left( S \times W_{1} \right) \coprod \left( S \times W_{2} \right)\) consists of two disjoint pieces, each of these \hyperref[def:homotopy-over]{contractible over \(S\)}.
+  Furthermore \(U \cap V = \left( W_{1} \times S \right) \coprod \left( W_{2} \times S \right)\) consists of two disjoint pieces, each of these \hyperref[def:homotopy-over]{contractible over \(S\)}.
 
   Therefore since \hyperref[cor:cohomology-and-contractible]{cohomology of contractible spaces is concentrated in degree 0} we only have
   \begin{align*}
@@ -31,7 +31,7 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   Writing the \hyperref[thm:mayer-vietories-open]{Mayer-Vietoris sequence} since the higher terms vanish we end up with
   \begin{center}
     \begin{tikzcd}
-      0 \arrow[r] & \operatorname{R}^{0} p_{X, \ast} \sheaf{F}_{X} \arrow[r] & \sheaf{F} \oplus \sheaf{F} \arrow[r, "\alpha"] & \sheaf{F} \oplus \sheaf{F} \arrow[r, "\delta"] & \operatorname{R}^{1} p_{X, \ast} \sheaf{F}|_{X} \arrow[r] & 0
+      0 \arrow[r] & \operatorname{R}^{0} p_{X, \ast} \sheaf{F}|_{X} \arrow[r] & \sheaf{F} \oplus \sheaf{F} \arrow[r, "\alpha"] & \sheaf{F} \oplus \sheaf{F} \arrow[r, "\delta"] & \operatorname{R}^{1} p_{X, \ast} \sheaf{F}|_{X} \arrow[r] & 0
     \end{tikzcd}
   \end{center}
   Therefore directly we get \(\operatorname{R}^{i}p_{X, \ast}\sheaf{F}_{X} = 0\) for all \(i \geq 2\).
@@ -44,7 +44,7 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   \end{equation*}
   and thus \(\ker \alpha = \{(s, s) \mid s \in \sheaf{F}\}\) is the diagonal which means that
   \begin{equation*}
-    \operatorname{R}^{0}p_{X, \ast} \sheaf{F}_{X} \cong \sheaf{F}
+    \operatorname{R}^{0}p_{X, \ast} \sheaf{F}|_{X} \cong \sheaf{F}
   \end{equation*}
 
   On the other hand by \hyperref[def:exact-sequence]{exactness} \(\delta\) is surjective, meaning that
@@ -54,7 +54,7 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
 
   Therefore
   \begin{equation*}
-    \operatorname{R}^{i}p_{S \times \mathbb{S}^{1}, \ast}\sheaf{F}_{X} = \begin{cases}
+    \operatorname{R}^{i}p_{\mathbb{S}^{1} \times S, \ast}\sheaf{F}|_{\mathbb{S}^{1} \times S} = \begin{cases}
       \sheaf{F} & i = 0 \\
       \sheaf{F} & i = 1 \\
       0 & i \geq 2
@@ -70,9 +70,9 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   \end{equation*}
 \end{example}
 
-\begin{example}[\(\mathbb{S}^{n}\)]
+\begin{example}[\(\mathbb{S}^{n}\)]\label{ex:cohomology-Sn}
   Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\).
-  We are going to see that cohomology of \(X = S \times \mathbb{S}^{n}\) over \(S\) by induction over \(n\) is
+  We are going to see that cohomology of \(X = \mathbb{S}^{n} \times S\) over \(S\) by induction over \(n\) is
   \begin{equation*}
     \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} = \begin{cases}
       \sheaf{F} & i = 0 \\
@@ -83,14 +83,14 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   We have already computed the base case \(n = 1\) in \autoref{ex:cohomology-S1}, so we can suppose \(n \geq 2\).
   
   Consider the open cover \(\mathbb{S}^{n} = H^{+} \cup H^{-}\) where \(H^{+}\) is the open upper hemisphere and \(H^{-}\) is the lower open hemisphere, both extending slightly past the equator.
-  We have that \(U \coloneq S \times H^{+}\) and \(V \coloneq S \times H^{-}\) are \hyperref[def:homotopy-over]{contractible over \(S\)}.
+  We have that \(U \coloneq H^{+} \times S\) and \(V \coloneq H^{-} \times S\) are \hyperref[def:homotopy-over]{contractible over \(S\)}.
   Furthermore since \(H^{+} \cap H^{-}\) is a thickened equatorial band it can be \textit{squeezed} into the equator itself, which it is a \((n-1)\)-sphere.
-  This means that \(H^{+} \cap H^{-}\) \hyperref[def:deformation-retract]{strong-deformation retracts} onto \(\mathbb{S}^{n-1}\) and thus, \(U \cap V\) \hyperref[def:deformation-retract]{strong-deformation retracts} onto \(S \times \mathbb{S}^{n-1}\).
+  This means that \(H^{+} \cap H^{-}\) \hyperref[def:deformation-retract]{strong-deformation retracts} onto \(\mathbb{S}^{n-1}\) and thus, \(U \cap V\) \hyperref[def:deformation-retract]{strong-deformation retracts} onto \(\mathbb{S}^{n-1} \times S\).
 
   Since \(\mathbb{S}^{n-1}\) is connected the first terms of the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris sequence} are
   \begin{center}
     \begin{tikzcd}
-      0 \arrow[r] & \operatorname{R}^{0} p_{X, \ast} \sheaf{F}_{X} \arrow[r] & \sheaf{F} \oplus \sheaf{F} \arrow[r, "\alpha"] & \sheaf{F} \arrow[r, "\delta"] & \operatorname{R}^{1} p_{X, \ast} \sheaf{F}|_{X} \arrow[r] & 0 \oplus 0 \arrow[r] & \cdots
+      0 \arrow[r] & \operatorname{R}^{0} p_{X, \ast} \sheaf{F}|_{X} \arrow[r] & \sheaf{F} \oplus \sheaf{F} \arrow[r, "\alpha"] & \sheaf{F} \arrow[r, "\delta"] & \operatorname{R}^{1} p_{X, \ast} \sheaf{F}|_{X} \arrow[r] & 0 \oplus 0 \arrow[r] & \cdots
     \end{tikzcd}
   \end{center}
   In this case we have \(\alpha(s_{U}, s_{V}) = s_{U} - s_{V}\) and thus \(\operatorname{R}^{0}p_{X, \ast}\sheaf{F}|_{X} \cong \sheaf{F}\).
@@ -108,7 +108,7 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   \end{equation*}
   Substituting \(U \cap V\) we get
   \begin{equation*}
-    \operatorname{R}^{i+1}p_{X, \ast} \sheaf{F}|_{S \times \mathbb{S}^{n}} \cong \operatorname{R}^{i}p_{X, \ast} \sheaf{F}|_{S \times \mathbb{S}^{n-1}} \cong \begin{cases}
+    \operatorname{R}^{i+1}p_{X, \ast} \sheaf{F}|_{\mathbb{S}^{n} \times S} \cong \operatorname{R}^{i}p_{X, \ast} \sheaf{F}|_{\mathbb{S}^{n-1} \times S} \cong \begin{cases}
       \sheaf{F} & i \in \{0, n-1\} \\
       \sheaf{F} & i \notin \{0, n-1\}
     \end{cases}
@@ -116,7 +116,7 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   
   Therefore
   \begin{equation*}
-    \operatorname{R}^{i}p_{S \times \mathbb{S}^{n}, \ast}\sheaf{F}|_{S \times \mathbb{S}^{n}} = \begin{cases}
+    \operatorname{R}^{i}p_{\mathbb{S}^{n} \times S, \ast}\sheaf{F}|_{\mathbb{S}^{n} \times S} = \begin{cases}
       \sheaf{F} & i = 0 \\
       \sheaf{F} & i = n \\
       0 & i \notin \{0, n\}
@@ -133,12 +133,12 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
 \end{example}
 
 \begin{example}[\(\mathbb{R}^{n} \setminus \{0\}\)]
-  We are going to see first that \(X \coloneq S \times \left( \mathbb{R}^{n} \setminus \{0\} \right)\) is a \hyperref[def:deformation-retract]{strong deformation retract} of \(A \coloneq S \times \mathbb{S}^{n-1}\).
-  To do this, consider the inclussion \(i\colon A \hookrightarrow X\) and the retraction \(r\colon X \to A, r(s, v) \coloneq \left( s, \frac{v}{\lVert v\rVert} \right)\).
+  We are going to see first that \(X \coloneq \left( \mathbb{R}^{n} \setminus \{0\} \right) \times S\) is a \hyperref[def:deformation-retract]{strong deformation retract} of \(A \coloneq \mathbb{S}^{n-1} \times S\).
+  To do this, consider the inclussion \(i\colon A \hookrightarrow X\) and the retraction \(r\colon X \to A, r(v, s) \coloneq \left( \frac{v}{\lVert v\rVert}, s \right)\).
   As the \hyperref[def:homotopy-over]{homotopy} we can take
   \begin{align*}
     H\colon& X \times [0, 1] \to A \\
-    &(s, v, t) \mapsto \left( s, (1 - t)v + t \frac{v}{\lVert v \rVert} \right)
+    &(v, s, t) \mapsto \left( (1 - t)v + t \frac{v}{\lVert v \rVert}, s \right)
   \end{align*}
   Therefore by \autoref{cor:cohomology-and-retraction} for all \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\) we have and \(i \geq 0\)
   \begin{equation*}
@@ -146,7 +146,7 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   \end{equation*}
   In particular if \(n \geq 2\) we have
   \begin{equation*}
-    \operatorname{R}^{i}p_{S \times \left(\mathbb{R}^{n} \setminus \{0\}\right), \ast}\sheaf{F}|_{S \times \left( \mathbb{R}^{n} \setminus \{0\} \right)} \cong \begin{cases}
+    \operatorname{R}^{i}p_{\left(\mathbb{R}^{n} \setminus \{0\}\right) \times S, \ast}\sheaf{F}|_{\left( \mathbb{R}^{n} \setminus \{0\} \right) \times S} \cong \begin{cases}
       \sheaf{F} & i = 0 \\
       \sheaf{F} & i = n-1 \\
       0 & i \notin \{0, n-1\}
@@ -156,7 +156,7 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   We have a \hyperref[def:deformation-retract]{deformation retract} \(\mathbb{R} \setminus \{0\} \to \mathbb{S}^{0} \cong \{\pm 1\}\).
   Therefore
   \begin{equation*}
-    \operatorname{R}^{i}p_{S \times \left( \mathbb{R} \setminus \{0\} \right), \ast}\sheaf{F}|_{S \times \left( \mathbb{R} \setminus 0 \right)} \cong \begin{cases}
+    \operatorname{R}^{i}p_{\left( \mathbb{R} \setminus \{0\} \right) \times S, \ast}\sheaf{F}|_{\left( \mathbb{R} \setminus 0 \right) \times S} \cong \begin{cases}
       \sheaf{F} \oplus \sheaf{F} & i = 0 \\
       0 & i \neq 0
     \end{cases}
@@ -164,16 +164,159 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
 
   In particular taking \(S = \{\ast\}\) since \(\sheaf{F} \cong \underline{M}\) for some \(M \in \Mod(\mathbf{k})\) we get
   \begin{align*}
+     \cohomology{i}(\mathbb{R} \setminus \{0\}; \underline{M}) &= \begin{cases}
+      M \oplus M & i = 0 \\
+      0 & i \neq 0
+     \end{cases} \\
     \cohomology{i}(\mathbb{R}^{n} \setminus \{0\}; \underline{M}) &= \begin{cases}
       M & i = 0 \\
       M & i = n-1 \\
       0 & i \notin \{0, n-1\}
-    \end{cases} \\
-     \cohomology{i}(\mathbb{R} \setminus \{0\}; \underline{M}) &= \begin{cases}
-      M \oplus M & i = 0 \\
-      0 & i \neq 0
-    \end{cases}
+    \end{cases} \qquad \forall n > 1
   \end{align*}
 \end{example}
+
+\begin{example}[\(\mathbb{RP}^{2}\)]\label{ex:cohomology-RP2}
+  Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\) and \(X \coloneq \mathbb{RP}^{2} \times S\).
+
+  Consider an open cover \(\mathbb{RP}^{2} = U_{0} \cup V_{0}\) where \(U_{0}\) is an open disk around a point, \(V_{0}\) is an open neighbourhood of the \textit{equator} \(\mathbb{RP}^{1} \subset \mathbb{RP}^{2}\) (which is homeomorphic to an open Möbius band).
+  In this case \(U_{0} \cap V_{0}\) is homeomorphic to an open annulus.
+  If we let \(U \coloneq U_{0} \times S\) and \(V \coloneq V_{0} \times S\) then \(X = U \cup V\) and we can use \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris} to compute the cohomology.
+
+  On the one hand since \(U_{0}\) is contractible \(U\) is \hyperref[def:homotopy-over]{contractible over \(S\)} and thus by \autoref{cor:cohomology-and-contractible}
+  \begin{equation*}
+    \operatorname{R}^{i}p_{U, \ast} \sheaf{F}|_{U} \cong \begin{cases}
+      \sheaf{F} & i = 0 \\
+      0 & i > 0
+    \end{cases}
+  \end{equation*}
+
+  On the other since \(V_{0}\) and \(U_{0} \cap V_{0}\) strongly deformation retract into their inner circle \(\mathbb{S}^{1}\) both \(V\) and \(U \cap V\) strongly deformation retract over \(S\) into \(\mathbb{S}^{1} \times S\) and thus by \autoref{cor:cohomology-and-retraction} and \autoref{ex:cohomology-S1}
+  \begin{equation*}
+    \operatorname{R}^{i}p_{V, \ast} \sheaf{F}_{V} = \operatorname{R}^{i}p_{U \cap V} \cong \begin{cases}
+      \sheaf{F} & i \in \{0, 1\} \\
+      0 & i > 1
+    \end{cases}
+  \end{equation*}
+
+  Therefore the associated \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris sequence} is
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \operatorname{R}^{0}p_{X, \ast}\sheaf{F}|_{X} \arrow[r] & \sheaf{F} \oplus \sheaf{F} \arrow[r, "\alpha"] & \sheaf{F} \arrow[llld, "\delta_{0}"'] \\
+      \operatorname{R}^{1}p_{X, \ast}\sheaf{F}|_{X} \arrow[r] & 0 \oplus \sheaf{F} \arrow[r, "\beta"] & \sheaf{F} \arrow[r, "\delta_{1}"] &
+      \operatorname{R}^{2}p_{X, \ast}\sheaf{F}|_{X} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+
+  The map \(\alpha\) is given by \((s_{1}, s_{2}) \mapsto s_{1} - s_{2}\) and thus its \hyperref[def:kernel]{kernel} is the diagonal making
+  \begin{equation*}
+    \operatorname{R}^{0}p_{X, \ast}\sheaf{F}|_{X} \cong \sheaf{F}
+  \end{equation*}
+  Furthermore since \(\alpha\) is surjective we get \(\operatorname{Im} \alpha = \sheaf{F}\) and thus \(\delta_{0} = 0\).
+
+  The map \(\beta\) is induced by the inclussion \(U \cap V \hookrightarrow V\).
+  Therefore since the annulus \(U_{0} \cap V_{0}\) wraps twice around the inner circle of \(V_{0}\) we have that \(\beta\) is multiplication by two.
+  Therefore by exactness
+  \begin{equation*}
+    \operatorname{R}^{i}p_{\mathbb{RP}^{2} \times S, \ast}\sheaf{F}|_{\mathbb{RP}^{2} \times S} \cong \begin{cases}
+      \sheaf{F} & i = 0 \\
+      \ker \left( \times 2\colon \sheaf{F} \to \sheaf{F} \right) \eqcolon {}_2\sheaf{F}, & i = 1 \\
+      \coker \left( \times 2\colon \sheaf{F} \to \sheaf{F} \right) \equiv \quot{\sheaf{F}}{2 \sheaf{F}} & i = 2 \\
+      0 & i > 2
+    \end{cases}
+  \end{equation*}
+
+  In particular taking \(S = \{\ast\}\) since \(\sheaf{F} \cong \underline{M}\) for some \(M \in \Mod(\mathbf{k})\) we get
+  \begin{equation*}
+    \cohomology{i}(\mathbb{RP}^{2}; \underline{M}) \cong \begin{cases}
+      \underline{M} & i = 0 \\
+      {}_2\underline{M}, & i = 1 \\
+      \quot{\underline{M}}{2 \underline{M}} & i = 2 \\
+      0 & i > 2
+    \end{cases}
+  \end{equation*}
+\end{example}
+
+\begin{example}[\(\mathbb{RP}^{n}\)]
+  Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\).
+  We are going to see that the cohomology of \(X \coloneq \mathbb{RP}^{n} \times S\) over \(S\) is
+  \begin{equation*}
+    \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \cong \begin{cases}
+      \sheaf{F} & i = 0 \\
+       {}_{2}\sheaf{F} & i \in \left\{ 1, \ldots, n-1 \right\}, i \text{ odd } \\
+      \quot{\sheaf{F}}{2\sheaf{F}} & i \in \left\{ 1, \ldots, n \right\}, i \text{ even } \\
+      \sheaf{F} & i = n \text{ odd } \\
+      0 & i > n
+    \end{cases}
+  \end{equation*}
+
+  We have already seen the \hyperref[ex:cohomology-RP2]{base case \(n = 2\)}, therefore we can assume the result for \(n-1\) and prove it for \(n\).
+
+  Consider the open cover of \(X\) given by
+  \begin{equation*}
+    U \coloneq \left( \text{Open } n\text{-disk} \right) \times S \qquad V \coloneq \left( \text{Tubular neighbourhood of } \mathbb{RP}^{n-1} \right) \times S
+  \end{equation*}
+  Since \(U\) is \hyperref[def:homotopy-over]{contractible over \(S\)} we have
+  \begin{equation*}
+    \operatorname{R}^{i}p_{U, \ast}\sheaf{F}|_{U} \cong \begin{cases}
+      \sheaf{F} & i = 0 \\
+      0 & i > 0
+    \end{cases}
+  \end{equation*}
+  Since \(V\) strongly deformation retracts over \(S\) to \(\mathbb{RP}^{n-1} \times S\)
+  \begin{equation*}
+    \operatorname{R}^{i}p_{V, \ast}\sheaf{F}|_{V} \cong \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S}
+  \end{equation*}
+  Since \(U \cap V\) strongly deformation retracts over \(S\) to \(\mathbb{S}^{n-1} \times S\)
+  \begin{equation*}
+    \operatorname{R}^{i}p_{U \cap V, \ast} \sheaf{F}|_{U \cap V} \cong \begin{cases}
+      \sheaf{F} & i \in \{0, n-1\} \\
+      0 & i \notin \{0, n-1\}
+    \end{cases}
+  \end{equation*}
+
+  Plugging this into the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris sequence} we have
+  \begin{itemize}
+    \item \(i = 0\): Is the same as in the \hyperref[ex:cohomology-RP2]{\(\mathbb{RP}^{2}\)} so
+          \begin{equation*}
+            \operatorname{R}^{0}p_{X, \ast} \sheaf{F}|_{X} \cong \sheaf{F}
+          \end{equation*}
+    \item \(i \in \{1, \ldots, n-2\}\): In this range we have
+          \begin{equation*}
+            0 \to \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \to \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S, \ast}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \to 0
+          \end{equation*}
+          And thus we have an isomorphism
+          \begin{equation*}
+            \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \cong \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S, \ast}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S}
+          \end{equation*}
+          which is our inductive step.
+    \item \(i \in \{n-1, n\}\): In this case
+          \begin{equation*}
+            0 \to \operatorname{R}^{n-1}p_{X, \ast} \sheaf{F}|_{X} \to \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \xrightarrow{\beta} \sheaf{F} \xrightarrow{\delta_{n-1}} \operatorname{R}^{n}p_{X, \ast} \sheaf{F}|_{X} \to 0
+          \end{equation*}
+          The map \(\beta\) depends on the parity of \(n\):
+          \begin{itemize}
+            \item If \(n\) is even then the map \(\mathbb{S}^{n-1} \to \mathbb{RP}^{n-1}\) has degree two and by induction
+                  \begin{equation*}
+                     \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \cong \sheaf{F}
+                  \end{equation*}
+                  Therefore \(\beta\colon \sheaf{F} \to \sheaf{F}\) is multiplication by two and thus
+                  \begin{align*}
+                    \operatorname{R}^{n-1} p_{X, \ast} \sheaf{F}|_{X} &\cong {}_{2}\sheaf{F} \\
+                    \operatorname{R}^{n} p_{X, \ast} \sheaf{F}|_{X} &\cong \quot{\sheaf{F}}{2\sheaf{F}}
+                  \end{align*}
+            \item If \(n\) is even the map \(\mathbb{S}^{n-1} \to \mathbb{RP}^{n-1}\) has degree zero and by induction
+                  \begin{equation*}
+                     \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \cong \quot{\sheaf{F}}{2\sheaf{F}}
+                  \end{equation*}
+                  Therefore \(\beta\colon \quot{\sheaf{F}}{2\sheaf{F}} \to \sheaf{F}\) is the zero map and thus
+                  \begin{align*}
+                    \operatorname{R}^{n-1} p_{X, \ast} \sheaf{F}|_{X} &\cong \quot{\sheaf{F}}{2\sheaf{F}} \\
+                    \operatorname{R}^{n} p_{X, \ast} \sheaf{F}|_{X} &\cong \sheaf{F}
+                  \end{align*}
+          \end{itemize}
+  \end{itemize}
+\end{example}
+
 
 \end{document}

@@ -8,6 +8,17 @@
 
 \chapter{Additive categories}
 
+The general category theory developed in \autoref{part:category-theory} provides a powerful language for describing universal properties, but it is too broad to support the specific operations of homological algebra.
+To define a "complex" or to "sum" two different ways of mapping one object to another, we need a category that possesses an internal algebraic structure.
+This leads us to the concept of Additive Categories.
+
+The formalization of these categories was driven by the need to treat various mathematical environments—such as abelian groups, modules over a ring, and eventually sheaves—using a single, unified machinery.
+Historically, this transition was solidified in the 1950s as mathematicians like Saunders Mac Lane and Alexander Grothendieck sought to axiomatize the "linear" behavior found in topology and algebra.
+In this chapter, we transition from categories where \(\Hom(X, Y)\) is merely a set to those where it is an abelian group.
+This simple enrichment has profound consequences: it allows us to represent morphisms as matrices and, most importantly, it permits the construction of chain complexes.
+These complexes are the fundamental objects of study in this part of the thesis; they are the "chains" whose links we will measure to extract the cohomological information of a space. 
+
+
 \begin{definition}[Additive category]\label{def:additive-category}
   A \hyperref[def:category]{category} \(\category{C}\) is \textbf{additive} if it satisfies
   \begin{enumerate}[label=Ad.\arabic*), ref=Ad.\arabic*]
@@ -217,9 +228,9 @@
           \begin{equation*}
             F(f + g) = F(\nabla_{Y} \circ (f \oplus g) \circ \Delta_{X}) = F\nabla_{Y} \circ F(f \oplus g) \circ F\Delta_{X}
           \end{equation*}
-          Since by hypothesis \(F\) preserves finit \hyperref[def:direct-sum]{direct sums}
+          Since by hypothesis \(F\) preserves finite \hyperref[def:direct-sum]{direct sums}
           \begin{equation*}
-            F\nabla_{Y} \circ F(f \oplus g) \circ F\Delta_{X} = \nabla_{F(Y)} \circ (Ff \oplus Fg) \oplus \Delta_{F(X)} = Ff + Fg
+            F\nabla_{Y} \circ F(f \oplus g) \circ F\Delta_{X} = \nabla_{F(Y)} \circ (Ff \oplus Fg) \circ \Delta_{F(X)} = Ff + Fg
           \end{equation*}
           Therefore \(F(f + g) = Ff + Fg\), which means that \(F\) is \hyperref[def:additive-functor]{additive}. \qedhere
   \end{itemize}

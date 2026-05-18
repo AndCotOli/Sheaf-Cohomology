@@ -4,6 +4,14 @@
 
 \chapter{Categories, morphisms and duality}
 
+The study of sheaf cohomology is, at its heart, the study of how local data on a topological space fails to assemble into global data.
+This failure is captured not just by the objects themselves, but by the maps between them.
+To treat these relationships with the necessary precision, we require the language of category theory.
+
+In this chapter, we establish the categorical framework that will support our subsequent constructions.
+We begin with the basic definitions of categories and morphisms, with a particular focus on the category of open sets \(\Open(X)\), which serves as the "site" for any sheaf.
+We also introduce the principle of duality and the classification of morphisms—concepts that will be vital when we eventually define cohomology as a derived functor within the context of abelian categories.
+
 \section{Categories}
 
 \begin{definition}[Category]\label{def:category}
@@ -77,8 +85,6 @@
     \item As morphisms, inclusion of open sets: \(U \to V\) if and only if \(U \subseteq V\)
   \end{itemize}
 \end{example}
-
-\unsure[inline]{Examples of non-concrete categories?}
 
 \begin{example}[Discrete category]\label{ex:discrete-category}
   Given a \hyperref[def:category]{category} \(\category{C}\) we can define the \textbf{discrete category} \(\category{C}_{d}\) taking the same collection of objects as \(\category{C}\) but only the identity morphisms between them.

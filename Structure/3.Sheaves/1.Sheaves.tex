@@ -45,7 +45,7 @@
   \begin{center}
     \begin{tikzcd}
       \llap{\(\underline{A}_{X}^{\operatorname{pre}}\colon\)} \Open(X)^{\op} \arrow[r] & \category{C} \\[-2em]
-      U \arrow[d, , "V \subseteq U"', ""{name=source, right}] & A \arrow[d, "\id_{A}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
+      U \arrow[d, "V \subseteq U"', ""{name=source, right}] & A \arrow[d, "\id_{A}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
       V  & A
     \end{tikzcd}
   \end{center}
@@ -82,14 +82,14 @@ Instead of working on a general \hyperref[def:category]{category} \(\category{C}
   \end{itemize}
 \end{example}
 
-We state some properties of this types of \hyperref[def:category]{categories} without proof.
+We state some properties of this type of \hyperref[def:category]{categories} without proof.
 \begin{lemma}[{\cite[\href{https://stacks.math.columbia.edu/tag/007O}{Tag 007O}]{stacks-project}}]\label{lemma:algebraic-structure-properties}
   Let \((\category{C}, F)\) be a \hyperref[def:algebraic-structure]{type of algebraic structure}. Then:
   \begin{enumerate}
     \item \(\category{C}\) has a \hyperref[def:initial-terminal-object]{terminal object} \(1\) and \(F(1) = \{\ast\}\).
     \item \(\category{C}\) has \hyperref[def:categorical-product]{products} and \(F \left( \prod X_{i} \right) = \prod F \left( X_{i} \right)\).
     \item \(\category{C}\) has \hyperref[def:pullback]{pullbacks} and \(F(X \times_{Z} Y) = F(X) \times_{F(Z)} F(Y)\).
-    \item \(\category{C}\) has \hyperref[def:equaliser]{equalizers} and if \(\operatorname{eq} \to X\) is the \hyperref[def:equaliser]{equalizer} of \(f, g\colon X \rightrightarrows Y\) then \(F(\operatorname{eq}) \to F(X)\) is the \hyperref[def:equaliser]{equalizer} of \(Ff, Fg\colon F(X) \rightrightarrows F(Y)\).
+    \item \(\category{C}\) has \hyperref[def:equaliser]{equalisers} and if \(\operatorname{eq} \to X\) is the \hyperref[def:equaliser]{equaliser} of \(f, g\colon X \rightrightarrows Y\) then \(F(\operatorname{eq}) \to F(X)\) is the \hyperref[def:equaliser]{equaliser} of \(Ff, Fg\colon F(X) \rightrightarrows F(Y)\).
     \item \(X \to Y\) is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if \(F(X) \to F(Y)\) is injective.
     \item If \(Ff\colon F(X) \to F(Y)\) is surjective then \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism}.
     \item Given \(X_{1} \to X_{2} \to \cdots\), \(\varinjlim X_{i}\) exists and \(F(\varinjlim X_{i}) = \varinjlim F(X_{i})\). And more generally for any \hyperref[def:direct-limit]{direct limit}.
@@ -149,7 +149,7 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   where \(F(\sheaf{F}) \coloneq \sheaf{F}(\{\ast\})\) for all \(\sheaf{F} \in \Sh_{\{\ast\}}(\category{C})\) and for all \(X \in \category{C}\), \(G(X)\) is the \hyperref[def:sheaf]{sheaf} defined as
   \begin{equation*}
     G(X)(U) \coloneq \begin{cases}
-      G & U = \{\ast\} \\
+      X & U = \{\ast\} \\
       1 & U = \varnothing
     \end{cases}
   \end{equation*}
@@ -278,7 +278,7 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
           Now consider two such neighbourhoods \(V_{p}\) and \(V_{q}\).
           On the intersection we have
           \begin{equation*}
-            \phi(V_{p} \cap V_{q})(s^{(p)}|_{V_{p} \cap V_{q}}) = t|_{V_{p} \cap V_{q}} = \phi(V_{p} \cap V_{q})(s^{(p)}|_{V_{p} \cap V_{q}})
+            \phi(V_{p} \cap V_{q})(s^{(p)}|_{V_{p} \cap V_{q}}) = t|_{V_{p} \cap V_{q}} = \phi(V_{p} \cap V_{q})(s^{(q)}|_{V_{p} \cap V_{q}})
           \end{equation*}
           Therefore since \(\phi(V_{p} \cap V_{q})\) is injective \(s^{(p)}|_{V_{p} \cap V_{q}} = s^{(p)}|_{V_{p} \cap V_{q}}\).
           By the \hyperref[axiom:sheaf-gluability]{gluability axiom} there exists a unique section \(s \in \sheaf{F}(U)\) such that \(s|_{V_{p}} = s^{(p)}\) for all \(p \in U\).
@@ -363,7 +363,7 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
     For every \(p \in U\), there exists an open neighborhood \(V \subseteq U\) of \(p\) and a section \(t \in \mathcal{F}(V)\) such that for all \(q \in V\), \(\sigma_{q} = t_{q}\) (as elements of \(\mathcal{F}_{q}\)).
   \end{quote}
 
-  We need to check that our definition of \(\mathcal{F}^{\#}\) verifies the universal propery of \hyperref[def:sheafification]{sheafification}.
+  We need to check that our definition of \(\mathcal{F}^{\#}\) verifies the universal property of \hyperref[def:sheafification]{sheafification}.
   To do this, consider a \hyperref[def:set-valued-sheaf]{sheaf} \(\sheaf{G}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \sheaf{G}\).
   We wish to show that there exists a unique \hyperref[def:sheaf]{sheaf} morphism \(\psi\colon \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
   Diagramatically
@@ -427,9 +427,9 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
   Direct from the \hyperref[const:sheafification-godement]{construction of sheafification}.
 \end{proof}
 
-\begin{remark}
-  We will later give another proof of \autoref{lemma:stalk-commute-sheafification} that does not use the \hyperref[const:sheafification-godement]{constructions of sheafification}.
-\end{remark}
+% \begin{remark}
+%   We will later give another proof of \autoref{lemma:stalk-commute-sheafification} that does not use the \hyperref[const:sheafification-godement]{constructions of sheafification}.
+% \end{remark}
 
 
 \section{Sheaves in an abelian category}

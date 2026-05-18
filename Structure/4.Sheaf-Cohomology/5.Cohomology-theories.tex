@@ -79,15 +79,42 @@ We start by giving the definition of a cohomology theory following~\cite{eilenbe
 For sufficiently nice spaces, one can show that there exists only one \hyperref[def:cohomology-theory]{ordinary cohomology theory} with a given coefficient group.
 
 \begin{definition}[CW-complex]\label{def:CW-complex}
+  A \textbf{CW-complex} is a topological space \(X\) constructed inductively in the following way:
+  \begin{enumerate}
+    \item Start with a discrete set \(X^{0}\), called the 0-cells of \(X\).
+    \item Inductively, form the \(n\)-skeleton \(X^{n}\) from \(X^{n-1}\) by attaching \(n\)-cells \(e_{\alpha}^{n}\) via maps \(\varphi_{\alpha}\colon \mathbb{S}^{n-1} \to X^{n-1}\).
 
+          This means that \(X^{n}\) is the quotient space of \(X^{n-1} \coprod_{\alpha} \mathbb{D}_{\alpha}^{n}\) under the identifications \(x \sim \varphi_{\alpha}(x)\) for \(x \in \partial \mathbb{D}_{\alpha}^{n-1}\).
+          The cell \(e_{\alpha}^{n}\) is the homeomorphic image of \(\mathbb{D}_{\alpha}^{n} \setminus \partial \mathbb{D}_{\alpha}^{n-1}\) under the quotient map.
+    \item Set \(X \coloneq \bigcup_{n \in \mathbb{N}} X^{n}\) with the weak topology: a set \(A \subseteq X\) is open if \(A \cap X^{n}\) is open in \(X^{n}\) for all \(n\).
+  \end{enumerate}
 \end{definition}
 
+We will not prove any properties of \hyperref[def:CW-complex]{CW-complexes}, refering the reader to \cite[Appendix]{hatcherAlgebraicTopology2002}, but to give an example of a \hyperref[def:CW-complex]{CW-complex} we have the following result
+\begin{proposition}[{\cite[Corollary A.12]{hatcherAlgebraicTopology2002}}]
+  A compact manifold is homotopy equivalent to a \hyperref[def:CW-complex]{CW-complex}.
+\end{proposition}
 
-\begin{theorem}[{Uniqueness of cohomology theories~---~\cite[Theorem 4.59]{hatcherAlgebraicTopology2002}}]
-
+\begin{theorem}[{Uniqueness of cohomology theories~---~\cite[Theorem 4.59]{hatcherAlgebraicTopology2002}}]\label{thm:uniqueness-cohomology-theories}
+  Let \(\{\cohomology{n}, \delta^{n}\}_{n \in \mathbb{N}}\) and \(\left\{ \widetilde{\operatorname{H}}^{n}, \widetilde{\delta}^{n} \right\}_{n \in \mathbb{N}}\) be two \hyperref[def:cohomology-theory]{ordinary cohomology theories} in the category of \hyperref[def:CW-complex]{CW pairs} with the same coefficient group.
+  Then for all \(n \geq 0\) there is a \hyperref[def:natural-transformation]{natural isomorphism}
+  \begin{equation*}
+    \cohomology{n}(X, A) \cong \widetilde{\operatorname{H}}^{n}(X, A)
+  \end{equation*}
 \end{theorem}
 
+The most famous \hyperref[def:cohomology-theory]{cohomology theory} is \textbf{singular cohomology} \(\operatorname{H}_{\operatorname{sing}}\).
+In fact the axioms of \hyperref[def:cohomology-theory]{cohomology theories} were modelled after its behaviour and the proof of \autoref{thm:uniqueness-cohomology-theories} works by proving that any \hyperref[def:cohomology-theory]{ordinary cohomology theory} is isomorphic to singular cohomology (given that they have the same coefficient group).
+
+
+We will not go into any details of its definition or properties, refering the reader to \cite[Chapter 3]{hatcherAlgebraicTopology2002} for more details.
+
 \section{Relative sheaf cohomology}
+
+The definition of a \hyperref[def:cohomology-theory]{cohomology theory} is done in the \hyperref[def:topological-pair]{category of topological pairs} \(\Top_{2}\).
+However, our definition of \hyperref[def:sheaf-cohomology]{sheaf cohomology} only accepts a single space as an input.
+
+To fix this, we introduce the following version of cohomology.
 
 \begin{definition}[Relative Sheaf Cohomology]\label{def:relative-sheaf-cohomology}
   Let \(X\) be a topological space and \(A \subseteq X\) a closed subset.
@@ -110,6 +137,7 @@ For sufficiently nice spaces, one can show that there exists only one \hyperref[
   \end{equation*}
 \end{remark}
 
+Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative sheaf cohomology} is a \hyperref[def:cohomology-theory]{cohomology theory} by verifying the axioms one by one.
 
 \begin{theorem}[Exactness]\label{thm:exactness-axiom}
   Let \(A \subseteq X\) be a closed subset and \(i\colon A \hookrightarrow X\) the closed immersion.
@@ -203,7 +231,7 @@ For sufficiently nice spaces, one can show that there exists only one \hyperref[
   \end{equation*}
 \end{theorem}
 \begin{proof}
-  Let \(h\colon (X \times I, A \times I) \to (Y \times I, B \times I)\) be the homotopy between \(f_{0}\) and \(f_{1}\).
+  Let \(H\colon (X \times I, A \times I) \to (Y \times I, B \times I)\) be the homotopy between \(f_{0}\) and \(f_{1}\).
   We have
   \begin{equation*}
     f_{0}^{\ast} = j_{0}^{\ast} \circ H \qquad f_{1}^{\ast} = j_{1}^{\ast} \circ H
@@ -295,14 +323,24 @@ For sufficiently nice spaces, one can show that there exists only one \hyperref[
   \end{equation*}
 \end{proof}
 
-
+In particular, from the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness of cohomology theories} we get the following equivalences.
 
 \begin{corollary}
-  Let \(X\) be a \hyperref[def:CW-complex]{CW-complex}.
+  Let \(X\) be a space homotopic to a \hyperref[def:CW-complex]{CW-complex}.
   For any \hyperref[def:constant-sheaf]{constant sheaf of abelian groups} \(\underline{G} \in \Mod(\underline{\mathbb{Z}}_{X})\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
     \begin{equation*}
         \cohomology{i}(X; \underline{G}) \cong \operatorname{H}_{\operatorname{sing}}^{i}(X; G)
     \end{equation*}
+\end{corollary}
+
+\begin{corollary}
+  Let \(X\) be a compact smooth manifold.
+  We have \hyperref[def:categorical-isomorphism]{isomorphisms}
+  \begin{equation*}
+    \cohomology{i}(X; \underline{\mathbb{R}}) \cong \operatorname{H}_{\operatorname{sing}}^{i}(X; \mathbb{R}) \cong \operatorname{H}_{\operatorname{dR}}(X; \mathbb{R})
+  \end{equation*}
+
+  In particular de Rham cohomology \(\operatorname{H}_{\operatorname{dR}}\) is an \hyperref[def:cohomology-theory]{ordinary cohomology theory}.
 \end{corollary}
 
 \end{document}

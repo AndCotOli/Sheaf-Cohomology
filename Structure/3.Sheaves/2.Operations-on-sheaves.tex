@@ -246,6 +246,31 @@ which verifies the \hyperref[lemma:composition-direct-image]{presheaf compositio
   Let \(\category{C}\) be a \hyperref[def:abelian-category]{abelian category}.
   For all continuous maps \(f: X \to Y\) the \hyperref[def:inverse-image-sheaf]{sheaf inverse image} \(f^{-1}\colon \Sh_{Y}(\category{C}) \to \Sh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
 \end{corollary}
+\begin{proof}
+  Let
+  \begin{equation*}
+    0 \to \sheaf{F} \to \sheaf{G} \to \sheaf{H} \to 0
+  \end{equation*}
+  be a \hyperref[def:exact-sequence]{exact sequence} of \hyperref[def:sheaf]{\(\category{C}\)-valued sheaves over \(Y\)}.
+  We want to show that the induced sequence
+  \begin{equation*}
+    0 \to f^{-1}\sheaf{F} \to f^{-1}\sheaf{G} \to f^{-1}\sheaf{H} \to 0
+  \end{equation*}
+  is \hyperref[def:exact-sequence]{exact} in \(\Sh_{X}(\category{C})\)
+
+  By \autoref{thm:sheaf-category-is-abelian} this sequence is \hyperref[def:exact-sequence]{exact} if and only if its \hyperref[def:stalk]{induced sequence of stalks}
+  \begin{equation*}
+    0 \to \left(f^{-1}\sheaf{F}\right)_{p} \to \left(f^{-1}\sheaf{G}\right)_{p} \to \left(f^{-1}\sheaf{H}\right)_{p} \to 0
+  \end{equation*}
+  is \hyperref[def:exact-sequence]{exact} in \(\category{C}\) for all \(p \in Y\).
+
+  By \autoref{lemma:stalk-inverse-image} this sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to
+  \begin{equation*}
+    0 \to \sheaf{F}_{f(p)} \to \sheaf{G}_{f(p)} \to \sheaf{H}_{f(p)} \to 0
+  \end{equation*}
+  which is exact by hypothesis and \autoref{thm:sheaf-category-is-abelian}.
+\end{proof}
+
 
 \subsection{Particular cases}
 
@@ -281,8 +306,14 @@ Since \hyperref[ex:one-point-sheaves-are-category]{\(\Sh_{\{\ast\}}(\category{C}
     \underline{-}_{X} \coloneq a_{X}^{-1}\colon \category{C} \to \Sh_{X}(\category{C})
   \end{equation*}
 
-  Less abstractly, it sends an object \(A \in \category{C}\) to the \hyperref[def:sheaf]{sheaf} \todo[inline]{Complete. Should it be a remark/lemma that this is the sheafification of the constant presheaf?}
+  Less abstractly, it sends an object \(A \in \category{C}\) to the sheaf \(\underline{A}_{X}\) whose sections over an open set \(U \subseteq X\) are the locally constant functions from \(U\) to \(A\) (viewing \(A\) as being equipped with the discrete topology).
 \end{definition}
+
+\begin{remark}\label{rem:constant-sheaf-sheafification}
+  The formulation \(\underline{A}_{X} = a_{X}^{-1}(A)\) is equivalent to the standard construction of the constant sheaf via sheafification.
+
+  Indeed, the presheaf inverse image of \(A\) along \(a_{X}\) assigns to any open \(U \subseteq X\) the colimit over open neighborhoods of \(a_{X}(U) = \{\ast\}\). Since the only neighborhood is \(\{\ast\}\) itself, this presheaf is exactly the constant presheaf \(U \mapsto A\). The inverse image functor \(a_{X}^{-1}\) then applies sheafification, yielding the constant sheaf.
+\end{remark}
 
 \begin{corollary}\label{cor:global-constant-adjunction-sheaf}
   There is an \hyperref[def:adjoint-functors]{adjunction}
@@ -486,6 +517,10 @@ Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-
 \begin{corollary}\label{cor:extension-by-zero-presheaf-exact}
   If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:extension-by-zero-presheaf]{extension by zero functor of presheaves} \(j_{!}^{\pre}\colon \PSh_{U}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
 \end{corollary}
+\begin{proof}
+  Analogous to \autoref{cor:inverse-image-sheaf-exact}.
+\end{proof}
+
 
 \begin{theorem}\label{thm:open-immersion-adjunction-presheaf}
   Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) be an open immersion.
@@ -567,6 +602,9 @@ Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-
 \begin{corollary}\label{cor:extension-by-zero-sheaf-exact}
   If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:extension-by-zero-sheaf]{extension by zero functor of sheaves} \(j_{!}\colon \Sh_{U}(\category{C}) \to \Sh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
 \end{corollary}
+\begin{proof}
+  Analogous to \autoref{cor:inverse-image-sheaf-exact}.
+\end{proof}
 
 \begin{theorem}\label{thm:open-immersion-adjunction-sheaf}
   Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) be an open immersion.
@@ -642,6 +680,10 @@ Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-
   \end{equation*}
   is \hyperref[def:exact-functor]{exact}.
 \end{corollary}
+\begin{proof}
+  Analogous to \autoref{cor:inverse-image-sheaf-exact}.
+\end{proof}
+
 
 \begin{definition}\label{def:support-sheaf}
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} over \(X\).

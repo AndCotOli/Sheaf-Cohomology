@@ -8,6 +8,10 @@
 \begin{document}
 \chapter{Limits and colimits}
 
+In the previous chapters, we developed the language of categories and functors to describe mathematical structures and their transformations. However, to perform actual "calculus" within a category—such as gluing local data together or taking the intersection of subobjects—we need a way to construct new objects from diagrams of existing ones.
+
+This chapter introduces the dual concepts of limits and colimits. These are universal constructions that generalize familiar operations like products, kernels, and intersections. For the purposes of sheaf theory, these tools are indispensable: the very definition of a sheaf is a requirement that the global sections functor preserves certain limits, while the process of passing from a presheaf to its associated sheaf relies on a colimit over the directed set of open coverings.
+
 \section{Diagrams, cones and cocones}
 
 \begin{definition}[Diagram]\label{def:diagram}

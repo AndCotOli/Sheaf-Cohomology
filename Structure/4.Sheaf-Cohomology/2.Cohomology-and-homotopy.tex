@@ -17,10 +17,9 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   We will denote \(I \coloneq [0, 1]\) the unit interval and \(I_{x} \coloneq I \times \{x\}\).
 \end{notation}
 
-
 \begin{definition}\label{def:continuous-map-over}
   Let \(X\) and \(Y\) be topological spaces.
-  A map \(f\colon X \to Y\) is continuous over a topological space \(S\) if it is continuous and there exists continuous maps \(p_{X}\colon X \to S\) and \(p_{Y}\colon Y \to S\) making the following diagram commute
+  A map \(f\colon X \to Y\) is \textbf{continuous over a topological space \(S\)} if it is continuous and there exists continuous maps \(p_{X}\colon X \to S\) and \(p_{Y}\colon Y \to S\) making the following diagram commute
   \begin{center}
     \begin{tikzcd}
       X \arrow[rr, "f"] \arrow[dr, "p_{X}"'] & & Y \arrow[dl, "p_{Y}"] \\
@@ -28,6 +27,17 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
     \end{tikzcd}
   \end{center}
 \end{definition}
+
+\begin{example}
+  Any continuous map \(f\colon X \to Y\) can be made \hyperref[def:continuous-map-over]{continuous over \(S\)} trivially by considering
+  \begin{center}
+    \begin{tikzcd}
+      X \times S \arrow[rr, "{(f, \id_{S})}"] \arrow[dr, "p_{X}"'] & & Y \times S \arrow[dl, "p_{Y}"] \\
+      & S
+    \end{tikzcd}
+  \end{center}
+  where \(p_{X}\) and \(p_{Y}\) are the obvious projections.
+\end{example}
 
 
 \begin{definition}\label{def:homotopy-over}
@@ -176,7 +186,7 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   \begin{equation*}
     f^{\#, i}(\underline{M})\colon \cohomology{i}(Y; \underline{M}) \to \cohomology{i}(X; \underline{M})
   \end{equation*}
-  We denote this map by \(f^{\ast}\).
+  We denote this map by \(f^{\ast}\) when there is no confusion with the \hyperref[def:direct-image-sheaf]{direct image of sheaves}.
 \end{remark}
 
 

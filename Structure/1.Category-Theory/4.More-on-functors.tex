@@ -10,6 +10,13 @@
 \begin{document}
 \chapter{More on functors}
 
+In the study of sheaf cohomology, we frequently encounter functors that seem to "belong together."
+For example, the process of restricting a sheaf to an open subset is closely linked to the process of extending a sheaf from that subset.
+To formalize this "belonging," we use the concept of Adjunctions, which provides a rigorous way to move information between categories without loss of essential structure.
+
+This chapter deepens our understanding of functors by introducing two pillars of modern category theory: the Yoneda Lemma and Adjoint Functors. The Yoneda Lemma ensures that an object is entirely determined by its relationships (morphisms) to other objects—a philosophy that justifies the study of representable functors.
+Following this, we explore adjunctions and their most critical property for our thesis: their relationship with limits.
+
 \section{Representable functors}
 \begin{definition}\label{def:representable-functor}
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) is \textbf{representable} if there exists an object \(X \in \category{C}\) such that
@@ -83,7 +90,7 @@
   \end{center}
   
   Conversely, if \(L, R\) are two pair of \hyperref[def:functor]{functors} and \(\varepsilon, \eta\) are \hyperref[def:natural-transformation]{natural transformations} as above then \((L, R)\) form an \hyperref[def:adjoint-functors]{adjoint pair}.
-  For a proof of this see \cite[Proposition 4.2.6]{riehlCategoryTheory}.
+  For a proof of this see \cite[Proposition 4.2.6]{riehlCategoryTheoryContext}.
 \end{remark}
 
 \begin{remark}

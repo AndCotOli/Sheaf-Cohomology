@@ -7,6 +7,13 @@
 \begin{document}
 \chapter{Functors and natural transformations}
 
+Having established the "static" structure of categories, we now turn to the "dynamic" relationships between them.
+In the study of sheaves, objects are rarely considered in isolation; instead, we are concerned with how data is moved between categories—such as the way a continuous map \(f\colon X \to Y\) induces a relationship between the collections of open sets \(\Open(X)\) and \(\Open(Y)\).
+Functors provide the formal mechanism for these assignments, while natural transformations allow us to compare different functors.
+
+This language is not merely a convenience; it is a necessity for defining the Derived Functors that appear later in this work.
+Specifically, we will see that a sheaf is itself a functor, and the process of "sheafification" is a natural transformation that mediates between the world of presheaves and sheaves.
+
 \section{Functors}
 
 \begin{definition}[Functor]\label{def:functor}
@@ -101,7 +108,7 @@
 
 
 \begin{example}\label{ex:hom-functor}
-  Let \(\category{C}\) be a \hyperref{def:category}{category}.
+  Let \(\category{C}\) be a \hyperref[def:category]{category}.
   For every object \(C \in \category{C}\) there exists a \textit{covariant} \(\Hom\) \hyperref[def:functor]{functor}
    \begin{center}
     \begin{tikzcd}
@@ -156,7 +163,7 @@
   \end{center}
 \end{example}
 
-\begin{proposition}[Functors preseve isomorphisms]
+\begin{proposition}[Functors preserve isomorphisms]
   Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories} and \(F\colon \category{C} \to \category{D}\) a \hyperref[def:functor]{functor} between them.
   If \(f\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) then \(Ff\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
 \end{proposition}
@@ -221,13 +228,18 @@
 
 \begin{example}
   In \(\Vect_{\mathbb{K}}\), the map \(\operatorname{ev}\colon V \to V^{\ast\ast}\) that sends a vector \(v \in V\) to the linear evaluation function \(\operatorname{ev}_{v}\colon V^{\ast} \to \mathbb{K}\) defines the components of a \hyperref[def:natural-transformation]{natural transformation} from the \hyperref[ex:identity-functor]{identity functor} \(\id\colon \Vect_{\mathbb{K}} \to \Vect_{\mathbb{K}}\) to the double dual \hyperref[def:functor]{functor} \(-^{\ast\ast}\colon \Vect_{\mathbb{K}} \to \Vect_{\mathbb{K}}\).
-\end{example}
 
+  If we restrict ourselves to the finite-dimensional case then this is a \hyperref[def:natural-transformation]{natural isomorphism}.
+\end{example}
 
 \begin{definition}[Equivalent categories]\label{def:equivalent-categories}
   Two \hyperref[def:category]{categories} \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and \(G\colon \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.
   We denote this by \(\category{C} \simeq \category{D}\).
 \end{definition}
+
+In general proving that two \hyperref[def:equivalent-categories]{equivalence of categories} by directly constructing the \hyperref[def:functor]{functors} \(F\) and \(G\) is not easy.
+Instead one can use the following theorem, which we state without proof.
+
 
 \begin{theorem}[{\cite[Theorem 1.5.9]{riehlCategoryTheoryContext}}]\label{thm:equivalent-categories-characterization}
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) defining an \hyperref[def:equivalent-categories]{equivalence of categories} is \hyperref[def:functor-types]{fully faithful and essentially surjective}.

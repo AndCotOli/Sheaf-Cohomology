@@ -294,53 +294,53 @@
   \end{equation*}
 \end{corollary}
 
-\begin{example}[The cohomology of \(S^{1}\)]
-  Consider the circle \(S^{1}\) as a smooth manifold of dimension 1.
+\begin{example}[The cohomology of \(\mathbb{S}^{1}\)]
+  Consider the circle \(\mathbb{S}^{1}\) as a smooth manifold of dimension 1.
 
-  We are going to compute its \hyperref[def:sheaf-cohomology]{sheaf cohomology} with coefficients in \(\underline{\mathbb{R}}\), \(\cohomology{\bullet}(S^{1}, \underline{\mathbb{R}})\), using the \hyperref[def:de-rham-complex]{de Rham complex}
+  We are going to compute its \hyperref[def:sheaf-cohomology]{sheaf cohomology} with coefficients in \(\underline{\mathbb{R}}\), \(\cohomology{\bullet}(\mathbb{S}^{1}, \underline{\mathbb{R}})\), using the \hyperref[def:de-rham-complex]{de Rham complex}
   \begin{center}
     \begin{tikzcd}
-      \Omega^{0}(S^{1}) \arrow[r, "\d^{0}"] & \Omega^{1}(S^{1}) \arrow[r, "\d^{1}"] & 0
+      \Omega^{0}(\mathbb{S}^{1}) \arrow[r, "\d^{0}"] & \Omega^{1}(\mathbb{S}^{1}) \arrow[r, "\d^{1}"] & 0
     \end{tikzcd}
   \end{center}
 
   On the one hand
   \begin{equation*}
-    \cohomology{0}(S^{1}, \underline{\mathbb{R}}) = \ker \d^{0} = \{f \in \Omega^{0}(S^{1}) \cong \mathcal{C}^{\infty}(S^{1}) \mid \d f = 0\}
+    \cohomology{0}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \ker \d^{0} = \{f \in \Omega^{0}(\mathbb{S}^{1}) \cong \mathcal{C}^{\infty}(\mathbb{S}^{1}) \mid \d f = 0\}
   \end{equation*}
-  Since \(S^{1}\) is connected, the only functions with 0 derivative are the constant functions.
+  Since \(\mathbb{S}^{1}\) is connected, the only functions with 0 derivative are the constant functions.
   Therefore
   \begin{equation*}
-    \cohomology{0}(S^{1}, \underline{\mathbb{R}}) = \mathbb{R}
+    \cohomology{0}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \mathbb{R}
   \end{equation*}
 
   On the other
   \begin{equation*}
-    \cohomology{1}(S^{1}, \underline{\mathbb{R}}) = \quot{\ker \d^{1}}{\im \d^{0}} = \quot{\{\omega \in \Omega^{1}(S^{1}) \mid \d \omega = 0\}}{\{\d f \mid f \in \Omega^{0}(S^{1}) \cong \mathcal{C}^{\infty}(S^{1})\}}
+    \cohomology{1}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \quot{\ker \d^{1}}{\im \d^{0}} = \quot{\{\omega \in \Omega^{1}(\mathbb{S}^{1}) \mid \d \omega = 0\}}{\{\d f \mid f \in \Omega^{0}(\mathbb{S}^{1}) \cong \mathcal{C}^{\infty}(\mathbb{S}^{1})\}}
   \end{equation*}
 
-  Note that since \(\Omega^{2}(M) = 0\) all \hyperref[def:smooth-k-form]{\(1\)-forms} \(\omega \in \Omega^{1}(S^{1})\) verify \(\mathrm{d}\omega = 0\).
+  Note that since \(\Omega^{2}(M) = 0\) all \hyperref[def:smooth-k-form]{\(1\)-forms} \(\omega \in \Omega^{1}(\mathbb{S}^{1})\) verify \(\mathrm{d}\omega = 0\).
   Therefore
   \begin{equation*}
-    \{\omega \in \Omega^{1}(S^{1}) \mid \mathrm{d}\omega = 0\} = \Omega^{1}(S^{1})
+    \{\omega \in \Omega^{1}(\mathbb{S}^{1}) \mid \mathrm{d}\omega = 0\} = \Omega^{1}(\mathbb{S}^{1})
   \end{equation*}
   Consider now the \textit{integration} map
   \begin{align*}
-    I:\,& \Omega^{1}(S^{1}) \to \mathbb{R} \\
-        & \omega \mapsto \int_{S^{1}} \omega 
+    I:\,& \Omega^{1}(\mathbb{S}^{1}) \to \mathbb{R} \\
+        & \omega \mapsto \int_{\mathbb{S}^{1}} \omega 
   \end{align*}
   Let \(\mathrm{d}\theta\) be the differential of the angle.
   Since \(I(\mathrm{d}\theta) = 2\pi\) we have that \(I\) is surjective.
-  Furthermore by Stoke's theorem we have that \(I(\omega) = 0\) if and only if \(w = \mathrm{d}f\) for some \(f \in \mathcal{C}^{\infty}(S^{1})\).
+  Furthermore by Stoke's theorem we have that \(I(\omega) = 0\) if and only if \(w = \mathrm{d}f\) for some \(f \in \mathcal{C}^{\infty}(\mathbb{S}^{1})\).
 
   Therefore by the first isomorphism theorem we have that
   \begin{equation*}
-    \cohomology{1}(S^{1}, \underline{\mathbb{R}}) = \quot{\Omega^{1}(S^{1})}{\ker I} \cong \im I = \mathbb{R}
+    \cohomology{1}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \quot{\Omega^{1}(\mathbb{S}^{1})}{\ker I} \cong \im I = \mathbb{R}
   \end{equation*}
 
   In summary, we have that
   \begin{align*}
-    \cohomology{k}(S^{1}, \underline{\mathbb{R}}) = \begin{cases}
+    \cohomology{k}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \begin{cases}
       \mathbb{R} & k \in \{0, 1\} \\
       0 & k > 1
     \end{cases}

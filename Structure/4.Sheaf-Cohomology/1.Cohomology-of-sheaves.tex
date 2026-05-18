@@ -133,22 +133,17 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
   \begin{equation*}
     \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \isoarrow \Gamma(K, \sheaf{F})
   \end{equation*}
-  We will do this by showing that this map is both injective and surjective:
-  \begin{itemize}
-    \item[Injectivity:] Let \(s \in \Gamma(U, \sheaf{F})\) for some \(U \supset K\) open such that its restriction to \(K\) is zero, i.e: \(s_{x} = 0\) for all \(x \in K\).
-          We have that for all \(x \in K\) there exists an open neighbourhood \(V_{x} \subseteq U\) such that \(s|_{V_{x}} = 0\).
+  Let \(s \in \Gamma(K, \sheaf{F}|_{K})\).
+  There exists a finite family of open subsets \(\{U_{i}\}_{i=1}^{n}\) covering \(K\) and sections \(s_{i} \in \Gamma(U_{i}, \sheaf{F})\) such that \(s_{i}|_{K \cap U_{i}} = s|_{K \cap U_{i}}\).
+  Furthermore we can find another family of open sets \(\{V_{i}\}_{i=1}^{n}\) covering \(K\) such that \(K \cap \operatorname{ad}(V_{i}) \subset U_{i}\).
+  We want to glue together the sections \(s_{i}\) on a neighbourhood of \(K\).
 
-          Since \(K\) is compact we can extract a finite subcover \(\{V_{x_{1}}, \ldots, V_{x_{n}}\}\) from \(\{V_{x}\}_{x \in K}\).
-          Note that \(V \coloneq \bigcup_{i=1}^{n} V_{x_{i}}\) is an open neighbourhood of \(K\) contained in \(U\) such that \(s|_{V} = 0\).
-          Therefore in the colimit \(s\) becomes \(0\), meaning that the map is injective.
-    \item[Surjectivity:] Let \(s \in \Gamma(K, \sheaf{F})\). By definition there exists an open cover \(\{U_{j}\}_{j=1}^{n}\) of \(K\) and local sections \(s_{j} \in \Gamma(U_{j}, \sheaf{F})\) such that \(s_{j}\) represents \(s\) in \(U_{j} \cap K\).
-
-          On the overlaps \(K \cap U_{j} \cap U_{k}\) the sections \(s_{j}\) and \(s_{k}\) have the same germs.
-          Therefore by the injectivity argument applied to the difference \(s_{j} - s_{k}\) they must agree on an open neighbourhood \(W_{j,k} \subseteq U_{j} \cap U_{k}\) of \(K \cap U_{j} \cap U_{k}\).
-
-          Since \(K\) is compact and relatively Hausdorff it is normal.
-  \end{itemize}
-
+  By induction over \(n\) we can assume \(n = 2\).
+  If \(K_{i} = K \cap \operatorname{ad}(V_{i})\) then \(s_{1}|_{K_{1} \cap K_{2}} = s_{2}|_{K_{1} \cap K_{2}}\).
+  Let \(W\) be an open neighbourhood of \(K\) such that \(s_{1}|_{K} = s_{2}|_{K}\) and let \(W_{i}\) be an open cover subset of \(U_{i}\) such that \(K_{i} \setminus W \subset W_{i}\) and \(W_{1} \cap W_{2} = \varnothing\).
+  Set \(U_{i}' = W_{i} \cup W\).
+  Then \(s_{1}|_{U_{1}' \cap U_{2}'} = s_{2}|_{U_{1}' \cap U_{2}'}\) and this defines \(t \in \Gamma(U_{1}' \cup U_{2}', \sheaf{F})\) with \(t|_{K} = s\) finishing the base case.
+  
   Now, consider two \hyperref[def:functor]{functors} \(F, G\colon \Mod(\underline{\mathbf{k}}_{X}) \to \Mod(\mathbf{k})\)
   \begin{equation*}
     F(\sheaf{F}) \coloneq \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \qquad G(\sheaf{F}) \coloneq \Gamma(K, \sheaf{F})
@@ -314,9 +309,9 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
 \end{proof}
 
 
-Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical (and functorial) resolution of a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules} to compute its \hyperref[def:sheaf-cohomology]{cohomology}.
+Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical (and functorial) resolution of a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} to compute its \hyperref[def:sheaf-cohomology]{cohomology}.
 \begin{construction}[Godement resolution]\label{def:godement-resolution}
-  Let \(\sheaf{F}\) be a \hyperref[def:sheaf-of-modules]{sheaf of \(\sheaf{O}_{X}\)-modules}.
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules}.
   The \textbf{Godement resolution} of \(\sheaf{F}\) is constructed by considering the inclussion of \(\sheaf{F}\) into the \textit{Godement sheaf} \(\sheaf{F}_{\operatorname{God}}\)
   \begin{equation*}
     U \mapsto \bigoplus_{p \in U} \sheaf{F}_{p} \eqcolon \sheaf{F}_{\operatorname{God}}(U)

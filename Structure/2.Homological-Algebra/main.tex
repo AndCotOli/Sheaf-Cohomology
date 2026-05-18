@@ -11,6 +11,25 @@
     \tableofcontents
 }{}
 
+\chapter*{Introduction}
+  
+While Category Theory establishes the broad architectural rules of mathematical structures, Homological Algebra provides the specific tools needed to perform "calculus" within those structures. In this part of the thesis, we move from the static description of categories to the dynamic study of sequences, complexes, and the failure of exactness.
+
+The origins of homological algebra lie in the early 20th-century effort to understand the global topology of spaces through algebraic invariants. Pioneers such as Henri Cartan and Samuel Eilenberg  sought to axiomatize the way sequences of abelian groups could detect "holes" in a manifold. However, the theory reached its modern, universal form through the work of Alexander Grothendieck, who realized that these tools could be abstracted to any environment where kernels and cokernels behave predictably.
+
+The goal of this part is to develop the technical machinery required to define Sheaf Cohomology. We begin by enriching our categories to allow for the addition of morphisms and the formation of matrices, eventually arriving at the concept of Derived Functors—the ultimate tool for quantifying the information lost when local data is assembled into global sections.
+
+\begin{enumerate}
+  \item \hyperref[chap:additive-categories]{Additive Categories} introduces the first layer of algebraic structure, where the sets of morphisms between objects are endowed with abelian group structures. Here, we define the direct sum and the concept of complexes.  
+
+ \item \hyperref[chap:abelian-categories]{Abelian Categories} establishes the "ideal" environment for homological algebra. By requiring that every morphism has a kernel and a cokernel that satisfy the First Isomorphism Theorem, we gain the ability to define exact sequences and utilize powerful diagram-chasing tools like the Snake Lemma.  
+
+  \item \hyperref[chap:derived-functors]{Derived Functors} serves as the technical heart of the thesis. We introduce injective resolutions to extend left-exact functors into long exact sequences. This construction provides the formal categorical definition of cohomology groups, which will be the primary object of study in the final part of this work.  
+\end{enumerate}
+
+The main references used for this part are \cite{weibelIntroductionHomologicalAlgebra1994}, \cite{gelfandMethodsHomologicalAlgebra2003} and \cite{aluffiAlgebraChapter02009}.
+
+
 \subfile{1.Additive-categories}
 
 \subfile{2.Abelian-categories}
