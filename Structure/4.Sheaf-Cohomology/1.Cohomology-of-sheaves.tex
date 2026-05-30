@@ -122,7 +122,7 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
 
 \begin{lemma}\label{lemma:cohomology-compact-subsets}
   Let \(X\) be a topological space and \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
-  If \(K \subseteq X\) is compact and relatively Hausdorff then
+  If \(K \subseteq X\) is compact and relatively Hausdorff\footnote{\(K \subseteq X\) is relatively Hausdorff if two distinct points in \(K\) admit disjoint neighbourhoods in \(X\). Note that if \(K = X\) then we recover that \(X\) is Hausdorff.} then
   \begin{equation*}
     \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}}  \cohomology{i}(U; \sheaf{F}) \cong \cohomology{i}(K; \sheaf{F})
   \end{equation*}
@@ -140,7 +140,7 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
 
   By induction over \(n\) we can assume \(n = 2\).
   If \(K_{i} = K \cap \operatorname{ad}(V_{i})\) then \(s_{1}|_{K_{1} \cap K_{2}} = s_{2}|_{K_{1} \cap K_{2}}\).
-  Let \(W\) be an open neighbourhood of \(K\) such that \(s_{1}|_{K} = s_{2}|_{K}\) and let \(W_{i}\) be an open cover subset of \(U_{i}\) such that \(K_{i} \setminus W \subset W_{i}\) and \(W_{1} \cap W_{2} = \varnothing\).
+  Let \(W\) be an open neighbourhood of \(K\) such that \(s_{1}|_{K} = s_{2}|_{K}\) and let \(W_{i}\) be an open subset of \(U_{i}\) such that \(K_{i} \setminus W \subset W_{i}\) and \(W_{1} \cap W_{2} = \varnothing\).
   Set \(U_{i}' = W_{i} \cup W\).
   Then \(s_{1}|_{U_{1}' \cap U_{2}'} = s_{2}|_{U_{1}' \cap U_{2}'}\) and this defines \(t \in \Gamma(U_{1}' \cup U_{2}', \sheaf{F})\) with \(t|_{K} = s\) finishing the base case.
   
@@ -156,7 +156,7 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
   To compute these functors, choose an \hyperref[def:resolution]{injective resolution} \(\sheaf{F} \to \sheaf{I}^{\bullet}\) of \(\sheaf{F}\).
   On the one hand
   \begin{equation*}
-    \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}\Gamma(K; I^{\bullet}) = \cohomology{i}(K; \sheaf{F})
+    \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}(\Gamma(K; I^{\bullet})) = \cohomology{i}(K; \sheaf{F})
   \end{equation*}
   On the other
   \begin{align*}
