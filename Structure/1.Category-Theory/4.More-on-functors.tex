@@ -10,31 +10,21 @@
 \begin{document}
 \chapter{More on functors}
 
-In the study of sheaf cohomology, we frequently encounter functors that seem to "belong together."
-For example, the process of restricting a sheaf to an open subset is closely linked to the process of extending a sheaf from that subset.
-To formalize this "belonging," we use the concept of Adjunctions, which provides a rigorous way to move information between categories without loss of essential structure.
+In this chapter we introduce one of the most fundamental results in category theory: the Yoneda lemma.
+We also define what an adjoint pair of functions is and state its relation with limits and colimits.
 
-This chapter deepens our understanding of functors by introducing two pillars of modern category theory: the Yoneda Lemma and Adjoint Functors. The Yoneda Lemma ensures that an object is entirely determined by its relationships (morphisms) to other objects—a philosophy that justifies the study of representable functors.
-Following this, we explore adjunctions and their most critical property for our thesis: their relationship with limits.
+\section{The Yoneda lemma}
 
-\section{Representable functors}
-\begin{definition}\label{def:representable-functor}
-  A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) is \textbf{representable} if there exists an object \(X \in \category{C}\) such that
-  \begin{equation*}
-    F \cong \Hom_{\category{C}}(X, -)
-  \end{equation*}
-  where \(\Hom_{\category{C}}(X, -)\) is the \hyperref[ex:hom-functor]{covariant \(\Hom\) functor}.
-\end{definition}
+A common theme in these part of the thesis has been stressing that we want to study objects not by themselves but through its relation with their environment.
+In particular we can apply these way of thought to \hyperref[def:category]{categories} themselves using \hyperref[def:functor]{functors}, and to \hyperref[def:functor]{functors} using \hyperref[def:natural-transformation]{natural transformations}.
 
-\begin{example}
-  The \hyperref[ex:hom-functor]{covariant \(\Hom\) functor} is \hyperref[def:representable-functor]{representable}.
-\end{example}
+Note that every \hyperref[def:category]{category} \(\category{C}\) has a \hyperref[def:functor]{functor} of the form \(\category{C} \to \Set\): \hyperref[ex:hom-functor]{the (covariant) Hom functor} that works by fixing an object \(X \in category{C}\) and sending \(Y \in \category{C}\) to its set of morphisms \(\Hom(X, Y) \in \Set\).
 
+Therefore we could try to study how a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) works on an object \(X \in \category{C}\) by studying its relation to \(\Hom(X, -)\).
+This was done by Yoneda and Grothendieck independently and it's what is known as the Yoneda lemma.
 
-\begin{definition}[Concrete category]\label{def:concrete-category}
-  A \hyperref[def:category]{category} \(\category{C}\) is \textbf{concrete} if there exists a \hyperref[def:functor-types]{faithful functor} \(U: \category{C} \to \Set\). Such a functor is often called a \textbf{forgetful functor}.
-\end{definition}
-
+Instead of giving its proof, we will give an intuitive explanaition the philosophy behind it.
+But first, here is the statement.
 \begin{theorem}[{Yoneda - \cite[Theorem 2.2.4]{riehlCategoryTheoryContext}}]\label{thm:yoneda-lemma}
   Let \(\category{C}\) be a \hyperref[def:category]{category}, \(X \in \category{C}\) an object, and \(F\colon \category{C} \to \Set\) a \hyperref[def:functor]{functor}. There is a bijection:
   \begin{equation*}
@@ -43,6 +33,15 @@ Following this, we explore adjunctions and their most critical property for our 
   given by \(\alpha \mapsto \alpha_{X}(\id_{X})\). This bijection is natural in both \(X\) and \(F\).
 \end{theorem}
 
+Let's exemplify how this works using the following situation: suppose you are playing a game with a friend that consists on guessing a card he is thinking from a poker deck.
+Since randomly guessing is boring, you can ask any yes or no question about the card to guide your response.
+Therefore you could start asking ``is the card red?'' or ``is the number bigger than 5?'' until you are only left with one possible option.
+However, what if you were prohibitted from asking direct questions about the card and instead only could ask about its relation with other cards?
+In this case there is also a winning strategy, for example instead of asking if the card is red you may ask ``is the card color the same as the king of hearts?''.
+Therefore a card is completely determined by its relation to the other cards.
+
+This is the philosophy behind \hyperref[def:theorem]{Yonneda's lemma}: objects are completely determined by its environment.
+
 % \begin{corollary}[{Yoneda embedding - \cite[Corollary 2.2.8]{riehlCategoryTheoryContext}}]
 %   Let \(\category{C}\) be a \hyperref[def:category]{category}.
 %   The \hyperref[def:functor]{functor} \(Y: \opcategory{C} \to [\category{C}, \Set]\) given by \(X \mapsto \Hom(X, -)\) is \hyperref[def:functor-types]{fully faithful}.
@@ -50,6 +49,10 @@ Following this, we explore adjunctions and their most critical property for our 
 
 \section{Adjunctions}
 
+Throughout mathematics several constructions appear that are ``approximate inverses'' of each other.
+Probably the most recurrent is that of ``free'' objects constructed from a base space: for example the free group generated by a set is the group consisting of all of the words formed with the elements of the set and their formal inverses.
+Another example is that of giving a topology to a set by considering the discrete topology.
+These are both examples of a general phenomenon called adjunction.
 \begin{definition}[Adjoint functors]\label{def:adjoint-functors}
   Let \(L\colon \category{C} \to \category{D}\) and \(R\colon \category{D} \to \category{C}\) be a pair of \hyperref[def:functor]{functors}.
   We say that \((L, R)\) is a pair of \textbf{adjoint functors} or that \(L\) is left-adjoint to \(R\) and \(R\) is right-adjoint to \(L\) if there exists a \hyperref[def:natural-transformation]{natural isomorphism} of \hyperref[ex:bifunctor]{bifunctors}
@@ -97,6 +100,7 @@ Following this, we explore adjunctions and their most critical property for our 
   \hyperref[def:adjoint-functors]{Left and right adjoints} are \hyperref[def:dual]{dual concepts}.
 \end{remark}
 
+Just as we can speak of \textit{the} \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal} object in a \hyperref[def:category]{category} we can speak of \textit{the} \hyperref[def:adjoint-functor]{adjoint} of a \hyperref[def:functor]{functor}, this type up to \hyperref[def:natural-transformation]{natural isomorphism}.
 
 \begin{proposition}[Adjoints are unique]\label{prop:uniqueness-adjoints}
   The \hyperref[def:adjoint-functors]{right adjoint} (resp. \hyperref[def:adjoint-functors]{left adjoint}) to a \hyperref[def:functor]{functor}, provided it exists, is unique up to \hyperref[def:natural-transformation]{natural isomorphism}
@@ -135,109 +139,11 @@ Following this, we explore adjunctions and their most critical property for our 
   \end{equation*}
 \end{proof}
 
+We end the chapter by stating relation between \hyperref[def:adjoint-functor]{adjoint functors} and \hyperref[def:categorical-limit]{(co)limits} that will prove really useful later on.
 \begin{theorem}[{\cite[Theorem 4.5.2]{riehlCategoryTheoryContext}}]\label{thm:adjoints-preserve-limits}
   \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in their codomain.
   
   \hyperref[def:dual]{Dually} \hyperref[def:adjoint-functors]{left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in their domain.
 \end{theorem}
-
-\section{Functor categories}
-
-\begin{definition}[Functor category]\label{def:functor-category}
-  Let \(\category{C}\) and \(\category{D}\) be \hyperref[def:category]{categories}. The \textbf{functor category} \(\Fct{\category{C}}{\category{D}}\) has as objecs \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and as morphisms \hyperref[def:natural-transformation]{natural transformations} \(\eta\colon F \implies G\).
-  Composition and identities are defined componentwise.
-\end{definition}
-
-
-\begin{proposition}\label{prop:limits-in-functor-category}
-  Let \(\category{C}\) and \(\category{D}\) be two \hyperref[def:category]{categories} and \(\Fct{\category{C}}{\category{D}}\) be its \hyperref[def:functor-category]{functor category}.
-
-  If \(\category{D}\) has \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\) then \(\Fct{\category{C}}{\category{D}}\) has  \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) of shape \(\category{J}\).
-  Furthermore, they are computed objectwise.
-\end{proposition}
-\begin{proof}
-  Consider a \hyperref[def:diagram]{\(\category{J}\)-shaped diagram} \(X\colon \category{J} \Rightarrow [\category{C}, \category{D}]\).
-  We wish to construct a \hyperref[def:categorical-limit]{limit object} \(L \in \Fct{\category{C}}{\category{D}}\) together with a \hyperref[def:categorical-limit]{limit cone} \(\pi_{j}\colon L \to X_{j}\) for all \(j \in \category{J}\).
-
-  For any object \(c \in \category{C}\) the \textit{evaluation} \hyperref[def:functor]{functor}
-  \begin{center}
-    \begin{tikzcd}
-      \llap{\(\operatorname{ev}_{c}\colon\)} [\category{C}, \category{D}] \arrow[r] & \category{D} \\[-2em]
-      F \arrow[d, "\eta"' ""{name=source, right}, Rightarrow] & F(c) \arrow[d, "\eta_{c}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
-      G  & G(c)
-    \end{tikzcd}
-  \end{center}
-  allows us to define a \hyperref[def:diagram]{diagram} \(X^{c} \coloneq \operatorname{ev}_{c} \circ X: J \Rightarrow \category{D}\).
-  By hypothesis there exists
-  \begin{equation*}
-    \lim_{j \in \category{J}} X^{c}(j) \eqcolon L(c) \qquad \pi_{j}^{c}\colon L(c) \to X^{c}(j)
-  \end{equation*}
-
-  To make \(L\) into a \hyperref[def:functor]{functor} we need to define its action on morphisms.
-  Consider a morphism \(f\colon c \to d\) in \(\category{C}\).
-  Since \(X_{j}\) is a \hyperref[def:functor]{functor} for all \(j \in \category{J}\) we have an induced morphism \(X_{j}f\colon X_{j}(c) \to X_{j}(d)\).
-  Let's consider the family of morphism
-  \begin{equation*}
-    \left\{ X_{j}f \circ \pi_{j}^{c}\colon L(c) \to X_{j}(d) \right\}_{j \in \category{J}}
-  \end{equation*}
-  We want to show that this forms a \hyperref[def:cone]{cone} over \(L(d)\) with apex \(L(c)\)
-
-  Let \(u\colon j \to k\) be a morphism in \(\category{J}\).
-  Since \(Xu\colon X_{j} \Rightarrow X_{k}\) is a \hyperref[def:natural-transformation]{natural transformation} we have a commutative diagram
-  \begin{center}
-    \begin{tikzcd}
-      X_{j}(c) \arrow[r, "(Xu)_{c}"] \arrow[d, "X_{j}f"'] & X_{k}(x) \arrow[d, "X_{k}f"] \\
-      X_{j}(d) \arrow[r, "(Xu)_{d}"'] & X_{k}(d)
-    \end{tikzcd}
-  \end{center}
-  Since \(\pi^{c}\) is a \hyperref[def:categorical-limit]{limit} over \(X^{c}\) we also now that \((Xu)_{c} \circ \pi_{j}^{c} = \pi_{k}^{c}\).
-  Therefore we have
-  \begin{equation*}
-    (Xu)_{d} \circ (X_{j}f \circ \pi_{j}^{c}) = ((Xu)_{d} \circ X_{j}f) \circ \pi_{j}^{c} = X_{k}f \circ (Xu)_{c} \circ \pi_{j}^{c} = X_{k}f \circ \pi_{k}^{c}
-  \end{equation*}
-  i.e: it is a valid \hyperref[def:cone]{cone} over \(L(d)\).
-  By the universal property of \(L(d) = \lim_{j \in \category{J}} X^{d}(j)\) there exists a unique morphism \(Lf\colon L(c) \to L(d)\) such that for all \(j \in \category{J}\) the following diagram commutes
-  \begin{center}
-    \begin{tikzcd}
-      L(c) \arrow[r, "Lf"] \arrow[d, "\pi_{j}^{c}"'] & L(d) \arrow[d, "\pi_{j}^{d}"] \\
-      X^{c}(j) \arrow[r, "X_{j}f"'] & X^{d}(j)
-    \end{tikzcd}
-  \end{center}
-
-  The functiorality of \(L\) follows directly from the uniqueness of this induced map into \(L(d)\).
-  Moreover the above commutative square is the \hyperref[def:natural-tranformation]{naturallity} condition for \(\pi_{j}\) with respect to \(f\).
-  Therefore, for each \(j \in \category{J}\) the collection \(\{\pi_{j}^{c}\}_{c \in \category{C}}\) is a \hyperref[def:natural-transformation]{natural transformation} \(\pi_{j}\colon L \Rightarrow X_{j}\).
-  It is an easy check to see that this collection forms a \hyperref[def:cone]{cone} over \(X\) in the \hyperref[def:functor-category]{functor category} \(\Fct{\category{C}}{\category{D}}\).
-
-  To finish the proof, we need to check the universal property.
-  Consider another functor \(M \in \Fct{\category{C}}{\category{D}}\) equipped with a \hyperref[def:cone]{cone} \(\tau_{j}\colon M \Rightarrow X_{j}\).
-
-  For each \(c \in \category{C}\) the evaluation \(\tau_{j}^{c} \coloneq \operatorname{ev}_{c} \circ M: M(c) \to X^{c}(j)\) is a \hyperref[def:cone]{cone} over \(X^{c}\).
-  This induces a unique morphism \(\phi_{c}: M(c) \to L(c)\) such that \(\pi_{j}^{c} \circ \phi_{c} = \tau_{j}^{c}\).
-
-  To show that \(\phi \equiv \{\phi_{c}\}_{c \in \category{C}}\) is a \hyperref[def:natural-transformation]{natural transformation} let \(f\colon c \to d\) be a morphism in \(\category{C}\).
-  We want to see that the following diagram commutes
-  \begin{center}
-    \begin{tikzcd}
-      M(c) \arrow[r, "\phi_{c}"] \arrow[d, "Mf"'] & L(c) \arrow[d, "Lf"] \\
-      M(d) \arrow[r, "\phi_{d}"'] & L(d)
-    \end{tikzcd}
-  \end{center}
-  Postcompossing with \(\pi_{j}^{d}\) we get, on the one hand
-  \begin{equation*}
-    \pi_{j}^{d} \circ (Lf \circ \phi_{c}) = (\pi_{j}^{d} \circ Lf) \circ \phi_{c} = X_{j}f \circ \pi_{j}^{c} \circ \phi_{c} = X_{j}f \circ \tau_{j}^{c}
-  \end{equation*}
-  And on the other
-  \begin{equation*}
-    \pi_{j}^{d} \circ (\phi_{d} \circ Mf) = (\pi_{j}^{d} \circ \phi_{d}) \circ Mf  = \tau_{j}^{d} \circ Mf
-  \end{equation*}
-  Since \(\tau_{j}\) is a \hyperref[def:natural-transformation]{natural transformation} we have
-  \begin{equation*}
-    X_{j}f \circ \tau_{j}^{c} = \tau_{j}^{d} \circ Mf
-  \end{equation*}
-  Therefore since the projections agree for all \(j \in \category{J}\) by uniqueness of the maps \(\pi_{j}\) we get the commutativity of the diagram.
-  Its uniqueness as a \hyperref[def:cone]{morphism of cones} follows directly from the objectwise uniqueness of each \(\phi_{c}\).
-\end{proof}
-
 
 \end{document}

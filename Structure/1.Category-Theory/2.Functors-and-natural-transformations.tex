@@ -7,14 +7,15 @@
 \begin{document}
 \chapter{Functors and natural transformations}\label{ch:functors-natural-transformations}
 
-Having established the "static" structure of categories, we now turn to the "dynamic" relationships between them.
-In the study of sheaves, objects are rarely considered in isolation; instead, we are concerned with how data is moved between categories—such as the way a continuous map \(f\colon X \to Y\) induces a relationship between the collections of open sets \(\Open(X)\) and \(\Open(Y)\).
-Functors provide the formal mechanism for these assignments, while natural transformations allow us to compare different functors.
-
-This language is not merely a convenience; it is a necessity for defining the Derived Functors that appear later in this work.
-Specifically, we will see that a sheaf is itself a functor, and the process of "sheafification" is a natural transformation that mediates between the world of presheaves and sheaves.
+In this chapter we study functors, which encode how we move data across different categories.
+We also introduce the concept of natural transformations, which in turn encode now moving data across functors, and equivalence of categories.
 
 \section{Functors}
+
+As we have seen, category theory tries to study objects by means of their transformations.
+Since we can consider \hyperref[def:category]{categories} as their own mathematical object a natural question arises: how do we model transformations between \hyperref[def:category]{categories}?
+
+The answer to this question are functors.
 
 \begin{definition}[Functor]\label{def:functor}
   Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories}.
@@ -65,7 +66,6 @@ Specifically, we will see that a sheaf is itself a functor, and the process of "
   \end{itemize}
 \end{example}
 
-
 \begin{example}[Identity functor]\label{ex:identity-functor}
   Let \(\category{C}\) be a \hyperref[def:category]{category}.
   There exists an identity \hyperref[def:functor]{functor}
@@ -105,7 +105,6 @@ Specifically, we will see that a sheaf is itself a functor, and the process of "
     \end{tikzcd}
   \end{center}
 \end{example}
-
 
 \begin{example}\label{ex:hom-functor}
   Let \(\category{C}\) be a \hyperref[def:category]{category}.
@@ -163,6 +162,7 @@ Specifically, we will see that a sheaf is itself a functor, and the process of "
   \end{center}
 \end{example}
 
+As one would expect, \hyperref[def:functor]{functors} and \hyperref[def:categorical-isomorphism]{isomorphisms} behave well together.
 \begin{proposition}[Functors preserve isomorphisms]
   Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories} and \(F\colon \category{C} \to \category{D}\) a \hyperref[def:functor]{functor} between them.
   If \(f\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) then \(Ff\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
@@ -182,7 +182,7 @@ Specifically, we will see that a sheaf is itself a functor, and the process of "
   i.e: \(Ff\) has an inverse \(Ff^{-1}\) in \(\category{D}\).
 \end{proof}
 
-
+Just as with objects and morphisms, there are some particular types of \hyperref[def:functor]{functors} that are more useful than others.
 \begin{definition}[Functor types]\label{def:functor-types}
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) is:
   \begin{itemize}
@@ -202,10 +202,17 @@ Specifically, we will see that a sheaf is itself a functor, and the process of "
   \end{itemize}
 \end{example}
 
+A concept that can be abstracted using \hyperref[def:functor-types]{these definitions} is that of a category consisting of ``sets with extra structure''.
+\begin{definition}[Concrete category]\label{def:concrete-category}
+  A \hyperref[def:category]{category} \(\category{C}\) is \textbf{concrete} if there exists a \hyperref[def:functor-types]{faithful functor} \(U\colon \category{C} \to \Set\).
+  Such \hyperref[def:functor]{functor} is often times called a \textbf{forgetful functor}.
+\end{definition}
+
 
 \section{Natural transformations}
 
-\begin{definition}\label{def:natural-transformation}
+We can go further and try to model now how to move data between two \hyperref[def:functor]{functors}.
+\begin{definition}[Natural transformation]\label{def:natural-transformation}
   Let \(F, G\colon \category{C} \to \category{D}\) be two functors. A \textbf{natural transformation} \(\psi\colon F \implies G\) consists of a family of morphisms \(\psi_X: F(X) \to G(X)\) in \(\category{D}\), one for each object \(X \in \category{C}\), called the \textbf{components} of \(\psi\), such that for every morphism \(f\colon X \to Y\) in \(\category{C}\), the following diagram commutes:
   \begin{center}
     \begin{tikzcd}
@@ -232,6 +239,17 @@ Specifically, we will see that a sheaf is itself a functor, and the process of "
   If we restrict ourselves to the finite-dimensional case then this is a \hyperref[def:natural-transformation]{natural isomorphism}.
 \end{example}
 
+By combining \hyperref[def:functor]{functors} and \hyperref[def:natural-transformation]{natural transformation} we obtain a new example of a \hyperref[def:category]{category}.
+\begin{definition}[Functor category]\label{def:functor-category}
+  Let \(\category{C}\) and \(\category{D}\) be \hyperref[def:category]{categories}. The \textbf{functor category} \(\Fct{\category{C}}{\category{D}}\) has as objecs \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and as morphisms \hyperref[def:natural-transformation]{natural transformations} \(\eta\colon F \implies G\).
+  Composition and identities are defined componentwise.
+\end{definition}
+
+Using the notion of \hyperref[def:natural-transformation]{natural isomorphisms} one can define the notion of an \textbf{isomorphism} of \hyperref[def:category]{categories}.
+Two \hyperref[def:category]{categories} \(\category{C}\) and \(\category{D}\) are isomorphic (denoted \(\category{C} \cong \category{D}\)) if there exists a \hyperref[def:natural-transformation]{natural isomorphism} between them.
+
+This notion, however, is too restrictive to be useful.
+The correct notion to identify \hyperref[def:category]{categories} is that of an equivalence.
 \begin{definition}[Equivalent categories]\label{def:equivalent-categories}
   Two \hyperref[def:category]{categories} \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and \(G\colon \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.
   We denote this by \(\category{C} \simeq \category{D}\).

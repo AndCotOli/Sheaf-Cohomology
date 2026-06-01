@@ -4,6 +4,9 @@
 
 \chapter{Categories, morphisms and duality}
 
+In this chapter we begin by defining the main objects of category theory, that is: categories, and give a few examples.
+We also study how we can generalize known special types of morphisms and objects into the more general setting of categories.
+
 \section{Categories}
 
 \begin{definition}[Category]\label{def:category}
@@ -27,20 +30,25 @@
   \end{itemize}
 \end{definition}
 
+Classical set theoretical problems, such as Russell's paradox that asserts that there cannot be set of all sets, force us to define the collection of objects in a \hyperref[def:category]{category} as a proper class and not a set.
+
+In some cases the collection of objects is small enough to be a set.
+We call this types of \hyperref[def:category]{categories} small.
 \begin{definition}[Small category]\label{def:small-category}
   A \hyperref[def:category]{category} \(\category{C}\) is \textbf{small} if its collection of objects \(\operatorname{Ob}(\category{C})\) is a set.
 \end{definition}
 
 \begin{remark}[Size issues]
-  We will be sketchy about foundational issues (set-theoretic issues, universes, ...).
+  The above definition of a \hyperref[def:category]{category} is actually one of a \textit{locally small} category.
+
+  In the general setting, the collection of morphisms between two objects need not to form a set because it is \textit{too big}.
+  There are several ways to fix this: working with proper classes, with Grothendieck universes, ...
   
-  Therefore all \hyperref[def:category]{categories} will be \(\mathcal{U}\)-categories for a large enough \textit{universe} \(\mathcal{U}\) (i.e: for any pair of objects \(X, Y \in \category{C}\) the \(\Hom\)-set \(\Hom(X, Y)\) is \(\mathcal{U}\)-small) and \hyperref[def:small-category]{small categories} will be \(\mathcal{U}\)-small (the set of objects \(\operatorname{Ob}(\category{C})\) is \(\mathcal{U}\)-small).
-  
-  We will refer as "big" categories those that are \(\mathcal{V}\)-categories for a larger universe \(\mathcal{V}\).
-  By Grothendieck's axiom (for any set \(X\) there exists a universe \(\mathcal{U}\) such that \(X \in \mathcal{U}\)) every category \(\category{C}\) is a \(\mathcal{V}\)-category for a big enough universe \(\mathcal{V}\), and this universe can be chosen so that \(\category{C}\) is \(\mathcal{V}\)-small.
-  
-  For a basic introduction of what an \textit{universe} is and a more carefull treatment of this type of size issues see \cite[Section 1.1]{kashiwaraCategoriesSheaves2006}.
-  More details can also be found at \cite{SGA4}
+  We will however be sketchy about this kind of foundational issues.
+  Instead, will refer as ``big'' categories those whose collection of morphism does not form a set and not bother with the precise definition of what this actually means.
+  By doing this we refrain ourselves to study this kind of categories, but as it turns at this will not be needed.
+
+  For the interested reader, \cite[Section 3.7]{riehlCategoryTheoryContext} provides an account of why this issues may be important in certain situations.
 \end{remark}
 
 \begin{notation}
@@ -55,6 +63,7 @@
   We will sometimes abbreviate the composition \(f \circ g\) as \(fg\).
 \end{notation}
 
+Before going further, we give some examples of categories that the reader may be used to.
 
 \begin{example}~
   \begin{itemize}
@@ -82,6 +91,10 @@
   Given a \hyperref[def:category]{category} \(\category{C}\) we can define the \textbf{discrete category} \(\category{C}_{d}\) taking the same collection of objects as \(\category{C}\) but only the identity morphisms between them.
 \end{example}
 
+Often times when studying a certain type of objects it is useful (or even necessary) to restrict our attention to an smaller but more well-behaved subclass.
+For example, when studying groups one may want to only consider abelian groups or when studying rings to stay in the unital case.
+
+This notion is formalized using subcategories.
 \begin{definition}[Subcategory]\label{def:subcategory}
   Given a \hyperref[def:category]{category} \(\category{C}\), a \textbf{subcategory} \(\category{D}\) consists of a subcollection of objects and a subcollection of morphisms in \(\category{C}\) such that
   \begin{itemize}
@@ -101,6 +114,10 @@
     \item If \(k\) is a field, \(\Vect_{k}\) is a \hyperref[def:subcategory]{full subcategory} of \(\Mod(k)\).
   \end{itemize}
 \end{example}
+
+A similar situation happens often when one wants to combine multiple objects into a single, bigger one.
+A naive way to do this is to consider their product, for example by considering the cartesian product of two sets or the product topology of two topological spaces.
+Even though we will introduce later what the categorical product of two objects in a category is, we define it now for categories.
 
 \begin{definition}[Product category]\label{def:product-category}
   Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories}.
@@ -122,6 +139,10 @@
 \end{definition}
 
 \subsection{Duality}
+
+In the definition of a morphism in a \hyperref[def:category]{category} one has to make a choice of a source and a target.
+A natural question is to consider what happens if we reverse this arrows.
+As it turns out, this produces another category that is dual to the original one.
 
 \begin{definition}[Opposite category]\label{def:opposite-category}
   Let \(\category{C}\) be a \hyperref[def:category]{category}. The \textbf{opposite category} \(\opcategory{C}\) consists of:
@@ -164,6 +185,12 @@ In practice, this means that proving an statement directly proves its dual for f
 
 \section{Types of morphisms}
 
+As we said in the introduction, category theory shifts the focus from studying the objects itselves to the relations between them.
+
+When starting to learn about set theory, some of the first definitions are those of an injection and a surjection.
+Then when studying algebraic objects such as groups and rings one learns about monomorphisms and epimorphisms, that are no more and no less than injections and surjections between the underlying sets of the objects that respect the desired algebraic operation.
+
+To translate it to the general categorical framework we cannot speak of objects and thus resort to an equivalent definition.
 \begin{definition}[Monomorphism and epimorphism]\label{def:mono-epi-morphism}
   Let \(f\colon X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
   We say that \(f\) is a
@@ -181,6 +208,8 @@ In practice, this means that proving an statement directly proves its dual for f
   \end{itemize}
 \end{example}
 
+One \textit{caveat} of this definition is that the usual definition of a ring epimorphism (i.e: a surjective ring homomorphism) is too restrictive.
+
 \begin{example}
   In \(\Ring\), there are \hyperref[def:mono-epi-morphism]{epimorphisms} that are not surjective ring homomorphisms.
 
@@ -192,6 +221,7 @@ In practice, this means that proving an statement directly proves its dual for f
   Therefore \(f\) is completely determined by its values in \(\mathbb{Z}\) and, since \(f \circ \iota = f|_{\mathbb{Z}}\) we get that \(\iota\) is right-cancellative.
 \end{example}
 
+As an example of the duality phenomena we described earlier, we show that \hyperref[def:mono-epi-morphism]{monomorphisms} and \hyperref[def:mono-epi-morphism]{monomorphisms} are dual concepts.
 
 \begin{lemma}[Monomorphisms and epimorphisms are dual]
   Let \(f\colon X \to Y\) be a morphism in a \hyperref[def:category]{category} \(\category{C}\).
@@ -210,6 +240,15 @@ In practice, this means that proving an statement directly proves its dual for f
   Therefore we have that \(f \circ g = f \circ h\) implies \(g = h\) if and only if \((f \circ g)^{\op} = (f \circ h)^{\op}\) implies \(g = h\) if and only if \(g^{\op} \circ f^{\op} = h^{\op} \circ f^{\op}\) implies \(g^{\op} = h^{\op}\).
 \end{proof}
 
+\begin{remark}
+  In what follows we will not spell out the proofs of two objects being dual.
+  The proof strategy is basically the same as in the above lemma in all cases.
+\end{remark}
+
+Another recurrent notion accross mathematics is that of an isomorphism.
+In short, we say that two objects are isomorphic even though they \textit{look} different they \textit{behave} funtionally the same.
+
+We can extend this notion to general categories.
 \begin{definition}[Isomorphism]\label{def:categorical-isomorphism}
   A morphism \(f\colon X \to Y\) in a \hyperref[def:category]{category} \(\category{C}\) is an \textbf{isomorphism} if there exists another morphism \(g\colon Y \to X\) in \(\category{C}\) such that
   \begin{equation*}
@@ -219,6 +258,16 @@ In practice, this means that proving an statement directly proves its dual for f
   The morphism \(g\) is called the \textbf{inverse} of \(f\) and is denoted by \(f^{-1}\).
 \end{definition}
 
+\begin{example}~
+  \begin{itemize}
+    \item In \(\Set\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijection.
+    \item In \(\Grp\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective group homomorphism.
+    \item In \(\Top\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a homeomorphism.
+    \item In \(\Ring\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective ring homomorphism.
+  \end{itemize}
+\end{example}
+
+The usual properties of the inverses and isomorphisms work as one would expect in the general setting.
 \begin{proposition}
   Let \(f\colon X \to Y\) and \(g\colon Y \to Z\) be \hyperref[def:categorical-isomorphism]{isomorphisms} in a \hyperref[def:category]{category} \(\category{C}\). Then:
   \begin{enumerate}
@@ -263,15 +312,8 @@ In practice, this means that proving an statement directly proves its dual for f
   \end{enumerate}
 \end{proof}
 
-\begin{example}~
-  \begin{itemize}
-    \item In \(\Set\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijection.
-    \item In \(\Grp\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective group homomorphism.
-    \item In \(\Top\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a homeomorphism.
-    \item In \(\Ring\), an \hyperref[def:categorical-isomorphism]{isomorphism} is a bijective ring homomorphism.
-  \end{itemize}
-\end{example}
 
+As it happens in \(\Set\), the notions of \hyperref[def:mono-epi-morphism]{monomorphisms}, \hyperref[def:mono-epi-morphism]{monomorphisms} and \hyperref[def:categorical-isomorphism]{isomorphisms} are closely related.
 \begin{proposition}
   Let \(f\colon X \to Y\) be an \hyperref[def:categorical-isomorphism]{isomorphism}.
   Then \(f\) is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism}.
@@ -304,7 +346,8 @@ In practice, this means that proving an statement directly proves its dual for f
   However since there does not exists a continuous bijection \(X_{t} \to X_{d}\), \(\id_{X}\) cannot be an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{example}
 
-
+As we have seen before, one may create an smaller subcategory by restricting their attention to a smaller collection of objects.
+In this cases, \hyperref[def:cateorical-isomorphism]{isomorphisms} in the smaller category still are in the bigger one.
 \begin{proposition}
   Let \(\category{D}\) be a \hyperref[def:subcategory]{subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
   If \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
@@ -314,7 +357,7 @@ In practice, this means that proving an statement directly proves its dual for f
   Therefore since \(\Hom_{\category{D}}(Y, X) \subseteq \Hom_{\category{C}}(Y, X)\), \(f^{-1}\) is an inverse of \(f\) in \(\category{C}\).
 \end{proof}
 
-
+If the \hyperref[def:subcategory]{subcategory} is full we also have the reciprocal.
 \begin{proposition}\label{prop:full-subcategory-reflects-isomorphisms}
   Let \(\category{D}\) be a \hyperref[def:subcategory]{full subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
   If \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) and \(X, Y \in \category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
@@ -325,8 +368,11 @@ In practice, this means that proving an statement directly proves its dual for f
   Therefore \(f\) admits an inverse in \(\category{D}\).
 \end{proof}
 
-
 \section{Special objects}
+
+Just like in a category there are special types of morphisms, we also have special objects.
+For example, every group has a homomorphism from the trivial group and every unital ring has a homomorphism into the ring of integers.
+This are examples of what are called initial and terminal objects.
 
 \begin{definition}[Initial and terminal objects]\label{def:initial-terminal-object}
   An object \(I \in \category{C}\) is \textbf{initial} if for every object \(X \in \category{C}\) there is a unique morphism \(I \to X\).
@@ -338,12 +384,15 @@ In practice, this means that proving an statement directly proves its dual for f
   \begin{itemize}
     \item In \(\Set\), the empty set \(\varnothing\) is \hyperref[def:initial-terminal-object]{initial} and the singleton \(\{\ast\}\) is \hyperref[def:initial-terminal-object]{terminal}.
     \item In \(\Grp\), trivial groups are both \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal}.
-    \item In \(\Ring\) both \(\mathsf{Rng}\), the zero ring is \hyperref[def:initial-terminal-object]{initial}.
+    \item In both \(\Ring\) and \(\mathsf{Rng}\), the zero ring is \hyperref[def:initial-terminal-object]{initial}.
           However, the \hyperref[def:initial-terminal-object]{terminal} is different: in \(\Ring\) it is \(\mathbb{Z}\) and in \(\mathsf{Rng}\) is the zero ring.
     \item In \(\Top\), the empty topological space is \hyperref[def:initial-terminal-object]{initial} and the singleton \(\{\ast\}\) is \hyperref[def:initial-terminal-object]{terminal}.
-    \item There are no \hyperref[def:initial-terminal-object]{initial} nor \hyperref[def:initial-terminal-object]{terminal} objects, since there are no homomorphisms between fields of different characteristic.
+    \item There are no \hyperref[def:initial-terminal-object]{initial} nor \hyperref[def:initial-terminal-object]{terminal} objects in \(\mathsf{Field}\), since there are no homomorphisms between fields of different characteristic.
   \end{itemize}
 \end{example}
+
+In the above examples we have spoken of \textit{the} \hyperref[def:initial-terminal-object]{initial} and \textit{the} \hyperref[def:initial-terminal-object]{terminal} instead of \textit{an} \hyperref[def:initial-terminal-object]{initial} or  \textit{a} \hyperref[def:initial-terminal-object]{terminal}.
+This is justified as this types of objects are categorically indestinguishable, i.e: \hyperref[def:categorical-isomorphism]{isomorphic}.
 
 \begin{proposition}[Uniqueness of initial and terminal objects]\label{prop:uniqueness-initial-terminal-objects}
   Let \(X, Y\) be two \hyperref[def:initial-terminal-object]{initial} (resp. \hyperref[def:initial-terminal-object]{terminal}) objects in a \hyperref[def:category]{category} \(\category{C}\).
@@ -360,6 +409,9 @@ In practice, this means that proving an statement directly proves its dual for f
   Therefore \(f\) and \(g\) are inverses of each other, i.e: \(X \cong Y\).
   Moreover they are unique by definition.
 \end{proof}
+
+In some particular cases \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal} objects coincide, which means that there is an object with an unique morphism from and to every other object in the category.
+In this case we say that this object is zero.
 
 \begin{definition}[Zero object]\label{def:zero-object}
   An object \(0 \in \category{C}\) is a \textbf{zero} object if it is both \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal}.
@@ -384,6 +436,7 @@ In practice, this means that proving an statement directly proves its dual for f
   \end{itemize}
 \end{example}
 
+As before, we can speak of \textit{the} zero object (up to \hyperref[def:categorical-isomorphism]{isomorphism}).
 \begin{corollary}[Uniqueness of zero objects]\label{def:uniqueness-zero-objects}
   Let \(0, \widetilde{0}\) be two \hyperref[def:zero-object]{zero} objects in a \hyperref[def:category]{category} \(\category{C}\).
   Then there exists a unique \hyperref[def:categorical-isomorphism]{isomorphism} \(0 \isoarrow \widetilde{0}\) in \(\category{C}\).
