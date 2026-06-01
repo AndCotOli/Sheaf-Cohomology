@@ -11,7 +11,15 @@
 \begin{document}
 \chapter{Cohomology theories}\label{ch:cohomology-theories}
 
-In this chapter, we recap the properties of sheaf cohomology and compare them with the axiomatic approach to cohomology theories.
+In this chapter, we step back from explicit calculations to examine the broader structural properties of sheaf cohomology, placing it within the universal framework of algebraic topology.
+
+Historically, Eilenberg and Steenrod showed that various geometric invariants (such as singular, simplicial, or cellular cohomology) could be characterized uniquely by a small set of simple axioms.
+Our goal here is to compare the definition of \hyperref[def:sheaf-cohomology]{sheaf cohomology} against this classic axiomatic standard.
+By verifying that \hyperref[def:sheaf-cohomology]{sheaf cohomology} satisfies these universal criteria, we will justify why it can be viewed as a generalization of classical cohomology to spaces.
+
+In this chapter we restrict ourselves to \hyperref[def:sheaf]{sheaves of abelian groups}.
+
+\section{Cohomology theories and CW-Complexes}
 
 \begin{definition}\label{def:topological-pair}
   A \textbf{topological pair} is a tuple \((X, A)\) where \(X\) is a topological space and \(A\) is a subspace of \(X\).
@@ -19,7 +27,6 @@ In this chapter, we recap the properties of sheaf cohomology and compare them wi
   
   We denote by \(\Top_{2}\) the \hyperref[def:category]{category} of topological pairs.
 \end{definition}
-
 
 We start by giving the definition of a cohomology theory following~\cite{eilenbergAxiomaticApproachHomology1945}.
 \begin{definition}\label{def:cohomology-theory}
@@ -90,10 +97,12 @@ For sufficiently nice spaces, one can show that there exists only one \hyperref[
   \end{enumerate}
 \end{definition}
 
-We will not prove any properties of \hyperref[def:CW-complex]{CW-complexes}, refering the reader to \cite[Appendix]{hatcherAlgebraicTopology2002}, but to give an example of a \hyperref[def:CW-complex]{CW-complex} we have the following result
-\begin{proposition}[{\cite[Corollary A.12]{hatcherAlgebraicTopology2002}}]
+We will not prove any properties of \hyperref[def:CW-complex]{CW-complexes}, refering the reader to \cite[Appendix]{hatcherAlgebraicTopology2002}, but even though their purely combinatorial nature they are enough to capture the topological properties of compact manifolds.
+\begin{proposition}[{\cite[Corollary A.12]{hatcherAlgebraicTopology2002}}]\label{prop:manifold-is-CW-complex}
   A compact manifold is homotopy equivalent to a \hyperref[def:CW-complex]{CW-complex}.
 \end{proposition}
+
+This brings us to the core structural uniqueness theorem: over these cellular environments, all ordinary theories with identical core coefficients collapse into a single one.
 
 \begin{theorem}[{Uniqueness of cohomology theories~---~\cite[Theorem 4.59]{hatcherAlgebraicTopology2002}}]\label{thm:uniqueness-cohomology-theories}
   Let \(\{\cohomology{n}, \delta^{n}\}_{n \in \mathbb{N}}\) and \(\left\{ \widetilde{\operatorname{H}}^{n}, \widetilde{\delta}^{n} \right\}_{n \in \mathbb{N}}\) be two \hyperref[def:cohomology-theory]{ordinary cohomology theories} in the category of \hyperref[def:CW-complex]{CW pairs} with the same coefficient group.
@@ -106,8 +115,15 @@ We will not prove any properties of \hyperref[def:CW-complex]{CW-complexes}, ref
 The most famous \hyperref[def:cohomology-theory]{cohomology theory} is \textbf{singular cohomology} \(\operatorname{H}_{\operatorname{sing}}\).
 In fact the axioms of \hyperref[def:cohomology-theory]{cohomology theories} were modelled after its behaviour and the proof of \autoref{thm:uniqueness-cohomology-theories} works by proving that any \hyperref[def:cohomology-theory]{ordinary cohomology theory} is isomorphic to singular cohomology (given that they have the same coefficient group).
 
-
 We will not go into any details of its definition or properties, refering the reader to \cite[Chapter 3]{hatcherAlgebraicTopology2002} for more details.
+
+\begin{remark}
+  Another strategy to prove that \hyperref[def:sheaf-cohomology]{sheaf cohomology} is an \hyperref[def:cohomology-theory]{ordinary cohomology theory} is to prove that it coincides with singular cohomology (or any other ordinary cohomology theory) by finding a suitable resolution as we did for the de Rham case.
+
+  This however would require knowledge about the chosen \hyperref[def:cohomology-theory]{cohomology theory} (and of course proving that it is indeed an ordinary cohomology theory).
+  For the interested reader we refer to \cite[Chapter III]{bredonSheafTheory1997}.
+\end{remark}
+
 
 \section{Relative sheaf cohomology}
 
@@ -144,7 +160,7 @@ Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative
   For any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\), there exists a \hyperref[def:exact-sequence]{long exact sequence} in cohomology:
   \begin{center}
     \begin{tikzcd}[column sep=small]
-      \cdots \arrow[r] & \cohomology{i}(X, A; \sheaf{F}) \arrow[r] & \cohomology{i}(X; \sheaf{F}) \arrow[r] & \cohomology{i}(A; \sheaf{F}|_{A}) \arrow[r] & \cohomology{i+1}(X, A; \sheaf{F}) \arrow[r] & \cdots
+      \cdots \arrow[r] & \cohomology{i}(X, A; \sheaf{F}) \arrow[r] & \cohomology{i}(X; \sheaf{F}) \arrow[r] & \cohomology{i}(A; \sheaf{F}_{A}) \arrow[r] & \cohomology{i+1}(X, A; \sheaf{F}) \arrow[r] & \cdots
     \end{tikzcd}
   \end{center}
 \end{theorem}
@@ -153,7 +169,7 @@ Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative
   \begin{equation*}
     0 \to j_{!}j^{-1}\sheaf{F} \to \sheaf{F} \to i_{\ast}i^{-1}\sheaf{F} \to 0
   \end{equation*}
-  Applying the \hyperref[thm:LES-derived-functor]{long exact sequence of derived functors} to \(\Gamma(X, -)\) and using \autoref{lemma:cohomology-closed-subsets} for the term \(\cohomology{i}(X; i_{\ast}i^{-1}\sheaf{F}) \cong \cohomology{i}(A; \sheaf{F}|_{A})\), we obtain the result.
+  Applying the \hyperref[thm:LES-derived-functor]{long exact sequence of derived functors} to \(\Gamma(X, -)\) and using \autoref{lemma:cohomology-closed-subsets} for the term \(\cohomology{i}(X; i_{\ast}i^{-1}\sheaf{F}) \cong \cohomology{i}(A; \sheaf{F}_{A})\), we obtain the result.
 \end{proof}
 
 \begin{theorem}[Excision]\label{thm:excision-axiom}
@@ -172,7 +188,7 @@ Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative
   \end{equation*}
   where \(\sheaf{G} \coloneq j_{!}j^{-1}\sheaf{F}\).
 
-  For simplicity, assume for now that \(Z\) is closed.
+  Without loss of generality suppose that \(Z\) is closed (if not consider \(\operatorname{ad}(Z)\)).
   Let \(V = X \setminus Z\) and \(W = \operatorname{int}(A)\).
   Since \(Z\) is closed \(V\) is open. Furthermore since \(Z \subseteq \operatorname{int}(A) = W\) we have an open cover \(X = V \cup W\).
 
@@ -287,16 +303,16 @@ Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative
   Let \(\sheaf{F} \in \Mod ( \underline{\mathbf{k}}_{X} )\).
   Since \(X_{\alpha} \cap X_{\beta} = \varnothing\) if \(\alpha \neq \beta\) we have
   \begin{equation*}
-    \Gamma(X, \sheaf{F}) \cong \prod_{\alpha \in \Lambda} \Gamma(X_{\alpha}, \sheaf{F})
+    \Gamma(X, \sheaf{F}) \cong \prod_{\alpha \in \Lambda} \Gamma(X_{\alpha}, \sheaf{F}|_{X_{\alpha}})
   \end{equation*}
 
-  Furthermore if \(\sheaf{F} \to \sheaf{I}^{\bullet}\) is an \label[def:resolution]{injective resolution} since \(j_{\alpha}^{-1}\) is \hyperref[def:adjoint-functors]{right adjoint} by \autoref{prop:adjoints-and-injectives} \(I^{\bullet}|_{X_{\alpha}}\) is an \label[def:resolution]{injective resolution} of \(\sheaf{F}|_{X_{\alpha}}\).
+  Furthermore if \(\sheaf{F} \to \sheaf{I}^{\bullet}\) is an \hyperref[def:resolution]{injective resolution} since \(j_{\alpha}^{-1}\) is \hyperref[def:adjoint-functors]{right adjoint} to \(j_{\alpha, !}\), \hyperref[cor:extension-by-zero-sheaf-exact]{which is exact}, by \autoref{prop:adjoints-and-injectives} \(I^{\bullet}|_{X_{\alpha}}\) is an \hyperref[def:resolution]{injective resolution} of \(\sheaf{F}|_{X_{\alpha}}\).
   
   Therefore
   \begin{align*}
-    \cohomology{i}(X; \sheaf{F}) &\cong \cohomology{i}\Gamma(X, \sheaf{I}^{\bullet}) \\
-                                 &\cong  \cohomology{i} \left( \prod_{\alpha \in \Lambda} \Gamma(X, \sheaf{I}^{\bullet}|_{X_{\alpha}}) \right) \\
-                                 &\cong \prod_{\alpha \in \Lambda} \cohomology{i} \Gamma(X_{\alpha}, \sheaf{I}^{\bullet}|_{X_{\alpha}}) \\
+    \cohomology{i}(X; \sheaf{F}) &\cong \operatorname{R}^{i}\Gamma(X, \sheaf{I}^{\bullet}) \\
+                                 &\cong  \operatorname{R}^{i} \left( \prod_{\alpha \in \Lambda} \Gamma(X_{\alpha}, \sheaf{I}^{\bullet}|_{X_{\alpha}}) \right) \\
+                                 &\cong \prod_{\alpha \in \Lambda} \operatorname{R}^{i} \Gamma(X_{\alpha}, \sheaf{I}^{\bullet}|_{X_{\alpha}}) \\
                                  &\cong \prod_{\alpha \in \Lambda} \cohomology{i}(X_{\alpha}, \sheaf{F}|_{X_{\alpha}}) \qedhere
   \end{align*}
 \end{proof}
@@ -323,8 +339,9 @@ Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative
   \end{equation*}
 \end{proof}
 
-In particular, from the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness of cohomology theories} we get the following equivalences.
+Having fully verified all five axioms invoking the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness of cohomology theories}we obtain complete equivalences between abstract \hyperref[def:sheaf-cohomology]{sheaf cohomology} and classical cohomology groups.
 
+In particular from \autoref{prop:manifold-is-CW-complex} and the \hyperref[thm:homotopy-invariance-cohomology]{homotopy invariance of cohomology} we have the following.
 \begin{corollary}
   Let \(X\) be a space homotopic to a \hyperref[def:CW-complex]{CW-complex}.
   For any \hyperref[def:constant-sheaf]{constant sheaf of abelian groups} \(\underline{G} \in \Mod(\underline{\mathbb{Z}}_{X})\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
@@ -333,11 +350,12 @@ In particular, from the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness
     \end{equation*}
 \end{corollary}
 
+Furthermore, we can combined this with the work we did in the last chapter obtaining a proof that \hyperref[def:de-rham-cohomology]{de Rham cohomology} and singular cohomology coincide for compact smooth manifolds.
 \begin{corollary}
   Let \(X\) be a compact smooth manifold.
   We have \hyperref[def:categorical-isomorphism]{isomorphisms}
   \begin{equation*}
-    \cohomology{i}(X; \underline{\mathbb{R}}) \cong \operatorname{H}_{\operatorname{sing}}^{i}(X; \mathbb{R}) \cong \operatorname{H}_{\operatorname{dR}}(X; \mathbb{R})
+    \operatorname{H}_{\operatorname{sing}}^{i}(X; \mathbb{R}) \cong \cohomology{i}(X; \underline{\mathbb{R}}) \cong  \cong \operatorname{H}_{\operatorname{dR}}(X; \mathbb{R})
   \end{equation*}
 
   In particular de Rham cohomology \(\operatorname{H}_{\operatorname{dR}}\) is an \hyperref[def:cohomology-theory]{ordinary cohomology theory}.

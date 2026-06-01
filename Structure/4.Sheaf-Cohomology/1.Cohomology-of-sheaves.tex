@@ -7,28 +7,29 @@
 }{}
 
 \begin{document}
-\chapter{Cohomology of sheaves}
+\chapter{Sheaf cohomology}
+
+While evaluating mathematical structures over localized patches is a natural starting point in geometry, compiling these local snapshots into unique global data presents a fundamental challenge.
+We have already seen that \hyperref[def:exact-functor]{left-exact functors}, such as \hyperref[def:global-sections-sheaf]{global sections}, systematically fail to preserve surjectivity when transitioning from local neighborhoods to an entire space.
+To precisely catalog and measure these global obstructions, we apply the abstract machinery of homological algebra to the \hyperref[def:sheaf]{category of sheaves}.
+
+In this chapter, we rigorously establish the foundation for sheaf cohomology as the right derived functor of the \hyperref[def:global-sections-sheaf]{global sections functor}.
+After verifying that the \hyperref[def:sheaf]{category of sheaves} of modules over a commutative ring \hyperref[def:enough-injectives-projectives]{contains enough injective objects} to permit derived resolutions, we analyze how these cohomological invariants transform under domain restrictions and extensions.
+
+\begin{notation}
+  Given a ring \(R\), we denote the \hyperref[def:category]{category} of \hyperref[def:sheaf]{sheaves of \(R\)-modules} over a topological space \(X\) by \(\Mod(\underline{R}_{X})\).
+\end{notation}
 
 In what follows, let \(\mathbf{k}\) be a fixed commutative ring.
+Note that if we let \(\mathbf{k} = \mathbb{Z}\) since \(\Mod(\mathbb{Z}) \cong \Ab\) we have \(\Mod(\underline{\mathbb{Z}}_{X}) \cong \Sh_{X}(\Ab)\) and thus our work also applies to \hyperref[def:sheaf]{sheaves of abelian groups}.
 
-We want to define the cohomology of \(X\) with coefficients in a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} as the \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-sections-sheaf]{global sections functor}
-\begin{align*}
-  \Gamma(X, -)\colon \Mod(\underline{\mathbf{k}}_{X}) \to \Mod(\mathbf{k})
-\end{align*}
-To do this, we need to check the following:
-\begin{enumerate}
-  \item \(\Mod(\underline{\mathbf{k}_{X}})\) and \(\Mod(\mathbf{k})\) are \hyperref[def:abelian-category]{abelian categories}.
-  \item The \hyperref[def:functor]{functor} \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
-  \item \(\Mod(\underline{\mathbf{k}}_{X})\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
-\end{enumerate}
+\section{Injective sheaves and cohomology}
+
 
 Note that \(\Mod(\mathbf{k})\) is an \hyperref[def:abelian-category]{abelian category}.
 Therefore by \autoref{thm:sheaf-category-is-abelian} \(\Mod(\underline{\mathbf{k}}_{X})\) is also \hyperref[def:abelian-category]{abelian}.
 
-Recall that by \autoref{cor:global-constant-adjunction-sheaf} \(\Gamma(X, -)\) is \hyperref[def:adjoint-functors]{right adjoint}.
-Therefore by \autoref{ex:adjoint-functors-and-exactness} \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
-
-It only remains to show that \(\Mod(\underline{\mathbf{k}}_{X})\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
+If we want to derive \hyperref[def:exact-functor]{left-exact functors} we need to show that \(\Mod(\underline{\mathbf{k}}_{X})\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
 \begin{lemma}\label{lemma:mod-ox-has-enough-injectives}
   The \hyperref[def:category]{category} \(\Mod(\underline{\mathbf{k}}_{X})\) of \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules} over \(X\) has \hyperref[def:enough-injectives-projectives]{enough injectives}.
 \end{lemma}
@@ -48,13 +49,14 @@ It only remains to show that \(\Mod(\underline{\mathbf{k}}_{X})\) has \hyperref[
 
   Consider the \hyperref[def:sheaf]{sheaf}
   \begin{equation*}
-    \sheaf{I} \coloneq \bigoplus_{p \in X} \operatorname{sk}_{p} \underline{I_{p}}
+    \sheaf{I} \coloneq \prod_{p \in X} \operatorname{sk}_{p} I_{p}
   \end{equation*}
-  where \(\operatorname{sk}_{p}\underline{I_{p}}\) is the \hyperref[def:skyscraper-sheaf]{skyscraper sheaf} supported at the \hyperref[def:constant-sheaf]{constant sheaf} \(\underline{I_{p}}\).
+  where \(\operatorname{sk}_{p}I_{p}\) is the \hyperref[def:skyscraper-sheaf]{skyscraper sheaf} supported at \(I_{p}\).
   More explicitly, for every open set \(U \subseteq X\) the \hyperref[def:sheaf]{sheaf} \(\sheaf{I}\) is defined as
   \begin{equation*}
-    \sheaf{I}(U) = \bigoplus_{p \in U} I_{p}
+    \sheaf{I}(U) = \prod_{p \in U} I_{p}
   \end{equation*}
+  with the obvious restriction maps.
 
   Recall that by \autoref{cor:skyscraper-stalk-adjunction-sheaf} the \hyperref[def:skyscraper-sheaf]{skyscraper functor} is \hyperref[def:adjoint-functors]{left-adjoint} to the \hyperref[def:stalk]{stalk functor}, which is \hyperref[def:exact-functor]{exact}.
   Therefore by \autoref{prop:adjoints-and-injectives} \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective object} of \(\Mod(\underline{\mathbf{k}}_{X})\).
@@ -63,63 +65,84 @@ It only remains to show that \(\Mod(\underline{\mathbf{k}}_{X})\) has \hyperref[
 This means that we can \hyperref[def:right-derived-functor]{derive} all \hyperref[def:exact-functor]{right-exact functors} from the \hyperref[def:sheaf]{category of sheaves of \(\mathbf{k}\)-modules}.
 
 Having seen this, we now can finally define sheaf cohomology.
+Recall that by \autoref{cor:global-constant-adjunction-sheaf} \(\Gamma(X, -)\) is \hyperref[def:adjoint-functors]{right adjoint}.
+Therefore by \autoref{ex:adjoint-functors-and-exactness} \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
 \begin{definition}[Sheaf Cohomology]\label{def:sheaf-cohomology}
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} over a topological space \(X\).
   The \(i\)-th \textbf{cohomology} of \(X\) with coefficients in \(\sheaf{F}\) is the \(i\)-th \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-sections-sheaf]{global sections functor}:
   \begin{equation*}
-    \cohomology{i}(X; \sheaf{F}) \coloneq R^{i}\Gamma(X, \sheaf{F})
+    \cohomology{i}(X; \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(X, -)(\sheaf{F})
   \end{equation*}
 \end{definition}
 
-
-
-Therefore, given a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) to compute its \hyperref[def:sheaf-cohomology]{cohomology} we \textit{only} need to construct an \hyperref[def:injective-projective-object]{injective} (or \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\) acyclic} by \autoref{thm:right-derived-functor-using-acyclics}) \hyperref[def:resolution]{resolution} of \(\sheaf{F}\)
-\begin{center}
-  \begin{tikzcd}
-    0 \arrow[r] & \sheaf{F}^{(0)} \arrow[r] & \sheaf{F}^{(1)} \arrow[r] & \cdots
-  \end{tikzcd}
-\end{center}
-and compute the \hyperref[def:cohomology]{cohomology} of the \(\mathbf{k}\)-modules
-\begin{center}
-  \begin{tikzcd}
-    0 \arrow[r] & \Gamma(X, \sheaf{F}^{(0)}) \arrow[r] & \Gamma(X, \sheaf{F}^{(1)}) \arrow[r] & \cdots
-  \end{tikzcd}
-\end{center}
-
-Since \hyperref[def:resolution]{injective resolutions} are usually hard to find (note how \autoref{lemma:mod-ox-has-enough-injectives} doesn't give an \textit{easy} construction) we will mostly work with \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\)-acyclic resolutions}.
-
-\begin{lemma}\label{lemma:cohomology-open-subsets}
-  Let \(X\) be a topological space and \(U \subseteq X\) an open subset.
-  \begin{enumerate}
-    \item If \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf} over \(X\) then \(\sheaf{I}|_{U}\) is \hyperref[def:injective-projective-object]{injective} over \(U\).
-    \item For any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) we have \(\cohomology{i}(U; \sheaf{F}) = \cohomology{i}(U; \sheaf{F}|_{U})\).
-  \end{enumerate}
-\end{lemma}
-\begin{proof}
-  Let \(j\colon U \hookrightarrow X\) be the open immersion.
-  \hyperref[thm:open-immersion-adjunction-sheaf]{There is an adjunction \(j_{!} \dashv j^{-1}\)}.
-  Furthermore, \hyperref[cor:extension-by-zero-sheaf-exact]{\(j_{!}\) is exact}.
-  Therefore 1 follows from \autoref{prop:adjoints-and-injectives}.
-
-  To see 2, by \hyperref[def:sheaf-cohomology]{definition} \(\cohomology{i}(U; \sheaf{F}) = \cohomology{i}(\Gamma(U, \sheaf{I}^{\bullet}))\) where \(\sheaf{F} \to \sheaf{I}^{\bullet}\) is an \hyperref[def:resolution]{injective resolution}.
-  By 1 \(\sheaf{F}|_{U} \to \sheaf{I}^{\bullet}|_{U}\) is an \hyperref[def:resolution]{injective resolution} of \(\sheaf{F}|_{U}\) in \(\Mod(\underline{\mathbf{k}}_{U})\).
-  Therefore
+\begin{notation}
+  If \(Y \subseteq X\) is a subset of \(X\) we set
   \begin{equation*}
-    \cohomology{i}(U; \sheaf{F}|_{U}) = \cohomology{i}(\Gamma(U, \sheaf{I}^{\bullet}|_{U}))  = \cohomology{i}(U; \sheaf{F}) \qedhere
+    \cohomology{i}(Y; \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(Y; -)(\sheaf{F}) = \operatorname{R}^{i}\Gamma(Y; -)(\sheaf{F}|_{Y})
   \end{equation*}
-\end{proof}
+  for all \hyperref[def:sheaf]{sheaves} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
+\end{notation}
 
-\begin{lemma}\label{lemma:cohomology-closed-subsets}
-  Let \(X\) be a topological space and \(Z \subseteq X\) a closed subset.
+% Therefore, given a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) to compute its \hyperref[def:sheaf-cohomology]{cohomology} we \textit{only} need to construct an \hyperref[def:injective-projective-object]{injective} (or \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\) acyclic} by \autoref{thm:right-derived-functor-using-acyclics}) \hyperref[def:resolution]{resolution} of \(\sheaf{F}\)
+% \begin{center}
+%   \begin{tikzcd}
+%     0 \arrow[r] & \sheaf{F}^{(0)} \arrow[r] & \sheaf{F}^{(1)} \arrow[r] & \cdots
+%   \end{tikzcd}
+% \end{center}
+% and compute the \hyperref[def:cohomology]{cohomology} of the \(\mathbf{k}\)-modules
+% \begin{center}
+%   \begin{tikzcd}
+%     0 \arrow[r] & \Gamma(X, \sheaf{F}^{(0)}) \arrow[r] & \Gamma(X, \sheaf{F}^{(1)}) \arrow[r] & \cdots
+%   \end{tikzcd}
+% \end{center}
+
+% Since \hyperref[def:resolution]{injective resolutions} are usually hard to find (note how \autoref{lemma:mod-ox-has-enough-injectives} doesn't give an \textit{easy} construction) we will mostly work with \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\)-acyclic resolutions}.
+
+We are going to see first how \hyperref[def:sheaf-cohomology]{sheaf cohomology} behaves when restricting and extending sheaves to subsets of \(X\).
+Before we do so, we need to understand how \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} behave under \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse images}.
+\begin{lemma}\label{lemma:injective-sheaves-and-maps}
+  Let \(\sheaf{I} \in \Mod(\underline{\mathbf{k}}_{X})\) be an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules}.
   \begin{enumerate}
-    \item If \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf} over \(X\) then \(\sheaf{I}_{Z}\) is \hyperref[def:injective-projective-object]{injective} over \(Z\).
-    \item For any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) we have \(\cohomology{i}(X; \sheaf{F}_{Z}) = \cohomology{i}(Z; \sheaf{F}|_{Z})\).
+    \item If \(f\colon X \to Y\) is a continuous map then \(f_{\ast}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective}.
+    \item If \(j_{U}\colon U \hookrightarrow X\) is an open immersion then \(\sheaf{I}|_{U} = j_{U}^{-1}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective}.
   \end{enumerate}
 \end{lemma}
-\begin{proof}
-  Analogous to \autoref{lemma:cohomology-open-subsets} using the closed immersion \(i\colon Z \hookrightarrow X\).
+\begin{proof}~
+  \begin{enumerate}
+    \item Since \hyperref[cor:inverse-image-sheaf-exact]{\(f^{-1}\) is exact} and by the \hyperref[thm:direct-inverse-image-adjunction-sheaf]{adjunction \(f^{-1} \dashv f_{\ast}\)} we have
+          \begin{equation*}
+            \Hom_{\Mod(\underline{\mathbb{k}}_{X})}(f^{-1}(-), \sheaf{I}) \cong \Hom_{\Mod(\underline{\mathbb{k}}_{Y})}(-, f_{\ast}\sheaf{I})
+          \end{equation*}
+          by \autoref{prop:injective-characterization-hom} we have that \(f_{\ast}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective}.
+    \item Follows from the first and \(j_{U}^{-1} \cong i_{X \setminus U, \ast}\) where \(i_{X \setminus U}\colon X \setminus U \hookrightarrow X\). \qedhere
+  \end{enumerate}
 \end{proof}
 
+
+\begin{proposition}\label{prop:cohomology-subsets}
+  Let \(X\) be a topological space, \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} and \(i \geq 0\).
+  \begin{enumerate}
+    \item If \(U \subseteq X\) is open we have \(\cohomology{i}(U; \sheaf{F}) \cong \cohomology{i}(U; \sheaf{F}|_{U})\).
+    \item If \(Z \subseteq X\) is closed we have \(\cohomology{i}(Z; \sheaf{F}_{Z}) \cong \cohomology{i}(Z; \sheaf{F}|_{Z})\).
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  Let \(i_{Y}\colon Y \hookrightarrow X\) be the inclussion of \(Y \subseteq X\) and \(a_{Y}\colon Y \to \{\ast\}\).
+  \begin{enumerate}
+    \item We have
+          \begin{equation*}
+            \cohomology{i}(U; \sheaf{F}) \cong \operatorname{R}^{i}(a_{U, \ast} \circ i_{U}^{-1})(\sheaf{F}) \cong \left(\operatorname{R}^{i} a_{U, \ast} \right)(i_{U}^{-1}\sheaf{F}) \cong \cohomology{i}(U; \sheaf{F}|_{U})
+          \end{equation*}
+          where the second \hyperref[def:categorical-isomorphism]{isomorphism} comes from \autoref{thm:derived-functor-composition} since \hyperref[cor:inverse-image-sheaf-exact]{\(i_{U}^{-1}\) is exact} and \hyperref[lemma:injective-sheaves-and-maps]{sends injectives to injectives}.
+    \item We have
+          \begin{equation*}
+            \cohomology{i}(Z; \sheaf{F}_{Z}) \cong \left( \operatorname{R}^{i}a_{X, \ast} \right)(( i_{Z, \ast} \circ i_{Z}^{-1}) (\sheaf{F})) \cong \left( \operatorname{R}^{i} (a_{X} \circ i_{S, \ast}) \right) (i_{Z}^{-1}(\sheaf{F})) \cong \cohomology{i}(Z; \sheaf{F}|_{Z})
+          \end{equation*}
+          where the second \hyperref[def:categorical-isomorphism]{isomorphism} comes from \autoref{thm:derived-functor-composition} since \hyperref[cor:closed-immersion-exact]{\(i_{S, \ast}\) is exact} and \hyperref[lemma:injective-sheaves-and-maps]{sends injectives to injectives}. \qedhere
+  \end{enumerate}
+\end{proof}
+
+We also have the following
 \begin{lemma}\label{lemma:cohomology-compact-subsets}
   Let \(X\) be a topological space and \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
   If \(K \subseteq X\) is compact and relatively Hausdorff\footnote{\(K \subseteq X\) is relatively Hausdorff if two distinct points in \(K\) admit disjoint neighbourhoods in \(X\). Note that if \(K = X\) then we recover that \(X\) is Hausdorff.} then
@@ -167,6 +190,13 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
     \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( U; \sheaf{F} \right) \cong \operatorname{R}^{i}F(\sheaf{F}) \cong \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}(K; \sheaf{F}) \qedhere
   \end{equation*}
 \end{proof}
+
+\subsection{Mayer-Vietoris}
+
+The functorial behavior of restriction and extension established above suggests that we can compute the global cohomology of a space by systematically fracturing it into simpler, overlapping sub-domains.
+In classical algebraic topology, the standard technique for computing invariants via open or closed decompositions is governed by the Mayer-Vietoris sequence.
+
+It is worth noting that the following results work replacing \(\Gamma(X, -)\) with any other \hyperref[def:exact-functor]{left-exact functor} such as \(f_{\ast}\) for any continuous map \(f\colon X \to Y\).
 
 \begin{theorem}[Open Mayer-Vietoris]\label{thm:mayer-vietoris-open}
   Let \(X\) be a topological space.
@@ -220,7 +250,7 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
     \end{tikzcd}
   \end{center}
   is \hyperref[def:exact-sequence]{exact} in \(\Mod(\underline{\mathbf{k}}_{X})\).
-  Applying \autoref{thm:LES-derived-functor} with \(\Gamma(X, -)\) and using \autoref{lemma:cohomology-open-subsets} we get the result.
+  Applying \autoref{thm:LES-derived-functor} with \(\Gamma(X, -)\) and using \autoref{prop:cohomology-subsets} we get the result.
 \end{proof}
 
 \begin{theorem}[Closed Mayer-Vietoris]\label{thm:mayer-vietoris-closed}
@@ -254,12 +284,17 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
 
 \section{Acyclic resolutions}
 
+In \autoref{lemma:mod-ox-has-enough-injectives} we have seen that, even though they exist, \hyperref[def:injective-projective-object]{injectives sheaves} are complicated objecs.
+Recall that \hyperref[thm:right-derived-functor-using-acyclics]{cohomology can be computed using \(\Gamma(X, -)\)-acyclic resolutions}.
+
+In this section we introduce a class of \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\)-acyclic} objects that will help us later.
+
 \begin{definition}[Flasque sheaf]\label{def:flasque-sheaf}
   A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{flasque} (or \textbf{flabby}) if for any inclussion of open subsets \(V \subseteq U\) the restriction map \(\res_{U, V}\colon \sheaf{F}(U) \to \sheaf{F}(V)\) is surjective.
 \end{definition}
 
 \begin{proposition}\label{prop:flasque-are-acyclic}
-  \hyperref[def:flasque-sheaf]{Flasque sheaves} are \hyperref[def:acyclic-object]{\(\Gamma(X, -)\)-acyclic}.
+  \hyperref[def:flasque-sheaf]{Flasque sheaves} are \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\)-acyclic}.
 \end{proposition}
 \begin{proof}
   Let \(\sheaf{F}\) be a \hyperref[def:flasque-sheaf]{flasque sheaf}.
@@ -297,19 +332,19 @@ Since \hyperref[def:resolution]{injective resolutions} are usually hard to find 
   \end{equation*}
 \end{proof}
 
-\begin{lemma}
-  \hyperref[def:injective-projective-object]{Injective} \hyperref[def:sheaf]{sheaves} are \hyperref[def:flasque-sheaf]{flasque}.
-\end{lemma}
-\begin{proof}
-  Let \(U' \subseteq U \subseteq X\) be open subsets and \(\sheaf{I} \in \Mod(\underline{\mathbf{k}}_{X})\) be an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf}.
-  We want to see that the map \(\sheaf{I}(U) \to \sheaf{I}(U')\) is surjective.
+% \begin{lemma}
+%   \hyperref[def:injective-projective-object]{Injective} \hyperref[def:sheaf]{sheaves} are \hyperref[def:flasque-sheaf]{flasque}.
+% \end{lemma}
+% \begin{proof}
+%   Let \(U' \subseteq U \subseteq X\) be open subsets and \(\sheaf{I} \in \Mod(\underline{\mathbf{k}}_{X})\) be an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf}.
+%   We want to see that the map \(\sheaf{I}(U) \to \sheaf{I}(U')\) is surjective.
 
-  Consider the open immersions \(j\colon U \hookrightarrow X\) and \(j'\colon U' \hookrightarrow X\).
-  Since \hyperref[thm:extension-inverse-image-adjunction-sheaf]{\(j_{!}\) is left adjoint to the restriction} for any 
-\end{proof}
+%   Consider the open immersions \(j\colon U \hookrightarrow X\) and \(j'\colon U' \hookrightarrow X\).
+%   Since \hyperref[thm:extension-inverse-image-adjunction-sheaf]{\(j_{!}\) is left adjoint to the restriction} for any 
+% \end{proof}
 
-
-Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical (and functorial) resolution of a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} to compute its \hyperref[def:sheaf-cohomology]{cohomology}.
+Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical (and functorial) resolution of a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} to compute its \hyperref[def:sheaf-cohomology]{cohomology}, the so called Godement resolution.
+We only give here a sketch of its construction and refer the reader to \cite[\href{https://stacks.math.columbia.edu/tag/0FKR}{Section 0FKR}]{stacks-project} for more details.
 \begin{construction}[Godement resolution]\label{def:godement-resolution}
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules}.
   The \textbf{Godement resolution} of \(\sheaf{F}\) is constructed by considering the inclussion of \(\sheaf{F}\) into the \textit{Godement sheaf} \(\sheaf{F}_{\operatorname{God}}\)
@@ -389,5 +424,7 @@ Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical
   \end{align*}
 \end{example}
 
+This example shows that computing \hyperref[def:sheaf-cohomology]{sheaf cohomology} using the \hyperref[def:godement-resolution]{Godement resolution} is an almost imposible task in general.
+In the following chapters we will see how we can solve this problem.
 
 \end{document}

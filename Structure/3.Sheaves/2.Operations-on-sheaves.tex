@@ -8,16 +8,30 @@
 }{}
 
 \begin{document}
-\chapter{Operations on sheaves}
+\chapter{Operations on sheaves}\label{ch:operations-on-sheaves}
+
+In the previous chapter, we established the foundational properties of \hyperref[def:sheaf]{sheaves} as localized algebraic structures operating on a fixed topological space.
+To fully leverage this framework in geometry and topology, we must understand how \hyperref[def:sheaf]{sheaves} interact when moving between different topological spaces.
+This chapter explores the primary geometric operations used to change the base space of a \hyperref[def:sheaf]{sheaf} along a continuous map \(f\colon X \to Y\)
+
+We begin by constructing the direct image (or pushforward) \hyperref[def:functor]{functor} \(f_{\ast}\), which allows us to push data from \(X\) to \(Y\), and the inverse image (or pullback) \hyperref[def:functor]{functor} \(f^{-1}\), which pulls data back from \(Y\) to \(X\).
+A major focus of this section is establishing the core natural \hyperref[def:adjoint-functors]{adjunction} between these two operations, showing that pulling back and pushing forward are dual categorical maneuvers.
+
+As a particular case we will study how taking one of the spaces to be \(\{\ast\}\) we recover classical \hyperref[def:sheaf]{sheaf} constructions such as the \hyperref[def:stalk]{stalk}.
+We also study the case for open and closed immersions, where as we will see another \hyperref[def:adjoint-functor]{adjoint functor} exists.
+
+Finally, we unify these operations by proving the existence of a canonical \hyperref[def:exact-sequence]{short exact sequence} linking a \hyperref[def:sheaf]{sheaf}, its extension by zero from an open set, and its pushforward from the complementary closed set.
+This fundamental sequence provides the \hyperref[def:exact-sequence]{exact sequence} machinery required for studying relative sheaf cohomology in later chapters.
 
 \section{Continuous maps and (pre)sheaves}\label{sec:continuous-maps-sheaves}
 
 Consider a continuous map between topological spaces \(f\colon X \to Y\).
 
 We want to find a way of translating \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves} from \(X\) to \(Y\) along \(f\) and viceversa.
+We will start in the \hyperref[def:presheaf]{presheaf} case and move to the \hyperref[def:sheaf]{sheaf} case using \hyperref[def:sheafification]{sheafification} when needed.
 
-We will start in the \hyperref[def:presheaf]{presheaf} case and move to the \hyperref[def:sheaf]{sheaf} case using \hyperref[def:sheafification]{sheafification}.
-
+First, let's see how we can push forward data from \(X\) to \(Y\).
+This will be easy since for any open subset \(V \subseteq Y\) we have that \(f^{-1}(V)\) is open in \(X\).
 \begin{definition}[Direct image presheaf]\label{def:direct-image-sheaf}
   Let \(f\colon X \to Y\) be a continuous map.
   For any \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(X\) we define the \textbf{direct image} (or pushforward) of \(\mathcal{F}\) via \(f\) as the \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} \(f_{\ast}\mathcal{F}\) over \(Y\) which, for any open subset \(V \subseteq Y\)
@@ -38,38 +52,18 @@ We will start in the \hyperref[def:presheaf]{presheaf} case and move to the \hyp
   \end{equation*}
 \end{definition}
 
-\begin{lemma}\label{lemma:composition-direct-image}
-  Let \(f\colon X \to Y\) and \(g: Y \to Z\) be two continuous maps.
-  Then the \hyperref[def:direct-image-sheaf]{direct images} \((g \circ f)_{\ast}\) and \(g_{\ast} \circ f_{\ast}\) are equal.
-\end{lemma}
-\begin{proof}
-  Let \(\mathcal{F}\) be a \hyperref[def:presheaf]{presheaf} over \(X\) and \(W \subseteq Z\) an open subset.
-  On the one hand
-  \begin{equation*}
-    (g \circ f)_{\ast}(\mathcal{F}(W)) = \mathcal{F}((g \circ f)^{-1}(W)) = \mathcal{F}((f^{-1} \circ g^{-1})(W))
-  \end{equation*}
-  On the other
-  \begin{equation*}
-    (g_{\ast} \circ f_{\ast})(\mathcal{F}(W)) = f_{\ast}(\mathcal{F}(g^{-1}(W))) = \mathcal{F}((f^{-1} \circ g^{-1})(W)) \qedhere
-  \end{equation*}
-\end{proof}
+Since taking inverse images of open sets behaves nicely under composition we have that \hyperref[def:direct-image-sheaf]{direct images} compose as expected: if \(f\colon X \to Y\) and \(g: Y \to Z\) be two continuous maps then the \hyperref[def:direct-image-sheaf]{direct images} \((g \circ f)_{\ast}\) and \(g_{\ast} \circ f_{\ast}\) are equal.
 
-\begin{lemma}
-  If \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} then \(f_{\ast}\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf}.
-\end{lemma}
-\begin{proof}
-  This follows since for any open cover \(V = \bigcup_{i} V_{i}\) we have
-  \begin{equation*}
-    f^{-1}\left(\bigcup_{i} V_{i}\right) = \bigcup_{i} f^{-1}(V_{i}) \qedhere
-  \end{equation*}
-\end{proof}
+Furthermore using that \(f^{-1}(\bigcup_{i} V_{i}) = \bigcup_{i} f^{-1}(V_{i})\) we have directly that if \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} then \(f_{\ast}\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf}.
 
 This means that we have a \hyperref[def:functor]{functor}
 \begin{equation*}
   f_{\ast}\colon \Sh_{X}(\category{C}) \to \Sh_{Y}(\category{C})
 \end{equation*}
-which verifies the \hyperref[lemma:composition-direct-image]{presheaf composition law}.
 
+Let's try now pulling back data from \(Y\) to \(X\).
+Note that in this case if \(U \subseteq X\) is open \(f(U) \subseteq Y\) is not necessarily open in \(Y\).
+Therefore, we have to \textit{aproximate} the data by looking at all open sets in \(Y\) that contain \(f(U)\).
 \begin{definition}[Inverse image presheaf]\label{def:inverse-image-presheaf}
   Let \(f\colon X \to Y\) be a continuous map between two topological spaces \(X, Y\).
   For any \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} \(\mathcal{G}\) over \(Y\) we define the \textbf{inverse image} (or pullback) of \(\mathcal{G}\) via \(f\) as the \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} \(f_{\pre}^{-1}\mathcal{G}\) over \(X\) which, for any open subset \(U \subseteq X\)
@@ -94,6 +88,37 @@ which verifies the \hyperref[lemma:composition-direct-image]{presheaf compositio
   Note that this defines a \hyperref[def:functor]{functor} \(f_{\pre}^{-1}\colon \PSh_{Y}(\category{C}) \to \PSh_{X}(\category{C})\).
 \end{definition}
 
+\begin{notation}
+  Let \(X\) be a topological space and \(f\colon Y \hookrightarrow X\) an inclussion of a set \(Y \subseteq X\) endowed with the induced topology.
+  If \(\sheaf{G} \in \Sh_{X}(\category{C})\) is a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} (resp. \hyperref[def:presheaf]{presheaf}) over \(X\) we call \(f^{-1}\sheaf{G} \in \Sh_{Y}(\category{C})\) (resp. \(j_{\pre}^{-1}\sheaf{G}\)) the \textbf{restriction} of \(\sheaf{G}\) to \(Y\) and denote it by \(\sheaf{G}|_{Y}\).
+\end{notation}
+
+
+Since \hyperref[def:stalk]{stalks} are particular cases of \hyperref[def:direct-limit]{direct limits}, \hyperref[def:inverse-image-presheaf]{inverse images} play nicely with them.
+\begin{lemma}\label{lemma:stalk-inverse-image-presheaf}
+  Let \(f\colon X \to Y\) be a continuous map.
+  Let \(\mathcal{G} \in \PSh_{Y}(\category{C})\) be a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(Y\).
+  Then for all \(p \in X\) there is a bijection of \hyperref[def:stalk]{stalks}.
+  \begin{equation*}
+    \left( f_{\pre}^{-1}\mathcal{G} \right)_{p} \cong \mathcal{G}_{f(p)}
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  \begin{align*}
+    \left( f_{\pre}^{-1}\mathcal{G} \right)_{p} &= \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}}  \left( f_{\pre}^{-1}\mathcal{G} \right)(U) \\
+                                      &= \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \left( \varinjlim_{\substack{V \supseteq f(U) \\ V \in \Open(Y)}} \mathcal{G}(V) \right) \\
+                                      &= \varinjlim_{\substack{V \ni f(p) \\ V \in \Open(Y)}} \mathcal{G}(V) \\
+                                      &= \mathcal{G}_{f(p)} \qedhere
+  \end{align*}
+\end{proof}
+
+Therefore since \hyperref[cor:exactness-at-stalks]{exactness can be checked at the level of stalks} we have:
+\begin{corollary}
+  Let \(\category{C}\) be a \hyperref[def:abelian-category]{abelian category}.
+  For all continuous maps \(f\colon X \to Y\) the \hyperref[def:inverse-image-presheaf]{presheaf inverse image} \(f_{\pre}^{-1}: \PSh_{Y}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
+\end{corollary}
+
+Although the \hyperref[def:inverse-image-presheaf]{definition of the inverse image} may seem complicated at first sight it is natural in the sense that it makes \(f_{\ast}\) and \(f_{\operatorname{pre}}^{-1}\) \hyperref[def:adjoint-functors]{adjoint}.
 
 \begin{theorem}\label{thm:direct-inverse-image-adjunction-presheaf}
   Let \(f\colon X \to Y\) be a continuous function between two topological spaces \(X, Y\).
@@ -143,35 +168,13 @@ which verifies the \hyperref[lemma:composition-direct-image]{presheaf compositio
   \end{equation*}
 \end{proof}
 
-\begin{lemma}\label{lemma:stalk-inverse-image-presheaf}
-  Let \(f\colon X \to Y\) be a continuous map.
-  Let \(\mathcal{G} \in \PSh_{Y}(\category{C})\) be a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(Y\).
-  Then for all \(p \in X\) there is a bijection of \hyperref[def:stalk]{stalks}.
-  \begin{equation*}
-    \left( f_{\pre}^{-1}\mathcal{G} \right)_{p} \cong \mathcal{G}_{f(p)}
-  \end{equation*}
-\end{lemma}
-\begin{proof}
-  \begin{align*}
-    \left( f_{\pre}^{-1}\mathcal{G} \right)_{p} &= \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}}  \left( f_{\pre}^{-1}\mathcal{G} \right)(U) \\
-                                      &= \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \left( \varinjlim_{\substack{V \supseteq f(U) \\ V \in \Open(Y)}} \mathcal{G}(V) \right) \\
-                                      &= \varinjlim_{\substack{V \ni f(p) \\ V \in \Open(Y)}} \mathcal{G}(V) \\
-                                      &= \mathcal{G}_{f(p)} \qedhere
-  \end{align*}
-\end{proof}
-
-\begin{corollary}
-  Let \(\category{C}\) be a \hyperref[def:abelian-category]{abelian category}.
-  For all continuous maps \(f\colon X \to Y\) the \hyperref[def:inverse-image-presheaf]{presheaf inverse image} \(f_{\pre}^{-1}: \PSh_{Y}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
-\end{corollary}
-
-
+Using this \hyperref[def:adjoint-functors]{adjunction} we can see that the composition works as expected.
 \begin{lemma}\label{lemma:composition-inverse-image-presheaf}
   Let \(f\colon X \to Y\) and \(g\colon Y \to Z\) be continuous maps.
   Then the \hyperref[def:inverse-image-presheaf]{inverse images} \((g \circ f)_{\pre}^{-1}\) and \(f_{\pre}^{-1} \circ g_{\pre}^{-1}\) coincide (up to \hyperref[def:categorical-isomorphism]{isomorphism}).
 \end{lemma}
 \begin{proof}
-  Using the \hyperref[thm:direct-inverse-image-adjunction-presheaf]{adjunction \(f_{\pre}^{-1} \dashv f_{\ast}\)} and \autoref{lemma:composition-direct-image} we have, on the one hand
+  Using the \hyperref[thm:direct-inverse-image-adjunction-presheaf]{adjunction \(f_{\pre}^{-1} \dashv f_{\ast}\)} we have, on the one hand
   \begin{equation*}
     (g \circ f)_{\pre}^{-1} \dashv (g \circ f)_{\ast} = g_{\ast} \circ f_{\ast}
   \end{equation*}
@@ -188,6 +191,8 @@ which verifies the \hyperref[lemma:composition-direct-image]{presheaf compositio
   Therefore since \hyperref[prop:uniqueness-adjoints]{adjoints are unique} we have \((g \circ f)_{\pre}^{-1} \cong f_{\pre}^{-1} \circ g_{\pre}^{-1}\).
 \end{proof}
 
+Extending the \hyperref[def:inverse-image-presheaf]{inverse image} to the \hyperref[def:sheaf]{sheaf} case is not as easy as with the \hyperref[def:direct-image-sheaf]{direct image} since \(f_{\operatorname{pre}}^{-1}\sheaf{F}\) is not necessarily a \hyperref[def:sheaf]{sheaf}.
+Therefore we need to \hyperref[def:sheafification]{sheafificate}.
 \begin{definition}\label{def:inverse-image-sheaf}
   Let \(f\colon X \to Y\) be a continuous map.
   The \textbf{inverse image} (or pullback) \hyperref[def:sheaf]{sheaf} via \(f\) is the \hyperref[def:functor]{functor}
@@ -197,6 +202,7 @@ which verifies the \hyperref[lemma:composition-direct-image]{presheaf compositio
   where \(-^{\#}\) is the \hyperref[def:sheafification]{sheafification functor}, \(f_{\pre}^{-1}\) is the \hyperref[def:inverse-image-presheaf]{inverse image of presheaves} and \(\iota\colon \Sh_{Y}(\category{C}) \hookrightarrow \PSh_{Y}(\category{C})\) is the forgetful \hyperref[def:functor]{functor}.
 \end{definition}
 
+Using that \hyperref[def:sheafification]{sheafification adjunction} we still have the \hyperref[def:adjoint-functors]{adjunction} \(f^{-1} \dashv f_{\ast}\).
 \begin{theorem}\label{thm:direct-inverse-image-adjunction-sheaf}
   Let \(f\colon X \to Y\) be a continuous map
   There exists an \hyperref[def:adjoint-functors]{adjunction}
@@ -218,14 +224,13 @@ which verifies the \hyperref[lemma:composition-direct-image]{presheaf compositio
   \end{align*}
 \end{proof}
 
+Analogously as in \autoref{lemma:composition-inverse-image-sheaf} we see that composition behaves as expected.
 \begin{lemma}\label{lemma:composition-inverse-image-sheaf}
   Let \(f\colon X \to Y\) and \(g\colon Y \to Z\) be continuous maps.
   Then the \hyperref[def:inverse-image-sheaf]{inverse images} \((g \circ f)^{-1}\) and \(f^{-1} \circ g^{-1}\) coincide (up to \hyperref[def:categorical-isomorphism]{isomorphism}).
 \end{lemma}
-\begin{proof}
-  Analogous to \autoref{lemma:composition-inverse-image-presheaf}
-\end{proof}
 
+\hyperref[def:stalk]{Stalk} computation also works fine.
 \begin{lemma}\label{lemma:stalk-inverse-image}
   Let \(f\colon X \to Y\) be a continuous map.
   Let \(\sheaf{G} \in \Sh_{Y}(\category{C})\) be a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} over \(Y\).
@@ -243,63 +248,48 @@ which verifies the \hyperref[lemma:composition-direct-image]{presheaf compositio
   \end{align*}
 \end{proof}
 
+Thus as in the \hyperref[def:presheaf]{presheaf} case since \hyperref[cor:exactness-at-stalks]{exactness can be checked at the level of stalks} we have:
 \begin{corollary}\label{cor:inverse-image-sheaf-exact}
   Let \(\category{C}\) be a \hyperref[def:abelian-category]{abelian category}.
   For all continuous maps \(f: X \to Y\) the \hyperref[def:inverse-image-sheaf]{sheaf inverse image} \(f^{-1}\colon \Sh_{Y}(\category{C}) \to \Sh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
 \end{corollary}
-\begin{proof}
-  Let
-  \begin{equation*}
-    0 \to \sheaf{F} \to \sheaf{G} \to \sheaf{H} \to 0
-  \end{equation*}
-  be an \hyperref[def:exact-sequence]{exact sequence} of \hyperref[def:sheaf]{\(\category{C}\)-valued sheaves over \(Y\)}.
-  We want to show that the induced sequence
-  \begin{equation*}
-    0 \to f^{-1}\sheaf{F} \to f^{-1}\sheaf{G} \to f^{-1}\sheaf{H} \to 0
-  \end{equation*}
-  is \hyperref[def:exact-sequence]{exact} in \(\Sh_{X}(\category{C})\)
 
-  By \autoref{thm:sheaf-category-is-abelian} this sequence is \hyperref[def:exact-sequence]{exact} if and only if its \hyperref[def:stalk]{induced sequence of stalks}
-  \begin{equation*}
-    0 \to \left(f^{-1}\sheaf{F}\right)_{p} \to \left(f^{-1}\sheaf{G}\right)_{p} \to \left(f^{-1}\sheaf{H}\right)_{p} \to 0
-  \end{equation*}
-  is \hyperref[def:exact-sequence]{exact} in \(\category{C}\) for all \(p \in Y\).
+\section{Particular cases}
 
-  By \autoref{lemma:stalk-inverse-image} this sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to
-  \begin{equation*}
-    0 \to \sheaf{F}_{f(p)} \to \sheaf{G}_{f(p)} \to \sheaf{H}_{f(p)} \to 0
-  \end{equation*}
-  which is exact by hypothesis and \autoref{thm:sheaf-category-is-abelian}.
-\end{proof}
+\subsection{Sheaves over a point}
 
+To gain a little bit more intuition for these operations, we are going to study them when one of our spaces is the one-point topological space \(\{\ast\}\).
+Recall that in this case we have \hyperref[ex:one-point-sheaves-are-category]{\(\Sh_{{\ast}}(\category{C}) \simeq \category{C}\)}.
 
-\subsection{Particular cases}
+We will see that some of the most common \hyperref[def:sheaf]{sheaf constructions} can be seen as particular cases of \(f_{\ast}\) and \(f^{-1}\) in this case.
 
-Let \(X\) be a topological space and \(\{\ast\}\) the one-point topological space.
-
-Given \(p \in X\) we can construct continuous maps
+Let's consider first the following continuous map:
 \begin{align*}
-  a_{X}\colon& X \to \{\ast\} & i_{p}\colon& \{\ast\} \to X\\
-         & x \mapsto \ast & &  \ast \mapsto p
+  a_{X}\colon& X \to \{\ast\} \\
+        & x \mapsto \ast
 \end{align*}
-Since \hyperref[ex:one-point-sheaves-are-category]{\(\Sh_{\{\ast\}}(\category{C}) \simeq \category{C}\)} we get two pairs of \hyperref[def:adjoint-functors]{adjoint functors}
+This produces a pair of \hyperref[def:adjoint-functors]{adjoint functors}
 \begin{center}
   \begin{tikzcd}[column sep=huge]
     \category{C} \arrow[r, "a_{X}^{-1}"{name=A}, bend left=40] & \Sh_{X}(\category{C}) \arrow[l, "a_{X, \ast}"{name=B}, bend left=40]
-  \arrow[phantom, from=A, to=B, "\perp"] \arrow[r, "i_{p}^{-1}"{name=U}, bend left=40] & \category{C} \arrow[l, "i_{p, \ast}"{name=D}, bend left=40]
-    \arrow[phantom, from=U, to=D, "\perp"]
+  \arrow[phantom, from=A, to=B, "\perp"] % \arrow[r, "i_{p}^{-1}"{name=U}, bend left=40] & \category{C} \arrow[l, "i_{p, \ast}"{name=D}, bend left=40]
+    % \arrow[phantom, from=U, to=D, "\perp"]
   \end{tikzcd}
 \end{center}
 
 \begin{definition}[Global sections]\label{def:global-sections-sheaf}
   The \textbf{global sections} \hyperref[def:functor]{functor} is
   \begin{equation*}
-    \Gamma(-; X) \coloneq a_{X, \ast}\colon \Sh_{X}(\category{C}) \to \category{C}
+    \Gamma(X, -) \coloneq a_{X, \ast}\colon \Sh_{X}(\category{C}) \to \category{C}
   \end{equation*}
 
-  Less abstractly, it sends a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} \(\sheaf{F} \in \Sh_{X}(\category{C})\) to \(\Gamma(\sheaf{F}; X) = \sheaf{F}(X)\)
+  Less abstractly, it sends a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} \(\sheaf{F} \in \Sh_{X}(\category{C})\) to \(\Gamma(X, \sheaf{F}) = \sheaf{F}(X)\)
   and a \hyperref[def:sheaf]{morphism of sheaves} \(\phi: \sheaf{F} \to \sheaf{G}\) to \(\Gamma(\phi, X) = \sheaf{F}(X) \xrightarrow{\phi(X)} \sheaf{G}(X)\).
 \end{definition}
+
+\begin{notation}
+  If \(Y \subseteq X\) is a subset of \(X\) and \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) we set \(\Gamma(Y, \sheaf{F}) \coloneq \Gamma(Y, \sheaf{F}|_{Y})\).
+\end{notation}
 
 \begin{definition}[Constant sheaf]\label{def:constant-sheaf}
   The \textbf{constant sheaf} \hyperref[def:functor]{functor} is
@@ -316,18 +306,53 @@ Since \hyperref[ex:one-point-sheaves-are-category]{\(\Sh_{\{\ast\}}(\category{C}
   Indeed, the presheaf inverse image of \(A\) along \(a_{X}\) assigns to any open \(U \subseteq X\) the colimit over open neighborhoods of \(a_{X}(U) = \{\ast\}\). Since the only neighborhood is \(\{\ast\}\) itself, this presheaf is exactly the constant presheaf \(U \mapsto A\). The inverse image functor \(a_{X}^{-1}\) then applies sheafification, yielding the constant sheaf.
 \end{remark}
 
+From \hyperref[thm:direct-inverse-image-adjunction-sheaf]{the adjunction \(f^{-1} \dashv f_{\ast}\)}.
 \begin{corollary}\label{cor:global-constant-adjunction-sheaf}
   There is an \hyperref[def:adjoint-functors]{adjunction}
   \begin{center}
   \begin{tikzcd}[column sep=huge]
-    \category{C} \arrow[r, "{\underline{-}_{X}}"{name=A}, bend left=40] & \Sh_{X}(\category{C}) \arrow[l, "{\Gamma(-; X)}"{name=B}, bend left=40]
+    \category{C} \arrow[r, "{\underline{-}_{X}}"{name=A}, bend left=40] & \Sh_{X}(\category{C}) \arrow[l, "{\Gamma(X, -)}"{name=B}, bend left=40]
     \arrow[phantom, from=A, to=B, "\perp"]
   \end{tikzcd}
 \end{center}
 \end{corollary}
-\begin{proof}
-  Direct from \hyperref[thm:direct-inverse-image-adjunction-sheaf]{the adjunction \(f^{-1} \dashv f_{\ast}\)}.
-\end{proof}
+
+
+Using this adjunction by \autoref{ex:adjoint-functors-exact} we have that \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
+However as the next example shows it is in general \hyperref[def:exact-functor]{exact}.
+\begin{example}
+  Let \(X \coloneq \mathbb{C} \setminus \{0\}\) and consider \(\underline{\mathbb{Z}}_{X}\) the \hyperref[def:constant-sheaf]{constant sheaf} of integers, \(\sheaf{O}_{X}\) the \hyperref[def:sheaf]{sheaf} of holomorphic functions and \(\sheaf{O}_{X}^{\ast}\) the  \hyperref[def:sheaf]{sheaf} of non-vanishing holomorphic functions on \(X\).
+
+  Let \(\exp\colon \sheaf{O}_{X} \to \sheaf{O}_{X}^{\ast}\) be the map that sends an holomorphic function \(f\) on an open set \(U\) to \(e^{2\pi i f}\).
+  We have that
+  \begin{equation*}
+    0 \to \underline{\mathbb{Z}}_{X} \to \sheaf{O}_{X} \xrightarrow{\exp} \sheaf{O}_{X}^{\ast} \to 0
+  \end{equation*}
+  is a \hyperref[def:exact-sequence]{short exact sequence} of \hyperref[def:sheaf]{sheaves}.
+
+  Indeed it is \hyperref[def:exact-sequence]{exact} at \(\underline{\mathbb{Z}}_{X}\) and \(\sheaf{O}_{X}\) since \(e^{2\pi i f} = 1\) if and only if \(f\) is locally constant to an integer and thus \(\ker \exp = \underline{\mathbb{Z}}_{X}\).
+  \hyperref[def:exact-sequence]{Exactness} at \(\sheaf{O}_{X}^{\ast}\) since \hyperref[cor:exactness-at-stalks]{exactness can be checked locally} and for all \(p \in X\) there exists an holomorphic branch of the logarithm in a neighbourhood of \(p\).
+
+  However, the induced sequence
+  \begin{equation*}
+    0 \to \Gamma(X, \underline{\mathbb{Z}}_{X}) \to \Gamma(X, \sheaf{O}_{X}) \xrightarrow{\Gamma\exp} \Gamma(X, \sheaf{O}_{X}^{\ast}) \to 0
+  \end{equation*}
+  is not \hyperref[def:exact-sequence]{exact} since if we consider \(\id_{X} \in \sheaf{O}_{X}^{\ast}\) this would imply that there exists a function \(g \in \sheaf{O}_{X}\) such that \(e^{2\pi i f(z)} = g(z)\) for all \(z\), i.e: \(g\) would be a global holomorphic branch of the logarithm which cannot exist.
+\end{example}
+
+This failure of exactness is exactly what motivates the study of sheaf cohomology.
+
+Now given a point \(p \in X\) let's consider
+\begin{align*}
+  i_{p}\colon& \{\ast\} \to X \\
+        & \ast \mapsto p
+\end{align*}
+As before this gives rise to an \hyperref[def:adjoint-functors]{adjunction}
+\begin{center}
+  \begin{tikzcd}[column sep=huge]
+    \Sh_{X}(\category{C}) \arrow[r, "i_{p}^{-1}"{name=U}, bend left=40] & \category{C} \arrow[l, "i_{p, \ast}"{name=D}, bend left=40] \arrow[phantom, from=U, to=D, "\perp"]
+  \end{tikzcd}
+\end{center}
 
 
 \begin{definition}[Skyscraper sheaf]\label{def:skyscraper-sheaf}
@@ -374,6 +399,11 @@ The last \hyperref[def:functor]{functor} \(i_{p}^{-1}\) is one we have already s
   \end{align*}
 \end{proof}
 
+\begin{remark}
+  From \autoref{cor:inverse-image-sheaf-exact} we have that the \hyperref[def:stalk]{stalk functor} is \hyperref[def:exact-functor]{exact}, which gives another proof of \hyperref[cor:exactness-at-stalks]{exactness being checked at the level of stalks} using \autoref{lemma:characterization-exact-functor}.
+\end{remark}
+
+As in the other case, directly from the \hyperref[thm:direct-inverse-image-adjunction-sheaf]{the adjunction \(f^{-1} \dashv f_{\ast}\)}.
 \begin{corollary}\label{cor:skyscraper-stalk-adjunction-sheaf}
   There is an \hyperref[def:adjoint-functors]{adjunction}
   \begin{center}
@@ -383,29 +413,25 @@ The last \hyperref[def:functor]{functor} \(i_{p}^{-1}\) is one we have already s
   \end{tikzcd}
 \end{center}
 \end{corollary}
-\begin{proof}
-  Direct from \hyperref[thm:direct-inverse-image-adjunction-sheaf]{the adjunction \(f^{-1} \dashv f_{\ast}\)}.
-\end{proof}
 
-\section{Open immersions and (pre)sheaves}
-
+\subsection{Open immersions and (pre)sheaves}
 Let's consider now an open immersion \(j\colon U \hookrightarrow X\), where \(X\) is a topological space and \(U \subseteq X\) is an open subset.
 
-In \autoref{sec:continuous-maps-sheaves} we have constructed two pairs of \hyperref[def:adjoint-functors]{adjoint functors}
-\begin{center}
-  \begin{tikzcd}
-    \PSh_{X}(\category{C}) \arrow[r, "{j_{\pre}^{-1}}"{name=U}, bend left=25] & \PSh_{U}(\category{C}) \arrow[l, "{j_{\ast}}"{name=D}, bend left=25]
-    \arrow[phantom, from=U, to=D, "\perp"]
-  \end{tikzcd}
-  \begin{tikzcd}
-    \Sh_{X}(\category{C}) \arrow[r, "{j^{-1}}"{name=U}, bend left=25] & \Sh_{U}(\category{C}) \arrow[l, "{j_{\ast}}"{name=D}, bend left=25]
-    \arrow[phantom, from=U, to=D, "\perp"]
-  \end{tikzcd}
-\end{center}
-Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse} images of \hyperref[def:presheaf]{(pre)}\hyperref[def:sheaf]{sheaves}.
-We will see that we can construct another \hyperref[def:adjoint-functors]{adjoint functor} \(j_{!}\) to \(j^{-1}\) such that \(j_{!} \dashv j^{-1}\).
+% In \autoref{sec:continuous-maps-sheaves} we have constructed two pairs of \hyperref[def:adjoint-functors]{adjoint functors}
+% \begin{center}
+%   \begin{tikzcd}
+%     \PSh_{X}(\category{C}) \arrow[r, "{j_{\pre}^{-1}}"{name=U}, bend left=25] & \PSh_{U}(\category{C}) \arrow[l, "{j_{\ast}}"{name=D}, bend left=25]
+%     \arrow[phantom, from=U, to=D, "\perp"]
+%   \end{tikzcd}
+%   \begin{tikzcd}
+%     \Sh_{X}(\category{C}) \arrow[r, "{j^{-1}}"{name=U}, bend left=25] & \Sh_{U}(\category{C}) \arrow[l, "{j_{\ast}}"{name=D}, bend left=25]
+%     \arrow[phantom, from=U, to=D, "\perp"]
+%   \end{tikzcd}
+% \end{center}
+% Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse} images of \hyperref[def:presheaf]{(pre)}\hyperref[def:sheaf]{sheaves}.
+% We will see that we can construct another \hyperref[def:adjoint-functors]{adjoint functor} \(j_{!}\) to \(j^{-1}\) such that \(j_{!} \dashv j^{-1}\).
 
-We begin by giving a more explicit description of the \hyperref[def:inverse-image-sheaf]{inverse image}.
+We begin by giving a more explicit description for both the sections and \hyperref[def:stalk]{stalks} of the \hyperref[def:inverse-image-sheaf]{inverse image}.
 \begin{lemma}\label{lemma:inverse-image-open-map}
   Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) be an open immersion
   \begin{enumerate}
@@ -440,14 +466,6 @@ We begin by giving a more explicit description of the \hyperref[def:inverse-imag
   The statement about \hyperref[def:sheaf]{sheaves} follows directly since \(V \mapsto \sheaf{G}(V)\) is clearly a \hyperref[def:sheaf]{sheaf} if \(\sheaf{G}\) is a \hyperref[def:sheaf]{sheaf}.
 \end{proof}
 
-\begin{notation}
-  Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) an open immersion.
-  \begin{enumerate}
-    \item If \(\mathcal{G} \in \PSh_{X}(\category{C})\) is a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(X\) we call \(j_{\pre}^{-1}\mathcal{G}\) the \textbf{restriction} of \(\mathcal{G}\) to \(U\), and denote it by \(\mathcal{G}|_{U}\) or \(\mathcal{G}_{U}\).
-    \item If \(\sheaf{G} \in \Sh_{X}(\category{C})\) is a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} over \(X\) we call \(j^{-1}\sheaf{G}\) the \textbf{restriction} of \(\sheaf{G}\) to \(U\), and denote it by \(\sheaf{G}|_{U}\) or \(\sheaf{G}_{U}\).
-  \end{enumerate}
-\end{notation}
-
 \begin{lemma}\label{lemma:inverse-image-stalk-open-map}
   Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) be an open immersion
   Let \(\sheaf{G} \in \Sh_{X}(\category{C})\) be a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} over \(X\).
@@ -462,8 +480,8 @@ We begin by giving a more explicit description of the \hyperref[def:inverse-imag
   \end{align*}
 \end{proof}
 
-Having seen this characterization, we are now ready to construct the other adjoint.
-We will begin with the \hyperref[def:presheaf]{presheaf} case.
+This characterization allows us to construct another \hyperref[def:adjoint-functors]{adjoint functor} \(j_{!}\) (pronunced \(j\) ``shriek'') to \(j^{-1}\), in this case with \(j^{-1} \dashv j_{!}\).
+Let's do it first for the \hyperref[def:presheaf]{presheaf} case.
 
 \begin{definition}\label{def:extension-by-zero-presheaf}
   Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) be an open immersion.
@@ -493,6 +511,7 @@ We will begin with the \hyperref[def:presheaf]{presheaf} case.
   \end{equation*}
 \end{definition}
 
+Before proving that this is indeed a \hyperref[def:adjoint-functors]{right-adjoint} to \(j^{-1}\) let's see how it interacts with \hyperref[def:stalk]{stalks}.
 \begin{lemma}\label{lemma:stalk-extension-by-zero-presheaf}
   Let \(j\colon U \hookrightarrow X\) be an open immersion.
   For any \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} \(\mathcal{F}\) the \hyperref[def:stalk]{stalk} at a point \(p \in X\) of the \hyperref[def:extension-by-zero-presheaf]{extension} \(j_{!}^{\pre}\mathcal{F}\) is
@@ -518,14 +537,12 @@ We will begin with the \hyperref[def:presheaf]{presheaf} case.
   \end{equation*}
 \end{proof}
 
+Using that \hyperref[cor:exactness-at-stalks]{exactness can be checked at the level of stalks} we get:
 \begin{corollary}\label{cor:extension-by-zero-presheaf-exact}
   If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:extension-by-zero-presheaf]{extension by zero functor of presheaves} \(j_{!}^{\pre}\colon \PSh_{U}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
 \end{corollary}
-\begin{proof}
-  Analogous to \autoref{cor:inverse-image-sheaf-exact}.
-\end{proof}
 
-
+Now we are in conditions to prove the \hyperref[def:adjoint-functor]{adjointness}.
 \begin{theorem}\label{thm:open-immersion-adjunction-presheaf}
   Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) be an open immersion.
   Suppose that \(\category{C}\) has an \hyperref[def:initial-terminal-object]{initial object} \(e \in \category{C}\).
@@ -579,8 +596,7 @@ We will begin with the \hyperref[def:presheaf]{presheaf} case.
   If \(W \not\subseteq U\) then both \(\left( \Psi \circ \Phi \right)(\phi)_{W}\) and \(\phi_{W}\) are maps from the \hyperref[def:initial-terminal-object]{initial object} \(e\) to \(\mathcal{G}(W)\) and therefore coincide.
 \end{proof}
 
-Now we extend this definition to the \hyperref[def:sheaf]{sheaf} case using \hyperref[def:sheafification]{sheafification}.
-
+Let's extend this definition to the \hyperref[def:sheaf]{sheaf} case using \hyperref[def:sheafification]{sheafification}.
 \begin{definition}\label{def:extension-by-zero-sheaf}
   Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) be an open immersion.
   Suppose that \(\category{C}\) has an \hyperref[def:initial-terminal-object]{initial object} \(e \in \category{C}\).
@@ -590,6 +606,8 @@ Now we extend this definition to the \hyperref[def:sheaf]{sheaf} case using \hyp
     j_{!} \coloneq -^{\#} \circ j_{!}^{\pre} \circ \iota: \Sh_{U}(\category{C}) \to \Sh_{X}(\category{C})
   \end{equation*}
 \end{definition}
+
+Analogously to \autoref{lemma:stalk-extension-by-zero-presheaf} and \autoref{cor:inverse-image-sheaf-exact} we see that \(j_{!}\) behaves as \(j_{!}^{\pre}\) in both sections and \hyperref[def:stalk]{stalks} and, in particular, we get that \(j_{!}\) is \hyperref[def:exact-functor]{exact}.
 
 \begin{lemma}\label{lemma:stalk-extension-by-zero-sheaf}
   Let \(j\colon U \hookrightarrow X\) be an open immersion.
@@ -601,17 +619,12 @@ Now we extend this definition to the \hyperref[def:sheaf]{sheaf} case using \hyp
     \end{cases}
   \end{equation*}
 \end{lemma}
-\begin{proof}
-  Analogous to \autoref{lemma:stalk-extension-by-zero-presheaf}
-\end{proof}
 
 \begin{corollary}\label{cor:extension-by-zero-sheaf-exact}
   If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:extension-by-zero-sheaf]{extension by zero functor of sheaves} \(j_{!}\colon \Sh_{U}(\category{C}) \to \Sh_{X}(\category{C})\) is \hyperref[def:exact-functor]{exact}.
 \end{corollary}
-\begin{proof}
-  Analogous to \autoref{cor:inverse-image-sheaf-exact}.
-\end{proof}
 
+Finally, we see that the \hyperref[def:adjoint-functors]{adjunction} is still present in the \hyperref[def:sheaf]{sheaf} case.
 \begin{theorem}\label{thm:open-immersion-adjunction-sheaf}
   Let \(X\) be a topological space and \(j\colon U \hookrightarrow X\) be an open immersion.
   Suppose that \(\category{C}\) has an \hyperref[def:initial-terminal-object]{initial object} \(e \in \category{C}\).
@@ -635,36 +648,24 @@ Now we extend this definition to the \hyperref[def:sheaf]{sheaf} case using \hyp
   \end{align*}
 \end{proof}
 
-\section{Closed immersions and (pre)sheaves}
+\subsection{Closed immersions and (pre)sheaves}
 
-We now focus our attention on a closed immersion \(i\colon Z \hookrightarrow X\), where \(X\) is a topological space and \(Z \subseteq X\) is an closed subset.
+Let's now examine the opposite case, where we have a closed immersion \(i\colon Z \hookrightarrow X\), where \(X\) is a topological space and \(Z \subseteq X\) is an closed subset.
 
-In \autoref{sec:continuous-maps-sheaves} we have constructed two pairs of \hyperref[def:adjoint-functors]{adjoint functors}
-\begin{center}
-  \begin{tikzcd}
-    \PSh_{X}(\category{C}) \arrow[r, "{i_{\pre}^{-1}}"{name=U}, bend left=25] & \PSh_{Z}(\category{C}) \arrow[l, "{i_{\ast}}"{name=D}, bend left=25]
-    \arrow[phantom, from=U, to=D, "\perp"]
-  \end{tikzcd}
-  \begin{tikzcd}
-    \Sh_{X}(\category{C}) \arrow[r, "{i^{-1}}"{name=U}, bend left=25] & \Sh_{Z}(\category{C}) \arrow[l, "{i_{\ast}}"{name=D}, bend left=25]
-    \arrow[phantom, from=U, to=D, "\perp"]
-  \end{tikzcd}
-\end{center}
-Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse} images of \hyperref[def:presheaf]{(pre)}\hyperref[def:sheaf]{sheaves}.
-In this section we will construct an \hyperref[def:adjoint-functor]{adjoint functor} \(i^{!}\) to \(i_{\ast}\) such that \(i_{\ast} \dashv i^{!}\).
-Note that by \autoref{ex:adjoint-functors-and-exactness} since \(i_{\ast}\) will be both \hyperref[def:adjoint-functors]{left and right adjoint} we will have that \(i_{\ast}\) is \hyperref[def:exact-functor]{exact}.
-
-\begin{notation}
-  Let \(X\) be a topological space and \(i\colon Z \hookrightarrow X\) a closed immersion.
-  As in the case of open immersions:
-  \begin{enumerate}
-    \item If \(\mathcal{G} \in \PSh_{X}(\category{C})\) is a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} over \(X\) we call \(i_{\pre}^{-1}\mathcal{G}\) the \textbf{restriction} of \(\mathcal{G}\) to \(Z\), and denote it by \(\mathcal{G}_{Z}\) or \(\mathcal{G}|_{Z}\).
-    \item If \(\sheaf{G} \in \Sh_{X}(\category{C})\) is a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} over \(X\) we call \(i^{-1}\sheaf{G}\) the \textbf{restriction} of \(\sheaf{G}\) to \(Z\), and denote it by \(\sheaf{G}_{Z}\) or \(\sheaf{G}|_{Z}\).
-  \end{enumerate}
-
-  We will use the same notation for both the open an closed case when teh context is clear.
-  However, we will prefer \(\sheaf{G}|_{U}\) for the open case and \(\sheaf{G}_{Z}\) for the closed one when there may be any confussions.
-\end{notation}
+% In \autoref{sec:continuous-maps-sheaves} we have constructed two pairs of \hyperref[def:adjoint-functors]{adjoint functors}
+% \begin{center}
+%   \begin{tikzcd}
+%     \PSh_{X}(\category{C}) \arrow[r, "{i_{\pre}^{-1}}"{name=U}, bend left=25] & \PSh_{Z}(\category{C}) \arrow[l, "{i_{\ast}}"{name=D}, bend left=25]
+%     \arrow[phantom, from=U, to=D, "\perp"]
+%   \end{tikzcd}
+%   \begin{tikzcd}
+%     \Sh_{X}(\category{C}) \arrow[r, "{i^{-1}}"{name=U}, bend left=25] & \Sh_{Z}(\category{C}) \arrow[l, "{i_{\ast}}"{name=D}, bend left=25]
+%     \arrow[phantom, from=U, to=D, "\perp"]
+%   \end{tikzcd}
+% \end{center}
+% Namely, the \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse} images of \hyperref[def:presheaf]{(pre)}\hyperref[def:sheaf]{sheaves}.
+% In this section we will construct an \hyperref[def:adjoint-functor]{adjoint functor} \(i^{!}\) to \(i_{\ast}\) such that \(i_{\ast} \dashv i^{!}\).
+% Note that by \autoref{ex:adjoint-functors-and-exactness} since \(i_{\ast}\) will be both \hyperref[def:adjoint-functors]{left and right adjoint} we will have that \(i_{\ast}\) is \hyperref[def:exact-functor]{exact}.
 
 We begin by noting the following fact about \hyperref[def:stalk]{stalks}.
 \begin{lemma}\label{lemma:stalk-closed-immersion}
@@ -683,6 +684,11 @@ We begin by noting the following fact about \hyperref[def:stalk]{stalks}.
 
   If \(p \in Z\) then any neighbourhood of \(p\) is of the form \(U \cap Z\) with \(U\) a neighbourhood of \(p\) in \(X\).
 \end{proof}
+
+\begin{remark}
+  If \(j\colon U \hookrightarrow X\) is an open immersion and we consider \(i\colon X \setminus U \to X\) the closed immersion of the complement we have a \hyperref[def:natural-transformation]{natural isomorphism} \(i^{-1} \cong j_{\ast}\) since the \hyperref[def:stalk]{stalks} are the same at all points.
+\end{remark}
+
 
 % \begin{remark}
 %   For \(\category{C} = \Set\), the \hyperref[def:extraordinary-inverse-image-sheaf]{extraordinary inverse image} \(i^{!}\colon \Sh_{X}(\Set) \to \Sh_{Z}(\Set)\) of a closed immersion \(i\colon Z \hookrightarrow X\) is not \hyperref[def:exact-functor]{right exact}.
@@ -703,10 +709,11 @@ Taking as inspiration the above characterization, we define what the support of 
   \end{equation*}
   If \(s \in \sheaf{F}(X)\) is a section then its support is
   \begin{equation*}
-    \operatorname{supp} s \coloneq \{ p \in X \mid s_{x} \neq 1 \text{ in } \sheaf{F}_{x} \}
+    \operatorname{supp} s \coloneq \{ p \in X \mid s_{p} \neq 1 \text{ in } \sheaf{F}_{p} \}
   \end{equation*}
 \end{definition}
 
+This definition let's us describe the \hyperref[def:direct-image-sheaf]{direct image} more cleanly.
 \begin{proposition}\label{prop:closed-immersion-fully-faithful}
   The \hyperref[def:direct-image-sheaf]{direct image sheaf functor}
   \begin{equation*}
@@ -734,7 +741,7 @@ Taking as inspiration the above characterization, we define what the support of 
   is an \hyperref[def:categorical-isomorphism]{isomorphism} on all \hyperref[def:stalk]{stalks} and thus by \autoref{prop:sheaf-isomorphism-determined-at-stalks} it is an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{proof}
 
-With this in mind, we can now construct the promised adjoint.
+With this in mind we can construct another \hyperref[def:adjoint-functor]{adjoint functor} \(i^{!}\) to \(i_{\ast}\), in this case with \(i_{\ast} \dashv i^{!}\).
 \begin{definition}\label{def:extraordinary-inverse-image-sheaf}
   Let \(X\) be a topological space and \(Z \subseteq X\) a closed subset.
   For any \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} \(\sheaf{F}\) over \(X\), the \textbf{extraordinary inverse image} is the \hyperref[def:types-of-morphisms-pre-sheaves]{subsheaf} \(i^{!}\sheaf{F}\) of \(\sheaf{F}\) defined as, for any open subset \(U \subseteq X\)
@@ -806,17 +813,17 @@ With this in mind, we can now construct the promised adjoint.
   Therefore since these maps commute with the restrictions they assemble into a morphism \(\phi\colon i_{\ast}\sheaf{G} \to \sheaf{F}\).
 \end{proof}
 
-\begin{corollary}
+Note that for closed immersions we have \hyperref[def:adjoint-functor]{adjunctions} \hyperref[thm:closed-immersion-adjunction]{\(i^{-1} \dashv i_{\ast} \dashv i^{!}\)}.
+Therefore directly by \autoref{ex:adjoint-functors-exact} we have:
+\begin{corollary}\label{cor:closed-immersion-exact}
   If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:direct-image-sheaf]{direct image sheaf functor}
   \begin{equation*}
     i_{\ast}\colon \Sh_{Z}(\category{C}) \to \Sh_{X}(\category{C})
   \end{equation*}
   is \hyperref[def:exact-functor]{exact}.
 \end{corollary}
-\begin{proof}
-  We have \hyperref[def:adjoint-functor]{adjunctions} \hyperref[thm:closed-immersion-adjunction]{\(i^{-1} \dashv i_{\ast} \dashv i^{!}\)}.
-  Therefore by \autoref{ex:adjoint-functors-exact} we have that \(i_{\ast}\) is \hyperref[def:exact-functor]{exact}.
-\end{proof}
+
+\subsection{A canonical exact sequence}
 
 We end this chapter by connecting open and closed immersions via a \hyperref[def:exact-sequence]{short exact sequence} that will become useful when we study \hyperref[def:relative-sheaf-cohomology]{relative sheaf cohomology} in \autoref{ch:cohomology-theories}.
 
@@ -872,5 +879,17 @@ We end this chapter by connecting open and closed immersions via a \hyperref[def
   The functoriallity comes from the naturality of the \hyperref[def:adjoint-functors]{adjunctions} \hyperref[thm:open-immersion-adjunction-sheaf]{\(j_{!} \dashv j^{-1} \dashv j_{\ast}\)} and \hyperref[thm:closed-immersion-adjunction]{\(i^{-1} \dashv i_{\ast} \dashv i^{!}\)}.
 \end{proof}
 
+\begin{notation}
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} over \(X\).
+  If \(j\colon U \hookrightarrow X\) is an open immersion we call \(j_{!}j^{-1}\sheaf{F} \in \Sh_{X}(\category{C})\) the \textbf{extension} of \(\sheaf{F}\) by \(U\) and denote it by \(\sheaf{F}_{U}\).
+  Analogously if \(i\colon Z \hookrightarrow X\) is a closed immersion we call \(i_{\ast}i^{-1}\sheaf{F}\) the extension of \(\sheaf{F}\) by \(Z\) and denote it \(\sheaf{F}_{Z}\).
+
+  Therefore with this notation \autoref{thm:SES-exactness} states that the following is an \hyperref[def:exact-sequence]{exact sequence} for all open subsets \(U \subseteq X\)
+   \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \sheaf{F}_{U} \arrow[r] & \sheaf{F} \arrow[r] & \sheaf{F}_{X \setminus U} \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+\end{notation}
 
 \end{document}

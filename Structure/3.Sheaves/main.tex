@@ -2,6 +2,47 @@
 \begin{document}
 \part{Sheaves}
 
+\chapter*{Introduction}
+
+The transition from classical geometry and topology to modern algebraic geometry and complex manifold theory in the 20th century was fundamentally driven by a single, profound challenge: how to systematically bridge the gap between local data and global structures.
+In classical analysis, one frequently encounters properties that are inherently local such as the analyticity of a function, the existence of local solutions to a differential equation, or the triviality of a coordinate patch.
+However, the most common topological and geometric invariants of a space are global, such as the Euler characteristic or the fundamental group.
+
+Before sheaf theory, mathematicians wrestled with these transitions using ad hoc, often cumbersome tools.
+A primary example was Henri Poincaré’s and later Georges de Rham’s work on differential forms, which demonstrated that global topological information about a manifold could be extracted from local analytic data (smooth forms).
+Similarly, in the late 19th and early 20th centuries, the Italian school of algebraic geometry and mathematicians like Karl Weierstrass and Henri Poincaré encountered deep obstructions when attempting to stitch local meromorphic functions into global ones (the Mittag-Leffler and Cousin problems).
+
+The explicit breakthrough came during World War II.
+While imprisoned in the prisioner camp Oflag XVII-A in Austria, French mathematician Jean Leray formulated the concept of a \textit{faisceau} (sheaf) around 1944–1945.
+Leray’s insight was born out of a desire to compute the homology of a space by studying the local behavior of functions or coefficients that vary continuously across it.
+
+Shortly thereafter, Henri Cartan and his seminar in Paris refined Leray’s definitions, recognizing that sheaves provided the exact language needed to study complex analytic geometry.
+In 1955, Jean-Pierre Serre published his seminal paper Faisceaux Algébriques Cohérents (FAC) \cite{serreFaisceauxAlgebriquesCoherents1955}, which adapted sheaf theory from the Euclidean topology of complex manifolds to the Zariski topology of abstract algebraic varieties.
+This pivotal move detached algebraic geometry from its reliance on ambient projective spaces.
+
+Finally, Alexander Grothendieck completely subsumed the theory into category theory in his monumental Tôhoku paper \cite{grothendieckAspectsHomologicalAlgebraa}.
+Grothendieck showed that the category of sheaves of abelian groups on a topological space possesses enough injectives, thereby providing the foundations for sheaf cohomology as a derived functor.
+
+This part of the thesis builds the structural machinery of sheaf theory from first principles, establishing the necessary prerequisites for the homological treatments in later chapters.
+
+\begin{itemize}
+  \item \hyperref[ch:presheaves-and-sheaves]{Chapter 8 (Presheaves and Sheaves)} transitions from the concrete motivation of smooth functions on manifolds to abstract sheaf categories.
+        We define presheaves, sheaves, and stalks, and construct the sheafification functor which forces an arbitrary presheaf to satisfy the local-to-global principle.
+        We conclude by proving that the category of sheaves of abelian groups forms an abelian category, setting the stage for homological algebra.
+  \item \hyperref[ch:operations-on-sheaves]{Chapter 9 (Operations on Sheaves)} transitions from a static space to continuous transformations.
+        We construct adjoint functors associated with a continuous map.
+        We will also study specialized geometric embeddings, such as open and closed immersions and see how many classical sheaf constructions can be viewed through this lens.
+\end{itemize}
+
+The study of sheaves and their geometric operations is grounded in several foundational texts and modern reference manuals, each offering a distinct perspective on the theory.
+
+For a comprehensive introduction to the classical topological and homological aspects of the theory, the classical works of Godement \cite{godementTopologieAlgebriqueTheorie1998} and Bredon \cite{bredonSheafTheory1997} remain essential, while Gallier and Quaintance \cite{gallierHomologyCohomologySheaf2022} provide a highly accessible entry point into modern sheaf cohomology.
+The transition of these concepts into abstract algebraic geometry is developed in Hartshorne’s classic textbook \cite{hartshorneAlgebraicGeometry1977} and the intuitive, comprehensive lecture notes of Vakil \cite{vakilRISINGSEAFoundations2025}.
+For readers seeking a more rigorous and category-theoretic treatment of the subject there are the volumes by Kashiwara and Schapira \cite{kashiwaraSheavesManifolds1990, kashiwaraCategoriesSheaves2006} and Grothendieck's Tohôku paper \cite{grothendieckAspectsHomologicalAlgebraa}.
+For an exposition focused more on concrete applications rather than in the general theory one can check Rosiak \cite{rosiakSheafTheoryExamples2022}.
+
+For an extensive account of the historical development of sheaf theory from its wartime origins under Jean Leray to its modern formulation, the reader is strongly encouraged to consult the detailed preamble in Kashiwara and Schapira \cite{kashiwaraSheavesManifolds1990}.
+
 \subfile{1.Sheaves}
 
 \subfile{2.Operations-on-sheaves}

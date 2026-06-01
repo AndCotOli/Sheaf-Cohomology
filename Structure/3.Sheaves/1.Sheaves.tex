@@ -6,9 +6,56 @@
 }{}
 
 \begin{document}
-\chapter{Presheaves and sheaves}
+\chapter{Presheaves and sheaves}\label{ch:presheaves-and-sheaves}
+
+In previous chapters, we developed the framework of category theory and homological algebra to study mathematical objects and their global transformations.
+However, many geometric and topological problems are inherently local.
+To bridge the gap between local properties and global structures, we introduce the concepts of presheaves and sheaves.
+
+Intuitively, a presheaf allows us to attach data (such as modules, groups, or rings) to the open sets of a topological space in a way that respects the restriction from larger open sets to smaller ones.
+A sheaf goes a step further by requiring that this data satisfies a local-to-global principle: sections that are locally compatible can be uniquely glued together into a global section.
+
+This chapter begins with a motivating example centered around smooth functions, tracking how these concrete structures naturally abstract into general definitions.
+We will explore the local properties of sheaves through the construction of stalks, establish the sheafification functor as a left adjoint to the forgetful functor, and conclude by examining the rich homological properties of sheaves valued in an abelian category.
+
+\section{A motivating example}\label{sec:motivating-example-sheaves}
+We begin this chapter by giving a concrete example of sheaves following \cite{vakilRISINGSEAFoundations2025} that will help us motivate the abstractions.
+
+Consider smooth (\(\mathcal{C}^{\infty}\)) functions on the topological space \(X = \mathbb{R}^{n}\) (or more generally on a manifold \(X\)).
+The sheaf of smooth functions on \(X\) is the data of all smooth functions on all open subsets of \(X\).
+Note that for each open subset \(U \subseteq X\) we have an \(\mathbb{R}\)-module of smooth functions \(\sheaf{O}(U)\).
+
+Given an smooth function \(f\) in an open set \(U\) we can restrict it to an open subset \(V \subseteq U\).
+In other words, we have a restriction map \(\res_{U, V}\colon \sheaf{O}(U) \to \sheaf{O}(V)\).
+Furthermore if we have \(W \subseteq V \subseteq U\) open subsets restricting \(f\) to \(V\) and then to \(W\) is the same as restrinting \(f\) directly to \(W\), which means that the following diagram is commutative
+\begin{center}
+  \begin{tikzcd}
+    \sheaf{O}(U) \arrow[rr, "\res_{U, W}"] \arrow[dr, "\res_{U, V}"'] & & \sheaf{O}(W) \\
+    & \sheaf{O}(V) \arrow[ur, "\res_{V, W}"']
+  \end{tikzcd}
+\end{center}
+
+Notice how if we replace smooth functions with, say, continuous, real-analytic or bounded functions this example would work analogously.
+Therefore all of this ``nice'' types of functions share some common properties.
+The abstraction of this data --- the collection of \(\mathbb{R}\)-modules plus the restriction maps --- is what we will call a presheaf (of \(\mathbb{R}\)-modules) over \(X\).
+
+However in this particular our presheaf is more rich.
+Indeed, lets consider an open cover \(\mathcal{U} \coloneq \{U_{i}\}_{i \in \mathcal{I}}\) of an open set \(U \subseteq X\).
+
+On the one hand if we have two smooth function \(f_{1}, f_{2} \in \sheaf{O}(U)\) such that both agree on every \(U_{i}\) then they must be the same function to begin with.
+In the language of the restriction maps we have that if \(\res_{U_{i}, U_{j}} f_{1} = \res_{U_{i}, U_{j}} f_{2}\) for all \(U_{i}, U_{j} \in \mathcal{U}\) then \(f_{1} = f_{2}\).
+This means that we can identify functions on an open set by looking at them on a covering by smaller open set.
+
+On the other suppose now we have a collection of smooth function \(f_{i} \in \sheaf{O}(U_{i})\) for all \(i \in \mathcal{I}\) such that they agree on all pairwise overlaps.
+Then we can \textit{glue} them together forming an smooth function \(f\) in all of \(U\).
+Again, with the notation of the restriction maps we have that if \(\res_{U_{i} \cap U_{j}} f_{i} = \res_{U_{i} \cap U_{j}} f_{j}\) for all \(i, j \in \mathcal{I}\) there exists \(f \in \sheaf{O}(U)\) such that \(\res_{U_{i}} f = f_{i}\).
+
+This two properties are what will differentiate a presheaf from a sheaf.
+Note that they still hold for continous or real-analytic functions, but they no longer work in the bounded functions case (the second property fails).
 
 \section{Presheaves and sheaves}
+
+We are now ready to start abstracting this data into a more general setting, where we can use the full power of the category theory we have developed previously.
 
 \begin{definition}[Presheaf]\label{def:presheaf}
   Let \(X\) be a topological space and let \(\category{C}\) be a \hyperref[def:category]{category}.
@@ -39,6 +86,13 @@
   \end{center}
 \end{definition}
 
+\begin{example}
+  Smooth, real-analytic and bounded functions on \(X = \mathbb{R}^{n}\) (or more generally in a manifold \(X\)) are \hyperref[def:presheaf]{presheaves}.
+\end{example}
+
+
+Since \hyperref[def:presheaf]{presheaves} are particular instances of \hyperref[def:functor]{functors} we have already seen several examples back in \autoref{ch:functors-natural-transformations}.
+One example that will be useful later is the following.
 \begin{definition}[Constant presheaf]\label{def:constant-presheaf}
   Let \(X\) be a topological space.
   For any object \(A \in \category{C}\) the \textbf{constant presheaf} with value \(A\), denoted \(\underline{A}_{X}^{\operatorname{pre}}\) is the \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} associated to the \hyperref[ex:constant-functor]{constant functor}
@@ -58,7 +112,7 @@
 
 We now turn our attention to a particular class of \hyperref[def:presheaf]{presheaves}.
 
-Instead of working on a general \hyperref[def:category]{category} \(\category{C}\), we will work with \hyperref[def:category]{categories} which are "sets with an algebraic structure" (for example \(\Grp, \Ab, \Ring, \ldots\) but not \(\Top\)).
+Instead of working on a general \hyperref[def:category]{category} \(\category{C}\), to simplify the exposition we will work with \hyperref[def:category]{categories} which are ``sets with an algebraic structure'' (for example \(\Grp, \Ab, \Ring, \ldots\) but not \(\Top\)).
 
 \begin{definition}\label{def:algebraic-structure}
   A \textbf{type of algebraic structure} is a \hyperref[def:category]{category} \(\category{C}\) together with a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) verifying:
@@ -71,15 +125,7 @@ Instead of working on a general \hyperref[def:category]{category} \(\category{C}
 \end{definition}
 
 \begin{example}
-  The following \hyperref[def:category]{categories}, together with their respective forgetful \hyperref[def:functor]{functors} are \hyperref[def:algebraic-structure]{types of algebraic structures}:
-  \begin{itemize}
-    \item The category of pointed sets.
-    \item The category of (abelian) groups.
-    \item The category of monoids.
-    \item The category of rings.
-    \item The category of \(R\)-modules for a fixed ring \(R\).
-    \item The category of Lie algebras over a fixed field.
-  \end{itemize}
+  The \hyperref[def:category]{categories} of pointed sets, (abelian) groups, monoids, rings \(R\)-modules, and Lie algebras -- together with their respective forgetful \hyperref[def:functor]{functors} -- are \hyperref[def:algebraic-structure]{types of algebraic structures}.
 \end{example}
 
 We state some properties of this type of \hyperref[def:category]{categories} without proof.
@@ -97,7 +143,7 @@ We state some properties of this type of \hyperref[def:category]{categories} wit
   \end{enumerate}
 \end{lemma}
 
-In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{type of algebraic structure}.
+Therefore in everything that follows after this point we will implicitly assume that \(\category{C}\) is a \hyperref[def:algebraic-structure]{type of algebraic structure} every time we talk about sheaves.
 
 \begin{definition} \label{def:sheaf}
   Let \(X\) be a topological space.
@@ -112,19 +158,21 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   From now on, to distinguish a \hyperref[def:presheaf]{presheaf} from a \hyperref[def:sheaf]{sheaf} we will denote the former by \(\mathcal{F}, \mathcal{G}, \mathcal{H}, \ldots\) and the latter by \(\sheaf{F}, \sheaf{G}, \sheaf{H}, \ldots\)
 \end{notation}
 
-\begin{notation}
-  Given a ring \(R\), we denote the \hyperref[def:category]{category} of \hyperref[def:sheaf]{sheaves of \(R\)-modules} over a topological space \(X\) by \(\Mod(\underline{R}_{X})\).
-\end{notation}
+\begin{example}
+  Smooth and continuous function form a \hyperref[def:sheaf]{sheaf of \(\mathbb{R}\)-modules} over \(X \coloneq \mathbb{R}\).
+  However, bounded functions \(\mathcal{B}\) only form a \hyperref[def:presheaf]{presheaf}.
 
+  Indeed if we consider the open covering \(\mathcal{U} \coloneq \left\{ ]n, n+1[ \right\}_{n \in \mathbb{N}}\) of \(\mathbb{R}\) and \(f_{n}(x) \coloneq n\) we have that \(f_{n} \in \mathcal{B}(]n, n+1[)\) for all \(n \in \mathbb{N}\) but any \textit{glueing} of these functions is clearly not bounded and thus \ref{axiom:sheaf-gluability} fails.
+\end{example}
 
 \begin{remark}\label{rem:sheaves-as-equalisers}
-  Axioms \ref{axiom:sheaf-identity} and \ref{axiom:sheaf-gluability} can be interpreted as the following \hyperref[def:equaliser]{equaliser sequence}:
+  Axioms \ref{axiom:sheaf-identity} and \ref{axiom:sheaf-gluability} can be interpreted as the following \hyperref[def:equaliser]{equaliser diagram}:
   \begin{center}
     \begin{tikzcd}
       \sheaf{F}(U) \arrow[r] & \displaystyle\prod_{i \in \mathcal{I}} \sheaf{F}(U_{i}) \arrow[r, shift left] \arrow[r, shift right] & \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} \sheaf{F}(U_{i} \cap U_{j})
     \end{tikzcd}
   \end{center}
-  where \(\{U_{i}\}_{i \in \mathcal{I}}\) is an open cover of \(U\) .
+  where \(\{U_{i}\}_{i \in \mathcal{I}}\) is an open cover of \(U\). 
   
   In particular taking the empty cover of \(\varnothing \in \Open(X)\), since \hyperref[rem:empty-product-is-terminal]{the empty product is terminal} we have
   \begin{center}
@@ -132,7 +180,7 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
       \sheaf{F}(\varnothing) \arrow[r] & 1  \arrow[r, shift left] \arrow[r, shift right] & 1
     \end{tikzcd}
   \end{center}
-  i.e: \(\sheaf{F}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} of \(\category{C}\)
+  i.e: \(\sheaf{F}(\varnothing)\) is a \hyperref[def:initial-terminal-object]{terminal object} of \(\category{C}\).
 \end{remark}
 
 \begin{example}[Sheaves on a point]\label{ex:one-point-sheaves-are-category}
@@ -162,6 +210,17 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
 \end{example}
 
 \subsection{Stalks}
+
+The main difference between \hyperref[def:sheaf]{sheaves} and \hyperref[def:presheaf]{presheaves} is their local nature.
+We are going to see that there are ``global'' properties of \hyperref[def:sheaf]{sheaves} that can be checked if we know all of the ``local'' information.
+
+Before trying to abstract this, let's go back to our \hyperref[sec:motivating-example-sheaves]{motivating example} of smooth functions on \(\mathbb{R}^{n}\).
+A germ of a smooth function at a point \(p \in X\) is an object of the form \((f, U)\) such that \(p \in U\) open and \(f \in \sheaf{O}(U)\), modulo the relation \((f, U) \sim (g, V)\) if there exists \(p \in W \subseteq U \cap V\) open such that \(f|_{W} = g|_{W}\).
+We call this set of germs the stalk of \(\sheaf{O}\) at \(p\) and denote it by \(\sheaf{O}_{p}\).
+It is easy to see that \(\sheaf{O}_{p}\) has the structure of an \(\mathbb{R}\)-module.
+Note that here we have not used the two \hyperref[def:sheaf]{sheaf properties}, so this definition works considering \(\sheaf{O}\) either as a \hyperref[def:presheaf]{presheaf} or as a \hyperref[def:sheaf]{sheaf}.
+
+Furthermore if \(p \in U\) we get maps \(\sheaf{O}(U) \to \sheaf{O}_{p}\), which hints us that we can model this as a \hyperref[def:categorical-colimit]{colimit}.
 \begin{definition}\label{def:stalk}
   Let \(X\) be a topological space and let \(\mathcal{F}\) be a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf}.
   For all points \(p \in X\) we define the \textbf{stalk} of \(\mathcal{F}\) at \(p\) as
@@ -169,6 +228,7 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
     \mathcal{F}_{p} \coloneq \varinjlim_{\substack{U \ni p \\ U \in \Open(X)}} \mathcal{F}(U)
   \end{equation*}
   Note that this comes with maps \(\mathcal{F}(U) \to \mathcal{F}_{p}\) for all \(U \subseteq X\) open such that \(p \in U\).
+  If \(p \in U\) and \(s \in \sheaf{F}(U)\) then the image of \(s\) in \(\sheaf{F}_{p}\) is called the \textbf{germ} of \(s\) at \(p\) and denote it by \(s_{p}\).
   
   Since this is a \hyperref[def:direct-limit]{direct limit} following \autoref{ex:direct-limits-set} we may describe \(\mathcal{F}_{p}\) as
   \begin{equation*}
@@ -176,13 +236,13 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   \end{equation*}
   where
   \begin{equation*}
-    (U, s) \sim (V, t) \iff \exists W \subseteq U \cap V \mid p \in W \land s|_{W} = t|_{W}
+    (U, s) \sim (V, t) \iff \exists W \subseteq U \cap V \text{ open} \mid p \in W \land s|_{W} = t|_{W}
   \end{equation*}
   
   Using this characterization we may define the stalk of a \hyperref[def:presheaf]{morphism of presheaves} \(\phi: \mathcal{F} \to \mathcal{G}\) as
   \begin{align*}
     \phi_{x}\colon& \mathcal{F}_{x} \to \mathcal{G}_{x} \\
-            & (U, s) \mapsto (U, \phi(s))
+            & [(U, s)] \mapsto [(U, \phi(s))]
   \end{align*}
 
   Therefore we have a stalk \hyperref[def:functor]{functor}
@@ -199,7 +259,7 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   By the \hyperref[lemma:algebraic-structure-properties]{properties of algebraic structures}, \hyperref[def:stalk]{stalks} commute with \hyperref[def:categorical-limit]{finite limits}.
 \end{remark}
 
-
+The following lemma somewhat explains the agricultural terminology: sections of a \hyperref[def:sheaf]{sheaf} can be seen as a collection of \hyperref[def:stalk]{germs} bundled together.
 \begin{lemma}\label{lemma:sheaf-determined-by-germs}
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} over a topological space \(X\).
   For all open subsets \(U \subseteq X\) the map \(\sheaf{F}(U) \to \prod_{p \in U} \sheaf{F}_{p}\) is injective.
@@ -215,6 +275,8 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   Therefore since \(\sheaf{F}\) is a \hyperref[def:sheaf]{sheaf} by \ref{axiom:sheaf-identity} we have \(s = t\).
 \end{proof}
 
+Using this result we can now prove one of the most important theorems for \hyperref[def:sheaf]{sheaves}.
+Roughly speaking, it states that knowing all of the ``local'' information is the same as knowing the ``global'' information.
 \begin{theorem}\label{thm:sheaf-morphism-determined-by-stalks}
   Let \(\phi, \psi\colon \mathcal{F} \to \sheaf{G}\) be a \hyperref[def:presheaf]{morphism of presheaves} where \(\mathcal{F}\) is a \hyperref[def:presheaf]{\(\category{C}\)-valued presheaf} and \(\sheaf{G}\) is a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf}.
   Then \(\phi = \psi\) if and only if for all \(p \in X\) the \hyperref[def:stalk]{stalks at \(p\)} are equal, i.e: \(\phi_{p} = \psi_{p}\).
@@ -240,11 +302,27 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
   Therefore since this holds for all \(s \in \mathcal{F}(U)\) and \(U \subseteq X\) open we have that \(\phi = \psi\).
 \end{proof}
 
+\begin{example}
+  \autoref{thm:sheaf-morphism-determined-by-stalks} is false in the case of \hyperref[def:presheaf]{presheaves}.
+
+  Indeed, if we consider \(\mathcal{B}\) the \hyperref[def:presheaf]{presheaf} of bounded functions on \(\mathbb{R}\) and as morphisms the identity \(\id_{\mathcal{B}}\colon \mathcal{B} \to \mathcal{B}\) and \(\psi\colon \mathcal{B} \to \mathcal{B}\) defined as \(\psi(U) = \id_{U}\) if \(U\) is bounded and the zero morphism otherwise since \hyperref[def:stalk]{stalks} are computed by looking at small neighbourhoods and every point \(p \in \mathbb{R}\) admits infinitely small bounded neighbourhoods we have
+  \begin{equation*}
+    (\id_{\mathcal{B}})_{p} = \psi_{p} = \id_{\mathcal{B}_{p}}
+  \end{equation*}
+  However, if we consider \(f(x) \coloneq 1 \in \mathcal{B}(\mathbb{R})\) we get
+  \begin{equation*}
+    \id_{\mathcal{B}}(\mathbb{R})(f) = 1 \neq 0 = \psi(\mathbb{R})(f)
+  \end{equation*}
+\end{example}
+
+The \hyperref[def:sheaf]{category of sheaves} also has a nice characterization \hyperref[def:categorical-isomorphism]{isomorphism}, \hyperref[def:mono-epi-morphism]{monomorphism} and \hyperref[def:mono-epi-morphism]{epimorphisms} in terms of \hyperref[def:stalk]{stalks} that will be particularly useful once we study \hyperref[def:exact-sequence]{exact sequences} of \hyperref[def:sheaf]{sheaves}.
+
 \begin{proposition}\label{prop:sheaf-isomorphism-determined-at-stalks}
   Let \(\phi\colon \sheaf{F} \to \sheaf{G}\) be a \hyperref[def:sheaf]{morphism of sheaves}.
-  Then \(\phi\) is a \hyperref[def:categorical-isomorphism]{isomorphism} if and only if for all \(p \in X\) the \hyperref[def:stalk]{induced stalk map} \(\phi_{p}\colon \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  Then \(\phi\) is a \hyperref[def:categorical-isomorphism]{isomorphism} (resp. \hyperref[def:mono-epi-morphism]{mono/epimorphism}) if and only if for all \(p \in X\) the \hyperref[def:stalk]{induced stalk map} \(\phi_{p}\colon \sheaf{F}_{p} \to \sheaf{G}_{p}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} (resp. \hyperref[def:mono-epi-morphism]{mono/epimorphism}).
 \end{proposition}
-\begin{proof}~
+\begin{proof}
+  We will check the \hyperref[def:categorical-isomorphism]{isomorphism} case.
   \begin{itemize}
     \item[\(\implies\)] Suppose that \(\phi: \sheaf{F} \to \sheaf{G}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\Sh_{X}(\category{C})\).
           Then there exists \(\psi: \sheaf{G} \to \sheaf{F}\) such that
@@ -288,29 +366,15 @@ In what follows \(\category{C}\) will be a \hyperref[def:algebraic-structure]{ty
 
 
 
-\begin{definition}\label{def:types-of-morphisms-pre-sheaves}
-  Let \(X\) be a topological space.
-  \begin{enumerate}
-    \item A \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) is a \textbf{subpresheaf} of a \hyperref[def:presheaf]{presheaf} \(\mathcal{G}\) if for all open sets \(U \subseteq X\) we have \(\mathcal{F}(U) \subseteq \mathcal{G}(U)\) and the restriction maps of \(\mathcal{G}\) induce the restriction maps of \(\mathcal{F}\).
-
-          If \(\sheaf{F}\) and \(\sheaf{G}\) are \hyperref[def:sheaf]{sheaves} we say that \(\sheaf{F}\) is a \textbf{subsheaf} of \(\sheaf{G}\).
-    \item A \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \mathcal{G}\) is \textbf{injective} if for all open sets \(U \subseteq X\) the map \(\mathcal{F}(U) \to \mathcal{G}(U)\) is injective.
-    \item A \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \mathcal{G}\) is \textbf{surjective} if for all open sets \(U \subseteq X\) the map \(\mathcal{F}(U) \to \mathcal{G}(U)\) is surjective.
-    \item A \hyperref[def:sheaf]{morphism of sheaves} \(\varphi\colon \sheaf{F} \to \sheaf{G}\) is \textbf{injective} if for all open sets \(U \subseteq X\) the map \(\sheaf{F}(U) \to \sheaf{G}(U)\) is injective.
-    \item A \hyperref[def:sheaf]{morphism of sheaves} \(\varphi\colon \sheaf{F} \to \sheaf{G}\) is \textbf{surjective} if for all open sets \(U \subseteq X\) and every section \(s \in \sheaf{G}(U)\) there exists an open covering \(U = \bigcup_{i \in \mathcal{I}} U_{i}\) such that \(s|_{U_{i}}\) is in the image of \(\sheaf{F}(U_{i}) \to \sheaf{G}(U_{i})\) for all \(i\).
-  \end{enumerate}
-\end{definition}
-
-
 \section{Sheafification}
 
-We have established the definition of \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves}. It is clear from the definitions that every \hyperref[def:sheaf]{sheaf} is a \hyperref[def:presheaf]{presheaf}. This defines a "forgetful" \hyperref[def:functor]{functor}:
+We have established the definition of \hyperref[def:presheaf]{presheaves} and \hyperref[def:sheaf]{sheaves}. It is clear from the definitions that every \hyperref[def:sheaf]{sheaf} is a \hyperref[def:presheaf]{presheaf}. This defines a forgetful \hyperref[def:functor]{functor}:
 \begin{equation*}
     \iota\colon \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})
 \end{equation*}
+We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:sheaf]{sheaf} in a way that \textit{respects} this forgetful functor.
 
-We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:sheaf]{sheaf}.
-
+In the language of category-theory, this is expressed by an \hyperref[def:adjoint-functors]{adjunction}.
 \begin{definition}[Sheafification] \label{def:sheafification}
     Let \(X\) be a topological space and \(\category{C}\) a \hyperref[def:category]{category}.
     The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{\#}\colon \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functors]{left adjoint} to the inclusion functor \(\iota\colon \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
@@ -322,6 +386,20 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
 
     The unit of this adjunction gives a canonical morphism \(\theta\colon \mathcal{F} \mapsto \mathcal{F}^{\#}\) in \(\PSh_{X}(\category{C})\) which verifies that for any \hyperref[def:presheaf]{presheaf morphism} \(\phi\colon \mathcal{F} \to \sheaf{G}\) where \(\mathcal{F}\) is a \hyperref[def:presheaf]{presheaf} and \(\sheaf{G}\) is a \hyperref[def:sheaf]{sheaf} there exists a unique morphism \(\psi\colon \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\psi \circ \theta = \phi\).
 \end{definition}
+
+For this notion to be useful, we must prove that it exists.
+We will do this by constructing the \hyperref[def:sheafification]{sheafification} of a \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\), but before doing so we fix some terminology on constructing \hyperref[def:sheaf]{sheaves} from a \textit{bigger} one.
+
+\begin{definition}\label{def:types-of-morphisms-pre-sheaves}
+  Let \(X\) be a topological space.
+  A \hyperref[def:presheaf]{presheaf} \(\mathcal{F}\) is a \textbf{subpresheaf} of a \hyperref[def:presheaf]{presheaf} \(\mathcal{G}\) if for all open sets \(U \subseteq X\) we have \(\mathcal{F}(U) \subseteq \mathcal{G}(U)\) and the restriction maps of \(\mathcal{G}\) induce the restriction maps of \(\mathcal{F}\).
+  If \(\sheaf{F}\) and \(\sheaf{G}\) are \hyperref[def:sheaf]{sheaves} we say that \(\sheaf{F}\) is a \textbf{subsheaf} of \(\sheaf{G}\).
+    % \item A \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \mathcal{G}\) is \textbf{injective} if for all open sets \(U \subseteq X\) the map \(\mathcal{F}(U) \to \mathcal{G}(U)\) is injective.
+    % \item A \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \mathcal{G}\) is \textbf{surjective} if for all open sets \(U \subseteq X\) the map \(\mathcal{F}(U) \to \mathcal{G}(U)\) is surjective.
+    % \item A \hyperref[def:sheaf]{morphism of sheaves} \(\varphi\colon \sheaf{F} \to \sheaf{G}\) is \textbf{injective} if for all open sets \(U \subseteq X\) the map \(\sheaf{F}(U) \to \sheaf{G}(U)\) is injective.
+    % \item A \hyperref[def:sheaf]{morphism of sheaves} \(\varphi\colon \sheaf{F} \to \sheaf{G}\) is \textbf{surjective} if for all open sets \(U \subseteq X\) and every section \(s \in \sheaf{G}(U)\) there exists an open covering \(U = \bigcup_{i \in \mathcal{I}} U_{i}\) such that \(s|_{U_{i}}\) is in the image of \(\sheaf{F}(U_{i}) \to \sheaf{G}(U_{i})\) for all \(i\).
+\end{definition}
+
 
 \begin{construction}[Godement construction of sheafification] \label{const:sheafification-godement}
   Let \(\mathcal{F} \in \PSh_{X}(\category{\category{C}})\).
@@ -400,6 +478,19 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
   To check uniqueness, since \hyperref[thm:sheaf-morphism-determined-by-stalks]{sheaf morphisms are determined by their induced maps on stalks} and for all points \(x \in X\) we have \(\theta_{x} = \id\), \(\psi\) verifies \(\psi_{x} = \phi_{x}\) for all \(x \in X\), making it unique.
 \end{construction}
 
+\begin{remark}
+  Another construction of \hyperref[def:sheafification]{sheafification} is the \textit{espace étalé} of \(\mathcal{F}\).
+  Roughly speaking, the section of \(\mathcal{F}^{\#}\) on an open set \(U \subseteq X\) correspond to
+  \begin{equation*}
+    \mathcal{F}^{\#}(U) = \left\{ s\colon U \to \coprod_{p \in P} \mathcal{F}_{p} \text{ continuous } \mid \pi \circ s = \id_{U} \right\}
+  \end{equation*}
+  where \(\pi\colon \coprod_{p \in P} \mathcal{F}_{p} \to X\) is the obvious projection sending a germ \(s_{p} \in \mathcal{F}_{p}\) to its base point \(p \in X\) and \(\coprod_{p \in P} \mathcal{F}_{p}\) has the topology generated by \(\{s_{p} \in \mathcal{F}_{p} \mid p \in U\}_{U \in \Open(X)}\).
+
+  More details about this construction can be found at \cite{vakilRISINGSEAFoundations2025}.
+\end{remark}
+
+The following properties are direct.
+
 \begin{lemma}\label{lemma:sheafification-of-sheaf-is-sheaf}
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf}.
   Then \((\iota\sheaf{F})^{\#} \cong \sheaf{F}\), i.e: \(-^{\#} \circ \iota \cong \id_{\Sh_{X}(\category{C})}\).
@@ -433,14 +524,14 @@ We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:s
 
 
 \section{Sheaves in an abelian category}
+
+We want to apply the machinery we have built in \autoref{part:homological-algebra} to \hyperref[def:sheaf]{sheaves}.
 In this section, \(X\) will be a fixed topological space and \(\category{C}\) will be an \hyperref[def:abelian-category]{abelian category} for which \hyperref[def:sheafification]{sheafification} exists.
 
 Note that by \autoref{prop:functor-category-is-abelian} \(\PSh_{X}(\category{C})\) is an \hyperref[def:abelian-category]{abelian category}.
-
 We are going to see that \(\Sh_{X}(\category{C})\) is an \hyperref[def:abelian-category]{abelian category}.
 
-Consider the following category-theoretic auxiliary lemma.
-
+We will do this by the means of the following category-theoretic auxiliary lemma.
 \begin{lemma}\label{lemma:abelian-category-from-adjunction}
   Let \(a\colon \category{A} \to \category{B}\) and \(b: \category{B} \to \category{A}\) be two \hyperref[def:functor]{functors}.
   Suppose that
@@ -470,7 +561,8 @@ Consider the following category-theoretic auxiliary lemma.
   Note that, since \(b \circ a \cong \id_{\category{A}}\), every morphism \(\psi\) in \(\category{A}\) is of the form \(\psi = b\varphi\).
   Thus all \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels} exist in \(\category{A}\) and
   \begin{align}\label{eq:ker-coker-lemma}
-    \ker_{\category{A}} \psi \cong b\ker_{\category{B}}(a\psi) \qquad \text{coker}_{\category{A}} \psi \cong b\text{coker}_{\category{B}}(a\psi)
+    \ker_{\category{A}} \psi &\cong b\ker_{\category{B}}(a\psi) \cong \ker_{\category{B}} b(a(\psi)) = \ker_{\category{b}} \psi \\
+    \text{coker}_{\category{A}} \psi &\cong b\text{coker}_{\category{B}}(a\psi)
   \end{align}
   
   It only remains to show that \(\text{Coim}_{\category{A}} \psi \cong \text{Im}_{\category{A}} \psi\).
@@ -491,6 +583,8 @@ Consider the following category-theoretic auxiliary lemma.
             &= \text{Im}_{\category{A}} \psi                                     & (\text{definition}) & \qedhere
   \end{align*}
 \end{proof}
+
+We need to check that we can apply this lemma in our case.
 
 \begin{lemma}\label{lemma:sheaves-category-is-additive}
   \(\Sh_{X}(\category{C})\) is an \hyperref[def:additive-category]{additive category} and the forgetful \hyperref[def:functor]{functor} \(\iota\colon \Sh_{X}(\category{C}) \to \PSh_{X}(\category{C})\) is \hyperref[def:additive-functor]{additive}.
@@ -519,10 +613,10 @@ Consider the following category-theoretic auxiliary lemma.
           Since this coincides with the \hyperref[def:categorical-product]{product} in \(\PSh_{X}(\category{C})\) it is a \hyperref[def:presheaf]{presheaf}.
           Furthermore for any open cover \(U = \bigcup_{i \in \mathcal{I}} U_{i}\) we have that
           \begin{align*}
-            (\sheaf{F} \times \sheaf{G})(U) = \sheaf{F}(U) \times \sheaf{G}(U) &\to \prod_{i \in \mathcal{I}} (\sheaf{F} \times \sheaf{G})(U_{i}) = \prod_{i \in \mathcal{I}} \left(\sheaf{F}(U_{i})\right) \times \prod_{i \in \mathcal{I}} \left(\sheaf{G}(U_{i})\right) \\
+            &(\sheaf{F} \times \sheaf{G})(U) = \sheaf{F}(U) \times \sheaf{G}(U) \to \prod_{i \in \mathcal{I}} (\sheaf{F} \times \sheaf{G})(U_{i}) = \prod_{i \in \mathcal{I}} \left(\sheaf{F}(U_{i})\right) \times \prod_{i \in \mathcal{I}} \left(\sheaf{G}(U_{i})\right) \\
             &\rightrightarrows \displaystyle\prod_{(i, j) \in \mathcal{I} \times \mathcal{I}} (\sheaf{F} \times \sheaf{G})(U_{i} \cap U_{j}) = \prod_{i \in \mathcal{I}} \left(\sheaf{F}(U_{i} \cap U_{j})\right) \times  \prod_{i \in \mathcal{I}} \left(\sheaf{G}(U_{i} \cap U_{j})\right)
           \end{align*}
-          is an \hyperref[def:equaliser]{equaliser} since it can be seen as the "product" of two \hyperref[def:equaliser]{equalisers}.
+          is an \hyperref[def:equaliser]{equaliser} since it can be seen as the ``product'' of two \hyperref[def:equaliser]{equalisers}.
           Therefore \(\sheaf{F} \times \sheaf{G}\) is a \hyperref[def:sheaf]{sheaf}.
   \end{enumerate}
 
@@ -581,21 +675,21 @@ Consider the following category-theoretic auxiliary lemma.
   \end{equation*}
 \end{proof}
 
+We finally have everything we need to prove that \(\Sh_{X}(\category{C})\) is \hyperref[def:abelian-category]{abelian}.
+
 \begin{theorem}\label{thm:sheaf-category-is-abelian}
-  Let \(\varphi\colon \sheaf{F} \to \sheaf{G}\) be a morphism in \(\Sh(\category{C})\).
-  \begin{enumerate}
-    \item The \hyperref[def:category]{category} \(\Sh_{X}(\category{C})\) is \hyperref[def:abelian-category]{abelian}.
-    \item The \hyperref[def:categorical-kernel]{kernel} of \(\varphi\) is the same as the \hyperref[def:categorical-kernel]{kernel} of \(\varphi\) in \(\PSh_{X}(\Ab)\).
-    \item \(\varphi\) is injective if and only if \(\varphi\) is injective as a map or presheaves if and only if \(\varphi\) is injective as a map of sheaves.
-    \item The \hyperref[def:categorical-cokernel]{cokernel} of \(\varphi\) is the \hyperref[def:sheafification]{sheafification} of the \hyperref[def:categorical-cokernel]{cokernel} of \(\varphi\) in \(\PSh_{X}(\Ab)\).
-    \item \(\varphi\) is surjective if and only if \(\varphi\) is surjective as a map of sheaves.
-    \item A complex \(\sheaf{F} \to \sheaf{G} \to \sheaf{H}\) is \hyperref[def:exact-sequence]{exact} at \(\sheaf{G}\) if and only if for all open sets \(U\) and sections \(s \in \sheaf{G}(U)\) mapping to 0 in \(\sheaf{H}(U)\) there exists an open covering \(\{U_{i}\}_{i \in \mathcal{I}}\) such that each \(s|_{U_{i}}\) is the image of \(\sheaf{F}(U_{i}) \to \sheaf{G}(U_{i})\) if and only if for all \(x \in X\) the sequence \(\sheaf{F}_{x} \to \sheaf{G}_{x} \to \sheaf{H}_{x}\) is \hyperref[def:exact-sequence]{exact}.
-  \end{enumerate}
+  If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:sheaf]{category of \(\category{C}\)-valued sheaves} \(\Sh_{X}(\category{C})\) over a topological space \(X\) is \hyperref[def:abelian-category]{abelian}.
+  Furthermore if \(\varphi\colon \sheaf{F} \to \sheaf{G}\) is a morphism in \(\Sh_{X}(\category{C})\) its \hyperref[def:categorical-kernel]{kernel} is the same as its \hyperref[def:categorical-kernel]{kernel} as a map of \hyperref[def:presheaf]{presheaves} \(\ker \iota\varphi\) and its \hyperref[def:categorical-cokernel]{cokernel} is the \hyperref[def:sheafification]{sheafification} of its \hyperref[def:categorical-cokernel]{cokernel} as a map of \hyperref[def:presheaf]{presheaves}:
+  \begin{align*}
+    \ker \varphi = \ker \iota\varphi \qquad \coker \varphi = \left( \coker \iota\varphi \right)^{\#}
+  \end{align*}
+  and if \(p \in X\) then
+  \begin{equation*}
+    \left( \ker \varphi \right)_{p} = \ker (\varphi_{p}) \qquad \left( \coker \varphi \right)_{p} = \coker (\varphi_{p})
+  \end{equation*}
 \end{theorem}
 \begin{proof}
-  Note that \(2. \implies 3.\), \(4. \implies 5\) and \(2. \land 5. \implies 6.\)
-
-  Therefore we only need to prove \(1., 2.\) and \(4\), but these come directly from \autoref{lemma:abelian-category-from-adjunction} with
+  Direct from \autoref{lemma:abelian-category-from-adjunction} with
   \begin{align*}
     \category{A} \coloneq \Sh_{X}(\category{C}) &\quad \category{B} \coloneq \PSh_{X}(\category{B}) \\
     a \coloneq \iota\colon \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C}) \text{ forgetful} &\quad b \coloneq -^{\#}\colon \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C}) \text{ \hyperref[def:sheafification]{sheafification}}
@@ -604,8 +698,24 @@ Consider the following category-theoretic auxiliary lemma.
   \begin{enumerate}
     \item \(\Sh_{X}(\category{C})\) is \hyperref[def:additive-category]{additive} by \autoref{lemma:sheaves-category-is-additive} and \(\PSh_{X}(\category{C})\) is \hyperref[def:additive-category]{additive} by \autoref{lemma:functor-category-is-additive}, \(\iota\) is \hyperref[def:additive-functor]{additive} by \autoref{lemma:sheaves-category-is-additive} and \(-^{\#}\) is \hyperref[def:additive-functor]{additive} by \autoref{prop:additive-functors-and-adjunctions}, and the \hyperref[def:adjoint-functors]{adjunction} \(-^{\#} \dashv \iota\) is given by \hyperref[def:sheafification]{definition of sheafification}.
     \item \(\PSh_{X}(\category{C})\) is \hyperref[def:abelian-category]{abelian} by \autoref{prop:functor-category-is-abelian} and \(-^{\#}\) is \hyperref[def:exact-functor]{left exact} by \autoref{prop:sheafification-is-exact}.
-    \item \(-^{\#} \circ \iota = \id_{\Sh_{X}(\category{C})}\) comes from \autoref{lemma:sheafification-of-sheaf-is-sheaf}. \qedhere
+    \item \(-^{\#} \circ \iota = \id_{\Sh_{X}(\category{C})}\) comes from \autoref{lemma:sheafification-of-sheaf-is-sheaf}.
   \end{enumerate}
+
+  The commutativity of \hyperref[def:stalk]{stalks} comes form \autoref{rem:stalk-commute-finite-limits} and \autoref{lemma:stalk-commute-sheafification}.
 \end{proof}
+
+Furthermore combining \hyperref[thm:sheaf-category-is-abelian]{the above characterization of kernels and cokernels} and \autoref{prop:sheaf-isomorphism-determined-at-stalks} we have the following criterion to check \hyperref[def:exact-sequence]{exactness}.
+\begin{corollary}\label{cor:exactness-at-stalks}
+  Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
+  A \hyperref[def:complex]{complex} of \hyperref[def:sheaf]{\(\category{C}\)-valued sheaves} over \(X\)
+  \begin{equation*}
+    0 \to \sheaf{F} \to \sheaf{G} \to \sheaf{H} \to 0
+  \end{equation*}
+  is \hyperref[def:exact-sequence]{exact} in \(\Sh_{X}(\category{C})\) if and only if for all \(p \in X\)
+  \begin{equation*}
+    0 \to \sheaf{F}_{p} \to \sheaf{G}_{p} \to \sheaf{H}_{p} \to 0
+  \end{equation*}
+   is \hyperref[def:exact-sequence]{exact} in \(\category{C}\).
+\end{corollary}
 
 \end{document}

@@ -4,14 +4,6 @@
 
 \chapter{Categories, morphisms and duality}
 
-The study of sheaf cohomology is, at its heart, the study of how local data on a topological space fails to assemble into global data.
-This failure is captured not just by the objects themselves, but by the maps between them.
-To treat these relationships with the necessary precision, we require the language of category theory.
-
-In this chapter, we establish the categorical framework that will support our subsequent constructions.
-We begin with the basic definitions of categories and morphisms, with a particular focus on the category of open sets \(\Open(X)\), which serves as the "site" for any sheaf.
-We also introduce the principle of duality and the classification of morphisms—concepts that will be vital when we eventually define cohomology as a derived functor within the context of abelian categories.
-
 \section{Categories}
 
 \begin{definition}[Category]\label{def:category}
@@ -391,7 +383,6 @@ In practice, this means that proving an statement directly proves its dual for f
     \item \(\Ring\) has no \hyperref[def:zero-object]{zero objects}. However in \(\mathsf{Rng}\) the zero ring is the \hyperref[def:zero-object]{zero object}.
   \end{itemize}
 \end{example}
-
 
 \begin{corollary}[Uniqueness of zero objects]\label{def:uniqueness-zero-objects}
   Let \(0, \widetilde{0}\) be two \hyperref[def:zero-object]{zero} objects in a \hyperref[def:category]{category} \(\category{C}\).

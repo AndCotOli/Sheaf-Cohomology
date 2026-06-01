@@ -4,86 +4,45 @@
     \zexternaldocument*{../1.Category-Theory/exported/aux/main}%
     \zexternaldocument*{../2.Homological-Algebra/exported/aux/main}%
     \zexternaldocument*{../3.Sheaves/exported/aux/main}%
-    \zexternaldocument*{1.Cohomology-of-sheaves}
+    \zexternaldocument*{1.Cohomology-of-sheaves}%
+    \zexternaldocument*{3.Examples-of-cohomology}%
 }{}
 
 \begin{document}
 \chapter{de Rham Cohomology}
 
-\begin{definition}[Partition of unity]\label{def:partition-of-unity}
-  Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules}.
-  A \textbf{partition of unity} of \(\sheaf{F}\) subordinate to a locally finite open covering \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) is a collection of endomorphisms 
-  \begin{equation*}
-    \{ f_{i}: \sheaf{F} \to \sheaf{F} \}_{i \in \mathcal{I}}
-  \end{equation*}
-  satisfying
-  \begin{enumerate}
-    \item For all \(i \in \mathcal{I}\)
-          \begin{equation*}
-            \operatorname{supp} f_{i} \subset U_{i}
-          \end{equation*}
-    \item
-          \begin{equation*}
-            \sum_{i \in \mathcal{I}} f_{i} = \id_{\sheaf{F}}
-          \end{equation*}
-        Note that this sum is well defined since for any point \(x \in X\) there exists an open neighbourhood where all but finitely many of the maps \(f_{i}\) are the zero maps, i.e: the sum is locally finite.
-  \end{enumerate}
-\end{definition}
+In this chapter, we bridge the gap between differential geometry and the abstract machinery of sheaf cohomology.
+Historically, de Rham cohomology was developed to capture topological data about a smooth manifold using the analytical properties of differential forms.
+Our primary goal here is to re-interpret this classical construction through a modern algebraic lens.
 
+By treating spaces of differential forms as \hyperref[def:sheaf]{sheaves}, we will establish a fundamental isomorphism showing that classical de Rham cohomology is merely a realization of \hyperref[def:sheaf-cohomology]{sheaf cohomology} with coefficients in the \hyperref[def:constant-sheaf]{locally constant sheaf} \(\underline{\mathbb{R}}\).
 
-\begin{definition}[Fine sheaf]\label{def:fine-sheaf}
-  A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to this covering.
-\end{definition}
+Throughout this chapter we will work with \hyperref[def:sheaf]{sheaves of \(\mathbb{R}\)-modules}.
+However, the same results follow \textit{mutatis mutandis} if we work only with \hyperref[def:sheaf]{sheaves of abelian groups}.
+We will assume that all manifolds are real.
+The complex case works analogously replacing \(\mathbb{R}\) with \(\mathbb{C}\) where appropiate.
 
-\begin{proposition} \label{prop:fine-are-acyclic}
-  \hyperref[def:fine-sheaf]{Fine sheaves} are \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\) acyclic}.
-\end{proposition}
-\begin{proof}
-  Let \(\sheaf{F}\) be a \hyperref[def:fine-sheaf]{fine sheaf}.
-  Using the \hyperref[def:godement-resolution]{Godement resolution} we have that \(\sheaf{F}\) admits a \hyperref[def:flasque-sheaf]{flasque} resolution \(\sheaf{F} \to \sheaf{I}^{\bullet}\).
+\section{Differential forms and the de Rham complex}
+We start this chapter by giving a quick recap of differential forms in smooth manifolds.
+We refer the reader to \cite[Chapter 4]{guilleminDifferentialTopology1974a} and \cite[Chapter 14]{leeIntroductionSmoothManifolds2012} for more details.
 
-  Using \autoref{prop:flasque-are-acyclic} by \autoref{thm:right-derived-functor-using-acyclics} we have that
-  \begin{equation*}
-    \cohomology{k}(X; \sheaf{F}) = \quot{\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)}{\operatorname{Im} \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)}
-  \end{equation*}
-  Let \(\alpha \in \ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)\).
-  Since \(\sheaf{I}^{\bullet}\) is locally exact in degree greater than 0 we have that \(\alpha\) comes from \(\sheaf{I}^{k-1}\), i.e: there exists an open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that \(\alpha|_{U_{i}} = \d\beta_{i}\) with \(\beta_{i} \in \sheaf{I}^{k-1}(U_{i})\).
-
-  Consider a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to \(\mathscr{U}\) and let
-  \begin{equation*}
-    \beta \coloneq \sum_{i \in \mathcal{I}} f_{i}\beta_{i}
-  \end{equation*}
-  where the sum is locally finite.
-  Note that \(f_{i}\beta_{i}\) is a section of \(\sheaf{I}^{k-1}(X)\) with values in \(\sheaf{I}_{p}^{k-1}(X)\):
-  \begin{equation*}
-    (f_{i}\beta_{i})_{p} = \begin{cases}
-      0 & p \notin U_{i} \\
-      f_{i}\beta_{i} & p \in U_{i}
-    \end{cases}
-  \end{equation*}
-  Since \(f_{i}\) has support in \(U_{i}\) this defines a section in \(\sheaf{I}^{k-1}(U_{i})\).
-
-  We have that \(\d\beta = \alpha\) since \(\alpha = \sum_{i \in \mathcal{I}} f_{i}\alpha|_{U_{i}}\).
-  Therefore \(\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right) = \im \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)\), which means
-  \begin{equation*}
-    \forall k > 0 \quad \cohomology{k}(X, \sheaf{F}) = 0 \qedhere
-  \end{equation*}
-\end{proof}
-
-\begin{definition} \label{def:smooth-k-form-bundle}
+To talk about differential forms globally and locally, we first need to assemble their point-wise linear-algebraic counterparts into a smooth geometric object.
+This is accomplished by taking the exterior power of the cotangent bundle.
+\begin{definition}\label{def:smooth-k-form-bundle}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
-  The \textbf{bundle of \(k\)-forms} \(\Lambda^{k}(\operatorname{T}^{\ast}M)\) is the \hyperref[def:smooth-vector-bundle]{smooth vector bundle} defined with:
+  The \textbf{bundle of \(k\)-forms} \(\Lambda^{k}(\mathrm{T}^{\,\ast}M)\) is the \hyperref[def:smooth-vector-bundle]{smooth vector bundle} defined with:
   \begin{itemize}
-    \item \textit{Total space}: \(\Lambda^{k}(\operatorname{T}^{\ast}M) = \coprod_{p \in M} \Lambda^{k}(\operatorname{T}_{p}^{\ast}M)\).
-    \item \textit{Projection map}: \(\pi: \Lambda^{k}(\operatorname{T}^{\ast}M) \to M,\; \pi(p, \omega) = p\).
-    \item \textit{Fiber space}: For every \(p \in M\) the fiber \(E_{p} = \pi^{-1}(\{p\}) = \Lambda^{k}(\operatorname{T}_{p}^{\ast}M)\) is a real vector space of dimension \({m \choose k}\).
+    \item \textit{Total space}: \(\Lambda^{k}(\mathrm{T}^{\,\ast}M) = \coprod_{p \in M} \Lambda^{k}(\mathrm{T}_{p}^{\,\ast}M)\).
+    \item \textit{Projection map}: \(\pi: \Lambda^{k}(\mathrm{T}^{\,\ast}M) \to M,\; \pi(p, \omega) = p\).
+    \item \textit{Fiber space}: For every \(p \in M\) the fiber \(E_{p} = \pi^{-1}(\{p\}) = \Lambda^{k}(\mathrm{T}_{p}^{\,\ast}M)\) is a real vector space of dimension \(\binom{m}{k}\).
   \end{itemize}
   To define the local trivialization, consider a local chart \((U, \{x^{i}\}_{i=1}^{m})\) of \(M\).
   Then the differentials \(\{\mathrm{d}x^{i_{1}} \wedge \cdots \wedge \mathrm{d}x^{i_{k}}\}_{1 \leq i_{1} < \cdots < i_{k} \leq m}\) form a basis for each fiber with base point in \(U\) and the map \(\phi^{-1}: \pi^{-1}(U) \to U \times \mathbb{R}^{{m \choose k}}\) is given by sending a form \(\omega\) to its coefficients in this base.
 \end{definition}
 
 \begin{notation}
+  To simplify working with these local bases, we adopt the standard multi-index notation for the remainder of the text.
   Let \(I = (i_{1}, \ldots, i_{k})\) be a multi-index.
   We will write
   \begin{equation*}
@@ -92,35 +51,28 @@
   In this way the basis of the local trivialization is \(\{\mathrm{d}x^{I}\}_{I}\).
 \end{notation}
 
+With the underlying vector bundle established, we can now define differential forms dynamically as smoothly varying choices of tensors across the manifold.
+In the language of sheaf theory, this naturally corresponds to taking the sheaf of sections of our bundle.
 
 \begin{definition}[Smooth \(k\)-form] \label{def:smooth-k-form}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
-  The \textbf{\hyperref[def:sheaf]{sheaf} of \(k\)-forms} \(\Omega^{k}(M)\) over \(M\) is the \hyperref[def:sheaf-of-sections]{sheaf of sections} of the \hyperref[def:smooth-k-form-bundle]{bundle of \(k\)-forms} \(\Lambda^{k}(\operatorname{T}^{\ast}M)\).
+  The \textbf{\hyperref[def:sheaf]{sheaf} of \(k\)-forms} \(\Omega^{k}\) over \(M\) is the \hyperref[def:sheaf-of-sections]{sheaf of sections} of the \hyperref[def:smooth-k-form-bundle]{bundle of \(k\)-forms} \(\Lambda^{k}(\mathrm{T}^{\,\ast}M)\).
 
-  More concretely, a \(k\)-form over an open set \(U\) is a map \(\omega: U \to \Lambda^{k}(\operatorname{T}^{\ast}M)\) such that \(\pi \circ \omega = \id_{U}\).
+  More concretely, a \(k\)-form over an open set \(U\) is a map \(\omega: U \to \Lambda^{k}(\mathrm{T}^{\,\ast}M)\) such that \(\pi \circ \omega = \id_{U}\).
 \end{definition}
 
 \begin{example}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
-  Note that \(\Lambda^{0}(\operatorname{T}^{\ast}M) = M \times \mathbb{R}\) is the \hyperref[ex:trivial-topological-vector-bundle]{trivial vector bundle}.
+  Note that \(\Lambda^{0}(\mathrm{T}^{\,\ast}M) = M \times \mathbb{R}\) is the \hyperref[ex:trivial-topological-vector-bundle]{trivial vector bundle}.
   Therefore a \hyperref[def:smooth-k-form]{\(0\)-form} is a map \(\omega: M \to M \times \mathbb{R}\) such that \(\pi \circ \omega = \id_{M}\), i.e: \(\omega\) is a smooth function.
 
   This means that \(\Omega^{0}(M) \cong \mathcal{C}^{\infty}(M)\).
 \end{example}
 
-\begin{example}
-  Let \(M\) be a smooth manifold of dimension \(m\).
-
-  Suppose that \(k > m\).
-  Since the fibers of the \hyperref[def:smooth-k-form-bundle]{bundle of \(k\)-forms} \(\Lambda^{k}(\operatorname{T}^{\ast}M)\) have dimension \({m \choose k}\) this means that at least one index \(i\) in the multi-index \(I\) will be repeated.
-  Therefore since \(\mathrm{d}x^{i} \wedge \mathrm{d}x^{i} = 0\) we have that \(\mathrm{d}x^{I} = 0\), i.e: \(\Lambda^{k}(\operatorname{T}^{\ast}M) = 0\).
-
-  In particular \(\Omega^{k}(M) = 0\) for all \(k > m\).
-\end{example}
-
-
+The core driving force behind de Rham theory is the existence of a differential operator that links these sheaves together by increasing the degree of the forms.
+Locally, this operator behaves like a directional extension of the standard total derivative.
 
 \begin{definition}[Exterior derivative] \label{def:exterior-derivative-k-form}
   Let \(\omega\) be a \hyperref[def:smooth-k-form]{\(k\)-form} over a smooth manifold \(M\).
@@ -136,6 +88,8 @@
   \end{equation*}
 \end{definition}
 
+For these operators to chain together into a cochain complex, the composition of two successive derivatives must vanish.
+This works thanks to the symmetry of partial derivatives and the antisymmetry of the wedge product.
 \begin{lemma} \label{lemma:double-exterior-derivative-is-zero}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
@@ -170,9 +124,21 @@
   \end{equation*}
 \end{proof}
 
+\begin{example}\label{ex:finiteness-de-Rham}
+  Let \(M\) be a smooth manifold of dimension \(m\).
+
+  Suppose that \(k > m\).
+  Since the fibers of the \hyperref[def:smooth-k-form-bundle]{bundle of \(k\)-forms} \(\Lambda^{k}(\mathrm{T}^{\,\ast}M)\) have dimension \(\binom{m}{k}\) this means that at least one index \(i\) in the multi-index \(I\) will be repeated.
+  Therefore since \(\mathrm{d}x^{i} \wedge \mathrm{d}x^{i} = 0\) we have that \(\mathrm{d}x^{I} = 0\), i.e: \(\Lambda^{k}(\mathrm{T}^{\,\ast}M) = 0\).
+
+  In particular \(\Omega^{k}(M) = 0\) for all \(k > m\).
+\end{example}
+
+We can now introduce the de Rham complex and its associated cohomology.
+
 \begin{definition}[de Rham complex] \label{def:de-rham-complex}
   Let \(M\) be a smooth manifold of dimension \(m\).
-  The \textbf{de Rham complex} of \(M\) is the \hyperref[def:complex]{complex} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathcal{C}^{\infty}(M)\)-modules}
+  The \textbf{de Rham complex} of \(M\) is the \hyperref[def:complex]{complex} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathbb{R}\)-modules}
   \begin{center}
     \begin{tikzcd}
       \Omega^{\bullet}(M) \coloneq \Omega^{0}(M) \arrow[r, "\mathrm{d}"] & \Omega^{1}(M) \arrow[r, "\mathrm{d}"] & \cdots \arrow[r, "\mathrm{d}"] & \Omega^{m}(M) \arrow[r, "\mathrm{d}"] & 0
@@ -181,13 +147,119 @@
   where \(\Omega^{k}(M)\) is the \hyperref[def:smooth-k-form]{sheaf of \(k\)-forms} over \(M\) and \(\mathrm{d}\) is the \hyperref[def:exterior-derivative-k-form]{exterior derivative}.
 \end{definition}
 
-\begin{lemma}[Poincaré] \label{lemma:poincare}
+\begin{definition}
+  Let \(M\) be a smooth manifold.
+  We define the \textbf{de Rham cohomology} of \(M\) as the \hyperref[def:cohomology]{cohomology} of the \hyperref[def:de-rham-complex]{de Rham complex} and denote it by \(\operatorname{H}_{\operatorname{dR}}^{\bullet}(M, \mathbb{R})\).
+\end{definition}
+
+
+\section{Fine sheaves}
+
+It is known that all smooth manifolds (with or without boundary) admit a partition of unity (see \cite[Theorem 2.23]{leeIntroductionSmoothManifolds2012}).
+In this section, we are going to see how we can use this analytical tool to compute \hyperref[def:sheaf-cohomology]{sheaf cohomology}.
+
+First we need to extend the concept of a partition of unity to a \hyperref[def:sheaf]{sheaf}.
+\begin{definition}[Partition of unity]\label{def:partition-of-unity}
+  Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} over \(X\).
+  A \textbf{partition of unity} of \(\sheaf{F}\) subordinate to a locally finite open covering \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) is a collection of endomorphisms 
+  \begin{equation*}
+    \{ f_{i}: \sheaf{F} \to \sheaf{F} \}_{i \in \mathcal{I}}
+  \end{equation*}
+  satisfying
+  \begin{enumerate}
+    \item For all \(i \in \mathcal{I}\)
+          \begin{equation*}
+            \operatorname{supp} f_{i} \subset U_{i}
+          \end{equation*}
+    \item
+          \begin{equation*}
+            \sum_{i \in \mathcal{I}} f_{i} = \id_{\sheaf{F}}
+          \end{equation*}
+        Note that this sum is well defined since for any point \(x \in X\) there exists an open neighbourhood where all but finitely many of the maps \(f_{i}\) are the zero maps, i.e: the sum is locally finite.
+  \end{enumerate}
+\end{definition}
+
+Now we can introduce the objects of study of this section: fine sheaves.
+Roughly speaking these a \hyperref[def:sheaf]{sheaves} such that whose structure allows them to be split and glued together using these localized operators.
+\begin{definition}[Fine sheaf]\label{def:fine-sheaf}
+  A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to this covering.
+\end{definition}
+
+\begin{proposition} \label{prop:fine-are-acyclic}
+  \hyperref[def:fine-sheaf]{Fine sheaves} are \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\) acyclic}.
+\end{proposition}
+\begin{proof}
+  Let \(\sheaf{F}\) be a \hyperref[def:fine-sheaf]{fine sheaf}.
+  Using the \hyperref[def:godement-resolution]{Godement resolution} we have that \(\sheaf{F}\) admits a \hyperref[def:flasque-sheaf]{flasque} resolution \(\sheaf{F} \to \sheaf{I}^{\bullet}\).
+
+  Using \autoref{prop:flasque-are-acyclic} by \autoref{thm:right-derived-functor-using-acyclics} we have that
+  \begin{equation*}
+    \cohomology{k}(X; \sheaf{F}) = \quot{\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)}{\operatorname{Im} \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)}
+  \end{equation*}
+  Let \(\alpha \in \ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right)\) with \(k > 0\).
+  Since \(\sheaf{I}^{\bullet}\) is locally exact in degree greater than 0 we have that \(\alpha\) comes from \(\sheaf{I}^{k-1}\), i.e: there exists an open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) such that \(\alpha|_{U_{i}} = \d\beta_{i}\) with \(\beta_{i} \in \sheaf{I}^{k-1}(U_{i})\).
+
+  Consider a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\}_{i \in \mathcal{I}}\) subordinate to \(\mathscr{U}\) and let
+  \begin{equation*}
+    \beta \coloneq \sum_{i \in \mathcal{I}} f_{i}\beta_{i}
+  \end{equation*}
+  where the sum is locally finite.
+  Note that \(f_{i}\beta_{i}\) is a section of \(\sheaf{I}^{k-1}(X)\) with values in \(\sheaf{I}_{p}^{k-1}(X)\):
+  \begin{equation*}
+    (f_{i}\beta_{i})_{p} = \begin{cases}
+      0 & p \notin U_{i} \\
+      f_{i}\beta_{i} & p \in U_{i}
+    \end{cases}
+  \end{equation*}
+  Since \(f_{i}\) has support in \(U_{i}\) this defines a section in \(\sheaf{I}^{k-1}(U_{i})\).
+
+  We have that \(\d\beta = \alpha\) since \(\alpha = \sum_{i \in \mathcal{I}} f_{i}\alpha|_{U_{i}}\).
+  Therefore \(\ker\left( \Gamma(X, \sheaf{I}^{k}) \to \Gamma(X, \sheaf{I}^{k+1}) \right) = \im \left( \Gamma(X, \sheaf{I}^{k-1}) \to \Gamma(X, \sheaf{I}^{k}) \right)\), which means
+  \begin{equation*}
+    \forall k > 0 \quad \cohomology{k}(X, \sheaf{F}) = 0 \qedhere
+  \end{equation*}
+\end{proof}
+
+An example of \hyperref[def:fine-sheaf]{fine sheaves} is one we have just studied: \hyperref[def:smooth-k-form]{sheaves of \(k\)-forms}.
+\begin{lemma} \label{lemma:smooth-k-form-fine}
+  Let \(M\) be a smooth manifold.
+  Then for all \(k\) the \hyperref[def:smooth-k-form]{sheaf of \(k\)-forms} \(\Omega^{k}\) is \hyperref[def:fine-sheaf]{fine}.
+\end{lemma}
+\begin{proof}
+  Let \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) be an arbitrary open cover of \(M\).
+
+  Since \(M\) is paracompact there exists a partition of unity \(\{f_{i}\}_{i \in \mathcal{I}} \subset \mathcal{C}^{\infty}(M)\) subordinate to \(\mathscr{U}\).
+  This means that
+  \begin{align*}
+    \forall i \in \mathcal{I} \quad& \operatorname{supp} f_{i} \subseteq U_{i} \\
+    \forall p \in M \quad& \sum_{i \in \mathcal{I}} f_{i}(p) = 1
+  \end{align*}
+  and this last sum is finite for each \(p\).
+
+  For all indices \(i \in \mathcal{I}\) consider the map \(\eta_{i}\colon \Omega^{k} \to \Omega^{k}\) defined as, for all \(U \subseteq M\) open
+  \begin{align*}
+    \eta_{i}(U):\,& \Omega^{k}(U) \to \Omega^{k}(U) \\
+            & \omega \mapsto f_{i} \cdot \omega
+  \end{align*}
+  Note that since \(\operatorname{supp} f_{i} \subseteq U_{i}\) we have \(\operatorname{supp} \eta_{i} \subseteq U_{i}\).
+  Furthermore for any \hyperref[def:smooth-k-form]{\(k\)-form} \(\omega\)
+  \begin{equation*}
+    \sum_{i \in \mathcal{I}} \eta_{i}(\omega) = \sum_{i \in \mathcal{I}} f_{i} \cdot \omega = \left( \sum_{i \in \mathcal{I}} f_{i} \right) \cdot \omega = 1 \cdot \omega = \omega
+  \end{equation*}
+  Therefore \(\sum_{i \in \mathcal{I}} \eta_{i} = \id_{\Omega^{k}}\), making \(\{\eta_{i}\}_{i \in \mathcal{I}}\) a partition of unity subordinate to \(\mathscr{U}\).
+\end{proof}
+
+Therefore if we can prove that there exists a \hyperref[def:sheaf]{sheaf of \(\mathbb{R}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbb{R}}_{M})\) such that \(\Omega^{\bullet}\) is a \hyperref[def:resolution]{resolution} of \(\sheaf{F}\) we would have that \hyperref[def:sheaf-cohomology]{sheaf cohomology with values in \(\sheaf{F}\)} and \hyperref[def:de-rham-cohomology]{de Rham cohomology} coincide.
+
+As we are going to see, this is almost a direct consequence of the classical Poincaré lemma of multi-variable calculus if we consider \(\sheaf{F} = \underline{\mathbb{R}}_{M}\).
+\begin{lemma}[{Poincaré lemma --- \cite[Theorem 11.49]{leeIntroductionSmoothManifolds2012}}]\label{lemma:poincare}
   Let \(U \subseteq \mathbb{R}^{n}\) be a contractible open set and \(k \geq 1\).
   If \(\omega \in \Omega^{k}(U)\) is a \hyperref[def:smooth-k-form]{\(k\)-form} such that \(\mathrm{d}\omega = 0\) then there exists a \hyperref[def:smooth-k-form]{\((k-1)\)-form} \(\eta \in \Omega^{k-1}(U)\) such that \(\mathrm{d}\eta = \omega\).
 \end{lemma}
 
+First, let's check that \(\Omega^{\bullet}\) is an \hyperref[def:exact-sequence]{exact complex} of \hyperref[def:sheaf]{sheaves}.
 \begin{lemma} \label{lemma:de-rham-complex-exact}
-  The \hyperref[def:de-rham-complex]{de Rham complex} is \hyperref[def:exact-complex]{exact}.
+  The \hyperref[def:complex]{complex} of \hyperref[def:sheaf]{sheaves} \(0 \to \Omega^{0} \to \Omega^{1} \to \cdots\) is \hyperref[def:exact-sequence]{exact}.
 \end{lemma}
 \begin{proof}
   For \(k \geq 1\) consider the relevant part of the complex
@@ -215,54 +287,24 @@
   Therefore there exists \([\eta]_{p} \in \left( \Omega^{k-1} \right)_{p}\) such that \(\mathrm{d}_{p}^{k-1}[\eta]_{p} = [\omega]_{p}\), i.e: \([\omega]_{p} \in \im d_{p}^{k-1}\).
 \end{proof}
 
-
-\begin{lemma} \label{lemma:smooth-k-form-fine}
-  Let \(M\) be a smooth paracompact manifold.
-  Then for all \(k\) the \hyperref[def:smooth-k-form]{sheaf of \(k\)-forms} \(\Omega^{k}(M)\) is \hyperref[def:fine-sheaf]{fine}.
-\end{lemma}
-\begin{proof}
-  Let \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) be an arbitrary open cover of \(M\).
-
-  Since \(M\) is paracompact there exists a partition of unity \(\{f_{i}\}_{i \in \mathcal{I}} \subset \mathcal{C}^{\infty}(M)\) subordinate to \(\mathscr{U}\).
-  This means that
-  \begin{align*}
-    \forall i \in \mathcal{I} \quad& \operatorname{supp} f_{i} \subseteq U_{i} \\
-    \forall p \in M \quad& \sum_{i \in \mathcal{I}} f_{i}(p) = 1
-  \end{align*}
-  and this last sum is finite.
-
-  For all indices \(i \in \mathcal{I}\) consider the map
-  \begin{align*}
-    \eta_{i}:\,& \Omega^{k}(M) \to \Omega^{k}(M) \\
-            & \omega \mapsto f_{i} \cdot \omega
-  \end{align*}
-  Note that since \(\operatorname{supp} f_{i} \subseteq U_{i}\) we have \(\operatorname{supp} \eta_{i} \subseteq U_{i}\).
-  Furthermore for any \hyperref[def:smooth-k-form]{\(k\)-form} \(\omega\)
-  \begin{equation*}
-    \sum_{i \in \mathcal{I}} \eta_{i}(\omega) = \sum_{i \in \mathcal{I}} f_{i} \cdot \omega = \left( \sum_{i \in \mathcal{I}} f_{i} \right) \cdot \omega = 1 \cdot \omega = \omega
-  \end{equation*}
-  Therefore \(\sum_{i \in \mathcal{I}} \eta_{i} = \id\), making \(\{\eta_{i}\}_{i \in \mathcal{I}}\) a partition of unity subordinate to \(\mathscr{U}\).
-\end{proof}
-
-
-
+Having seen this, we can finally state and prove the main theorem of the chapter.
 \begin{theorem}
-  Let \(M\) be a smooth paracompact manifold.
+  Let \(M\) be a smooth manifold.
   Then
   \begin{equation*}
-     \cohomology{\bullet}(M, \underline{\mathbb{R}}) \cong \cohomology{\bullet}_{\operatorname{dR}}(M, \mathbb{R})
+     \cohomology{\bullet}(M, \underline{\mathbb{R}}_{M}) \cong \cohomology{\bullet}_{\operatorname{dR}}(M, \mathbb{R})
   \end{equation*}
 \end{theorem}
 \begin{proof}
   Consider the resolution
   \begin{center}
     \begin{tikzcd}
-      0 \arrow[r] & \underline{\mathbb{R}} \arrow[r] & \Omega^{\bullet}(M)
+      0 \arrow[r] & \underline{\mathbb{R}} \arrow[r] & \Omega^{\bullet}
     \end{tikzcd}
   \end{center}
   where \(\Omega^{\bullet}\) is the \hyperref[def:de-rham-complex]{de Rham complex} of \(M\).
 
-  By \autoref{lemma:de-rham-complex-exact} we know that \(\Omega^{\bullet}(M)\) is \hyperref[def:exact-complex]{exact}, therefore we only need to show that this resolution is \hyperref[def:exact-complex]{exact} at \(\Omega^{0}(M)\), i.e: that for all \(p \in M\)
+  By \autoref{lemma:de-rham-complex-exact} we know that \(\Omega^{\bullet}\) is \hyperref[def:exact-complex]{exact}, therefore we only need to show that this resolution is \hyperref[def:exact-complex]{exact} at \(\Omega^{0}\), i.e: that for all \(p \in M\)
   \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & \underline{\mathbb{R}}_{p} \arrow[r, "\iota_{p}"] & \Omega_{p}^{0} \arrow[r, "\mathrm{d}_{p}"] & \Omega_{p}^{1} \arrow[r] & 0
@@ -282,17 +324,20 @@
 
   Therefore since by \autoref{lemma:smooth-k-form-fine} the resolution is made of \hyperref[def:fine-sheaf]{fine sheaves} and \hyperref[prop:fine-are-acyclic]{fine sheaves are \(\Gamma(X, -)\) acyclic} by definition of \hyperref[def:sheaf-cohomology]{sheaf cohomology}
   \begin{equation*}
-      \cohomology{\bullet}(M, \underline{\mathbb{R}}) = \cohomology{\bullet}_{\operatorname{dR}}(M, \mathbb{R}) \qedhere
+      \cohomology{\bullet}(M, \underline{\mathbb{R}}_{M}) \cong \cohomology{\bullet}_{\operatorname{dR}}(M, \mathbb{R}) \qedhere
   \end{equation*}
 \end{proof}
 
+As a consequence of \autoref{ex:finiteness-de-Rham} we get the following finiteness result for \hyperref[def:sheaf-cohomology]{sheaf cohomology}.
 \begin{corollary}
-  Let \(M\) be a smooth paracompact manifold of dimension \(m\).
+  Let \(M\) be a smooth manifold of dimension \(m\).
   Then for all \(k > m\)
   \begin{equation*}
-    \cohomology{k}(M, \underline{\mathbb{R}}) = 0
+    \cohomology{k}(M, \underline{\mathbb{R}}_{M}) = 0
   \end{equation*}
 \end{corollary}
+
+To end this chapter we revisit the computation of the cohomology of the circle \(\mathbb{S}^{1}\) to verify that our results indeed hold.
 
 \begin{example}[The cohomology of \(\mathbb{S}^{1}\)]
   Consider the circle \(\mathbb{S}^{1}\) as a smooth manifold of dimension 1.
@@ -306,17 +351,17 @@
 
   On the one hand
   \begin{equation*}
-    \cohomology{0}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \ker \d^{0} = \{f \in \Omega^{0}(\mathbb{S}^{1}) \cong \mathcal{C}^{\infty}(\mathbb{S}^{1}) \mid \d f = 0\}
+    \cohomology{0}(\mathbb{S}^{1}, \underline{\mathbb{R}}_{M}) = \ker \d^{0} = \{f \in \Omega^{0}(\mathbb{S}^{1}) \cong \mathcal{C}^{\infty}(\mathbb{S}^{1}) \mid \d f = 0\}
   \end{equation*}
-  Since \(\mathbb{S}^{1}\) is connected, the only functions with 0 derivative are the constant functions.
+  Since \(\mathbb{S}^{1}\) is connected, the only functions with null derivative are the constant functions.
   Therefore
   \begin{equation*}
-    \cohomology{0}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \mathbb{R}
+    \cohomology{0}(\mathbb{S}^{1}, \underline{\mathbb{R}}_{M}) = \mathbb{R}
   \end{equation*}
 
   On the other
   \begin{equation*}
-    \cohomology{1}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \quot{\ker \d^{1}}{\im \d^{0}} = \quot{\{\omega \in \Omega^{1}(\mathbb{S}^{1}) \mid \d \omega = 0\}}{\{\d f \mid f \in \Omega^{0}(\mathbb{S}^{1}) \cong \mathcal{C}^{\infty}(\mathbb{S}^{1})\}}
+    \cohomology{1}(\mathbb{S}^{1}, \underline{\mathbb{R}}_{M}) = \quot{\ker \d^{1}}{\im \d^{0}} = \quot{\{\omega \in \Omega^{1}(\mathbb{S}^{1}) \mid \d \omega = 0\}}{\{\d f \mid f \in \Omega^{0}(\mathbb{S}^{1}) \cong \mathcal{C}^{\infty}(\mathbb{S}^{1})\}}
   \end{equation*}
 
   Note that since \(\Omega^{2}(M) = 0\) all \hyperref[def:smooth-k-form]{\(1\)-forms} \(\omega \in \Omega^{1}(\mathbb{S}^{1})\) verify \(\mathrm{d}\omega = 0\).
@@ -335,16 +380,17 @@
 
   Therefore by the first isomorphism theorem we have that
   \begin{equation*}
-    \cohomology{1}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \quot{\Omega^{1}(\mathbb{S}^{1})}{\ker I} \cong \im I = \mathbb{R}
+    \cohomology{1}(\mathbb{S}^{1}, \underline{\mathbb{R}}_{M}) = \quot{\Omega^{1}(\mathbb{S}^{1})}{\ker I} \cong \im I = \mathbb{R}
   \end{equation*}
 
   In summary, we have that
   \begin{align*}
-    \cohomology{k}(\mathbb{S}^{1}, \underline{\mathbb{R}}) = \begin{cases}
+    \cohomology{k}(\mathbb{S}^{1}, \underline{\mathbb{R}}_{M}) = \begin{cases}
       \mathbb{R} & k \in \{0, 1\} \\
       0 & k > 1
     \end{cases}
   \end{align*}
+  which agrees with the \hyperref[ex:cohomology-S1]{our previous computation using only sheaf cohomology}.
 \end{example}
 
 \end{document}

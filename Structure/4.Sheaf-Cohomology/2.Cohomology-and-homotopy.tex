@@ -10,12 +10,19 @@
 \begin{document}
 \chapter{Cohomology and homotopy}
 
-Our goal in this chapter will be to prove that \hyperref[def:sheaf-cohomology]{sheaf cohomology} is an homotopy invariant.
-We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
+If two topological spaces are continuously deformed into one another, we intuitively expect their underlying algebraic properties to remain invariant.
+In this chapter, we formalize this intuition by showing that sheaf cohomology is a homotopy invariant.
+To do this rigorously without losing the local data of our sheaves, we must generalize standard homotopy to relative topology over a base parameter space S.
+
+We do this adapting the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
+
+This results will also be useful when computing the \hyperref[def:sheaf-cohomology]{cohomology} of simple spaces as we will see later.
 
 \begin{notation}
-  We will denote \(I \coloneq [0, 1]\) the unit interval and \(I_{x} \coloneq I \times \{x\}\).
+  We will denote \(I \coloneq [0, 1]\) the unit interval.
 \end{notation}
+
+We begin first by defining what we mean for a homotopy relative to a base space.
 
 \begin{definition}\label{def:continuous-map-over}
   Let \(X\) and \(Y\) be topological spaces.
@@ -28,6 +35,8 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   \end{center}
 \end{definition}
 
+Note that this relative framework is generalization of the non-relative case, since any standard topological scenario can be viewed through a relative lens simply by taking a product with the base space as demonstrated below.
+
 \begin{example}
   Any continuous map \(f\colon X \to Y\) can be made \hyperref[def:continuous-map-over]{continuous over \(S\)} trivially by considering
   \begin{center}
@@ -39,6 +48,9 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   where \(p_{X}\) and \(p_{Y}\) are the obvious projections.
 \end{example}
 
+With relative maps defined, we can now define relative homotopies.
+A homotopy over \(S\) is a continuous deformation where every intermediate step is itself a continuous map over \(S\).
+This ensures that points do not stray out of their assigned fibers during the deformation.
 
 \begin{definition}\label{def:homotopy-over}
   Let \(X, Y\) and \(S\) be topological spaces.
@@ -68,6 +80,7 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   where \(j_{t}(z) = (z, t)\) for \(t \in \{0, 1\}\).
 \end{remark}
 
+Because \hyperref[def:homotopy-over]{homotopies} are parameterized by the unit interval, we must understand how \hyperref[def:sheaf-cohomology]{sheaf cohomology} behaves on \(I\) before establishing the global invariance theorem.
 
 \begin{lemma}\label{lemma:vanishing-cohomology-interval}
   Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{I})\). Then
@@ -101,7 +114,7 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
 
   To prove that \(J = [0, 1]\) we will see that it is both open and closed.
   \begin{itemize}
-    \item[Open] Suppose \(t_{0} \in S\). By \autoref{lemma:cohomology-compact-subsets} we have that
+    \item[Open] Suppose \(t_{0} \in J\). By \autoref{lemma:cohomology-compact-subsets} we have that
           \begin{equation*}
             \cohomology{j}([0, t_{0}]; \sheaf{F}) \cong \varinjlim_{t > t_{0}} \cohomology{j}([0, t]; \sheaf{F})
           \end{equation*}
@@ -137,6 +150,10 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   Since \(J\) is non-empty, open and closed and \([0, 1]\) is connected necessarily \(J = [0, 1]\).
   Therefore \(s = f_{0, 1}(s) = 0\).
 \end{proof}
+
+We also need a mechanism to compare sheaves across different spaces over \(S\).
+Given a relative map \(f: X \to Y\), we cannot directly compare the derived functors \(\operatorname{R}^i p_{X,*}\) and \(\operatorname{R}^i p_{Y,*}\) because they act on different \hyperref[def:sheaf]{sheaf categories} (\(\Mod(\underline{\mathbf{k}}_X)\) and \(\Mod(\underline{\mathbf{k}}_Y)\) respectively).
+To remedy this, we use the \hyperref[def:inverse-image-sheaf]{inverse image functor} \(p^{-1}\) to pull coefficients up from the base space \(S\).
 
 \begin{lemma}\label{lemma:induced-map-over}
   Let \(f\colon X \to Y\) be a \hyperref[def:continuous-map-over]{continuous map} over \(S\).
@@ -180,7 +197,7 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
 \end{proof}
 
 \begin{remark}
-  If \(S = \{\ast\}\) then \hyperref[]{\(\Sh_{\ast}(\category{C}) \simeq \category{C}\)} and \(p_{Z}^{-1} \underline{M} = \underline{M}\) for all \(M \in \category{C}\) and \(Z \in \{X, Y\}\).
+  If \(S = \{\ast\}\) then \hyperref[ex:one-point-sheaves-are-category]{\(\Sh_{\ast}(\category{C}) \simeq \category{C}\)} and \(p_{Z}^{-1} \underline{M} = \underline{M}\) for all \(M \in \category{C}\) and \(Z \in \{X, Y\}\).
 
   In this case the morphism of \autoref{lemma:induced-map-over} is
   \begin{equation*}
@@ -189,6 +206,8 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   We denote this map by \(f^{\ast}\) when there is no confusion with the \hyperref[def:direct-image-sheaf]{direct image of sheaves}.
 \end{remark}
 
+We now arrive at the central result of this chapter where we show that \hyperref[def:homotopy-over]{relative homotopies} preserve sheaf cohomology.
+This means that continuously deforming a map over \(S\) does not alter its effect on the \hyperref[def:sheaf-cohomology]{cohomology} of sheaves pulled up from \(S\).
 
 \begin{theorem}\label{thm:homotopy-invariance-cohomology}
   Let \(f_{0}, f_{1}\colon X \rightrightarrows Y\) be two \hyperref[def:homotopy-over]{homotopic maps} over \(S\).
@@ -230,7 +249,7 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   \end{equation*}
   Denote by
   \begin{equation*}
-    \alpha_{t} \coloneq \cohomology{\bullet}(g_{2})\colon \cohomology{\bullet} \left( \left( p_{X, \ast} \circ p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \right) \to \cohomology{\bullet} \left( p_{X, \ast}\left(\sheaf{J}^{\bullet}\right) \right)
+    \alpha_{t} \coloneq \cohomology{\bullet}g_{2}\colon \cohomology{\bullet} \left( \left( p_{X, \ast} \circ p_{\ast} \circ h^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \right) \to \cohomology{\bullet} \left( p_{X, \ast}\left(\sheaf{J}^{\bullet}\right) \right)
   \end{equation*}
   the induced map on cohomology of \(g_{2}\).
   Since \(g_{1}\) does not depend on \(t\), we only need to see that \(\alpha_{0} = \alpha_{1}\).
@@ -252,8 +271,8 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
   whose composition is the identity on \(p_{X}^{-1}\), which means that \(\alpha_{t}\) is induced by the identity.
   Indeed:
   \begin{itemize}
-    \item The first one comes from the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction]{\(p_{\ast} \dashv p^{-1}\)}.
-    \item Applying \(p_{\ast}\) to the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction]{\(j_{t, \ast} \dashv j^{-1}\)} we get
+    \item The first one comes from the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction]{\(p^{-1} \dashv p_{\ast}\)}.
+    \item Applying \(p_{\ast}\) to the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction]{\(j_{t}^{-1} \dashv j_{t, \ast}\)} we get
           \begin{equation*}
             p_{\ast} \isoarrow p_{\ast} \circ j_{t, \ast} \circ j_{t}^{-1} = \left( p \circ j_{t} \right)_{\ast} \circ j_{t}^{-1} = \id_{\ast} \circ j_{t}^{-1} = j_{t}^{-1}
           \end{equation*}
@@ -282,6 +301,8 @@ We adapt the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
     f^{\#, i} \circ g^{\#, i} = (\id_{X})^{\#, i} = \id \qquad g^{\#, i} \circ f^{\#, i} = \left( \id_{Y} \right)^{\#, i} = \id \qedhere
   \end{equation*}
 \end{proof}
+
+We end this chapter by giving some results that will help us compute the \hyperref[def:sheaf-cohomology]{sheaf cohomology} of simple spaces in the next chapter.
 
 \begin{corollary}\label{cor:cohomology-and-contractible}
   Let \(X\) be \hyperref[def:homotopy-over]{contractible over \(S\)}.

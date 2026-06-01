@@ -9,6 +9,26 @@
 \begin{document}
 \part{Sheaf cohomology}
 
+\chapter*{Introduction}
+\lipsum
+% The transition from sheaf theory to sheaf cohomology marks the shift from a static framework of data management to a dynamic framework of obstruction measurement.
+% While the previous chapters established that a sheaf provides a robust mechanism for analyzing localized mathematical structures, they also exposed a systemic vulnerability: the global sections functor Γ(X,−) is only left-exact.
+% If we possess a short exact sequence of sheaves on a topological space X,
+% 0⟶F′⟶F⟶F′′⟶0
+% the induced sequence of global sections routinely fails to maintain surjectivity on the right.
+% This structural defect is not a failure of the formalism, but rather an indicator of a profound geometric phenomenon.
+% It signifies that while one can always lift a local section of F′′ to a local section of F within sufficiently small neighborhoods, there exist global topological obstructions that prevent these local solutions from being patched together into a single, cohesive global section.
+
+% Sheaf cohomology is the administrative ledger that catalogs, counts, and systematically classifies these global obstructions.
+% By embedding the category of sheaves into the wider landscape of homological algebra, we realize cohomology as a sequence of right derived functors Hn(X,F):=RnΓ(X,F). The resulting long exact sequence,
+% 0⟶Γ(X,F′)⟶Γ(X,F)⟶Γ(X,F′′)⟶δ0​H1(X,F′)⟶H1(X,F)⟶…
+
+% restores exactness by utilizing the connecting homomorphisms δn. The vector spaces or modules H1(X,F′) act as the immediate landing pads for the geometric obstructions preventing local-to-global amalgamation.
+
+% The historical genesis of this machinery represents a profound unification. It originated with Georges de Rham’s discovery that the analytic properties of smooth differential forms could compute the purely combinatorial singular cohomology of a manifold. Jean Leray expanded this by demonstrating that computing the homology of a space under a continuous map required tracing coefficients that varied dynamically across the base space.
+
+% The structural breakthrough came when Alexander Grothendieck demonstrated that the category of sheaves of modules over a commutative ring contains enough injectives. This realization freed cohomology from its reliance on rigid combinatorial or simplicial structures, proving that one could compute global topological invariants using abstract homological resolutions. Consequently, sheaf cohomology emerged as the ultimate modern language for computing invariants across differential geometry, algebraic topology, and complex analysis.
+
 \subfile{1.Cohomology-of-sheaves}
 
 \subfile{2.Cohomology-and-homotopy}
