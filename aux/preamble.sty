@@ -221,6 +221,16 @@
   backrefpages = {cited on pp\adddot},
 }
 
+%% --- Conditionally Clear Fields ---
+\AtEveryBibitem{%
+  \ifentrytype{online}
+    {} % Do nothing if it's an online source (keep the URL)
+    {\clearfield{url}%      % Otherwise, clear URL
+     \clearfield{urldate}%  % Clear "visited on" date
+     \clearfield{doi}%      % Clear DOI
+     \clearfield{isbn}}%    % Clear ISBN
+}
+
 \RequirePackage{aux/notation}
 
 \newcommand{\curs}{Curs 2025/2026}

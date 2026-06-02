@@ -10,17 +10,11 @@
 
 \chapter{Derived functors}
 
-In the previous chapters, we established the categorical environment necessary to define kernels, cokernels, and exact sequences.
-We observed that while many important functors—such as the global sections functor \(\Gamma(X, \cdot)\)—preserve the "left" portion of a short exact sequence, they frequently fail to preserve the "right" portion, specifically the surjectivity of morphisms.
-
-This chapter introduces the machinery of Derived Functors, a systematic method for extending a left-exact (or right-exact) functor into a long exact sequence that accounts for this lost information.
-The construction relies on the existence of "resolutions"—infinite chains of simpler objects known as injective or projective objects.
-
-Historically, this theory was unified in the mid-20th century by Henri Cartan and Samuel Eilenberg, whose work transformed homological algebra from a collection of specific topological tools into a universal algebraic framework.
-By defining cohomology as a right derived functor, we finally arrive at the formal definition required to calculate the sheaf cohomology groups that are the central objective of this thesis.
+In this chapter \(\category{C}\) refers to an \hyperref[def:abelian-category]{abelian category}.
 
 \section{Injective and projective objects}
 
+We begin by studying objects that have nice properties with respect to \hyperref[def:exact-sequence]{exact sequence}.
 \begin{definition}\label{def:injective-projective-object}~
   Let \(\category{C}\) be a \hyperref[def:category]{category}.
   An object \(I \in \category{C}\) is \textbf{injective} if all the diagrams of the form
@@ -58,7 +52,7 @@ By defining cohomology as a right derived functor, we finally arrive at the form
   If \(\category{C}\) is any \hyperref[def:category]{category} we denote by \(\mathcal{I}_{\category{C}}\) its \hyperref[def:subcategory]{full subcategory} made of \hyperref[def:injective-projective-object]{injective objects} and by \(\mathcal{P}_{\category{C}}\) its \hyperref[def:subcategory]{full subcategory} of \hyperref[def:injective-projective-object]{projective objects}.
 \end{notation}
 
-
+A more useful characterization of this objects in terms of \hyperref[def:exact-functor]{exact functors} is the following.
 \begin{proposition}\label{prop:injective-characterization-hom}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
   An object \(I \in \category{C}\) is \hyperref[def:injective-projective-object]{injective} if and only if the functor \(\Hom_{\category{C}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
@@ -110,66 +104,18 @@ By defining cohomology as a right derived functor, we finally arrive at the form
   \end{itemize}
 \end{proof}
 
-\begin{lemma}\label{lemma:first-term-injective-splits}
-  Let
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) \hyperref[def:injective-projective-object]{injective}.
-  Then the \hyperref[prop:split-exact-sequence]{sequence splits}.
-\end{lemma}
-\begin{proof}
-  By \hyperref[def:injective-projective-object]{definition} taking \(k = \id_{X}\) there exists \(h: Y \to X\) such that \(k \circ f = \id_{X}\).
-  Then we just need to apply \autoref{prop:split-exact-sequence}.
-\end{proof}
-
-\begin{remark}
-  If \(F\colon \category{C} \to \category{D}\) is an \hyperref[def:additive-functor]{additive functor} between \hyperref[def:abelian-category]{abelian categories} and the hypothesis of \autoref{lemma:first-term-injective-splits} are satisfied the sequence
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z) \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  \hyperref[prop:split-exact-sequence]{splits} and in particular it is \hyperref[def:exact-sequence]{exact}.
-\end{remark}
-
-\begin{lemma}\label{lemma:direct-sum-injective}
-  Let \(X, Z \in \category{C}\). Then \(X \oplus Z\) is \hyperref[def:injective-projective-object]{injective} if and only if \(X\) and \(Z\) are \hyperref[def:injective-projective-object]{injective}.
-\end{lemma}
-\begin{proof}
-  This follows from the fact that if \(F, G\) are two \hyperref[def:additive-functor]{additive functors} between \hyperref[def:abelian-category]{abelian categories} then \(F \oplus G\) is \hyperref[def:exact-functor]{exact} if and only if \(F\) and \(G\) are \hyperref[def:exact-functor]{exact} and \(\Hom(-, I \oplus J) \cong \Hom(-, I) \oplus \Hom(-, J)\).
-\end{proof}
-
-\begin{proposition}
-  Let
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) and \(Z\) \hyperref[def:injective-projective-object]{injective}.
-  Then \(Y\) is \hyperref[def:injective-projective-object]{injective}.
-\end{proposition}
-\begin{proof}
-  By \autoref{lemma:first-term-injective-splits} since \(X\) is \hyperref[def:injective-projective-object]{injective} the sequence \hyperref[def:split-exact-sequence]{splits}.
-    Therefore the sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to
-    \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & X \arrow[r] & X \oplus Z \arrow[r] & Z \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  Finally since \(X\) and \(Z\) are \hyperref[def:injective-projective-object]{injective} by \autoref{lemma:direct-sum-injective} \(X \oplus Z \cong Y\) is \hyperref[def:injective-projective-object]{injective}.
-\end{proof}
-
-
+We would like to build \hyperref[def:resolution]{resolutions} using \hyperref[def:injective-projective-object]{injective} and \hyperref[def:injective-projective-object]{projective} objects.
+This is however not always possible.
 \begin{definition}\label{def:enough-injectives-projectives}~
   A \hyperref[def:category]{category} has \textbf{enough injectives} if for every object \(X \in \category{X}\) there exists an \hyperref[def:injective-projective-object]{injective object} \(I \in \mathcal{I}_{\category{C}}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow I\).
 
   Dually, \(\category{C}\) has \textbf{enough projectives} if for every object \(X \in \category{A}\) there exists a \hyperref[def:injective-projective-object]{projective object} \(P \in \mathcal{P}_{\category{C}}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow X\).
 \end{definition}
 
+Since as we will see later the category of sheaves has enough injective but not enough projectives, we will study the injective case.
+However all of the results have dual counterparts for projective objects.
+
+Assuming that we have \hyperref[def:enough-injectives-projectives]{enough injectives}, every object \(X \in \category{C}\) admits a \hyperref[def:resolution]{right resolution} \(X \to I^{\bullet}\) made of \hyperref[def:injective-projective-object]{injectives}.
 \begin{theorem}\label{thm:existence-injective-resolution}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
   Then every object \(X \in \category{C}\) admits a \hyperref[def:resolution]{right resolution} \(X \to I^{\bullet}\) where \(I^{n} \in \mathcal{I}_{\category{C}}\) is \hyperref[def:injective-projective-object]{injective} for all \(n \in \mathbb{Z}\).
@@ -217,6 +163,7 @@ By defining cohomology as a right derived functor, we finally arrive at the form
   is \hyperref[def:exact-sequence]{exact} and induction follows.
 \end{proof}
 
+Furthermore, \hyperref[def:injective-projective-object]{injective objects} allow us to extend morphisms \(f\colon X \to Y\) to morphisms \(f^{\bullet}\colon I^{\bullet} \to J^{\bullet}\) between \hyperref[def:resolution]{injective resolutions} of \(X\) and \(Y\).
 \begin{theorem}\label{thm:existence-of-lifting}
   Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
   Let \(X \xrightarrow{\varepsilon} I^{\bullet}, Y \xrightarrow{\eta} J^{\bullet}\) be two \hyperref[def:resolution]{right-resolutions} of \(X, Y \in \category{C}\).
@@ -301,6 +248,7 @@ By defining cohomology as a right derived functor, we finally arrive at the form
   Using that \(J^{n}\) is \hyperref[def:injective-projective-object]{injective} this map extends to \(h^{n+1}\colon I^{n+1} \to J^{n}\).
 \end{proof}
 
+In particular we get if two \hyperref[def:injective-projective-object]{injective complexes} \hyperref[def:resolution]{resolve} the same object \(X \in \category{C}\) their \hyperref[def:cohomology]{cohomology} is the same.
 \begin{corollary}
   Let \(I^{\bullet}, J^{\bullet}\) be two \hyperref[def:resolution]{injective resolutions} of an object \(X \in \category{C}\).
   Then
@@ -313,6 +261,84 @@ By defining cohomology as a right derived functor, we finally arrive at the form
   Therefore the result follows from \autoref{cor:homotopy-preserves-cohomology}.
 \end{proof}
 
+Before studying more in detail how \hyperref[def:injective-projective-object]{injective objects} interact with diagrams, we see that they are preserved by some \hyperref[def:adjoint-functors]{right adjoint} \hyperref[def:additive-functor]{additive functors}.
+\begin{proposition}\label{prop:adjoints-and-injectives}
+  Let \(R\colon \category{D} \to \category{C}\) be a \hyperref[def:additive-functor]{additive functor} that is \hyperref[def:adjoint-functors]{right adjoint} to an \hyperref[def:exact-functor]{exact functor} \(L\colon \category{C} \to \category{D}\).
+  If \(I \in \category{D}\) is an \hyperref[def:injective-projective-object]{injective object} then \(R(I)\) is also \hyperref[def:injective-projective-object]{injective}.
+  
+  Dually, if \(L\colon \category{C} \to \category{D}\) is an \hyperref[def:additive-functor]{additive functor} that is \hyperref[def:adjoint-functors]{left adjoint} to an \hyperref[def:exact-functor]{exact functor} \(R\colon \category{D} \to \category{C}\) and \(P \in \category{C}\) is a \hyperref[def:injective-projective-object]{projective object} then \(L(P)\) is also \hyperref[def:injective-projective-object]{projective}.
+\end{proposition}
+\begin{proof}
+  By \autoref{prop:injective-characterization-hom} we want to show that \(\Hom_{\category{C}}(-, R(I))\) is \hyperref[def:exact-functor]{exact}.
+  
+  Given a \hyperref[def:mono-epi-morphism]{monomorphism} \(f\colon X \to Y\) in \(\category{C}\) we have
+  \begin{center}
+    \begin{tikzcd}
+      \Hom_{\category{D}}(L(Y), I) \arrow[d, "\sim"'] \arrow[r, "Lf^{\ast}"] & \Hom_{\category{D}}(L(A), I) \arrow[d, "\sim"] \\
+      \Hom_{\category{C}}(Y, R(I)) \arrow[r, "f^{\ast}"'] & \Hom_{\category{C}}(A, R(I))
+    \end{tikzcd}
+  \end{center}
+  Since \(L\) is \hyperref[def:exact-functor]{exact} and \(I\) is \hyperref[def:injective-projective-object]{injective} \(Lf^{\ast}\) is surjective.
+  Therefore \(f^{\ast}\) is surjective and the result follows.
+\end{proof}
+
+\subsection{More diagram lemmas}
+
+Our first observation is that injective objects are closely related to \hyperref[def:split-exact-sequence]{split sequences}.
+\begin{lemma}\label{lemma:first-term-injective-splits}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r, "f"] & Y \arrow[r, "g"] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) \hyperref[def:injective-projective-object]{injective}.
+  Then the \hyperref[prop:split-exact-sequence]{sequence splits}.
+\end{lemma}
+\begin{proof}
+  By \hyperref[def:injective-projective-object]{definition} taking \(k = \id_{X}\) there exists \(h: Y \to X\) such that \(k \circ f = \id_{X}\).
+  Then we just need to apply \autoref{prop:split-exact-sequence}.
+\end{proof}
+
+\begin{remark}
+  If \(F\colon \category{C} \to \category{D}\) is an \hyperref[def:additive-functor]{additive functor} between \hyperref[def:abelian-category]{abelian categories} and the hypothesis of \autoref{lemma:first-term-injective-splits} are satisfied the sequence
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  \hyperref[prop:split-exact-sequence]{splits} and in particular it is \hyperref[def:exact-sequence]{exact}.
+\end{remark}
+
+\begin{lemma}\label{lemma:direct-sum-injective}
+  Let \(X, Z \in \category{C}\). Then \(X \oplus Z\) is \hyperref[def:injective-projective-object]{injective} if and only if \(X\) and \(Z\) are \hyperref[def:injective-projective-object]{injective}.
+\end{lemma}
+\begin{proof}
+  This follows from the fact that if \(F, G\) are two \hyperref[def:additive-functor]{additive functors} between \hyperref[def:abelian-category]{abelian categories} then \(F \oplus G\) is \hyperref[def:exact-functor]{exact} if and only if \(F\) and \(G\) are \hyperref[def:exact-functor]{exact} and \(\Hom(-, I \oplus J) \cong \Hom(-, I) \oplus \Hom(-, J)\).
+\end{proof}
+
+\begin{proposition}
+  Let
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  be a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) with \(X\) and \(Z\) \hyperref[def:injective-projective-object]{injective}.
+  Then \(Y\) is \hyperref[def:injective-projective-object]{injective}.
+\end{proposition}
+\begin{proof}
+  By \autoref{lemma:first-term-injective-splits} since \(X\) is \hyperref[def:injective-projective-object]{injective} the sequence \hyperref[def:split-exact-sequence]{splits}.
+    Therefore the sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to
+    \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & X \oplus Z \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Finally since \(X\) and \(Z\) are \hyperref[def:injective-projective-object]{injective} by \autoref{lemma:direct-sum-injective} \(X \oplus Z \cong Y\) is \hyperref[def:injective-projective-object]{injective}.
+\end{proof}
+
+Using this we can prove the Horseshoe lemma, which allows us to extend \hyperref[def:exact-sequence]{short exact sequences} between objects to \hyperref[def:exact-sequence]{short exact sequences} between their \hyperref[def:resolution]{injective resolutions}.
 \begin{theorem}[Horseshoe lemma]\label{thm:horseshoe}
   Consider a commutative diagram
   \begin{center}
@@ -425,31 +451,27 @@ By defining cohomology as a right derived functor, we finally arrive at the form
   A diagramatic proof of (the dual of) this result can be seen at \cite[Lemma 2.8.8]{weibelIntroductionHomologicalAlgebra1994}.
 \end{remark}
 
-\begin{proposition}\label{prop:adjoints-and-injectives}
-  Let \(R\colon \category{D} \to \category{C}\) be a \hyperref[def:additive-functor]{additive functor} that is \hyperref[def:adjoint-functors]{right adjoint} to an \hyperref[def:exact-functor]{exact functor} \(L\colon \category{C} \to \category{D}\).
-  If \(I \in \category{D}\) is an \hyperref[def:injective-projective-object]{injective object} then \(R(I)\) is also \hyperref[def:injective-projective-object]{injective}.
-  
-  Dually, if \(L\colon \category{C} \to \category{D}\) is an \hyperref[def:additive-functor]{additive functor} that is \hyperref[def:adjoint-functors]{left adjoint} to an \hyperref[def:exact-functor]{exact functor} \(R\colon \category{D} \to \category{C}\) and \(P \in \category{C}\) is a \hyperref[def:injective-projective-object]{projective object} then \(L(P)\) is also \hyperref[def:injective-projective-object]{projective}.
-\end{proposition}
-\begin{proof}
-  By \autoref{prop:injective-characterization-hom} we want to show that \(\Hom_{\category{C}}(-, R(I))\) is \hyperref[def:exact-functor]{exact}.
-  
-  Given a \hyperref[def:mono-epi-morphism]{monomorphism} \(f\colon X \to Y\) in \(\category{C}\) we have
-  \begin{center}
-    \begin{tikzcd}
-      \Hom_{\category{D}}(L(Y), I) \arrow[d, "\sim"'] \arrow[r, "Lf^{\ast}"] & \Hom_{\category{D}}(L(A), I) \arrow[d, "\sim"] \\
-      \Hom_{\category{C}}(Y, R(I)) \arrow[r, "f^{\ast}"'] & \Hom_{\category{C}}(A, R(I))
-    \end{tikzcd}
-  \end{center}
-  Since \(L\) is \hyperref[def:exact-functor]{exact} and \(I\) is \hyperref[def:injective-projective-object]{injective} \(Lf^{\ast}\) is surjective.
-\end{proof}
-
-
 \section{Derived functors}
 In this section \(\category{C}\) and \(\category{D}\) will be \hyperref[def:abelian-category]{abelian categories}, which we will assume that \hyperref[def:enough-injectives-projectives]{have enough injectives}.
 
 We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \category{C} \to \category{D}\), but there are dual definitions and statements for \hyperref[def:exact-functor]{right-exact functors} assuming \(\category{C}\) and \(\category{D}\) \hyperref[def:enough-injectives-projectives]{have enough projectives}.
 
+If
+\begin{equation*}
+  0 \to X \xrightarrow{f} Y \xrightarrow{g} Z \to 0
+\end{equation*}
+is a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\) we have an associated \hyperref[def:exact-sequence]{exact sequence}.
+\begin{equation*}
+  0 \to F(X) \xrightarrow{Ff} F(Y) \xrightarrow{Fg} F(Z)
+\end{equation*}
+Our objective is to see how we can extend this sequence to the right.
+A naive approach would be to do something like this
+\begin{equation*}
+  0 \to F(X) \xrightarrow{Ff} F(Y) \xrightarrow{Fg} F(Z) \to \operatorname{Coim} Fg \to 0
+\end{equation*}
+However we lose to much information by doing so.
+
+The machinery that enables us to extend this sequences are derived functors.
 \begin{definition}\label{def:right-derived-functor}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
   Let \(F\colon \category{C} \to \category{D}\) be a \hyperref[def:exact-functor]{left-exact functor}.
@@ -488,6 +510,7 @@ We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \ca
   Indeed, one can resolve \(X\) by \(0 \to X \to X \to 0\).
 \end{remark}
 
+As a sanity check, we see that taking the \hyperref[def:right-derived-functor]{right derived functor} still gives us an \hyperref[def:additive-functor]{additive functor}.
 \begin{proposition}
   For all \(i \geq 0\) the \hyperref[def:right-derived-functor]{right derived functors} \(\operatorname{R}^{i}F\colon \category{C} \to \category{D}\) are \hyperref[def:additive-functor]{additive}.
 \end{proposition}
@@ -500,6 +523,7 @@ We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \ca
   \end{equation*}
 \end{proof}
 
+Having seen this and using the properties of \hyperref[def:injective-projective-object]{injective objects} we now prove that this machinery works for our goal.
 \begin{theorem}\label{thm:LES-derived-functor}
   Let
   \begin{center}
@@ -559,11 +583,15 @@ We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \ca
         |- (Y) [near end]\tikztonodes
         -| ([xshift=-2ex]\tikztotarget.west)
         -- (\tikztotarget)}] \\
-      & \operatorname{R}^{2}F(X) \arrow[r] & \operatorname{R}^{2}F(Y) \arrow[r] & \cdots \qedhere
+      & \operatorname{R}^{2}F(X) \arrow[r] & \operatorname{R}^{2}F(Y) \arrow[r] & \cdots 
     \end{tikzcd}
-  \end{center}
+  \end{center} \qedhere
 \end{proof}
 
+If we tried to compute \hyperref[def:right-derived-functor]{right derived functors} directly using the definition we would soon run into problems.
+Indeed even though \hyperref[thm:existence-injective-resolution]{injective resolutions exist} we don't know a priori how complicated the \hyperref[def:injective-projective-object]{injective objects} of our \hyperref[def:category]{category} are.
+
+As we are going to see, the computation of \hyperref[def:right-derived-functor]{right derived functors} on objects can be done by replacing \hyperref[def:resolution]{injective resolutions} with \hyperref[def:resolution]{right resolutions} made of objects with vanishing \hyperref[def:cohomology]{cohomology}.
 \begin{definition}\label{def:F-acyclic-object}
   An object \(Q \in \category{C}\) is \textbf{\(F\)-acyclic} if for all \(i > 0\)
   \begin{equation*}
@@ -573,7 +601,7 @@ We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \ca
 \end{definition}
 
 \begin{theorem}\label{thm:right-derived-functor-using-acyclics}
-  Let \(Q^{\bullet}\) be a \hyperref[def:F-acyclic-object]{\(F\)-acylic resolution} of \(X \in \category{C}\).
+  Let \(Q^{\bullet}\) be an \hyperref[def:F-acyclic-object]{\(F\)-acylic resolution} of \(X \in \category{C}\).
   Then for all \(i \geq 0\)
   \begin{equation*}
     \operatorname{R}^{i}F(X) \cong \cohomology{i}(F(Q^{\bullet}))
@@ -671,6 +699,14 @@ We will consider \hyperref[def:exact-functor]{left-exact functors} \(F\colon \ca
   \end{align*}
 \end{proof}
 
+\begin{remark}
+  One may be tempted to define \hyperref[def:right-derived-functor]{right derived functors} directly by computing the \hyperref[def:cohomology]{cohomology} using \hyperref[def:resolution]{acylic resolution} instead of \hyperref[def:injective-projective-object]{injective} ones.
+
+  However using this definition is not clear (or at least it is not clear to the author) how would one define its action on a morphism since for non-injective objects the \hyperref[thm:existence-of-lifting]{existence of a lifting} is not guaranteed.
+\end{remark}
+
+We end this chapter by considering the composition of \hyperref[def:right-derived-functor]{right derived functors}.
+Since in general \(F(I)\) will not be \hyperref[def:injective-projective-object]{injective} even if \(I\) is (see \autoref{prop:adjoints-and-injectives}), we need to add more conditions on the \hyperref[def:category]{categories} and \hyperref[def:functor]{functors} for the composition to be well defined.
 \begin{theorem}\label{thm:derived-functor-composition}
   Let \(F\colon \category{C} \to \category{D}\) and \(G\colon \category{D} \to \category{E}\) be two \hyperref[def:exact-functor]{left exact} functors of \hyperref[def:abelian-category]{abelian categories}.
   Suppose that \(\category{C}\) and \(\category{D}\) \hyperref[def:enough-injectives-projectives]{have enough injectives}.

@@ -8,14 +8,10 @@
 \begin{document}
 \chapter{Abelian categories}
 
-While additive categories allowed us to perform linear algebra with morphisms, they did not yet guarantee the existence of the quotients and subspaces necessary for advanced analysis.
-In this chapter, we focus on Abelian Categories—a class of categories where kernels and cokernels are always present and behave exactly as they do in the category of abelian groups \(\Ab\).
+We continue now our goal of generalizing the category of modules to a more general \hyperref[def:category]{category}.
+To do this we consider now \hyperref[def:additive-category]{additive categories} where the first isomorphism theorem works.
 
-Originally axiomatized by Alexander Grothendieck in his 1957 "Tôhoku" paper \cite{grothendieckAspectsHomologicalAlgebraa}, this framework allows us to perform homological algebra without referring to the internal elements of objects.
-This abstraction is vital for sheaf theory, as the category of sheaves on a topological space \(\Sh(X)\) is abelian, yet its objects are not simply sets.
-Here, we define the hallmark of this environment: the Exact Sequence.
-These sequences allow us to track the flow of information between objects and, crucially, to identify when information is "lost"—a phenomenon measured by the Cohomology groups we define at the end of this chapter.
-
+Before doing so, we fix some terminology and notation around the necessary building blocks of this theorem.
 \begin{definition}
   Let \(f\colon X \to Y\) be a morphism in an \hyperref[def:additive-category]{additive category} \(\category{C}\) that admits \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels}.
   Consider the following
@@ -43,7 +39,7 @@ These sequences allow us to track the flow of information between objects and, c
   \end{equation*}
 \end{definition}
 
-
+Now we are ready to define our categories of interest.
 \begin{definition}[Abelian category]\label{def:abelian-category}
   An \hyperref[def:additive-category]{additive category} \(\category{C}\) is \textbf{abelian} if it verifies
   \begin{enumerate}[label=Ab.\arabic*), ref=Ab.\arabic*]
@@ -52,17 +48,17 @@ These sequences allow us to track the flow of information between objects and, c
   \end{enumerate}
 \end{definition}
 
+As a direct consecuence of \autoref{thm:existence-finite-limits-colimits} we obtain that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} exist in these \hyperref[def:category]{categories}
 \begin{lemma}\label{lemma:abelian-admits-limits-colimits}
   An \hyperref[def:abelian-category]{abelian category} admits all finite \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits}.
 \end{lemma}
-\begin{proof}
-  Direct from \autoref{thm:existence-finite-limits-colimits}.
-\end{proof}
 
+In the category of modules, an easy way to check whether homomorphisms are \hyperref[def:mono-epi-morphism]{monomorphisms} (resp. \hyperref[def:mono-epi-morphism]{epimorphisms}) is to check their \hyperref[def:categorical-kernel]{kernels} (resp. \hyperref[def:categorical-kernel]{cokernels}).
+This still works in \hyperref[def:abelian-category]{abelian categories}.
 \begin{lemma}\label{lemma:partial-sequence-abelian}
   Let \(f\colon X \to Y\) be a morphism in an \hyperref[def:abelian-category]{abelian category}. Then \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if \(0 \to X\) is its \hyperref[def:categorical-kernel]{kernel}.
 
-  \hyperref[def:dual]{Dually} \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if \(Y \to 0\) is its \hyperref[def:categorical-cokernel]{cokernel}.
+  \hyperref[def:dual]{Dually}, \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if \(Y \to 0\) is its \hyperref[def:categorical-cokernel]{cokernel}.
 \end{lemma}
 \begin{proof}
   We will do the \hyperref[def:categorical-kernel]{kernel} one.
@@ -85,6 +81,7 @@ These sequences allow us to track the flow of information between objects and, c
   \end{itemize}
 \end{proof}
 
+As in the case of \hyperref[def:additive-category]{additive categories}, \hyperref[def:functor-category]{functor categories} play nicely with \hyperref[def:abelian-category]{abelian categories}.
 
 \begin{proposition}\label{prop:functor-category-is-abelian}
   Let \(\category{I}\) be a \hyperref[def:small-category]{small category} and \(\category{C}\) an \hyperref[def:abelian-category]{abelian category}.
@@ -98,14 +95,15 @@ These sequences allow us to track the flow of information between objects and, c
   Finally since \(\operatorname{Coim} f(i) \isoarrow \operatorname{Im} f(i)\) for all \(i \in \category{I}\) we have that \(\operatorname{Coim} f \isoarrow \operatorname{Im} f\).
 \end{proof}
 
+Furthermore since \hyperref[def:categorical-kernel]{kernel}, \hyperref[def:categorical-cokernel]{cokernels} and \hyperref[def:direct-sum]{direct sums} are computed term-wise we directly obtain that \(\Complex[\ast]{\category{C}}\) is \hyperref[def:abelian-category]{abelian}.
 \begin{corollary}\label{cor:complex-category-is-abelian}
   If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:complex]{categories of complexes} \(\Complex[\ast]{\category{C}}\) (\(\ast = +, -, \operatorname{b}\)) are \hyperref[def:abelian-category]{abelian}.
 \end{corollary}
-\begin{proof}
-  Direct since by \autoref{prop:functor-category-is-abelian} the \hyperref[def:differential-object]{category of differential objects} \(\operatorname{Diff}(\category{C})\) is \hyperref[def:abelian-category]{abelian} and \hyperref[def:categorical-kernel]{kernel}, \hyperref[def:categorical-cokernel]{cokernels} and \hyperref[def:direct-sum]{direct sums} are computed term-wise.
-\end{proof}
+
+\section{Exactness}
 
 In what remains of the chapter we will assume that \(\category{C}\) is an \hyperref[def:abelian-category]{abelian category}.
+
 
 \begin{definition}\label{def:exact-sequence}~
 \begin{enumerate}
@@ -138,6 +136,8 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
   Indeed, by definition we have \(\operatorname{Coim} f = \coker \left( \ker f \to X \right)\) and \(\operatorname{Im} = \ker (Y \to \coker f)\).
 \end{example}
 
+A stronger condition than \hyperref[def:exact-sequence]{exactness} is split exactness.
+Roughly speaking, a short exact sequence is split exact if the only information is at its ends.
 \begin{proposition}\label{prop:split-exact-sequence}
   Let
   \begin{center}
@@ -174,9 +174,8 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
   \end{enumerate}
 \end{proof}
 
-
-\section{Exact functors}
-
+When studying \hyperref[def:exact-sequence]{exactness} between different \hyperref[def:category]{categories} we don't want to loose information on whether a sequence is \hyperref[def:exact-sequence]{exact} or not.
+Therefore the correct notion of \hyperref[def:functor]{functors} in this case is that of exact functors.
 \begin{definition}\label{def:exact-functor}
   Let \(\category{C}, \category{D}\) be two \hyperref[def:abelian-category]{abelian categories} and
   \begin{center}
@@ -206,7 +205,7 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
 \end{definition}
 
 We state the following characterization of \hyperref[def:exact-functor]{exact functors}, which we will not prove.
-\begin{lemma}[{\cite[Lemma 5.2.2]{schapiraIntroductionCategoriesSheaves}}]\label{lemma:characterization-exact-functor}
+\begin{lemma}[{\cite[Lemma 5.2.1]{kashiwaraIntroductionCategoriesHomological}}]\label{lemma:characterization-exact-functor}
   Let \(F\colon \category{C} \to \category{D}\) be an \hyperref[def:additive-functor]{additive functor}.
   \begin{enumerate}
     \item The following are equivalent
@@ -214,7 +213,7 @@ We state the following characterization of \hyperref[def:exact-functor]{exact fu
             \item \(F\) is \hyperref[def:exact-functor]{left exact} (resp. \hyperref[def:exact-functor]{right exact}).
             \item \(F\) commutes with \hyperref[def:categorical-kernel]{kernels}: for any morphism \(f\colon X \to Y\), \(F(\ker f) \isoarrow \ker Ff\) (resp. with \hyperref[def:categorical-cokernel]{cokernels}).
             \item \(F\) commutes with \hyperref[def:categorical-limit]{finite limits} (resp. \hyperref[def:categorical-colimit]{finite colimits}).
-            \item For any \hyperref[def:exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z \to 0\) in \(\category{C}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-sequence]{exact} in \(\category{D}\) (resp. \(F(X) \to F(Y) \to F(Z) \to 0\) is \hyperref[def:exact-sequence]{exact}).
+            \item For any \hyperref[def:exact-sequence]{short exact sequence} \(0 \to X \to Y \to Z\) (resp. \(X \to Y \to Z \to 0\)) in \(\category{C}\) the sequence \(0 \to F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-sequence]{exact} in \(\category{D}\) (resp. \(F(X) \to F(Y) \to F(Z) \to 0\) is \hyperref[def:exact-sequence]{exact}).
           \end{enumerate}
     \item  The following are equivalent
           \begin{enumerate}
@@ -269,9 +268,9 @@ However using the \hyperref[thm:freyd-mitchell]{Freyd-Mitchell embedding theorem
 \end{theorem}
 
 In short, to prove something about a diagram in an abelian category we may assume that we are working on the category of modules over a ring \(R\) and then diagram-chase elements.
-Furthermore, any fact about kernels, cokernels and so one that hold on \(\Mod(A)\) also holds in any abelian category.
+Furthermore, any fact about kernels, cokernels and so one that hold on \(\Mod(R)\) also holds in any abelian category.
 
-Another strategy to prove things in abelian categories is the \textit{philosophy of generalized elements} \cite[Theorem VIII.4.3]{maclaneCategoriesWorkingMathematician1978}.
+Another strategy to prove statements in \hyperref[def:abelian-categories]{abelian categories} is the \textit{philosophy of generalized elements} \cite[Theorem VIII.4.3]{maclaneCategoriesWorkingMathematician1978}.
 
 \begin{lemma}[Five lemma]\label{lemma:five-lemma}
   Consider a commutative diagram
@@ -349,6 +348,9 @@ Another strategy to prove things in abelian categories is the \textit{philosophy
 
 Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex[\ast]{\category{C}}\) are abelian for \(\ast = +, -, \operatorname{b}, \operatorname{ub}\)}.
 
+Since for a \hyperref[def:complex]{complex} \(X^{\bullet}\) we always have \(\operatorname{Im} \d_{X}^{n} \subseteq \ker \d_{X}^{n-1}\) for all \(n \in \mathbb{N}\), there is a failure of \hyperref[def:exact-sequence]{exactness} if and only if \(\operatorname{Im} \d_{X}^{n} \neq \ker \d_{X}^{n-1}\).
+We introduce cohomology as a way of measuring how far away is a \hyperref[def:complex]{complex} from being \hyperref[def:exact-sequence]{exact}.
+
 \begin{definition}[Cohomology]\label{def:cohomology}
   Let
   \begin{center}
@@ -364,13 +366,32 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
     \cohomology{n}(X^{\bullet}) &\coloneq \quot{Z^{n}(X^{\bullet})}{B^{n}(X^{\bullet})} = \coker(B^{n}(X^{\bullet}) \to Z^{n}(X^{\bullet}))
   \end{align*}
   We call \(\cohomology{n}(X^{\bullet})\) the \(n\)-th \textbf{cohomology} of \(X^{\bullet}\).
+
+  Note that this defines a \hyperref[def:functor]{functor} \(\cohomology{n}\colon \Complex{\category{C}} \to \category{C}\).
 \end{definition}
 
 \begin{remark}
   A \hyperref[def:complex]{complex} \(X^{\bullet}\) is \hyperref[def:exact-sequence]{exact} at \(X^{n}\) if and only if \(\cohomology{i}(X^{\bullet}) = 0\).
 \end{remark}
 
+\begin{remark}\label{rem:short-exact-sequence-cohomology}
+  We have \hyperref[def:exact-sequence]{short exact sequences}
+  \begin{center}
+    \begin{tikzcd}
+      X^{n-1} \arrow[r, "\d_{X}^{n-1}"] & \ker \d_{X}^{n} \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & 0 \\
+      0 \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & \coker \d_{X}^{n-1} \arrow[r, "\d_{X}^{n}"] & X^{n+1}
+    \end{tikzcd}
+  \end{center}
 
+  We can glue this into an \hyperref[def:exact-sequence]{exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & \coker \d_{X}^{n-1} \arrow[r, "\d_{X}^{n}"] & \ker \d_{X}^{n+1} \arrow[r] & \cohomology{n+1}(X^{\bullet}) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+\end{remark}
+
+The first thing we are going to see is that \hyperref[def:cohomology]{cohomology} is a \hyperref[def:complex-homotopy]{homotopy} invariant.
 \begin{lemma}\label{lemma:extension-cohomology-homotopy}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} and \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) a morphism in \(\Complex{\category{C}}\) \hyperref[def:homotopy]{homotopic to zero}.
   Then \(\cohomology{n}f^{\bullet}\colon \cohomology{n}(X^{\bullet}) \to \cohomology{n}(Y^{\bullet})\) is the \hyperref[def:zero-object]{zero morphism} for all \(n \in \mathbb{Z}\).
@@ -384,7 +405,7 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
   \end{equation*}
   Then \(\d_{X}^{n} = 0\) in \(\ker \d_{X}^{n}\) and the image of \(\d_{Y}^{n-1}\) is zero on \(\quot{\ker \d_{Y}^{n}}{\operatorname{Im} \d_{Y}^{n-1}}\).
   
-  Therefore \(\cohomology{n}f: \quot{Z^{n}(X^{\bullet})}{B^{n}(X^{\bullet})} \to \quot{Z^{n}(Y^{\bullet})}{B^{n}(Y^{\bullet})}\) is the zero morphism.
+  Therefore \(\cohomology{n}f^{\bullet}: \quot{Z^{n}(X^{\bullet})}{B^{n}(X^{\bullet})} \to \quot{Z^{n}(Y^{\bullet})}{B^{n}(Y^{\bullet})}\) is the zero morphism.
 \end{proof}
 
 \begin{corollary}\label{cor:homotopy-preserves-cohomology}
@@ -407,7 +428,9 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
   which means that \(\cohomology{n}f^{\bullet}\) and \(\cohomology{n}g^{\bullet}\) are inverses of each other.
 \end{proof}
 
-
+Since \hyperref[def:cohomology]{cohomology is a functor} we can also study how it acts on morphisms.
+For some of these morphisms, the resulting \hyperref[def:cohomology]{cohomology objects} will be the same and thus they are ``equivalent'' in some sense.
+This leads to the notion of a quasi-isomorphism.
 \begin{definition}[Quasi-isomorphism]\label{def:quasi-isomorphism}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
   A morphism \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) is a \textbf{quasi-isomorphism} (abbreviated q.is) if \(\cohomology{n}f^{\bullet}\) is an \hyperref[def:categorical-isomorphism]{isomorphism} for all \(n \in \mathbb{Z}\).
@@ -416,6 +439,8 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
   In particular \(X^{\bullet}\) is quasi-isomorphic to zero if and only if \(X^{\bullet}\) is \hyperref[def:exact-sequence]{exact}.
 \end{definition}
 
+Recall that we can identify an object \(X \in \category{C}\) with a complex \(\cdots \to  0 \to X \to 0 \to \cdots\).
+Using \hyperref[def:quasi-isomorphism]{quasi-isomorphisms} we can associated this bounded complex an associated unbounded complex that has the same \hyperref[def:cohomology]{cohomology}.
 \begin{definition}[Resolution]\label{def:resolution}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} and \(X \in \category{C}\).
   A \textbf{right resolution} of \(X\) is a \hyperref[def:quasi-isomorphism]{quasi-isomorphism} \(X \to Y^{\bullet}\) with \(Y^{\bullet} \in \Complex[+]{\category{C}}\).
@@ -433,26 +458,16 @@ Recall that \hyperref[cor:complex-category-is-abelian]{the categories \(\Complex
       \cdots \arrow[r] & 0 \arrow[r] & Y^{0} \arrow[r] & Y^{1} \arrow[r] & \cdots
     \end{tikzcd}
   \end{center}
-\end{remark}
-
-\begin{remark}\label{rem:short-exact-sequence-cohomology}
-  We have \hyperref[def:exact-sequence]{short exact sequences}
+  Note that this is exactly the same data as an \hyperref[def:exact-sequence]{exact complex}
   \begin{center}
     \begin{tikzcd}
-      X^{n-1} \arrow[r, "\d_{X}^{n-1}"] & \ker \d_{X}^{n} \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & 0 \\
-      0 \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & \coker \d_{X}^{n-1} \arrow[r, "\d_{X}^{n}"] & X^{n+1}
-    \end{tikzcd}
-  \end{center}
-
-  We can glue this into an \hyperref[def:exact-sequence]{exact sequence}
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & \cohomology{n}(X^{\bullet}) \arrow[r] & \coker \d_{X}^{n-1} \arrow[r, "\d_{X}^{n}"] & \ker \d_{X}^{n+1} \arrow[r] & \cohomology{n+1}(X^{\bullet}) \arrow[r] & 0
+      0 \arrow[r] & X \arrow[r, "\varepsilon"] & Y^{0} \arrow[r] & Y^{1} \arrow[r] & \cdots
     \end{tikzcd}
   \end{center}
 \end{remark}
 
-\begin{theorem}\label{thm:LES-in-cohomology}
+We end the chapter with a key result: taking \hyperref[def:cohomology]{cohomology} transforms a \hyperref[def:exact-sequence]{short exact sequence} into a \hyperref[def:exact-sequence]{long exact sequence} in a functorial way.
+\begin{theorem}[Long exact sequence in cohomology]\label{thm:LES-in-cohomology}
   Let
   \begin{center}
     \begin{tikzcd}

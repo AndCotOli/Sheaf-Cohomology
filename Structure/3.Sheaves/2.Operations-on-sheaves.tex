@@ -318,8 +318,8 @@ From \hyperref[thm:direct-inverse-image-adjunction-sheaf]{the adjunction \(f^{-1
 \end{corollary}
 
 
-Using this adjunction by \autoref{ex:adjoint-functors-exact} we have that \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
-However as the next example shows it is in general \hyperref[def:exact-functor]{exact}.
+Using this adjunction by \autoref{ex:adjoint-functors-and-exactness} we have that \(\Gamma(X, -)\) is \hyperref[def:exact-functor]{left exact}.
+However as the next example shows it is in general not \hyperref[def:exact-functor]{right exact}.
 \begin{example}
   Let \(X \coloneq \mathbb{C} \setminus \{0\}\) and consider \(\underline{\mathbb{Z}}_{X}\) the \hyperref[def:constant-sheaf]{constant sheaf} of integers, \(\sheaf{O}_{X}\) the \hyperref[def:sheaf]{sheaf} of holomorphic functions and \(\sheaf{O}_{X}^{\ast}\) the  \hyperref[def:sheaf]{sheaf} of non-vanishing holomorphic functions on \(X\).
 
@@ -480,7 +480,7 @@ We begin by giving a more explicit description for both the sections and \hyperr
   \end{align*}
 \end{proof}
 
-This characterization allows us to construct another \hyperref[def:adjoint-functors]{adjoint functor} \(j_{!}\) (pronunced \(j\) ``shriek'') to \(j^{-1}\), in this case with \(j^{-1} \dashv j_{!}\).
+This characterization allows us to construct another \hyperref[def:adjoint-functors]{adjoint functor} \(j_{!}\) (pronunced \(j\) lower ``shriek'') to \(j^{-1}\), in this case with \(j^{-1} \dashv j_{!}\).
 Let's do it first for the \hyperref[def:presheaf]{presheaf} case.
 
 \begin{definition}\label{def:extension-by-zero-presheaf}
@@ -814,7 +814,7 @@ With this in mind we can construct another \hyperref[def:adjoint-functor]{adjoin
 \end{proof}
 
 Note that for closed immersions we have \hyperref[def:adjoint-functor]{adjunctions} \hyperref[thm:closed-immersion-adjunction]{\(i^{-1} \dashv i_{\ast} \dashv i^{!}\)}.
-Therefore directly by \autoref{ex:adjoint-functors-exact} we have:
+Therefore directly by \autoref{ex:adjoint-functors-and-exactness} we have:
 \begin{corollary}\label{cor:closed-immersion-exact}
   If \(\category{C}\) is \hyperref[def:abelian-category]{abelian} then the \hyperref[def:direct-image-sheaf]{direct image sheaf functor}
   \begin{equation*}

@@ -6,19 +6,15 @@
 
 \begin{document}
 
+
 \chapter{Additive categories}
 
-The general category theory developed in \autoref{part:category-theory} provides a powerful language for describing universal properties, but it is too broad to support the specific operations of homological algebra.
-To define a "complex" or to "sum" two different ways of mapping one object to another, we need a category that possesses an internal algebraic structure.
-This leads us to the concept of Additive Categories.
+In the previous chapter, we established the abstract language of categories, emphasizing that the structure of a mathematical ecosystem is governed by its morphisms rather than its internal elements.
+We now turn our attention to categories where the collections of morphisms possess an algebraic structure of their own.
+In many familiar environments, such as the category of abelian groups or modules over a ring, parallel morphisms can be added together and subtracted.
+Formalizing this observation leads us to the concept of an additive category.
 
-The formalization of these categories was driven by the need to treat various mathematical environments—such as abelian groups, modules over a ring, and eventually sheaves—using a single, unified machinery.
-Historically, this transition was solidified in the 1950s as mathematicians like Saunders Mac Lane and Alexander Grothendieck sought to axiomatize the "linear" behavior found in topology and algebra.
-In this chapter, we transition from categories where \(\Hom(X, Y)\) is merely a set to those where it is an abelian group.
-This simple enrichment has profound consequences: it allows us to represent morphisms as matrices and, most importantly, it permits the construction of chain complexes.
-These complexes are the fundamental objects of study in this part of the thesis; they are the "chains" whose links we will measure to extract the cohomological information of a space. 
-
-
+The defining trait of an additive category is that its hom-sets are not merely sets; they are abelian groups, and this algebraic framework plays nicely with morphism composition
 \begin{definition}[Additive category]\label{def:additive-category}
   A \hyperref[def:category]{category} \(\category{C}\) is \textbf{additive} if it satisfies
   \begin{enumerate}[label=Ad.\arabic*), ref=Ad.\arabic*]
@@ -40,6 +36,9 @@ These complexes are the fundamental objects of study in this part of the thesis;
 \begin{notation}\label{def:direct-sum}
   If \(X, Y \in \category{C}\) we denote by \(X \oplus Y\) its \hyperref[def:categorical-coproduct]{coproduct} and call it their \textbf{direct sum}.
 \end{notation}
+
+In an arbitrary \hyperref[def:category]{category}, \hyperref[def:categorical-product]{products} and \hyperref[def:categorical-coproduct]{coproducts} are completely independent structures.
+However, the presence of an underlying abelian group structure on hom-sets forces these two notions to seamlessly collapse into one another.
 
 \begin{lemma}\label{lemma:products-coproducts-additive-category}
   Let \(\category{C}\) be a \hyperref[def:category]{category} satisfying \ref{axiom:additive-hom} and \ref{axiom:additive-zero}.
@@ -110,7 +109,8 @@ These complexes are the fundamental objects of study in this part of the thesis;
   Using that \(\sum_{k} i_{k} \circ p_{k} = 1\), it follows that addition and composition of matrices obey the usual rules of matrix addition and multiplication respectively.
 \end{remark}
 
-
+Without elements to test, checking whether a morphism is \hyperref[def:mono-epi-morphism]{monic} or \hyperref[def:mono-epi-morphism]{epic} might seem daunting.
+Fortunately, the group structure of our hom-sets gives us a clean, element-free translation of injectivity and surjectivity based entirely on the zero morphism.
 \begin{lemma} \label{lemma:mono-epi-additive}
   A morphism \(f\colon X \to Y\) in an \hyperref[def:additive-category]{additive category} is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if for every morphism \(g\colon Z \to X\)
   \begin{equation*}
@@ -137,6 +137,7 @@ These complexes are the fundamental objects of study in this part of the thesis;
   \end{itemize}
 \end{proof}
 
+Being \hyperref[def:additive-category]{additive} also works well when considering \hyperref[def:functor-category]{functor categories}.
 \begin{lemma}\label{lemma:functor-category-is-additive}
   Let \(\category{I}\) be a \hyperref[def:small-category]{small category}.
   If \(\category{C}\) is \hyperref[def:additive-category]{additive} then the \hyperref[def:functor-category]{functor category} \(\Fct{\category{I}}{\category{C}}\) is \hyperref[def:additive-category]{additive}.
@@ -158,6 +159,9 @@ These complexes are the fundamental objects of study in this part of the thesis;
   \end{enumerate}
 \end{proof}
 
+Now it's time to introduce \hyperref[def:functor]{functors} into play.
+In general a \hyperref[def:functor]{functor} does not preserve the abelian group structure of the hom-sets.
+Therefore the correct way to move between \hyperref[def:additive-category]{additive categories} without loosing information is by using additive functors.
 \begin{definition}[Additive functor]\label{def:additive-functor}
   Let \(\category{C}\), \(\category{D}\) be \hyperref[def:additive-category]{additive categories}.
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) is \textbf{additive} if for all \(X, Y \in \category{C}\)
@@ -171,6 +175,7 @@ These complexes are the fundamental objects of study in this part of the thesis;
   For a fixed \(R\)-module \(M\) the \hyperref[def:functor]{functor} \(\Hom_{R}(M, -)\colon \Mod(R) \to \Ab\) is \hyperref[def:additive-functor]{additive}.
 \end{example}
 
+Instead of checking that the morphism \(\Hom_{\category{C}}(X, Y) \to \Hom_{\category{D}}(F(X), F(Y))\) is a homomorphism for all objects \(X\) and \(Y\) we can use the following characterization.
 \begin{proposition}\label{prop:additive-functor-characterization}
   Let \(\category{C}\), \(\category{D}\) be \hyperref[def:additive-category]{additive categories}.
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) is \hyperref[def:additive-functor]{additive} if and only if it commutes with finite \hyperref[def:direct-sum]{direct sums}, i.e: if \(F(0) \cong 0\) and for all \(X, Y \in \category{C}\)
@@ -236,6 +241,7 @@ These complexes are the fundamental objects of study in this part of the thesis;
   \end{itemize}
 \end{proof}
 
+Being \hyperref[def:additive-functor]{additive} is preserved by \hyperref[def:adjoint-functors]{adjoints}.
 \begin{proposition}\label{prop:additive-functors-and-adjunctions}
   Let \(L \dashv R\colon \category{C} \to \category{D}\) be a pair of \hyperref[def:adjoint-functors]{adjoint functors} between \hyperref[def:additive-category]{additive categories}.
   Then \(L\) is \hyperref[def:additive-functor]{additive} if and only if \(R\) is \hyperref[def:additive-functor]{additive}.
@@ -256,12 +262,15 @@ These complexes are the fundamental objects of study in this part of the thesis;
   Therefore by \autoref{prop:additive-functor-characterization} we have the result.
 \end{proof}
 
-
+Being \hyperref[def:additive-category]{additive}, however, is not necessarilly preserved when taking \hyperref[def:subcategory]{full subcategories}.
+For example, the \hyperref[def:subcategory]{full subcategory} of \(\Ab\) consisting of all but the trivial group is clearly not \hyperref[def:additive-category]{additive}.
+This motivates the following definition.
 \begin{definition}[Full additive subcategory]\label{def:full-additive-subcategory}
   Let \(\category{C}\) be an \hyperref[def:additive-category]{additive category}.
 
   A \hyperref[def:subcategory]{full subcategory} \(\category{D}\) of \(\category{C}\) is a \textbf{full additive subcategory} if the inclussion \hyperref[def:functor]{functor} \(\iota\colon D \hookrightarrow \category{C}\) is \hyperref[def:additive-functor]{additive}.
 \end{definition}
+
 \begin{remark}
   By \autoref{prop:additive-functor-characterization} a \hyperref[def:subcategory]{full subcategory} \(\category{D}\) of \(\category{C}\) is a \hyperref[def:full-additive-subcategory]{full additive subcategory} if and only if \(0 \in \category{D}\) and \(\category{D}\) is closed under finite \hyperref[def:direct-sum]{direct sums}.
 \end{remark}
@@ -271,6 +280,10 @@ These complexes are the fundamental objects of study in this part of the thesis;
 
 From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:additive-category]{additive category}.
 
+It's time to define now the building blocks of homological algebra: complexes.
+The idea behind is to not study individual objects in an \hyperref[def:additive-category]{additive categories} but ``sequences'' of them.
+
+First we make explicit the notion of a ``sequence'' of objects.
 \begin{definition}[Differential object]\label{def:differential-object-additive}
   A \textbf{differential object} \((X^{\bullet}, \d_{X}^{\bullet})\) in \(\category{C}\) is a sequence of objects \(X^{k} \in \category{C}\) and morphisms \(\d_{X}^{k}\) for every \(k \in \mathbb{Z}\):
   \begin{center}
@@ -318,6 +331,9 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
   When the context is clear, we will directly write \(X \in \category{Diff}(\category{C})\) instead of \(\iota_{0}(X) \in \category{Diff}(\category{C})\).
 \end{remark}
 
+We will focus in a particular case of \hyperref[def:differential-object]{differential objects}: those where \(\d^{k+1} \circ \d^{k} = 0\).
+This choice will be better justified when we introduce exact sequences in the next chapter.
+
 \begin{definition}[Complex]\label{def:complex}
   A \textbf{complex} in \(\category{C}\) is a \hyperref[def:differential-object]{differential object} \((X^{\bullet}, \d_{X}^{\bullet})\) such that for all \(k \in \mathbb{Z}\)
   \begin{equation*}
@@ -326,6 +342,7 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
   We denote by \(\Complex{\category{C}}\) the \hyperref[def:full-additive-subcategory]{full additive subcategory} of \(\category{Diff}(\category{C})\) consisting of complexes in \(\category{C}\).
 \end{definition}
 
+Before continuing, we fix some terminology about \hyperref[def:complex]{complexes}.
 \begin{definition}\label{def:bounded-complex}
   A \hyperref[def:complex]{complex} \(X^{\bullet}\) is
   \begin{enumerate}
@@ -604,6 +621,7 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
 
 \section{Homotopy of complexes}
 
+As it turns out, \hyperref[def:categorical-isomorphism]{isomorphisms} between \hyperref[def:complex]{complexes} are unnecessarilly strong for our needs and we can do with a less restrictive relation between them.
 \begin{definition}[Homotopy]\label{def:homotopy}~
   \begin{enumerate}
     \item A \hyperref[def:complex]{morphism of complexes} \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) is \textbf{homotopic to zero} if for all \(p \in \mathbb{Z}\) there exists a morphism \(s^{p}\colon X^{p} \to Y^{p-1}\) in \(\category{C}\) such that
@@ -625,27 +643,14 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
   \end{enumerate}
 \end{definition}
 
-\begin{lemma}\label{lemma:additive-preserves-homotopy}
-  Let \(F\colon \category{C} \to \category{D}\) be an \hyperref[def:additive-functor]{additive functor}.
-  If \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) is \hyperref[def:homotopy]{homotopic to zero} then \(Ff^{\bullet}\) is also \hyperref[def:homotopy]{homotopic to zero}.
-\end{lemma}
-\begin{proof}
-  Since \(f^{\bullet}\) is \hyperref[def:homotopy]{homotopic to zero} for all \(p \in \mathbb{Z}\) there exists a morphism \(s^{p}\colon X^{p} \to Y^{p-1}\) such that
-  \begin{equation*}
-    f^{p} = s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}
-  \end{equation*}
-  Therefore
-  \begin{equation*}
-    Ff^{p} = F(s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}) = Fs^{p+1} \circ \d_{F(X)}^{p} + \d_{F(Y)}^{p-1} \circ Fs^{p} \qedhere
-  \end{equation*}
-\end{proof}
+This relation is well behaved with respect to both composition and the action of an \hyperref[def:additive-functor]{additive functor}.
 
 \begin{lemma}\label{lemma:composition-homotopic-to-zero}
   Let \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) and \(g^{\bullet}\colon Y^{\bullet} \to Z^{\bullet}\) be two \hyperref[def:complex]{morphisms of complexes} in \(\Complex{\category{C}}\).
-  If either \(f\) or \(g\) is \hyperref[def:homotopy]{homotopic to 0} then \(g \circ f\) is \hyperref[def:homotopy]{homotopic to 0}.
+  If either \(f^{\bullet}\) or \(g^{\bullet}\) is \hyperref[def:homotopy]{homotopic to 0} then \(g^{\bullet} \circ f^{\bullet}\) is \hyperref[def:homotopy]{homotopic to 0}.
 \end{lemma}
 \begin{proof}
-  Assume that \(f\) is \hyperref[def:homotopy]{homotopic to 0}.
+  Assume that \(f^{\bullet}\) is \hyperref[def:homotopy]{homotopic to 0}.
   The proof consists on chasing the following diagram:
   \begin{center}
     \begin{tikzcd}
@@ -666,6 +671,22 @@ From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:
                   &= \left(g^{p} \circ s^{p+1}\right) \circ \d_{X}^{p} + \d_{Z}^{p-1} \circ \left( g^{p-1} \circ s^{p} \right) \qedhere
   \end{align*}
 \end{proof}
+
+\begin{lemma}\label{lemma:additive-preserves-homotopy}
+  Let \(F\colon \category{C} \to \category{D}\) be an \hyperref[def:additive-functor]{additive functor}.
+  If \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) is \hyperref[def:homotopy]{homotopic to zero} then \(Ff^{\bullet}\) is also \hyperref[def:homotopy]{homotopic to zero}.
+\end{lemma}
+\begin{proof}
+  Since \(f^{\bullet}\) is \hyperref[def:homotopy]{homotopic to zero} for all \(p \in \mathbb{Z}\) there exists a morphism \(s^{p}\colon X^{p} \to Y^{p-1}\) such that
+  \begin{equation*}
+    f^{p} = s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    Ff^{p} = F(s^{p+1} \circ \d_{X}^{p} + \d_{Y}^{p-1} \circ s^{p}) = Fs^{p+1} \circ \d_{F(X)}^{p} + \d_{F(Y)}^{p-1} \circ Fs^{p} \qedhere
+  \end{equation*}
+\end{proof}
+
 
 % \begin{definition}[Homotopy category]\label{def:homotopy-category}
 %   Let \(\category{C}\) be a \hyperref[def:additive-category]{additive-category}.
