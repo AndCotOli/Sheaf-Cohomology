@@ -25,8 +25,9 @@ This results will also be useful when computing the \hyperref[def:sheaf-cohomolo
 We begin first by defining what we mean for a homotopy relative to a base space.
 
 \begin{definition}\label{def:continuous-map-over}
-  Let \(X\) and \(Y\) be topological spaces.
-  A map \(f\colon X \to Y\) is \textbf{continuous over a topological space \(S\)} if it is continuous and there exists continuous maps \(p_{X}\colon X \to S\) and \(p_{Y}\colon Y \to S\) making the following diagram commute
+  A \textbf{topological space over a base} \(S\) is a triple \((X, S, p_{X})\) where \(X\) and \(S\) are topological spaces and \(p_{X}\colon X \to S\) is a continuous map.
+  
+  Given \((X, S, p_{X})\) and \((Y, S, p_{Y})\) two topological spaces over the same base \(S\), we say that a continuous map \(f\colon X \to Y\) is \textbf{continuous over \(S\)} if the following diagram commutes
   \begin{center}
     \begin{tikzcd}
       X \arrow[rr, "f"] \arrow[dr, "p_{X}"'] & & Y \arrow[dl, "p_{Y}"] \\
@@ -102,7 +103,7 @@ Because \hyperref[def:homotopy-over]{homotopies} are parameterized by the unit i
     J \coloneq \{t \in [0, 1] \mid f_{0, t}(s) = 0\}
   \end{equation*}
 
-  Since \(\cohomology{j}(\{0\}, \sheaf{F}) = 0\) we have that \(0 \in J\).
+  \hyperref[ex:cohomology-over-point]{Since \(\cohomology{j}(\{0\}, \sheaf{F}) = 0\)} we have that \(0 \in J\).
   Furthermore if \(t \in J\) then for any \(t' \leq t\) the map \(f_{0, t'}\) factors as
   \begin{center}
     \begin{tikzcd}
@@ -160,8 +161,13 @@ To remedy this, we use the \hyperref[def:inverse-image-sheaf]{inverse image func
 
   For all \(i \geq 0\) there exists a \hyperref[def:natural-transformation]{natural transformation}
   \begin{equation*}
-    f^{\#, i} \coloneq \operatorname{R}^{i}p_{Y, \ast} \circ p_{Y}^{-1} \to \operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1}
+    f^{\#, i} \coloneq \operatorname{R}^{i}p_{Y, \ast} \circ p_{Y}^{-1} \Rightarrow \operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1}
   \end{equation*}
+  where the \hyperref[def:functor]{functors} are
+  \begin{align*}
+    \operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1}\colon& \Mod(\underline{\mathbf{k}}_{S}) \to \Mod(\underline{\mathbf{k}}_{S}) \\
+    \operatorname{R}^{i}p_{Y, \ast} \circ p_{Y}^{-1}\colon& \Mod(\underline{\mathbf{k}}_{S}) \to \Mod(\underline{\mathbf{k}}_{S})
+  \end{align*}
 \end{lemma}
 \begin{proof}
   Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\) be a \hyperref[def:sheaf]{sheaf} over \(S\).
@@ -203,7 +209,7 @@ To remedy this, we use the \hyperref[def:inverse-image-sheaf]{inverse image func
   \begin{equation*}
     f^{\#, i}(\underline{M})\colon \cohomology{i}(Y; \underline{M}) \to \cohomology{i}(X; \underline{M})
   \end{equation*}
-  We denote this map by \(f^{\ast}\) when there is no confusion with the \hyperref[def:direct-image-sheaf]{direct image of sheaves}.
+  We denote this map by \(f^{\ast}\). 
 \end{remark}
 
 We now arrive at the central result of this chapter where we show that \hyperref[def:homotopy-over]{relative homotopies} preserve sheaf cohomology.

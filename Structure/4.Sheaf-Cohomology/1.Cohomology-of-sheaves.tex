@@ -75,13 +75,27 @@ Therefore by \autoref{ex:adjoint-functors-and-exactness} \(\Gamma(X, -)\) is \hy
   \end{equation*}
 \end{definition}
 
-\begin{notation}
-  If \(Y \subseteq X\) is a subset of \(X\) we set
+\begin{example}\label{ex:cohomology-over-point}
+  Let \(\{\ast\}\) be the one point topological space.
+  For all \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) and \(n \neq 0\)
   \begin{equation*}
-    \cohomology{i}(Y; \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(Y; -)(\sheaf{F}) = \operatorname{R}^{i}\Gamma(Y; -)(\sheaf{F}|_{Y})
+    \cohomology{n}(\{\ast\}; \sheaf{F}) \cong 0
   \end{equation*}
-  for all \hyperref[def:sheaf]{sheaves} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
-\end{notation}
+
+  Indeed we have
+  \begin{align*}
+    \cohomology{n}( \{\ast\}; \sheaf{F} ) = \operatorname{R}^{n} \Gamma(\{\ast\}, \sheaf{F})
+  \end{align*}
+  Note that
+  \begin{equation*}
+    \Gamma(\{\ast\}, \sheaf{F}) = \sheaf{F}(\{\ast\}) = \sheaf{F}_{\ast}
+  \end{equation*}
+  Therefore since the stalk functor is exact for all \(n \neq 0\)
+  \begin{equation*}
+    \cohomology{n} (\{\ast\}; \sheaf{F}) = \operatorname{R}^{n} \sheaf{F}_{\ast} = 0 \qedhere
+  \end{equation*}
+\end{example}
+
 
 % Therefore, given a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) to compute its \hyperref[def:sheaf-cohomology]{cohomology} we \textit{only} need to construct an \hyperref[def:injective-projective-object]{injective} (or \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\) acyclic} by \autoref{thm:right-derived-functor-using-acyclics}) \hyperref[def:resolution]{resolution} of \(\sheaf{F}\)
 % \begin{center}
@@ -100,6 +114,14 @@ Therefore by \autoref{ex:adjoint-functors-and-exactness} \(\Gamma(X, -)\) is \hy
 
 We are going to see first how \hyperref[def:sheaf-cohomology]{sheaf cohomology} behaves when restricting and extending sheaves to subsets of \(X\).
 Before we do so, we need to understand how \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} behave under \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse images}.
+\begin{notation}
+  If \(Y \subseteq X\) is a subset of \(X\) we set
+  \begin{equation*}
+    \cohomology{i}(Y; \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(Y; -)(\sheaf{F}) = \operatorname{R}^{i}\Gamma(Y; -)(\sheaf{F}|_{Y})
+  \end{equation*}
+  for all \hyperref[def:sheaf]{sheaves} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
+\end{notation}
+
 \begin{lemma}\label{lemma:injective-sheaves-and-maps}
   Let \(\sheaf{I} \in \Mod(\underline{\mathbf{k}}_{X})\) be an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules}.
   \begin{enumerate}

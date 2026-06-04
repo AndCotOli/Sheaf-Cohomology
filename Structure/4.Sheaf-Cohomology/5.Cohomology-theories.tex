@@ -155,6 +155,8 @@ To fix this, we introduce the following version of cohomology.
 
 Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative sheaf cohomology} is a \hyperref[def:cohomology-theory]{cohomology theory} by verifying the axioms one by one.
 
+Note that the dimension axiom was already verified back in \autoref{ex:cohomology-over-point}.
+
 \begin{theorem}[Exactness]\label{thm:exactness-axiom}
   Let \(A \subseteq X\) be a closed subset and \(i\colon A \hookrightarrow X\) the closed immersion.
   For any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\), there exists a \hyperref[def:exact-sequence]{long exact sequence} in cohomology:
@@ -317,29 +319,29 @@ Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative
   \end{align*}
 \end{proof}
 
-\begin{theorem}[Dimension]
-  Let \(\{\ast\}\) be the one point topological space.
-  For all \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) and \(n \neq 0\)
-  \begin{equation*}
-    \cohomology{n}(\{\ast\}; \sheaf{F}) \cong 0
-  \end{equation*}
-\end{theorem}
-\begin{proof}
-  We have
-  \begin{align*}
-    \cohomology{n}( \{\ast\}; \sheaf{F} ) = \operatorname{R}^{n} \Gamma(\{\ast\}, \sheaf{F})
-  \end{align*}
-  Note that
-  \begin{equation*}
-    \Gamma(\{\ast\}, \sheaf{F}) = \sheaf{F}(\{\ast\}) = \sheaf{F}_{\ast}
-  \end{equation*}
-  Therefore since the stalk functor is exact for all \(n \neq 0\)
-  \begin{equation*}
-    \cohomology{n} (\{\ast\}; \sheaf{F}) = \operatorname{R}^{n} \sheaf{F}_{\ast} = 0 \qedhere
-  \end{equation*}
-\end{proof}
+% \begin{theorem}[Dimension]
+%   Let \(\{\ast\}\) be the one point topological space.
+%   For all \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) and \(n \neq 0\)
+%   \begin{equation*}
+%     \cohomology{n}(\{\ast\}; \sheaf{F}) \cong 0
+%   \end{equation*}
+% \end{theorem}
+% \begin{proof}
+%   We have
+%   \begin{align*}
+%     \cohomology{n}( \{\ast\}; \sheaf{F} ) = \operatorname{R}^{n} \Gamma(\{\ast\}, \sheaf{F})
+%   \end{align*}
+%   Note that
+%   \begin{equation*}
+%     \Gamma(\{\ast\}, \sheaf{F}) = \sheaf{F}(\{\ast\}) = \sheaf{F}_{\ast}
+%   \end{equation*}
+%   Therefore since the stalk functor is exact for all \(n \neq 0\)
+%   \begin{equation*}
+%     \cohomology{n} (\{\ast\}; \sheaf{F}) = \operatorname{R}^{n} \sheaf{F}_{\ast} = 0 \qedhere
+%   \end{equation*}
+% \end{proof}
 
-Having fully verified all five axioms invoking the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness of cohomology theories}we obtain complete equivalences between abstract \hyperref[def:sheaf-cohomology]{sheaf cohomology} and classical cohomology groups.
+Having fully verified all five axioms invoking the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness of cohomology theories} we obtain complete equivalences between abstract \hyperref[def:sheaf-cohomology]{sheaf cohomology} and classical cohomology groups.
 
 In particular from \autoref{prop:manifold-is-CW-complex} and the \hyperref[thm:homotopy-invariance-cohomology]{homotopy invariance of cohomology} we have the following.
 \begin{corollary}

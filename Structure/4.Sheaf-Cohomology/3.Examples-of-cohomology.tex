@@ -238,11 +238,12 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   \begin{equation*}
     \operatorname{R}^{i}p_{\mathbb{RP}^{2} \times S, \ast}\sheaf{F}|_{\mathbb{RP}^{2} \times S} \cong \begin{cases}
       \sheaf{F} & i = 0 \\
-      \ker \left( \times 2\colon \sheaf{F} \to \sheaf{F} \right), & i = 1 \\
-      \coker \left( \times 2\colon \sheaf{F} \to \sheaf{F} \right) = \quot{\sheaf{F}}{2 \sheaf{F}} & i = 2 \\
+      \ker \left(\sheaf{F} \xrightarrow{\cdot 2} \sheaf{F} \right), & i = 1 \\
+      \coker \left( \sheaf{F} \xrightarrow{\cdot 2} \sheaf{F} \right) = \quot{\sheaf{F}}{2 \sheaf{F}} & i = 2 \\
       0 & i > 2
     \end{cases}
   \end{equation*}
+  where \(2\sheaf{F}\) denotes the image of \(\sheaf{F}\) by the induced map of multiplication by two.
 
   In particular taking \(S = \{\ast\}\) since \(\sheaf{F} \cong \underline{M}\) for some \(M \in \Mod(\mathbf{k})\) we get
   \begin{equation*}
@@ -255,86 +256,86 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
   \end{equation*}
 \end{example}
 
-\begin{example}[\(\mathbb{RP}^{n}\)]
-  Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\).
-  We are going to see that the cohomology of \(X \coloneq \mathbb{RP}^{n} \times S\) over \(S\) is
-  \begin{equation*}
-    \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \cong \begin{cases}
-      \sheaf{F} & i = 0 \\
-       \ker \left( \times 2\colon \sheaf{F} \to \sheaf{F} \right) & i \in \left\{ 1, \ldots, n-1 \right\}, i \text{ odd } \\
-      \quot{\sheaf{F}}{2\sheaf{F}} & i \in \left\{ 1, \ldots, n \right\}, i \text{ even } \\
-      \sheaf{F} & i = n \text{ odd } \\
-      0 & i > n
-    \end{cases}
-  \end{equation*}
+% \begin{example}[\(\mathbb{RP}^{n}\)]
+%   Let \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{S})\).
+%   We are going to see that the cohomology of \(X \coloneq \mathbb{RP}^{n} \times S\) over \(S\) is
+%   \begin{equation*}
+%     \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \cong \begin{cases}
+%       \sheaf{F} & i = 0 \\
+%        \ker \left( \times 2\colon \sheaf{F} \to \sheaf{F} \right) & i \in \left\{ 1, \ldots, n-1 \right\}, i \text{ odd } \\
+%       \quot{\sheaf{F}}{2\sheaf{F}} & i \in \left\{ 1, \ldots, n \right\}, i \text{ even } \\
+%       \sheaf{F} & i = n \text{ odd } \\
+%       0 & i > n
+%     \end{cases}
+%   \end{equation*}
 
-  We have already seen the \hyperref[ex:cohomology-RP2]{base case \(n = 2\)}, therefore we can assume the result for \(n-1\) and prove it for \(n\).
+%   We have already seen the \hyperref[ex:cohomology-RP2]{base case \(n = 2\)}, therefore we can assume the result for \(n-1\) and prove it for \(n\).
 
-  Consider the open cover of \(X\) given by
-  \begin{equation*}
-    U \coloneq \left( \text{Open } n\text{-disk} \right) \times S \qquad V \coloneq \left( \text{Tubular neighbourhood of } \mathbb{RP}^{n-1} \right) \times S
-  \end{equation*}
-  Since \(U\) is \hyperref[def:homotopy-over]{contractible over \(S\)} we have
-  \begin{equation*}
-    \operatorname{R}^{i}p_{U, \ast}\sheaf{F}|_{U} \cong \begin{cases}
-      \sheaf{F} & i = 0 \\
-      0 & i > 0
-    \end{cases}
-  \end{equation*}
-  Since \(V\) strongly deformation retracts over \(S\) to \(\mathbb{RP}^{n-1} \times S\)
-  \begin{equation*}
-    \operatorname{R}^{i}p_{V, \ast}\sheaf{F}|_{V} \cong \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S}
-  \end{equation*}
-  Since \(U \cap V\) strongly deformation retracts over \(S\) to \(\mathbb{S}^{n-1} \times S\)
-  \begin{equation*}
-    \operatorname{R}^{i}p_{U \cap V, \ast} \sheaf{F}|_{U \cap V} \cong \begin{cases}
-      \sheaf{F} & i \in \{0, n-1\} \\
-      0 & i \notin \{0, n-1\}
-    \end{cases}
-  \end{equation*}
+%   Consider the open cover of \(X\) given by
+%   \begin{equation*}
+%     U \coloneq \left( \text{Open } n\text{-disk} \right) \times S \qquad V \coloneq \left( \text{Tubular neighbourhood of } \mathbb{RP}^{n-1} \right) \times S
+%   \end{equation*}
+%   Since \(U\) is \hyperref[def:homotopy-over]{contractible over \(S\)} we have
+%   \begin{equation*}
+%     \operatorname{R}^{i}p_{U, \ast}\sheaf{F}|_{U} \cong \begin{cases}
+%       \sheaf{F} & i = 0 \\
+%       0 & i > 0
+%     \end{cases}
+%   \end{equation*}
+%   Since \(V\) strongly deformation retracts over \(S\) to \(\mathbb{RP}^{n-1} \times S\)
+%   \begin{equation*}
+%     \operatorname{R}^{i}p_{V, \ast}\sheaf{F}|_{V} \cong \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S}
+%   \end{equation*}
+%   Since \(U \cap V\) strongly deformation retracts over \(S\) to \(\mathbb{S}^{n-1} \times S\)
+%   \begin{equation*}
+%     \operatorname{R}^{i}p_{U \cap V, \ast} \sheaf{F}|_{U \cap V} \cong \begin{cases}
+%       \sheaf{F} & i \in \{0, n-1\} \\
+%       0 & i \notin \{0, n-1\}
+%     \end{cases}
+%   \end{equation*}
 
-  Plugging this into the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris sequence} we have
-  \begin{itemize}
-    \item \(i = 0\): Is the same as in the \hyperref[ex:cohomology-RP2]{\(\mathbb{RP}^{2}\)} so
-          \begin{equation*}
-            \operatorname{R}^{0}p_{X, \ast} \sheaf{F}|_{X} \cong \sheaf{F}
-          \end{equation*}
-    \item \(i \in \{1, \ldots, n-2\}\): In this range we have
-          \begin{equation*}
-            0 \to \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \to \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S, \ast}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \to 0
-          \end{equation*}
-          And thus we have an isomorphism
-          \begin{equation*}
-            \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \cong \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S, \ast}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S}
-          \end{equation*}
-          which is our inductive step.
-    \item \(i \in \{n-1, n\}\): In this case
-          \begin{equation*}
-            0 \to \operatorname{R}^{n-1}p_{X, \ast} \sheaf{F}|_{X} \to \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \xrightarrow{\beta} \sheaf{F} \xrightarrow{\delta_{n-1}} \operatorname{R}^{n}p_{X, \ast} \sheaf{F}|_{X} \to 0
-          \end{equation*}
-          The map \(\beta\) depends on the parity of \(n\):
-          \begin{itemize}
-            \item If \(n\) is even then the map \(\mathbb{S}^{n-1} \to \mathbb{RP}^{n-1}\) has degree two and by induction
-                  \begin{equation*}
-                     \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \cong \sheaf{F}
-                  \end{equation*}
-                  Therefore \(\beta\colon \sheaf{F} \to \sheaf{F}\) is multiplication by two and thus
-                  \begin{align*}
-                    \operatorname{R}^{n-1} p_{X, \ast} \sheaf{F}|_{X} &\cong \ker \left( \times 2\colon \sheaf{F} \to \sheaf{F} \right) \\
-                    \operatorname{R}^{n} p_{X, \ast} \sheaf{F}|_{X} &\cong \quot{\sheaf{F}}{2\sheaf{F}}
-                  \end{align*}
-            \item If \(n\) is odd the map \(\mathbb{S}^{n-1} \to \mathbb{RP}^{n-1}\) has degree zero and by induction
-                  \begin{equation*}
-                     \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \cong \quot{\sheaf{F}}{2\sheaf{F}}
-                  \end{equation*}
-                  Therefore \(\beta\colon \quot{\sheaf{F}}{2\sheaf{F}} \to \sheaf{F}\) is the zero map and thus
-                  \begin{align*}
-                    \operatorname{R}^{n-1} p_{X, \ast} \sheaf{F}|_{X} &\cong \quot{\sheaf{F}}{2\sheaf{F}} \\
-                    \operatorname{R}^{n} p_{X, \ast} \sheaf{F}|_{X} &\cong \sheaf{F}
-                  \end{align*}
-          \end{itemize}
-  \end{itemize}
-\end{example}
+%   Plugging this into the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris sequence} we have
+%   \begin{itemize}
+%     \item \(i = 0\): Is the same as in the \hyperref[ex:cohomology-RP2]{\(\mathbb{RP}^{2}\)} so
+%           \begin{equation*}
+%             \operatorname{R}^{0}p_{X, \ast} \sheaf{F}|_{X} \cong \sheaf{F}
+%           \end{equation*}
+%     \item \(i \in \{1, \ldots, n-2\}\): In this range we have
+%           \begin{equation*}
+%             0 \to \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \to \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S, \ast}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \to 0
+%           \end{equation*}
+%           And thus we have an isomorphism
+%           \begin{equation*}
+%             \operatorname{R}^{i}p_{X, \ast}\sheaf{F}|_{X} \cong \operatorname{R}^{i}p_{\mathbb{RP}^{n-1} \times S, \ast}\sheaf{F}|_{\mathbb{RP}^{n-1} \times S}
+%           \end{equation*}
+%           which is our inductive step.
+%     \item \(i \in \{n-1, n\}\): In this case
+%           \begin{equation*}
+%             0 \to \operatorname{R}^{n-1}p_{X, \ast} \sheaf{F}|_{X} \to \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \xrightarrow{\beta} \sheaf{F} \xrightarrow{\delta_{n-1}} \operatorname{R}^{n}p_{X, \ast} \sheaf{F}|_{X} \to 0
+%           \end{equation*}
+%           The map \(\beta\) depends on the parity of \(n\):
+%           \begin{itemize}
+%             \item If \(n\) is even then the map \(\mathbb{S}^{n-1} \to \mathbb{RP}^{n-1}\) has degree two and by induction
+%                   \begin{equation*}
+%                      \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \cong \sheaf{F}
+%                   \end{equation*}
+%                   Therefore \(\beta\colon \sheaf{F} \to \sheaf{F}\) is multiplication by two and thus
+%                   \begin{align*}
+%                     \operatorname{R}^{n-1} p_{X, \ast} \sheaf{F}|_{X} &\cong \ker \left( \times 2\colon \sheaf{F} \to \sheaf{F} \right) \\
+%                     \operatorname{R}^{n} p_{X, \ast} \sheaf{F}|_{X} &\cong \quot{\sheaf{F}}{2\sheaf{F}}
+%                   \end{align*}
+%             \item If \(n\) is odd the map \(\mathbb{S}^{n-1} \to \mathbb{RP}^{n-1}\) has degree zero and by induction
+%                   \begin{equation*}
+%                      \operatorname{R}^{n-1}p_{\mathbb{RP}^{n-1} \times S, \ast} \sheaf{F}|_{\mathbb{RP}^{n-1} \times S} \cong \quot{\sheaf{F}}{2\sheaf{F}}
+%                   \end{equation*}
+%                   Therefore \(\beta\colon \quot{\sheaf{F}}{2\sheaf{F}} \to \sheaf{F}\) is the zero map and thus
+%                   \begin{align*}
+%                     \operatorname{R}^{n-1} p_{X, \ast} \sheaf{F}|_{X} &\cong \quot{\sheaf{F}}{2\sheaf{F}} \\
+%                     \operatorname{R}^{n} p_{X, \ast} \sheaf{F}|_{X} &\cong \sheaf{F}
+%                   \end{align*}
+%           \end{itemize}
+%   \end{itemize}
+% \end{example}
 
 
 \end{document}
