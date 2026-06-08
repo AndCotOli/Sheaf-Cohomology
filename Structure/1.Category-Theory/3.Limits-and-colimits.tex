@@ -12,6 +12,8 @@ In this chapter we study how different constructions across mathematics can be a
 Once these concepts are defined, we spend the rest of the chapter giving familiar constructions that can be made from them.
 We end the chapter by proving an existence criterion for limits and colimits both in general and for the concrete case of functor categories.
 
+The main references for this chapter are \cite{riehlCategoryTheoryContext, maclaneCategoriesWorkingMathematician1978, aluffiAlgebraChapter02009}.
+
 \section{Diagrams, cones and cocones}
 
 A common tool used in mathematics to relate objects and morphisms are diagrams such as commutative squares.
@@ -460,7 +462,7 @@ Note that any pair of morphisms \(A \xleftarrow{f} Z \xrightarrow{g} B\) can be 
 
 
 \begin{remark}\label{rem:pullbacks-pushouts-as-equalisers-coequalisers}
-  Notice how \hyperref[ex:pullback-Set]{pullbacks in \(\Set\)} can be seen as a \hyperref[def:equaliser-Set]{equaliser in \(\Set\)} from the \hyperref[ex:product-Set]{product maps} \(f \circ \pi_{A}, g \circ \pi_{B}: A \times B \to Z\).
+  Notice how \hyperref[ex:pullback-Set]{pullbacks in \(\Set\)} can be seen as a \hyperref[ex:equaliser-Set]{equaliser in \(\Set\)} from the \hyperref[def:categorical-product]{product maps} \(f \circ \pi_{A}, g \circ \pi_{B}: A \times B \to Z\).
   Considering \hyperref[ex:pullback-Set]{pushouts in \(\Set\)} we get a dual observation.
 
   Indeed, it is not difficult to check that if \(\category{C}\) has \hyperref[def:categorical-product]{products} then the \hyperref[def:pullback]{pullback}
@@ -676,7 +678,7 @@ In the particular case of \hyperref[def:functor-category]{functor categories} we
   \end{center}
 
   The functiorality of \(L\) follows directly from the uniqueness of this induced map into \(L(d)\).
-  Moreover the above commutative square is the \hyperref[def:natural-tranformation]{naturallity} condition for \(\pi_{j}\) with respect to \(f\).
+  Moreover the above commutative square is the \hyperref[def:natural-transformation]{naturallity} condition for \(\pi_{j}\) with respect to \(f\).
   Therefore, for each \(j \in \category{J}\) the collection \(\{\pi_{j}^{c}\}_{c \in \category{C}}\) is a \hyperref[def:natural-transformation]{natural transformation} \(\pi_{j}\colon L \Rightarrow X_{j}\).
   It is an easy check to see that this collection forms a \hyperref[def:cone]{cone} over \(X\) in the \hyperref[def:functor-category]{functor category} \(\Fct{\category{C}}{\category{D}}\).
 

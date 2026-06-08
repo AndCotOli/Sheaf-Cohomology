@@ -64,7 +64,7 @@ However, the presence of an underlying abelian group structure on hom-sets force
 \end{lemma}
 \begin{proof}
   We will show that conditions~\ref{axiom:additive-coproducts} and~\hyperref[axiom:additive-morphisms]{Ad.5} are equivalent and that \(X \oplus Y \cong Z\).
-  A \hyperref[def:dual]{dual} argument shows that~\ref{axiom:additive-products} and~\hyperref[axiom:additive-morphisms]{Ad.5} are equivalent and that \(X \times Y \cong Z\).
+  A dual argument shows that~\ref{axiom:additive-products} and~\hyperref[axiom:additive-morphisms]{Ad.5} are equivalent and that \(X \times Y \cong Z\).
   \begin{itemize}
     \item[{\ref{axiom:additive-coproducts} \(\implies\) \hyperref[axiom:additive-morphisms]{Ad.5}}] Let \(X \oplus Y\) be the \hyperref[def:categorical-coproduct]{coproduct} of \(X\) and \(Y\), that comes with morphisms \(i_{1}\colon X \to X \oplus Y\) and \(i_{2}\colon Y \to X \oplus Y\).
 
@@ -116,7 +116,7 @@ Fortunately, the group structure of our hom-sets gives us a clean, element-free 
   \begin{equation*}
     f \circ g = 0 \implies g = 0
   \end{equation*}
-  \hyperref[def:dual]{Dually} \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if for every morphism \(g\colon Y \to Z\)
+  Dually \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if for every morphism \(g\colon Y \to Z\)
   \begin{equation*}
     g \circ f = 0 \implies g = 0
   \end{equation*}
@@ -305,7 +305,7 @@ First we make explicit the notion of a ``sequence'' of objects.
 \end{definition}
 
 \begin{remark}
-  We can view the \hyperref[def:differential-object]{category of differential objects} \(\category{Diff}(\category{C})\) as the \hyperref[def:functor-category]{functor category} \(\Fct{\mathbb{Z}}{\category{C}}\).
+  We can view the \hyperref[def:differential-object-additive]{category of differential objects} \(\category{Diff}(\category{C})\) as the \hyperref[def:functor-category]{functor category} \(\Fct{\mathbb{Z}}{\category{C}}\).
   Therefore by \autoref{lemma:functor-category-is-additive} \(\category{Diff}(\category{C})\) is an \hyperref[def:additive-category]{additive category}.
 \end{remark}
 
@@ -331,11 +331,11 @@ First we make explicit the notion of a ``sequence'' of objects.
   When the context is clear, we will directly write \(X \in \category{Diff}(\category{C})\) instead of \(\iota_{0}(X) \in \category{Diff}(\category{C})\).
 \end{remark}
 
-We will focus in a particular case of \hyperref[def:differential-object]{differential objects}: those where \(\d^{k+1} \circ \d^{k} = 0\).
+We will focus in a particular case of \hyperref[def:differential-object-additive]{differential objects}: those where \(\d^{k+1} \circ \d^{k} = 0\).
 This choice will be better justified when we introduce exact sequences in the next chapter.
 
 \begin{definition}[Complex]\label{def:complex}
-  A \textbf{complex} in \(\category{C}\) is a \hyperref[def:differential-object]{differential object} \((X^{\bullet}, \d_{X}^{\bullet})\) such that for all \(k \in \mathbb{Z}\)
+  A \textbf{complex} in \(\category{C}\) is a \hyperref[def:differential-object-additive]{differential object} \((X^{\bullet}, \d_{X}^{\bullet})\) such that for all \(k \in \mathbb{Z}\)
   \begin{equation*}
     \d_{X}^{k+1} \circ \d_{X}^{k} = 0
   \end{equation*}

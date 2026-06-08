@@ -13,12 +13,14 @@
 In this chapter we introduce one of the most fundamental results in category theory: the Yoneda lemma.
 We also define what an adjoint pair of functions is and state its relation with limits and colimits.
 
+The main references for this chapter are \cite{riehlCategoryTheoryContext, maclaneCategoriesWorkingMathematician1978, aluffiAlgebraChapter02009}.
+
 \section{The Yoneda lemma}
 
 A common theme in these part of the thesis has been stressing that we want to study objects not by themselves but through its relation with their environment.
 In particular we can apply these way of thought to \hyperref[def:category]{categories} themselves using \hyperref[def:functor]{functors}, and to \hyperref[def:functor]{functors} using \hyperref[def:natural-transformation]{natural transformations}.
 
-Note that every \hyperref[def:category]{category} \(\category{C}\) has a \hyperref[def:functor]{functor} of the form \(\category{C} \to \Set\): \hyperref[ex:hom-functor]{the (covariant) Hom functor} that works by fixing an object \(X \in category{C}\) and sending \(Y \in \category{C}\) to its set of morphisms \(\Hom(X, Y) \in \Set\).
+Note that every \hyperref[def:category]{category} \(\category{C}\) has a \hyperref[def:functor]{functor} of the form \(\category{C} \to \Set\): \hyperref[ex:hom-functor]{the (covariant) Hom functor} that works by fixing an object \(X \in \category{C}\) and sending \(Y \in \category{C}\) to its set of morphisms \(\Hom(X, Y) \in \Set\).
 
 Therefore we could try to study how a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) works on an object \(X \in \category{C}\) by studying its relation to \(\Hom(X, -)\).
 This was done by Yoneda and Grothendieck independently and it's what is known as the Yoneda lemma.
@@ -40,7 +42,7 @@ However, what if you were prohibitted from asking direct questions about the car
 In this case there is also a winning strategy, for example instead of asking if the card is red you may ask ``is the card color the same as the king of hearts?''.
 Therefore a card is completely determined by its relation to the other cards.
 
-This is the philosophy behind \hyperref[def:theorem]{Yonneda's lemma}: objects are completely determined by its environment.
+This is the philosophy behind \hyperref[thm:yoneda-lemma]{Yonneda's lemma}: objects are completely determined by its environment.
 
 % \begin{corollary}[{Yoneda embedding - \cite[Corollary 2.2.8]{riehlCategoryTheoryContext}}]
 %   Let \(\category{C}\) be a \hyperref[def:category]{category}.
@@ -70,7 +72,7 @@ These are both examples of a general phenomenon called adjunction.
 \end{definition}
 
 \begin{remark}[Unit and counit of an adjunction]\label{def:unit-counit}
-  Let \((L, R)\) be a pair of \hyperref[def:adjoint-functor]{adjoint functors}.
+  Let \((L, R)\) be a pair of \hyperref[def:adjoint-functors]{adjoint functors}.
   The \hyperref[def:natural-transformation]{natural isomorphism} \eqref{eq:adjunction-hom-iso} gives the \hyperref[def:natural-transformation]{natural isomorphisms}
   \begin{align*}
     \Hom_{\category{D}}(L(-), L(-)) &\cong \Hom_{\category{C}}(-, (G \circ L)(-)) \\
@@ -97,10 +99,10 @@ These are both examples of a general phenomenon called adjunction.
 \end{remark}
 
 \begin{remark}
-  \hyperref[def:adjoint-functors]{Left and right adjoints} are \hyperref[def:dual]{dual concepts}.
+  \hyperref[def:adjoint-functors]{Left and right adjoints} are dual concepts.
 \end{remark}
 
-Just as we can speak of \textit{the} \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal} object in a \hyperref[def:category]{category} we can speak of \textit{the} \hyperref[def:adjoint-functor]{adjoint} of a \hyperref[def:functor]{functor}, this type up to \hyperref[def:natural-transformation]{natural isomorphism}.
+Just as we can speak of \textit{the} \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal} object in a \hyperref[def:category]{category} we can speak of \textit{the} \hyperref[def:adjoint-functors]{adjoint} of a \hyperref[def:functor]{functor}, this type up to \hyperref[def:natural-transformation]{natural isomorphism}.
 
 \begin{proposition}[Adjoints are unique]\label{prop:uniqueness-adjoints}
   The \hyperref[def:adjoint-functors]{right adjoint} (resp. \hyperref[def:adjoint-functors]{left adjoint}) to a \hyperref[def:functor]{functor}, provided it exists, is unique up to \hyperref[def:natural-transformation]{natural isomorphism}
@@ -139,11 +141,11 @@ Just as we can speak of \textit{the} \hyperref[def:initial-terminal-object]{init
   \end{equation*}
 \end{proof}
 
-We end the chapter by stating relation between \hyperref[def:adjoint-functor]{adjoint functors} and \hyperref[def:categorical-limit]{(co)limits} that will prove really useful later on.
+We end the chapter by stating relation between \hyperref[def:adjoint-functors]{adjoint functors} and \hyperref[def:categorical-limit]{(co)limits} that will prove really useful later on.
 \begin{theorem}[{\cite[Theorem 4.5.2]{riehlCategoryTheoryContext}}]\label{thm:adjoints-preserve-limits}
   \hyperref[def:adjoint-functors]{Right adjoints} preserve all \hyperref[def:categorical-limit]{limits} that exist in their codomain.
   
-  \hyperref[def:dual]{Dually} \hyperref[def:adjoint-functors]{left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in their domain.
+  Dually \hyperref[def:adjoint-functors]{left adjoints} preserve all \hyperref[def:categorical-colimit]{colimits} that exist in their domain.
 \end{theorem}
 
 \end{document}

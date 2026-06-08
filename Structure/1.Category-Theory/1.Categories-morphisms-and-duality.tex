@@ -7,6 +7,8 @@
 In this chapter we begin by defining the main objects of category theory, that is: categories, and give a few examples.
 We also study how we can generalize known special types of morphisms and objects into the more general setting of categories.
 
+The main references for this chapter are \cite{riehlCategoryTheoryContext, maclaneCategoriesWorkingMathematician1978, aluffiAlgebraChapter02009}.
+
 \section{Categories}
 
 \begin{definition}[Category]\label{def:category}
@@ -338,16 +340,16 @@ As it happens in \(\Set\), the notions of \hyperref[def:mono-epi-morphism]{monom
 \begin{example}
   In general, a morphism \(f\colon X \to Y\) that is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism} is not an \hyperref[def:categorical-isomorphism]{isomorphism}.
 
-  Indeed, in the \hyperref[def:category]{category} \(\Top\) of topological spaces consider a set with more than one point \(X\) endowed with the discrete \(X_{d}\) and trivial \(X_{t}\) topology.
+  Indeed, in the \hyperref[def:category]{category} \(\Top\) of topological spaces consider a set \(X\) with more than one point endowed with the discrete \(X_{d}\) and trivial \(X_{t}\) topology.
   
   Consider the identity map \(\id_{X}\colon X_{d} \to X_{t}\), which is continuous.
   Since \(\id_{X}\) is injective we have that it is a \hyperref[def:mono-epi-morphism]{monomorphism} and, since it is surjective, it is an \hyperref[def:mono-epi-morphism]{epimorphism}.
 
-  However since there does not exists a continuous bijection \(X_{t} \to X_{d}\), \(\id_{X}\) cannot be an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  However since \(id_{X}^{-1}\colon X_{t} \to X_{d}\) is not continuous, \(\id_{X}\) cannot be an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{example}
 
 As we have seen before, one may create an smaller subcategory by restricting their attention to a smaller collection of objects.
-In this cases, \hyperref[def:cateorical-isomorphism]{isomorphisms} in the smaller category still are in the bigger one.
+In this cases, \hyperref[def:categorical-isomorphism]{isomorphisms} in the smaller category are preserved the bigger one.
 \begin{proposition}
   Let \(\category{D}\) be a \hyperref[def:subcategory]{subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
   If \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
@@ -414,7 +416,7 @@ In some particular cases \hyperref[def:initial-terminal-object]{initial} and \hy
 In this case we say that this object is zero.
 
 \begin{definition}[Zero object]\label{def:zero-object}
-  An object \(0 \in \category{C}\) is a \textbf{zero} object if it is both \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal}.
+  An object \(0 \in \category{C}\) is the \textbf{zero} object if it is both \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal}.
 
   Note that for any two objects \(X, Y \in \category{C}\) there exist unique maps \(0_{X}\colon X \to 0\) and \(0_{Y}\colon 0 \to Y\).
   We call this composite map the \textbf{zero map} between \(X\) and \(Y\) and denote it \(X \xrightarrow{0_{X, Y}} Y\):

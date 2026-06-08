@@ -10,6 +10,8 @@
 In this chapter we study functors, which encode how we move data across different categories.
 We also introduce the concept of natural transformations, which in turn encode now moving data across functors, and equivalence of categories.
 
+The main references for this chapter are \cite{riehlCategoryTheoryContext, maclaneCategoriesWorkingMathematician1978, aluffiAlgebraChapter02009}.
+
 \section{Functors}
 
 As we have seen, category theory tries to study objects by means of their transformations.
@@ -80,12 +82,12 @@ The answer to this question are functors.
 
 \begin{example}[Constant functor]\label{ex:constant-functor}
   Let \(\category{C}\) be a \hyperref[def:category]{category}.
-  For every object \(C \in \category{C}\) there exists a constant \hyperref[def:functor]{functor}
+  For every object \(Z \in \category{C}\) there exists a constant \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(\operatorname{ct}_{C}\colon \;\;\)} \category{C} \arrow[r] & \category{C} \\[-2em]
-      X \arrow[d, "f"' ""{name=source, right}] & C \arrow[d, "\id_{C}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
-      Y  & C
+      \llap{\(\operatorname{ct}_{Z}\colon \;\;\)} \category{C} \arrow[r] & \category{C} \\[-2em]
+      X \arrow[d, "f"' ""{name=source, right}] & Z \arrow[d, "\id_{Z}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
+      Y  & Z
     \end{tikzcd}
   \end{center}
 \end{example}
@@ -100,8 +102,8 @@ The answer to this question are functors.
   Furthermore for any morphisms \(f\colon X \to Y\) in \(\category{C}\) and \(g\colon X' \to Y'\) in \(\category{C}'\) we have a commutative diagram
   \begin{center}
     \begin{tikzcd}[row sep=huge, column sep=huge]
-      F(X, X') \arrow[r, "{F(X, g)}"] \arrow[d, "{F(f, X')}"'] \arrow[dr, "{F(f, g)}"] & F(X, Y') \arrow[d, "{F(f, Y')}"] \\
-      F(Y, X') \arrow[r, "{F(Y, g)}"'] & F(Y, Y')
+      F(X, X') \arrow[r, "{F(\id_{X}, g)}"] \arrow[d, "{F(f, \id_{X'})}"'] \arrow[dr, "{F(f, g)}"] & F(X, Y') \arrow[d, "{F(f, \id_{Y'})}"] \\
+      F(Y, X') \arrow[r, "{F(\id_{Y}, g)}"'] & F(Y, Y')
     \end{tikzcd}
   \end{center}
 \end{example}
@@ -162,7 +164,7 @@ The answer to this question are functors.
   \end{center}
 \end{example}
 
-As one would expect, \hyperref[def:functor]{functors} and \hyperref[def:categorical-isomorphism]{isomorphisms} behave well together.
+% As one would expect, \hyperref[def:functor]{functors} and \hyperref[def:categorical-isomorphism]{isomorphisms} behave well together.
 \begin{proposition}[Functors preserve isomorphisms]
   Let \(\category{C}, \category{D}\) be two \hyperref[def:category]{categories} and \(F\colon \category{C} \to \category{D}\) a \hyperref[def:functor]{functor} between them.
   If \(f\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\) then \(Ff\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\).
@@ -182,7 +184,7 @@ As one would expect, \hyperref[def:functor]{functors} and \hyperref[def:categori
   i.e: \(Ff\) has an inverse \(Ff^{-1}\) in \(\category{D}\).
 \end{proof}
 
-Just as with objects and morphisms, there are some particular types of \hyperref[def:functor]{functors} that are more useful than others.
+% Just as with objects and morphisms, there are some particular types of \hyperref[def:functor]{functors} that are more useful than others.
 \begin{definition}[Functor types]\label{def:functor-types}
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) is:
   \begin{itemize}

@@ -168,7 +168,7 @@ Furthermore, \hyperref[def:injective-projective-object]{injective objects} allow
   Let \(\category{C}\) be a \hyperref[def:category]{category} with \hyperref[def:enough-injectives-projectives]{enough injectives}.
   Let \(X \xrightarrow{\varepsilon} I^{\bullet}, Y \xrightarrow{\eta} J^{\bullet}\) be two \hyperref[def:resolution]{right-resolutions} of \(X, Y \in \category{C}\).
 
-  If \(J^{\bullet}\) is made of \hyperref[def:injective-projective-objects]{injectives} then any morphism \(f\colon X \to Y\) can be extended to a morphism \(f^{\bullet}\colon I^{\bullet} \to J^{\bullet}\) in the sense that \(\eta \circ f^{0} = f \circ \varepsilon\).
+  If \(J^{\bullet}\) is made of \hyperref[def:injective-projective-object]{injectives} then any morphism \(f\colon X \to Y\) can be extended to a morphism \(f^{\bullet}\colon I^{\bullet} \to J^{\bullet}\) in the sense that \(\eta \circ f^{0} = f \circ \varepsilon\).
   Furthermore this extension is unique up to \hyperref[def:homotopy]{homotopy}.
 
   We call \(f^{\bullet}\) a \textbf{lifting} of \(f\).
@@ -284,7 +284,7 @@ Before studying more in detail how \hyperref[def:injective-projective-object]{in
 
 \subsection{More diagram lemmas}
 
-Our first observation is that injective objects are closely related to \hyperref[def:split-exact-sequence]{split sequences}.
+Our first observation is that injective objects are closely related to \hyperref[prop:split-exact-sequence]{split sequences}.
 \begin{lemma}\label{lemma:first-term-injective-splits}
   Let
   \begin{center}
@@ -328,7 +328,7 @@ Our first observation is that injective objects are closely related to \hyperref
   Then \(Y\) is \hyperref[def:injective-projective-object]{injective}.
 \end{proposition}
 \begin{proof}
-  By \autoref{lemma:first-term-injective-splits} since \(X\) is \hyperref[def:injective-projective-object]{injective} the sequence \hyperref[def:split-exact-sequence]{splits}.
+  By \autoref{lemma:first-term-injective-splits} since \(X\) is \hyperref[def:injective-projective-object]{injective} the sequence \hyperref[prop:split-exact-sequence]{splits}.
     Therefore the sequence is \hyperref[def:categorical-isomorphism]{isomorphic} to
     \begin{center}
     \begin{tikzcd}
@@ -418,14 +418,14 @@ Using this we can prove the Horseshoe lemma, which allows us to extend \hyperref
     \end{tikzcd}
   \end{center}
   Since the vertical maps are \hyperref[def:mono-epi-morphism]{monomorphisms} their \hyperref[def:categorical-kernel]{kernels} are 0.
-  If we denote by \(X^{1}, Y^{1}\) and \(Z^{1}\) their \hyperref[def:categorical-cokernel]{cokernels} by the \hyperref[lemma:snake-lemma]{Snake lemma} we get a \hyperref[exact-sequence]{short exact sequence}:
+  If we denote by \(X^{1}, Y^{1}\) and \(Z^{1}\) their \hyperref[def:categorical-cokernel]{cokernels} by the \hyperref[lemma:snake-lemma]{Snake lemma} we get a \hyperref[def:exact-sequence]{short exact sequence}:
   \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & X^{1} \arrow[r] & Y^{1} \arrow[r] & Z^{1} \arrow[r] & 0
     \end{tikzcd}
   \end{center}
   Furthermore the shifted \hyperref[def:complex]{complexes} \(I^{\geq 1}\) and \(J^{\geq 1}\) are \hyperref[def:resolution]{injective resolutions} of \(X^{1}\) and \(Z^{1}\) respectively.
-  Therefore we are in the exact same situation as in the base case and by induction we can construct \(I^{n} \oplus J^{n}\) and \hyperref[exact-sequence]{short exact sequences}
+  Therefore we are in the exact same situation as in the base case and by induction we can construct \(I^{n} \oplus J^{n}\) and \hyperref[def:exact-sequence]{short exact sequences}
   \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & X^{n} \arrow[r] & Y^{n} \arrow[r] & Z^{n} \arrow[r] & 0
@@ -653,7 +653,7 @@ As we are going to see, the computation of \hyperref[def:right-derived-functor]{
       & \operatorname{R}^{2}F(X) \arrow[r] & \operatorname{R}^{2}F(Q^{0}) \arrow[r] & \cdots
     \end{tikzcd}
   \end{center}
-  Since \(Q^{0}\) is \hyperref[def:F-acylic-object]{\(F\)-acyclic} for all \(i > 0\) we get an \hyperref[def:categorical-isomorphism]{isomorphism}
+  Since \(Q^{0}\) is \hyperref[def:F-acyclic-object]{\(F\)-acyclic} for all \(i > 0\) we get an \hyperref[def:categorical-isomorphism]{isomorphism}
   \begin{equation*}
     \cohomology{i+1}(F(X)) = \operatorname{R}^{i+1}F(X) \cong \operatorname{R}^{i}F(Z^{1}) = \cohomology{i}(F(Z^{1}))
   \end{equation*}

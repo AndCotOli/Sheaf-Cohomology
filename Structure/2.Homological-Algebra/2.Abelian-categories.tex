@@ -58,7 +58,7 @@ This still works in \hyperref[def:abelian-category]{abelian categories}.
 \begin{lemma}\label{lemma:partial-sequence-abelian}
   Let \(f\colon X \to Y\) be a morphism in an \hyperref[def:abelian-category]{abelian category}. Then \(f\) is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if \(0 \to X\) is its \hyperref[def:categorical-kernel]{kernel}.
 
-  \hyperref[def:dual]{Dually}, \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if \(Y \to 0\) is its \hyperref[def:categorical-cokernel]{cokernel}.
+  Dually, \(f\) is an \hyperref[def:mono-epi-morphism]{epimorphism} if and only if \(Y \to 0\) is its \hyperref[def:categorical-cokernel]{cokernel}.
 \end{lemma}
 \begin{proof}
   We will do the \hyperref[def:categorical-kernel]{kernel} one.
@@ -218,7 +218,7 @@ We state the following characterization of \hyperref[def:exact-functor]{exact fu
     \item  The following are equivalent
           \begin{enumerate}
             \item \(F\) is \hyperref[def:exact-functor]{exact}.
-            \item For any \hyperref[def:exact-sequence]{exact sequence} \(X \to Y \to Z\) in \(\category{C}\) the sequence \(F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-complex]{exact} in \(\category{D}\).
+            \item For any \hyperref[def:exact-sequence]{exact sequence} \(X \to Y \to Z\) in \(\category{C}\) the sequence \(F(X) \to F(Y) \to F(Z)\) is \hyperref[def:exact-sequence]{exact} in \(\category{D}\).
             \item \(F\) commutes with \hyperref[def:categorical-colimit]{finite limits} and \hyperref[def:categorical-colimit]{finite colimits}.
           \end{enumerate}
   \end{enumerate}
@@ -233,13 +233,13 @@ As a direct application of \autoref{lemma:characterization-exact-functor} we hav
   Recall \autoref{thm:adjoints-preserve-limits}.
   
   \hyperref[def:adjoint-functors]{Right adjoints} are \hyperref[def:exact-functor]{left exact}.
-  \hyperref[def:dual]{Dually}, \hyperref[def:adjoint-functors]{left adjoints} are \hyperref[def:exact-functor]{right exact}.
+  Dually, \hyperref[def:adjoint-functors]{left adjoints} are \hyperref[def:exact-functor]{right exact}.
 \end{example}
 
 \begin{example}\label{ex:limit-colimit-exact}
   Let \(\category{I}\) be a \hyperref[def:small-category]{small category}.
   If \(\category{C}\) admits \hyperref[def:categorical-limit]{\(I\)-indexed limits} then the \hyperref[def:functor]{functor} \(\lim\colon \Fct{\opcategory{I}}{\category{C}} \to \category{C}\) is \hyperref[def:exact-functor]{left exact}.
-  \hyperref[def:dual]{Dually} if \(\category{C}\) admits \hyperref[def:categorical-colimit]{\(I\)-indexed colimits} then the \hyperref[def:functor]{functor} \(\colim\colon \Fct{\category{I}}{\category{C}} \to \category{C}\) is \hyperref[def:exact-functor]{right exact}.
+  Dually if \(\category{C}\) admits \hyperref[def:categorical-colimit]{\(I\)-indexed colimits} then the \hyperref[def:functor]{functor} \(\colim\colon \Fct{\category{I}}{\category{C}} \to \category{C}\) is \hyperref[def:exact-functor]{right exact}.
 \end{example}
 
 \begin{example}\label{ex:product-direct-sum-exact}
@@ -258,19 +258,19 @@ As a direct application of \autoref{lemma:characterization-exact-functor} we hav
 
 \subsection{Diagram lemmas}
 
-Since abelian categories may not necessarily consists of sets with elements (for example the \hyperref[def:complex-category]{category of complexes}).
+Since abelian categories may not necessarily consists of sets with elements (for example the \hyperref[def:complex]{category of complexes}).
 Therefore proving facts about this categories requires, in principle, to work over the full abstraction of category theory.
 However using the \hyperref[thm:freyd-mitchell]{Freyd-Mitchell embedding theorem} one can \textit{cheat} a little.
 
 \begin{theorem}[{Freyd-Mitchell embedding - \cite[Section 1.6]{weibelIntroductionHomologicalAlgebra1994}}]\label{thm:freyd-mitchell}
   Let \(\category{C}\) be a \hyperref[def:small-category]{small} \hyperref[def:abelian-category]{abelian category}.
-  Then there exists a ring \(R\) (with unit, not necessarilly commutative) and a \hyperref[def:functor-types]{fully faithful} \hyperref[def:exact-functor]{exact} \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Mod(R)\) which embeds \(\category{C}\) as a \hyperref[def:full-subcategory]{full subcategory} of \(\Mod(R)\).
+  Then there exists a ring \(R\) (with unit, not necessarilly commutative) and a \hyperref[def:functor-types]{fully faithful} \hyperref[def:exact-functor]{exact} \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Mod(R)\) which embeds \(\category{C}\) as a \hyperref[def:subcategory]{full subcategory} of \(\Mod(R)\).
 \end{theorem}
 
 In short, to prove something about a diagram in an abelian category we may assume that we are working on the category of modules over a ring \(R\) and then diagram-chase elements.
 Furthermore, any fact about kernels, cokernels and so one that hold on \(\Mod(R)\) also holds in any abelian category.
 
-Another strategy to prove statements in \hyperref[def:abelian-categories]{abelian categories} is the \textit{philosophy of generalized elements} \cite[Theorem VIII.4.3]{maclaneCategoriesWorkingMathematician1978}.
+Another strategy to prove statements in \hyperref[def:abelian-category]{abelian categories} is the \textit{philosophy of generalized elements} \cite[Theorem VIII.4.3]{maclaneCategoriesWorkingMathematician1978}.
 
 \begin{lemma}[Five lemma]\label{lemma:five-lemma}
   Consider a commutative diagram
@@ -283,7 +283,7 @@ Another strategy to prove statements in \hyperref[def:abelian-categories]{abelia
   where the rows are \hyperref[def:exact-sequence]{exact}.
 
   If \(f^{0}\) is an \hyperref[def:mono-epi-morphism]{epimorphism} and \(f^{1}, f^{3}\) are \hyperref[def:mono-epi-morphism]{monomorphisms} then \(f^{2}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
-  \hyperref[def:dual]{Dually} if \(f^{3}\) is an \hyperref[def:mono-epi-morphism]{monomorphism} and \(f^{0}, f^{2}\) are \hyperref[def:mono-epi-morphism]{epimorphisms} then \(f^{1}\) is a \hyperref[def:mono-epi-morphism]{epimorphism}.
+  Dually if \(f^{3}\) is an \hyperref[def:mono-epi-morphism]{monomorphism} and \(f^{0}, f^{2}\) are \hyperref[def:mono-epi-morphism]{epimorphisms} then \(f^{1}\) is a \hyperref[def:mono-epi-morphism]{epimorphism}.
 \end{lemma}
 \begin{proof}
   Let \(x_{2} \in X^{2}\) such that \(f^{2}(x_{2}) = 0\).
@@ -334,7 +334,7 @@ Another strategy to prove statements in \hyperref[def:abelian-categories]{abelia
   Then \((f' \circ \alpha)(x') = (\beta \circ f)(x') = 0\).
   Since \(f'\) is a \hyperref[def:mono-epi-morphism]{monomorphism} we get \(\alpha(x') = 0\) and thus \(x' \in \ker \alpha\).
 
-  A \hyperref[def:dual]{dual} argument shows that \(\coker \alpha \to \coker \beta \to \coker \gamma\) is \hyperref[def:exact-sequence]{exact}.
+  A dual argument shows that \(\coker \alpha \to \coker \beta \to \coker \gamma\) is \hyperref[def:exact-sequence]{exact}.
 
   It only remains to construct \(\delta\).
   Let \(x'' \in \ker \gamma\) and choose \(x \in X\) with \(g(x) = x''\).
@@ -391,7 +391,7 @@ We introduce cohomology as a way of measuring how far away is a \hyperref[def:co
   \end{center}
 \end{remark}
 
-The first thing we are going to see is that \hyperref[def:cohomology]{cohomology} is a \hyperref[def:complex-homotopy]{homotopy} invariant.
+The first thing we are going to see is that \hyperref[def:cohomology]{cohomology} is a \hyperref[def:homotopy]{homotopy} invariant.
 \begin{lemma}\label{lemma:extension-cohomology-homotopy}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} and \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) a morphism in \(\Complex{\category{C}}\) \hyperref[def:homotopy]{homotopic to zero}.
   Then \(\cohomology{n}f^{\bullet}\colon \cohomology{n}(X^{\bullet}) \to \cohomology{n}(Y^{\bullet})\) is the \hyperref[def:zero-object]{zero morphism} for all \(n \in \mathbb{Z}\).
