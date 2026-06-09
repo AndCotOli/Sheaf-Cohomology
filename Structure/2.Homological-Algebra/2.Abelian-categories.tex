@@ -8,10 +8,12 @@
 \begin{document}
 \chapter{Abelian categories}
 
-We continue now our goal of generalizing the category of modules to a more general \hyperref[def:category]{category}.
-To do this we consider now \hyperref[def:additive-category]{additive categories} where the first isomorphism theorem works.
+In this chapter we introduce abelian categories: \hyperref[def:additive-category]{additive categories} where the first isomorphism theorem works.
+We also study exactness in this categories and introduce the cohomology functor.
 
-Before doing so, we fix some terminology and notation around the necessary building blocks of this theorem.
+The main references for this chapter are \cite{weibelIntroductionHomologicalAlgebra1994, gelfandMethodsHomologicalAlgebra2003, aluffiAlgebraChapter02009}.
+
+Before we begin, we fix some terminology and notation around the necessary building blocks of the isomorphism theorem.
 \begin{definition}
   Let \(f\colon X \to Y\) be a morphism in an \hyperref[def:additive-category]{additive category} \(\category{C}\) that admits \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels}.
   Consider the following
@@ -47,6 +49,12 @@ Now we are ready to define our categories of interest.
     \item For any morphism \(f\) in \(\category{C}\) the canonical morphism \(\operatorname{Coim} f \to \operatorname{Im} f\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
   \end{enumerate}
 \end{definition}
+
+\begin{example}
+  The \hyperref[def:category]{category} of (abelian) groups and modules over a ring are \hyperref[def:abelian-category]{abelian}.
+  However, the \hyperref[def:category]{category} of rings is not.
+\end{example}
+
 
 As a direct consecuence of \autoref{thm:existence-finite-limits-colimits} we obtain that \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} exist in these \hyperref[def:category]{categories}
 \begin{lemma}\label{lemma:abelian-admits-limits-colimits}
@@ -174,7 +182,7 @@ Roughly speaking, a short exact sequence is split exact if the only information 
   \end{enumerate}
 \end{proof}
 
-When studying \hyperref[def:exact-sequence]{exactness} between different \hyperref[def:category]{categories} we don't want to loose information on whether a sequence is \hyperref[def:exact-sequence]{exact} or not.
+When studying \hyperref[def:exact-sequence]{exactness} between different \hyperref[def:category]{categories} we don't want to lose information on whether a sequence is \hyperref[def:exact-sequence]{exact} or not.
 Therefore the correct notion of \hyperref[def:functor]{functors} in this case is that of exact functors.
 \begin{definition}\label{def:exact-functor}
   Let \(\category{C}, \category{D}\) be two \hyperref[def:abelian-category]{abelian categories} and
@@ -242,23 +250,23 @@ As a direct application of \autoref{lemma:characterization-exact-functor} we hav
   Dually if \(\category{C}\) admits \hyperref[def:categorical-colimit]{\(I\)-indexed colimits} then the \hyperref[def:functor]{functor} \(\colim\colon \Fct{\category{I}}{\category{C}} \to \category{C}\) is \hyperref[def:exact-functor]{right exact}.
 \end{example}
 
-\begin{example}\label{ex:product-direct-sum-exact}
-  Let \(R\) be a ring and \(\mathcal{I}\) an index set.
-  The two \hyperref[def:functor]{functors}
-  \begin{equation*}
-    \prod_{i \in \mathcal{I}}\colon \Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R) \qquad \bigoplus_{i \in \mathcal{I}} :\Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R)
-  \end{equation*}
-  are \hyperref[def:exact-functor]{exact}.
-\end{example}
+% \begin{example}\label{ex:product-direct-sum-exact}
+%   Let \(R\) be a ring and \(\mathcal{I}\) an index set.
+%   The two \hyperref[def:functor]{functors}
+%   \begin{equation*}
+%     \prod_{i \in \mathcal{I}}\colon \Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R) \qquad \bigoplus_{i \in \mathcal{I}} :\Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R)
+%   \end{equation*}
+%   are \hyperref[def:exact-functor]{exact}.
+% \end{example}
 
-\begin{example}\label{ex:injlim-exact}
-  Let \(R\) be a ring and \(\mathcal{I}\) a \hyperref[def:directed-set]{small directed category}.
-  The \hyperref[def:functor]{functor} \(\varinjlim_{i \in \mathcal{I}}\colon \Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R)\) is \hyperref[def:exact-functor]{exact}.
-\end{example}
+% \begin{example}\label{ex:injlim-exact}
+%   Let \(R\) be a ring and \(\mathcal{I}\) a \hyperref[def:directed-set]{small directed category}.
+%   The \hyperref[def:functor]{functor} \(\varinjlim_{i \in \mathcal{I}}\colon \Fct{\mathcal{I}}{\Mod(R)} \to \Mod(R)\) is \hyperref[def:exact-functor]{exact}.
+% \end{example}
 
 \subsection{Diagram lemmas}
 
-Since abelian categories may not necessarily consists of sets with elements (for example the \hyperref[def:complex]{category of complexes}).
+Note that \hyperref[def:abelian-category]{abelian categories} may not necessarily consists of sets with elements (for example the \hyperref[def:complex]{category of complexes}).
 Therefore proving facts about this categories requires, in principle, to work over the full abstraction of category theory.
 However using the \hyperref[thm:freyd-mitchell]{Freyd-Mitchell embedding theorem} one can \textit{cheat} a little.
 
@@ -267,10 +275,12 @@ However using the \hyperref[thm:freyd-mitchell]{Freyd-Mitchell embedding theorem
   Then there exists a ring \(R\) (with unit, not necessarilly commutative) and a \hyperref[def:functor-types]{fully faithful} \hyperref[def:exact-functor]{exact} \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Mod(R)\) which embeds \(\category{C}\) as a \hyperref[def:subcategory]{full subcategory} of \(\Mod(R)\).
 \end{theorem}
 
-In short, to prove something about a diagram in an abelian category we may assume that we are working on the category of modules over a ring \(R\) and then diagram-chase elements.
-Furthermore, any fact about kernels, cokernels and so one that hold on \(\Mod(R)\) also holds in any abelian category.
+In short, to prove something about a \hyperref[def:diagram]{diagram} in an \hyperref[def:abelian-category]{abelian category} we may assume that we are working in the \hyperref[def:category]{category} of modules over a ring \(R\) and then diagram-chase elements.
+Furthermore, any fact about \hyperref[def:categorical-kernel]{kernels}, \hyperref[def:categorical-cokernel]{cokernels} and so one that holds on \(\Mod(R)\) also holds in any \hyperref[def:abelian-category]{abelian category}.
 
-Another strategy to prove statements in \hyperref[def:abelian-category]{abelian categories} is the \textit{philosophy of generalized elements} \cite[Theorem VIII.4.3]{maclaneCategoriesWorkingMathematician1978}.
+% Another strategy to prove statements in \hyperref[def:abelian-category]{abelian categories} is the \textit{philosophy of generalized elements} \cite[Theorem VIII.4.3]{maclaneCategoriesWorkingMathematician1978}.
+
+Using \hyperref[thm:freyd-mitchell]{this theorem} we can easilly prove two diagram lemmas that will make our lives easier later on.
 
 \begin{lemma}[Five lemma]\label{lemma:five-lemma}
   Consider a commutative diagram
@@ -391,7 +401,7 @@ We introduce cohomology as a way of measuring how far away is a \hyperref[def:co
   \end{center}
 \end{remark}
 
-The first thing we are going to see is that \hyperref[def:cohomology]{cohomology} is a \hyperref[def:homotopy]{homotopy} invariant.
+The first thing we are going to see is that \hyperref[def:cohomology]{cohomology} is an \hyperref[def:homotopy]{homotopy} invariant.
 \begin{lemma}\label{lemma:extension-cohomology-homotopy}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category} and \(f^{\bullet}\colon X^{\bullet} \to Y^{\bullet}\) a morphism in \(\Complex{\category{C}}\) \hyperref[def:homotopy]{homotopic to zero}.
   Then \(\cohomology{n}f^{\bullet}\colon \cohomology{n}(X^{\bullet}) \to \cohomology{n}(Y^{\bullet})\) is the \hyperref[def:zero-object]{zero morphism} for all \(n \in \mathbb{Z}\).
@@ -466,7 +476,7 @@ Using \hyperref[def:quasi-isomorphism]{quasi-isomorphisms} we can associated thi
   \end{center}
 \end{remark}
 
-We end the chapter with a key result: taking \hyperref[def:cohomology]{cohomology} transforms a \hyperref[def:exact-sequence]{short exact sequence} into a \hyperref[def:exact-sequence]{long exact sequence} in a functorial way.
+We end the chapter with a key result: taking \hyperref[def:cohomology]{cohomology} transforms a \hyperref[def:exact-sequence]{short exact sequence} of \hyperref[def:complex]{complexes} into a \hyperref[def:exact-sequence]{long exact sequence} in a functorial way.
 \begin{theorem}[Long exact sequence in cohomology]\label{thm:LES-in-cohomology}
   Let
   \begin{center}

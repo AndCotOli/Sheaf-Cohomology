@@ -9,12 +9,12 @@
 
 \chapter{Additive categories}
 
-In the previous chapter, we established the abstract language of categories, emphasizing that the structure of a mathematical ecosystem is governed by its morphisms rather than its internal elements.
-We now turn our attention to categories where the collections of morphisms possess an algebraic structure of their own.
-In many familiar environments, such as the category of abelian groups or modules over a ring, parallel morphisms can be added together and subtracted.
-Formalizing this observation leads us to the concept of an additive category.
+In this chapter we introduce additive categories and functors.
+We also start studying complexes and define what an homotopy between them is.
 
-The defining trait of an additive category is that its hom-sets are not merely sets; they are abelian groups, and this algebraic framework plays nicely with morphism composition
+The main references for this chapter are \cite{weibelIntroductionHomologicalAlgebra1994, gelfandMethodsHomologicalAlgebra2003, aluffiAlgebraChapter02009}.
+
+The defining trait of an additive category is that its hom-sets are not merely sets; they are abelian groups.
 \begin{definition}[Additive category]\label{def:additive-category}
   A \hyperref[def:category]{category} \(\category{C}\) is \textbf{additive} if it satisfies
   \begin{enumerate}[label=Ad.\arabic*), ref=Ad.\arabic*]
@@ -38,8 +38,7 @@ The defining trait of an additive category is that its hom-sets are not merely s
 \end{notation}
 
 In an arbitrary \hyperref[def:category]{category}, \hyperref[def:categorical-product]{products} and \hyperref[def:categorical-coproduct]{coproducts} are completely independent structures.
-However, the presence of an underlying abelian group structure on hom-sets forces these two notions to seamlessly collapse into one another.
-
+However, the presence of an underlying abelian group structure on hom-sets forces these two notions to collapse into one another.
 \begin{lemma}\label{lemma:products-coproducts-additive-category}
   Let \(\category{C}\) be a \hyperref[def:category]{category} satisfying \ref{axiom:additive-hom} and \ref{axiom:additive-zero}.
 
@@ -109,8 +108,7 @@ However, the presence of an underlying abelian group structure on hom-sets force
   Using that \(\sum_{k} i_{k} \circ p_{k} = 1\), it follows that addition and composition of matrices obey the usual rules of matrix addition and multiplication respectively.
 \end{remark}
 
-Without elements to test, checking whether a morphism is \hyperref[def:mono-epi-morphism]{monic} or \hyperref[def:mono-epi-morphism]{epic} might seem daunting.
-Fortunately, the group structure of our hom-sets gives us a clean, element-free translation of injectivity and surjectivity based entirely on the zero morphism.
+In this \hyperref[def:category]{categories} \hyperref[def:mono-epi-morphism]{monomorphisms} and \hyperref[def:mono-epi-morphism]{epimorphisms} have a simple characterization.
 \begin{lemma} \label{lemma:mono-epi-additive}
   A morphism \(f\colon X \to Y\) in an \hyperref[def:additive-category]{additive category} is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if for every morphism \(g\colon Z \to X\)
   \begin{equation*}
@@ -161,7 +159,7 @@ Being \hyperref[def:additive-category]{additive} also works well when considerin
 
 Now it's time to introduce \hyperref[def:functor]{functors} into play.
 In general a \hyperref[def:functor]{functor} does not preserve the abelian group structure of the hom-sets.
-Therefore the correct way to move between \hyperref[def:additive-category]{additive categories} without loosing information is by using additive functors.
+Therefore the correct way to move between \hyperref[def:additive-category]{additive categories} without losing information is by using additive functors.
 \begin{definition}[Additive functor]\label{def:additive-functor}
   Let \(\category{C}\), \(\category{D}\) be \hyperref[def:additive-category]{additive categories}.
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) is \textbf{additive} if for all \(X, Y \in \category{C}\)
@@ -279,9 +277,6 @@ This motivates the following definition.
 \section{Complexes}
 
 From now until the end of the chapter, let \(\category{C}\) be an \hyperref[def:additive-category]{additive category}.
-
-It's time to define now the building blocks of homological algebra: complexes.
-The idea behind is to not study individual objects in an \hyperref[def:additive-category]{additive categories} but ``sequences'' of them.
 
 First we make explicit the notion of a ``sequence'' of objects.
 \begin{definition}[Differential object]\label{def:differential-object-additive}

@@ -10,7 +10,42 @@
 
 \chapter{Derived functors}
 
-In this chapter \(\category{C}\) refers to an \hyperref[def:abelian-category]{abelian category}.
+In this chapter we construct right derived functors using injective resolutions and show its main properties.
+
+The main references for this chapter are \cite{weibelIntroductionHomologicalAlgebra1994, gelfandMethodsHomologicalAlgebra2003}.
+
+Throughout all \hyperref[def:category]{categories} will be assumed to be \hyperref[def:abelian-category]{abelian} if not stated otherwise.
+
+Before we begin, let's consider state what our desired property for derived functors is.
+Consider a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) and a \hyperref[def:short-exact-sequence]{short exact sequence} in \(\category{C}\)
+\begin{center}
+  \begin{tikzcd}
+    0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+  \end{tikzcd}
+\end{center}
+In most cases the associated \hyperref[def:complex]{sequence} \(F(X) \to F(Y) \to F(Z)\) will not be \hyperref[def:exact-sequence]{exact}.
+In particular if \(F\) is only \hyperref[def:exact-functor]{left exact} we only have
+\begin{center}
+  \begin{tikzcd}
+    0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z)
+  \end{tikzcd}
+\end{center}
+Our objective is to extend this \hyperref[def:complex]{complex} to the right preserving as much information as possible, i.e:
+\begin{center}
+  \begin{tikzcd}
+    0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & F(Z) \arrow[dll, rounded corners, to path={
+      -- ([xshift=2ex]\tikztostart.east)
+      |- (X) [near end]\tikztonodes
+      -| ([xshift=-2ex]\tikztotarget.west)
+      -- (\tikztotarget)}] \\
+    & \operatorname{R}^{1}F(X) \arrow[r] &  \operatorname{R}^{1}F(Y) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \operatorname{R}^{1}F(Z) \arrow[dll, rounded corners, to path={
+      -- ([xshift=2ex]\tikztostart.east)
+      |- (Y) [near end]\tikztonodes
+      -| ([xshift=-2ex]\tikztotarget.west)
+      -- (\tikztotarget)}] \\
+    & \operatorname{R}^{2}F(X) \arrow[r] & \operatorname{R}^{2}F(Y) \arrow[r] & \cdots
+  \end{tikzcd}
+\end{center}
 
 \section{Injective and projective objects}
 
@@ -105,7 +140,7 @@ A more useful characterization of this objects in terms of \hyperref[def:exact-f
 \end{proof}
 
 We would like to build \hyperref[def:resolution]{resolutions} using \hyperref[def:injective-projective-object]{injective} and \hyperref[def:injective-projective-object]{projective} objects.
-This is however not always possible.
+This is however not always possible since there may be \textit{too few} fo this objects.
 \begin{definition}\label{def:enough-injectives-projectives}~
   A \hyperref[def:category]{category} has \textbf{enough injectives} if for every object \(X \in \category{X}\) there exists an \hyperref[def:injective-projective-object]{injective object} \(I \in \mathcal{I}_{\category{C}}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow I\).
 

@@ -149,11 +149,11 @@ As it turns out, this produces another category that is dual to the original one
 \begin{definition}[Opposite category]\label{def:opposite-category}
   Let \(\category{C}\) be a \hyperref[def:category]{category}. The \textbf{opposite category} \(\opcategory{C}\) consists of:
   \begin{itemize}
-    \item The same objects as \(\category{C}\): \(\operatorname{Ob}(\opcategory{C}) = \operatorname{Ob}(\category{C})\).
-    \item For each pair of objects \(X, Y \in \category{C}^{\op}\): \(\Hom_{\opcategory{C}}(X, Y) = \Hom_{\category{C}}(Y, X)\).
+    \item The same objects as \(\category{C}\): \(\operatorname{Ob}(\opcategory{C}) \coloneq \operatorname{Ob}(\category{C})\).
+    \item For each pair of objects \(X, Y \in \category{C}^{\op}\): \(\Hom_{\opcategory{C}}(X, Y) \coloneq \Hom_{\category{C}}(Y, X)\).
     \item If \(f^{\op}\colon X \to Y\), \(g^{\op}\colon Y \to Z\) are morphisms in \(\category{C}^{\op}\) their composition is defined by
           \begin{equation*}
-            f^{\op} \circ g^{\op} = (g \circ f)^{\op}
+            f^{\op} \circ g^{\op} \coloneq (g \circ f)^{\op}
           \end{equation*}
           where \(f\colon Y \to X\) and \(g\colon Z \to Y\) are the associated morphisms in \(\category{C}\).
           Visually
@@ -187,7 +187,7 @@ In practice, this means that proving an statement directly proves its dual for f
 
 \section{Types of morphisms}
 
-As we said in the introduction, category theory shifts the focus from studying the objects itselves to the relations between them.
+% As we said in the introduction, category theory shifts the focus from studying the objects itselves to the relations between them.
 
 When starting to learn about set theory, some of the first definitions are those of an injection and a surjection.
 Then when studying algebraic objects such as groups and rings one learns about monomorphisms and epimorphisms, that are no more and no less than injections and surjections between the underlying sets of the objects that respect the desired algebraic operation.
@@ -248,7 +248,7 @@ As an example of the duality phenomena we described earlier, we show that \hyper
 \end{remark}
 
 Another recurrent notion accross mathematics is that of an isomorphism.
-In short, we say that two objects are isomorphic even though they \textit{look} different they \textit{behave} funtionally the same.
+In short, we say that two objects are isomorphic if they \textit{behave} functionally the same even if they \textit{look} different.
 
 We can extend this notion to general categories.
 \begin{definition}[Isomorphism]\label{def:categorical-isomorphism}
@@ -315,10 +315,10 @@ The usual properties of the inverses and isomorphisms work as one would expect i
 \end{proof}
 
 
-As it happens in \(\Set\), the notions of \hyperref[def:mono-epi-morphism]{monomorphisms}, \hyperref[def:mono-epi-morphism]{monomorphisms} and \hyperref[def:categorical-isomorphism]{isomorphisms} are closely related.
+As it happens in \(\Set\), the notions of \hyperref[def:mono-epi-morphism]{monomorphisms}, \hyperref[def:mono-epi-morphism]{epimorphisms} and \hyperref[def:categorical-isomorphism]{isomorphisms} are closely related.
 \begin{proposition}
   Let \(f\colon X \to Y\) be an \hyperref[def:categorical-isomorphism]{isomorphism}.
-  Then \(f\) is both a \hyperref[def:mono-epi-morphism]{monomorphism and epimorphism}.
+  Then \(f\) is both a \hyperref[def:mono-epi-morphism]{monomorphism} and an \hyperref[def:mono-epi-morphism]{epimorphism}.
 \end{proposition}
 \begin{proof}
   Suppose \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in a \hyperref[def:category]{category} \(\category{C}\).
@@ -393,8 +393,8 @@ This are examples of what are called initial and terminal objects.
   \end{itemize}
 \end{example}
 
-In the above examples we have spoken of \textit{the} \hyperref[def:initial-terminal-object]{initial} and \textit{the} \hyperref[def:initial-terminal-object]{terminal} instead of \textit{an} \hyperref[def:initial-terminal-object]{initial} or  \textit{a} \hyperref[def:initial-terminal-object]{terminal}.
-This is justified as this types of objects are categorically indestinguishable, i.e: \hyperref[def:categorical-isomorphism]{isomorphic}.
+In the above examples we have spoken of \textit{the} \hyperref[def:initial-terminal-object]{initial} and \textit{the} \hyperref[def:initial-terminal-object]{terminal} instead of \textit{an} \hyperref[def:initial-terminal-object]{initial} or  \textit{a} \hyperref[def:initial-terminal-object]{terminal} object.
+This is justified as this types of objects are \hyperref[def:categorical-isomorphism]{isomorphic}.
 
 \begin{proposition}[Uniqueness of initial and terminal objects]\label{prop:uniqueness-initial-terminal-objects}
   Let \(X, Y\) be two \hyperref[def:initial-terminal-object]{initial} (resp. \hyperref[def:initial-terminal-object]{terminal}) objects in a \hyperref[def:category]{category} \(\category{C}\).
@@ -412,7 +412,7 @@ This is justified as this types of objects are categorically indestinguishable, 
   Moreover they are unique by definition.
 \end{proof}
 
-In some particular cases \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal} objects coincide, which means that there is an object with an unique morphism from and to every other object in the category.
+In some particular cases \hyperref[def:initial-terminal-object]{initial} and \hyperref[def:initial-terminal-object]{terminal} objects coincide, which means that there is an object with a unique morphism from and to every other object in the \hyperref[def:category]{category}.
 In this case we say that this object is zero.
 
 \begin{definition}[Zero object]\label{def:zero-object}

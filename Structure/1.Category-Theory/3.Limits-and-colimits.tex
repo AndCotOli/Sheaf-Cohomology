@@ -127,7 +127,7 @@ Out of all of the possible \hyperref[def:natural-transformation]{natural transfo
 \section{Limits and colimits}
 
 Limits and colimits unify diverse geometric and algebraic constructions by identifying them as the ``best possible'' approximations of a diagram, formalizing their universal properties.
-By viewing them as terminal or initial objects in a category of cones or cocones, we reduce the collective behavior of an entire system of objects and arrows down to a single, uniquely determined universal object.
+% By viewing them as terminal or initial objects in a category of cones or cocones, we reduce the collective behavior of an entire system of objects and arrows down to a single, uniquely determined universal object.
 
 \begin{definition}[Limit]\label{def:categorical-limit}
   A \textbf{limit} of a \hyperref[def:diagram]{diagram} \(X\colon \category{J} \to \category{C}\) is a \hyperref[def:initial-terminal-object]{terminal object} in the \hyperref[def:cone]{category of cones} \(\Delta \downarrow X\).
@@ -621,7 +621,7 @@ We finish this chapter by giving a condition for the existence of finite \hyperr
   \end{itemize}
 \end{proof}
 
-In the particular case of \hyperref[def:functor-category]{functor categories} we have a stronger result: these categories has limits (resp. colimits) if the target category has them.
+In the particular case of \hyperref[def:functor-category]{functor categories} we have a stronger result: these \hyperref[def:category]{categories} have \hyperref[def:categorical-limit]{limits} (resp. \hyperref[def:categorical-colimit]{colimits}) if the target \hyperref[def:category]{category} has them.
 \begin{proposition}\label{prop:limits-in-functor-category}
   Let \(\category{C}\) and \(\category{D}\) be two \hyperref[def:category]{categories} and \(\Fct{\category{C}}{\category{D}}\) be its \hyperref[def:functor-category]{functor category}.
 
