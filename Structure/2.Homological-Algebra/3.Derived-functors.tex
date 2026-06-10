@@ -14,9 +14,9 @@ In this chapter we construct right derived functors using injective resolutions 
 
 The main references for this chapter are \cite{weibelIntroductionHomologicalAlgebra1994, gelfandMethodsHomologicalAlgebra2003}.
 
-Throughout all \hyperref[def:category]{categories} will be assumed to be \hyperref[def:abelian-category]{abelian} if not stated otherwise.
+Throughout this chapter all \hyperref[def:category]{categories} will be assumed to be \hyperref[def:abelian-category]{abelian} if not stated otherwise.
 
-Before we begin, let's consider state what our desired property for derived functors is.
+Before we begin, let's state what our desired property for derived functors is.
 Consider a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) and a \hyperref[def:short-exact-sequence]{short exact sequence} in \(\category{C}\)
 \begin{center}
   \begin{tikzcd}
@@ -24,7 +24,7 @@ Consider a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{
   \end{tikzcd}
 \end{center}
 In most cases the associated \hyperref[def:complex]{sequence} \(F(X) \to F(Y) \to F(Z)\) will not be \hyperref[def:exact-sequence]{exact}.
-In particular if \(F\) is only \hyperref[def:exact-functor]{left exact} we only have
+In particular if \(F\) is \hyperref[def:exact-functor]{left exact} we only have
 \begin{center}
   \begin{tikzcd}
     0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z)
@@ -49,7 +49,7 @@ Our objective is to extend this \hyperref[def:complex]{complex} to the right pre
 
 \section{Injective and projective objects}
 
-We begin by studying objects that have nice properties with respect to \hyperref[def:exact-sequence]{exact sequence}.
+We begin by studying objects that have nice properties with respect to \hyperref[def:exact-sequence]{exact sequences}.
 \begin{definition}\label{def:injective-projective-object}~
   Let \(\category{C}\) be a \hyperref[def:category]{category}.
   An object \(I \in \category{C}\) is \textbf{injective} if all the diagrams of the form
@@ -87,7 +87,7 @@ We begin by studying objects that have nice properties with respect to \hyperref
   If \(\category{C}\) is any \hyperref[def:category]{category} we denote by \(\mathcal{I}_{\category{C}}\) its \hyperref[def:subcategory]{full subcategory} made of \hyperref[def:injective-projective-object]{injective objects} and by \(\mathcal{P}_{\category{C}}\) its \hyperref[def:subcategory]{full subcategory} of \hyperref[def:injective-projective-object]{projective objects}.
 \end{notation}
 
-A more useful characterization of this objects in terms of \hyperref[def:exact-functor]{exact functors} is the following.
+A more useful characterization of these objects in terms of \hyperref[def:exact-functor]{exact functors} is the following.
 \begin{proposition}\label{prop:injective-characterization-hom}
   Let \(\category{C}\) be an \hyperref[def:abelian-category]{abelian category}.
   An object \(I \in \category{C}\) is \hyperref[def:injective-projective-object]{injective} if and only if the functor \(\Hom_{\category{C}}(-, I)\) is \hyperref[def:exact-functor]{exact}.
@@ -140,14 +140,14 @@ A more useful characterization of this objects in terms of \hyperref[def:exact-f
 \end{proof}
 
 We would like to build \hyperref[def:resolution]{resolutions} using \hyperref[def:injective-projective-object]{injective} and \hyperref[def:injective-projective-object]{projective} objects.
-This is however not always possible since there may be \textit{too few} fo this objects.
+This is however not always possible since there may be \textit{too few} of these objects.
 \begin{definition}\label{def:enough-injectives-projectives}~
   A \hyperref[def:category]{category} has \textbf{enough injectives} if for every object \(X \in \category{X}\) there exists an \hyperref[def:injective-projective-object]{injective object} \(I \in \mathcal{I}_{\category{C}}\) and a \hyperref[def:mono-epi-morphism]{monomorphism} \(X \monoarrow I\).
 
   Dually, \(\category{C}\) has \textbf{enough projectives} if for every object \(X \in \category{A}\) there exists a \hyperref[def:injective-projective-object]{projective object} \(P \in \mathcal{P}_{\category{C}}\) and an \hyperref[def:mono-epi-morphism]{epimorphism} \(P \epiarrow X\).
 \end{definition}
 
-Since as we will see later the category of sheaves has enough injective but not enough projectives, we will study the injective case.
+Since as we will see later the category of sheaves has enough injectives but not enough projectives, we will study the injective case.
 However all of the results have dual counterparts for projective objects.
 
 Assuming that we have \hyperref[def:enough-injectives-projectives]{enough injectives}, every object \(X \in \category{C}\) admits a \hyperref[def:resolution]{right resolution} \(X \to I^{\bullet}\) made of \hyperref[def:injective-projective-object]{injectives}.
@@ -283,7 +283,7 @@ Furthermore, \hyperref[def:injective-projective-object]{injective objects} allow
   Using that \(J^{n}\) is \hyperref[def:injective-projective-object]{injective} this map extends to \(h^{n+1}\colon I^{n+1} \to J^{n}\).
 \end{proof}
 
-In particular we get if two \hyperref[def:injective-projective-object]{injective complexes} \hyperref[def:resolution]{resolve} the same object \(X \in \category{C}\) their \hyperref[def:cohomology]{cohomology} is the same.
+In particular if two \hyperref[def:injective-projective-object]{injective complexes} \hyperref[def:resolution]{resolve} the same object \(X \in \category{C}\) their \hyperref[def:cohomology]{cohomology} is the same.
 \begin{corollary}
   Let \(I^{\bullet}, J^{\bullet}\) be two \hyperref[def:resolution]{injective resolutions} of an object \(X \in \category{C}\).
   Then
@@ -504,7 +504,7 @@ A naive approach would be to do something like this
 \begin{equation*}
   0 \to F(X) \xrightarrow{Ff} F(Y) \xrightarrow{Fg} F(Z) \to \operatorname{Coim} Fg \to 0
 \end{equation*}
-However we lose to much information by doing so.
+However we lose too much information by doing so.
 
 The machinery that enables us to extend this sequences are derived functors.
 \begin{definition}\label{def:right-derived-functor}

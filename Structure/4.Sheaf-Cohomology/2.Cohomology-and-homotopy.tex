@@ -10,13 +10,12 @@
 \begin{document}
 \chapter{Cohomology and homotopy}
 
-If two topological spaces are continuously deformed into one another, we intuitively expect their underlying algebraic properties to remain invariant.
-In this chapter, we formalize this intuition by showing that sheaf cohomology is a homotopy invariant.
-To do this rigorously without losing the local data of our sheaves, we must generalize standard homotopy to relative topology over a base parameter space S.
+In this chapter, we show that sheaf cohomology is a homotopy invariant.
+We prove a slightly stronger result: it is invariant by homotopy over a base space \(S\).
 
-We do this adapting the results of \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
+The main reference for this chapter is \cite[Section 2.7]{kashiwaraSheavesManifolds1990}.
 
-This results will also be useful when computing the \hyperref[def:sheaf-cohomology]{cohomology} of simple spaces as we will see later.
+These results will also be useful when computing the \hyperref[def:sheaf-cohomology]{cohomology} of simple spaces as we will see later.
 
 \begin{notation}
   We will denote \(I \coloneq [0, 1]\) the unit interval.
@@ -51,7 +50,6 @@ Note that this relative framework is generalization of the non-relative case, si
 
 With relative maps defined, we can now define relative homotopies.
 A homotopy over \(S\) is a continuous deformation where every intermediate step is itself a continuous map over \(S\).
-This ensures that points do not stray out of their assigned fibers during the deformation.
 
 \begin{definition}\label{def:homotopy-over}
   Let \(X, Y\) and \(S\) be topological spaces.
@@ -212,7 +210,7 @@ To remedy this, we use the \hyperref[def:inverse-image-sheaf]{inverse image func
   We denote this map by \(f^{\ast}\). 
 \end{remark}
 
-We now arrive at the central result of this chapter where we show that \hyperref[def:homotopy-over]{relative homotopies} preserve sheaf cohomology.
+We now arrive at the central result of this chapter where we show that \hyperref[def:homotopy-over]{relative homotopies} preserve \hyperref[def:sheaf-cohomology]{sheaf cohomology}.
 This means that continuously deforming a map over \(S\) does not alter its effect on the \hyperref[def:sheaf-cohomology]{cohomology} of sheaves pulled up from \(S\).
 
 \begin{theorem}\label{thm:homotopy-invariance-cohomology}

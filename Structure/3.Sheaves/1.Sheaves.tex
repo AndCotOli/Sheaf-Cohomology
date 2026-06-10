@@ -8,15 +8,10 @@
 \begin{document}
 \chapter{Presheaves and sheaves}\label{ch:presheaves-and-sheaves}
 
-In previous chapters, we developed the framework of category theory and homological algebra to study mathematical objects and their global transformations.
-However, many geometric and topological problems are inherently local.
-To bridge the gap between local properties and global structures, we introduce the concepts of presheaves and sheaves.
+This chapter begins with a motivating example centered around smooth functions, tracking how these structures abstract into general definitions.
+We will explore the local properties of sheaves through the construction of stalks, establish the sheafification functor as a left adjoint to the forgetful functor, and conclude by examining the homological properties of sheaves valued in an abelian category.
 
-Intuitively, a presheaf allows us to attach data (such as modules, groups, or rings) to the open sets of a topological space in a way that respects the restriction from larger open sets to smaller ones.
-A sheaf goes a step further by requiring that this data satisfies a local-to-global principle: sections that are locally compatible can be uniquely glued together into a global section.
-
-This chapter begins with a motivating example centered around smooth functions, tracking how these concrete structures naturally abstract into general definitions.
-We will explore the local properties of sheaves through the construction of stalks, establish the sheafification functor as a left adjoint to the forgetful functor, and conclude by examining the rich homological properties of sheaves valued in an abelian category.
+The main references for this chapter are \cite{vakilRISINGSEAFoundations2025, hartshorneAlgebraicGeometry1977, stacks-project}.
 
 \section{A motivating example}\label{sec:motivating-example-sheaves}
 We begin this chapter by giving a concrete example of sheaves following \cite{vakilRISINGSEAFoundations2025} that will help us motivate the abstractions.
@@ -315,7 +310,7 @@ Roughly speaking, it states that knowing all of the ``local'' information is the
   \end{equation*}
 \end{example}
 
-The \hyperref[def:sheaf]{category of sheaves} also has a nice characterization \hyperref[def:categorical-isomorphism]{isomorphism}, \hyperref[def:mono-epi-morphism]{monomorphism} and \hyperref[def:mono-epi-morphism]{epimorphisms} in terms of \hyperref[def:stalk]{stalks} that will be particularly useful once we study \hyperref[def:exact-sequence]{exact sequences} of \hyperref[def:sheaf]{sheaves}.
+The \hyperref[def:sheaf]{category of sheaves} also has a nice characterization of \hyperref[def:categorical-isomorphism]{isomorphism}, \hyperref[def:mono-epi-morphism]{monomorphism} and \hyperref[def:mono-epi-morphism]{epimorphisms} in terms of \hyperref[def:stalk]{stalks} that will be particularly useful once we study \hyperref[def:exact-sequence]{exact sequences} of \hyperref[def:sheaf]{sheaves}.
 
 \begin{proposition}\label{prop:sheaf-isomorphism-determined-at-stalks}
   Let \(\phi\colon \sheaf{F} \to \sheaf{G}\) be a \hyperref[def:sheaf]{morphism of sheaves}.
@@ -374,7 +369,7 @@ We have established the definition of \hyperref[def:presheaf]{presheaves} and \h
 \end{equation*}
 We want to associate to each \hyperref[def:presheaf]{presheaf} a \hyperref[def:sheaf]{sheaf} in a way that \textit{respects} this forgetful functor.
 
-In the language of category-theory, this is expressed by an \hyperref[def:adjoint-functors]{adjunction}.
+In the language of category theory, this is expressed by an \hyperref[def:adjoint-functors]{adjunction}.
 \begin{definition}[Sheafification] \label{def:sheafification}
     Let \(X\) be a topological space and \(\category{C}\) a \hyperref[def:category]{category}.
     The \textbf{sheafification} (or associated sheaf) \hyperref[def:functor]{functor}, denoted by \(-^{\#}\colon \PSh_{X}(\category{C}) \to \Sh_{X}(\category{C})\), is the \hyperref[def:adjoint-functors]{left adjoint} to the inclusion functor \(\iota\colon \Sh_{X}(\category{C}) \hookrightarrow \PSh_{X}(\category{C})\).
@@ -561,7 +556,7 @@ We will do this by the means of the following category-theoretic auxiliary lemma
   Note that, since \(b \circ a \cong \id_{\category{A}}\), every morphism \(\psi\) in \(\category{A}\) is of the form \(\psi = b\varphi\).
   Thus all \hyperref[def:categorical-kernel]{kernels} and \hyperref[def:categorical-cokernel]{cokernels} exist in \(\category{A}\) and
   \begin{align}\label{eq:ker-coker-lemma}
-    \ker_{\category{A}} \psi &\cong b\ker_{\category{B}}(a\psi) \cong \ker_{\category{B}} b(a(\psi)) = \ker_{\category{b}} \psi \\
+    \ker_{\category{A}} \psi &\cong b\ker_{\category{B}}(a\psi) \cong \ker_{\category{B}} b(a(\psi)) = \ker_{\category{B}} \psi \\
     \text{coker}_{\category{A}} \psi &\cong b\text{coker}_{\category{B}}(a\psi)
   \end{align}
   

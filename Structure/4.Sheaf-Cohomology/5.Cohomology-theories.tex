@@ -11,11 +11,9 @@
 \begin{document}
 \chapter{Cohomology theories}\label{ch:cohomology-theories}
 
-In this chapter, we step back from explicit calculations to examine the broader structural properties of sheaf cohomology, placing it within the universal framework of algebraic topology.
 
-Historically, Eilenberg and Steenrod showed that various geometric invariants (such as singular, simplicial, or cellular cohomology) could be characterized uniquely by a small set of simple axioms.
-Our goal here is to compare the definition of \hyperref[def:sheaf-cohomology]{sheaf cohomology} against this classic axiomatic standard.
-By verifying that \hyperref[def:sheaf-cohomology]{sheaf cohomology} satisfies these universal criteria, we will justify why it can be viewed as a generalization of classical cohomology to spaces.
+Historically, Eilenberg and Steenrod showed that forms of cohomology could be characterized uniquely by a small set of simple axioms.
+The goal of this chapter is to verify that that \hyperref[def:sheaf-cohomology]{sheaf cohomology} satisfies these axioms.
 
 In this chapter we restrict ourselves to \hyperref[def:sheaf]{sheaves of abelian groups}.
 
@@ -97,12 +95,11 @@ For sufficiently nice spaces, one can show that there exists only one \hyperref[
   \end{enumerate}
 \end{definition}
 
-We will not prove any properties of \hyperref[def:CW-complex]{CW-complexes}, refering the reader to \cite[Appendix]{hatcherAlgebraicTopology2002}, but even though their purely combinatorial nature they are enough to capture the topological properties of compact manifolds.
+We will not prove any properties of \hyperref[def:CW-complex]{CW-complexes}, refering the reader to \cite[Appendix]{hatcherAlgebraicTopology2002}.
+A particularly important result is that any compact manifold can be homotopied into a \hyperref[def:CW-complex]{CW-complex}.
 \begin{proposition}[{\cite[Corollary A.12]{hatcherAlgebraicTopology2002}}]\label{prop:manifold-is-CW-complex}
   A compact manifold is homotopy equivalent to a \hyperref[def:CW-complex]{CW-complex}.
 \end{proposition}
-
-This brings us to the core structural uniqueness theorem: over these cellular environments, all ordinary theories with identical core coefficients collapse into a single one.
 
 \begin{theorem}[{Uniqueness of cohomology theories~---~\cite[Theorem 4.59]{hatcherAlgebraicTopology2002}}]\label{thm:uniqueness-cohomology-theories}
   Let \(\{\cohomology{n}, \delta^{n}\}_{n \in \mathbb{N}}\) and \(\left\{ \widetilde{\operatorname{H}}^{n}, \widetilde{\delta}^{n} \right\}_{n \in \mathbb{N}}\) be two \hyperref[def:cohomology-theory]{ordinary cohomology theories} in the category of \hyperref[def:CW-complex]{CW pairs} with the same coefficient group.
@@ -171,7 +168,7 @@ Note that the dimension axiom was already verified back in \autoref{ex:cohomolog
   \begin{equation*}
     0 \to j_{!}j^{-1}\sheaf{F} \to \sheaf{F} \to i_{\ast}i^{-1}\sheaf{F} \to 0
   \end{equation*}
-  Applying the \hyperref[thm:LES-derived-functor]{long exact sequence of derived functors} to \(\Gamma(X, -)\) and using \autoref{lemma:cohomology-closed-subsets} for the term \(\cohomology{i}(X; i_{\ast}i^{-1}\sheaf{F}) \cong \cohomology{i}(A; \sheaf{F}_{A})\), we obtain the result.
+  Applying the \hyperref[thm:LES-derived-functor]{long exact sequence of derived functors} to \(\Gamma(X, -)\) and using \autoref{prop:cohomology-subsets} for the term \(\cohomology{i}(X; i_{\ast}i^{-1}\sheaf{F}) \cong \cohomology{i}(A; \sheaf{F}_{A})\), we obtain the result.
 \end{proof}
 
 \begin{theorem}[Excision]\label{thm:excision-axiom}
@@ -341,7 +338,7 @@ Note that the dimension axiom was already verified back in \autoref{ex:cohomolog
 %   \end{equation*}
 % \end{proof}
 
-Having fully verified all five axioms invoking the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness of cohomology theories} we obtain complete equivalences between abstract \hyperref[def:sheaf-cohomology]{sheaf cohomology} and classical cohomology groups.
+Having fully verified all five axioms by the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness of cohomology theories} we obtain complete equivalences between \hyperref[def:sheaf-cohomology]{sheaf cohomology} and classical cohomology groups.
 
 In particular from \autoref{prop:manifold-is-CW-complex} and the \hyperref[thm:homotopy-invariance-cohomology]{homotopy invariance of cohomology} we have the following.
 \begin{corollary}
@@ -352,15 +349,13 @@ In particular from \autoref{prop:manifold-is-CW-complex} and the \hyperref[thm:h
     \end{equation*}
 \end{corollary}
 
-Furthermore, we can combined this with the work we did in the last chapter obtaining a proof that \hyperref[def:de-rham-cohomology]{de Rham cohomology} and singular cohomology coincide for compact smooth manifolds.
+Furthermore, we can combin this with the work we did in the last chapter obtaining a proof that \hyperref[def:de-rham-cohomology]{de Rham cohomology} and singular cohomology coincide for compact smooth manifolds.
 \begin{corollary}
   Let \(X\) be a compact smooth manifold.
   We have \hyperref[def:categorical-isomorphism]{isomorphisms}
   \begin{equation*}
     \operatorname{H}_{\operatorname{sing}}^{i}(X; \mathbb{R}) \cong \cohomology{i}(X; \underline{\mathbb{R}}) \cong \operatorname{H}_{\operatorname{dR}}(X; \mathbb{R})
   \end{equation*}
-
-  In particular de Rham cohomology \(\operatorname{H}_{\operatorname{dR}}\) is an \hyperref[def:cohomology-theory]{ordinary cohomology theory}.
 \end{corollary}
 
 \end{document}

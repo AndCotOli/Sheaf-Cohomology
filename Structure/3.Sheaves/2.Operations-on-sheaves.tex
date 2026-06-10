@@ -10,18 +10,14 @@
 \begin{document}
 \chapter{Operations on sheaves}\label{ch:operations-on-sheaves}
 
-In the previous chapter, we established the foundational properties of \hyperref[def:sheaf]{sheaves} as localized algebraic structures operating on a fixed topological space.
-To fully leverage this framework in geometry and topology, we must understand how \hyperref[def:sheaf]{sheaves} interact when moving between different topological spaces.
-This chapter explores the primary geometric operations used to change the base space of a \hyperref[def:sheaf]{sheaf} along a continuous map \(f\colon X \to Y\)
+In this chapter we introduce the operations used to change the base space of a \hyperref[def:sheaf]{sheaf} along a continuous map \(f\colon X \to Y\)
 
-We begin by constructing the direct image (or pushforward) \hyperref[def:functor]{functor} \(f_{\ast}\), which allows us to push data from \(X\) to \(Y\), and the inverse image (or pullback) \hyperref[def:functor]{functor} \(f^{-1}\), which pulls data back from \(Y\) to \(X\).
-A major focus of this section is establishing the core natural \hyperref[def:adjoint-functors]{adjunction} between these two operations, showing that pulling back and pushing forward are dual categorical maneuvers.
+We begin by constructing the direct image (or pushforward) \hyperref[def:functor]{functor} \(f_{\ast}\) --- which allows us to push data from \(X\) to \(Y\) --- and the inverse image (or pullback) \hyperref[def:functor]{functor} \(f^{-1}\) --- which pulls data back from \(Y\) to \(X\) --- and prove that they are adjoint.
 
 As a particular case we will study how taking one of the spaces to be \(\{\ast\}\) we recover classical \hyperref[def:sheaf]{sheaf} constructions such as the \hyperref[def:stalk]{stalk}.
-We also study the case for open and closed immersions, where as we will see another \hyperref[def:adjoint-functor]{adjoint functor} exists.
+We also study the case for open and closed immersions, where as we will see another \hyperref[def:adjoint-functor]{adjoint functor} exists and prove that these are connected via a canonical \hyperref[def:exact-sequence]{short exact sequence}.
 
-Finally, we unify these operations by proving the existence of a canonical \hyperref[def:exact-sequence]{short exact sequence} linking a \hyperref[def:sheaf]{sheaf}, its extension by zero from an open set, and its pushforward from the complementary closed set.
-This fundamental sequence provides the \hyperref[def:exact-sequence]{exact sequence} machinery required for studying relative sheaf cohomology in later chapters.
+The main references for this chapter are \cite{stacks-project, kashiwaraSheavesManifolds1990}.
 
 \section{Continuous maps and (pre)sheaves}\label{sec:continuous-maps-sheaves}
 
@@ -202,7 +198,7 @@ Therefore we need to \hyperref[def:sheafification]{sheafificate}.
   where \(-^{\#}\) is the \hyperref[def:sheafification]{sheafification functor}, \(f_{\pre}^{-1}\) is the \hyperref[def:inverse-image-presheaf]{inverse image of presheaves} and \(\iota\colon \Sh_{Y}(\category{C}) \hookrightarrow \PSh_{Y}(\category{C})\) is the forgetful \hyperref[def:functor]{functor}.
 \end{definition}
 
-Using that \hyperref[def:sheafification]{sheafification adjunction} we still have the \hyperref[def:adjoint-functors]{adjunction} \(f^{-1} \dashv f_{\ast}\).
+Using the \hyperref[def:sheafification]{sheafification adjunction} we still have the \hyperref[def:adjoint-functors]{adjunction} \(f^{-1} \dashv f_{\ast}\).
 \begin{theorem}\label{thm:direct-inverse-image-adjunction-sheaf}
   Let \(f\colon X \to Y\) be a continuous map
   There exists an \hyperref[def:adjoint-functors]{adjunction}
@@ -284,7 +280,7 @@ This produces a pair of \hyperref[def:adjoint-functors]{adjoint functors}
   \end{equation*}
 
   Less abstractly, it sends a \hyperref[def:sheaf]{\(\category{C}\)-valued sheaf} \(\sheaf{F} \in \Sh_{X}(\category{C})\) to \(\Gamma(X, \sheaf{F}) = \sheaf{F}(X)\)
-  and a \hyperref[def:sheaf]{morphism of sheaves} \(\phi: \sheaf{F} \to \sheaf{G}\) to \(\Gamma(\phi, X) = \sheaf{F}(X) \xrightarrow{\phi(X)} \sheaf{G}(X)\).
+  and a \hyperref[def:sheaf]{morphism of sheaves} \(\phi: \sheaf{F} \to \sheaf{G}\) to \(\Gamma(X, \phi) = \sheaf{F}(X) \xrightarrow{\phi(X)} \sheaf{G}(X)\).
 \end{definition}
 
 \begin{notation}
@@ -301,9 +297,9 @@ This produces a pair of \hyperref[def:adjoint-functors]{adjoint functors}
 \end{definition}
 
 \begin{remark}\label{rem:constant-sheaf-sheafification}
-  The formulation \(\underline{A}_{X} = a_{X}^{-1}(A)\) is equivalent to the standard construction of the constant sheaf via sheafification.
+  The formulation \(\underline{A}_{X} = a_{X}^{-1}(A)\) is equivalent to the standard construction of the constant sheaf via \hyperref[def:sheafification]{sheafification}.
 
-  Indeed, the presheaf inverse image of \(A\) along \(a_{X}\) assigns to any open \(U \subseteq X\) the colimit over open neighborhoods of \(a_{X}(U) = \{\ast\}\). Since the only neighborhood is \(\{\ast\}\) itself, this presheaf is exactly the constant presheaf \(U \mapsto A\). The inverse image functor \(a_{X}^{-1}\) then applies sheafification, yielding the constant sheaf.
+  Indeed, the \hyperref[def:inverse-image-presheaf]{presheaf inverse image} of \(A\) along \(a_{X}\) assigns to any open \(U \subseteq X\) the \hyperref[def:categorical-colimit]{colimit} over open neighborhoods of \(a_{X}(U) = \{\ast\}\). Since the only neighborhood is \(\{\ast\}\) itself, this \hyperref[def:presheaf]{presheaf} is exactly the \hyperref[def:constant-presheaf]{constant presheaf} \(U \mapsto A\). The \hyperref[def:inverse-image-sheaf]{inverse image functor} \(a_{X}^{-1}\) then applies \hyperref[def:sheafification]{sheafification}, yielding the \hyperref[def:constant-sheaf]{constant sheaf}.
 \end{remark}
 
 From \hyperref[thm:direct-inverse-image-adjunction-sheaf]{the adjunction \(f^{-1} \dashv f_{\ast}\)}.
@@ -331,7 +327,7 @@ However as the next example shows it is in general not \hyperref[def:exact-funct
   is a \hyperref[def:exact-sequence]{short exact sequence} of \hyperref[def:sheaf]{sheaves}.
 
   Indeed it is \hyperref[def:exact-sequence]{exact} at \(\underline{\mathbb{Z}}_{X}\) and \(\sheaf{O}_{X}\) since \(e^{2\pi i f} = 1\) if and only if \(f\) is locally constant to an integer and thus \(\ker \exp = \underline{\mathbb{Z}}_{X}\).
-  \hyperref[def:exact-sequence]{Exactness} at \(\sheaf{O}_{X}^{\ast}\) since \hyperref[cor:exactness-at-stalks]{exactness can be checked locally} and for all \(p \in X\) there exists an holomorphic branch of the logarithm in a neighbourhood of \(p\).
+  \hyperref[def:exact-sequence]{Exactness} at \(\sheaf{O}_{X}^{\ast}\) is direct since \hyperref[cor:exactness-at-stalks]{exactness can be checked locally} and for all \(p \in X\) there exists an holomorphic branch of the logarithm in a neighbourhood of \(p\).
 
   However, the induced sequence
   \begin{equation*}

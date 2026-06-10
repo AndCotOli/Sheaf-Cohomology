@@ -312,7 +312,7 @@ First we make explicit the notion of a ``sequence'' of objects.
   which sends an object \(X \in \category{C}\) to the \hyperref[def:differential-object-additive]{differential object}
   \begin{center}
     \begin{tikzcd}
-      \cdots \arrow[r] & 0 \arrow[r] & X \arrow[r] & 0 \arrow[r] & \cdots
+      \cdots \arrow[r] & 0 \arrow[r] & \underbrace{X}_{\text{Position } n} \arrow[r] & 0 \arrow[r] & \cdots
     \end{tikzcd}
   \end{center}
   and a morphism \(f\colon X \to Y\) in \(\category{C}\) to
@@ -350,7 +350,7 @@ Before continuing, we fix some terminology about \hyperref[def:complex]{complexe
 \end{definition}
 
 \begin{remark}\label{rem:identification-complex}
-  Note that for any \(n \in \mathbb{N}\), the \hyperref[rem:identification-diff]{inclussion functor} \(\iota_{n}\) can be viewed as a \hyperref[def:functor]{functor}
+  Note that for any \(n \in \mathbb{Z}\), the \hyperref[rem:identification-diff]{inclussion functor} \(\iota_{n}\) can be viewed as a \hyperref[def:functor]{functor}
   \begin{equation*}
     \iota_{n}\colon \category{C} \to \Complex[\ast]{\category{C}}
   \end{equation*}

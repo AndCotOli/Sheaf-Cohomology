@@ -11,23 +11,20 @@
 \begin{document}
 \chapter{de Rham Cohomology}
 
-In this chapter, we bridge the gap between differential geometry and the abstract machinery of sheaf cohomology.
-Historically, de Rham cohomology was developed to capture topological data about a smooth manifold using the analytical properties of differential forms.
-Our primary goal here is to re-interpret this classical construction through a modern algebraic lens.
-
-By treating spaces of differential forms as \hyperref[def:sheaf]{sheaves}, we will establish a fundamental isomorphism showing that classical de Rham cohomology is merely a realization of \hyperref[def:sheaf-cohomology]{sheaf cohomology} with coefficients in the \hyperref[def:constant-sheaf]{locally constant sheaf} \(\underline{\mathbb{R}}\).
+In this chapter we study the relation between classical de Rham cohomology and sheaf cohomology.
 
 Throughout this chapter we will work with \hyperref[def:sheaf]{sheaves of \(\mathbb{R}\)-modules}.
 However, the same results follow \textit{mutatis mutandis} if we work only with \hyperref[def:sheaf]{sheaves of abelian groups}.
 We will assume that all manifolds are real.
 The complex case works analogously replacing \(\mathbb{R}\) with \(\mathbb{C}\) where appropiate.
 
+The main reference for this chapter is \cite{voisinHodgeTheoryComplex}.
+
 \section{Differential forms and the de Rham complex}
 We start this chapter by giving a quick recap of differential forms on smooth manifolds.
 We will not going into much detail, just giving an sketch of the necessary definitions and refering the reader to \cite[Chapter 4]{guilleminDifferentialTopology1974a} and \cite[Chapter 14]{leeIntroductionSmoothManifolds2012} for more details.
 
-To talk about differential forms globally and locally, we first need to assemble their point-wise linear-algebraic counterparts into a smooth geometric object.
-This is accomplished by taking the exterior power of the cotangent bundle.
+We begin by defining our primary objects of study.
 \begin{definition}\label{def:smooth-k-form-bundle}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
@@ -51,9 +48,6 @@ This is accomplished by taking the exterior power of the cotangent bundle.
   In this way the basis of the local trivialization is \(\{\mathrm{d}x^{I}\}_{I}\).
 \end{notation}
 
-With the underlying vector bundle established, we can now define differential forms dynamically as smoothly varying choices of tensors across the manifold.
-In the language of sheaf theory, this naturally corresponds to taking the sheaf of sections of our bundle.
-
 \begin{definition}[Smooth \(k\)-form] \label{def:smooth-k-form}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
@@ -71,9 +65,7 @@ In the language of sheaf theory, this naturally corresponds to taking the sheaf 
   This means that \(\Omega^{0}(M) \cong \mathcal{C}^{\infty}(M)\).
 \end{example}
 
-The core driving force behind de Rham theory is the existence of a differential operator that links these sheaves together by increasing the degree of the forms.
-Locally, this operator behaves like a directional extension of the standard total derivative.
-
+We can ensemble these \hyperref[def:smooth-k-form]{forms} into a \hyperref[def:complex]{complex} by considering the exterior derivative.
 \begin{definition}[Exterior derivative] \label{def:exterior-derivative-k-form}
   Let \(\omega\) be a \hyperref[def:smooth-k-form]{\(k\)-form} over a smooth manifold \(M\).
   If \((U, \{x^{i}\}_{i=1}^{m})\) is a local chart then there exist functions \(\alpha_{I} \in \mathcal{C}^{\infty}(M)\) such that
@@ -87,9 +79,6 @@ Locally, this operator behaves like a directional extension of the standard tota
     \mathrm{d}\omega = \sum_{I} \mathrm{d}\alpha_{I} \wedge \mathrm{d}x^{I} = \sum_{I} \left( \sum_{j=1}^{m} \frac{\partial \alpha_{I}}{\partial x^{j}} \mathrm{d}x^{j} \right) \wedge \mathrm{d}x^{I}
   \end{equation*}
 \end{definition}
-
-For these operators to chain together into a cochain complex, the composition of two successive derivatives must vanish.
-This works thanks to the symmetry of partial derivatives and the antisymmetry of the wedge product.
 \begin{lemma} \label{lemma:double-exterior-derivative-is-zero}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
@@ -99,7 +88,7 @@ This works thanks to the symmetry of partial derivatives and the antisymmetry of
       \Omega^{0}(M) \arrow[r, "\mathrm{d}"] & \Omega^{1}(M) \arrow[r, "\mathrm{d}"] & \Omega^{2}(M) \arrow[r, "\mathrm{d}"] & \cdots
     \end{tikzcd}
   \end{center}
-  is a \hyperref[def:complex]{complex} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathbb{R}\)-modules}.
+  is a \hyperref[def:complex]{complex} of \hyperref[def:sheaf]{sheaves of \(\mathbb{R}\)-modules}.
 \end{lemma}
 \begin{proof}
   It suffices to show that for any smooth function \(f \in \mathcal{C}^{\infty}(M) \cong \Omega^{0}(M)\) we have \(\mathrm{d}^{2}f = 0\).
@@ -138,7 +127,7 @@ We can now introduce the de Rham complex and its associated cohomology.
 
 \begin{definition}[de Rham complex] \label{def:de-rham-complex}
   Let \(M\) be a smooth manifold of dimension \(m\).
-  The \textbf{de Rham complex} of \(M\) is the \hyperref[def:complex]{complex} of \hyperref[def:sheaf-of-modules]{sheaves of \(\mathbb{R}\)-modules}
+  The \textbf{de Rham complex} of \(M\) is the \hyperref[def:complex]{complex} of \hyperref[def:sheaf]{sheaves of \(\mathbb{R}\)-modules}
   \begin{center}
     \begin{tikzcd}
       \Omega^{\bullet}(M) \coloneq \Omega^{0}(M) \arrow[r, "\mathrm{d}"] & \Omega^{1}(M) \arrow[r, "\mathrm{d}"] & \cdots \arrow[r, "\mathrm{d}"] & \Omega^{m}(M) \arrow[r, "\mathrm{d}"] & 0
@@ -156,7 +145,7 @@ We can now introduce the de Rham complex and its associated cohomology.
 \section{Fine sheaves}
 
 It is known that all paracompact smooth manifolds (with or without boundary) admit a partition of unity (see \cite[Theorem 2.23]{leeIntroductionSmoothManifolds2012}).
-In this section, we are going to see how we can use this analytical tool to compute \hyperref[def:sheaf-cohomology]{sheaf cohomology}.
+In this section, we are going to see how we can use this tool to compute \hyperref[def:sheaf-cohomology]{sheaf cohomology}.
 
 First we need to extend the concept of a partition of unity to a \hyperref[def:sheaf]{sheaf}.
 \begin{definition}[Partition of unity]\label{def:partition-of-unity}
@@ -180,7 +169,6 @@ First we need to extend the concept of a partition of unity to a \hyperref[def:s
 \end{definition}
 
 Now we can introduce the objects of study of this section: fine sheaves.
-Roughly speaking these are \hyperref[def:sheaf]{sheaves} whose structure allows them to be split and glued together using these localized operators.
 \begin{definition}[Fine sheaf]\label{def:fine-sheaf}
   A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\colon \sheaf{F} \to \sheaf{F}\}_{i \in \mathcal{I}}\) of \(\sheaf{F}\) subordinate to this covering.
 \end{definition}

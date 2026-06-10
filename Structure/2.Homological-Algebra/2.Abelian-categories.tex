@@ -9,7 +9,7 @@
 \chapter{Abelian categories}
 
 In this chapter we introduce abelian categories: \hyperref[def:additive-category]{additive categories} where the first isomorphism theorem works.
-We also study exactness in this categories and introduce the cohomology functor.
+We also study exactness in these categories and introduce the cohomology functor.
 
 The main references for this chapter are \cite{weibelIntroductionHomologicalAlgebra1994, gelfandMethodsHomologicalAlgebra2003, aluffiAlgebraChapter02009}.
 
@@ -145,7 +145,7 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
 \end{example}
 
 A stronger condition than \hyperref[def:exact-sequence]{exactness} is split exactness.
-Roughly speaking, a short exact sequence is split exact if the only information is at its ends.
+Roughly speaking, a \hyperref[def:exact-sequence]{short exact sequence} is split exact if the only information is at its ends.
 \begin{proposition}\label{prop:split-exact-sequence}
   Let
   \begin{center}
@@ -267,7 +267,7 @@ As a direct application of \autoref{lemma:characterization-exact-functor} we hav
 \subsection{Diagram lemmas}
 
 Note that \hyperref[def:abelian-category]{abelian categories} may not necessarily consists of sets with elements (for example the \hyperref[def:complex]{category of complexes}).
-Therefore proving facts about this categories requires, in principle, to work over the full abstraction of category theory.
+Therefore proving facts about these \hyperref[def:category]{categories} requires, in principle, to work over the full abstraction of category theory.
 However using the \hyperref[thm:freyd-mitchell]{Freyd-Mitchell embedding theorem} one can \textit{cheat} a little.
 
 \begin{theorem}[{Freyd-Mitchell embedding - \cite[Section 1.6]{weibelIntroductionHomologicalAlgebra1994}}]\label{thm:freyd-mitchell}
@@ -276,7 +276,7 @@ However using the \hyperref[thm:freyd-mitchell]{Freyd-Mitchell embedding theorem
 \end{theorem}
 
 In short, to prove something about a \hyperref[def:diagram]{diagram} in an \hyperref[def:abelian-category]{abelian category} we may assume that we are working in the \hyperref[def:category]{category} of modules over a ring \(R\) and then diagram-chase elements.
-Furthermore, any fact about \hyperref[def:categorical-kernel]{kernels}, \hyperref[def:categorical-cokernel]{cokernels} and so one that holds on \(\Mod(R)\) also holds in any \hyperref[def:abelian-category]{abelian category}.
+Furthermore, any fact about \hyperref[def:categorical-kernel]{kernels}, \hyperref[def:categorical-cokernel]{cokernels} and so on that holds in \(\Mod(R)\) also holds in any \hyperref[def:abelian-category]{abelian category}.
 
 % Another strategy to prove statements in \hyperref[def:abelian-category]{abelian categories} is the \textit{philosophy of generalized elements} \cite[Theorem VIII.4.3]{maclaneCategoriesWorkingMathematician1978}.
 

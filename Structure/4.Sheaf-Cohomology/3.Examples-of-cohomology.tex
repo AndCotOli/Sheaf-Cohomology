@@ -14,6 +14,10 @@
 We focus our attention now to the computation of the cohomology of some topological spaces.
 Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris sequence} and the \hyperref[thm:homotopy-invariance-cohomology]{homotopy invariance of cohomology}.
 
+We will not go into much detail into the explicit description of the partitions used of our target space, relying more on geometric intuition.
+
+The main reference for this chapter is \cite{kashiwaraSheavesManifolds1990}.
+
 \begin{example}[\(\mathbb{S}^{1}\)]\label{ex:cohomology-S1}
   Let \(\sheaf{F} \in \Mod( \underline{\mathbf{k}}_{S} )\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} over \(S\) and \(X \coloneq \mathbb{S}^{1} \times S\).
   
@@ -276,26 +280,16 @@ Our main tools will be the \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris seq
       % Draw the equator (RP^1) with antipodal identification arrows
       \draw[antipodal] (0,0) circle (\R);
 
-      % Mark the center pole
-      \fill (0,0) circle (1.5pt) node[below] {Pole};
-
       % --- Labels ---
       
       % Label for U_0
       \node[red!80!black, font=\large] at (0, 0.7) {$U_0$};
-      \node[red!80!black] at (0, 0.3) {(Open Disk)};
 
       % Label for V_0
       \node[blue!80!black, font=\large] at (0, 2.7) {$V_0$};
-      \node[blue!80!black] at (0, 2.4) {(M\"obius Band)};
 
       % Label for the intersection
       \node[purple!80!black, font=\large] at (0, 1.9) {$U_0 \cap V_0$};
-      \node[purple!80!black] at (0, 1.6) {(Annulus)};
-
-      % Boundary label
-      \node[black] at (45:\R+0.3) {$\mathbb{RP}^1$ (Equator)};
-
     \end{tikzpicture}
   \end{center}
   

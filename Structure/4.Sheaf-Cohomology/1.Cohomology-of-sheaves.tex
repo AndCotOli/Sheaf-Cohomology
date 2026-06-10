@@ -9,11 +9,7 @@
 \begin{document}
 \chapter{Sheaf cohomology}
 
-While evaluating mathematical structures over localized patches is a natural starting point in geometry, compiling these local snapshots into unique global data presents a fundamental challenge.
-We have already seen that \hyperref[def:exact-functor]{left-exact functors}, such as \hyperref[def:global-sections-sheaf]{global sections}, systematically fail to preserve surjectivity when transitioning from local neighborhoods to an entire space.
-To precisely catalog and measure these global obstructions, we apply the abstract machinery of homological algebra to the \hyperref[def:sheaf]{category of sheaves}.
-
-In this chapter, we rigorously establish the foundation for sheaf cohomology as the right derived functor of the \hyperref[def:global-sections-sheaf]{global sections functor}.
+In this chapter, we establish the foundation for sheaf cohomology as the right derived functor of the \hyperref[def:global-sections-sheaf]{global sections functor}.
 After verifying that the \hyperref[def:sheaf]{category of sheaves} of modules over a commutative ring \hyperref[def:enough-injectives-projectives]{contains enough injective objects} to permit derived resolutions, we analyze how these cohomological invariants transform under domain restrictions and extensions.
 
 \begin{notation}
@@ -217,10 +213,10 @@ We also have the following
 
 \subsection{Mayer-Vietoris}
 
-The functorial behavior of restriction and extension established above suggests that we can compute the global cohomology of a space by systematically fracturing it into simpler, overlapping sub-domains.
-In classical algebraic topology, the standard technique for computing invariants via open or closed decompositions is governed by the Mayer-Vietoris sequence.
+The functorial behavior of restriction and extension established above suggests that we can compute the global cohomology of a space by splitting it into simpler, overlapping sub-domains.
+In classical algebraic topology, the standard technique for computing invariants via open or closed decompositions is the Mayer-Vietoris sequence.
 
-It is worth noting that the following results work replacing \(\Gamma(X, -)\) with any other \hyperref[def:exact-functor]{left-exact functor} such as \(f_{\ast}\) for any continuous map \(f\colon X \to Y\).
+It is worth noting that the following results work replacing \(\Gamma(X, -)\) with any other \hyperref[def:exact-functor]{left-exact functor}, such as \(f_{\ast}\) for any continuous map \(f\colon X \to Y\).
 
 \begin{theorem}[Open Mayer-Vietoris]\label{thm:mayer-vietoris-open}
   Let \(X\) be a topological space.
@@ -308,7 +304,7 @@ It is worth noting that the following results work replacing \(\Gamma(X, -)\) wi
 
 \section{Acyclic resolutions}
 
-In \autoref{lemma:mod-ox-has-enough-injectives} we have seen that, even though they exist, \hyperref[def:injective-projective-object]{injectives sheaves} are complicated objecs.
+In \autoref{lemma:mod-ox-has-enough-injectives} we have seen that, even though they exist, \hyperref[def:injective-projective-object]{injectives sheaves} are complicated objects.
 Recall that \hyperref[thm:right-derived-functor-using-acyclics]{cohomology can be computed using \(\Gamma(X, -)\)-acyclic resolutions}.
 
 In this section we introduce a class of \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\)-acyclic} objects that will help us later.
@@ -393,7 +389,7 @@ We only give here a sketch of its construction and refer the reader to \cite[\hr
     \end{tikzcd}
   \end{center}
 
-  Note that the \hyperref[def:stalk-ox-mod]{stalks} of \(\sheaf{F}\) are:
+  Note that the \hyperref[def:stalk]{stalks} of \(\sheaf{F}\) are:
   \begin{equation*}
     \sheaf{F}_{p} = \sheaf{F}(\{p\}) = \mathbb{Z}, \qquad \sheaf{F}_{q} = \sheaf{F}(X) = \mathbb{Z}.
   \end{equation*}
@@ -411,12 +407,12 @@ We only give here a sketch of its construction and refer the reader to \cite[\hr
     \d^{-1}: \underbrace{\Gamma(X, \sheaf{F})}_{\mathbb{Z}} \to \underbrace{\Gamma(X, \sheaf{F}_{\operatorname{God}})}_{\mathbb{Z} \oplus \mathbb{Z}}, \quad \d^{-1}(k) = (k, k).
   \end{equation*}
   Let \(\sheaf{Q}^1 = \quot{\sheaf{F}_{\operatorname{God}}}{\sheaf{F}}\) be the \hyperref[def:categorical-cokernel]{cokernel} sheaf.
-  If we compute its stalks, we have that:
+  If we compute its \hyperref[def:stalk]{stalks}, we have that:
   \begin{align*}
     (\sheaf{Q}^1)_{p} &= \quot{\sheaf{F}_{\operatorname{God}, p}}{\sheaf{F}_{p}} = \quot{\mathbb{Z}}{\mathbb{Z}} = 0, \\
     (\sheaf{Q}^1)_{q} &= \quot{\sheaf{F}_{\operatorname{God}, q}}{\sheaf{F}_{q}} = \quot{\mathbb{Z} \oplus \mathbb{Z}}{\langle(k, k)\rangle} \cong \mathbb{Z}.
   \end{align*}
-  Therefore, the global sections of the Godement sheaf of \(\sheaf{Q}^{1}\) are:
+  Therefore, the \hyperref[def:global-sections-sheaf]{global sections} of the Godement sheaf of \(\sheaf{Q}^{1}\) are:
   \begin{equation*}
     \Gamma\left(X, (\sheaf{Q}^1)_{\operatorname{God}}\right) = (\sheaf{Q}^1)_{p} \oplus (\sheaf{Q}^1)_{q} = 0 \oplus \mathbb{Z} = \mathbb{Z}.
   \end{equation*}
@@ -425,7 +421,7 @@ We only give here a sketch of its construction and refer the reader to \cite[\hr
     \d^{0}: \underbrace{\Gamma(X, \sheaf{F}_{\operatorname{God}})}_{\mathbb{Z} \oplus \mathbb{Z}} \to \underbrace{\Gamma\left(X, (\sheaf{Q}^1)_{\operatorname{God}}\right)}_{\mathbb{Z}}, \quad \d^{0}(m, n) = m - n.
   \end{equation*}
   Let \(\sheaf{Q}^2\) be the \hyperref[def:categorical-cokernel]{cokernel} of the map \(\sheaf{F}_{\operatorname{God}} \to (\sheaf{Q}^1)_{\operatorname{God}}\).
-  If we compute its \hyperref[def:stalk-ox-mod]{stalks}, we have:
+  If we compute its \hyperref[def:stalk]{stalks}, we have:
   \begin{align*}
     (\sheaf{Q}^2)_{p} &= \quot{0}{0} = 0, \\
     (\sheaf{Q}^2)_{q} &= \quot{\mathbb{Z}}{\mathbb{Z}} = 0.
