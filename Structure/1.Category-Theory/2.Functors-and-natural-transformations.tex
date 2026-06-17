@@ -252,11 +252,10 @@ By combining \hyperref[def:functor]{functors} and \hyperref[def:natural-transfor
   For more information see \cite[Remark 1.7.3]{riehlCategoryTheoryContext}.
 \end{remark}
 
-Using the notion of \hyperref[def:natural-transformation]{natural isomorphisms} one can define the notion of an \textbf{isomorphism} of \hyperref[def:category]{categories}.
-Two \hyperref[def:category]{categories} \(\category{C}\) and \(\category{D}\) are isomorphic (denoted \(\category{C} \cong \category{D}\)) if there exists a \hyperref[def:natural-transformation]{natural isomorphism} between them.
+One says that two \hyperref[def:category]{categories} \(\category{C}\) and \(\category{D}\) are isomorphic (denoted \(\category{C} \cong \category{D}\)) if there exist \(F\colon \category{C} \to \category{D}\) and \(G\colon \category{D} \to \category{C}\) \hyperref[def:functor]{functors} such that \(F \colon G = \id_{\category{D}}\) and \(G \circ F = \id_{\category{C}}\).
 
 This notion, however, is too restrictive to be useful.
-The correct notion to identify \hyperref[def:category]{categories} is that of an equivalence.
+Using \hyperref[def:natural-transformation]{natural isomorphisms} we obtain the \textit{correct} notion to identify \hyperref[def:category]{categories}.
 \begin{definition}[Equivalent categories]\label{def:equivalent-categories}
   Two \hyperref[def:category]{categories} \(\category{C}, \category{D}\) are \textbf{equivalent} if there exist \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and \(G\colon \category{D} \to \category{C}\) such that \(G \circ F \cong \id_{\category{C}}\) and \(F \circ G \cong \id_{\category{D}}\). In this case, \(F\) (and \(G\)) is called an \textbf{equivalence of categories}.
   We denote this by \(\category{C} \simeq \category{D}\).
