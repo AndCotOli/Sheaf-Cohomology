@@ -3,10 +3,41 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-% \epigraph{Topology is precisely the mathematical discipline that allows the passage from local to global.}{René Thom}
+In the words of René Thom ``Topology is precisely the mathematical discipline that allows the passage from local to global.''
+
+Indeed when studying functions on a topological space a dichotomy between the properties that are purelly local and purelly global quickly arises.
+For example, on the one hand a smooth function \(f\colon M \to \mathbb{R}\) on a compact smooth manifold \(M\) can be expressed as a formula using local coordinates but it cannot be expressed as a formula globally.
+On the other hand compatible smooth functions defined locally can be ``glued'' together to form a global smooth function.
+Thus one may ask when, given something defined locally on a topological space, can this be extended to define something global? And conversely, given something global, what can one say about local restrictions?
+The answers to these questions lies in the study of sheaves and their cohomology.
+
+Historically, sheaves were developed by Jean Leray between 1940 and 1945 whilst he was a war prisioner in Edelbach, Austria.
+Once the war ended, these ideas where formalized in a series of seminars in Paris by Henri Cartan, Jean-Pierre Serre and Alexander Grothendieck among others.
+For more information on this history we refer the reader to \cite{dieudonneHistoryAlgebraicDifferential2009, kashiwaraSheavesManifolds1990}.
 
 \section*{Structure of this work}
 
-The goal of this thesis is to
+The goal of this work is to provide a self-contained account of everything necessary to define sheaf cohomology to then study its properties and its relation to other classical cohomology theories.
+Only basic notions of point-set topology and abstract algebra are assumed.
+
+We begin in \autoref{part:category-theory} with a swift introduction to categories and functors.
+We treat these not as an object of study themselves but more as a language in which to cleanly and conciselly discuss our notions of interest, and therefore we try to restrict ourselves to only the parts of the theory that will be strictly needed for our purposes.
+
+We then move to the study of homological algebra in \autoref{part:homological-algebra}.
+Here we develop the abstract machinery behind the study of cohomology in the general setting proposed by Grothendieck in his ``Tohôku'' paper \cite{grothendieckAspectsHomologicalAlgebraa}, namely derived functors using injective resolutions in abelian categories.
+
+In \autoref{part:sheaves} presheaves and sheaves are introduced.
+Taking the smooth functions as a motivating example, we abstract the revalent properties to obtain the notion of sheaves.
+We also prove that the category of sheaves is abelian and study the functors associated to continuous maps between topological spaces.
+
+Finally in \autoref{part:sheaf-cohomology} we combine all of our previous study to define the cohomology of a space with coefficients in a sheaf.
+Using this definition we derive some of its most important properties, namely the Mayer-Vietoris sequence and its invariance via homotopy, which we then use to compute the cohomology of some classical manifolds.
+
+To end the thesis we see how this new definition of cohomology relates to existing cohomology theories.
+First we study de Rham cohomology, demonstrating that it can be recovered via the complex of differential forms as a direct application of Poincare's lemma.
+Following this, we prove that sheaf cohomology is --- perhaps unsurprisingly --- a cohomology theory in the sense of Eilenberg and Steenrod, and therefore coincides with classical cohomology approaches, such as singular cohomology, for sufficiently nice spaces.
+Combining this provides a proof that singular and de Rham cohomology agree on compact smooth manifolds.
+
+As a convention, in this work all rings will be considered rings with unity.
 
 \end{document}

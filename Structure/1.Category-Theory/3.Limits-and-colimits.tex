@@ -10,7 +10,7 @@
 
 In this chapter we study how different constructions across mathematics can be abstracted into particular cases of what are called limits and colimits.
 Once these concepts are defined, we spend the rest of the chapter giving familiar constructions that can be made from them.
-We end the chapter by proving an existence criterion for limits and colimits both in general and for the concrete case of functor categories.
+We end the chapter by proving an existence criterion for limits and colimits both in general and for the special case of functor categories.
 
 The main references for this chapter are \cite{riehlCategoryTheoryContext, maclaneCategoriesWorkingMathematician1978, aluffiAlgebraChapter02009}.
 
@@ -58,15 +58,15 @@ This notions can be easily abstracted using \hyperref[def:functor]{functors}.
 
 \subsection{Cones and cocones}
 
-To study diagrams from the category theory point of view we must understand their transormations.
+To study diagrams from the category theory point of view we must understand their transformations.
 In this case since diagrams are special types of \hyperref[def:functor]{functors} these correspond to \hyperref[def:natural-transformation]{natural transformations}.
 
 Out of all of the possible \hyperref[def:natural-transformation]{natural transformations} we will only be interested in two particular and dual cases: cones and cocones.
 \begin{definition}[Cone]\label{def:cone}
-  A \textbf{cone} \(C\) over a diagram \(X\colon \category{J} \to \category{C}\) with \textit{apex} \(c\) is a \hyperref[def:natural-transformation]{natural transformation} \(C\colon \operatorname{const}_{c} \Rightarrow X\) from the \hyperref[ex:constant-diagram]{constant diagram} to \(X\).
+  A \textbf{cone} \(C\) over a diagram \(X\colon \category{J} \to \category{C}\) with \textit{apex} \(c \in \category{C}\) is a \hyperref[def:natural-transformation]{natural transformation} \(C\colon \operatorname{const}_{c} \Rightarrow X\) from the \hyperref[ex:constant-diagram]{constant diagram} to \(X\).
   The components \(\{C_{j}\colon c \to X_{j}\}_{j \in \category{J}}\) are called the \textit{legs} of the cone.
 
-  Less abstractly, a cone \(C\) over \(X\colon \category{J} \to \category{C}\) with \textit{apex} \(c\) is a collection of morphisms \(C_{j}\colon c \to X_{j}\) for every object \(j \in \category{J}\)  such that for every morphism \(f: j \to k\) in \(\category{J}\) the following diagram in \(\category{C}\) commutes
+  Less abstractly, a cone \(C\) over \(X\colon \category{J} \to \category{C}\) with apex \(c\) is a collection of morphisms \(C_{j}\colon c \to X_{j}\) for every object \(j \in \category{J}\)  such that for every morphism \(f: j \to k\) in \(\category{J}\) the following diagram in \(\category{C}\) commutes
   \begin{center}
     \begin{tikzcd}
       & c \arrow[dl, "C_{j}"'] \arrow[dr, "C_{k}"] & \\
@@ -85,10 +85,10 @@ Out of all of the possible \hyperref[def:natural-transformation]{natural transfo
 \end{definition}
 
 \begin{definition}[Cocone]\label{def:cocone}
-  A \textbf{cocone} \(C\) over a diagram \(X\colon \category{J} \to \category{C}\) with \textit{nadir} \(c\) is a \hyperref[def:natural-transformation]{natural transformation} \(C\colon X \Rightarrow \operatorname{const}_{c}\) from the \hyperref[ex:constant-diagram]{constant diagram} to \(X\).
+  A \textbf{cocone} \(C\) over a diagram \(X\colon \category{J} \to \category{C}\) with \textit{nadir} \(c \in \category{C}\) is a \hyperref[def:natural-transformation]{natural transformation} \(C\colon X \Rightarrow \operatorname{const}_{c}\) from the \hyperref[ex:constant-diagram]{constant diagram} to \(X\).
   The components \(\{C_{j}\colon X_{j} \to c\}_{j \in \category{J}}\) are called the \textit{legs} of the cone.
 
-  Less abstractly, a cocone \(C\) over \(X\colon \category{J} \to \category{C}\) with \textit{nadir} \(c\) is a collection of morphisms \(C_{j}\colon X_{j} \to c\) for every object \(j \in \category{J}\)  such that for every morphism \(f\colon j \to k\) in \(\category{J}\) the following diagram in \(\category{C}\) commutes
+  Less abstractly, a cocone \(C\) over \(X\colon \category{J} \to \category{C}\) with nadir \(c\) is a collection of morphisms \(C_{j}\colon X_{j} \to c\) for every object \(j \in \category{J}\)  such that for every morphism \(f\colon j \to k\) in \(\category{J}\) the following diagram in \(\category{C}\) commutes
   \begin{center}
     \begin{tikzcd}
       X_{j} \arrow[dr, "C_{j}"']  \arrow[rr, "Xf"] && X_{k} \arrow[dl, "C_{k}"] \\
@@ -126,7 +126,7 @@ Out of all of the possible \hyperref[def:natural-transformation]{natural transfo
 
 \section{Limits and colimits}
 
-Limits and colimits unify diverse geometric and algebraic constructions by identifying them as the ``best possible'' approximations of a diagram, formalizing their universal properties.
+Limits and colimits unify diverse constructions by identifying them as the ``best possible'' approximations of a diagram, formalizing their universal properties.
 % By viewing them as terminal or initial objects in a category of cones or cocones, we reduce the collective behavior of an entire system of objects and arrows down to a single, uniquely determined universal object.
 
 \begin{definition}[Limit]\label{def:categorical-limit}
@@ -165,7 +165,7 @@ Limits and colimits unify diverse geometric and algebraic constructions by ident
 \end{remark}
 
 
-As a direct consequence of their definition as \hyperref[def:initial-terminal-object]{initial} or \hyperref[def:initial-terminal-object]{initial} by \autoref{prop:uniqueness-initial-terminal-objects} we have that these objects are unique up to \hyperref[def:categorical-isomorphism]{categorical isomorphism}.
+As a direct consequence of their definition as \hyperref[def:initial-terminal-object]{initial} or \hyperref[def:initial-terminal-object]{terminal} objects by \autoref{prop:uniqueness-initial-terminal-objects} we have that these objects are unique up to \hyperref[def:categorical-isomorphism]{isomorphism}.
 \begin{proposition}[Uniqueness of limits and colimits]
   If a diagram \(X\colon \category{J} \to \category{C}\) has a \hyperref[def:categorical-limit]{limit}/\hyperref[def:categorical-colimit]{colimit}, it is unique up to unique \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{proposition}
@@ -279,7 +279,7 @@ Note that any pair of morphisms \(f, g\colon A \rightrightarrows B\) can be cons
 
 \begin{definition}[Coequaliser]\label{def:coequaliser}
   Let \(f, g\colon A \rightrightarrows B\) be two morphisms in \(\category{C}\), considered as a \hyperref[def:diagram]{diagram} \(X\colon \category{J} \to \category{C}\).
-  The \textbf{coequaliser} of \(f\) and \(g\) is the \hyperref[def:categorical-colimit]{limit} of this diagram.
+  The \textbf{coequaliser} of \(f\) and \(g\) is the \hyperref[def:categorical-colimit]{colimit} of this diagram.
 
   Less abstractly, it is an object \(Q \in \category{C}\) together with a morphism \(\operatorname{coeq}\colon B \to Q\) such that for any morphism \(d\colon B \to C\) with \(df = dg\) there exists a unique map \(Q \to C\) making the following diagram commute
   \begin{center}
@@ -295,7 +295,7 @@ Note that any pair of morphisms \(f, g\colon A \rightrightarrows B\) can be cons
   Dually, \hyperref[def:coequaliser]{coequaliser arrows} are \hyperref[def:mono-epi-morphism]{epimorphisms}.
 \end{proposition}
 \begin{proof}
-  Let \(\operatorname{eq}\colon E \to X\) be a \hyperref[def:equaliser]{equaliser}.
+  Let \(\operatorname{eq}\colon E \to X\) be an \hyperref[def:equaliser]{equaliser}.
   Consider two morphisms \(f, g\colon C \rightrightarrows E\) in \(\category{C}\) such that \(\operatorname{eq} \circ f = \operatorname{eq} \circ g\).
   By the uniqueness of the map \(\operatorname{eq}\colon E \to X\) we have \(f = g\).
 \end{proof}
@@ -575,7 +575,7 @@ We finish this chapter by giving a condition for the existence of finite \hyperr
 \begin{proof}~
   \begin{itemize}
     \item[\(\implies\)] Direct since all of these are particular cases of \hyperref[def:categorical-limit]{limits}.
-    \item[\(\impliedby\)] Consider a \hyperref[def:diagram]{diagram} \(X\colon \category{J} \Rightarrow \category{C}\).
+    \item[\(\impliedby\)] Consider a \hyperref[def:diagram]{diagram} \(X\colon \category{J} \Rightarrow \category{C}\), where \(\category{J}\) is finite.
 
           Since \hyperref[def:categorical-product]{binary products} exist in \(\category{C}\) we can construct inductively 
           \begin{equation*}
@@ -629,13 +629,13 @@ In the particular case of \hyperref[def:functor-category]{functor categories} we
   Furthermore, they are computed objectwise.
 \end{proposition}
 \begin{proof}
-  Consider a \hyperref[def:diagram]{\(\category{J}\)-shaped diagram} \(X\colon \category{J} \Rightarrow [\category{C}, \category{D}]\).
+  Consider a \hyperref[def:diagram]{\(\category{J}\)-shaped diagram} \(X\colon \category{J} \Rightarrow \Fct{\category{C}}{\category{D}}\).
   We wish to construct a \hyperref[def:categorical-limit]{limit object} \(L \in \Fct{\category{C}}{\category{D}}\) together with a \hyperref[def:categorical-limit]{limit cone} \(\pi_{j}\colon L \to X_{j}\) for all \(j \in \category{J}\).
 
   For any object \(c \in \category{C}\) the \textit{evaluation} \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
-      \llap{\(\operatorname{ev}_{c}\colon\)} [\category{C}, \category{D}] \arrow[r] & \category{D} \\[-2em]
+      \llap{\(\operatorname{ev}_{c}\colon\)} \Fct{\category{C}}{\category{D}} \arrow[r] & \category{D} \\[-2em]
       F \arrow[d, "\eta"' ""{name=source, right}, Rightarrow] & F(c) \arrow[d, "\eta_{c}" ""{name=target, left}] \arrow[from=source, to=target, mapsto] \\
       G  & G(c)
     \end{tikzcd}
@@ -680,7 +680,7 @@ In the particular case of \hyperref[def:functor-category]{functor categories} we
   The functiorality of \(L\) follows directly from the uniqueness of this induced map into \(L(d)\).
   Moreover the above commutative square is the \hyperref[def:natural-transformation]{naturallity} condition for \(\pi_{j}\) with respect to \(f\).
   Therefore, for each \(j \in \category{J}\) the collection \(\{\pi_{j}^{c}\}_{c \in \category{C}}\) is a \hyperref[def:natural-transformation]{natural transformation} \(\pi_{j}\colon L \Rightarrow X_{j}\).
-  It is an easy check to see that this collection forms a \hyperref[def:cone]{cone} over \(X\) in the \hyperref[def:functor-category]{functor category} \(\Fct{\category{C}}{\category{D}}\).
+  It is an easy but tedious check to see that this collection forms a \hyperref[def:cone]{cone} over \(X\) in the \hyperref[def:functor-category]{functor category} \(\Fct{\category{C}}{\category{D}}\).
 
   To finish the proof, we need to check the universal property.
   Consider another functor \(M \in \Fct{\category{C}}{\category{D}}\) equipped with a \hyperref[def:cone]{cone} \(\tau_{j}\colon M \Rightarrow X_{j}\).

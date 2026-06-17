@@ -31,10 +31,10 @@ Furthermore if we have \(W \subseteq V \subseteq U\) open subsets restricting \(
 \end{center}
 
 Notice how if we replace smooth functions with, say, continuous, real-analytic or bounded functions this example would work analogously.
-Therefore all of this ``nice'' types of functions share some common properties.
+Therefore all of these ``nice'' types of functions share some common properties.
 The abstraction of this data --- the collection of \(\mathbb{R}\)-modules plus the restriction maps --- is what we will call a presheaf (of \(\mathbb{R}\)-modules) over \(X\).
 
-However in this particular our presheaf is more rich.
+However in this particular case our presheaf is more rich.
 Indeed, lets consider an open cover \(\mathcal{U} \coloneq \{U_{i}\}_{i \in \mathcal{I}}\) of an open set \(U \subseteq X\).
 
 On the one hand if we have two smooth function \(f_{1}, f_{2} \in \sheaf{O}(U)\) such that both agree on every \(U_{i}\) then they must be the same function to begin with.
@@ -45,7 +45,7 @@ On the other suppose now we have a collection of smooth function \(f_{i} \in \sh
 Then we can \textit{glue} them together forming an smooth function \(f\) in all of \(U\).
 Again, with the notation of the restriction maps we have that if \(\res_{U_{i} \cap U_{j}} f_{i} = \res_{U_{i} \cap U_{j}} f_{j}\) for all \(i, j \in \mathcal{I}\) there exists \(f \in \sheaf{O}(U)\) such that \(\res_{U_{i}} f = f_{i}\).
 
-This two properties are what will differentiate a presheaf from a sheaf.
+These two properties are what will differentiate a presheaf from a sheaf.
 Note that they still hold for continous or real-analytic functions, but they no longer work in the bounded functions case (the second property fails).
 
 \section{Presheaves and sheaves}
@@ -107,7 +107,7 @@ One example that will be useful later is the following.
 
 We now turn our attention to a particular class of \hyperref[def:presheaf]{presheaves}.
 
-Instead of working on a general \hyperref[def:category]{category} \(\category{C}\), to simplify the exposition we will work with \hyperref[def:category]{categories} which are ``sets with an algebraic structure'' (for example \(\Grp, \Ab, \Ring, \ldots\) but not \(\Top\)).
+Instead of working in a general \hyperref[def:category]{category} \(\category{C}\), to simplify the exposition we will work with \hyperref[def:category]{categories} which are ``sets with an algebraic structure'' (for example \(\Grp, \Ab, \Ring, \ldots\) but not \(\Top\)).
 
 \begin{definition}\label{def:algebraic-structure}
   A \textbf{type of algebraic structure} is a \hyperref[def:category]{category} \(\category{C}\) together with a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) verifying:
@@ -437,7 +437,7 @@ We will do this by constructing the \hyperref[def:sheafification]{sheafification
   \end{quote}
 
   We need to check that our definition of \(\mathcal{F}^{\#}\) verifies the universal property of \hyperref[def:sheafification]{sheafification}.
-  To do this, consider a \hyperref[def:set-valued-sheaf]{sheaf} \(\sheaf{G}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \sheaf{G}\).
+  To do this, consider a \hyperref[def:sheaf]{sheaf} \(\sheaf{G}\) and a \hyperref[def:presheaf]{morphism of presheaves} \(\phi\colon \mathcal{F} \to \sheaf{G}\).
   We wish to show that there exists a unique \hyperref[def:sheaf]{sheaf} morphism \(\psi\colon \mathcal{F}^{\#} \to \sheaf{G}\) such that \(\phi \circ \theta = \psi\).
   Diagramatically
   \begin{center}
@@ -538,8 +538,6 @@ We will do this by the means of the following category-theoretic auxiliary lemma
   Then \(\category{A}\) is \hyperref[def:abelian-category]{abelian}.
 \end{lemma}
 \begin{proof}
-  Since \(\category{B}\) is an \hyperref[def:abelian-category]{abelian} by \autoref{lemma:abelian-admits-limits-colimits} all finite \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} exist en \(\category{B}\).
-
   Since \(b\) is \hyperref[def:adjoint-functors]{left-adjoint} by \autoref{ex:adjoint-functors-and-exactness} it is \hyperref[def:exact-functor]{right-exact} and therefore, \hyperref[def:exact-functor]{exact}.
   Analogously we have that \(a\) is \hyperref[def:exact-functor]{left-exact}.
 
@@ -561,7 +559,6 @@ We will do this by the means of the following category-theoretic auxiliary lemma
   \end{align}
   
   It only remains to show that \(\text{Coim}_{\category{A}} \psi \cong \text{Im}_{\category{A}} \psi\).
-  Since \(\category{A}\) has all finite \hyperref[def:categorical-limit]{limits} and \hyperref[def:categorical-colimit]{colimits} \(a\) is \hyperref[def:exact-functor]{left exact}.
 
   By \autoref{lemma:characterization-exact-functor} we have that \(a\) transforms \hyperref[def:categorical-kernel]{kernels} into \hyperref[def:categorical-kernel]{kernels}.
   Therefore
@@ -641,7 +638,7 @@ We need to check that we can apply this lemma in our case.
   \begin{equation*}
     \phi\colon \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \to \lim_{i \in \category{I}} \mathcal{F}_{i}^{\#}
   \end{equation*}
-  To see that this is an \hyperref[def:categorical-isomorphism]{isomorphism} we will see that the \hyperref[def:stalk-map]{induced stalk maps} \(\phi_{p}\) are \hyperref[def:categorical-isomorphism]{isomorphisms} for all \(p \in X\), i.e: we want to show that
+  To see that this is an \hyperref[def:categorical-isomorphism]{isomorphism} we will see that the \hyperref[def:stalk]{induced stalk maps} \(\phi_{p}\) are \hyperref[def:categorical-isomorphism]{isomorphisms} for all \(p \in X\), i.e: we want to show that
   \begin{equation*}
     \left( \left( \lim_{i \in \category{I}} \mathcal{F}_{i} \right)^{\#} \right)_{p} \cong \left( \lim_{i \in \category{I}} \mathcal{F}_{i}^{\#} \right)_{p}
   \end{equation*}

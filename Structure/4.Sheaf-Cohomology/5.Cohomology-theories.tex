@@ -12,10 +12,10 @@
 \chapter{Cohomology theories}\label{ch:cohomology-theories}
 
 
-Historically, Eilenberg and Steenrod showed that forms of cohomology could be characterized uniquely by a small set of simple axioms.
+Historically, Eilenberg and Steenrod showed that the various forms of cohomology could be characterized uniquely by a small set of simple axioms.
 The goal of this chapter is to verify that that \hyperref[def:sheaf-cohomology]{sheaf cohomology} satisfies these axioms.
 
-In this chapter we restrict ourselves to \hyperref[def:sheaf]{sheaves of abelian groups}.
+In this chapter we restrict ourselves to \hyperref[def:sheaf]{sheaves of abelian groups}, i.e: we take \(\mathbf{k} = \mathbb{Z}\).
 
 \section{Cohomology theories and CW-Complexes}
 
@@ -154,89 +154,6 @@ Now we are ready to prove that \hyperref[def:relative-sheaf-cohomology]{relative
 
 Note that the dimension axiom was already verified back in \autoref{ex:cohomology-over-point}.
 
-\begin{theorem}[Exactness]\label{thm:exactness-axiom}
-  Let \(A \subseteq X\) be a closed subset and \(i\colon A \hookrightarrow X\) the closed immersion.
-  For any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\), there exists a \hyperref[def:exact-sequence]{long exact sequence} in cohomology:
-  \begin{center}
-    \begin{tikzcd}[column sep=small]
-      \cdots \arrow[r] & \cohomology{i}(X, A; \sheaf{F}) \arrow[r] & \cohomology{i}(X; \sheaf{F}) \arrow[r] & \cohomology{i}(A; \sheaf{F}_{A}) \arrow[r] & \cohomology{i+1}(X, A; \sheaf{F}) \arrow[r] & \cdots
-    \end{tikzcd}
-  \end{center}
-\end{theorem}
-\begin{proof}
-  By \autoref{thm:SES-exactness} we have a \hyperref[def:exact-sequence]{short exact sequence} of \hyperref[def:sheaf]{sheaves}:
-  \begin{equation*}
-    0 \to j_{!}j^{-1}\sheaf{F} \to \sheaf{F} \to i_{\ast}i^{-1}\sheaf{F} \to 0
-  \end{equation*}
-  Applying the \hyperref[thm:LES-derived-functor]{long exact sequence of derived functors} to \(\Gamma(X, -)\) and using \autoref{prop:cohomology-subsets} for the term \(\cohomology{i}(X; i_{\ast}i^{-1}\sheaf{F}) \cong \cohomology{i}(A; \sheaf{F}_{A})\), we obtain the result.
-\end{proof}
-
-\begin{theorem}[Excision]\label{thm:excision-axiom}
-  Let \(A \subseteq X\) be a closed subset.
-  Let \(Z \subseteq A\) be a subset such that \(\operatorname{ad}(Z) \subseteq \operatorname{int}(A)\).
-  Then for any \hyperref[def:sheaf]{sheaf} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\):
-  \begin{equation*}
-    \cohomology{i}(X, A; \sheaf{F}) \cong \cohomology{i}(X \setminus Z, A \setminus Z; \sheaf{F})
-  \end{equation*}
-\end{theorem}
-\begin{proof}
-  Let \(U \coloneq X \setminus A\) and \(j\colon U \hookrightarrow X\) the open immersion.
-  By \hyperref[def:relative-sheaf-cohomology]{definition} we have
-  \begin{equation*}
-    \cohomology{i}(X, A; \sheaf{F}) = \cohomology{i}(X; \sheaf{G})
-  \end{equation*}
-  where \(\sheaf{G} \coloneq j_{!}j^{-1}\sheaf{F}\).
-
-  Without loss of generality suppose that \(Z\) is closed (if not consider \(\operatorname{ad}(Z)\)).
-  Let \(V = X \setminus Z\) and \(W = \operatorname{int}(A)\).
-  Since \(Z\) is closed \(V\) is open. Furthermore since \(Z \subseteq \operatorname{int}(A) = W\) we have an open cover \(X = V \cup W\).
-
-  By \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris} we have a \hyperref[def:exact-sequence]{long exact sequence}
-  \begin{center}
-    \begin{tikzcd}
-      {} & {} & \cdots \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{i-1}(V \cap W; \sheaf{G}|_{V \cap W}) \arrow[dll, rounded corners, to path={
-        -- ([xshift=2ex]\tikztostart.east)
-        |- (X) [near end]\tikztonodes
-        -| ([xshift=-2ex]\tikztotarget.west)
-        -- (\tikztotarget)}] \\
-      & \cohomology{i}(X; \sheaf{G}) \arrow[r] & \cohomology{i}(V; \sheaf{G}|_{V}) \oplus \cohomology{i}(W; \sheaf{G}|_{W}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \cohomology{i}(V \cap W; \sheaf{G}|_{V \cap W}) \arrow[dll, rounded corners, to path={
-        -- ([xshift=2ex]\tikztostart.east)
-        |- (Y) [near end]\tikztonodes
-        -| ([xshift=-2ex]\tikztotarget.west)
-        -- (\tikztotarget)}] \\
-      & \cohomology{i+1}(X; \sheaf{G}) \arrow[r] & \cdots
-    \end{tikzcd}
-  \end{center}
-
-  Note that the \hyperref[def:stalk]{stalks} of \(\sheaf{G}\) are
-  \begin{equation*}
-    \sheaf{G}_{p} = \begin{cases}
-      \sheaf{F}_{p} & p \in U \\
-      0 & p \notin U
-    \end{cases}
-  \end{equation*}
-  Therefore since \(W \subseteq A\) and \(A \cap U = \varnothing\) we have \(\sheaf{G}_{p} = 0\) for all \(p \in W\).
-  In particular \(\sheaf{G}|_{W} = 0\) and thus \(\sheaf{G}|_{V \cap W} = 0\).
-  Plugging this into the above \hyperref[def:long-exact-sequence]{long exact sequence} we get \hyperref[def:categorical-isomorphism]{isomorphisms}
-  \begin{equation*}
-    \cohomology{i}(X; \sheaf{G}) \isoarrow \cohomology{i}(V; \sheaf{G}|_{V})
-  \end{equation*}
-  To finish, we need to check that \(\cohomology{i}(V; \sheaf{G}) = \cohomology{i} \left( X \setminus Z, A \setminus Z, \sheaf{F} \right)\).
-  Note that
-  \begin{equation*}
-    V \setminus ( A \setminus Z ) = \left( X \setminus Z \right) \setminus \left( A \setminus Z \right) = X \setminus A = U
-  \end{equation*}
-  Consider the open immersion \(j'\colon U \hookrightarrow V\).
-  Since \(\sheaf{G}\) was formed by extending \(\sheaf{F}|_{U}\) by zero to \(X\), restricting it to \(V\) (which fully contains \(U\)) yields the same extension by zero relative to \(V\):
-  \begin{equation*}
-    \sheaf{G}|_{V} = j'_{!} \left( \sheaf{F}|_{U} \right) = j'_{!} j'^{-1} \left( \sheaf{F}|_{V} \right)
-  \end{equation*}
-  Therefore
-  \begin{equation*}
-    \cohomology{i} \left( V; \sheaf{G}|_{V} \right) = \cohomology{i} \left( V; j'_{!}j'^{-1}\sheaf{F}|_{V} \right) = \cohomology{i} \left( X \setminus Z, A \setminus Z; \sheaf{F} \right) \qedhere
-  \end{equation*}
-\end{proof}
-
 \begin{theorem}[Homotopy]\label{thm:homotopy-pairs}
   Let \(f_{0}, f_{1}\colon (X, A) \rightrightarrows (Y, B)\) be two \hyperref[def:homotopy-over]{homotopic maps of pairs}.
   Let \(\underline{M}_{Y} \in \Mod( \underline{\mathbf{k}}_{Y} )\) be a \hyperref[def:constant-sheaf]{constant sheaf} of \(\mathbf{k}\)-modules over \(Y\).
@@ -288,6 +205,88 @@ Note that the dimension axiom was already verified back in \autoref{ex:cohomolog
   \end{equation*}
 \end{proof}
 
+\begin{theorem}[Excision]\label{thm:excision-axiom}
+  Let \(A \subseteq X\) be a closed subset.
+  Let \(Z \subseteq A\) be a subset such that \(\operatorname{ad}(Z) \subseteq \operatorname{int}(A)\).
+  Then for any \hyperref[def:sheaf]{sheaf} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\):
+  \begin{equation*}
+    \cohomology{i}(X, A; \sheaf{F}) \cong \cohomology{i}(X \setminus Z, A \setminus Z; \sheaf{F})
+  \end{equation*}
+\end{theorem}
+\begin{proof}
+  Let \(U \coloneq X \setminus A\) and \(j\colon U \hookrightarrow X\) the open immersion.
+  By \hyperref[def:relative-sheaf-cohomology]{definition} we have
+  \begin{equation*}
+    \cohomology{i}(X, A; \sheaf{F}) = \cohomology{i}(X; \sheaf{G})
+  \end{equation*}
+  where \(\sheaf{G} \coloneq j_{!}j^{-1}\sheaf{F}\).
+
+  Without loss of generality suppose that \(Z\) is closed (if not consider \(\operatorname{ad}(Z)\)).
+  Let \(V = X \setminus Z\) and \(W = \operatorname{int}(A)\).
+  Since \(Z\) is closed \(V\) is open. Furthermore since \(Z \subseteq \operatorname{int}(A) = W\) we have an open cover \(X = V \cup W\).
+
+  By \hyperref[thm:mayer-vietoris-open]{Mayer-Vietoris} we have a \hyperref[def:exact-sequence]{long exact sequence}
+  \begin{center}
+    \begin{tikzcd}
+      {} & {} & \cdots \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{i-1}(V \cap W; \sheaf{G}|_{V \cap W}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{i}(X; \sheaf{G}) \arrow[r] & \cohomology{i}(V; \sheaf{G}|_{V}) \oplus \cohomology{i}(W; \sheaf{G}|_{W}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \cohomology{i}(V \cap W; \sheaf{G}|_{V \cap W}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{i+1}(X; \sheaf{G}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+
+  Note that the \hyperref[def:stalk]{stalks} of \(\sheaf{G}\) are
+  \begin{equation*}
+    \sheaf{G}_{p} = \begin{cases}
+      \sheaf{F}_{p} & p \in U \\
+      0 & p \notin U
+    \end{cases}
+  \end{equation*}
+  Therefore since \(W \subseteq A\) and \(A \cap U = \varnothing\) we have \(\sheaf{G}_{p} = 0\) for all \(p \in W\).
+  In particular \(\sheaf{G}|_{W} = 0\) and thus \(\sheaf{G}|_{V \cap W} = 0\).
+  Plugging this into the above \hyperref[def:exact-sequence]{long exact sequence} we get \hyperref[def:categorical-isomorphism]{isomorphisms}
+  \begin{equation*}
+    \cohomology{i}(X; \sheaf{G}) \isoarrow \cohomology{i}(V; \sheaf{G}|_{V})
+  \end{equation*}
+  To finish, we need to check that \(\cohomology{i}(V; \sheaf{G}) = \cohomology{i} \left( X \setminus Z, A \setminus Z, \sheaf{F} \right)\).
+  Note that
+  \begin{equation*}
+    V \setminus ( A \setminus Z ) = \left( X \setminus Z \right) \setminus \left( A \setminus Z \right) = X \setminus A = U
+  \end{equation*}
+  Consider the open immersion \(j'\colon U \hookrightarrow V\).
+  Since \(\sheaf{G}\) was formed by extending \(\sheaf{F}|_{U}\) by zero to \(X\), restricting it to \(V\) (which fully contains \(U\)) yields the same extension by zero relative to \(V\):
+  \begin{equation*}
+    \sheaf{G}|_{V} = j'_{!} \left( \sheaf{F}|_{U} \right) = j'_{!} j'^{-1} \left( \sheaf{F}|_{V} \right)
+  \end{equation*}
+  Therefore
+  \begin{equation*}
+    \cohomology{i} \left( V; \sheaf{G}|_{V} \right) = \cohomology{i} \left( V; j'_{!}j'^{-1}\sheaf{F}|_{V} \right) = \cohomology{i} \left( X \setminus Z, A \setminus Z; \sheaf{F} \right) \qedhere
+  \end{equation*}
+\end{proof}
+
+\begin{theorem}[Exactness]\label{thm:exactness-axiom}
+  Let \(A \subseteq X\) be a closed subset and \(i\colon A \hookrightarrow X\) the closed immersion.
+  For any \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\), there exists a \hyperref[def:exact-sequence]{long exact sequence} in cohomology:
+  \begin{center}
+    \begin{tikzcd}[column sep=small]
+      \cdots \arrow[r] & \cohomology{i}(X, A; \sheaf{F}) \arrow[r] & \cohomology{i}(X; \sheaf{F}) \arrow[r] & \cohomology{i}(A; \sheaf{F}_{A}) \arrow[r] & \cohomology{i+1}(X, A; \sheaf{F}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  By \autoref{thm:SES-exactness} we have a \hyperref[def:exact-sequence]{short exact sequence} of \hyperref[def:sheaf]{sheaves}:
+  \begin{equation*}
+    0 \to j_{!}j^{-1}\sheaf{F} \to \sheaf{F} \to i_{\ast}i^{-1}\sheaf{F} \to 0
+  \end{equation*}
+  Applying the \hyperref[thm:LES-derived-functor]{long exact sequence of derived functors} to \(\Gamma(X, -)\) and using \autoref{prop:cohomology-subsets} for the term \(\cohomology{i}(X; i_{\ast}i^{-1}\sheaf{F}) \cong \cohomology{i}(A; \sheaf{F}_{A})\), we obtain the result.
+\end{proof}
 
 \begin{theorem}[Additivity]\label{thm:additivity-axiom}
   Let \(X = \coprod_{\alpha \in \Lambda} X_{\alpha}\) be a disjoint union of topological spaces.
@@ -305,7 +304,7 @@ Note that the dimension axiom was already verified back in \autoref{ex:cohomolog
     \Gamma(X, \sheaf{F}) \cong \prod_{\alpha \in \Lambda} \Gamma(X_{\alpha}, \sheaf{F}|_{X_{\alpha}})
   \end{equation*}
 
-  Furthermore if \(\sheaf{F} \to \sheaf{I}^{\bullet}\) is an \hyperref[def:resolution]{injective resolution} since \(j_{\alpha}^{-1}\) is \hyperref[def:adjoint-functors]{right adjoint} to \(j_{\alpha, !}\), \hyperref[cor:extension-by-zero-sheaf-exact]{which is exact}, by \autoref{prop:adjoints-and-injectives} \(I^{\bullet}|_{X_{\alpha}}\) is an \hyperref[def:resolution]{injective resolution} of \(\sheaf{F}|_{X_{\alpha}}\).
+  Furthermore if \(\sheaf{F} \to \sheaf{I}^{\bullet}\) is an \hyperref[def:resolution]{injective resolution} since \(j_{\alpha}^{-1}\) is \hyperref[def:adjoint-functors]{right adjoint} to \(j_{\alpha, !}\), \hyperref[cor:extension-by-zero-sheaf-exact]{which is exact}, by \autoref{prop:adjoints-and-injectives} \(\sheaf{I}^{\bullet}|_{X_{\alpha}}\) is an \hyperref[def:resolution]{injective resolution} of \(\sheaf{F}|_{X_{\alpha}}\).
   
   Therefore
   \begin{align*}
@@ -340,7 +339,7 @@ Note that the dimension axiom was already verified back in \autoref{ex:cohomolog
 
 Having fully verified all five axioms by the \hyperref[thm:uniqueness-cohomology-theories]{uniqueness of cohomology theories} we obtain complete equivalences between \hyperref[def:sheaf-cohomology]{sheaf cohomology} and classical cohomology groups.
 
-In particular from \autoref{prop:manifold-is-CW-complex} and the \hyperref[thm:homotopy-invariance-cohomology]{homotopy invariance of cohomology} we have the following.
+In particular from \autoref{prop:manifold-is-CW-complex} and the \hyperref[thm:homotopy-invariance-cohomology]{homotopy invariance of cohomology} we have the following equivalence.
 \begin{corollary}
   Let \(X\) be a space homotopic to a \hyperref[def:CW-complex]{CW-complex}.
   For any \hyperref[def:constant-sheaf]{constant sheaf of abelian groups} \(\underline{G} \in \Mod(\underline{\mathbb{Z}}_{X})\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
@@ -349,10 +348,10 @@ In particular from \autoref{prop:manifold-is-CW-complex} and the \hyperref[thm:h
     \end{equation*}
 \end{corollary}
 
-Furthermore, we can combin this with the work we did in the last chapter obtaining a proof that \hyperref[def:de-rham-cohomology]{de Rham cohomology} and singular cohomology coincide for compact smooth manifolds.
+Furthermore, we can combine this with the work we did in the last chapter obtaining a proof that \hyperref[def:de-rham-cohomology]{de Rham cohomology} and singular cohomology coincide for compact smooth manifolds.
 \begin{corollary}
   Let \(X\) be a compact smooth manifold.
-  We have \hyperref[def:categorical-isomorphism]{isomorphisms}
+  We have \hyperref[def:categorical-isomorphism]{isomorphisms} (of abelian groups)
   \begin{equation*}
     \operatorname{H}_{\operatorname{sing}}^{i}(X; \mathbb{R}) \cong \cohomology{i}(X; \underline{\mathbb{R}}) \cong \operatorname{H}_{\operatorname{dR}}(X; \mathbb{R})
   \end{equation*}

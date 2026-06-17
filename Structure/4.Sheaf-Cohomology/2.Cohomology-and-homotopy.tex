@@ -35,8 +35,6 @@ We begin first by defining what we mean for a homotopy relative to a base space.
   \end{center}
 \end{definition}
 
-Note that this relative framework is generalization of the non-relative case, since any standard topological scenario can be viewed through a relative lens simply by taking a product with the base space as demonstrated below.
-
 \begin{example}
   Any continuous map \(f\colon X \to Y\) can be made \hyperref[def:continuous-map-over]{continuous over \(S\)} trivially by considering
   \begin{center}
@@ -241,7 +239,7 @@ This means that continuously deforming a map over \(S\) does not alter its effec
   \begin{equation*}
     f_{t}^{-1}(\sheaf{I}^{\bullet}) \to \sheaf{J}^{\bullet}
   \end{equation*}
-  where \(p_{X}^{-1}(\sheaf{F}) \to \sheaf{J}^{\bullet}\) is an \hyperref[def:injective-resolution]{injective resolution} of \(p_{X}^{-1}(\sheaf{F})\).
+  where \(p_{X}^{-1}(\sheaf{F}) \to \sheaf{J}^{\bullet}\) is an \hyperref[def:resolution]{injective resolution} of \(p_{X}^{-1}(\sheaf{F})\).
   Applying \(p_{X, \ast}\) we obtain a map
   \begin{equation*}
     \left( p_{X, \ast} \circ f_{t}^{-1} \right) \left( \sheaf{I}^{\bullet} \right) \to p_{X, \ast} \left( \sheaf{J}^{\bullet} \right)
@@ -275,8 +273,8 @@ This means that continuously deforming a map over \(S\) does not alter its effec
   whose composition is the identity on \(p_{X}^{-1}\), which means that \(\alpha_{t}\) is induced by the identity.
   Indeed:
   \begin{itemize}
-    \item The first one comes from the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction]{\(p^{-1} \dashv p_{\ast}\)}.
-    \item Applying \(p_{\ast}\) to the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction]{\(j_{t}^{-1} \dashv j_{t, \ast}\)} we get
+    \item The first one comes from the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction-sheaf]{\(p^{-1} \dashv p_{\ast}\)}.
+    \item Applying \(p_{\ast}\) to the \hyperref[def:unit-counit]{unit of the adjunction} \hyperref[thm:direct-inverse-image-adjunction-sheaf]{\(j_{t}^{-1} \dashv j_{t, \ast}\)} we get
           \begin{equation*}
             p_{\ast} \isoarrow p_{\ast} \circ j_{t, \ast} \circ j_{t}^{-1} = \left( p \circ j_{t} \right)_{\ast} \circ j_{t}^{-1} = \id_{\ast} \circ j_{t}^{-1} = j_{t}^{-1}
           \end{equation*}

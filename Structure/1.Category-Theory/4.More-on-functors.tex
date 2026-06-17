@@ -11,21 +11,21 @@
 \chapter{More on functors}
 
 In this chapter we introduce one of the most fundamental results in category theory: the Yoneda lemma.
-We also define what an adjoint pair of functions is and state its relation with limits and colimits.
+We also define what an adjoint pair of funtors is and state its relation with limits and colimits.
 
 The main references for this chapter are \cite{riehlCategoryTheoryContext, maclaneCategoriesWorkingMathematician1978, aluffiAlgebraChapter02009}.
 
 \section{The Yoneda lemma}
 
-A common theme in these part of the thesis has been stressing that we want to study objects not by themselves but through its relation with their environment.
-In particular we can apply these way of thought to \hyperref[def:category]{categories} themselves using \hyperref[def:functor]{functors}, and to \hyperref[def:functor]{functors} using \hyperref[def:natural-transformation]{natural transformations}.
+A common theme in these part of the thesis has been stressing that we want to study objects not by themselves but through its relation with their \textit{environment}.
+In particular we can apply this way of thought to \hyperref[def:category]{categories} themselves using \hyperref[def:functor]{functors}, and to \hyperref[def:functor]{functors} using \hyperref[def:natural-transformation]{natural transformations}.
 
 Note that every \hyperref[def:category]{category} \(\category{C}\) has a \hyperref[def:functor]{functor} of the form \(\category{C} \to \Set\): \hyperref[ex:hom-functor]{the (covariant) Hom functor} that works by fixing an object \(X \in \category{C}\) and sending \(Y \in \category{C}\) to its set of morphisms \(\Hom(X, Y) \in \Set\).
 
 Therefore we could try to study how a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \Set\) works on an object \(X \in \category{C}\) by studying its relation to \(\Hom(X, -)\).
-This was done by Yoneda and Grothendieck independently and it's what is known as the Yoneda lemma.
+This is what is known as the Yoneda lemma.
 
-Instead of giving its proof, we will give an intuitive explanation the philosophy behind it.
+Instead of giving its proof, we will give an intuitive explanation of the philosophy behind it.
 But first, here is the statement.
 \begin{theorem}[{Yoneda - \cite[Theorem 2.2.4]{riehlCategoryTheoryContext}}]\label{thm:yoneda-lemma}
   Let \(\category{C}\) be a \hyperref[def:category]{category}, \(X \in \category{C}\) an object, and \(F\colon \category{C} \to \Set\) a \hyperref[def:functor]{functor}. There is a bijection:
@@ -82,7 +82,7 @@ These are both examples of a general phenomenon called adjunction.
   \begin{align*}
     \eta\colon \id_{\category{C}} \Rightarrow R \circ L \qquad \varepsilon\colon L \circ R \Rightarrow \id_{\category{D}}
   \end{align*}
-  that satisfy the \textit{triangular identities}
+  called the \textbf{unit} and \textbf{counit} of the \hyperref[def:adjoint-functors]{adjunction} that satisfy the \textit{triangular identities}
   \begin{center}
     \begin{tikzcd}
       L \arrow[r, Rightarrow, "L\eta"] \arrow[dr, Rightarrow, "\id_{F}"'] & L \circ R \circ L \arrow[d, Rightarrow, "\varepsilon F"] \\

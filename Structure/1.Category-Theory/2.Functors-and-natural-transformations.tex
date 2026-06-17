@@ -110,7 +110,7 @@ The answer to this question are functors.
 
 \begin{example}\label{ex:hom-functor}
   Let \(\category{C}\) be a \hyperref[def:category]{category}.
-  For every object \(C \in \category{C}\) there exists a \textit{covariant} \(\Hom\) \hyperref[def:functor]{functor}
+  For every object \(C \in \category{C}\) there exists a covariant \(\Hom\) \hyperref[def:functor]{functor}
    \begin{center}
     \begin{tikzcd}
       \llap{\(\Hom(C, -)\colon\)} \category{C} \arrow[r] & \Set \\[-2em]
@@ -118,7 +118,7 @@ The answer to this question are functors.
       Y  & \Hom(C, Y)
     \end{tikzcd}
   \end{center}
-  and a \textit{contravariant} \(\Hom\) \hyperref[def:functor]{functor}
+  and a contravariant \(\Hom\) \hyperref[def:functor]{functor}
   \begin{center}
     \begin{tikzcd}
       \llap{\(\Hom(-, C)\colon\)} \category{C} \arrow[r] & \Set \\[-2em]
@@ -176,7 +176,7 @@ The answer to this question are functors.
     f^{-1} \circ f = \id_{X} \quad f \circ f^{-1} = \id_{Y}
   \end{equation*}
 
-  Applying \(F\) to this equalities we have
+  Applying \(F\) to these equalities we have
   \begin{align*}
     F(f^{-1} \circ f) = F\id_{X} &\implies Ff^{-1} \circ Ff = \id_{F(X)} \\
     F(f \circ f^{-1}) = F\id_{Y} &\implies Ff \circ Ff^{-1} = \id_{F(Y)}
@@ -241,11 +241,16 @@ We can go further and try to model now how to move data between two \hyperref[de
   If we restrict ourselves to the finite-dimensional case then this is a \hyperref[def:natural-transformation]{natural isomorphism}.
 \end{example}
 
-By combining \hyperref[def:functor]{functors} and \hyperref[def:natural-transformation]{natural transformation} we obtain a new example of a \hyperref[def:category]{category}.
+By combining \hyperref[def:functor]{functors} and \hyperref[def:natural-transformation]{natural transformations} we obtain a new example of a \hyperref[def:category]{category}.
 \begin{definition}[Functor category]\label{def:functor-category}
-  Let \(\category{C}\) and \(\category{D}\) be \hyperref[def:category]{categories}. The \textbf{functor category} \(\Fct{\category{C}}{\category{D}}\) has as objecs \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and as morphisms \hyperref[def:natural-transformation]{natural transformations} \(\eta\colon F \implies G\).
+  Let \(\category{C}\) and \(\category{D}\) be \hyperref[def:category]{categories} with \(\category{C}\) \hyperref[def:small-category]{small}. The \textbf{functor category} \(\Fct{\category{C}}{\category{D}}\) has as objects \hyperref[def:functor]{functors} \(F\colon \category{C} \to \category{D}\) and as morphisms \hyperref[def:natural-transformation]{natural transformations} \(\eta\colon F \implies G\).
   Composition and identities are defined componentwise.
 \end{definition}
+
+\begin{remark}
+  Requiring \(\category{C}\) to be \hyperref[def:small-category]{small} in the \hyperref[def:functor-category]{definition of functor categories} is merelly a technical requirement to comply with our \hyperref[rem:size-issues]{remark on size issues}.
+  For more information see \cite[Remark 1.7.3]{riehlCategoryTheoryContext}.
+\end{remark}
 
 Using the notion of \hyperref[def:natural-transformation]{natural isomorphisms} one can define the notion of an \textbf{isomorphism} of \hyperref[def:category]{categories}.
 Two \hyperref[def:category]{categories} \(\category{C}\) and \(\category{D}\) are isomorphic (denoted \(\category{C} \cong \category{D}\)) if there exists a \hyperref[def:natural-transformation]{natural isomorphism} between them.
@@ -257,9 +262,8 @@ The correct notion to identify \hyperref[def:category]{categories} is that of an
   We denote this by \(\category{C} \simeq \category{D}\).
 \end{definition}
 
-In general proving that two \hyperref[def:equivalent-categories]{equivalence of categories} by directly constructing the \hyperref[def:functor]{functors} \(F\) and \(G\) is not easy.
+In general proving that two \hyperref[def:category]{categories} are \hyperref[def:equivalent-categories]{equivalent} by directly constructing the \hyperref[def:functor]{functors} \(F\) and \(G\) is not easy.
 Instead one can use the following theorem, which we state without proof.
-
 
 \begin{theorem}[{\cite[Theorem 1.5.9]{riehlCategoryTheoryContext}}]\label{thm:equivalent-categories-characterization}
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) defining an \hyperref[def:equivalent-categories]{equivalence of categories} is \hyperref[def:functor-types]{fully faithful and essentially surjective}.

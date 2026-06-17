@@ -15,7 +15,7 @@ The main references for this chapter are \cite{riehlCategoryTheoryContext, macla
   A \textbf{category} \(\category{C}\) consists of:
   \begin{itemize}
     \item a class \(\operatorname{Ob}(\category{C})\) of \textbf{objects}.
-    \item for each pair of objects \(X, Y \in \operatorname{Ob}(\category{C})\) a collection of sets \(\Hom_{\category{C}}(X, Y)\) of \textbf{morphisms from \(X\) to \(Y\)}.
+    \item for each pair of objects \(X, Y \in \operatorname{Ob}(\category{C})\) a set \(\Hom_{\category{C}}(X, Y)\) of \textbf{morphisms from \(X\) to \(Y\)}.
     \item for each object \(X \in \operatorname{Ob}(\category{C})\) a morphisms \(\id_{X} \in \Hom_{\category{C}}(X, X)\) called the \textbf{identity} morphism.
     \item for each pair of morphisms \(f \in \Hom_{\category{C}}(X, Y)\) and \(g \in \Hom_{\category{C}}(Y, Z)\) a morphism \(g \circ f \in \Hom_{\category{C}}(X, Z)\) called their \textbf{composite}.
   \end{itemize}
@@ -25,7 +25,7 @@ The main references for this chapter are \cite{riehlCategoryTheoryContext, macla
           \begin{equation*}
             (f \circ g) \circ h = f \circ (g \circ h)
           \end{equation*}
-    \item Composition satiesfies the unit laws: for each pair of objects \(X, Y \in \operatorname{Ob}(\category{C})\) if \(f \in \Hom_{\category{C}}(X, Y)\) then
+    \item Composition satisfies the unit laws: for each pair of objects \(X, Y \in \operatorname{Ob}(\category{C})\) if \(f \in \Hom_{\category{C}}(X, Y)\) then
           \begin{equation*}
             \id_{Y} \circ f = f = f \circ \id_{X}
           \end{equation*}
@@ -40,7 +40,7 @@ We call this types of \hyperref[def:category]{categories} small.
   A \hyperref[def:category]{category} \(\category{C}\) is \textbf{small} if its collection of objects \(\operatorname{Ob}(\category{C})\) is a set.
 \end{definition}
 
-\begin{remark}[Size issues]
+\begin{remark}[Size issues]\label{rem:size-issues}
   The above definition of a \hyperref[def:category]{category} is actually one of a \textit{locally small} category.
 
   In the general setting, the collection of morphisms between two objects need not to form a set because it is \textit{too big}.
@@ -48,9 +48,9 @@ We call this types of \hyperref[def:category]{categories} small.
   
   We will however be sketchy about this kind of foundational issues.
   Instead, will refer as ``big'' categories those whose collection of morphism does not form a set and not bother with the precise definition of what this actually means.
-  By doing this we refrain ourselves to study this kind of categories, but as it turns at this will not be needed.
+  By doing so we refrain ourselves from studying this kind of categories, but as it turns out we will not needed it.
 
-  For the interested reader, \cite[Section 3.7]{riehlCategoryTheoryContext} provides an account of why this issues may be important in certain situations.
+  For the interested reader, \cite[Section 3.7]{riehlCategoryTheoryContext} provides an account of why these issues may be important in certain situations.
 \end{remark}
 
 \begin{notation}
@@ -65,14 +65,13 @@ We call this types of \hyperref[def:category]{categories} small.
   We will sometimes abbreviate the composition \(f \circ g\) as \(fg\).
 \end{notation}
 
-Before going further, we give some examples of categories that the reader may be used to.
-
+Before going further, we give some examples of \hyperref[def:category]{categories} that the reader may be used to.
 \begin{example}~
   \begin{itemize}
-    \item The \hyperref[def:category]{category} \(\Set\) has the collection of all sets as objects and mappings as morphisms.
+    \item The \hyperref[def:category]{category} \(\Set\) has the class of all sets as objects and mappings as morphisms.
     \item The \hyperref[def:category]{category} \(\Grp\) has groups as objects and group homomorphisms as morphisms.
     \item The \hyperref[def:category]{category} \(\Ab\) has abelian groups as objects and group homomorphisms as morphisms. It is a full subcategory of \(\Grp\).
-    \item The \hyperref[def:category]{category} \(\Ring\) has rings as objects and ring homomorphisms as morphisms.\footnote{We adopt the convetion that all rings have an unit and all ring homomorphisms preserve it.}
+    \item The \hyperref[def:category]{category} \(\Ring\) has rings as objects and ring homomorphisms as morphisms.
     \item The \hyperref[def:category]{category} \(\category{Rng}\) has (not necessarilly unital) rings as objects and ring homomorphisms as morphism.
     \item The \hyperref[def:category]{category} \(\Top\) has topological spaces as objects and continuous functions as morphisms.
     \item For a fixed ring \(R\), the \hyperref[def:category]{category} \(\Mod(R)\) has (left) \(R\)-modules as objects and \(R\)-linear maps as morphisms.
@@ -345,11 +344,11 @@ As it happens in \(\Set\), the notions of \hyperref[def:mono-epi-morphism]{monom
   Consider the identity map \(\id_{X}\colon X_{d} \to X_{t}\), which is continuous.
   Since \(\id_{X}\) is injective we have that it is a \hyperref[def:mono-epi-morphism]{monomorphism} and, since it is surjective, it is an \hyperref[def:mono-epi-morphism]{epimorphism}.
 
-  However since \(id_{X}^{-1}\colon X_{t} \to X_{d}\) is not continuous, \(\id_{X}\) cannot be an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  However since \(\id_{X}\colon X_{t} \to X_{d}\) is not continuous, \(\id_{X}\) cannot be an \hyperref[def:categorical-isomorphism]{isomorphism}.
 \end{example}
 
 As we have seen before, one may create an smaller subcategory by restricting their attention to a smaller collection of objects.
-In this cases, \hyperref[def:categorical-isomorphism]{isomorphisms} in the smaller category are preserved the bigger one.
+In this cases, \hyperref[def:categorical-isomorphism]{isomorphisms} in the smaller category are preserved in the bigger one.
 \begin{proposition}
   Let \(\category{D}\) be a \hyperref[def:subcategory]{subcategory} of a \hyperref[def:category]{category} \(\category{C}\).
   If \(f\colon X \to Y\) is an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{D}\) then \(f\) is also an \hyperref[def:categorical-isomorphism]{isomorphism} in \(\category{C}\).
@@ -394,7 +393,7 @@ This are examples of what are called initial and terminal objects.
 \end{example}
 
 In the above examples we have spoken of \textit{the} \hyperref[def:initial-terminal-object]{initial} and \textit{the} \hyperref[def:initial-terminal-object]{terminal} instead of \textit{an} \hyperref[def:initial-terminal-object]{initial} or  \textit{a} \hyperref[def:initial-terminal-object]{terminal} object.
-This is justified as this types of objects are \hyperref[def:categorical-isomorphism]{isomorphic}.
+This is justified as these types of objects are \hyperref[def:categorical-isomorphism]{isomorphic}.
 
 \begin{proposition}[Uniqueness of initial and terminal objects]\label{prop:uniqueness-initial-terminal-objects}
   Let \(X, Y\) be two \hyperref[def:initial-terminal-object]{initial} (resp. \hyperref[def:initial-terminal-object]{terminal}) objects in a \hyperref[def:category]{category} \(\category{C}\).

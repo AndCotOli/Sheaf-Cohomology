@@ -28,7 +28,7 @@ We begin by defining our primary objects of study.
 \begin{definition}\label{def:smooth-k-form-bundle}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
-  The \textbf{bundle of \(k\)-forms} \(\Lambda^{k}(\mathrm{T}^{\,\ast}M)\) is the \hyperref[def:smooth-vector-bundle]{smooth vector bundle} defined with:
+  The \textbf{bundle of \(k\)-forms} \(\Lambda^{k}(\mathrm{T}^{\,\ast}M)\) is the smooth vector bundle defined with:
   \begin{itemize}
     \item \textit{Total space}: \(\Lambda^{k}(\mathrm{T}^{\,\ast}M) = \coprod_{p \in M} \Lambda^{k}(\mathrm{T}_{p}^{\,\ast}M)\).
     \item \textit{Projection map}: \(\pi: \Lambda^{k}(\mathrm{T}^{\,\ast}M) \to M,\; \pi(p, \omega) = p\).
@@ -51,7 +51,7 @@ We begin by defining our primary objects of study.
 \begin{definition}[Smooth \(k\)-form] \label{def:smooth-k-form}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
-  The \textbf{\hyperref[def:sheaf]{sheaf} of \(k\)-forms} \(\Omega^{k}\) over \(M\) is the \hyperref[def:sheaf-of-sections]{sheaf of sections} of the \hyperref[def:smooth-k-form-bundle]{bundle of \(k\)-forms} \(\Lambda^{k}(\mathrm{T}^{\,\ast}M)\).
+  The \textbf{\hyperref[def:sheaf]{sheaf} of \(k\)-forms} \(\Omega^{k}\) over \(M\) is the \hyperref[def:sheaf]{sheaf} of sections of the \hyperref[def:smooth-k-form-bundle]{bundle of \(k\)-forms} \(\Lambda^{k}(\mathrm{T}^{\,\ast}M)\).
 
   More concretely, a \(k\)-form over an open set \(U\) is a map \(\omega: U \to \Lambda^{k}(\mathrm{T}^{\,\ast}M)\) such that \(\pi \circ \omega = \id_{U}\).
 \end{definition}
@@ -59,7 +59,7 @@ We begin by defining our primary objects of study.
 \begin{example}
   Let \(M\) be a smooth manifold of dimension \(m\).
 
-  Note that \(\Lambda^{0}(\mathrm{T}^{\,\ast}M) = M \times \mathbb{R}\) is the \hyperref[ex:trivial-topological-vector-bundle]{trivial vector bundle}.
+  Note that \(\Lambda^{0}(\mathrm{T}^{\,\ast}M) = M \times \mathbb{R}\) is the trivial vector bundle.
   Therefore a \hyperref[def:smooth-k-form]{\(0\)-form} is a map \(\omega: M \to M \times \mathbb{R}\) such that \(\pi \circ \omega = \id_{M}\), i.e: \(\omega\) is a smooth function.
 
   This means that \(\Omega^{0}(M) \cong \mathcal{C}^{\infty}(M)\).
@@ -136,7 +136,7 @@ We can now introduce the de Rham complex and its associated cohomology.
   where \(\Omega^{k}(M)\) is the \hyperref[def:smooth-k-form]{sheaf of \(k\)-forms} over \(M\) and \(\mathrm{d}\) is the \hyperref[def:exterior-derivative-k-form]{exterior derivative}.
 \end{definition}
 
-\begin{definition}
+\begin{definition}\label{def:de-rham-cohomology}
   Let \(M\) be a smooth manifold.
   We define the \textbf{de Rham cohomology} of \(M\) as the \hyperref[def:cohomology]{cohomology} of the \hyperref[def:de-rham-complex]{de Rham complex} and denote it by \(\operatorname{H}_{\operatorname{dR}}^{\bullet}(M, \mathbb{R})\).
 \end{definition}
@@ -261,7 +261,7 @@ First, let's check that \(\Omega^{\bullet}\) is an \hyperref[def:exact-sequence]
       \left(\Omega^{k-1}\right)_{p} \arrow[r, "\mathrm{d}_{p}^{k-1}"] & \left(\Omega^{k}\right)_{p} \arrow[r, "\mathrm{d}_{p}^{k}"] & \left(\Omega^{k+1}\right)_{p}
     \end{tikzcd}
   \end{center}
-  is \hyperref[def:exact-complex]{exact}, i.e: \(\im \mathrm{d}_{p}^{k-1} = \ker \mathrm{d}_{p}^{k}\).
+  is \hyperref[def:exact-sequence]{exact}, i.e: \(\im \mathrm{d}_{p}^{k-1} = \ker \mathrm{d}_{p}^{k}\).
 
   For the \([\subseteq]\) inclusion, let \(\mathrm{d}\eta \in \im \mathrm{d}^{k-1} \subseteq \Omega^{k}\). By \autoref{lemma:double-exterior-derivative-is-zero} we have that \(\mathrm{d}(\mathrm{d}\eta) = 0\), i.e: \(\mathrm{d}\eta \in \ker \mathrm{d}^{k}\).
 
@@ -291,13 +291,13 @@ Having seen this, we can finally state and prove the main theorem of the chapter
   \end{center}
   where \(\Omega^{\bullet}\) is the \hyperref[def:de-rham-complex]{de Rham complex} of \(M\).
 
-  By \autoref{lemma:de-rham-complex-exact} we know that \(\Omega^{\bullet}\) is \hyperref[def:exact-complex]{exact}, therefore we only need to show that this resolution is \hyperref[def:exact-complex]{exact} at \(\Omega^{0}\), i.e: that for all \(p \in M\)
+  By \autoref{lemma:de-rham-complex-exact} we know that \(\Omega^{\bullet}\) is \hyperref[def:exact-sequence]{exact}, therefore we only need to show that this resolution is \hyperref[def:exact-sequence]{exact} at \(\Omega^{0}\), i.e: that for all \(p \in M\)
   \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & \underline{\mathbb{R}}_{p} \arrow[r, "\iota_{p}"] & \Omega_{p}^{0} \arrow[r, "\mathrm{d}_{p}"] & \Omega_{p}^{1} \arrow[r] & 0
     \end{tikzcd}
   \end{center}
-  is a \hyperref[def:short-exact-sequence]{short exact sequence}, i.e: \(\im \iota_{p} = \ker \mathrm{d}_{p}\).
+  is a \hyperref[def:exact-sequence]{short exact sequence}, i.e: \(\im \iota_{p} = \ker \mathrm{d}_{p}\).
 
   \begin{itemize}
     \item[\(\subseteq\)] Let \([c]_{p} \in \underline{\mathbb{R}}_{p}\). By definition this is a locally constant function \(c: U \to \mathbb{R}\) on some open neighbourhood \(U\) of \(p\).

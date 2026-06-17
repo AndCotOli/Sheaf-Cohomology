@@ -34,7 +34,7 @@ The defining trait of an additive category is that its hom-sets are not merely s
 \end{example}
 
 \begin{notation}\label{def:direct-sum}
-  If \(X, Y \in \category{C}\) we denote by \(X \oplus Y\) its \hyperref[def:categorical-coproduct]{coproduct} and call it their \textbf{direct sum}.
+  If \(X, Y \in \category{C}\) we denote by \(X \oplus Y\) their \hyperref[def:categorical-coproduct]{coproduct} and call it their \textbf{direct sum}.
 \end{notation}
 
 In an arbitrary \hyperref[def:category]{category}, \hyperref[def:categorical-product]{products} and \hyperref[def:categorical-coproduct]{coproducts} are completely independent structures.
@@ -75,16 +75,16 @@ However, the presence of an underlying abelian group structure on hom-sets force
               A & & B
             \end{tikzcd}
           \end{center}
-          In particular if \(f = \id_{X}\) and \(g = \id_{Y}\)
+          In particular if \(f = \id_{X}\) and \(g = \id_{Y}\) we recover condition \hyperref[axiom:additive-morphism]{Ad.5}.
     \item[{\hyperref[axiom:additive-morphisms]{Ad.5} \(\implies\) \ref{axiom:additive-coproducts}}] We are going to see that \(Z\) verifies the universal property of the \hyperref[def:categorical-coproduct]{coproduct}.
 
           Let \(f: X \to A\) be a morphism. We want to find a morphism \(\widetilde{f}\colon Z \to A\) such that \(f = \widetilde{f} \circ i_{1}\).
           We have the following
           \begin{center}
             \begin{tikzcd}
-              X \arrow[dr, "i_{1}"] \arrow[dd, "\id_{X}"] & \\
+              X \arrow[dr, "i_{1}"] \arrow[dd, "\id_{X}"'] & \\
               & Z \arrow[dl, "p_{1}"] \\
-              X \arrow[d, "f"] \\
+              X \arrow[d, "f"'] \\
               A
             \end{tikzcd}
           \end{center}
@@ -108,7 +108,7 @@ However, the presence of an underlying abelian group structure on hom-sets force
   Using that \(\sum_{k} i_{k} \circ p_{k} = 1\), it follows that addition and composition of matrices obey the usual rules of matrix addition and multiplication respectively.
 \end{remark}
 
-In this \hyperref[def:category]{categories} \hyperref[def:mono-epi-morphism]{monomorphisms} and \hyperref[def:mono-epi-morphism]{epimorphisms} have a simple characterization.
+In these \hyperref[def:category]{categories}, \hyperref[def:mono-epi-morphism]{monomorphisms} and \hyperref[def:mono-epi-morphism]{epimorphisms} have a simple characterization.
 \begin{lemma} \label{lemma:mono-epi-additive}
   A morphism \(f\colon X \to Y\) in an \hyperref[def:additive-category]{additive category} is a \hyperref[def:mono-epi-morphism]{monomorphism} if and only if for every morphism \(g\colon Z \to X\)
   \begin{equation*}
@@ -120,7 +120,7 @@ In this \hyperref[def:category]{categories} \hyperref[def:mono-epi-morphism]{mon
   \end{equation*}
 \end{lemma}
 \begin{proof}
-  We will check the \hyperref[def:mono-epi-morphism]{monomorphism} caracterization.
+  We will check the \hyperref[def:mono-epi-morphism]{monomorphism} characterization.
   \begin{itemize}
     \item[\(\implies\)] Let \(f\colon X \monoarrow Y\) be a \hyperref[def:mono-epi-morphism]{monomorphism}.
           Consider a morphism \(g\colon Z \to X\) such that \(f \circ g = 0\).
@@ -157,7 +157,7 @@ Being \hyperref[def:additive-category]{additive} also works well when considerin
   \end{enumerate}
 \end{proof}
 
-Now it's time to introduce \hyperref[def:functor]{functors} into play.
+Now it is time to introduce \hyperref[def:functor]{functors} into play.
 In general a \hyperref[def:functor]{functor} does not preserve the abelian group structure of the hom-sets.
 Therefore the correct way to move between \hyperref[def:additive-category]{additive categories} without losing information is by using additive functors.
 \begin{definition}[Additive functor]\label{def:additive-functor}
@@ -173,7 +173,7 @@ Therefore the correct way to move between \hyperref[def:additive-category]{addit
   For a fixed \(R\)-module \(M\) the \hyperref[def:functor]{functor} \(\Hom_{R}(M, -)\colon \Mod(R) \to \Ab\) is \hyperref[def:additive-functor]{additive}.
 \end{example}
 
-Instead of checking that the morphism \(\Hom_{\category{C}}(X, Y) \to \Hom_{\category{D}}(F(X), F(Y))\) is a homomorphism for all objects \(X\) and \(Y\) we can use the following characterization.
+Instead of checking that the morphism \(\Hom_{\category{C}}(X, Y) \to \Hom_{\category{D}}(F(X), F(Y))\) is an homomorphism for all objects \(X\) and \(Y\) we can use the following characterization.
 \begin{proposition}\label{prop:additive-functor-characterization}
   Let \(\category{C}\), \(\category{D}\) be \hyperref[def:additive-category]{additive categories}.
   A \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) is \hyperref[def:additive-functor]{additive} if and only if it commutes with finite \hyperref[def:direct-sum]{direct sums}, i.e: if \(F(0) \cong 0\) and for all \(X, Y \in \category{C}\)
@@ -266,7 +266,7 @@ This motivates the following definition.
 \begin{definition}[Full additive subcategory]\label{def:full-additive-subcategory}
   Let \(\category{C}\) be an \hyperref[def:additive-category]{additive category}.
 
-  A \hyperref[def:subcategory]{full subcategory} \(\category{D}\) of \(\category{C}\) is a \textbf{full additive subcategory} if the inclussion \hyperref[def:functor]{functor} \(\iota\colon D \hookrightarrow \category{C}\) is \hyperref[def:additive-functor]{additive}.
+  A \hyperref[def:subcategory]{full subcategory} \(\category{D}\) of \(\category{C}\) is a \textbf{full additive subcategory} if the inclusion \hyperref[def:functor]{functor} \(\iota\colon D \hookrightarrow \category{C}\) is \hyperref[def:additive-functor]{additive}.
 \end{definition}
 
 \begin{remark}
@@ -350,7 +350,7 @@ Before continuing, we fix some terminology about \hyperref[def:complex]{complexe
 \end{definition}
 
 \begin{remark}\label{rem:identification-complex}
-  Note that for any \(n \in \mathbb{Z}\), the \hyperref[rem:identification-diff]{inclussion functor} \(\iota_{n}\) can be viewed as a \hyperref[def:functor]{functor}
+  Note that for any \(n \in \mathbb{Z}\), the \hyperref[rem:identification-diff]{inclusion functor} \(\iota_{n}\) can be viewed as a \hyperref[def:functor]{functor}
   \begin{equation*}
     \iota_{n}\colon \category{C} \to \Complex[\ast]{\category{C}}
   \end{equation*}

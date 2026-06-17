@@ -41,7 +41,7 @@ Before we begin, we fix some terminology and notation around the necessary build
   \end{equation*}
 \end{definition}
 
-Now we are ready to define our categories of interest.
+Now we are ready to define our \hyperref[def:category]{categories} of interest.
 \begin{definition}[Abelian category]\label{def:abelian-category}
   An \hyperref[def:additive-category]{additive category} \(\category{C}\) is \textbf{abelian} if it verifies
   \begin{enumerate}[label=Ab.\arabic*), ref=Ab.\arabic*]
@@ -51,7 +51,7 @@ Now we are ready to define our categories of interest.
 \end{definition}
 
 \begin{example}
-  The \hyperref[def:category]{category} of (abelian) groups and modules over a ring are \hyperref[def:abelian-category]{abelian}.
+  The \hyperref[def:category]{category} of abelian and modules over a ring are \hyperref[def:abelian-category]{abelian}.
   However, the \hyperref[def:category]{category} of rings is not.
 \end{example}
 
@@ -132,7 +132,7 @@ In what remains of the chapter we will assume that \(\category{C}\) is an \hyper
 \end{remark}
 
 \begin{example}
-  Any morphism \(f: X \to Y\) may be decomposed in \hyperref[def:exact-sequence]{short exact sequences}
+  Any morphism \(f\colon X \to Y\) may be decomposed in \hyperref[def:exact-sequence]{short exact sequences}
   \begin{center}
     \begin{tikzcd}
       0 \arrow[r] & \ker f \arrow[r, tail] & X \arrow[r, two heads] & \operatorname{Coim} f \arrow[r] & 0 \\
@@ -182,8 +182,34 @@ Roughly speaking, a \hyperref[def:exact-sequence]{short exact sequence} is split
   \end{enumerate}
 \end{proof}
 
-When studying \hyperref[def:exact-sequence]{exactness} between different \hyperref[def:category]{categories} we don't want to lose information on whether a sequence is \hyperref[def:exact-sequence]{exact} or not.
-Therefore the correct notion of \hyperref[def:functor]{functors} in this case is that of exact functors.
+An advantage of \hyperref[prop:split-exact-sequence]{split exactness} is that it is preserved under \hyperref[def:additive-functor]{additive functors}.
+\begin{lemma}\label{lemma:additive-preserves-split-exact}
+  Let \(F\colon \category{C} \to \category{D}\) be a \hyperref[def:additive-functor]{additive functor} between two \hyperref[def:abelian-category]{abelian categories}.
+  If
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[prop:split-exact-sequence]{split exact} in \(\category{C}\) then
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[prop:split-exact-sequence]{split exact} in \(\category{D}\).
+\end{lemma}
+\begin{proof}
+  Since \(0 \to X \to Y \to Z \to 0\) is \hyperref[prop:split-exact-sequence]{split exact} it is \hyperref[def:categorical-isomorphism]{isomorphic} to
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & X \arrow[r] & X \oplus Z \arrow[r] & Z \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  Therefore since \hyperref[prop:additive-functor-characterization]{\(F(X \oplus Z) \cong F(X) \oplus F(Z)\)} the induced sequence is \hyperref[prop:split-exact-sequence]{split exact}.
+\end{proof}
+
+\hyperref[def:exact-sequence]{Exact sequences}, however, are not necessarilly preserved by \hyperref[def:additive-functor]{additive functors}.
 \begin{definition}\label{def:exact-functor}
   Let \(\category{C}, \category{D}\) be two \hyperref[def:abelian-category]{abelian categories} and
   \begin{center}
@@ -352,6 +378,10 @@ Using \hyperref[thm:freyd-mitchell]{this theorem} we can easilly prove two diagr
   Since \(g'(y) = 0\) there exists \(y' \in Y'\) such that \(f'(y') = y\).
   Therefore we can define \(\delta(x'')\) to be the image of \(y'\) in \(\coker \alpha\).
 \end{proof}
+
+\begin{remark}
+  A proof of the \hyperref[lemma:snake-lemma]{snake lemma} without using the \hyperref[thm:freyd-mitchell]{Freyd-Mitchell embedding} can be found at \cite{wiseNONELEMENTARYPROOFSNAKEa}.
+\end{remark}
 
 
 \section{Complexes and cohomology}

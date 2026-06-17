@@ -16,8 +16,8 @@ The main references for this chapter are \cite{weibelIntroductionHomologicalAlge
 
 Throughout this chapter all \hyperref[def:category]{categories} will be assumed to be \hyperref[def:abelian-category]{abelian} if not stated otherwise.
 
-Before we begin, let's state what our desired property for derived functors is.
-Consider a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) and a \hyperref[def:short-exact-sequence]{short exact sequence} in \(\category{C}\)
+Before we begin, let us state what our desired property for derived functors is.
+Consider a \hyperref[def:functor]{functor} \(F\colon \category{C} \to \category{D}\) and a \hyperref[def:exact-sequence]{short exact sequence} in \(\category{C}\)
 \begin{center}
   \begin{tikzcd}
     0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0
@@ -342,7 +342,7 @@ Our first observation is that injective objects are closely related to \hyperref
       0 \arrow[r] & F(X) \arrow[r] & F(Y) \arrow[r] & F(Z) \arrow[r] & 0
     \end{tikzcd}
   \end{center}
-  \hyperref[prop:split-exact-sequence]{splits} and in particular it is \hyperref[def:exact-sequence]{exact}.
+  \hyperref[prop:split-exact-sequence]{splits} by \autoref{lemma:additive-preserves-split-exact} and in particular it is \hyperref[def:exact-sequence]{exact}.
 \end{remark}
 
 \begin{lemma}\label{lemma:direct-sum-injective}

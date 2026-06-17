@@ -156,9 +156,11 @@
 % 2. Declare the environments (Standard Syntax)
 \numberwithin{equation}{section}
 
-\declaretheorem[style=thmstylered, numberwithin=section]{theorem, lemma, proposition, corollary}
-\declaretheorem[style=thmstylegreen, numberwithin=section]{definition}
-\declaretheorem[style=thmstylegray, numberwithin=section]{example, remark}
+
+\declaretheorem[style=thmstylered, numberwithin=section]{theorem}
+\declaretheorem[style=thmstylered, numberwithin=section, sibling=theorem]{lemma, proposition, corollary}
+\declaretheorem[style=thmstylegreen, numberwithin=section, sibling=theorem]{definition}
+\declaretheorem[style=thmstylegray, numberwithin=section, sibling=theorem]{example, remark}
 \declaretheorem[style=thmstylegray, numbered=no]{construction, notation}
 
 % 3. Apply the TColorBox "Skin" to the environments
