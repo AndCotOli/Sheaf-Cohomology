@@ -48,13 +48,11 @@ If we want to derive \hyperref[def:exact-functor]{left-exact functors} we need t
     \sheaf{I} \coloneq \prod_{p \in X} \operatorname{sk}_{p} I_{p}
   \end{equation*}
   where \(\operatorname{sk}_{p}I_{p}\) is the \hyperref[def:skyscraper-sheaf]{skyscraper sheaf} supported at \(I_{p}\).
-  More explicitly, for every open set \(U \subseteq X\) the \hyperref[def:sheaf]{sheaf} \(\sheaf{I}\) is defined as
-  \begin{equation*}
-    \sheaf{I}(U) = \prod_{p \in U} I_{p}
-  \end{equation*}
-  with the obvious restriction maps.
+  Note that for all \(p \in X\) the \hyperref[def:stalk]{stalk} of \(\sheaf{I}\) at \(p\) is \(\sheaf{I}_{p} = I_{p}\).
+  
+  Therefore since \hyperref[prop:sheaf-isomorphism-determined-at-stalks]{sheaf morphisms are determined at the level of stalks} and the \hyperref[def:stalk]{stalk maps} \(i_{p}\colon \sheaf{F}_{p} \monoarrow I_{p}\) are \hyperref[def:mono-epi-morphism]{monomorphisms} the induced global map \(i\colon \sheaf{F} \to \sheaf{I}\) is a \hyperref[def:mono-epi-morphism]{monomorphism}.
 
-  Recall that by \autoref{cor:skyscraper-stalk-adjunction-sheaf} the \hyperref[def:skyscraper-sheaf]{skyscraper functor} is \hyperref[def:adjoint-functors]{left-adjoint} to the \hyperref[def:stalk]{stalk functor}, which is \hyperref[def:exact-functor]{exact}.
+  Recall that by \autoref{cor:skyscraper-stalk-adjunction-sheaf} the \hyperref[def:skyscraper-sheaf]{skyscraper functor} is \hyperref[def:adjoint-functors]{right adjoint} to the \hyperref[def:stalk]{stalk functor}, which is \hyperref[def:exact-functor]{exact}.
   Therefore by \autoref{prop:adjoints-and-injectives} \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective object} of \(\Mod(\underline{\mathbf{k}}_{X})\).
 \end{proof}
 
@@ -67,28 +65,23 @@ Therefore by \autoref{ex:adjoint-functors-and-exactness} \(\Gamma(X, -)\) is \hy
   Let \(\sheaf{F}\) be a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} over a topological space \(X\).
   The \(i\)-th \textbf{cohomology} of \(X\) with coefficients in \(\sheaf{F}\) is the \(i\)-th \hyperref[def:right-derived-functor]{right derived functor} of the \hyperref[def:global-sections-sheaf]{global sections functor}:
   \begin{equation*}
-    \cohomology{i}(X; \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(X, -)(\sheaf{F})
+    \cohomology{i}(X, \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(X, -)(\sheaf{F})
+  \end{equation*}
+  By abuse of notation we will write this \hyperref[def:right-derived-functor]{derived functor} as
+  \begin{equation*}
+    \operatorname{R}^{i}\Gamma(X, \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(X, -)(\sheaf{F})
   \end{equation*}
 \end{definition}
 
 \begin{example}\label{ex:cohomology-over-point}
   Let \(\{\ast\}\) be the one point topological space.
-  For all \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) and \(n \neq 0\)
+  For all \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{\{\ast\}})\) and \(n \neq 0\) we have
   \begin{equation*}
-    \cohomology{n}(\{\ast\}; \sheaf{F}) \cong 0
+    \cohomology{n}(\{\ast\}, \sheaf{F}) \cong 0
   \end{equation*}
-
-  Indeed we have
-  \begin{align*}
-    \cohomology{n}( \{\ast\}; \sheaf{F} ) = \operatorname{R}^{n} \Gamma(\{\ast\}, \sheaf{F})
-  \end{align*}
-  Note that
+  Indeed by definition \(\cohomology{n}( \{\ast\}, \sheaf{F} ) = \operatorname{R}^{n} \Gamma(\{\ast\}, \sheaf{F})\) and since \(\Gamma(\{\ast\}, \sheaf{F}) = \sheaf{F}(\{\ast\}) = \sheaf{F}_{\ast}\) by the \hyperref[cor:exactness-at-stalks]{exactness of the stalk functor} for all \(n \neq 0\) we have
   \begin{equation*}
-    \Gamma(\{\ast\}, \sheaf{F}) = \sheaf{F}(\{\ast\}) = \sheaf{F}_{\ast}
-  \end{equation*}
-  Therefore since the stalk functor is exact for all \(n \neq 0\)
-  \begin{equation*}
-    \cohomology{n} (\{\ast\}; \sheaf{F}) = \operatorname{R}^{n} \sheaf{F}_{\ast} = 0 \qedhere
+    \cohomology{n} (\{\ast\}, \sheaf{F}) = \operatorname{R}^{n} \sheaf{F}_{\ast} = 0 \qedhere
   \end{equation*}
 \end{example}
 
@@ -108,201 +101,8 @@ Therefore by \autoref{ex:adjoint-functors-and-exactness} \(\Gamma(X, -)\) is \hy
 
 % Since \hyperref[def:resolution]{injective resolutions} are usually hard to find (note how \autoref{lemma:mod-ox-has-enough-injectives} doesn't give an \textit{easy} construction) we will mostly work with \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\)-acyclic resolutions}.
 
-We are going to see first how \hyperref[def:sheaf-cohomology]{sheaf cohomology} behaves when restricting and extending sheaves to subsets of \(X\).
-Before we do so, we need to understand how \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} behave under \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse images}.
-\begin{notation}
-  If \(Y \subseteq X\) is a subset of \(X\) we set
-  \begin{equation*}
-    \cohomology{i}(Y; \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(Y; -)(\sheaf{F}) = \operatorname{R}^{i}\Gamma(Y; -)(\sheaf{F}|_{Y})
-  \end{equation*}
-  for all \hyperref[def:sheaf]{sheaves} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
-\end{notation}
 
-\begin{lemma}\label{lemma:injective-sheaves-and-maps}
-  Let \(\sheaf{I} \in \Mod(\underline{\mathbf{k}}_{X})\) be an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules}.
-  \begin{enumerate}
-    \item If \(f\colon X \to Y\) is a continuous map then \(f_{\ast}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective}.
-    \item If \(j_{U}\colon U \hookrightarrow X\) is an open immersion then \(\sheaf{I}|_{U} = j_{U}^{-1}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective}.
-  \end{enumerate}
-\end{lemma}
-\begin{proof}~
-  \begin{enumerate}
-    \item Since \hyperref[cor:inverse-image-sheaf-exact]{\(f^{-1}\) is exact} and by the \hyperref[thm:direct-inverse-image-adjunction-sheaf]{adjunction \(f^{-1} \dashv f_{\ast}\)} we have
-          \begin{equation*}
-            \Hom_{\Mod(\underline{\mathbb{k}}_{X})}(f^{-1}(-), \sheaf{I}) \cong \Hom_{\Mod(\underline{\mathbb{k}}_{Y})}(-, f_{\ast}\sheaf{I})
-          \end{equation*}
-          by \autoref{prop:injective-characterization-hom} we have that \(f_{\ast}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective}.
-    \item Follows from the first and \(j_{U}^{-1} \cong i_{X \setminus U, \ast}\) where \(i_{X \setminus U}\colon X \setminus U \hookrightarrow X\).
-          This \hyperref[def:categorical-isomorphism]{isomorphism} follows directly from \autoref{thm:sheaf-morphism-determined-by-stalks}.
-          \qedhere
-  \end{enumerate}
-\end{proof}
-
-
-\begin{proposition}\label{prop:cohomology-subsets}
-  Let \(X\) be a topological space, \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} and \(i \geq 0\).
-  \begin{enumerate}
-    \item If \(U \subseteq X\) is open we have \(\cohomology{i}(U; \sheaf{F}) \cong \cohomology{i}(U; \sheaf{F}|_{U})\).
-    \item If \(Z \subseteq X\) is closed we have \(\cohomology{i}(Z; \sheaf{F}_{Z}) \cong \cohomology{i}(Z; \sheaf{F}|_{Z})\).
-  \end{enumerate}
-\end{proposition}
-\begin{proof}
-  Let \(i_{Y}\colon Y \hookrightarrow X\) be the inclussion of \(Y \subseteq X\) and \(a_{Y}\colon Y \to \{\ast\}\).
-  \begin{enumerate}
-    \item We have
-          \begin{equation*}
-            \cohomology{i}(U; \sheaf{F}) \cong \operatorname{R}^{i}(a_{U, \ast} \circ i_{U}^{-1})(\sheaf{F}) \cong \left(\operatorname{R}^{i} a_{U, \ast} \right)(i_{U}^{-1}\sheaf{F}) \cong \cohomology{i}(U; \sheaf{F}|_{U})
-          \end{equation*}
-          where the second \hyperref[def:categorical-isomorphism]{isomorphism} comes from \autoref{thm:derived-functor-composition} since \hyperref[cor:inverse-image-sheaf-exact]{\(i_{U}^{-1}\) is exact} and \hyperref[lemma:injective-sheaves-and-maps]{sends injectives to injectives}.
-    \item We have
-          \begin{equation*}
-            \cohomology{i}(Z; \sheaf{F}_{Z}) \cong \left( \operatorname{R}^{i}a_{X, \ast} \right)(( i_{Z, \ast} \circ i_{Z}^{-1}) (\sheaf{F})) \cong \left( \operatorname{R}^{i} (a_{X} \circ i_{S, \ast}) \right) (i_{Z}^{-1}(\sheaf{F})) \cong \cohomology{i}(Z; \sheaf{F}|_{Z})
-          \end{equation*}
-          where the second \hyperref[def:categorical-isomorphism]{isomorphism} comes from \autoref{thm:derived-functor-composition} since \hyperref[cor:closed-immersion-exact]{\(i_{S, \ast}\) is exact} and \hyperref[lemma:injective-sheaves-and-maps]{sends injectives to injectives}. \qedhere
-  \end{enumerate}
-\end{proof}
-
-We also have the following
-\begin{lemma}\label{lemma:cohomology-compact-subsets}
-  Let \(X\) be a topological space and \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
-  If \(K \subseteq X\) is compact and relatively Hausdorff\footnote{\(K \subseteq X\) is relatively Hausdorff if two distinct points in \(K\) admit disjoint neighbourhoods in \(X\). Note that if \(K = X\) then we recover that \(X\) is Hausdorff.} then
-  \begin{equation*}
-    \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}}  \cohomology{i}(U; \sheaf{F}) \cong \cohomology{i}(K; \sheaf{F})
-  \end{equation*}
-\end{lemma}
-\begin{proof}
-  Suppose first that \(i = 0\).
-  In this case we want to show that there is an \hyperref[def:categorical-isomorphism]{isomorphism} induced by the restriction
-  \begin{equation*}
-    \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \isoarrow \Gamma(K, \sheaf{F})
-  \end{equation*}
-  Let \(s \in \Gamma(K, \sheaf{F}|_{K})\).
-  There exists a finite family of open subsets \(\{U_{i}\}_{i=1}^{n}\) covering \(K\) and sections \(s_{i} \in \Gamma(U_{i}, \sheaf{F})\) such that \(s_{i}|_{K \cap U_{i}} = s|_{K \cap U_{i}}\).
-  Furthermore we can find another family of open sets \(\{V_{i}\}_{i=1}^{n}\) covering \(K\) such that \(K \cap \operatorname{ad}(V_{i}) \subset U_{i}\).
-  We want to glue together the sections \(s_{i}\) on a neighbourhood of \(K\).
-
-  By induction over \(n\) we can assume \(n = 2\).
-  If \(K_{i} = K \cap \operatorname{ad}(V_{i})\) then \(s_{1}|_{K_{1} \cap K_{2}} = s_{2}|_{K_{1} \cap K_{2}}\).
-  Let \(W\) be an open neighbourhood of \(K\) such that \(s_{1}|_{K} = s_{2}|_{K}\) and let \(W_{i}\) be an open subset of \(U_{i}\) such that \(K_{i} \setminus W \subset W_{i}\) and \(W_{1} \cap W_{2} = \varnothing\).
-  Set \(U_{i}' = W_{i} \cup W\).
-  Then \(s_{1}|_{U_{1}' \cap U_{2}'} = s_{2}|_{U_{1}' \cap U_{2}'}\) and this defines \(t \in \Gamma(U_{1}' \cup U_{2}', \sheaf{F})\) with \(t|_{K} = s\) finishing the base case.
-  
-  Now, consider two \hyperref[def:functor]{functors} \(F, G\colon \Mod(\underline{\mathbf{k}}_{X}) \to \Mod(\mathbf{k})\)
-  \begin{equation*}
-    F(\sheaf{F}) \coloneq \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \qquad G(\sheaf{F}) \coloneq \Gamma(K, \sheaf{F})
-  \end{equation*}
-  From the first step we have \(F \cong G\).
-  Therefore for all \(i \geq 0\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
-  \begin{equation*}
-    \operatorname{R}^{i}F(\sheaf{F}) \cong \operatorname{R}^{i}G(\sheaf{F})
-  \end{equation*}
-  To compute these functors, choose an \hyperref[def:resolution]{injective resolution} \(\sheaf{F} \to \sheaf{I}^{\bullet}\) of \(\sheaf{F}\).
-  On the one hand
-  \begin{equation*}
-    \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}(\Gamma(K; I^{\bullet})) = \cohomology{i}(K; \sheaf{F})
-  \end{equation*}
-  On the other
-  \begin{align*}
-    \operatorname{R}^{i}F(\sheaf{F}) = \cohomology{i} \left( \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{I}^{\bullet}) \right) \cong \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( \Gamma(U, \sheaf{I^{\bullet}}) \right) = \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( U; \sheaf{F} \right)
-  \end{align*}
-  Therefore
-  \begin{equation*}
-    \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( U; \sheaf{F} \right) \cong \operatorname{R}^{i}F(\sheaf{F}) \cong \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}(K; \sheaf{F}) \qedhere
-  \end{equation*}
-\end{proof}
-
-\subsection{Mayer-Vietoris}
-
-The functorial behavior of restriction and extension established above suggests that we can compute the global cohomology of a space by splitting it into simpler, overlapping sub-domains.
-In classical algebraic topology, the standard technique for computing invariants via open or closed decompositions is the Mayer-Vietoris sequence.
-
-It is worth noting that the following results work replacing \(\Gamma(X, -)\) with any other \hyperref[def:exact-functor]{left-exact functor}, such as \(f_{\ast}\) for any continuous map \(f\colon X \to Y\).
-
-\begin{theorem}[Open Mayer-Vietoris]\label{thm:mayer-vietoris-open}
-  Let \(X\) be a topological space.
-  Suppose that \(X = U \cup V\) for some open sets \(U, V\).
-  Then for every \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) there exists a \hyperref[def:exact-sequence]{long exact sequence} in \hyperref[def:cohomology]{cohomology}:
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & \cohomology{0}(X; \sheaf{F}) \arrow[r] & \cohomology{0}(U; \sheaf{F}) \oplus \cohomology{0}(V; \sheaf{F}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{0}(U \cap V; \sheaf{F}) \arrow[dll, rounded corners, to path={
-        -- ([xshift=2ex]\tikztostart.east)
-        |- (X) [near end]\tikztonodes
-        -| ([xshift=-2ex]\tikztotarget.west)
-        -- (\tikztotarget)}] \\
-      & \cohomology{1}(X; \sheaf{F}) \arrow[r] & \cohomology{1}(U; \sheaf{F}) \oplus \cohomology{1}(V; \sheaf{F}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \cohomology{1}(U \cap V; \sheaf{F}) \arrow[dll, rounded corners, to path={
-        -- ([xshift=2ex]\tikztostart.east)
-        |- (Y) [near end]\tikztonodes
-        -| ([xshift=-2ex]\tikztotarget.west)
-        -- (\tikztotarget)}] \\
-      & \cohomology{2}(X; \sheaf{F}) \arrow[r] & \cohomology{2}(U; \sheaf{F}) \oplus \cohomology{2}(V; \sheaf{F}) \arrow[r] & \cdots
-    \end{tikzcd}
-  \end{center}
-\end{theorem}
-\begin{proof}
-  Consider the sequence of \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules}
-  \begin{center}
-    \begin{tikzcd}[column sep=huge]
-      0 \arrow[r] & \sheaf{F} \arrow[r, "{s \mapsto (s|_{U}, s|_{V})}"] & \sheaf{F}|_{U} \oplus \sheaf{F}|_{V} \arrow[r, "{(s, t)} \mapsto s|_{U \cap V} - t|_{U \cap V}"] & \sheaf{F}|_{U \cap V} \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  Let \(p \in X = U \cup V\).
-  If \(p \in U\) but \(p \notin V\) the induced sequence on the \hyperref[def:stalk]{stalks} is
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & \sheaf{F}_{p} \arrow[r] & \sheaf{F}_{p} \oplus 0 \arrow[r] & 0 \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  which is \hyperref[def:exact-sequence]{exact}.
-  Analogously if \(p \in V\) but \(p \notin U\) we also get an \hyperref[def:exact-sequence]{exact sequence}.
-
-  Now, if \(p \in U \cap V\) we have
-  \begin{center}
-    \begin{tikzcd}[column sep=huge]
-      0 \arrow[r] & \sheaf{F}_{p} \arrow[r, "{s \mapsto (s_{x}, s_{x})}"] & \sheaf{F}_{p} \oplus \sheaf{F}_{p} \arrow[r, "{(s, t) \mapsto s - t}"] & \sheaf{F}_{p} \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  which is also \hyperref[def:exact-sequence]{exact}.
-
-  Therefore
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & \sheaf{F} \arrow[r] & \sheaf{F}|_{U} \oplus \sheaf{F}|_{V} \arrow[r] & \sheaf{F}|_{U \cap V} \arrow[r] & 0
-    \end{tikzcd}
-  \end{center}
-  is \hyperref[def:exact-sequence]{exact} in \(\Mod(\underline{\mathbf{k}}_{X})\).
-  Applying \autoref{thm:LES-derived-functor} with \(\Gamma(X, -)\) and using \autoref{prop:cohomology-subsets} we get the result.
-\end{proof}
-
-\begin{theorem}[Closed Mayer-Vietoris]\label{thm:mayer-vietoris-closed}
-  Let \(X\) be a topological space.
-  Suppose that \(X = Z \cup W\) for some closed sets \(Z, W\).
-  Then for every \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) there exists a \hyperref[def:exact-sequence]{long exact sequence} in \hyperref[def:cohomology]{cohomology}:
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & \cohomology{0}(X; \sheaf{F}) \arrow[r] & \cohomology{0}(X; \sheaf{F}_{Z}) \oplus \cohomology{0}(X; \sheaf{F}_{W}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{0}(X; \sheaf{F}_{Z \cap W}) \arrow[dll, rounded corners, to path={
-        -- ([xshift=2ex]\tikztostart.east)
-        |- (X) [near end]\tikztonodes
-        -| ([xshift=-2ex]\tikztotarget.west)
-        -- (\tikztotarget)}] \\
-      & \cohomology{1}(X; \sheaf{F}_{Z}) \arrow[r] & \cohomology{1}(X; \sheaf{F}_{Z}) \oplus \cohomology{1}(X; \sheaf{F}_{W}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \cohomology{1}(X; \sheaf{F}_{Z \cap W}) \arrow[dll, rounded corners, to path={
-        -- ([xshift=2ex]\tikztostart.east)
-        |- (Y) [near end]\tikztonodes
-        -| ([xshift=-2ex]\tikztotarget.west)
-        -- (\tikztotarget)}] \\
-      & \cohomology{2}(X; \sheaf{F}) \arrow[r] & \cohomology{2}(X; \sheaf{F}_{U}) \oplus \cohomology{2}(X; \sheaf{F}_{V}) \arrow[r] & \cdots
-    \end{tikzcd}
-  \end{center}
-\end{theorem}
-\begin{proof}
-  Analogous to the \hyperref[thm:mayer-vietoris-open]{open version} with
-  \begin{center}
-    \begin{tikzcd}
-      0 \arrow[r] & \sheaf{F} \arrow[r] & \sheaf{F}_{Z} \oplus \sheaf{F}_{W} \arrow[r] & \sheaf{F}_{Z \cap W} \arrow[r] & 0 \qedhere
-    \end{tikzcd}
-  \end{center}
-\end{proof}
-
-\section{Acyclic resolutions}
+\subsection{Acyclic resolutions}
 
 In \autoref{lemma:mod-ox-has-enough-injectives} we have seen that, even though they exist, \hyperref[def:injective-projective-object]{injectives sheaves} are complicated objects.
 Recall that \hyperref[thm:right-derived-functor-using-acyclics]{cohomology can be computed using \(\Gamma(X, -)\)-acyclic resolutions}.
@@ -310,8 +110,43 @@ Recall that \hyperref[thm:right-derived-functor-using-acyclics]{cohomology can b
 In this section we introduce a class of \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\)-acyclic} objects that will help us later.
 
 \begin{definition}[Flasque sheaf]\label{def:flasque-sheaf}
-  A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{flasque} (or \textbf{flabby}) if for any inclussion of open subsets \(V \subseteq U\) the restriction map \(\res_{U, V}\colon \sheaf{F}(U) \to \sheaf{F}(V)\) is surjective.
+  A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{flasque} (or \textbf{flabby}) if for any inclusion of open subsets \(V \subseteq U\) the restriction map \(\res_{U, V}\colon \sheaf{F}(U) \to \sheaf{F}(V)\) is surjective.
 \end{definition}
+
+A particular case of \hyperref[def:flasque-sheaf]{flasque sheaves} are the \hyperref[def:injective-projective-object]{injective} ones.
+\begin{lemma}\label{lemma:injective-sheaves-are-flasque}
+  \hyperref[def:injective-projective-object]{Injective} \hyperref[def:sheaf]{sheaves} are \hyperref[def:flasque-sheaf]{flasque}.
+\end{lemma}
+\begin{proof}
+  Let \(U' \subseteq U \subseteq X\) be open subsets and \(\sheaf{I} \in \Mod(\underline{\mathbf{k}}_{X})\) be an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf}.
+  We want to see that the map \(\sheaf{I}(U) \to \sheaf{I}(U')\) is surjective.
+
+  Consider the open immersions \(j\colon U \hookrightarrow X\) and \(j'\colon U' \hookrightarrow X\).
+  Since \hyperref[thm:open-immersion-adjunction-sheaf]{\(j_{!}\) is left adjoint to the restriction} for any \hyperref[def:sheaf]{sheaf} \(\sheaf{F}\) on \(U\), we have an \hyperref[def:categorical-isomorphism]{isomorphism}:
+  \begin{equation*}
+    \operatorname{Hom}_{\Mod(\underline{\mathbf{k}}_{X})}(j_{!} \sheaf{F}, \sheaf{I}) \cong \operatorname{Hom}_{\Mod(\underline{\mathbf{k}}_{U})}(\sheaf{F}, \sheaf{I}|_{U})
+  \end{equation*}
+  
+  In particular considering \(\underline{\mathbf{k}}_{U}\), we obtain:
+  \begin{equation*}
+    \operatorname{Hom}_{\Mod(\underline{\mathbf{k}}_{X})}(j_{!} \underline{\mathbf{k}}_{U}, \sheaf{I}) \cong \operatorname{Hom}_{\Mod(\underline{\mathbf{k}}_{U})}(\underline{\mathbf{k}}_{U}, \sheaf{I}|_{U}) \cong \sheaf{I}(U)
+  \end{equation*}
+  Analogously for \(U'\) we have \(\operatorname{Hom}_{\Mod(\underline{\mathbf{k}}_{X})}(j'_{!} \underline{\mathbf{k}}_{U'}, \sheaf{I}) \cong \sheaf{I}(U')\).
+
+  The inclusion \(U' \subseteq U\) induces a natural \hyperref[def:mono-epi-morphism]{monomorphism} of sheaves on \(X\):
+  \begin{equation*}
+    j'_{!} \underline{\mathbf{k}}_{U'} \monoarrow j_{!} \underline{\mathbf{k}}_{U}
+  \end{equation*}
+  
+  Because \(\sheaf{I}\) is an \hyperref[def:injective-projective-object]{injective object}, the \hyperref[ex:hom-functor]{covariant functor \(\operatorname{Hom}_{\Mod(\underline{\mathbf{k}}_{X})}(-, \sheaf{I})\)} is \hyperref[def:exact-functor]{exact}, meaning it transforms \hyperref[def:mono-epi-morphism]{monomorphisms} into \hyperref[def:mono-epi-morphism]{epimorphisms}. Applying this \hyperref[def:functor]{functor} to our inclusion yields a surjective map:
+  \begin{equation*}
+    \operatorname{Hom}_{\Mod(\underline{\mathbf{k}}_{X})}(j_{!} \underline{\mathbf{k}}_{U}, \sheaf{I}) \epiarrow \operatorname{Hom}_{\Mod(\underline{\mathbf{k}}_{X})}(j'_{!} \underline{\mathbf{k}}_{U'}, \sheaf{I})
+  \end{equation*}
+  
+  Under the \hyperref[def:categorical-isomorphism]{isomorphisms} established above, this is precisely the restriction map \(\sheaf{I}(U) \to \sheaf{I}(U')\). Thus, the restriction map is surjective, meaning \(\sheaf{I}\) is \hyperref[def:flasque-sheaf]{flasque}.
+\end{proof}
+
+Therefore we can always find a \hyperref[def:flasque-sheaf]{flasque resolution} of \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules}.
 
 \begin{proposition}\label{prop:flasque-are-acyclic}
   \hyperref[def:flasque-sheaf]{Flasque sheaves} are \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\)-acyclic}.
@@ -331,37 +166,51 @@ In this section we introduce a class of \hyperref[def:F-acyclic-object]{\(\Gamma
   Let \(V, W \subseteq U\) be two open subsets and \(t_{V} \in \sheaf{I}(V), t_{W} \in \sheaf{I}(W)\) be two sections lifting \(s\) to \(\sheaf{I}\).
   Consider
   \begin{equation*}
-    t_{V}|_{V \cap U} - t_{W}|_{V \cap W} \in \sheaf{F}(V \cap W)
+    t_{V}|_{V \cap W} - t_{W}|_{V \cap W} \in \sheaf{F}(V \cap W)
   \end{equation*}
   Since \(\sheaf{F}\) is \hyperref[def:flasque-sheaf]{flasque} there exists a section \(x_{V} \in \sheaf{F}(V)\) such that \(x_{V}|_{V \cap W} = t_{V} - t_{W}\).
   Therefore if \(t'_{V} = t_{V} - x_{V}\) we have \(t'_{V}|_{V \cap W} = t_{W}|_{V \cap W}\), i.e: there exists a section \(t \in \sheaf{I}(V \cup W)\) such that \(t|_{V} = t'|_{V}\) and \(t'|_{W} = t|_{W}\).
-  Clearly \(t\) is sent to \(s|_{V \cap W}\).
+  Clearly \(t\) is sent to \(s|_{V \cup W}\).
 
   Consider now a pair \((W, t)\) which is maximal (for the obvious order relation), where \(W\) is an open subset of \(U\) and \(t\) is a section of \(\sheaf{I}\) lifting \(s\) to \(W\).
-  Since \(s\) lifts locally on \(\sheaf{I}\) and using the previous result we see that \(W = U\).
+  Since \(s\) lifts locally on \(\sheaf{I}\), if \(W \neq U\) we could choose an open neighborhood in \(U \setminus W\) with a local lift and strictly extend \(W\) using the gluing procedure above, contradicting maximality. Thus, \(W = U\) and \(\sheaf{I}(U) \to \sheaf{G}(U)\) is surjective.
+  
+  The \hyperref[thm:LES-derived-functor]{long exact sequence in cohomology} of our sequence is
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \sheaf{F}(X) \arrow[r] & \sheaf{I}(X) \arrow[r, two heads] \arrow[d, phantom, ""{coordinate, name=X}] & \sheaf{G}(X) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{1}(X, \sheaf{F}) \arrow[r] & \cohomology{1}(X, \sheaf{I}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \cohomology{1}(X, \sheaf{G}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{2}(X, \sheaf{F}) \arrow[r] & \cohomology{2}(X, \sheaf{I}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  Note that since \(\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective} we have \(\cohomology{i}(X, \sheaf{I}) = 0\) for all \(i > 0\).
+  In particular using that \(\sheaf{I}(X) \epiarrow \sheaf{G}(X)\) is surjective we have \(\cohomology{1}(X, \sheaf{F}) = 0\).
 
-  But then using the \hyperref[thm:LES-in-cohomology]{long exact sequence in cohomology} of our sequence and the fact that for \(i > 0 \quad \cohomology{i}(X, \sheaf{I}) = 0\) imply that \(\cohomology{1}(X, \sheaf{F}) = 0\) we get
-  \begin{equation*}
-    \forall k - 1 \geq 1 \quad \cohomology{k}(X, \sheaf{F}) = \cohomology{k-1}(X, \sheaf{G})
-  \end{equation*}
-  Furthermore surjectivity of the maps \(\sheaf{I}(U) \epiarrow \sheaf{G}(U)\) implies that \(\sheaf{G}\) is \hyperref[def:flasque-sheaf]{flasque}.
+  For \(k \geq 2\) we get \(\cohomology{k}(X, \sheaf{F}) \cong \cohomology{k-1}(X, \sheaf{G})\).
+  Note that since \hyperref[lemma:injective-sheaves-are-flasque]{injective sheaves are flasque} \(\sheaf{I}\) is \hyperref[def:flasque-sheaf]{flasque}.
+  Therefore the surjectivity of the maps \(\sheaf{I}(U) \epiarrow \sheaf{G}(U)\) for all open \(U\) implies that \(\sheaf{G}\) is also flasque.
+  Indeed this follows directly from the diagram
+  \begin{center}
+    \begin{tikzcd}
+      \sheaf{I}(U) \arrow[r, two heads] \arrow[d, two heads, "\res_{U, V}"'] & \sheaf{G}(U) \arrow[d] \\
+      \sheaf{I}(V) \arrow[r, two heads] & \sheaf{G}(V)
+    \end{tikzcd}
+  \end{center}
 
-  It follows by induction that
+  By induction over \(k\) it follows that
   \begin{equation*}
     \forall k > 0 \quad \cohomology{k}(X, \sheaf{F}) = 0 \qedhere
   \end{equation*}
 \end{proof}
 
-% \begin{lemma}
-%   \hyperref[def:injective-projective-object]{Injective} \hyperref[def:sheaf]{sheaves} are \hyperref[def:flasque-sheaf]{flasque}.
-% \end{lemma}
-% \begin{proof}
-%   Let \(U' \subseteq U \subseteq X\) be open subsets and \(\sheaf{I} \in \Mod(\underline{\mathbf{k}}_{X})\) be an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf}.
-%   We want to see that the map \(\sheaf{I}(U) \to \sheaf{I}(U')\) is surjective.
-
-%   Consider the open immersions \(j\colon U \hookrightarrow X\) and \(j'\colon U' \hookrightarrow X\).
-%   Since \hyperref[thm:extension-inverse-image-adjunction-sheaf]{\(j_{!}\) is left adjoint to the restriction} for any 
-% \end{proof}
 
 Using \hyperref[def:flasque-sheaf]{flasque sheaves} we can construct a canonical (and functorial) resolution of a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} to compute its \hyperref[def:sheaf-cohomology]{cohomology}, the so called Godement resolution.
 We only give here a sketch of its construction and refer the reader to \cite[\href{https://stacks.math.columbia.edu/tag/0FKR}{Section 0FKR}]{stacks-project} for more details.
@@ -446,5 +295,244 @@ We only give here a sketch of its construction and refer the reader to \cite[\hr
 
 This example shows that computing \hyperref[def:sheaf-cohomology]{sheaf cohomology} using the \hyperref[def:godement-resolution]{Godement resolution} is an almost imposible task in general.
 In the following chapters we will see how we can solve this problem.
+
+\section{Cohomology and subsets}
+We are going to see how \hyperref[def:sheaf-cohomology]{sheaf cohomology} behaves when restricting and extending sheaves to subsets of \(X\).
+Before we do so, we need to understand how \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaves of \(\mathbf{k}\)-modules} behave under \hyperref[def:direct-image-sheaf]{direct} and \hyperref[def:inverse-image-sheaf]{inverse images}.
+\begin{notation}
+  If \(Y \subseteq X\) is a subset of \(X\) and \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) recall that we set \(\Gamma(Y, \sheaf{F}) = \Gamma(Y, \sheaf{F}|_{Y})\), where \(\sheaf{F}|_{Y} = i_{Y}^{-1}(\sheaf{F})\) and \(i_{Y}\colon Y \hookrightarrow X\) is the inclusion.
+  We set now
+  \begin{equation*}
+    \cohomology{i}(Y, \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(Y, -)(\sheaf{F}) = \operatorname{R}^{i}\left( a_{Y, \ast} \circ i_{Y}^{-1} \right) (\sheaf{F})
+  \end{equation*}
+  where \(a_{Y}\colon Y \to \{\ast\}\).
+\end{notation}
+
+\begin{lemma}\label{lemma:injective-sheaves-and-maps}
+  Let \(\sheaf{I} \in \Mod(\underline{\mathbf{k}}_{X})\) be an \hyperref[def:injective-projective-object]{injective} \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules}.
+  \begin{enumerate}
+    \item If \(f\colon X \to Y\) is a continuous map then \(f_{\ast}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective} in \(\Mod(\underline{\mathbf{k}}_{Y})\).
+    \item If \(j_{U}\colon U \hookrightarrow X\) is an open immersion then \(\sheaf{I}|_{U} = j_{U}^{-1}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective} in \(\Mod(\underline{\mathbf{k}}_{U})\).
+  \end{enumerate}
+\end{lemma}
+\begin{proof}~
+  \begin{enumerate}
+    \item Since \hyperref[cor:inverse-image-sheaf-exact]{\(f^{-1}\) is exact}  and \(\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective} the \hyperref[def:functor]{functor} \(\Hom_{\Mod(\underline{\mathbb{k}}_{X})}(f^{-1}(-), \sheaf{I})\) is \hyperref[def:exact-functor]{exact}.
+          Using the \hyperref[thm:direct-inverse-image-adjunction-sheaf]{adjunction \(f^{-1} \dashv f_{\ast}\)} we have
+          \begin{equation*}
+            \Hom_{\Mod(\underline{\mathbb{k}}_{X})}(f^{-1}(-), \sheaf{I}) \cong \Hom_{\Mod(\underline{\mathbb{k}}_{Y})}(-, f_{\ast}\sheaf{I})
+          \end{equation*}
+          and thus by \hyperref[prop:injective-characterization-hom]{the characterization of injective objects} we have that \(f_{\ast}\sheaf{I}\) is \hyperref[def:injective-projective-object]{injective}.
+    \item Analogous to the previous item using the \hyperref[cor:extension-by-zero-sheaf-exact]{exactness of \(j_{U, !}\)} and the \hyperref[thm:open-immersion-adjunction-sheaf]{adjunction \(j_{U, !} \dashv j_{U}^{-1}\)}. \qedhere
+  \end{enumerate}
+\end{proof}
+
+
+\begin{proposition}\label{prop:cohomology-subsets}
+  Let \(X\) be a topological space, \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) a \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} and \(i \geq 0\).
+  \begin{enumerate}
+    \item If \(U \subseteq X\) is open we have \(\cohomology{i}(U, \sheaf{F}) \cong \cohomology{i}(U, \sheaf{F}|_{U})\).
+    \item If \(Z \subseteq X\) is closed we have \(\cohomology{i}(X, \sheaf{F}_{Z}) \cong \cohomology{i}(Z, \sheaf{F}|_{Z})\).
+  \end{enumerate}
+\end{proposition}
+\begin{proof}
+  Let \(i_{Y}\colon Y \hookrightarrow X\) be the inclusion of \(Y \subseteq X\) and \(a_{Y}\colon Y \to \{\ast\}\).
+  \begin{enumerate}
+    \item We have
+          \begin{equation*}
+            \cohomology{i}(U, \sheaf{F}) \cong \operatorname{R}^{i}(a_{U, \ast} \circ i_{U}^{-1})(\sheaf{F}) \cong \left(\operatorname{R}^{i} a_{U, \ast} \right)(i_{U}^{-1}\sheaf{F}) \cong \cohomology{i}(U, \sheaf{F}|_{U})
+          \end{equation*}
+          where the second \hyperref[def:categorical-isomorphism]{isomorphism} comes from \autoref{thm:derived-functor-composition} since \hyperref[cor:inverse-image-sheaf-exact]{\(i_{U}^{-1}\) is exact} and \hyperref[lemma:injective-sheaves-and-maps]{sends injectives to injectives}.
+    \item We have
+          \begin{equation*}
+            \cohomology{i}(X, \sheaf{F}_{Z}) \cong \left( \operatorname{R}^{i}a_{X, \ast} \right)(( i_{Z, \ast} \circ i_{Z}^{-1}) (\sheaf{F})) \cong \left( \operatorname{R}^{i} (a_{X} \circ i_{Z})_{\ast} \right) (i_{Z}^{-1}(\sheaf{F})) \cong \cohomology{i}(Z, \sheaf{F}|_{Z})
+          \end{equation*}
+          where the second \hyperref[def:categorical-isomorphism]{isomorphism} comes from \autoref{thm:derived-functor-composition} since \hyperref[cor:closed-immersion-exact]{\(i_{Z, \ast}\) is exact} and \hyperref[lemma:injective-sheaves-and-maps]{sends injectives to injectives}. \qedhere
+  \end{enumerate}
+\end{proof}
+
+We also have a stronger results regarding Hausdorff and paracompact spaces.
+
+Before stating it, let's recall some basic topological facts about paracompact spaces.
+A paracompact space \(X\) is a space such that for each open covering \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists an open covering \(\mathcal{V} = \{V_{j}\}_{j \in \mathcal{J}}\) finer than \(\mathcal{U}\) (i.e: for all \(j \in \mathcal{J}\) there exists \(i \in \mathcal{I}\) such that \(V_{j} \subseteq U_{i}\)) and locally finite.
+Furthermore if \(X\) is Hausdorff and \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) is an open and locally finite cover of \(X\) then there exists an open covering \(\mathcal{V} = \{V_{i}\}_{i \in \mathcal{I}}\) such that \(\operatorname{ad}(V_{i}) \subset U_{i}\) for all \(i \in \mathcal{I}\).
+Recall also that closed subspaces of a paracompact space are also paracompact.
+For a proof of these results see \cite[Lemma 41.6]{munkresTopology2014} and \cite[Theorem 41.2]{munkresTopology2014} respectively.
+
+\begin{lemma}[{\cite[Proposition 2.5.1]{kashiwaraCategoriesSheaves2006}}]\label{lemma:cohomology-compact-subsets}
+  Let \(X\) be a topological space, \(Z \subseteq X\) a subspace and \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
+  Consider the \hyperref[def:inverse-limit]{canonical morphism} in \(\Mod(\mathbf{k})\)
+  \begin{equation*}
+    \psi\colon \varinjlim_{\substack{U \supset Z \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \to \Gamma(Z, \sheaf{F})
+  \end{equation*}
+  Then \(\psi\) is injective.
+  Furthermore if \(X\) is Hausdorff (resp. Hausdorff and paracompact) and \(Z\) is compact (resp. closed) then \(\psi\) is an \hyperref[def:categorical-isomorphism]{isomorphism}.
+  
+  Under these conditions for all \(i \geq 0\) there is an \hyperref[def:categorical-isomorphism]{isomorphism}
+  \begin{equation*}
+    \varinjlim_{\substack{U \supset Z \\ U \in \Open(X)}}  \cohomology{i}(U, \sheaf{F}) \cong \cohomology{i}(Z, \sheaf{F})
+  \end{equation*}
+\end{lemma}
+\begin{proof}
+  For the injectivity note that if \(s \in \Gamma(U, \sheaf{F})\) is zero in \(\Gamma(Z, \sheaf{F})\) then for all \(p \in Z\) germ \(s_{p} = 0\).
+  Therefore \(s\) is zero in an open neighbourhood of \(Z\) and the map is injective.
+
+  For the surjectivity consider \(s \in \Gamma(Z, \sheaf{F})\).
+  Then there exists a family of open subsets \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) with \(Z \subset \bigcup_{i \in \mathcal{I}} U_{i}\) and \(s_{i} \in \Gamma(U_{i}, \sheaf{F})\) such that \(s|_{U_{i} \cap Z} = s_{i}|_{U_{i} \cap Z}\) for all \(i \in \mathcal{I}\).
+
+  If \(Z\) is compact we may assume that \(\mathcal{I}\) is finite and if \(X\) is paracompact we may assume that \(\mathcal{U}\) is a locally finite covering of \(X\).
+  In either case we can find a family of open subsets \(\mathcal{V} = \{V_{i}\}_{i \in \mathcal{I}}\) such that \(\mathcal{V}\) is locally finite, \(Z \subset \bigcup_{i \in \mathcal{I}} V_{i}\) and \(\operatorname{ad}(V_{i}) \subset U_{i}\) for all \(i \in \mathcal{I}\).
+  For \(p \in X\) define \(\mathcal{I}(p) \coloneq \{i \in \mathcal{I} \mid p \in \operatorname{ad}(V_{i})\}\) and let
+  \begin{equation*}
+    W \coloneq \left\{ p \in \bigcup_{i \in \mathcal{I}} V_{i} \mid (s_{i})_{p} = (s_{j})_{p} \text{ for any } i, j \in \mathcal{I}(p) \right\}
+  \end{equation*}
+  Note that \(\mathcal{I}(p)\) is a finite set and each \(p \in X\) has a neighbourhood \(W_{p}\) such that \(\mathcal{I}(y) \subseteq \mathcal{I}(p)\) for all \(y \in W_{p}\).
+  Therefore \(W\) is open and contains \(Z\) by construction.
+
+  Finally, since \(s_{i}|_{W \cap V_{i} \cap V_{j}} = s_{j}|_{W \cap V_{i} \cap V_{j}}\) there exists \(\widetilde{s} \in \Gamma(W, \sheaf{F})\) such that \(\widetilde{s}|_{W \cap V_{i}} = s_{i}|_{W \cap V_{i}}\) and thus \(\psi(\widetilde{s}) = s\).
+\end{proof}
+
+
+% \begin{lemma}\label{lemma:cohomology-compact-subsets}
+%   Let \(X\) be a topological space and \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
+%   If \(K \subseteq X\) is compact and relatively Hausdorff\footnote{\(K \subseteq X\) is relatively Hausdorff if two distinct points in \(K\) admit disjoint neighbourhoods in \(X\). Note that if \(K = X\) then we recover that \(X\) is Hausdorff.} then
+%   \begin{equation*}
+%     \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}}  \cohomology{i}(U, \sheaf{F}) \cong \cohomology{i}(K, \sheaf{F})
+%   \end{equation*}
+% \end{lemma}
+% \begin{proof}
+%   Suppose first that \(i = 0\).
+%   In this case we want to show that there is an \hyperref[def:categorical-isomorphism]{isomorphism} induced by the restriction
+%   \begin{equation*}
+%     \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \isoarrow \Gamma(K, \sheaf{F})
+%   \end{equation*}
+%   Let \(s \in \Gamma(K, \sheaf{F}|_{K})\).
+%   There exists a finite family of open subsets \(\{U_{i}\}_{i=1}^{n}\) covering \(K\) and sections \(s_{i} \in \Gamma(U_{i}, \sheaf{F})\) such that \(s_{i}|_{K \cap U_{i}} = s|_{K \cap U_{i}}\).
+%   Furthermore we can find another family of open sets \(\{V_{i}\}_{i=1}^{n}\) covering \(K\) such that \(K \cap \operatorname{ad}(V_{i}) \subset U_{i}\).
+%   We want to glue together the sections \(s_{i}\) on a neighbourhood of \(K\).
+
+%   By induction over \(n\) we can assume \(n = 2\).
+%   If \(K_{i} = K \cap \operatorname{ad}(V_{i})\) then \(s_{1}|_{K_{1} \cap K_{2}} = s_{2}|_{K_{1} \cap K_{2}}\).
+%   Let \(W\) be an open neighbourhood of \(K\) such that \(s_{1}|_{K} = s_{2}|_{K}\) and let \(W_{i}\) be an open subset of \(U_{i}\) such that \(K_{i} \setminus W \subset W_{i}\) and \(W_{1} \cap W_{2} = \varnothing\).
+%   Set \(U_{i}' = W_{i} \cup W\).
+%   Then \(s_{1}|_{U_{1}' \cap U_{2}'} = s_{2}|_{U_{1}' \cap U_{2}'}\) and this defines \(t \in \Gamma(U_{1}' \cup U_{2}', \sheaf{F})\) with \(t|_{K} = s\) finishing the base case.
+  
+%   Now, consider two \hyperref[def:functor]{functors} \(F, G\colon \Mod(\underline{\mathbf{k}}_{X}) \to \Mod(\mathbf{k})\)
+%   \begin{equation*}
+%     F(\sheaf{F}) \coloneq \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{F}) \qquad G(\sheaf{F}) \coloneq \Gamma(K, \sheaf{F})
+%   \end{equation*}
+%   From the first step we have \(F \cong G\).
+%   Therefore for all \(i \geq 0\) we have an \hyperref[def:categorical-isomorphism]{isomorphism}
+%   \begin{equation*}
+%     \operatorname{R}^{i}F(\sheaf{F}) \cong \operatorname{R}^{i}G(\sheaf{F})
+%   \end{equation*}
+%   To compute these functors, choose an \hyperref[def:resolution]{injective resolution} \(\sheaf{F} \to \sheaf{I}^{\bullet}\) of \(\sheaf{F}\).
+%   On the one hand
+%   \begin{equation*}
+%     \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}(\Gamma(K, \sheaf{I}^{\bullet})) = \cohomology{i}(K, \sheaf{F})
+%   \end{equation*}
+%   On the other
+%   \begin{align*}
+%     \operatorname{R}^{i}F(\sheaf{F}) = \cohomology{i} \left( \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \Gamma(U, \sheaf{I}^{\bullet}) \right) \cong \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( \Gamma(U, \sheaf{I^{\bullet}}) \right) = \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( U, \sheaf{F} \right)
+%   \end{align*}
+%   Therefore
+%   \begin{equation*}
+%     \varinjlim_{\substack{U \supset K \\ U \in \Open(X)}} \cohomology{i} \left( U, \sheaf{F} \right) \cong \operatorname{R}^{i}F(\sheaf{F}) \cong \operatorname{R}^{i}G(\sheaf{F}) = \cohomology{i}(K, \sheaf{F}) \qedhere
+%   \end{equation*}
+% \end{proof}
+
+\subsection{Mayer-Vietoris}
+
+The functorial behavior of restriction and extension established above suggests that we can compute the global cohomology of a space by splitting it into simpler, overlapping sub-domains.
+In classical algebraic topology, the standard technique for computing invariants via open or closed decompositions is the Mayer-Vietoris sequence.
+
+It is worth noting that the following results work \textit{mutatus mutandis} replacing \(\Gamma(X, -)\) with any other \hyperref[def:direct-image-sheaf]{direct image functor} \(f_{\ast}\) for any continuous map \(f\colon X \to Y\).
+
+First we study the splitting via closed subsets.
+\begin{theorem}[Closed Mayer-Vietoris]\label{thm:mayer-vietoris-closed}
+  Let \(X\) be a topological space.
+  Suppose that \(X = Z \cup W\) for some closed sets \(Z, W\).
+  Then for every \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) there exists a \hyperref[def:exact-sequence]{long exact sequence} in \hyperref[def:cohomology]{cohomology}:
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \cohomology{0}(X, \sheaf{F}) \arrow[r] & \cohomology{0}(X, \sheaf{F}_{Z}) \oplus \cohomology{0}(X, \sheaf{F}_{W}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{0}(X, \sheaf{F}_{Z \cap W}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{1}(X, \sheaf{F}) \arrow[r] & \cohomology{1}(X, \sheaf{F}_{Z}) \oplus \cohomology{1}(X, \sheaf{F}_{W}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \cohomology{1}(X, \sheaf{F}_{Z \cap W}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{2}(X, \sheaf{F}) \arrow[r] & \cohomology{2}(X, \sheaf{F}_{Z}) \oplus \cohomology{2}(X, \sheaf{F}_{W}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  We are going to see that the sequence of \hyperref[def:sheaf]{sheaves}
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \sheaf{F} \arrow[r] & \sheaf{F}_{Z} \oplus \sheaf{F}_{W} \arrow[r] & \sheaf{F}_{Z \cap W} \arrow[r] & 0 
+    \end{tikzcd}
+  \end{center}
+  is \hyperref[def:exact-sequence]{exact} by \hyperref[cor:exactness-at-stalks]{checking that it is exact at the level of stalks}.
+  
+  Recall that if \(i\colon U \hookrightarrow X\) is a closed immersion by \autoref{lemma:stalk-inverse-image} and \autoref{lemma:stalk-closed-immersion} the \hyperref[def:stalk]{stalk} of \(\sheaf{F}_{U} = i_{\ast}i^{-1}\sheaf{F}\) at a point \(p \in X\) is
+  \begin{align*}
+    \left( \sheaf{F}_{U} \right)_{p} = \begin{cases}
+      0 & p \in X \setminus U \\
+      \sheaf{F}_{p} & p \in U
+    \end{cases}
+  \end{align*}
+  Three easy checks for \(p\) belonging to \(X \setminus Z, X \setminus W\) and \(Z \cap W\) show that the induced sequence in the \hyperref[def:stalk]{stalks} is \hyperref[def:exact-sequence]{exact}.
+
+  Therefore applying the \hyperref[thm:LES-derived-functor]{long exact sequence} associated to the \hyperref[def:right-derived-functor]{right derived functor} \(\operatorname{R}^{i}\Gamma\) we get the result.
+\end{proof}
+
+The case for open splittings is a little bit more difficult.
+For our proof to be valid when replacing \(\Gamma\) with another \hyperref[def:direct-image-sheaf]{direct image functor} we need to use that \hyperref[lemma:injective-sheaves-are-flasque]{injective sheaves are flasque}.
+\begin{theorem}[Open Mayer-Vietoris]\label{thm:mayer-vietoris-open}
+  Let \(X\) be a topological space.
+  Suppose that \(X = U \cup V\) for some open sets \(U, V\).
+  Then for every \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) there exists a \hyperref[def:exact-sequence]{long exact sequence} in \hyperref[def:cohomology]{cohomology}:
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \cohomology{0}(X, \sheaf{F}) \arrow[r] & \cohomology{0}(U, \sheaf{F}) \oplus \cohomology{0}(V, \sheaf{F}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{0}(U \cap V, \sheaf{F}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{1}(X, \sheaf{F}) \arrow[r] & \cohomology{1}(U, \sheaf{F}) \oplus \cohomology{1}(V, \sheaf{F}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=Y}] &  \cohomology{1}(U \cap V, \sheaf{F}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (Y) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{2}(X, \sheaf{F}) \arrow[r] & \cohomology{2}(U, \sheaf{F}) \oplus \cohomology{2}(V, \sheaf{F}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+\end{theorem}
+\begin{proof}
+  Let \(\sheaf{F} \to \sheaf{I}^{\bullet}\) be an \hyperref[def:resolution]{injective resolution} of \(\sheaf{F}\).
+  We are going to see that the following is a \hyperref[def:exact-sequence]{short exact sequence} of \hyperref[def:complex]{complexes}
+  \begin{center}
+    \begin{tikzcd}[column sep=2em]
+      0 \arrow[r] & \Gamma(X, \sheaf{I}^{\bullet}) \arrow[r, "\alpha"] & \Gamma(U, \sheaf{I}^{\bullet}|_{U}) \oplus \Gamma(V, \sheaf{I}^{\bullet}|_{V}) \arrow[r, "\beta"] & \Gamma(U \cap V, \sheaf{I}^{\bullet}|_{U \cap V}) \arrow[r] & 0
+    \end{tikzcd}
+  \end{center}
+  where \(\alpha(s) \coloneq (s|_{U}, s|_{V})\) and \(\beta(s, t) \coloneq s|_{U \cap V} - t|_{U \cap V}\).
+  
+  For each \(n \in \mathbb{N}\) \hyperref[def:exact-sequence]{exactness} at \(\Gamma(X, \sheaf{I}^{n})\) and the middle term follow directly from the \hyperref[def:sheaf]{sheaf axioms} on the open cover \(X = U \cup V\).
+  To see \hyperref[def:exact-sequence]{exactness} at \(\Gamma(U \cap V, \sheaf{I}^{n}|_{U \cap V})\) recall that \hyperref[lemma:injective-sheaves-are-flasque]{injective sheaves are flasque}.
+  Therefore since \(U \cap V \subseteq U\) for any \(r \in \Gamma(U \cap V, \sheaf{I}^{n}|_{U \cap V}) \cong \sheaf{I}^{n}|_{U \cap V}(U \cap V)\) there exists \(s \in \Gamma(U, \sheaf{I}^{n}|_{U}) \cong \sheaf{I}^{n}|_{U}(U)\) such that \(s|_{U \cap V} = r\) and thus \(\beta(s, 0) = r\) making \(\beta\) surjective.
+
+  Therefore taking the associated \hyperref[thm:LES-in-cohomology]{long exact sequence in cohomology} and using \autoref{prop:cohomology-subsets} we have the result.
+\end{proof}
+
+\begin{remark}
+  One can generalize the splitting to more than two open (or closed) sets, obtaining what is called \v{C}ech cohomology.
+  We will not need this generalization though, so we refer the interested reader to \cite[\href{https://stacks.math.columbia.edu/tag/01ED}{Section 01ED}]{stacks-project} for more details.
+\end{remark}
+
 
 \end{document}

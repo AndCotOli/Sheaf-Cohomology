@@ -170,15 +170,14 @@ First we need to extend the concept of a partition of unity to a \hyperref[def:s
 
 Now we can introduce the objects of study of this section: fine sheaves.
 \begin{definition}[Fine sheaf]\label{def:fine-sheaf}
-  A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\colon \sheaf{F} \to \sheaf{F}\}_{i \in \mathcal{I}}\) of \(\sheaf{F}\) subordinate to this covering.
+  A \hyperref[def:sheaf]{sheaf of \(\mathbf{k}\)-modules} \(\sheaf{F}\) is \textbf{fine} if for every open cover \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) of \(X\) there exists a \hyperref[def:partition-of-unity]{partition of unity} \(\{f_{i}\colon \sheaf{F} \to \sheaf{F}\}_{i \in \mathcal{I}}\) of \(\sheaf{F}\) subordinate to this covering.
 \end{definition}
 
 \begin{proposition} \label{prop:fine-are-acyclic}
   \hyperref[def:fine-sheaf]{Fine sheaves} are \hyperref[def:F-acyclic-object]{\(\Gamma(X, -)\) acyclic}.
 \end{proposition}
 \begin{proof}
-  Let \(\sheaf{F}\) be a \hyperref[def:fine-sheaf]{fine sheaf}.
-  Using the \hyperref[def:godement-resolution]{Godement resolution} we have that \(\sheaf{F}\) admits a \hyperref[def:flasque-sheaf]{flasque} resolution \(\sheaf{F} \to \sheaf{I}^{\bullet}\).
+  Let \(\sheaf{F}\) be a \hyperref[def:fine-sheaf]{fine sheaf} and consider a \hyperref[def:flasque-sheaf]{flasque resolution} \(\sheaf{F} \to \sheaf{I}^{\bullet}\) (this exists since \hyperref[lemma:injective-sheaves-are-flasque]{injective sheaves are flasque} or considering the \hyperref[def:godement-resolution]{Godement resolution}).
 
   Since \hyperref[prop:flasque-are-acyclic]{flasque sheaves are acyclic} by \autoref{thm:right-derived-functor-using-acyclics} we have that
   \begin{equation*}
@@ -210,12 +209,12 @@ Now we can introduce the objects of study of this section: fine sheaves.
 An example of \hyperref[def:fine-sheaf]{fine sheaves} is one we have just studied: \hyperref[def:smooth-k-form]{sheaves of \(k\)-forms}.
 \begin{lemma} \label{lemma:smooth-k-form-fine}
   Let \(M\) be a smooth paracompact manifold.
-  Then for all \(k\) the \hyperref[def:smooth-k-form]{sheaf of \(k\)-forms} \(\Omega^{k}\) is \hyperref[def:fine-sheaf]{fine}.
+  Then for all \(k \geq 0\) the \hyperref[def:smooth-k-form]{sheaf of \(k\)-forms} \(\Omega^{k}\) is \hyperref[def:fine-sheaf]{fine}.
 \end{lemma}
 \begin{proof}
-  Let \(\mathscr{U} = \{U_{i}\}_{i \in \mathcal{I}}\) be an arbitrary open cover of \(M\).
+  Let \(\mathcal{U} = \{U_{i}\}_{i \in \mathcal{I}}\) be an arbitrary open cover of \(M\).
 
-  Since \(M\) is paracompact there exists a partition of unity \(\{f_{i}\}_{i \in \mathcal{I}} \subset \mathcal{C}^{\infty}(M)\) subordinate to \(\mathscr{U}\).
+  Since \(M\) is paracompact there exists a partition of unity \(\{f_{i}\}_{i \in \mathcal{I}} \subset \mathcal{C}^{\infty}(M)\) subordinate to \(\mathcal{U}\).
   This means that
   \begin{align*}
     \forall i \in \mathcal{I} \quad& \operatorname{supp} f_{i} \subseteq U_{i} \\
@@ -233,7 +232,7 @@ An example of \hyperref[def:fine-sheaf]{fine sheaves} is one we have just studie
   \begin{equation*}
     \sum_{i \in \mathcal{I}} \eta_{i}(\omega) = \sum_{i \in \mathcal{I}} f_{i} \cdot \omega = \left( \sum_{i \in \mathcal{I}} f_{i} \right) \cdot \omega = 1 \cdot \omega = \omega
   \end{equation*}
-  Therefore \(\sum_{i \in \mathcal{I}} \eta_{i} = \id_{\Omega^{k}}\), making \(\{\eta_{i}\}_{i \in \mathcal{I}}\) a partition of unity subordinate to \(\mathscr{U}\).
+  Therefore \(\sum_{i \in \mathcal{I}} \eta_{i} = \id_{\Omega^{k}}\), making \(\{\eta_{i}\}_{i \in \mathcal{I}}\) a partition of unity subordinate to \(\mathcal{U}\).
 \end{proof}
 
 Therefore if we can prove that there exists a \hyperref[def:sheaf]{sheaf of \(\mathbb{R}\)-modules} \(\sheaf{F} \in \Mod(\underline{\mathbb{R}}_{M})\) such that \(\Omega^{\bullet}\) is a \hyperref[def:resolution]{resolution} of \(\sheaf{F}\) we would have that \hyperref[def:sheaf-cohomology]{sheaf cohomology with values in \(\sheaf{F}\)} and \hyperref[def:de-rham-cohomology]{de Rham cohomology} coincide.
