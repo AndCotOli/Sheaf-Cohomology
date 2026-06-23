@@ -1,0 +1,445 @@
+\documentclass[notheorems, aspectratio=169]{beamer}
+% \documentclass[aspectratio=169, handout]{beamer}
+
+\mode<handout>{
+    \setbeamercolor{alerted text}{fg=black}
+}
+
+\usepackage{aux/beamer-style}
+\usepackage{aux/notation}
+
+\usetikzlibrary{decorations.markings}
+
+\title{Sheaf Cohomology}
+\subtitle{Treball final de grau}
+\author[Andreu Cotanda Oliver]{Andreu Cotanda Oliver}
+% \institute{Grau en ciències matemàtiques --- Universitat de València}
+\date{25 de juny del 2026}
+
+\begin{document}
+
+\begin{frame}[plain, noframenumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}[fragile]{Motivació}
+    \onslide<1->{
+      Un problema central en matemàtiques és l'\alert<1>{obstrucció al pas local-global}: podem sempre estendre dades locals compatibles a una secció \textit{global}?
+    }
+  
+    \onslide<2->{
+      Els \alert<2>{feixos} són l'eina fonamental per a codificar i estudiar dades estrictament locals sobre un espai.
+    }
+
+    \onslide<3->{
+      La \alert<3>{cohomologia de feixos} naix com la maquinària algebraica per a quantificar i mesurar precisament aquestes obstruccions.
+    }
+
+    \onslide<4->{
+      A més, proporciona un llenguatge \alert<4>{unificador}. Ens permet tractar de manera simultània la geometria diferencial (de Rham), la topologia (singular) i la geometria algebraica sota un mateix paraigua categòric.
+    }
+\end{frame}
+
+\section{Functors Derivats}
+\begin{frame}[fragile]{Functors Derivats}
+  \framesubtitle{Motivació i idea}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \onslide<1-> {
+        Dins de categories abelianes tenim una noció d'\alert<1>{exactitud} d'un complex d'objectes.
+      }
+
+      \onslide<2-> {
+        No obstant a l'aplicar un functor aquesta exactitud pot \alert<2>{desaparèixer}.
+      }
+
+      \onslide<3-> {
+        Ens interessa una forma d'\alert<3>{estendre} la seqüència sense perdre informació.
+      }
+    \end{column}
+    \hfill
+    \begin{column}{0.52\textwidth}
+      \begin{center}
+        \begin{tikzcd}[row sep=12pt, column sep=6pt]
+          0 \arrow[r] & X \arrow[r] & Y \arrow[r] \arrow[dd, Rightarrow, "F"', visible on=<2->] & Z \arrow[r] & 0 \\ \\
+          |[visible on=<2->]| 0 \arrow[r, visible on=<2->] & |[visible on=<2->]| F(X) \arrow[r, visible on=<2->] & |[visible on=<2->]| F(Y) \arrow[r, visible on=<2->] \arrow[d, phantom, ""{coordinate, name=X}] & |[visible on=<2->]| F(Z)  \arrow[dll, rounded corners, to path={
+            -- ([xshift=3.5ex]\tikztostart.east)
+            |- (X) [near end]\tikztonodes
+            -| ([xshift=-2ex]\tikztotarget.west)
+            -- (\tikztotarget)}, visible on=<3->] \\
+          & |[visible on=<3->]| \operatorname{R}^{1}F(X) \arrow[r, visible on=<3->] & |[visible on=<3->]| \operatorname{R}^{1}F(Y) \arrow[r, visible on=<3->] \arrow[d, phantom, ""{coordinate, name=Y}] & |[visible on=<3->]| \operatorname{R}^{1}F(Z) \arrow[dll, rounded corners, to path={
+            -- ([xshift=2ex]\tikztostart.east)
+            |- (Y) [near end]\tikztonodes
+            -| ([xshift=-2ex]\tikztotarget.west)
+            -- (\tikztotarget)}, visible on=<3->] \\
+          & |[visible on=<3->]| \operatorname{R}^{2}F(X) \arrow[r, visible on=<3->] & |[visible on=<3->]| \operatorname{R}^{2}F(Y) \arrow[r, visible on=<3->] & |[visible on=<3->]| \cdots
+        \end{tikzcd}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Functors Derivats}
+  \framesubtitle{Construcció}
+  \begin{columns}[T]
+    \begin{column}{0.45\textwidth}
+      \onslide<1-> {
+        Per a construir aquests functors utilitzem \alert<1>{objectes injectius}.
+      }
+
+      \onslide<2-> {
+        Si la nostra categoria \textit{té suficients} d'aquests objectes podem triar \alert<2>{resolucions}.
+      }
+
+      \onslide<3-> {
+        Aquestes resolucions es poden completar, obtenint una \alert<3>{seqüència exacta curta de complexos}.
+      }
+      
+      \onslide<4-> {
+        A més, aquesta exactitud es \alert<4>{preserva} a l'aplicar \(F\).
+      }
+
+      \onslide<5-> {
+        Podem \textit{estendre} aquesta seqüència considerant la seqüència associada en \alert<5>{cohomologia}.
+      }
+
+      \onslide<6-> {
+        Tenim que els termes inicials són els que busquem.
+      }
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \vspace{-2em}
+      \begin{center}
+        \begin{tikzcd}[row sep=12pt, column sep=4pt]
+          & |[visible on=<2->]| 0 \arrow[d, visible on=<2->] & |[visible on=<3->]| 0 \arrow[d, visible on=<3->] & |[visible on=<2->]| 0 \arrow[d, visible on=<2->] & \\
+          0 \arrow[r] & X \arrow[d, visible on=<2->] \arrow[r] & Y \arrow[r] \arrow[d, visible on=<3->] & Z \arrow[r] \arrow[d, visible on=<2->] & 0 \\
+          |[visible on=<3->]| 0 \arrow[r, visible on=<3->] & |[visible on=<2->]| I^{\bullet} \arrow[r, visible on=<3->] & |[visible on=<3->]| I^{\bullet} \oplus J^{\bullet} \arrow[r, visible on=<3->] \arrow[dd, Rightarrow, "F"', visible on=<4->] & |[visible on=<2->]| J^{\bullet} \arrow[r, visible on=<3->] & |[visible on=<3->]| 0 \\ \\
+          |[visible on=<4->]| 0 \arrow[r, visible on=<4->] & |[visible on=<4->]| F(I^{\bullet}) \arrow[r, visible on=<4->] & |[visible on=<4->]| F(I^{\bullet} \oplus J^{\bullet}) \arrow[r, visible on=<4->] \arrow[dd, Rightarrow, "\operatorname{H}^{\bullet}"', visible on=<5->] & |[visible on=<4->]| F(J^{\bullet}) \arrow[r, visible on=<4->]  & |[visible on=<4->]| 0 \\ \\
+          |[visible on=<5->]| 0 \arrow[r, visible on=<5->] & |[visible on=<5->]| \alt<5>{\operatorname{H}^{0}(F(I^{\bullet}))}{F(X)} \arrow[r, visible on=<5->] & |[visible on=<5->]| \alt<5>{\operatorname{H}^{0}(F(I^{\bullet} \oplus J^{\bullet}))}{F(Y)} \arrow[r, visible on=<5->] \arrow[d, phantom, ""{coordinate, name=X}] & |[visible on=<5->]| \alt<5>{\operatorname{H}^{0}(F(J^{\bullet}))}{F(Z)}  \arrow[dll, rounded corners, to path={
+            -- ([xshift=3.5ex]\tikztostart.east)
+            |- (X) [near end]\tikztonodes
+            -| ([xshift=-2ex]\tikztotarget.west)
+            -- (\tikztotarget)}, visible on=<5->] \\
+          & |[visible on=<5-6>]| \operatorname{H}^{1}(F(I^{\bullet})) \arrow[r, visible on=<5-6>] & |[visible on=<5-6>]| \operatorname{H}^{1}(F(I^{\bullet} \oplus J^{\bullet})) \arrow[r, visible on=<5-6>] & |[visible on=<5-6>]| \cdots
+        \end{tikzcd}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Functors Derivats}
+  \framesubtitle{\(F\)-acíclics}
+  \onslide<1-> {
+    Per tant, si la nostra categoria és abeliana i té suficients injectius, podem derivar tot functor exacte a esquerra definint
+    \begin{equation*}
+      \operatorname{R}^{i}F(X) \coloneq \operatorname{H}^{i}(F(I^{\bullet}))
+    \end{equation*}
+  }
+
+  \onslide<2-> {
+    No obstant podem utilitzar una resolució adaptada a \(F\) per a calcular els objectes.
+  }
+
+  \onslide<3-> {
+    \begin{definition}
+      Un objecte \(Q\) és \alert<3>{\(F\)-acíclic} si \(\operatorname{R}^{i}F(Q) = 0\) per a tot \(i \neq 0\).
+    \end{definition}
+
+    Si \(X \to Q^{\bullet}\) és una resolució per \(F\)-acíclics tenim
+    \begin{equation*}
+      \operatorname{R}^{i}F(X) \cong \operatorname{H}^{i}(F(Q^{\bullet}))
+    \end{equation*}
+  }
+\end{frame}
+
+\section{Feixos}
+\begin{frame}[fragile]{Feixos}
+  Un \alert<1>{feix} (de \(\mathbf{k}\)-mòduls) \(\sheaf{F}\) és una assignació d'un \(\mathbf{k}\)-mòdul \(\sheaf{F}(U)\) a cada obert \(U \subseteq X\) on la informació és estrictament \textit{local}: les seccions es poden \textit{apegar} d'una forma única.
+  \pause
+  
+  La categoria \(\Mod(\underline{\mathbf{k}}_{X})\) de feixos de \(\mathbf{k}\)-mòduls és \alert<2>{abeliana} i \alert<2>{té suficients injectius}.
+  \pause
+  
+  Si prenem \(X = \{\ast\}\) tenim una equivalència de categories
+  \begin{equation*}
+    \Mod(\underline{\mathbf{k}}_{\{\ast\}}) \simeq \Mod(\mathbf{k})
+  \end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Feixos}
+  \framesubtitle{Functors associats a aplicacions continues}
+  Si \(f\colon X \to Y\) és una aplicació contínua tenim una adjunció
+  \begin{center}
+    \begin{tikzcd}
+      \Mod(\underline{\mathbf{k}}_{X}) \arrow[r, "f_{\ast}"{name=A}, bend left=40] & \Mod(\underline{\mathbf{k}}_{Y}) \arrow[l, "f^{-1}"{name=B}, bend left=40]
+      \arrow[phantom, from=A, to=B, "\top"]
+    \end{tikzcd}
+  \end{center}
+
+  \begin{columns}[T]
+    \begin{column}{0.33\textwidth}
+      \onslide<2-> {
+        \begin{block}{\(X \to \{\ast\}\)}
+          \begin{center}
+            \begin{tikzcd}[ampersand replacement=\&]
+              \Mod(\underline{\mathbf{k}}_{X}) \arrow[r, "{\Gamma(X, -)}"{name=A}, bend left=40] \& \Mod(\mathbf{k}) \arrow[l, "\underline{-}_{X}"{name=B}, bend left=40]
+              \arrow[phantom, from=A, to=B, "\top"]
+            \end{tikzcd}
+          \end{center}
+        \end{block}
+      \end{column}
+    }
+    \begin{column}{0.33\textwidth}
+      \onslide<3-> {
+        \begin{block}{\(\{\ast\} \to X\)}
+          \begin{center}
+            \begin{tikzcd}[ampersand replacement=\&]
+              \Mod(\underline{\mathbf{k}}) \arrow[r, "\operatorname{sk}_{p}"{name=A}, bend left=40] \& \Mod(\underline{\mathbf{k}}_{X}) \arrow[l, "-_{p}"{name=B}, bend left=40]
+              \arrow[phantom, from=A, to=B, "\top"]
+            \end{tikzcd}
+          \end{center}
+        \end{block}
+      }
+    \end{column}
+    \begin{column}{0.33\textwidth}
+      \onslide<4-> {
+        \begin{block}{\(j\colon U \hookrightarrow X\) immersió oberta}
+          \begin{center}
+            \begin{tikzcd}[ampersand replacement=\&]
+              \Mod(\underline{\mathbf{k}}_{U}) 
+              \arrow[r, "j_{!}"{name=L}, bend left=60] 
+              \arrow[r, "j_{*}"'{name=R}, bend right=60] \& 
+              \Mod(\underline{\mathbf{k}}_{X}) 
+              \arrow[l, "j^{-1}"{description, name=M}]
+              % Adjunction symbols
+              \arrow[phantom, from=L, to=M, "\top"]
+              \arrow[phantom, from=M, to=R, "\top"]
+            \end{tikzcd}
+          \end{center}
+        \end{block}
+      }
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\section{Cohomologia de Feixos}
+\begin{frame}{Cohomologia de Feixos}
+  \begin{definition}
+    Donat un espai topològic \(X\), la seua \(i\)-ésima \textbf{cohomologia} amb coeficients en un feix \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\) és
+    \begin{equation*}
+      \operatorname{H}^{i}(X, \sheaf{F}) \coloneq \operatorname{R}^{i}\Gamma(X, \sheaf{F})
+    \end{equation*}
+  \end{definition}
+\end{frame}
+
+\begin{frame}[fragile]{Cohomologia de Feixos}
+  \framesubtitle{Mayer-Vietoris}
+  Considerem \(\sheaf{F} \in \Mod(\underline{\mathbf{k}}_{X})\).
+  Si dividim el nostre espai \(X = A \cup B\) amb \(A, B\) oberts (o tancats) tenim una seqüència exacta llarga
+  \begin{center}
+    \begin{tikzcd}
+      0 \arrow[r] & \cohomology{0}(X, \sheaf{F}) \arrow[r] & \cohomology{0}(A, \sheaf{F}|_{A}) \oplus \cohomology{0}(B, \sheaf{F}|_{B}) \arrow[r] \arrow[d, phantom, ""{coordinate, name=X}] & \cohomology{0}(A \cap B, \sheaf{F}|_{A \cap B}) \arrow[dll, rounded corners, to path={
+        -- ([xshift=2ex]\tikztostart.east)
+        |- (X) [near end]\tikztonodes
+        -| ([xshift=-2ex]\tikztotarget.west)
+        -- (\tikztotarget)}] \\
+      & \cohomology{1}(X, \sheaf{F}) \arrow[r] & \cohomology{1}(A, \sheaf{F}|_{A}) \oplus \cohomology{1}(B, \sheaf{F}|_{B}) \arrow[r] & \cdots
+    \end{tikzcd}
+  \end{center}
+  \pause
+  
+  \begin{columns}[T]
+    \begin{column}{0.4\textwidth}
+      \begin{block}{Cas tancat}
+        \begin{center}
+          \begin{tikzcd}[column sep=6pt, ampersand replacement=\&]
+            0 \arrow[r] \& \sheaf{F} \arrow[r] \& \sheaf{F}_{A} \oplus \sheaf{F}_{B} \arrow[r] \& \sheaf{F}_{A \cap B} \arrow[r] \& 0
+          \end{tikzcd}
+        \end{center}
+      \end{block}
+    \end{column}
+    \pause
+    \begin{column}{0.6\textwidth}
+      \begin{block}{Cas obert}
+        Resolem \(\sheaf{F} \to \sheaf{I}^{\bullet}\) per injectius.
+         \begin{center}
+          \begin{tikzcd}[column sep=6pt, ampersand replacement=\&]
+            0 \arrow[r] \& \Gamma(X, \sheaf{I}^{\bullet}) \arrow[r] \& \Gamma(A, \sheaf{I}^{\bullet}|_{A}) \oplus \Gamma(B, \sheaf{I}^{\bullet}|_{B}) \arrow[d, phantom, ""{coordinate, name=X}]
+            \arrow[dl,  rounded corners, to path={
+              -- ([xshift=2ex]\tikztostart.east)
+              |- (X) [near end]\tikztonodes
+              -| ([xshift=-2ex]\tikztotarget.west)
+              -- (\tikztotarget)}] \\
+            \& \Gamma(A \cap B, \sheaf{I}^{\bullet}|_{A \cap B}) \arrow[r] \& 0
+          \end{tikzcd}
+        \end{center}       
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Cohomologia de Feixos}
+  \framesubtitle{Invariança per homotopia}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \onslide<1-> {
+        Volem \alert<1>{comparar} feixos a través d'aplicacions contínues.
+      }
+
+      \onslide<2-> {
+        Com els feixos \textit{viuen} en categories diferents, hem de considerar \alert<2>{espais sobre una base \(S\)}.
+      }
+
+      \onslide<3-> {
+        Així, obtenim una \alert<3>{transformació natural induïda} \(f^{\#}\).
+      }
+
+      \onslide<4-> {
+        Si \(f_{0} \sim f_{1}\) són \alert<4>{homotòpiques} sobre \(S\) aleshores les transformacions naturals induïdes coincideixen.
+      }
+
+      \onslide<5-> {
+        En particular prenent \(S = \{\ast\}\) recuperem l'expressió habitual de la \alert<5>{invariança per homotopia}.
+      }
+
+      \onslide
+    \end{column}
+    \begin{column}{0.52\textwidth}
+      \begin{center}
+        \begin{tikzcd}
+          X \arrow[rr, "f", visible on=<1-3>] \arrow[rr, shift left, "f_{0}", visible on=<4->] \arrow[rr, shift right, "f_{1}"', visible on=<4->]  \arrow[dr, "p_{X}"', visible on=<2->] &  & Y \arrow[dl, "p_{Y}", visible on=<2->] \\
+          & |[visible on=<2->]| \alt<5>{\{\ast\}}{S} \\ \\
+          |[visible on=<3-5>]| \alt<3-4>{\Mod(\underline{\mathbf{k}}_{S})}{\Mod(\mathbf{k})}
+          \arrow[rr, bend left=40, "{\alt<3-4>{\operatorname{R}^{i}p_{Y, \ast} \circ p_{Y}^{-1}}{\cohomology{i}(Y, -)}}"{name=F}, visible on=<3->]
+          \arrow[rr, bend right=40, "{\alt<3-4>{\operatorname{R}^{i}p_{X, \ast} \circ p_{X}^{-1}}{\cohomology{i}(X, -)}}"'{name=G}, visible on=<3->]
+          & &
+          |[visible on=<3->]| \alt<3-4>{\operatorname{Mod}(\underline{\mathbf{k}}_{S})}{\Mod(\mathbf{k})}
+          \arrow[Rightarrow, from=F, to=G, shorten <=10pt, shorten >=10pt, "{\only<3>{f^{\#, i}} \only<4>{f_{0}^{\#, i} = f_{1}^{\#, i}} \only<5>{f_{0}^{\ast} = f_{1}^{\ast}}}", visible on=<3->]
+        \end{tikzcd}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Relació amb altres cohomologies}
+  \framesubtitle{Cohomologia de de Rham}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \onslide<1-> {
+        Si \(M\) és una varietat suau les \alert<1>{formes diferencials} formen un complex de feixos de \(\mathbb{R}\)-mòduls exacte.
+      }
+
+      \onslide<2-> {
+        Pel \alert<2>{lema de Poincaré}, aquest complex és una resolució de \(\underline{\mathbb{R}}_{M}\).
+      }
+
+      \onslide<3-> {
+        Si \(M\) és paracompacta aleshores \(\Omega^{k}\) és un \alert<3>{feix fi} i, per tant, \alert<3>{\(\Gamma(X, -)\)-acíclic}.
+      }
+
+      \onslide<4-> {
+        Per tant tenim un \alert<4>{isomorfisme} entre la cohomologia de feixos i la de de Rham.
+      }
+
+      \onslide<5-> {
+        En particular obtenim un resultat de \alert<5>{finitud} per a la cohomologia de feixos.
+      }
+    \end{column}
+    \begin{column}{0.52\textwidth}
+      \begin{center}
+        \begin{tikzcd}[column sep=6pt]
+          0 \arrow[r] & \alt<1>{\Omega^{0}}{\underline{\mathbb{R}}_{M}} \arrow[r] & \alt<1>{\Omega^{1}}{\Omega^{0}} \arrow[r] & \alt<1>{\cdots}{\Omega^{1}} \arrow[r] & \alt<1>{\Omega^{\dim M}}{\cdots} \arrow[r] & \alt<1>{0}{\Omega^{\dim M}} \arrow[r, visible on=<2->] & |[visible on=<2->]| 0
+        \end{tikzcd}
+        
+        \onslide<4-> {
+          \begin{equation*}
+            \operatorname{H}^{\bullet}(M, \underline{\mathbb{R}}_{M}) \cong \operatorname{H}^{\bullet}_{\text{dR}}(M, \mathbb{R})
+          \end{equation*}
+        }
+
+        \onslide<5-> {
+          \begin{equation*}
+            \operatorname{H}^{i}(M, \underline{\mathbb{R}}_{M}) \cong 0 \quad \forall i > \dim M
+          \end{equation*}
+        }
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Relació amb altres cohomologies}
+  \framesubtitle{Teories de cohomologia}
+  Històricament, Eilenberg i Steenrod van demostrar que les diverses formes de cohomologia es podien caracteritzar unívocament per un xicotet conjunt d'axiomes simples.
+  \pause
+  \begin{definition}
+    Una \alert<2>{teoría de cohomologia} és una seqüència de functors contravariants i transformacions naturals
+    \begin{equation*}
+      \operatorname{H}^{n}\colon \Top_{2} \to \Ab \qquad \delta^{n}\colon \operatorname{H}^{n}(A) \to \operatorname{H}^{n+1}(X, A)
+    \end{equation*}
+    que verifiquen:
+    \begin{itemize*}
+      \item Homotopía
+      \item Excisió
+      \item Exactitud
+      \item Aditivitat
+      \item Dimensió
+    \end{itemize*}
+  \end{definition}
+  \pause
+
+  Per a espais suficientment bons, solament existeix \alert<3>{una} teoría de cohomologia.
+\end{frame}
+
+\begin{frame}[fragile]{Relació amb altres cohomologies}
+  \framesubtitle{Teories de Cohomologia}
+  \begin{definition}
+    Siga \(X\) un espai topològic i \(A \subseteq X\) un subconjunt tancat.
+    Si considerem la immersió oberta del complement \(j\colon X \setminus A \hookrightarrow X\), definim la \alert<1>{cohomologia relativa} del parell amb coeficients en \(\sheaf{F} \in \Sh_{X}(\Ab)\) com:
+    \begin{equation*}
+      \cohomology{i}(X, A, \sheaf{F}) \coloneq \cohomology{i}(X, j_{!}j^{-1}\sheaf{F})
+    \end{equation*}
+  \end{definition}
+  \pause
+  
+  Aquesta definició ve motivada per l'axioma d'Exactitud, ja que és directe de la seqüència exacta de feixos
+  \begin{center}
+    \begin{tikzcd}[row sep=12pt]
+      0 \arrow[r] & j_{!}j^{-1}\sheaf{F} \arrow[r] & \sheaf{F} \arrow[dd, Rightarrow, visible on=<3->] \arrow[r] & i_{\ast}i^{-1} \sheaf{F} \arrow[r] & 0 \\ \\
+     |[visible on=<3->]| \cdots \arrow[r, visible on=<3->] & |[visible on=<3->]| \cohomology{i}(X, A, \sheaf{F}) \arrow[r, visible on=<3->] & |[visible on=<3->]| \cohomology{i}(X, \sheaf{F}) \arrow[r, visible on=<3->] & |[visible on=<3->]| \cohomology{i}(A, \sheaf{F}) \arrow[r, visible on=<3->] & |[visible on=<3->]| \cdots
+    \end{tikzcd}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Relació amb altres cohomologies}
+  \framesubtitle{Equivalència}
+  Així la cohomologia de feixos \alert<1>{és} la teoría de cohomologia.
+  En particular coincideix amb la cohomologia singular.
+  \begin{corollary}
+    Si \(X\) és un espai homotòpicament a un CW-complex aleshores per a tot grup abelià \(G\)
+    \begin{equation*}
+      \operatorname{H}^{\bullet}(X, \underline{G}) \cong \operatorname{H}^{\bullet}_{\text{sing}}(X, G)
+    \end{equation*}
+  \end{corollary}
+\end{frame}
+
+
+\begin{frame}[fragile]{Relació amb altres cohomologies}
+  \framesubtitle{Equivalència}
+  Juntant aquesta relació amb el que hem estudiat abans sobre la cohomologia de de Rham arribem a la següent equivalència.
+  \begin{corollary}
+    Si \(X\) és una varietat suau (para)compacta aleshores
+    \begin{equation*}
+      \operatorname{H}^{\bullet}_{\text{sing}}(X, \mathbb{R}) \cong \operatorname{H}^{\bullet}(X, \underline{\mathbb{R}}_{X}) \cong \operatorname{H}^{\bullet}_{\text{dR}}(X, \mathbb{R})
+    \end{equation*}
+  \end{corollary}
+\end{frame}
+
+\begin{frame}[plain, c, noframenumbering]
+  \centering
+  {\Huge\bfseries\sffamily\color{accentcolor} Moltes gràcies!}
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,109 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamer-style}
+
+%% --- Encoding & Fonts ---
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{microtype}
+
+% Modern Palatino (Text and Math)
+\RequirePackage{newpxtext}
+\RequirePackage{newpxmath}
+\RequirePackage[scaled=0.95]{cabin}       % Humanist Sans Serif
+\RequirePackage[scaled=1.05]{inconsolata} % Monospace
+\RequirePackage{appendixnumberbeamer}
+
+\RequirePackage[inline]{enumitem}
+
+% Force Beamer to use serif for the body text
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+
+%% --- Colors (From preamble.sty) ---
+\RequirePackage{xcolor}
+\definecolor{accentcolor}{RGB}{30, 60, 110} % Navy Blue
+\definecolor{thmcolor}{RGB}{160, 40, 40}    % Muted Red
+\definecolor{defcolor}{RGB}{30, 90, 70}     % Muted Teal
+\definecolor{notecolor}{RGB}{100, 100, 100} % Gray
+\definecolor{darkamber}{RGB}{200, 120, 20}
+\definecolor{deepcoral}{RGB}{185, 65, 45}
+\setbeamercolor{alerted text}{fg=deepcoral}
+
+%% --- Beamer Structural Styling ---
+\setbeamercolor{structure}{fg=accentcolor}
+\setbeamercolor{title}{fg=accentcolor}
+\setbeamercolor{frametitle}{fg=accentcolor}
+\setbeamercolor{itemize item}{fg=accentcolor}
+\setbeamercolor{enumerate item}{fg=accentcolor}
+
+% Apply Cabin (sffamily) to Beamer titles
+\setbeamerfont{title}{family=\sffamily, series=\bfseries, size=\LARGE}
+\setbeamerfont{frametitle}{family=\sffamily, series=\bfseries, size=\Large}
+\setbeamerfont{framesubtitle}{family=\sffamily, series=\normalfont, size=\normalsize}
+\setbeamerfont{author}{family=\sffamily}
+\setbeamerfont{date}{family=\sffamily, size=\small}
+
+% Minimalist footer & lists
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{page number in head/foot}{fg=gray}
+\setbeamertemplate{itemize item}{\textbf{\textendash}}
+\setbeamertemplate{itemize subitem}{\textbullet}
+
+%% --- Math & Diagrams (From packages.sty) ---
+\RequirePackage{amsmath}
+\let\Bbbk\relax \RequirePackage{amssymb}
+\let\openbox\relax \RequirePackage{amsthm}
+\RequirePackage{bbm}
+\RequirePackage{mathtools}
+\RequirePackage{mathrsfs}
+\RequirePackage{tikz, tikz-cd}
+\usetikzlibrary{overlay-beamer-styles}
+\tikzcdset{arrow style=tikz, diagrams={>=stealth}}
+
+%% --- Theorem Setup (Adapted from preamble.sty) ---
+\RequirePackage{thmtools}
+\RequirePackage[most]{tcolorbox}
+
+% Override Beamer's bulky default blocks
+\setbeamertemplate{theorems}[ams style]
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{thmcolor},
+    bodyfont=\normalfont,
+    spaceabove=1em, spacebelow=1em,
+]{thmstylered}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{defcolor},
+    bodyfont=\normalfont,
+    spaceabove=1em, spacebelow=1em,
+]{thmstylegreen}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{notecolor},
+    bodyfont=\normalfont,
+    spaceabove=1em, spacebelow=1em,
+]{thmstylegray}
+
+% Undefine Beamer defaults before redefining
+\let\theorem\relax \let\lemma\relax \let\corollary\relax \let\definition\relax \let\example\relax \let\remark\relax
+
+\declaretheorem[style=thmstylered, numbered=no, name=Teorema]{theorem}
+\declaretheorem[style=thmstylered, numbered=no, name=Lema]{lemma}
+\declaretheorem[style=thmstylered, numbered=no, name=Proposició]{proposition}
+\declaretheorem[style=thmstylered, numbered=no, name=Corol·lari]{corollary}
+\declaretheorem[style=thmstylegreen, numbered=no, name=Definició]{definition}
+\declaretheorem[style=thmstylegray, numbered=no, name=Exemple]{example}
+\declaretheorem[style=thmstylegray, numbered=no, name=Nota]{remark}
+
+% Apply TColorBox Skins
+\tcolorboxenvironment{theorem}{blanker, left=1em, borderline west={2pt}{0pt}{thmcolor}, before skip=10pt, after skip=10pt}
+\tcolorboxenvironment{lemma}{blanker, left=1em, borderline west={2pt}{0pt}{thmcolor}, before skip=10pt, after skip=10pt}
+\tcolorboxenvironment{proposition}{blanker, left=1em, borderline west={2pt}{0pt}{thmcolor}, before skip=10pt, after skip=10pt}
+\tcolorboxenvironment{corollary}{blanker, left=1em, borderline west={2pt}{0pt}{thmcolor}, before skip=10pt, after skip=10pt}
+\tcolorboxenvironment{definition}{blanker, left=1em, borderline west={2pt}{0pt}{defcolor}, before skip=10pt, after skip=10pt}
+\tcolorboxenvironment{example}{blanker, left=1em, borderline west={2pt}{0pt}{notecolor}, before skip=10pt, after skip=10pt}
+\tcolorboxenvironment{remark}{blanker, left=1em, borderline west={2pt}{0pt}{notecolor}, before skip=10pt, after skip=10pt}
+
+\endinput
