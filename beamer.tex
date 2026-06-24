@@ -154,16 +154,41 @@
 
 \section{Feixos}
 \begin{frame}[fragile]{Feixos}
-  Un \alert<1>{feix} (de \(\mathbf{k}\)-mòduls) \(\sheaf{F}\) és una assignació d'un \(\mathbf{k}\)-mòdul \(\sheaf{F}(U)\) a cada obert \(U \subseteq X\) on la informació és estrictament \textit{local}: les seccions es poden \textit{apegar} d'una forma única.
-  \pause
-  
-  La categoria \(\Mod(\underline{\mathbf{k}}_{X})\) de feixos de \(\mathbf{k}\)-mòduls és \alert<2>{abeliana} i \alert<2>{té suficients injectius}.
-  \pause
-  
-  Si prenem \(X = \{\ast\}\) tenim una equivalència de categories
-  \begin{equation*}
-    \Mod(\underline{\mathbf{k}}_{\{\ast\}}) \simeq \Mod(\mathbf{k})
-  \end{equation*}
+  \begin{columns}[T]
+    \begin{column}{0.6\textwidth}
+      \onslide<1-> {
+        Un \alert<1>{feix} (de \(\mathbf{k}\)-mòduls) \(\sheaf{F}\) és una assignació d'un \(\mathbf{k}\)-mòdul \(\sheaf{F}(U)\) a cada obert \(U \subseteq X\) on la informació és estrictament \textit{local}: les seccions es poden \textit{apegar} d'una forma única.
+      }
+
+      \onslide<2-> {
+        Açò es modela com un functor
+        \alert<2> {
+          \begin{equation*}
+            \sheaf{F}\colon \Open(X)^{\op} \to \Mod(\mathbf{k})
+          \end{equation*}
+        }
+        que verifica dos axiomes (existència i unicitat dels \textit{apegaments}).
+      }
+
+      \onslide<3-> {
+        La categoria \(\Mod(\underline{\mathbf{k}}_{X})\) de feixos de \(\mathbf{k}\)-mòduls és \alert<3>{abeliana} i \alert<3>{té suficients injectius}.
+      }
+
+      \onslide<4-> {
+          Si prenem \(X = \{\ast\}\) tenim una equivalència de categories
+          \begin{equation*}
+            \Mod(\underline{\mathbf{k}}_{\{\ast\}}) \simeq \Mod(\mathbf{k})
+          \end{equation*}
+      }
+    \end{column}
+    \begin{column}{0.4\textwidth}
+      \onslide<1-> {
+        \begin{figure}[htbp]
+          \centerline{\includegraphics[width=1.0\textwidth]{images/carro_feixos.jpeg}}
+        \end{figure}
+      }
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]{Feixos}
